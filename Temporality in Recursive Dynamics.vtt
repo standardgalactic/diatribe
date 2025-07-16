@@ -1,0 +1,674 @@
+WEBVTT
+
+00:00.000 --> 00:02.780
+Have you ever just felt completely swamped?
+
+00:03.120 --> 00:07.020
+You know, the feeling of information overload, like you're just wading through data,
+
+00:07.200 --> 00:10.620
+wishing you could cut through it all, and well, actually get what's important.
+
+00:10.940 --> 00:14.080
+If that sounds familiar, you are definitely in the right place.
+
+00:15.100 --> 00:16.480
+Welcome to the Deep Dive.
+
+00:16.560 --> 00:20.720
+Today we are diving headfirst into something truly mind-bending,
+
+00:20.960 --> 00:22.520
+temporality and recursive dynamics.
+
+00:22.660 --> 00:25.940
+This stuff comes from a really fascinating collection of sources we've been digging into,
+
+00:26.580 --> 00:29.340
+collectively, called the Diatribe Repository.
+
+00:29.340 --> 00:32.620
+And our mission today, it's unpacked this pretty radical idea.
+
+00:33.160 --> 00:35.060
+What if time isn't just this fixed backdrop?
+
+00:35.580 --> 00:38.980
+What if it's something that actually emerges, shaped by recursive processes?
+
+00:39.540 --> 00:41.840
+And crucially, how understanding that changes?
+
+00:42.540 --> 00:46.440
+Well, pretty much everything, from our own thoughts to how the universe itself might evolve.
+
+00:46.700 --> 00:47.520
+It really is remarkable.
+
+00:47.620 --> 00:51.320
+And what's fascinating here is how these concepts, they move beyond just abstract theory.
+
+00:51.400 --> 00:57.240
+They actually offer practical insights into things like control, learning, even how we tell stories.
+
+00:57.340 --> 00:59.240
+This deep dive, I think, will show how...
+
+00:59.340 --> 01:03.620
+the Relativistic Scalar Vector Plenum, let's call it RSVP and its partner,
+
+01:03.880 --> 01:06.360
+this recursive tiling system called Tartan,
+
+01:06.660 --> 01:12.020
+how they give us a unified way to look at these dynamics across fields that seem, you know, totally separate on the surface.
+
+01:12.120 --> 01:14.340
+OK, let's jump right into that central idea then.
+
+01:14.380 --> 01:16.320
+Time, not a clock.
+
+01:16.500 --> 01:16.740
+Yeah.
+
+01:16.960 --> 01:17.860
+What does that actually mean?
+
+01:18.060 --> 01:21.240
+You mentioned the Aletheos canonical form, ACF and RSVP.
+
+01:21.580 --> 01:22.700
+How did they define this?
+
+01:22.960 --> 01:26.960
+Right. So in ACF, one of these key repository texts,
+
+01:27.360 --> 01:29.200
+time is explicitly defined as n.
+
+01:29.200 --> 01:32.540
+Time is an emergent property, and crucially, it's scale dependent.
+
+01:32.620 --> 01:33.700
+It's not just a given.
+
+01:33.740 --> 01:40.800
+It's something that arises from the interplay of entropy, think disorder scale, and these things called causal constraints within a system.
+
+01:41.460 --> 01:44.180
+The Dirac delta function is actually pretty central here.
+
+01:44.200 --> 01:45.640
+It helps model locality.
+
+01:46.120 --> 01:51.040
+Instead of time flowing smoothly everywhere, it lets the system focus dynamics at specific points.
+
+01:51.080 --> 01:54.880
+Think of them like hotspots of information processing density.
+
+01:55.160 --> 01:57.040
+That's where time really makes itself felt.
+
+01:57.340 --> 01:57.920
+Wow. OK.
+
+01:57.940 --> 01:59.180
+So time, literally,
+
+01:59.240 --> 02:00.640
+sort of pops out of the system.
+
+02:00.680 --> 02:02.700
+It's not just an external constant ticking away.
+
+02:03.220 --> 02:05.280
+And how does RSVP connect with that idea?
+
+02:05.320 --> 02:06.720
+How does it see emergent time?
+
+02:07.060 --> 02:16.020
+RSVP, well, if we connect this to the bigger picture, it derives temporal flow, that feeling of time moving forward directly from entropic gradients and vector flux.
+
+02:16.400 --> 02:17.600
+Imagine a river, right?
+
+02:17.620 --> 02:19.260
+The flow isn't some external force.
+
+02:19.320 --> 02:21.840
+It emerges from the landscape, the water's properties.
+
+02:21.880 --> 02:22.380
+OK.
+
+02:22.380 --> 02:28.560
+So entropic gradients are like differences in order versus disorder, and vector flux is the directed flow.
+
+02:28.560 --> 02:36.100
+Like information moving with purpose, it's these imbalances and flows that create the progression of time, which, of course, raises a really big question.
+
+02:36.700 --> 02:40.860
+If time emerges, what actually makes it flow in the direction we experience?
+
+02:40.880 --> 02:41.520
+Yeah, exactly.
+
+02:41.760 --> 02:43.740
+And this is where I think it gets really interesting.
+
+02:44.060 --> 02:53.220
+If time emerges from these dynamics, how do recursive processes, processes that loop back on themselves, actually build structure, build meaning within that emergent time?
+
+02:53.600 --> 02:56.320
+You mentioned universal emergence theory, UIT, and Tartan.
+
+02:56.640 --> 02:57.400
+How do they fit in?
+
+02:57.640 --> 02:57.940
+OK.
+
+02:57.940 --> 03:01.820
+So UIT introduces this idea called a scalar recursion law.
+
+03:02.280 --> 03:06.500
+Basically, distinctions or bits of information accumulate over time, and that drives expansion.
+
+03:07.040 --> 03:13.120
+RSVP takes this idea and generalizes it, embedding recursion right into these spatio-temporal fields we talked about.
+
+03:13.480 --> 03:18.880
+And Tartan, Tartan is the infrastructure that lets RSVP actually do this.
+
+03:18.880 --> 03:20.860
+Think of it like a system of recursive tiles.
+
+03:21.240 --> 03:27.920
+It breaks down scale and assigns each tile its own localized recursion, its own entropy level, even its own speed of causation.
+
+03:27.940 --> 03:32.180
+It makes the whole theoretical recursion sort of tangible, manageable.
+
+03:32.220 --> 03:32.560
+Got it.
+
+03:32.880 --> 03:34.160
+So Tartan makes it concrete.
+
+03:35.320 --> 03:38.120
+But what happens to information in these recursive systems then?
+
+03:38.740 --> 03:42.420
+As time emerges and flows, how is information stored or changed?
+
+03:42.580 --> 03:43.360
+That's a key point.
+
+03:43.360 --> 03:44.480
+How is information stored?
+
+03:44.480 --> 03:46.880
+Well, within Tartan, you can have what are called frozen tiles.
+
+03:47.340 --> 03:48.720
+These tiles don't evolve internally.
+
+03:48.720 --> 03:54.380
+They act like memory modules or maybe fixed anchors for meaning in a larger recursive computation.
+
+03:54.780 --> 03:57.820
+They basically store information for recursion happening at a higher scale.
+
+03:57.820 --> 04:03.400
+It connects beautifully, actually, to philosopher Julian Barber's idea of time capsules.
+
+04:03.580 --> 04:08.460
+Time capsules, like snapshots of reality holding meaning outside of the flow.
+
+04:08.500 --> 04:10.000
+That's a really powerful image.
+
+04:10.040 --> 04:10.720
+Exactly.
+
+04:10.720 --> 04:14.100
+But what about more abstract things like ideas or meaning itself?
+
+04:14.480 --> 04:18.580
+How do they get frozen or maybe propagate recursively over time?
+
+04:18.860 --> 04:21.840
+Ah, well, that leads us to another concept from the repository.
+
+04:22.060 --> 04:22.780
+Thrisps.
+
+04:22.900 --> 04:23.440
+Thrisps.
+
+04:23.500 --> 04:24.140
+Thrisps.
+
+04:24.440 --> 04:27.220
+They're described as self-propagating, autocatalytic, semantic, and dynamic.
+
+04:27.220 --> 04:27.460
+They're described as self-propagating, autocatalytic, semantic, and dynamic.
+
+04:27.460 --> 04:27.760
+They're described as self-propagating, autocatalytic, semantic, and dynamic.
+
+04:27.760 --> 04:27.960
+They're described as self-propagating, autocatalytic, semantic, and dynamic.
+
+04:27.960 --> 04:28.120
+They're described as self-propagating, autocatalytic, semantic, and dynamic.
+
+04:28.120 --> 04:28.380
+They're described as self-propagating, autocatalytic, semantic, and dynamic.
+
+04:28.680 --> 04:34.220
+Think of them as recursive instructions or ideas that actively defend themselves and try to replicate.
+
+04:34.680 --> 04:38.980
+Like a piece of paper that says, don't throw this out or make copies of this.
+
+04:39.320 --> 04:42.040
+That instruction turns the paper into a simple thresp.
+
+04:42.300 --> 04:43.700
+Or like a catchy tune, maybe.
+
+04:43.920 --> 04:44.580
+Or a meme.
+
+04:45.040 --> 04:45.480
+Precisely.
+
+04:45.640 --> 04:46.720
+A meme is a perfect example.
+
+04:46.840 --> 04:53.800
+It's like a cognitive organism building these replicable patterns that get set loose in the new sphere, the realm of thought and culture.
+
+04:54.000 --> 04:54.800
+Okay, that makes sense.
+
+04:54.800 --> 04:57.620
+Can you give us a concrete example and maybe something historical?
+
+04:57.760 --> 05:03.200
+what's called semantic incision and field inscription how does meaning get cut into
+
+05:03.200 --> 05:08.320
+reality so to speak yeah there's a fascinating comparison made in the sources between bixing's
+
+05:08.320 --> 05:14.080
+movable type printing in 11th century china and a specific retranslation of genesis 1.27
+
+05:14.720 --> 05:20.080
+both interestingly describe a process of encoding and replicating structured meaning into some kind
+
+05:20.080 --> 05:25.760
+of receptive medium oh so while bixing didn't just conjure characters he cut form into clay
+
+05:25.760 --> 05:30.400
+he inscribed structure and similarly this retranslation of genesis describes
+
+05:30.400 --> 05:36.000
+the act of creation not as making something from nothing but as cutting a pattern into
+
+05:36.000 --> 05:41.600
+the plenum the underlying field it's a semantic act an act of imposing meaningful form not just
+
+05:41.600 --> 05:47.600
+brute force exactly in rsvp terms you describe it as sculpting a low entropy high vector coherence
+
+05:47.600 --> 05:52.320
+attractor a stable pattern of meaning in the semantic field guided by a specific uh
+
+05:52.320 --> 05:55.680
+vectorial directive or intention okay this is really shifting my perspective
+
+05:55.760 --> 06:01.600
+so if meaning and time are these dynamic fields how does this apply to say our own minds or even ai
+
+06:01.600 --> 06:07.120
+great question in rsvp cognition itself is understood through these interacting fields
+
+06:07.120 --> 06:14.000
+a scalar field for semantic potential the raw stuff of meaning a vector field v for referential
+
+06:14.000 --> 06:20.800
+flow like attention and an entropy field s for ambiguity or uncertainty thinking about cognition
+
+06:20.800 --> 06:25.600
+this way really um dramatically shifts how we understand mental states including the
+
+06:25.760 --> 06:26.560
+world's most complex and complex and complex and complex and complex and complex and complex and
+
+06:26.560 --> 06:26.880
+complex and complex and complex and complex and complex and complex and complex and complex and
+
+06:26.880 --> 06:32.560
+emotions that's interesting because you know most of us think of emotions as well things like
+
+06:32.560 --> 06:37.520
+pressure building up something you can bottle or release how does this field view explain something
+
+06:37.520 --> 06:42.720
+so personal right that's the common metaphor like pneumatic liquids or gases but from a perceptual
+
+06:42.720 --> 06:47.760
+control theory pct perspective which pops up in the repository emotions aren't things like that
+
+06:47.760 --> 06:53.200
+at all there are cognitive and perceptual signals of a discrepancy discrepancy yeah the gap between
+
+06:53.200 --> 06:55.680
+what you predict or expect and what actually happens
+
+06:56.160 --> 07:00.960
+emotions signal shifts in your planning your executive control they're like prediction failure
+
+07:00.960 --> 07:07.280
+alerts so anger for instance in rsvp terms that would be a disordered scalar vector dynamic a
+
+07:07.280 --> 07:12.320
+spike in entropy maybe misaligned vector fields it reflects a breakdown in effective planning or
+
+07:12.320 --> 07:18.880
+control and restoring function feeling better means reconfiguring those fields finding ways to lower
+
+07:18.880 --> 07:24.720
+the entropy create more coherent plans over time restoring the flow that's yeah that's a huge shift
+
+07:24.720 --> 07:25.680
+okay what are we going to do about this we're going to do a lot of work on this we're going to do a lot
+
+07:25.680 --> 07:25.720
+of work on this we're going to do a lot of work on this we're going to do a lot of work on this we're going
+
+07:25.720 --> 07:25.880
+to do a lot of work on this we're going to do a lot of work on this we're going to do a lot of work on this
+
+07:25.880 --> 07:31.000
+something like making analogies our minds seem to do that almost instantaneously how does that fit
+
+07:31.000 --> 07:36.440
+into a field that evolves over time ah the adapter model another piece from the repository maps
+
+07:36.440 --> 07:41.640
+really nicely onto rsvp here it interprets analogical retrieval not as an instant lookup
+
+07:41.640 --> 07:46.280
+but as a relaxation process in a kind of thermodynamic field like water settling
+
+07:46.280 --> 07:51.080
+exactly like water settling your current mental state the field configuration
+
+07:51.080 --> 07:55.640
+seeks a lower energy alignment it tries to fit itself to known attractor patterns
+
+07:55.640 --> 07:56.120
+it tries to fit itself to known attractor patterns
+
+07:56.120 --> 07:59.480
+familiar ways of thinking modulated by those entropy gradients
+
+08:00.280 --> 08:04.440
+the best analogy is simply the pattern that represents a low entropy highly coherent
+
+08:04.440 --> 08:11.080
+structural match it feels fast but it's actually a dynamic time dependent alignment process okay
+
+08:11.080 --> 08:15.800
+and bringing this to a really pressing issue ai how does this understanding of
+
+08:15.800 --> 08:21.000
+dynamic fields emergent time help us think about ai alignment and control that seems
+
+08:21.000 --> 08:25.320
+like a huge challenge it is huge and forest landry another voice in the repository argued
+
+08:25.320 --> 08:29.960
+that truly controlling super intelligent agi might even be impossible because the complexity just
+
+08:29.960 --> 08:35.080
+scales too fast but uh there's also work like from coraggio and others on graph based control
+
+08:35.080 --> 08:39.560
+frameworks that suggest a kind of middle ground maybe scalable oversight is possible not by
+
+08:39.560 --> 08:44.440
+understanding every internal detail but by targeting key nodes or modulating interactions
+
+08:44.440 --> 08:49.400
+within the ai's network like nudging the system sort of it connects to this idea of controlling
+
+08:49.400 --> 08:55.160
+complex systems by imposing desirable global behavior like ensuring the ai follows non-deceptive
+
+08:55.320 --> 09:00.680
+policies without needing full internal access or understanding what's fascinating here too is how
+
+09:00.680 --> 09:05.400
+this contrasts with something like chain of thought or cod in ai which we hear a lot about for
+
+09:05.400 --> 09:11.320
+interpretability there's this other idea chain of memory com how does that offer a different view on
+
+09:11.320 --> 09:17.960
+ai thinking over time right com basically argues that cod often just gives us post hoc justifications
+
+09:17.960 --> 09:24.120
+plausible stories that ai tells after the fact not the actual reasoning process true ai reasoning
+
+09:25.320 --> 09:30.040
+deeper down in a meaningful causally structured substrate it's latent memory the language it
+
+09:30.040 --> 09:36.520
+outputs that's often just a secondary translation layer optional even so memory first language second
+
+09:36.520 --> 09:44.840
+exactly com reframes ai cognition as memory first language optional it emphasizes tracing the actual
+
+09:44.840 --> 09:49.640
+causal path through the evolution of its latent memory states its vector states over time
+
+09:49.640 --> 09:55.000
+it means the ai should ideally think before it speaks and its reasoning is structurally embedded
+
+09:55.320 --> 10:00.200
+in the brain so it's not just you know stylistically added on afterwards so forgetting the idea of
+
+10:00.200 --> 10:06.920
+a static blueprint for the brain rsvp suggests something much more fluid dynamic absolutely
+
+10:06.920 --> 10:12.760
+way more fluid take cortical columns in the brain rsvp reinterprets them not as fixed processors but
+
+10:12.760 --> 10:17.480
+as amplitwist operators amplitwist operators yeah they're local geometric operators they combine
+
+10:17.480 --> 10:22.440
+rotation and scaling acting on neural representations so think of it your brain isn't just
+
+10:22.440 --> 10:25.240
+shuffling files it's constantly transforming semantic spaces
+
+10:25.240 --> 10:29.960
+concepts get bent twisted scaled by these operators as they interact and evolve over time
+
+10:29.960 --> 10:34.600
+it gives the brain this incredible universal function approximation property
+
+10:34.600 --> 10:39.000
+it means there's tremendous flexibility in representation all while maintaining a kind
+
+10:39.000 --> 10:44.440
+of topological consistency neural representations become like sections of fiber bundles over the
+
+10:44.440 --> 10:48.360
+cortical surface it's a very dynamic picture okay the implications here feel huge
+
+10:49.000 --> 10:54.520
+if these dynamic time evolving fields apply to minds could they apply much wider
+
+10:55.240 --> 11:00.520
+like to entire stories or even the cosmos itself well if we connect this to the bigger picture
+
+11:00.520 --> 11:06.600
+again yes storytelling itself can be viewed through this lens of recursive entropy relaxation
+
+11:07.320 --> 11:12.280
+each plot point each act in a story isn't just linear progression it's more like a relaxation
+
+11:12.280 --> 11:18.120
+cycle the narrative system finds a temporary equilibrium a state of lowered entropy or tension
+
+11:18.120 --> 11:22.520
+only for it to be destabilized again driving the story forward you could map that you could
+
+11:22.520 --> 11:24.680
+potentially visualize it with say
+
+11:25.240 --> 11:30.680
+dynamic entropy heat maps of a narrative spotting where a story feels like it's stagnating or maybe
+
+11:30.680 --> 11:35.960
+getting overloaded different genres might even have characteristic entropy signatures over time
+
+11:35.960 --> 11:40.760
+you know why certain genre blends just feel right it might be down to their entropy profiles being
+
+11:40.760 --> 11:46.200
+compatible a story in this view becomes a kind of complete space-time structure
+
+11:46.200 --> 11:50.920
+where the local parts contain the relationships needed to reconstruct the whole narrative as it
+
+11:50.920 --> 11:55.160
+unfolds in its emergent time that is a truly cosmic thought
+
+11:55.720 --> 12:01.000
+so naturally the next question the u versus evolution can we see that through this lens
+
+12:01.000 --> 12:06.120
+of emergent time and recursion too it's definitely out there but yes the expirosis cosmological
+
+12:06.120 --> 12:10.760
+framework another concept from the repository suggests something pretty radical it postulates
+
+12:10.760 --> 12:14.680
+that cosmic structure didn't just arise from rapid inflation after the big bang
+
+12:14.680 --> 12:19.000
+instead it might arise from the long time scale reintegration of decohered information
+
+12:19.560 --> 12:24.680
+confirmation lost essentially from the cosmic microwave background the cmb reintegration
+
+12:25.240 --> 12:31.320
+over immense time scales poincare recurrence times this entropic memory encoded somehow in scalar
+
+12:31.320 --> 12:35.960
+and vector fields lingering from the early universe gets reabsorbed into local dynamics
+
+12:35.960 --> 12:40.920
+the idea is that structure emerges by recapturing this lost information over vast stretches of time
+
+12:40.920 --> 12:44.760
+through mechanisms like field coherence and semantic resonance it points to
+
+12:44.760 --> 12:50.120
+really profound recursive temporal dynamics on a truly universal scale mind-blowing okay let's
+
+12:50.120 --> 12:54.840
+bring it back down to earth a bit after this incredible deep dive into temporality and recursive
+
+12:55.240 --> 12:59.800
+dynamics how does all this inform something really practical like how we learn yeah what's
+
+12:59.800 --> 13:04.520
+fascinating here is how neatly things like self-paced mastery learning or even curriculum
+
+13:04.520 --> 13:10.200
+design can map onto rsvp concepts you can think of learning trajectories as evolving over time
+
+13:10.200 --> 13:14.760
+along paths that minimize entropy reducing uncertainty creating coherence in your
+
+13:14.760 --> 13:20.120
+understanding the scalar field gradients align with these pathways so learnings is like finding
+
+13:20.120 --> 13:25.240
+the most ordered path through information in a sense yes even something like say doing a
+
+13:25.240 --> 13:30.200
+intensive course over a year and a half maybe that master of dialectic prose mentioned in the sources
+
+13:30.200 --> 13:36.520
+with 365 lectures can be seen as iterative coherent sharpening it's a structured dialogue with the
+
+13:36.520 --> 13:41.720
+material mapped perhaps to the temporal autocorrelation how correlated the state is with
+
+13:41.720 --> 13:47.160
+itself over time of your internal semantic potential field the cuff field it highlights
+
+13:47.160 --> 13:52.440
+learning as this continuous recursive process concepts aren't just learned once they're
+
+13:52.440 --> 13:55.240
+constantly refined integrated sharpened over time
+
+13:55.880 --> 13:59.880
+which naturally raises an important question how could we intentionally design learning
+
+13:59.880 --> 14:05.320
+environments to better leverage these natural time-dependent field dynamics wow okay what an
+
+14:05.320 --> 14:09.560
+absolutely incredible journey through temporality and recursive dynamics we've really seen how these
+
+14:09.560 --> 14:15.000
+frameworks from the diatribe repository area rsvp tartan offer this unified language a way to
+
+14:15.000 --> 14:19.640
+describe how time itself seems to emerge from this intricate recursive dance of information and it
+
+14:19.640 --> 14:24.280
+applies everywhere from the tiniest cognitive processes right up to the scale of the cosmos
+
+14:24.280 --> 14:25.080
+it really does find a lot of value in the way that we use the term time-dependent field dynamics to
+
+14:25.080 --> 14:52.840
+knee and use as a term talking about the
+
+14:52.840 --> 14:53.800
+associated consciousness as it is with your core спp
+
+14:53.800 --> 14:54.520
+though it U. U.
+
+14:54.520 --> 14:59.580
+flow of information. And if your thoughts, your ideas are like those thrisps, self-propagating
+
+14:59.580 --> 15:04.660
+patterns you release into the world, then every decision you make, every concept you really grasp,
+
+15:04.780 --> 15:10.400
+every story you tell, it's all actively sculpting the emergent temporal landscape of your reality
+
+15:10.400 --> 15:14.860
+and maybe influencing the wider new sphere too. So the question to leave you with is,
+
+15:14.860 --> 15:17.440
+what kind of temporal landscape are you creating today?
+

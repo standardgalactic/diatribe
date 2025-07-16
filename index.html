@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diatribe</title>
+  <style>
+    body {
+      background: #181818;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', sans-serif;
+      max-width: 800px;
+      margin: 2em auto;
+      padding: 1.5em;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+    }
+    h1, h2, h3 {
+      color: #e3b341;
+    }
+    .player-container {
+      margin: 2em 0 1em 0;
+      background: #222;
+      padding: 1em;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .subtitle-box {
+      background: #222;
+      color: #e0e0e0;
+      padding: 1em;
+      border-radius: 8px;
+      min-height: 3em;
+      font-size: 1.1em;
+      margin-bottom: 2em;
+      margin-top: 1em;
+      letter-spacing: 0.01em;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .credit {
+      font-size: 0.9em;
+      color: #888;
+      margin-top: 3em;
+      text-align: right;
+    }
+    code {
+      background: #1a1a1a;
+      color: #e3b341;
+      border-radius: 5px;
+      padding: 0 0.3em;
+      font-size: 1em;
+    }
+    ul, ol {
+      margin-left: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <h1>Diatribe</h1>
+  <p>Nothing to see here</p>
+  
+  <div class="player-container">
+    <audio id="audio" controls style="width: 100%;">
+      <source src="Temporality in Recursive Dynamics.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <div id="subtitle" class="subtitle-box">Subtitles will appear here…</div>
+  </div>
+  
+  <h3>Alien Perspectives on Humanity</h3>
+  <p>
+    This passage is a rich mythological narrative that can be interpreted through the lens of RSVP (Recursive Scalar-Vector-Entropy) theory, a framework that describes how patterns emerge, evolve, and interact within cognitive and cosmic landscapes. Here's a detailed breakdown:
+  </p>
+  <ol>
+    <li>
+      <b>Cosmogonic Chain (<code>&Phi; &rarr; &#119964; &rarr; S</code>):</b>
+      <ul>
+        <li>
+          <b>Anu:</b> The creation begins with Anu, symbolizing cosmic order or the initial scalar field (&Phi;<sub>0</sub>), representing an undifferentiated potential for structure.
+        </li>
+        <li>
+          <b>Heavens:</b> From this, a vector (&#119964;) emerges as a creative will, organizing structured space (&Phi;). This is akin to the scalar-to-vector transition in RSVP, where abstract potential is channeled into more concrete forms of order.
+        </li>
+        <li>
+          <b>Earth:</b> The Earth follows, embodying solid patterning and grounded vectors (gravity, &Phi; &rarr; S), reducing the symmetry from the heavens.
+        </li>
+        <li>
+          <b>Rivers &amp; Canals:</b> These introduce dynamic flow (&#119964;) within a medium (S), representing the transition from structured space to hydrodynamic systems.
+        </li>
+        <li>
+          <b>Marsh:</b> Finally, we reach the marsh—a liminal zone of maximum entropy (S), a fertile but chaotic substrate where misaligned vectors can thrive unchecked.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <b>Worm as Entropic Residue:</b>
+      <br>
+      The worm emerges from this marshy chaos, representing an entropic spike (S)—a disruptive force that feeds on and corrupts structured systems. It's not a structured thought-form but an "anti-vector," exploiting entropy without contributing to vector coherence.
+    </li>
+    <li>
+      <b>Petition and Refusal:</b>
+      <br>
+      The worm petitions Shamash (light, law) and Ea (chaos, wisdom), seeking legitimacy from both vector coherence and chaotic creative intelligence—a bid for recognition within the cosmic order. Its refusal of cultivated fruit symbolizes a rejection of low-entropy, ordered sustenance in favor of raw, destructive access to the very mechanisms of form and meaning (teeth, jawbone).
+    </li>
+    <li>
+      <b>Semantic Inversion &amp; Corruption:</b>
+      <ul>
+        <li>
+          <b>Teeth</b> are vector tools that break down food—a metaphor for semantic parsing, the process by which language breaks complex ideas into digestible components.
+        </li>
+        <li>
+          <b>Jawbone:</b> This represents the hinge between language and motion, the physical mechanism of articulation where identity and expression meet.
+        </li>
+      </ul>
+      By attacking these sites, the worm enacts:
+      <ul>
+        <li>
+          <b>Semantic corruption</b>—undermining the coherence and clarity of thought by introducing disruptive, misaligned vectors.
+        </li>
+        <li>
+          <b>Cognitive decay</b>—eroding the structural integrity that allows for meaning-making and identity formation.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <b>Ritual Response:</b>
+      <br>
+      The myth implies a ritual response (peg/foot) to counter this entropic intrusion, reasserting vector constraints over chaotic noise. This could be seen as a symbolic act of linguistic hygiene or cognitive discipline—driving in anchors of order and alignment to stem the spread of semantic corruption.
+    </li>
+  </ol>
+  <hr>
+  <p>
+    In essence, this mythological fragment encapsulates the RSVP dynamics of creation, entropic decay, and the struggle between order and chaos, all played out within a symbolic framework of cosmic generation and human cognition. It underscores how deeply our myths and rituals can embody complex patterns of information processing and meaning-making, reflecting both the beauty and peril of recursive thought systems.
+  </p>
+  
+  <div class="credit">
+    &copy; 2025
+  </div>
+
+  <script>
+    // Subtitle parser and synchronizer
+    // Assumes "Temporality in Recursive Dynamics.srt" is in the same directory.
+    // Loads the .srt via fetch, parses, and syncs to audio playback.
+    const audio = document.getElementById('audio');
+    const subtitleBox = document.getElementById('subtitle');
+    let subtitles = [];
+
+    // Parse SRT
+    function parseSRT(data) {
+      let entries = [];
+      let srtRegex = /(\d+)\s+(\d{2}:\d{2}:\d{2},\d{3})\s-->\s(\d{2}:\d{2}:\d{2},\d{3})\s+([\s\S]*?)(?=\n\s*\n|\n*$)/g;
+      let match;
+      while ((match = srtRegex.exec(data)) !== null) {
+        entries.push({
+          start: srtTimeToSeconds(match[2]),
+          end: srtTimeToSeconds(match[3]),
+          text: match[4].trim().replace(/\n/g, "<br>")
+        });
+      }
+      return entries;
+    }
+
+    function srtTimeToSeconds(t) {
+      // "00:01:23,456" -> seconds
+      let [h, m, s] = t.split(':');
+      let [sec, ms] = s.split(',');
+      return (+h) * 3600 + (+m) * 60 + (+sec) + (+ms) / 1000;
+    }
+
+    function showSubtitle(time) {
+      if (!subtitles.length) {
+        subtitleBox.textContent = "Subtitles will appear here…";
+        return;
+      }
+      let entry = subtitles.find(
+        sub => time >= sub.start && time <= sub.end
+      );
+      if (entry) {
+        subtitleBox.innerHTML = entry.text;
+      } else {
+        subtitleBox.innerHTML = '';
+      }
+    }
+
+    // Load the SRT file
+    fetch('Temporality in Recursive Dynamics.srt')
+      .then(resp => resp.ok ? resp.text() : Promise.reject('No subtitle found.'))
+      .then(data => {
+        subtitles = parseSRT(data);
+        subtitleBox.textContent = 'Ready.';
+      })
+      .catch(() => {
+        subtitleBox.textContent = 'No subtitles found.';
+      });
+
+    // Sync to audio
+    audio.addEventListener('timeupdate', () => {
+      showSubtitle(audio.currentTime);
+    });
+    audio.addEventListener('seeked', () => {
+      showSubtitle(audio.currentTime);
+    });
+    audio.addEventListener('play', () => {
+      showSubtitle(audio.currentTime);
+    });
+  </script>
+</body>
+</html>
