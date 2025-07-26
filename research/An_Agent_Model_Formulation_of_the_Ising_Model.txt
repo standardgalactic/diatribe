@@ -1,0 +1,707 @@
+6
+Y
+6
+0
+Computational Science Technical Note CSTN-004
+An Agent Model Formulation of the Ising Model
+K. A. Hawick
+2003
+The Ising model has proved an important test problem for many issues in computational physics. It is normally
+formulated in terms of a lattice of degrees of freedom which are updated in a carefully chosen Monte Carlo procedure.
+Numerical experiments normally involve equilibrating conﬁgurations and sampling independent conﬁgurations in the
+phase space of all the possible values for the degrees of freedom. In this work the model is used to investigate
+alternate und unconventional update procedures and as the basis for a spatial agent model.
+Keywords: Ising model; agent; update procedure
+BiBTeX reference:
+@TECHREPORT{CSTN-004,
+author = {K. A. Hawick},
+title = {An Agent Model Formulation of the Ising Model},
+institution = {Information and Mathematical Sciences, Massey University},
+year = {2003},
+address = {Albany, North Shore 102-904, Auckland, New Zealand},
+month = {November},
+keywords = {Ising model; agent; update procedure},
+series = {CSTN-004}
+}
+This is a early preprint of a Technical Note that may have been published elsewhere. Please cite using the information
+provided. Comments or quries to:
+Prof Ken Hawick, Computer Science, Massey University, Albany, North Shore 102-904, Auckland, New Zealand.
+Complete List available at: http://www.massey.ac.nz/~kahawick/cstn
+
+Technical Report CSTN-004
+An Agent Model Formulation of the Ising Model
+K.A. Hawick
+Institute of Information and Mathematical Sciences
+Massey University - Albany
+Private Bag 102-904 NSMC, Auckland, New Zealand
+Email: k.a.hawick@massey.ac.nz
+Tel: +64 9 414 0800
+Fax: +64 9 441 8181
+November 2003
+Abstract
+The Ising model has proved an important test prob-
+lem for many issues in computational physics. It is
+normally formulated in terms of a lattice of degrees
+of freedom which are updated in a carefully chosen
+Monte Carlo procedure. Numerical experiments nor-
+mally involve equilibrating conﬁgurations and sam-
+pling independent conﬁgurations in the phase space
+of all the possible values for the degrees of freedom.
+In this work the model is used to investigate alter-
+nate and unconventional update procedures and as
+the basis for a spatial agent model.
+Keywords: Ising model; agent; update procedure.
+1
+Introduction
+Agent models are attractive for simulating complex
+systems as an agent's state and its time-evolutionary
+behaviour can generally be formulated in terms of
+localised and unambiguous rules. However it is not
+trivial to determine how a simulated system ought
+to control the time-synchronous behaviour of many
+interacting agents in a system. This paper presents
+a discussion of some of these ideas and approaches in
+terms of an agent-formulation of a well knowm sta-
+tistical mechanical model. An agent system might be
+based on a construct such as Holland's constrained
+generating procedurer (cgp)[3]. CGS have weel de-
+ﬁned inputs and outputs and identifying these is one
+of our goals for models such as the Ising system.
+The Ising model[4, 6] for a simple ferromagnet is
+usually described in terms of the Hamiltonian (or
+energy functional):
+H =
+!
+<i,j>
+−Ji,jsi · sj −H
+!
+<i>
+si
+where the coupling Ji,jis usually taken as a constant
+J, which is eﬀectively the inverse of the Tempera-
+ture T and is thus in units of kBT , where kBis Boltz-
+mann's constant. The spin variables take the values
+±1 and the ﬁrst summation is over nearest neigh-
+bouring spin sites, and the second is over all Nspin
+sites in the system. We are often interested in the
+spontaneous magnetization of the model, where the
+applied magnetic ﬁeld His zero or close to zero. The
+model exhibits spontaneous magnetization below a
+critical temperature Tc or at a value of the coupling
+strength above a critical value of J∗. It is conve-
+nient to work in terms of a couple K = J/kBT , and
+K∗≈0.4406867953 for the two dimensional square
+lattice Ising model[6] or K∗≈0.221654 for the three
+dimensional cubic lattice[1].
+2
+Implementing
+the
+Ising
+Model
+The Ising model can be implemented in a number
+of ways and on diﬀerent geometric lattices. An in-
+teresting particular system is the two dimensional
+1
+
+square lattice, for which there is an exact (analyti-
+cal) solution[6] for the critical temperature and other
+properties.
+The Monte Carlo method can be employed to evolve
+the Ising system in a sort of "pseudo-time".
+A
+quenching experiment is therefore to initialise an
+Ising spin variable (agent) on each site. Spin sites are
+updated depending upon the energy consequences of
+the updates. In the Ferromagnetic variation of the
+model it is energetically favourable for spins to align.
+The Metropolis[5] algorithm is therefore:
+1. pick a spin site
+2. compute the change in the number of like-like
+bonds∆with its neighbours if the spin value
+ﬂips
+3. if the change ∆is positive or zero accept the
+change and ﬂip the spin
+4. if the change ∆is negative accept it with Prob-
+ability P = e−2∆K
+This procedure is carried out for each spin site, a
+full sweep constituting on average one "hit" per site.
+The aim of the algorithm is to allow the system to
+explore its state space, and to visit all its micro-
+states.
+The weighted probability is based on the
+ergodic hypothesis and assumes that not all states
+are equally important, but that a useful trajectory
+through phase space is given by the Markov chain
+that arises from the Metropolis probabilities. There
+are other formulations for the probabilities, eg by
+Glauber[2]. There are also more sophisticated the
+ways of allowing the model to explore it s phase
+space which involve so called cluster updates where
+by whole clusters of spin sites are allowed to ﬂip at
+once. Since any dynamics imposed on the model is
+by nature artiﬁcial - it has no intrinsic dynamics of
+its own, it is usual just to ﬁnd fast and eﬃcient algo-
+rithms to allow exploration or sampling of the phase
+space.
+The "2" in the Metropolis exponent arises because
+of the interpretation of the coupling and the spin
+variables.
+It is conventional to treat the spins as
+having values ±1, but for implementations it is of-
+ten easier to use bit-wise or logical variables with
+values 0 and 1. Of importance are the bonds (the
+like-like bonds for ferromagnetic systems) and count-
+ing the like-like bonds gives arise to the extra factor
+of two in the exponent.
+Using this, a simulation
+will agree with the Onsager calculated critical tem-
+perature Tc ≃2.269185317J/kB. In general a ﬁnite
+sized lattice simulation will allow long range order-
+ing somewhat more easily than an inﬁnite system,
+consequently the critical temperature found from a
+simulation might be expected to be slightly higher
+than the exact value.
+There are subtle issues relating to the probability
+calculation if spins are updated simultaneously, and
+the so called detailed-balance condition requires that
+interacting spins not be updated together. We can
+still implement the Ising model as an agent sys-
+tem if we impose some sort of synchrony to ensure
+that neighbours do not try to update at once. This
+can be done by grouping spin sites into two inter-
+penetrating lattices like a chequer-board, although it
+is easier to block them into 2x2unit cells, with each
+agent owning the associated four spin sites. Alter-
+natively, and perhaps more elegantly, we can impose
+some handshaking between agents owning individual
+spin sites so that they do not simultaneously update.
+For the agent hosting framework, we can also require
+that it take account of the order and semi synchrony
+of updates and ensure that update sweeps through
+the sites (agents) are done in chequer-board order.
+3
+Agent Interpretation
+The Ising model on a 2-d square lattice can be ex-
+pressed as an agent model, described by the follow-
+ing state table. Spin sites have four neighbours, la-
+belled "left", "right", "up" and "down". The spin
+values for a site labelled iand its four neighbouring
+sites are enumerated using the 0,1 notation, and the
+number of like-like bonds before and after a spin
+ﬂip is carried out.
+The energy levels of the Ising
+system are massively degenerate and it is also seen
+from this table that there are also only a few energy
+level transition diﬀerences for a single spin variable
+too.
+In general the ferromagnetic model has only
+ﬁve energy transitions, including a zero change. A
+simulation can therefore avoid computing arbitrary
+exponentials (which are usually costly to compute in
+terms of machine clock cycles) and use a small-sized
+look up table, whose values need only be changed
+when a new J value is employed. In the table Pis
+used to denote a conditional spin ﬂip based on cal-
+culation of the probability and comparison with a
+suitable uniform deviate generating random number
+generator. The other possible entry listed in the ac-
+tion column of the table is "Flip", denoting either
+2
+
+a zero change or an energy-lowering transition. It
+is useful to accept zero energy ﬂips as it allows the
+model to further explore its phase space. The physi-
+cal interpretation of the probabilistic energy raising
+transitions is that of thermal ﬂuctuations that allow
+these changes to take place, where the model is as-
+sumed to be in contact with a "heat bath", supplying
+thermal energy.
+The formulation given in table1 does not take ac-
+count of any applied magnetic ﬁeld H,which will split
+the degenerate energy levels, and will favour a par-
+ticular sign of spins. Generally it will not aﬀect one
+half of the table - the half for the favoured spin di-
+rection, but will require re-consideration of the levels
+for the unfavoured spin direction entries.
+Our agent has a state variable in the form of its spin
+and on a 2-d square lattice has four inputs. There
+is an implied input which tells the agent when to
+update itself - eﬀectively handling the synchronicity.
+This is shown in ﬁgure 1
+Ising Agent
+North
+East
+West
+Output
+State
+(Spin)
+Time / "Update Now!"
+Inputs
+South
+Figure 1:
+An "Ising Agent" operating on a 2-d
+Square lattice with 4 deﬁnite inputs from its neigh-
+bouring spins and an implied synchronizing input
+specifying when it should update its state.
+We have written table 1 in terms of ﬂip actions
+which are deﬁnite or probability-P conditional ﬂips.
+These latter depend upon a comparison between a
+random number generator and the the possible re-
+sulting change in energy from a ﬂip, in units which
+are dependent upon a global temperature value. In
+eﬀect the global temperature is an implied input to
+the agent system as well as the synchronising time
+signal.
+Our agent is therefore rather more sophisticated that
+a completely deterministic cellular automaton. The
+Ising agent is able to interpret the global temper-
+ature in terms of the "heatbath" environment in
+which it exists.
+We can therefore classify the inputs for a model such
+as the Ising system as:
+• geometrically oriented state coupling - eg in-
+terrogation of other sites' spin state;
+• global parameters such as temperature which
+require interpretation in the update algorithm;
+and
+• time or synchronisation signals which indi-
+cate when it is allowable for the agent to update
+its state.
+4
+Time Synchronization
+There are many ways to interpret and implement
+the time synchronicity input. If we imagine a pro-
+gram which give s attention or compute cycles to
+each agent sequentially then the updating is entirely
+serialised and apart from "sweeping" eﬀects the up-
+date algorithm will make correct update choices in
+terms of energy and probability calculations. The
+detailed balance condition is satisﬁed. Much debate
+ha s gone into whether this is strictly necessary and
+what are the eﬀects of sweep based updates. Cer-
+tainly at inﬁnite temperature a sweeping through the
+lattice of spins will result in them all being ﬂipped
+in turn and the collection eﬀectively "thrashes" be-
+tween two macrostates. This is not useful for a sta-
+tistical sampling perspective. A random hitting al-
+gorithm can select each site once per time step but
+in a randomized order. This works satisfactorily at
+high temperatures and decorrelates sweeping eﬀects.
+Ideally for an agent formulation one wants an en-
+tirely localised algorithm for synchronization.
+A
+given agent should be able to determine solely from
+its (local) inputs when it should execute its update
+operation.
+It then keeps its own "internal clock"
+eﬀectively. If agents are not directly synchronized
+and only update e relatively infrequently compared
+to the time it takes to perform a an update then in
+this limit one might expect synchronization eﬀects
+not to manifest themselves. Unfortunately how fre-
+quently in "infrequently"? We can make some quan-
+titative estimate s based on the time it take s infor-
+mation to propagate across the lattice in terms of
+update unit steps. Parallel approaches such as the
+red-black and other block ordering schemes work be-
+cause they group agents that are far apart enough
+that they cannot simultaneously be updating their
+states and reading their inputs.
+Elaborate multi-phase update schemes such as those
+in ﬁgure 2 can be devised to emulate this from a lo-
+calised agent perspective. For example, agents can
+3
+
+Spin i
+left
+right
+up
+down
+Old Bonds
+New Bonds
+Change∆
+Action
+1
+1
+1
+1
+1
+4
+0
+-4
+P
+1
+1
+1
+1
+0
+3
+1
+-2
+P
+1
+1
+1
+0
+1
+3
+1
+-2
+P
+1
+1
+1
+0
+0
+2
+2
+0
+Flip
+1
+1
+0
+1
+1
+3
+1
+-2
+P
+1
+1
+0
+1
+0
+2
+2
+0
+Flip
+1
+1
+0
+0
+1
+2
+2
+0
+Flip
+1
+1
+0
+0
+0
+1
+3
+2
+Flip
+1
+0
+1
+1
+1
+3
+1
+-2
+P
+1
+0
+1
+1
+0
+2
+2
+0
+Flip
+1
+0
+1
+0
+1
+2
+2
+0
+Flip
+1
+0
+1
+0
+0
+1
+3
+2
+Flip
+1
+0
+0
+1
+1
+2
+2
+0
+Flip
+1
+0
+0
+1
+0
+1
+3
+2
+Flip
+1
+0
+0
+0
+1
+1
+3
+2
+Flip
+1
+0
+0
+0
+0
+0
+4
+4
+Flip
+0
+1
+1
+1
+1
+0
+4
+4
+Flip
+0
+1
+1
+1
+0
+1
+3
+2
+Flip
+0
+1
+1
+0
+1
+1
+3
+2
+Flip
+0
+1
+1
+0
+0
+2
+2
+0
+Flip
+0
+1
+0
+1
+1
+1
+3
+2
+Flip
+0
+1
+0
+1
+0
+2
+2
+0
+Flip
+0
+1
+0
+0
+1
+2
+2
+0
+Flip
+0
+1
+0
+0
+0
+3
+1
+-2
+P
+0
+0
+1
+1
+1
+1
+3
+2
+Flip
+0
+0
+1
+1
+0
+2
+2
+0
+Flip
+0
+0
+1
+0
+1
+2
+2
+0
+Flip
+0
+0
+1
+0
+0
+3
+1
+-2
+P
+0
+0
+0
+1
+1
+2
+2
+0
+Flip
+0
+0
+0
+1
+0
+3
+1
+-2
+P
+0
+0
+0
+0
+1
+3
+1
+-2
+P
+0
+0
+0
+0
+0
+4
+0
+-4
+P
+Table 1: Zero Field 2d Ising Agent State Table. Flip action is a deﬁnite outcome, where as probability-P
+ﬂip is conditional on a calculation involving global Temperature and a stochastic variable.
+4
+
+Phase
+West
+East
+South
+North
+"Me"
+Ask for locks on inputs
+Read Inputs
+Update
+(2)
+(1)
+(3)
+(4)
+Give Lock and Output
+(5)
+Time
+Figure 2: Multi-phasic updating scheme imposed on
+an Ising Agent to lock inputs prior to updating its
+state.
+use some sort of lock mechanism to communicate
+with their neighbours so that they are only allowed
+to read their inputs from their neighbours' spins
+when they have the "lock". In the ﬁgure shown it
+is implied that diﬀerent neighbours communicate at
+diﬀerent times.
+We can devise a scheme as show
+with 4 or 5 separate phases depending upon how we
+implement the locks and the transmission of state
+information. The lock might only be granted with
+the state information piggy backed on it in which
+case we only need three separate phases: lock and
+gather inputs; update; grant lock on output.
+The variables or messages that are used to imple-
+ment the locking mechanism would generally arrange
+themselves into red-black like patterns as the system
+as a whole proceeds. In general it is easier to imple-
+ment a global synchronization management scheme
+while considering this philosophically top being ef-
+fectively equivalent to a local locking algorithm.
+In the case of the Ising agent we have described the
+inputs are read then the update is performed and
+the state is changed.
+Only then is the new state
+available for presenting as an output. More elabo-
+rate model agents will have more outputs, but the
+same basic premise holds. Some synchronisation is
+required to ensure only valid states are used as in-
+puts to calculations (updates).
+5
+Summary
+This paper has laid out some ideas concerning local
+and global decision making by agents in simulation
+models. The ideas have been developed in terms of
+the Ising spin model of a magnet but apply to more
+complex models. We have classiﬁed inputs into ge-
+ometric; global parametric and temporal groupings.
+We have discussed how multi-phasic algorithms can
+be applied to ensure fairness or correct calculations
+based on valid inputs. These considerations are vi-
+tal for a correct implementation of an unambiguous
+agent based model.
+References
+[1] C.F.Baillie
+and
+R.Gupta
+and
+K.A.Hawick
+and G.S.Pawley, Monte-Carlo Renormalisation
+Group Ising Calculations, Phys.Rev.B 45, 1992,
+PP10438-10453.
+[2] R.J. Glauber, Time dependent statistics of the
+Ising Model, J. Math. Phys. 4 (1963), No 2,
+PP294-307.
+[3] John. H. Holland, Emergence - from chaos to
+Order, Oxford, 1998, ISBN 0-19-286211-1.
+[4] E.Ising, Zeitschrift f. Physik 31:253 (1925).
+[5] Nicholas Metropolis, Arianna W. Rosenbluth,
+Marshall N. Rosenbluth, Augusta H. Teller and
+Edward Teller, Equation of state calculations
+by fast computing machines, J. Chem. Phys. 21
+(1953) No 6, PP1087-1092.
+[6] Lars
+Onsager,
+Crystal
+Statistics
+I.
+Two-
+Dimensional Model with an Order-Disorder
+Transition, Phys.Rev. 65(1944), No 3, PP117-
+149.
+5
+

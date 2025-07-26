@@ -1,0 +1,1037 @@
+RESEARCH ARTICLE 
+National Science Review 
+12: nwae338, 2025 
+https://doi.org/10.1093/nsr/nwae338
+Advance access publication 23 September 2024 
+PHYSICS 
+Superior probabilistic computing using operationally 
+stable probabilistic-bit constructed by a manganite 
+nanowire 
+Yadi Wang1 , 2 , † , Bin Chen1 , 2 , † , Wenping Gao1 , 2 , Biying Ye1 , 2 , Chang Niu1 , 2 , 
+Wenbin Wang1 , 3 , 4 , 5 , Yinyan Zhu1 , 4 , 5 , Weichao Yu 
+1 , 4 , ∗, Hangwen Guo1 , 3 , 4 , 5 , ∗
+and Jian Shen1 , 2 , 3 , 4 , 5 , 6 , ∗
+1 State Key Laboratory 
+of Surface Physics and 
+Institute for 
+Nanoelectronic 
+Devices and Quantum 
+Computing, Fudan 
+University, Shanghai 
+200433, China; 
+2 Department of 
+Physics, Fudan 
+University, Shanghai 
+200433, China; 
+3 Shanghai Branch, 
+Hefei National 
+Laboratory, Shanghai 
+201315, China; 
+4 Shanghai Research 
+Center for Quantum 
+Sciences, Shanghai 
+201315, China; 
+5 Zhangjiang Fudan 
+International 
+Innovation Center, 
+Fudan University, 
+Shanghai 201210, 
+China and 
+6 Collaborative 
+Innovation Center of 
+Advanced 
+Microstructures, 
+Nanjing 210093, 
+China 
+∗Corresponding 
+authors . E-mails: 
+wcyu@fudan.edu.cn; 
+hangwenguo@fudan.edu.cn; 
+shenj5494@fudan.edu.cn
+† Equally contributed 
+to this work. 
+Received 28 August 
+2024; Accepted 8 
+September 2024 
+ABSTRACT 
+Probabilistic computing has emerged as a viable approach to treat optimization problems. To achieve 
+superior computing performance, the key aspect during computation is massive sampling and tuning on the 
+probability states of each probabilistic bit (p-bit), demanding its high stability under extensive operations. 
+Here, we demonstrate a p-bit constructed by a manganite nanowire that shows exceptionally high stability. 
+The p-bit contains an electronic domain that fluctuates between metallic (low-resistance) and insulating 
+(high-resistance) states near its transition temperature. The probability for the two states can be directly 
+controlled by nano-ampere electrical current. Under extensive operations, the standard error of its 
+probability values is < 1.3%. Simulations show that our operationally stable p-bit plays a key role in 
+achieving correct inference in a Bayesian network by strongly suppressing the relative error, displaying the 
+potential for superior computing performance. Our p-bit also serves as a high-quality random number 
+generator without extra data-processing, beneficial for cryptographic applications. 
+Keywords: probabilistic computing, manganite nanowire, operational stability, electronic domain 
+dynamics 
+INTRODUCTION 
+Exploring the stochastic dynamics in nanomaterials 
+has shown to be important in the emerging field of 
+probabilistic computing, a new paradigm beyond 
+conventional Von-Neumann architectures aiming to 
+solve problems such as combinatorial optimization, 
+invertible logic, and Bayesian inference [1 -10 ]. The 
+key ingredient of probabilistic computing is proba- 
+bilistic bit (p-bit), a classical entity that can produce 
+stochastic '0's and '1's with controllable probability. 
+Unlike a complementary-metal-oxide semiconduc- 
+tor (CMOS)-based p-bit that usually requires a 
+substantial number of transistors and is often not 
+truly stochastic [11 ], nanomaterials with intrinsic 
+fluctuation dynamics has emerged to offer great po- 
+tential to construct a p-bit [1 ,3 ,4 ,12 -15 ]. Ideally, the 
+nanomaterial involved should exhibit binary high 
+(0) and low (1) resistance states that spontaneously 
+fluctuate in time [16 -20 ], and the fluctuation prob- 
+ability can be fine-tuned by external stimulus in a 
+non-linear manner to allow efficient computation. 
+Various types of nanomaterials can be used to 
+construct p-bits with tunable probability values 
+whose stochastic features serve as an effective ac- 
+tivation function (e.g. Sigmoid or Tanh function) 
+[21 ,22 ]. Yet in any experimental systems, instabil- 
+ity of stochastic dynamics is always present so that 
+broadening from the ideal activation function is in- 
+evitable, which can impede the performance of the 
+computing tasks. While such a broadening effect 
+has been examined theoretically [23 ], a more im- 
+portant issue is the actual operational stability of 
+a p-bit: whether the probability can return to the 
+same value after experiencing extensive operations 
+and how such stability impacts on the task perfor- 
+mance. Such issue is critical since the input of each 
+© The Author(s) 2024. Published by Oxford University Press on behalf of China Science Publishing & Media Ltd. This is an Open Access article distributed under the terms of the Creative
+Commons Attribution License (https://creativecommons.org/licenses/by/4.0/), which permits unrestricted reuse, distribution, and reproduction in any medium, provided the original 
+work is properly cited. 
+Downloaded from https://academic.oup.com/nsr/article/12/3/nwae338/7769656 by guest on 25 July 2025
+
+Natl Sci Rev, 2025, Vol. 12, nwae338
+0.0
+0.5
+1.0
+1.5
+2.0
+0.46
+0.48
+0.50
+0.52
+Voltage (V)
+Time (s)
+55 nA
+0.0
+0.5
+1.0
+1.5
+2.0
+0.48
+0.50
+0.52
+0.54
+0.56
+Voltage (V)
+Time (s)
+61 nA
+0.0
+0.5
+1.0
+1.5
+2.0
+0.50
+0.52
+0.54
+0.56
+0.58
+Voltage (V)
+Time (s)
+68.5 nA
+90
+92
+94
+96
+98
+6
+8
+10
+12
+Temperature (K)
+Resistance (MΩ)
+100 102 104
+Substrate
+Electrode
+LPCMO
+nanowire
+COI domain
+Rhigh
+DAQ
+'0'
+'1'
+FMM domain
+Rlow
+30
+40
+50
+60
+70
+80
+90
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Probability
+Current (nA)
+36 nA - 90 nA
+90 nA - 36 nA
+Sigmoidal fit
+(a)
+(d)
+(b)
+(c)
+Figure 1. Fully tunable stochastic fluctuation behavior in a manganite nanowire. (a) Schematic and measurement geometry of the LPCMO nanowire. 
+The red and blue denotes a single domain that naturally fluctuates between FMM (red) and COI (blue) states under the insulating background of the 
+nanowire. (b) Temperature-dependent resistance curve showing stochastic single domain fluctuation in the nanowire. (c) Full range probability (0 to 1) 
+as a function of input current measured at 97 K. Red and blue symbols represent up-scan and down-scan, respectively; the dashed line shows sigmoid 
+fitting on the experimental results. (d) Resistance vs time curves under three distinct input current values. 
+p-bit is determined by the collective outputs from 
+other p-bits, all of which are fluctuating over time 
+during computation [1 ,24 -26 ]. Owing to the sam- 
+pling requirement, massive updating and tuning on 
+its probability values takes place on individual p-bits, 
+challenging its operational stability. Therefore, find- 
+ing nanomaterials that can produce tunable probabil- 
+ity with high operational stability is desirable to im- 
+prove the performance of probabilistic computing. 
+In this work, we use an electronically phase 
+separated (EPS) manganite nanowire to construct 
+an operationally stable p-bit. In a simple two-probe 
+geometry, we show direct control of two-state resis- 
+tance fluctuations by nano-ampere input currents to 
+achieve full-range probability tuning without assist- 
+ing transistors. The probability curve fits well with 
+the Sigmoid function—the basis of stochastic neu- 
+rons in probabilistic computing. More importantly, 
+we demonstrate that under extensive switching 
+operations, the current-controlled p-bit shows ex- 
+ceptionally high stability with broadening of the 
+probability values to be < 1.3%. Numerical simu- 
+lation results suggest that our operationally stable 
+p-bit plays a key role in achieving correct inference 
+in a Bayesian network by strongly suppressing the 
+relative error as compared to p-bits with large stan- 
+dard errors, displaying the potential for superior 
+computing performance. In addition, our nanowire 
+is also capable of generating random numbers with- 
+out any additional data processing, indicating stable 
+and true stochasticity with cryptographic quality. 
+RESULTS 
+Full electrically tunable probability in 
+manganite nanowire 
+We used manganite (La2/3 Pr1/3 )5/8 Ca3/8 MnO3 
+(LPCMO) thin film as a prototype material in this 
+study to exploit the tunability on its fluctuation dy- 
+namics (see Methods and Fig. S1 for sample growth 
+and characterization). The LPCMO system has been 
+well known for its large-scale electronic domains 
+whose dynamics is highly tunable by external stimuli 
+[27 -29 ]. When the system is spatially confined to 
+the length scale of the EPS domain, the electronic 
+transport is often governed by the dynamics of a 
+single residing domain which fluctuates between the 
+ferromagnetic metallic (FMM) and charge ordered 
+insulating (COI) states due to thermal instabil- 
+ity near its phase transition point, as confirmed 
+from experiments, theoretical model and simula- 
+tions [30 -32 ]. As shown in Fig. 1 a, the LPCMO 
+nanowire is ideal for such purpose, where a DC 
+current source is applied as input, and the resistance 
+values are monitored using a data acquisition system 
+(see Fig. S2 for nanofabrication details). Figure 1 b 
+shows the resistance vs temperature curve of the 
+Page 2 of 9
+Downloaded from https://academic.oup.com/nsr/article/12/3/nwae338/7769656 by guest on 25 July 2025
+
+Natl Sci Rev, 2025, Vol. 12, nwae338
+nanowire between 103 and 92 K where the overall 
+nanowire is in the insulating background. When 
+decreasing temperature, clear resistance jumps on 
+the order of 1 M  are observed with a noticeable 
+window of fluctuation towards lower resistance 
+states. Such behavior can be attributed to a single 
+domain that is dynamically fluctuating between the 
+high-resistance COI and the low-resistance FMM 
+states in a stochastic manner, which is sensitively 
+detected by the transport measurements. 
+Next, we show that the stochastic domain dy- 
+namics can be well-controlled by directly tuning 
+the input current using a simple two-probe geom- 
+etry without any additional source of excitation. 
+To demonstrate this behavior, we monitored the 
+time-resolved resistance fluctuation at different 
+input current levels. Figure 1 d shows three represen- 
+tative examples. For an input current of 55 nA, the 
+resistance of the nanowire spontaneously fluctuates 
+between two resistance states but predominantly 
+resides in the high-resistance state with a small prob- 
+ability to transit into the low-resistance state. When 
+increasing the input current to 61 nA, the domain 
+fluctuates between the high- and the low-resistance 
+states with nearly equal probability. When the input 
+current is increased to 68.5 nA, the domain preferen- 
+tially resides more in the low-resistance state. Here 
+we define the probability pas the fraction of the low- 
+resistance state in the total collected data. Figure 1 c 
+plots the probability p vs input current curve. The 
+probability can be continuously tuned from 0 to 1 
+when the input current is raised from 35 nA to 90 nA. 
+The physical origin of the current-tunable prob- 
+ability of the LPCMO nanowire can be attributed 
+to either electric field effects or local Joule heating 
+effects [33 ]. Here, we can exclude the local Joule 
+heating effect by comparing the probability values 
+at different temperatures and current (see Fig. S3
+and note). Therefore, our results point towards 
+the electrical field driven local insulator-to-metal 
+transition as the origin of the stochastic dynamics. 
+Although the microscopic mechanism of the electric 
+field driven phase transition is not fully understood, 
+it is likely associated with current induced change 
+of local charge distribution which can accurately 
+control the energy difference between the COI and 
+FMM states [34 -37 ]. We note that the stochastic 
+dynamics in our nanowire is fundamentally different 
+from other Mott insulators such as VO2 [38 ,39 ]. In 
+VO2 , each time a pumping voltage pulse is applied to 
+trigger filamentary insulator-to-metal transition and 
+induces stochastic relaxation [12 ]. In our nanowire, 
+the electronic domain spontaneously fluctuates 
+without any pumping voltages. The mechanism 
+of ionic motion can also be excluded since the 
+electric field to switch our stochastic domain is ∼4 
+× 102 V/cm which is several orders of magnitude 
+smaller than ionic-motion driven resistive switching 
+in manganites [40 ]. We further examined the aver- 
+age rate of switching and found to be in between 3 
+and 4 ms which is consistent w ith prev ious reports, 
+further confirming the intrinsic electronic domain 
+dynamics as the physical origin of our observation 
+( Fig. S4). In any case, the key observation here is 
+that the electric current can actively control a single 
+domain's stochastic dynamics under dimensionality 
+confinement conditions. 
+For probabilistic computing, a stochastic physical 
+system that can represent a sigmoid-type activation 
+neuron is favored [21 ,41 ]. We fit Fig. 1 d with 
+sigmoid function Sigmoid ( x ) = 
+a 
+1+e−k(x −xc ) (black 
+curve), with the fitting parameter a = 0 . 97529 , k = 
+0 . 21856 , xc = 60 . 85965 , and the determination 
+coefficient is calculated to be 0.9 9 96. An excellent 
+match between the fitting curve and experimental 
+results is observed, suggesting the high quality of 
+our nanowire to serve as a p-bit. Moreover, Fig. 1 c 
+shows the probability when the input current is de- 
+creased from 90 nA to 35 nA (blue symbols), which 
+coincides well with the probability acquired when 
+current is increased from 35 to 90 nA (red symbols), 
+further demonstrating the stability of domain fluc- 
+tuation dynamics under cycles of input current scan. 
+In addition, the nature of the strong correlation 
+between multiple degrees of freedom in manganites 
+allows us to control the p-bit by various external 
+stimuli. We explored the effects of magnetic field 
+and temperature on manipulating the p-bit behavior. 
+Figure S5 shows the pvalues as a function of external 
+magnetic field and temperature. In both cases, full- 
+range tuning on the probability values between 0 
+and 1 is achieved. Such multi-field tunabi lity al lows 
+us to implement electrical-current tunable proba- 
+bility at flexible temperatures and magnetic fields 
+( Fig. S6). We note that there are a few intermediate 
+points between 0 and 1 as shown in Fig. 1 c, which 
+indicates partial domain switching. These points 
+are statistically negligible and wi l l not affect the 
+probability determination of our p-bit ( Fig. S7). 
+P-bit with high operational stability 
+Due to the presence of material impurity or the 
+instability from intrinsic nonlinear dynamics in 
+real physical systems, broadening of the probability 
+curve is inevitable [3 ,4 ,12 ,42 ,43 ], that is, a p-bit can- 
+not maintain the same probability value over time 
+under a fixed working condition. Our work here 
+focuses on solving a more general issue: a p-bit no 
+longer outputs with the same probability if its 
+operational condition has been changed and 
+switched back, e.g. p(I1 ) ̸ = p(I1 →I2 →I1 ) . 
+Page 3 of 9
+Downloaded from https://academic.oup.com/nsr/article/12/3/nwae338/7769656 by guest on 25 July 2025
+
+Natl Sci Rev, 2025, Vol. 12, nwae338
+Counts
+0.48 0.52
+0.68 0.72
+0.88 0.92
+0
+10
+20
+30
+40
+50
+60
+Probability
+50
+60
+70
+80
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0
+10
+20
+30
+40
+50
+Probability
+Counts
+Current (nA)
+Exp-Sigmoid
+52.5 nA
+59 nA
+65.5 nA
+55 nA
+61 nA
+68.5 nA
+57 nA
+63 nA
+73 nA
+Z
+Y
+X
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.0
+1.5
+2.0
+2.5
+3.0
+Width (%)
+Probability
+Experiment
+Simulation
+-2
+-1
+0
+1
+2
+βI
+R = 0.05
+R = 0.1
+Sigmoid
+R = 0.0007
+Probability
+-2
+-1
+0
+1
+2
+-2
+-1
+0
+1
+2
+1
+0.2
+0.4
+0.6
+0.8
+0
+(a)
+(d)
+(b)
+(c)
+Figure 2. An operationally stable p-bit. (a) Histograms depicting the probability distribution for nine individual input currents. 
+x-y Plane exhibits the current vs p distribution as in Fig. 1 c; z axis exhibits counts under multiple operations. For each count, 
+a 60 sec data stream is recorded to calculate p. (b) Gaussian fitting of the probability distribution for an input current of 61, 
+65.5, 73 nA. The solid line represents the Gaussian fit curve. (c) FWHM values for different input currents. (d) Probability 
+curve simulated according to Eq. ( 1 ) with broadening parameter R = 0 . 0007 (LPCMO nanowire-based p-bit), R = 0 . 05 and 
+R = 0 . 1 . The circles in the figure represent the average value of the data, and the error bar represents the standard error. 
+This issue is critical since during the running phase 
+of probabilistic computing, the working condition 
+of each p-bit is determined by the collective outputs 
+from other p-bits. Since all the p-bits are fluctuat- 
+ing over time, the input as well as the operational 
+condition of an individual p-bit experiences massive 
+updating. Such operational instability may cause 
+vital damage to the performance of a probabilistic 
+computer. Therefore, it is imperative to test the 
+accuracy and stability of our p-bit under repeated 
+switching of input signals. To quantify the oper- 
+ational stability of our LPCMO nanowire-based 
+p-bit, we picked nine current values (52.5, 55, 57, 
+59, 61, 63, 65.5, 68.5, 73 nA) as switchable inputs 
+according to the p vs I curve in Fig. 1 c which is again 
+plotted in the x-y plane in Fig. 2 a. For each input, we 
+collected the resistance vs time data for 60 sec to cal- 
+culate the probability p. Each input experienced 100 
+switching events and the p -values were counted (de- 
+tailed procedure can be found in Methods section). 
+The resultant distribution of p values is binned, and 
+the histogram is depicted in Fig. 2 a. It can be seen 
+that the broadening of the probability distribution is 
+quite narrow against multiple switching events, indi- 
+cating excellent stability of our p-bit under random 
+operations. Figure 2 b shows the detailed broadening 
+distribution for three representative input currents 
+(61, 65.5, 73 nA). Gaussian-type distributions 
+are observed in all cases as shown in the fitting 
+curves. 
+Page 4 of 9
+Downloaded from https://academic.oup.com/nsr/article/12/3/nwae338/7769656 by guest on 25 July 2025
+
+Natl Sci Rev, 2025, Vol. 12, nwae338
+To quantify the broadening behavior, the full 
+width at half maximum (FWHM) of the Gaussian 
+peak was calculated to benchmark the accuracy of 
+our nanowire-based p-bit. As shown in Fig. 2 c, the 
+FWHM is largest for input current of 61 nA with 
+the p value around 0.5 and decreases continuously 
+with the p value approaching 0 or 1. These results 
+suggest high stability of our nanowire-based p-bit 
+for probabilistic computing implementation un- 
+der extensive sampling or cycling. Furthermore, 
+our nanowire shows long endurance after being 
+operated over extended periods of time. Figure S8
+shows the p vs input current curve after 14 days 
+over extensive current-switching operations. The 
+resultant curve is nearly identical to the initial one in 
+Fig. 1 c, i l lustrating the high endurance of our p-bit. 
+We simulated the probabilistic dynamics of a 
+p-bit that exhibits operational instability according 
+to the model [44 ] (details in Methods section) that 
+m (t) = sgn [rand (−1 , 1 ) + tanh [βI(t) ] + ξ(t) ] 
+with discretized time step t, effective inverse tem- 
+perature β and dimensionless control parameter 
+I(t) , e.g. electric current flowing through the 
+p-bit. The operational variation of the p-bit is de- 
+scribed by a random noise ξ(t) ∼N(0 ,
+R 
+Z|I(t) | ) 
+for I(t) ̸ = I(t −1 ) and ξ(t) = ξ(t −1 ) for 
+I(t) = I(t −1 ) , which follows the normal distri- 
+bution with a mean of zero and variance determined 
+by broadening factors R and Z. The fitting results 
+are shown in Fig. 2 c, which yields R = 0 . 0007 and 
+Z = 7 . 9983 agreeing well with experimental data. 
+We also examined the behavior of two p-bits with 
+R = 0.05 and 0.1 as shown in Fig. 2 d. Compared 
+to the operationally stable p-bit ( R = 0 . 0007 ) with 
+maximum standard error of 1.3%, clear broadening 
+from expected value m (t) is observed. The maximal 
+standard errors for p-bits of R = 0.05 and 0.1 are 
+11% and 16%, respectively. Such a level of standard 
+error has been typically observed in several physical 
+systems such as phase-changed [3 ,12 ], RRAM [4 ] 
+and stochastic MTJ-based p-bits [42 ,43 ], as sum- 
+marized in Table S1. Therefore, our work provides 
+the metric to compare the operational stability 
+on multiple physical implementations of p-bits 
+and its influence on the functionalities of Bayesian 
+inferences as discussed below. 
+Performance of operationally stable p-bit 
+in Bayesian inference 
+We then demonstrate via simulation that our 
+nanowire-based p-bit shows superior performance 
+in Bayesian inference, a prototype task in probabilis- 
+tic computing [24 ,45 ,46 ]. A Bayesian network is 
+essentially a directed graphical model and is capable 
+of performing tasks like Bayesian inference [21 ,24 ]. 
+Figure 3 a shows the diagram of a genetic circuit 
+with four generations. Without loss of generality, it 
+is simply assumed that the children (such as C1 and 
+C2 ) gets half their genes from their parents (such as 
+F1 and M1 ). Hence, the correlation gBaye between 
+C1 and C2 is 50% according to Bayesian theory (See 
+note in Supplementary information). Similarly, we 
+can calculate the correlation between more distant 
+family members, such as Aunt M1 and her niece C3 , 
+resulting in 25% correlation. 
+We constructed a p-circuit where each node is 
+represented by a hardware p-bit, interconnected to 
+model genetic influences. The correlation between 
+two nodes, C1 and C2 , both of which are bipolar 
+variables with allowed values of −1 and + 1, can be 
+estimated statistically by: 
+gstas = 1 
+N 
+N 
+ 
+i =1 
+( C1 ) i ( C2 ) i , 
+(1) 
+where N represents the sample size in a single statis- 
+tical measurement. During simulation, we make M
+independent statistical measurements in total, with 
+each measurement comprising N = 10 000 samples 
+of C1 and C2 . The relative error δ is obtained by com- 
+paring the statistical results for all M measurements 
+and the one predicted by Bayesian theory, which is 
+depicted in Fig. 3 and defined as: 
+δ =
+ 1 
+M 
+ M 
+i =1 ( gstas ) i 
+
+−gBaye 
+gBaye 
+× 100% . 
+(2) 
+Figure 3 c and d show the δ for the number of 
+measurements M = 1 to 50 . It is apparent that when 
+R = 0 and 0.0 0 07, the fluctuations in δ are minimal, 
+indicating that our p-bits can accurately estimate the 
+theoretical values with the same number of measure- 
+ments. However, when R increases to 0.05 and 0.1, 
+the fluctuations in δ significantly increase, leading 
+to larger discrepancies between statistical results 
+and theoretical values. All the data in Fig. 3 c and d 
+converge with increasing number of measurements, 
+resulting from the zero mean of random noise ξ(t) 
+as assumed in Eq. ( 2 ). 
+In Fig. 3 b, we further calculated the effective 
+relative error, defined as δeff =
+  50 
+M=1 δ2 
+M 
+50 
+for all 
+data demonstrated in Fig. 3 c and d. It is further 
+evident that with increasing depth of the network, 
+i.e. decreasing correlation between nodes, opera- 
+tionally instable p-bits could induce larger relative 
+errors, indicating that the error can be amplified 
+as the information propagates forward through 
+a network with directed graph structure. Recent 
+works show that the bidirectional information flow 
+in undirected graph models (such as Restricted 
+Page 5 of 9
+Downloaded from https://academic.oup.com/nsr/article/12/3/nwae338/7769656 by guest on 25 July 2025
+
+Natl Sci Rev, 2025, Vol. 12, nwae338
+Figure 3. Performance of a p-circuit with operational instability. (a) Schematics of a genetic diagram. (b) Performance of a 
+p-circuit (effective relative error δeff between numerical statistics and Bayesian theory on correlation) vs depth of genetic 
+circuits and broadening factor R. (c) and (d) Convergence of relative error δ for M1-C2 (c) and C3-GC1 (d) correlations with 
+the number of independent measurements M sampled by p-bits with different R . 
+Boltzmann machines) may be immune from p-bits 
+with broadening [23 ,47 ]. However, it is sti l l an open 
+question on how a p-bit with operational instability 
+plays a role in an undirected graph model. 
+The example of Fig. 3 demonstrates a simplest 
+family diagram so that each node is affected by only 
+two parent nodes. A more realistic task such as 
+medical diagnosis usually requires multiple parent 
+nodes, which requires a p-bit to work under multiple 
+working conditions [48 ]. We show in the Supple- 
+mentary information that the relative error δ wi l l 
+be further amplified if one increases the number 
+of parent nodes ( Figs S9 and S10). These results 
+further elaborate the importance of the high stability 
+of our experimental p-bit. 
+High-quality true random number 
+generator 
+When a p-bit is operated at probability of 0.5, it 
+serves as a random number generator (RNG). 
+While pseudo-RNG can be obtained via digital cir- 
+cuits, physical systems can acquire true-RNG since 
+the randomness originated from intrinsic physical 
+fluctuation is imperative for applications such as 
+data encryption [49 ,50 ]. A standard practice for 
+evaluating the quality of a true RNG is carried out 
+via a statistical test suite (NIST STS, sp 800-2 2) 
+[51 ]. Here we show that our p-bit can generate high- 
+quality true random number without extra logic 
+operations. Data with pvalue of 0.5 in our manganite 
+nanowire are used where we convert the resistance 
+(voltage) values into bitstream of '0's and '1's without 
+any further processing, and then feed to the NIST 
+suite software. We examined 12 tests (which further 
+subcategorized into 161 tests) in the suite and results 
+are shown in Table 1 . All the p -values are larger than 
+0.01 that passed the tests. Such behavior surpasses 
+the quality of random number in most physical sys- 
+tems where extra data processing (such as XOR logic 
+operations) are required [15 ,17 ,52 ,53 ]. The high 
+quality of the random number in our system can 
+be directly attributed to the natural stability on the 
+dynamical domain fluctuation which is potentially 
+suitable for cryptographic applications. Here, a 2 Hz 
+sampling rate is used. Further exploration on how to 
+increase the true randomness at smaller time scales 
+wi l l be an interesting topic [15 ]. 
+Page 6 of 9
+Downloaded from https://academic.oup.com/nsr/article/12/3/nwae338/7769656 by guest on 25 July 2025
+
+Natl Sci Rev, 2025, Vol. 12, nwae338
+Table 1. The results of the p -values from NIST STS tests. 
+Test 
+p -value 
+Result 
+Frequency 
+0.350 485 
+PASS 
+Block frequency 
+0.911 413 
+PASS 
+Cumulative sums 
+0.534146/0.213 309 
+PASS
+Runs 
+0.911 413 
+PASS
+Longest run 
+0.911 413 
+PASS
+Rank 
+0.350 485 
+PASS
+FFT 
+0.739 918 
+PASS
+Non-overlapping template 
+> 0.017 912 
+PASS
+Overlapping template 
+0.534 146 
+PASS
+Serial 
+0.350485/0.350 485 
+PASS
+Linear complexity 
+0.739 918 
+PASS
+Approximate entropy 
+0.122 325 
+PASS
+The raw data passed 12 tests without XOR operation. Test passed if 
+p > 0 . 01 . 
+DISCUSSION 
+Finally, we discussed several aspects on how to 
+implement our operationally stable p-bit for scalable 
+probabilistic computing. Our nanowire shows a 
+simple single layer geometry with a size of 200 nm 
+× 2 um which is suitable for building arrays of 
+p-bits. Yet, its low working temperature presents a 
+limitation for scalable dev ices w ith external elec- 
+tronic designs and circuits [2 ]. A possible solution 
+and guideline is to raise the transition temperature 
+using strain and doping effects. For example, in 
+the manganites fami ly, La0.8 Ca0.2 MnO3 thin film 
+exhibits strain-induced insulator-to-metal transition 
+governed by sub-100 nm electronic domains at room 
+temperature [54 ], La0.67 Sr0.33 MnO3 thin films show 
+tunable insulator-to-metal transition temperature 
+between 330 K and 400 K on certain substrates 
+[55 ]. When nanofabricated, these systems can be 
+promising candidates to explore room-temperature 
+p-bits for scalable electronics. Another issue is the 
+device-to-device variations which induces inevitable 
+variability on the activation functions for different 
+p-bits [1 ], even if each p-bit is operationally stable. 
+Such effect may impair the performance of the 
+computing tasks [23 ,47 ]. A solution is to use extra 
+circuits to compensate such variation [56 ]. In our 
+case, the probability can be fully controlled by nano- 
+ampere currents which may allow a power-saving 
+solution on this matter. 
+In conclusion, we adopted a novel nanomaterial 
+system to generate a fully tunable probabilistic bit 
+by controlling the electronic domain transition 
+dynamics. The p-bit shows high stability during 
+prolonged switching and operations which play a 
+critical role in the task of Bayesian inference. Also, 
+our nanowire naturally serves as a high-quality 
+random number generator without the assistance 
+of additional logic operations, favorable for future 
+cryptographic applications. Our results can also 
+inspire future investigations on the importance of 
+p-bit's operational quality on task performances. 
+MATERIALS AND METHODS 
+Thin film and nanowire fabrication 
+Forty nanometre thick (La2/3 Pr1/3 )5/8 Ca3/8 MnO3 
+thin films were grown on SrTiO3 substrates by 
+pulsed laser deposition (248 nm, 1 J/cm2 fluence) 
+at 807°C in 5 × 10 −3 Torr. The basic characteriza- 
+tion results are shown in Fig. S1. E-beam lithography 
+and argon ion beam etching were applied to fabri- 
+cate LPCMO nanowires with 200 nm line width. 
+A pair of electrodes (Pd/Au) was patterned using 
+E-beam lithography and evaporation with a 2 μm 
+gap ( Fig. S2). 
+Electrical measurements 
+DC electrical currents were supplied by a Keithley 
+2450 source-meter. The time-resolved data was 
+collected using National Instrument DAQ USB- 
+6218 with a sampling rate of 4.5 kHz. Measurement 
+is taken by a Quantum Design PPMS system. In 
+random number tests, the sampling rate was 2 Hz 
+and 200 000 data points are used. We note that 
+the remaining three tests required over 1 mi l lion 
+data points which were not collected in the current 
+experiments. 
+Procedure for accuracy test 
+For the results in Fig. 2 a, nine input current levels 
+were selected (52.5, 55, 57, 59, 61, 63, 65.5, 68.5, 
+73 nA) which roughly correspond to the probability 
+from 0.1 to 0.9. The measurement procedure is listed 
+as follows: (1) randomly choose an input current; 
+(2) measure the resistance vs time data for 60 sec to 
+calculate a p -value; (3) randomly switch to another 
+input current and perform the same measurement 
+in (2) to obtain another p -value; (4) repeat the 
+process of (2) and (3) for 900 times so that each 
+input current is counted for 100 times. The resultant 
+p -value distribution is plotted in Fig. 2 a. 
+Numerical simulation 
+We developed a numerical model to quantitively 
+describe the probabilistic dynamics of a p-bit that 
+exhibits operational instability: 
+m (t) = sgn [rand (−1 , 1) + tanh [ βI(t)] + ξ(t)] 
+(3) 
+with bipolar output m (t) ∈ {−1 , 1 } at a time step 
+t. Here, m (βI ) = tanh (βI ) ; and the probability 
+for m (t) to be at state 0 or 1 takes the form of 
+P (m (t) = 1 | βI) = sigmoid (βI) , effective inverse 
+Page 7 of 9
+Downloaded from https://academic.oup.com/nsr/article/12/3/nwae338/7769656 by guest on 25 July 2025
+
+Natl Sci Rev, 2025, Vol. 12, nwae338
+temperature β and dimensionless control parameter 
+I(t) , e.g. electric current flowing through the p-bit. 
+The operational variation of the p-bit is described 
+by a random noise ξ(t) expressed as: 
+β(t) ∼N
+
+0 ,
+R 
+Z| I(t) | 
+
+, 
+I(t) ̸ = I(t −1) 
+(4) 
+that induces a random noise if the operational con- 
+dition is changed, following the normal distribution 
+with a mean of zero and variance determined by 
+broadening factors R and Z, wherein the denom- 
+inator Z modulates the dependence of variance 
+on the input current I, and the numerator R reg- 
+ulates the overall variance magnitude. Distinct 
+from thermal noise, here the operational variance 
+ξ(t) = ξ(t −1 ) is assumed to be unchanged when 
+the operation condition keeps the same between two 
+steps, i.e. I(t) = I(t −1 ) . We performed 20 0 0 sta- 
+tistical simulations using Eqs ( 3 ) and ( 4 ) with each 
+simulation comprising 10 0 0 0 sample points of m . 
+For the simulation of Bayesian inference, N = 10 0 0 0 
+samples were taken for each measurement where C1 
+and C2 were sampled simultaneously at each time 
+step and gstas is calculated according to Eq. ( 1 ). 
+SUPPLEMENTARY DATA 
+Supplementary data are available at NSR online. 
+ACKNOWLEDGEMENTS 
+All authors are grateful for the fruitful discussions with Prof. Jiang 
+Xiao, Prof. Zhongming Zeng and Prof. Zhe Yuan. Part of the exper- 
+imental work was carried out in the Fudan Nanofabrication Lab- 
+oratory. 
+FUNDING 
+This work was supported by the National Key Research Pro- 
+gram of China (2022YFA1403300 and 2020YFA0309100), the 
+Innovation Program for Quantum Science and Technology 
+(2024ZD0300103), the National Natural Science Foundation of 
+China (12074071, 12074073 and 12204107), Shanghai Munic- 
+ipal Science and Technology Major Project (2019SHZDZX01), 
+Shanghai Municipal Natural Science Foundation (22ZR1408100 
+and 23ZR1407200) and Shanghai Science and Technology Com- 
+mittee (21JC1406200). 
+AUTHOR CONTRIBUTIONS 
+W.Y., H.G. and J.S. conceived and supervised the project. W.G. and 
+B.Y. prepared the samples. Y.W. and C.N. performed experimental 
+measurements. B.C. performed the simulation and theoretical cal- 
+culations. Y.W., B.C., W.Y., H.G. and J.S. wrote the manuscript with 
+inputs and discussions from all authors. 
+Conflict of interest statement. None declared. 
+REFERENCES 
+1. Borders WA, Pervaiz AZ, Fukami S et al. Integer factorization 
+using stochastic magnetic tunnel junctions. Nature 2019; 573 : 
+390-3. 
+2. Singh NS, Kobayashi K, Cao Q et al. CMOS plus stochas- 
+tic nanomagnets enabling heterogeneous computers for prob- 
+abilistic inference and learning. Nat Commun 2024; 15 : 
+2685. 
+3. Rhee H, Kim G, Song H et al. Probabilistic computing with NbOx 
+metal-insulator transition-based self-oscillatory pbit. Nat Com-
+mun 2023; 14 : 7199. 
+4. Woo KS, Kim J, Han J et al. Probabilistic computing using 
+Cu0.1 Te0.9 /HfO2 /Pt diffusive memristors. Nat Commun 2022; 13 : 
+5762. 
+5. Camsari KY, Faria R, Sutton BM et al. Stochastic p-bits for in- 
+vertible logic. Phys Rev X 2017; 7 : 031014. 
+6. Kaiser J and Datta S. Probabilistic computing with p-bits. Appl
+Phys Lett 2021; 119 : 150503. 
+7. Si J, Yang S, Cen Y et al. Energy-efficient superparamagnetic 
+Ising machine and its application to traveling salesman prob- 
+lems. Nat Commun 2024; 15 : 3457. 
+8. Misra S, Bland LC, Cardwell SG et al. Probabilistic neu- 
+ral computing with stochastic devices. Adv Mater 2023; 35 : 
+2204569. 
+9. Li X, Wan C, Zhang R et al. Restricted Boltzmann machines im- 
+plemented by spin-orbit torque magnetic tunnel junctions. Nano
+Lett 2024; 24 : 5420-8. 
+10. Zhang Y, Zheng Q, Zhu X et al. Spintronic devices for neu- 
+romorphic computing. Sci China Phys Mech Astron 2020; 63 : 
+277531. 
+11. Lin Y, Wang F, Liu B. Random number generators for large-scale 
+parallel Monte Carlo simulations on FPGA. J Comput Phys 2018; 
+360 : 93-103. 
+12. Valle jd, Salev P, Gariglio S et al. Generation of tunable stochas- 
+tic sequences using the insulator-metal transition. Nano Lett 
+2022; 22 : 1251-6. 
+13. Wang K, Zhang YO, Bheemarasetty V et al. Single skyrmion true 
+random number generator using local dynamics and interaction 
+between skyrmions. Nat Commun 2022; 13 : 722. 
+14. Park TJ, Selcuk K, Zhang H-T et al. Efficient probabilistic com- 
+puting with stochastic perovskite nickelates. Nano Lett 2022; 
+22 : 8654-61. 
+15. Vodenicarevic D, Locatelli N, Mizrahi A et al. Low-energy 
+truly random number generation with superparamagnetic tun- 
+nel junctions for unconventional computing. Phys Rev Applied
+2017; 8 : 054045. 
+16. Hayakawa K, Kanai S, Funatsu T et al. Nanosecond random tele- 
+graph noise in in-plane magnetic tunnel junctions. Phys Rev Lett
+2021; 126 : 117202. 
+17. Parks B, Bapna M, Igbokwe J et al. Superparamagnetic perpen- 
+dicular magnetic tunnel junctions for true random number gen- 
+erators. AIP Advances 2018; 8 : 055903. 
+18. Gibeault S, Adeyeye TN, Pocher LA et al. Programmable elec- 
+trical coupling between stochastic magnetic tunnel junctions. 
+Phys Rev Applied 2024; 21 : 034064. 
+Page 8 of 9
+Downloaded from https://academic.oup.com/nsr/article/12/3/nwae338/7769656 by guest on 25 July 2025
+
+Natl Sci Rev, 2025, Vol. 12, nwae338
+19. Daniels MW, Madhavan A, Talatchian P et al. Energy-efficient stochastic com- 
+puting with superparamagnetic tunnel junctions. Phys Rev Applied 2020; 13 : 
+034016. 
+20. Schnitzspan L, Klaeui M, Jakob G. Nanosecond true-random-number gen- 
+eration with superparamagnetic tunnel junctions: identification of joule 
+heating and spin-transfer-torque effects. Phys Rev Applied 2023; 20 : 
+024002. 
+21. Camsari KY, Sutton BM, Datta S. P-bits for probabilistic spin logic. Appl Phys
+Rev 2019; 6 : 011305. 
+22. Cai JL, Fang B, Zhang LK et al. Voltage-controlled spintronic stochastic neuron 
+based on a magnetic tunnel junction. Phys Rev Applied 2019; 11 : 034015. 
+23. Zeng M, Li Z, Saw JW et al. Effect of stochastic activation function on recon- 
+struction performance of restricted Boltzmann machines with stochastic mag- 
+netic tunnel junctions. Appl Phys Lett 2024; 124 : 032404. 
+24. Faria R, Camsari KY, Datta S. Implementing Bayesian networks with embedded 
+stochastic MRAM. AIP Adv 2018; 8 : 045101. 
+25. Debashis P, Ostwal V, Faria R et al. Hardware implementation of Bayesian 
+network building blocks with stochastic spintronic devices. Sci Rep 2020; 10 : 
+16002. 
+26. Shao Y, Duffee C, Raimondo E et al. Probabilistic computing with voltage- 
+controlled dynamics in magnetic tunnel junctions. Nanotechnology 2023; 34 : 
+495203. 
+27. Zhang L, Israel C, Biswas A et al. Direct observation of percolation in a man- 
+ganite thin film. Science 2002; 298 : 805-7. 
+28. Zhai H-Y, Ma J, Gillaspie DT et al. Giant discrete steps in metal-insulator tran- 
+sition in perovskite manganite wires. Phys Rev Lett 2006; 97 : 167201. 
+29. Uehara M, Mori S, Chen C et al. Percolative phase separation underlies 
+colossal magnetoresistance in mixed-valent manganites. Nature 1999; 399 : 
+560-3. 
+30. Ward TZ, Zhang X, Yin L et al. Time-resolved electronic phase transitions in 
+manganites. Phys Rev Lett 2009; 102 : 087201. 
+31. Ward TZ, Gai Z, Guo HW et al. Dynamics of a first-order electronic phase tran- 
+sition in manganites. Phys Rev B 2011; 83 : 125125. 
+32. Dong S, Zhu H, Wu X et al. Microscopic simulation of the percolation of man- 
+ganites. Appl Phys Lett 2005; 86 : 022501. 
+33. Tokunaga M, Song H, Tokunaga Y et al. Current oscillation and low-field colos- 
+sal magnetoresistance effect in phase-separated manganites. Phys Rev Lett
+2005; 94 : 157203. 
+34. Guo H, Noh JH, Dong S et al. Electrophoretic-like gating used to control metal-
+insulator transitions in electronically phase separated manganite wires. Nano
+Lett 2013; 13 : 3749-54. 
+35. Jeen H and Biswas A. Electric field driven dynamic percolation in electroni- 
+cally phase separated (La0.4 Pr0.6)0.67 Ca0.33 MnO3 thin films. Phys Rev B 2013; 
+88 : 024415. 
+36. Garbarino G, Acha C, Levy P et al. Evidence of a consolute critical point in the 
+phase separation regime of La5/8- y Pry Ca3/8 MnO3 ( y ∼0.4) single crystals. Phys
+Rev B 2006; 74 : 100401. 
+37. Dong S, Zhu C, Wang Y et al. Electric field induced collapse of the charge- 
+ordered phase in manganites. J Phys: Condens Matter 2007; 19 : 266202. 
+38. del Valle J, Salev P, Tesler F et al. Subthreshold firing in Mott nanodevices. 
+Nature 2019; 569 : 388-92. 
+39. Maher O, Jimenez M, Delacour C et al. A CMOS-compatible oscillation-based 
+VO2 Ising machine solver. Nat Commun 2024; 15 : 3334. 
+40. Sawa A. Resistive switching in transition metal oxides. Mater Today 2008; 11 : 
+28-36. 
+41. Zink BR, Lv Y, Wang J-P. Review of magnetic tunnel junctions for stochas- 
+tic computing. IEEE J Explor Solid-State Comput Devices Circuits 2022; 8 : 
+173-84. 
+42. Funatsu T, Kanai S, Ieda J et al. Local bifurcation with spin-transfer torque in 
+superparamagnetic tunnel junctions. Nat Commun 2022; 13 : 4079. 
+43. Schnitzspan L, Klaeui M, Jakob G. Electrical coupling of superparamagnetic 
+tunnel junctions mediated by spin-transfer-torques. Appl Phys Lett 2023; 123 : 
+232403. 
+44. Chowdhury S, Grimaldi A, Aadit NA et al. A full-stack view of probabilistic com- 
+puting with p-bits: devices, architectures and algorithms. IEEE J Explor Solid-
+State Comput Devices Circuits 2023; 9 : 1-11. 
+45. Shim Y, Chen S, Sengupta A et al. Stochastic spin-orbit torque devices as ele- 
+ments for Bayesian inference. Sci Rep 2017; 7 : 14101. 
+46. Sebastian A, Pendurthi R, Kozhakhmetov A et al. Two-dimensional materials- 
+based probabilistic synapses and reconfigurable neurons for measuring in- 
+ference uncertainty using Bayesian neural networks. Nat Commun 2022; 13 : 
+6139. 
+47. Morshed MG, Ganguly S, Ghosh AW. A deep dive into the computational fi- 
+delity of high variability low energy barrier magnet technology for accelerating 
+optimization and Bayesian problems. IEEE Magn Lett 2023; 14 : 1. 
+48. Harabi K-E, Hirtzlin T, Turck C et al. A memristor-based Bayesian machine. Nat 
+Electron 2023; 6 : 52-63. 
+49. Bikos A, Nastou PE, Petroudis G et al. Random number generators: principles 
+and applications. Cryptography 2023; 7 : 54. 
+50. Fukushima A, Seki T, Yakushiji K et al. Spin dice: a scalable truly random number 
+generator based on spintronics. Appl Phys Express 2014; 7 : 083001. 
+51. Bassham LE, Rukhin AL, Soto J et al. A statistical test suite for random and 
+pseudorandom number generators for cryptographic applications. NIST SP 
+2010: 800-22 Rev 1a. 
+52. Ostwal V and Appenzeller J. Spin-orbit torque-controlled magnetic tunnel junc- 
+tion with low thermal stability for tunable random number generation. IEEE
+Magn Lett 2019; 10 : 4503305. 
+53. Song M, Duan W, Zhang S et al. Power and area efficient stochastic artificial 
+neural networks using spin-orbit torque-based true random number generator. 
+Appl Phys Lett 2021; 118 : 052401. 
+54. Kou Y, Miao T, Wang H et al. A strain-induced new phase diagram and 
+unusually high Curie temperature in manganites. J Mater Chem C 2017; 5 : 
+7813-9. 
+55. Chromik Š, Štrbík V, Dobroˇcka E et al. LSMO thin films with high metal-
+insulator transition temperature on buffered SOI substrates for uncooled mi- 
+crobolometers. Appl Surf Sci 2014; 312 : 30-3. 
+56. Kaiser J, Borders WA, Camsari KY et al. Hardware-aware in situ learning based 
+on stochastic magnetic tunnel junctions. Phys Rev Applied 2022; 17 : 014016. 
+© The Author(s) 2024. Published by Oxford University Press on behalf of China Science Publishing & Media Ltd. This is an Open Access article distributed under the terms of the Creative 
+Commons Attribution License ( https://creativecommons.org/licenses/by/4.0/), which permits unrestricted reuse, distribution, and reproduction in any medium, provided the original 
+work is properly cited. 
+Page 9 of 9
+Downloaded from https://academic.oup.com/nsr/article/12/3/nwae338/7769656 by guest on 25 July 2025
+

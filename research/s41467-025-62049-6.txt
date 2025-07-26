@@ -1,0 +1,1234 @@
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Sustainable Bi-directional thermoregulation
+fabric for clothing microclimate
+Yanyan Lin1,2, Chengran Qu1, Xueqin Li1, Chengfeng Ding1, Xianfeng Wang1,2
+,
+Jianyong Yu
+2 & Bin Ding
+2
+Maintaining the balance of clothing microclimate is critical for human health
+management. An ideal smart textile should possess key characteristics such as
+active thermoregulation, moisture permeability, and stable working perfor-
+mance. However, such a fabric that encompasses all these capabilities is rarely
+reported. Herein, we report a sustainable and durable bi-directional thermo-
+regulation fabric (Bi-DTF) by hierarchical structural engineering strategy. This
+advancement stems from the programmability of the molecular chains, aiming
+to reduce chain aggregation, improve functional particle compatibility, and
+build dynamic stress-dissipative networks, thus fully enhancing the robustness
+of composite ﬁbrous membranes. The optimized Bi-DTF substantially elim-
+inates the heat/cold irritation caused by environmental switching, featuring
+high energy storage density (4.1 kJ m−2) and stable work performance even
+after 50 standard washing cycles and 500 rubbing cycles. Compared with
+commercial textiles, Bi-DTF offers a maximum thermal temperature difference
+of only 2.3 °C and a cooling temperature difference of 2.6 °C when going
+through the heating and cooling cycles. Due to its exceptional personal ther-
+moregulation performance and long-term stability, this proposed strategy
+exhibits considerable potential for the application of healthcare, outdoor
+sports, and protective clothing.
+Clothing, as an indispensable barrier between the skin and the envir-
+onment, is critical in regulating the wearing comfort of the human
+body in daily life1. By exchanging heat and moisture with the outside
+environment through the medium of textiles, the body-textile micro-
+climate is formed between the clothing and the human skin2,3. A body-
+textile microclimate with appropriate temperature and humidity
+(32 ± 1 °C, 50 ± 10% RH) provides both physical and psychological
+comfort for the individual, however, its equilibrium is often disrupted
+due to weather or human behaviors4,5. For example, when going from a
+comfortable environment to a hot or cool environment, the human
+body is unable to quickly adapt to the transition, resulting in unplea-
+sant heat/cold irritation and possibly even medical emergencies6. With
+the ongoing development of the national health system, people are
+gradually shifting from a negative lifestyle based on overdraft and
+medical treatment to a healthy lifestyle centered on healthcare and
+prevention. Therefore, wearable thermoregulatory clothing that can
+keep the body-textile microclimate in a comfortable range has been a
+long-sought but challenging aim for smart textiles7,8.
+Active responsive textiles allow for the warming or cooling of the
+human body depending on the surroundings9,10. By sensing the stimuli
+(e.g., temperature, humidity, light, electricity, and mechanical),
+clothing is able to adjust the exchange efﬁciency with the external
+environments or realize energy absorption/release11-14. Recently, phase
+change materials used to regulate temperature ﬂuctuations without
+additional
+energy
+have
+attracted
+widespread
+interest
+from
+researchers15-17. Fiber-based phase change textiles are mainly prepared
+by
+post-ﬁnishing,
+capsulation
+embedding,
+or
+skin-core
+ﬁber
+structure18. Liu et al. proposed to impregnate parafﬁn into nonwoven,
+Received: 11 May 2024
+Accepted: 4 July 2025
+Check for updates
+1State Key Laboratory of Advanced Fiber Materials, College of Textiles, Donghua University, Shanghai 201620, China. 2Innovation Center for Textile Science
+and Technology, Donghua University, Shanghai 200051, China.
+e-mail: wxf@dhu.edu.cn; binding@dhu.edu.cn
+Nature Communications|        (2025) 16:6735 
+1
+1234567890():,;
+1234567890():,;
+
+but this suffered from leakage defect19. In recent years, electrospinning
+technology has been widely used to prepare phase change textiles for
+personal
+thermal
+management
+due
+to
+its
+high
+structural
+designability20. Li et al prepared multifunctional ﬁlms with sufﬁcient
+enthalpy and the phase change capsules were strung on the ﬁbers with
+a "candied haws stick" structure21. However, electrospinning ﬁbrous
+membranes have been plagued by low strength and poor durability for
+a long time. This makes it difﬁcult for the prepared ﬁbrous membranes
+to meet the requirements of daily use. Polyurethane (PU) elastomers
+have attracted much attention due to their excellent mechanical
+properties and applicability22. Structural design strategies based on
+various intermolecular interactions (e.g., hydrogen bonding, π-π
+stacking, and ionic cross-linking) have been widely explored, indicat-
+ing the feasibility of electrospinning ﬁbrous membranes with high
+strength and elasticity23. It is worth noting that the strong entangle-
+ment of polymer networks makes it difﬁcult to develop electrospun
+ﬁbrous membranes with ordered molecular chains and satisfactory
+mechanical properties24. In addition, it remains another challenge to
+improve the particle loading and homogeneity of membranes to
+ensure their reliability in functional applications.
+Herein, we conceive a hierarchical structural engineering strategy
+by combining the hydrogen-bonding interaction network and physical
+bonding sites to fabricate the toughness composite ﬁbrous membrane
+with efﬁcient resistance to external forces. The PU polymer with high
+hydrogen-bonding content was constructed and through molecular
+dynamics (MD) simulations, we found that aggregation of molecular
+chains can be reduced by adding ethanol (EtOH), which leads to easier
+molecular movement and orientation. In particular, we combine this
+strategy with the electrospinning technique to shape functional
+nanoparticles into PU matrix. The nanoparticles were distributed in the
+interconnected ﬁbers and showed their high binding stability. More-
+over, the bi-directional thermoregulation fabric (Bi-DTF) was assem-
+bled, which could eliminate the irritation from environmental
+switching, extending the body's comfort. The as-prepared Bi-DTF
+exhibits high strength (12.7 MPa) with superior elastic recovery, con-
+tinuous workability, as well as excellent durability (500 rubbing or 50
+washing cycles).
+Results
+Design and processing of Bi-DTF
+We designed the Bi-DTF according to three crucial considerations: (i)
+the ﬁber substrate must be strong enough; (ii) the functional particles
+must be well-assembled into the ﬁbers; and (iii) the work performance
+must be stable during the long-term service life. The ﬁrst requirement
+was enabled by employing hydrogen-bonded assisted engineering in
+PU polymers. As depicted in Fig. 1a, the multiple hydrogen-bonding
+interactions facilitate effective energy dissipation under external forces.
+The fabrication of the PU ﬁbrous membrane began with the preparation
+of a precursor solution containing polymer and solvents. Notably, the
+N, N-dimethylformamide (DMF) was a benign solvent, while the addi-
+tion of EtOH effectively minimized the intermolecular chain entangle-
+ment. The MD simulations were conducted to demonstrate the states of
+PU, PU/DMF, and PU/DMF/EtOH systems. As revealed in Fig. 1b, c and
+Supplementary Fig. 1, the chain in the PU/DMF/EtOH system exhibited a
+more loose stacking state due to the larger free volume25. Besides, the
+contribution of van der Waals and electrostatic forces to the overall
+cohesion energy in different systems was further compared (Fig. 1d).
+The results proved that the contribution of van der Waals force in the
+PU system was as high as 86.8%, which is the main cause for the
+entanglement of polymer chains26. After the addition of DMF, the
+contribution of van der Waals force decreased, and that of electrostatic
+force increased, which indicates that the original equilibrium of PU
+gradually disintegrated. Obviously, EtOH further facilitated this phe-
+nomenon, making it easier for the molecular chains of the PU to be
+reordered and arranged by external forces.
+Subsequently, the functional nanoparticles were incorporated
+into the PU solution, the softened PU molecular chains were more
+conducive to the dispersion of particles (Fig. 1e). Under the stretching
+effect of the high-voltage electrostatic ﬁeld, the PU molecular chains
+were oriented along the ﬁber axis and encapsulated the nanoparticles.
+Through the adjustment of the curing rate, the dual cross-linked
+composite PU ﬁbers with high nanoparticle loading were successfully
+prepared. Typically, phase change nanocapsules (PCN) and boron
+nitride nanosheets (BN) were added to the PU to develop phase change
+membrane (PC-M, Fig. 1f) and thermal conductive membrane (TC-M,
+Fig. 1g), respectively. As seen from the inset images, the nanoparticles
+were uniformly distributed in the ﬁbers, which helps to prevent the
+shedding of functional components. Through dual-crosslinked struc-
+tural design, the Janus ﬁbrous membrane named Bi-DTF was fabri-
+cated, and the thickness of fabric was controlled at PC-M: TC-M = 2:1
+(Fig. 1h and Supplementary Fig. 2). As shown in Fig. 1i, the Bi-DTF
+(~0.18 g) could successfully lift a 2 kg weight, equivalent to ~1100 times
+its mass, demonstrating its superior robustness. The Bi-DTF could
+attenuate stimuli caused by sudden ﬂuctuations in ambient tempera-
+ture through its well-integrated thermal characteristics, thereby
+establishing a relatively stable and comfortable body-textile micro-
+environment for individuals (Supplementary Fig. 3). This property was
+substantiated through empirical experiments in which volunteers
+wore T-shirts embedded with various fabric samples (Supplementary
+Figs. 4, 5). Compared to commercial textiles, the Bi-DTF exhibited
+lower temperatures when experiencing hot environments (Fig. 1j), and
+higher temperatures in colder environments (Fig. 1k), attributed to its
+fast thermal response and efﬁcient energy storage/release mechan-
+isms. Especially in summer, conventional textiles may trigger thermal
+discomfort during temperature variations, however, Bi-DTF addresses
+this issue.
+Synthesis and thermal properties of ﬁbrous membranes
+Polyester polyols (HDPOL) were employed as soft segments, iso-
+phorone diisocyanate (IPDI) and N, N-bis(2-hydroxyethyl)oxamide
+(BHO) were used as hard segments, and chain extender to prepare PU
+elastomersby the solvent-free polymerization. The synthetic route and
+characterization of the PU are shown in Supplementary Figs. 6-9 and
+Table 1. The abundant carbamate and amide bonds could provide a
+large number of hydrogen bond donors and acceptors to incorporate
+high-density and strong interactions in the microdomains27. The
+hydrogen bonding of the PU was investigated by FTIR. As shown in
+Fig. 2a, the signal in the wavenumber range of 1600 −1800 cm−1 could
+be attributed to the C = O group28. Further analysis of this region
+through peak ﬁtting revealed that the as-prepared PU elastomer was
+deconvolved into four sub-peaks (Supplementary Table 2). These sub-
+peaks can be assigned as follows: the free carbonyl groups ≈1731 cm−1,
+the hydrogen-bonded disordered carbonyl groups ≈1663 cm−1, and the
+hydrogen-bonded ordered carbonyls groups from 1706 to 1629 cm−1,
+respectively. The bonded content in PU elastomers was determined to
+be as high as 78.1%. The packing state of the structure in PU was further
+performed. As depicted in Fig. 2b, the aggregation of the hard seg-
+ments of the polymer occurs due to hydrogen bonding cross-linking,
+leading to the formation of a phase-separated structure between the
+hard and soft domains. The calculated cohesive energy density (CED)
+of the system was 367.4 J cm−3, which was usually lower than 300 for
+elastomer29,30. In addition, the distribution of chain segments in the
+theoretical simulation showed that the hard segments in the PU system
+were more dispersed in the soft segments, which is conducive to the
+elimination of the stress concentration and the enhancement of the
+energy dissipation efﬁciency31. The microphase separation structure
+was further evidenced by small angle X-ray scattering (SAXs) (Fig. 2c).
+The average distance between hard phases was determined to be
+10.8 nm, indicating a smaller average distance between the hard
+domains and higher hydrogen bonding density. In contrast, excessive
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+2
+
+hard domain aggregation may impair the compatibility between soft
+and hard segments, resulting in stress concentration. Consequently,
+the precise modulation of phase-separated morphology, coupled with
+the establishment of dense hydrogen bonding networks within the PU,
+plays
+a
+pivotal
+role
+in
+optimizing
+the
+material's
+mechanical
+performance.
+The synthesis of composite functional ﬁbers with dual-crosslinked
+networks depends on the molecular chain movement, nanoparticle
+dispersion, and phase separation with the charged jets. Based on the
+aforementioned analysis, EtOH was introduced during the preparation
+of the precursor solution, and the formation mechanism of the com-
+posite structure is summarized in Fig. 2d. The purpose of the
+electrospinning is to generate a continuous jet from the metal needle
+tip. Initially, PU dominates the blend solution, nanoparticles are dis-
+persed in the polymer solution and conﬁned into PU ﬁbers. EtOH
+promotes the mobility of the polymer chains and reduces the aggre-
+gation of chains, resulting in a decrease in surface tension (Step I).
+Here, PU ﬁbers act as the conﬁning template for the particles. Com-
+pared to microspheres, the conﬁnement of nanoparticles into polymer
+ﬁbers to obtain one-dimensional colloidal chains is a relatively simple
+process due to their size feature32. It can be observed from step II that
+during the jet thinning process, the molding of the composite ﬁbers is
+controlled by the viscosity of the blend solutions. The PU works as a
+binder to produce an adhesive force between particles; and this force
+a
+d
+Hydrogen-bonding Interaction network
+f
+2 μm
+2 μm
+b
+c
+e
+h
+i
+j
+k
+50 μm
+PC-M
+TC-M
+g
+2 kg
+~0.18 g
+30 瀽C
+38 瀽C
+30 瀽C
+38 瀽C
+Coolmax
+Bi-DTF
+Cool-fabric Cotton
+30 瀽C
+38 瀽C
+27 瀽C
+35 瀽C
+Coolmax
+Bi-DTF
+Cool-fabric Cotton
+45 s
+PU
+PU/DMF
+PU/DMF/EtOH
+0
+20
+40
+60
+80
+100
+120
+)
+%
+(
+n
+oit
+u
+birt
+n
+o
+C
+ Van der Waals
+ Electrostatic 
+Bonding
+point
+Entangled chains
+Homogeneous distribution
+Nanoparticle
+Dual-crosslinked structure
+Electrospinning
+Phase
+separation
+45 s
+Fig. 1 | Structural architecture and principle of the Bi-DTF. a The hydrogen-
+bonding interaction network in PU. The MD simulations of (b) PU/DMF and (c) PU/
+DMF/EtOH systems. d Comparison of contribution about intermolecular forces to
+cohesion energy. e Schematic diagram of dual cross-linked composite ﬁbrous
+membrane. The SEM images of (f) PC-M and (g) TC-M. The insets picture the cross-
+sectional morphology of ﬁber, with scale bars of 1 μm. h The cross-sectional SEM
+image of Bi-DTF. i Digital photographs showing that the Bi-DTF can lift a weight of
+2 kg. Infrared images of a volunteer wearing the composite T-shirt experiencing the
+(j) hot and (k) cold environments, respectively.
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+3
+
+is proportional to the viscosity33. Thus, uniform colloidal ﬁbers are
+obtained when the adhesive force between the particles is stronger.
+The above hypothesis can be substantiated by evaluating the proper-
+ties of solutions. With the addition of EtOH in solvents, a sharp
+decrease in surface tension was noted, while the viscosity of the
+solution progressively increased (Fig. 2e).
+With the continuous drafting of the electrostatic force, the solvent
+diffuses with the non-solvent and exchanges at the interface between
+the spinning jets and the water vapor, the wrapped particles are
+packed and assembled into the ﬁbers, leading to the formation of the
+composite ﬁbers (Step III, Fig. 2d)34. We experimentally analyzed the
+phase separation behavior of the precursor solution. In the ternary
+phase diagram of PU/DMF/EtOH, the binodal curve is away from the
+PU-DMF axis, which suggests that a high proportion of EtOH still leaves
+the solution in a homogeneous liquid phase (Fig. 2f, Supplement
+Fig. 10a). In the ternary phase diagram of PU/DMF/H2O, the binodal
+1800
+1750
+1700
+1650
+1600
+e
+c
+n
+a
+b
+r
+o
+s
+b
+A
+ Original curve
+ Fitted curve
+Wavenumber (cm−1)
+b
+a
+c
+k
+i
+j
+Free
+H-bonded
+(Ordered)
+H-bonded
+(Disordered)
+H-bonded
+(Ordered)
+H-bonded
+78.1%
+0.58
+102
+101
+CED = 367.4 J cm−3
+Through-plane
+In-plane
+e
+d
+h
+f
+g
+Needle
+PU solution
+Nanoparticle
+Ⱥ
+Ȼ
+ȼ
+With EtOH
+No EtOH
+0.55
+0.60
+0.65
+0.00
+0.05
+0.10
+0.35
+0.40
+0.45
+PU
+DMF
+EtOH
+0.0
+0.1
+0.20.0
+0.1
+0.2
+0.8
+0.9
+1.0
+PU
+DMF
+H2O
+0.4
+0.8
+1.2
+1.6
+)
+stin
+u
+.
+b
+r
+a
+(
+)
+q
+(l
+q (nm−1)
+0
+10
+20
+30
+40
+50
+36
+38
+40
+42
+Mass fraction of EtOH (wt%)
+n
+ois
+n
+e
+t
+e
+c
+a
+fr
+u
+S
+(
+m
+N
+m
+−1)
+3.5
+4.0
+4.5
+5.0
+5.5
+6.0
+Viscosity (Pa s)
+10
+20
+30
+40
+-2
+0
+2
+ 60wt%
+ 70wt%
+w
+ol
+F
+t
+a
+e
+H
+(
+g
+W
+−1)
+Temperature (°C)
+20wt%
+40wt%
+50wt%
+0
+20
+40
+60
+80
+100
+p
+U
+o
+x
+E
+w
+ol
+F
+t
+a
+e
+H
+Cycles
+0
+20
+40
+60
+0.0
+0.1
+0.2
+0.3
+0.4
+Loading of BN (wt%)
+la
+m
+r
+e
+h
+T
+ytivitc
+u
+d
+n
+o
+c
+(
+m
+W
+−1 K−1)
+0.0
+0.4
+0.8
+1.2
+1.6
+2.0
+Thermal conductivity (W m−1 K−1)
+10 μm
+Fig. 2 | Construction and characterization of Bi-DTF. a FTIR spectra of the PU
+elastomer in the C = O stretching vibration region. b Snapshot of the all-atom MD
+simulation of PU structure. c 1D SAXS pattern of the PU elastomer. Inset: 2D SAXS
+pattern. d Schematic representation of the formation mechanism of composite
+ﬁbers under different steps. e Solution properties under different mass fractions of
+EtOH. Ternary phase diagrams of the (f) PU/DMF/EtOH and (g) PU/DMF/H2O sys-
+tems. h The SEM image of PU ﬁbrous membrane. i DSC curves of PC-M with various
+PCN loading. j Cyclability test of PC-M. k Thermal conductivity changes about TC-M
+with BN content varying. The error bars for (e and k) represent mean ± SD (n = 5
+independent samples).
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+4
+
+curve is closer to the PU-DMF axis, implying that as long as a small
+amount of water is needed, the phase separation of PU solution can be
+induced (Fig. 2g, Supplement Fig. 10b). Through the adjustment of the
+curing rate, the dual cross-linked PU ﬁbrous membrane with both
+physically bonded structure and hydrogen bonding network was suc-
+cessfully prepared, as shown in Fig. 2h, Supplementary Fig. 11 and
+Table 2. Furthermore, It can be found that it is difﬁcult to form uniform
+ﬁbers in the absence of EtOH (Supplementary Fig. 12). Therefore,
+tunable structures of PU/nanoparticles could be obtained by adjusting
+the weight ratio of EtOH, two components, and water.
+The morphological changes in the PC-M with different doping
+ratios are displayed in Supplementary Fig. 13, where PCN was regularly
+enriched in the ﬁbers with the increase of loading. The thermal energy
+storage property of PC-M was studied by differential scanning calori-
+meter (DSC). As shown in Fig. 2i, the absorption and exothermic peaks
+were narrow and concentrated, with increasing PCN content, the peak
+height gradually increased. Speciﬁcally, the crystallization and melting
+temperatures of PC-M with 60 wt% PCN loading are 24.8 and 31.7 °C,
+and the corresponding enthalpies are 66.3 and 64.2 J g−1, respectively,
+which is slightly lower than theoretical enthalpies, revealing the
+effective loading of PCN in nanoﬁbers (Supplementary Fig. 14 and
+Table 3). Furthermore, the heat absorption/exothermic abilities of the
+ﬁbers remained stable even after 100 heating and cooling cycles
+(Fig. 2j, Supplementary Fig. 15 and Table 4), which indicates the ther-
+mal stability of the prepared membranes. Conventional textiles lacked
+timely interaction with temperature variations of the surroundings due
+to their low thermal conductivity35. In order to raise the thermal sen-
+sitivity of the ﬁbrous membrane, The PU matrix is dopped with BN
+nanosheets, and the microstructures of TC-M with various loading are
+shown in Supplementary Fig. 16, where the interconnected BN builds
+up heat transfer pathways (Supplementary Fig. 17)36. The variation of
+thermal conductivities is shown in Fig. 2k and Supplementary Table 5,
+in which the through-plane and in-plane thermal conductivities of TC-
+M with BN loading of 50 wt% are 0.187 and 1.024 W m−1 K−1, respec-
+tively. The good thermal conductivity provides a substantial founda-
+tion for the subsequent sensing of external temperature changes.
+By comprehensively comparing and integrating the unique
+properties, the Bi-DTF with Janus structure was fabricated, as depicted
+in Supplementary Fig. 18-20 and Table 6-7. The Bi-DTF is light and thin
+(~90 g m−2), with through-plane thermal conductivity of 0.163 W m−1 K−1
+and melting enthalpy of 45.9 J g−1, while the energy storage density is
+up to 4.1 kJ m−2. Furthermore, the high-temperature thermal stability
+was experimentally veriﬁed. As shown in Supplementary Fig. 21, the
+octadecane (OD) melted and deformed rapidly at 80 °C, while the PCF
+maintained good shape stability due to its stable multiple encapsula-
+tion structure.
+Mechanical and durability properties of Bi-DTF
+Phase change fabrics developed in the previous studies showed poor
+mechanical properties due to size or dimensional incompatibility,
+making it difﬁcult to meet consumer demand for long-lasting service
+performance (Supplementary Tables 8 and 9). Remarkably, the
+mechanical property of Bi-DTF was signiﬁcantly improved by intro-
+ducing the hierarchical cross-linked architecture. As shown in Fig. 3a,
+the tensile strength of PU elastomer was measured to be 60.4 MPa and
+elongation of 2309.4% at break, which showed an advantage with a
+toughness of up to 648.1 MJ m−3 that surpasses most reported mate-
+rials (Supplementary Table 11). Moreover, cyclic stretching with
+increased strain and the recovery ability of elastomers was evaluated.
+The hysteresis loop gradually increased with strain improvement
+(Fig. 3b), which may be attributed to the gradient energy dissipation
+formed by the gradual breakage of the weak hydrogen bonds and
+strongly ordered hydrogen-bonded domains37. Besides, the cyclic
+tensile curve demonstrates that the mechanical properties of the
+material gradually recover and the broken hydrogen bonds are re-
+associated (Fig. 3c). This is due to the fact that the incorporation of
+BHO moieties provided abundant hydrogen-bonding sites, which
+acted as sacriﬁcial bonds to dissipate energy through breaking and
+recombination (Fig. 3d)38. Collectively, the PU elastomers exhibit
+excellent tensile and elastic recovery abilities rendering it as the
+polymeric substrate with exceptional comprehensive mechanical
+properties.
+Supplementary Fig. 22 presents the mechanical properties of
+electrospinning PU ﬁbrous membranes with a mechanical strength of
+32.5 MPa and elongation of 571.5% at break. With the increase of
+nanoparticles, the strength and elongation declined (Supplementary
+Fig. 23). Intriguingly, the Bi-DTF boasted a high breaking elongation of
+243.9% and a tensile strength of 12.7 MPa (Fig. 3e), with a toughness of
+18.3 MJ m−3. The cyclic loading-unloading tensile curves of Bi-DTF at
+50% strain are displayed in Fig. 3f. There was an obvious hysteresis in
+the ﬁrst-cycle curve due to the force-induced hydrogen bond breaking
+leading to substantial energy dissipation. The 11th cycle occurred after
+3 h, which is close to the cyclic loading-unloading curve of the ﬁrst lap,
+suggesting good elastic recovery of the Bi-DTF. Fig. 3g further
+demonstrates that the prepared samples exhibit ultra-high elastic
+recovery capacity, which can signiﬁcantly improve the fatigue resis-
+tance and reliability of the textiles during repeated deformation pro-
+cesses. To characterize the physical bonding properties of the Janus
+membrane, a peeling test was conducted with an overlap length of
+4 cm and a width of 2 cm. As illustrated in Fig. 3h, the peel strength was
+0.2 N cm−1, and the slip displacement was~ 8 cm, attributed to the good
+physical bonding between the ﬁbers. The fracture energy of the Bi-DTF
+composites exhibited a remarkably high value (~20 J m−2) in compar-
+ison to previously reported works39, which typically range from
+1 ~ 5 J m−2. The mechanical performance of Bi-DTF can be attributed to
+the following factors: i) the multiple hydrogen bonds in the PU matrix,
+which allow dynamic molecular chains to break and reorganize; ii) the
+good compatibility of the particles with the polymeric substrate
+reducing stress defects; and iii) the physical binding points between
+ﬁbers preventing inter-ﬁber slip. These factors signiﬁcantly improved
+the energy dissipation efﬁciency upon external force.
+Durability is the major issue impeding the practical applicability of
+the electrospinning membranes. Therefore, the abrasion resistance
+tests were performed on the Bi-DTF from different sides (Supple-
+mentary Fig. 24). It took 2000 standard friction cycles for the fracture
+of Bi-DTF (Supplementary Fig. 25). At 500 friction cycles, the mass
+retention of ﬁbrous membranes was still as high as 95% (Fig. 3i). Due to
+the layer-by-layer deposition characteristic of electrospinning and the
+unique hierarchical crosslinked structure, the weight loss process of
+the ﬁbrous membrane was manifested as the failure of physical points,
+ﬁber breakage, and layer-by-layer detachment of the ﬁbrous mem-
+brane, which can effectively prevent the shedding of nanoparticles
+(Supplementary Fig. 26)40. In addition, Bi-DTF showed excellent
+detergent resistance, maintaining stable work performance even after
+50 standard washes with less than 1% weight loss and plastic defor-
+mation (Fig. 3j, Supplementary Fig. 27 and Table 10). Additionally, the
+dyes were introduced to customize the textiles in different colors. The
+results showed that the ﬁlms exhibited good optical properties, with
+chromatic aberration DE*ab < 3 over 50 washing cycles (Fig. 3k and
+Supplementary Fig. 28).
+Evaluation of dynamic comfort performance
+Although phase change textiles contribute thermal regulation cap-
+ability, their low moisture permeability might result in a negative
+impact on the overall performance of the garment41. However, the
+previous studies tended to raise the enthalpies while disregarding
+the complicated heat-moisture interactions in the body-textile
+microclimate42. This contradiction failed to be adequately balanced
+for consideration in practical product design and it lacks substantial
+empirical backing. Therefore, in this study, Janus wettability was also
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+5
+
+considered in the design of ﬁbrous membranes. As seen in Supple-
+mentary Fig. 29, the water contact angle of PC-M was 139.3 ° due to
+the addition of PCN, while TC-M could spread and absorb liquid
+swiftly
+with
+the
+help
+of
+hydrophilic
+agents.
+Along
+with
+the interconnected channels between the ﬁbers in an endeavor to
+achieve the necessary moisture permeability and directional water
+transport capacities43.
+To visualize the performance of the fabrics, commercial fabrics
+(Cotton, Coolmax, and Cool-fabric) were selected for comparison.
+We tested the water vapor transporting rate (WVTR) of fabrics at 15
+and 35 °C, respectively (Fig. 4a). The results showed that the WVTR of
+fabrics at 15 °C was generally lower than that of fabrics stabilized at
+35 °C attributed to the slower migration of water vapor at low tem-
+peratures, beneﬁcial for the body insulation and moisturization. At
+Fig. 3 | Mechanical and durability properties. a Comparison of the toughness and
+elongation of the PU elastomer in this work with those of cross-linked elastic
+membranes reported in the literature. The inset shows the typical stress-strain
+curve of the PU elastomer. b Cyclic loading-unloading tensile curves of the PU
+elastomer at increasing strain. c Tensile tests in successive loading-unloading cycles
+and after 3 h at 600 % strain. d Schematic illustration of the working mechanism of
+the PU during the stretch and release process. e Typical stress-strain curves of the
+PC-M, TC-M, and Bi-DTF. f Cyclic loading-unloading tensile curves of the Bi-DTF.
+g Photographs of the original, stretched, and recovered membranes. Scale bar:
+1 cm. h The curves of peeling force as a function of displacement for composite
+sample. i Abrasion resistance and (j) washability of our textile. k Multicolor Bi-DTF
+collected on rollers. Scale bar: 5 cm. The error bars for i and j represent mean ± SD
+(n = 3 independent samples).
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+6
+
+35 °C, the moisture permeability of Bi-DTF was comparable to that of
+Coolmax, indicating that the porous structure of the ﬁbrous mem-
+brane was sufﬁcient to achieve the desired moisture permeability.
+We further compared the water evaporation rate of fabrics with
+varying initial water amounts under 35 °C (Fig. 4b). The values of
+other fabrics tended to be saturated when the initial water content
+reached 0.4 g, which is strongly related to the water diffusion
+behavior and adsorption/desorption rate (Supplementary Fig. 30)44.
+The Bi-DTF possessed a higher water evaporation rate than other
+fabrics, and it kept boosting with the increase of initial water amount.
+This enhanced water evaporation rate helps to speed up the sweat
+transmission rate in the body-textile microclimate and prolongs the
+cooling effect. We further investigated the relative water content
+changes about the two layers of the Bi-DTF by a moisture manage-
+ment tester. It showed a desired one-way water transport index
+(1338.6%) when water traveled from the PC-M to the TC-M and
+−1143.9% from the opposite direction (Fig. 4c and Supplementary
+Fig. 31). The differential wetting behavior between the two sides aids
+in the efﬁcient management of sweat and prevents it from accumu-
+lating on the skin side, delivering uncomfortable adhesion; it also
+Fig. 4 | Dynamic moisture and thermal management performance. a WVTR of
+different fabrics at the temperature of 15 and 35 °C. b Water evaporation rate of
+fabrics at 35 °C. The relative water content on the top and bottom surfaces when
+the water was dropped on the (c) PC-M. d Schematic illustration of the thermo-
+regulatory setup. e Cooling and (f) heating management properties of fabrics
+during high and low temperature environments. Cycling tests of fabrics from room
+temperature to (g) high temperature and (h) low temperature, respectively.
+i Maximum temperature difference of fabrics. j Comparison of self-adaptability of
+the Bi-DFT with related fabrics. The error bars for a and b represent mean ± SD
+(n = 4 independent samples).
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+7
+
+inhibits the penetration of external rainwater, which may cause a chill
+sensation.
+Previous researchers have mainly focused on the cooling and
+heating impacts of PCMs as monolayers during temperature variation,
+and given less consideration to the additive/detractive effect of
+moisture permeability on the overall wearable system45. The main
+factors determining the exchange process are human metabolic
+activity, the structural properties of the fabric, and the temperature/
+humidity of the macroenvironment46. By establishing the moisture/
+heat transfer models based on (phase change solid material) PC-S and
+Bi-DTF, the results can be concluded that the body-textile micro-
+climate tends to be in the comfort zone through the coupling of the
+hydrophobic response layer/hydrophilic thermal conductivity layer
+(Supplement Fig. 32 and Note 2). On this basis, we proposed a setup to
+evaluate the dynamic comfort management performance of fabrics in
+adjusting the body-textile microenvironment when the circumstance
+switches, as illustrated in Fig. 4d. We ﬁrst moved the palm from a
+comfortable (~22 °C) into a high temperature (~35 °C) environment. As
+the ambient temperature rose, the temperature of the microclimate
+covered by the other fabrics increased rapidly, whereas Bi-DTF
+experienced a gradually growing plateau due to heat absorption of
+the phase change components, with an equilibrium time of 94 s
+(Fig. 4e). When we shifted the palm from a comfortable to a low
+temperature (~15 °C) environment, the microclimate temperature of
+other fabrics also declined with the ambient. However, the Bi-DTF
+remained in the comfortable phase for a longer period before slowly
+decreasing with an equilibrium time of 124 s (Fig. 4f). The above results
+show that Bi-DTF has a better cooling and heating effect during
+environment switching.
+We further tested the cyclic cooling and heating properties of the
+fabrics by shifting the palm three times and dripping water on the skin
+surface or external fabrics to simulate sweat/rainwater. As illustrated in
+Fig. 4g, during heating cycles, even though the Bi-DTF ﬂuctuated
+slowly with ambient temperature, the microclimate of Bi-DTF exhib-
+ited a smaller temperature difference and managed perspiration more
+efﬁciently in the sweating condition. The Bi-DTF provided excellent
+thermal insulation and successfully blocked the intrusion of rainwater
+(Fig. 4h). On the contrary, the other fabrics switched rapidly with the
+ambient temperature after moving into the cold environment, and the
+microclimate temperature dropped rapidly, especially after dripping
+water, causing cold irritation to the skin and reducing the wearing
+comfort. Fig. 4i gives the threshold value of the body-textile micro-
+environment when covering different fabrics undergoing cyclic high
+and low-temperature environments, the Bi-DTF showed a maximum
+temperature difference of 2.3 and 2.6 °C, respectively. It is obvious that
+Bi-DTF can effectively absorb or release heat when dealing with high
+and low temperature switching to maintain the appropriate tempera-
+ture range of the body-textile microenvironment, offering both phy-
+sical and psychological comfort for individuals. We comprehensively
+compared the thermal and humidity comfort of various fabrics, and
+the results show that the fabrics are efﬁcient in terms of self-adaptive
+performance (Fig. 4j).
+Discussion
+In this study, we have demonstrated the remarkable integration of
+toughness and self-adaptive Bi-DTF. This achievement originates from
+the optimized chain movements, characterized by reduced chain
+aggregation, improved compatibility with functional particles, and the
+construction of dynamic stress-dissipative networks. This hierarchical
+structural reconﬁguration signiﬁcantly raises the durability of com-
+posite ﬁbrous membranes. The innovative employment of integrated
+heat adsorption/release and directional water transportation together
+effectively eliminates heat/cold irritation caused by environmental
+switching and ensures sufﬁcient breathability, moisture permeability,
+and enhanced water evaporation rate. Compared with commercial
+textiles, Bi-DTF shows a maximum thermal temperature difference of
+only 2.3 °C and a cooling temperature difference of 2.6 °C when going
+through the heating and cooling cycles. Notably, there was no sig-
+niﬁcant reduction in the energy storage capacity even after 100
+recharging, 50 washing, or 500 rubbing cycles, indicating its high
+robustness. We believe the successful construction of attractive
+materials offers fascinating perspectives on the development of smart,
+toughness, and durable clothing that dynamically regulates comfort,
+prevents disease, and saves energy.
+Methods
+General
+The experimental materials and detailed synthesis procedure of PCN
+are given in the Supplementary methods.
+Preparation of PU
+Typically, HDPOL (54 g, 0.03 mol) was vacuum heated at 110 °C and
+stirred for 2 h to remove the moisture in a ﬂask. Subsequently, IPDI
+(23.3 g, 0.105 mol) was added, and DBTDL (0.1 g) was used as a catalyst,
+followed by stirring under nitrogen at 85 °C for 1 h. Then, BHO (12.3 g,
+0,07 mol) as the chain extender was added to the system, and the
+temperature was raised to 180 °C under stirring for 30 min to obtain
+the ﬁnal PU elastomer.
+Fabrication of Fibrous Membranes
+The precursor solutions for electrospinning were obtained by dissol-
+ving PU and nanoﬁllers in the mixed solvent of DMF and EtOH (weight
+ratio of 1:1) at room temperature. For the preparation single-layer
+ﬁbrous membranes with various loading, the weight ratio of PU,
+nanoﬁllers, and mixed solvent were changed from 16:4:80, 16:11:73,
+15:15:70, 14:21:65 to 12:28:60, respectively. Importantly, in order to
+enhance the hydrophilicity, a hydrophilic agent of TF (3 wt% relative to
+PU) was added to the prepared PU/BN/mixed solution. The resultant
+solutions were electrospun at a feeding rate of 3 mL h−1 under 30 kV in
+the high humidity environment (80 ± 5% RH). The Bi-DTF was fabri-
+cated layer-by-layer of the above-mentioned single-layer ﬁbrous
+membranes with 60 wt% PCN loading and 50 wt% BN loading. The
+colorful appearance was obtained by additionally adding dye (1 wt%
+relative to PU) to the mixed PU/BN/TF solution.
+Characterization
+The 1H-NMR spectra were recorded on a Bruker AVANCE III (400 MHz)
+spectrometer by using DMSO-d6 as the solvent. GPC test was per-
+formed in THF solution at 35 °C with an elution rate of 1.0 mL min−1 on a
+Waters-E2695 GPC system equipped with a refractive index detector.
+The apparent molecular weights were determined on PLgel Mixed-B+
+PLgel Mixed-C columns using linear poly(methyl methacrylate) stan-
+dards. Fourier transform infrared spectroscopy (FTIR) was measured
+at room temperature on a Thermo Scientiﬁc Nicolet iS10 FT-IR spec-
+trometer equipped with a diamond ATR crystal. 2D SAXS patterns were
+measured using a Bruker NANOSTAR instrument. The 1D WAXD curves
+were obtained from the DIFFRAC.SAXS software. The periodicity (L)
+was calculated by Bragg's Law:
+L = 2π
+qmax
+ð1Þ
+where qmax is the value of the peak in the intensity curves.
+The Glass Transition Temperature was acquired by Differential
+scanning calorimetry (DSC, DISCOVER 250). All the samples were
+heated from −90 °C to 150 °C at 20 °C min−1 and cooled at 20 °C min−1
+from 150 °C to −90 °C. All data were collected during the second
+heating run from −90 °C to 150 °C at a scan rate of 10 °C min−1 to
+eliminate thermal history. The phase change behavior of samples was
+characterized by the DSC at a heating or cooling rate of 10 °C min−1 in a
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+8
+
+nitrogen atmosphere with a gas ﬂow rate of 50 mL min−1. The capacity
+of latent heat storage (ΔHc and ΔHm) was obtained from DSC. The DSC
+measurement uncertainties of enthalpy and temperature were 1.3%
+and 0.34 °C respectively.
+The microstructures of samples were observed using FE-SEM (S-
+4800) and TEM (JEM-2100). The size distribution of PCN was deter-
+mined by a nanoparticle size analyzer (ZEN3700). The porous archi-
+tecture was evaluated utilizing a physisorption analyzer (ASAP 2460).
+The pore size distribution of the ﬁbrous membranes was investigated
+by the capillary ﬂow porometer (CFP-1100AI). The WCAs were
+obtained from a digital goniometer (SL200B). The reﬂectance of col-
+orful ﬁbrous samples in the visible wavelength range was measured
+using a UV-vis-NIR spectrophotometer (UV3600i Plus). The chromatic
+aberration DE*ab of textiles was tested by colorimeter (NR10QC). The
+Tensile tests and cyclic tensile deformation treatment were performed
+on an Instron 34 TM-5 universal machine. The stretching rate was set at
+50 mm min−1.
+Measurement of through-plane and in-planed thermal
+conductivities
+The speciﬁc heat capacity (Cp) was acquired by DSC using sapphire as
+the standard sample. The thermal diffusivity (α) was measured by
+adopting the laser ﬂash method (LFA 467) at 25 °C. The through-plane
+and in-planed thermal conductivity (K) were calculated by the follow-
+ing equation:
+K = ρ  Cp  α
+ð2Þ
+where ρ corresponds to the sample density.
+WVTR measurement
+The WVTR of fabrics was detected using an upright up method in
+accordance with ASTM E96 using a moisture tester (YG601H), with a
+modiﬁed temperature (15 ± 2 or 35 ± 2 °C) and humidity (50 ± 5% RH).
+Water evaporation rate test
+The deionized water was dropped on the inner side of the fabric, and
+then the fabric was hung in a controlled atmosphere (temperature of
+35 ± 2 °C, humidity of 50 ± 5%RH, and air velocity of 0.3 ~ 0.5 m s−1). The
+water evaporation rate is calculated as the weight change divided by
+the time required for mass balance.
+Test of directional water transport behavior
+The directional water transport behavior of the fabrics was quantita-
+tively analyzed by MMT (SDL Atlas m290) according to AATCC 195-
+2009. The one-way water transfer index (R) was calculated by follow-
+ing equations in an in-built software:
+R =
+R
+Ub
+
+
+
+R
+Ut
+
+
+T
+ð3Þ
+where Ub is moisture content in the bottom layer, Ut is moisture con-
+tent in the top layer and T is total testing time.
+Peel test
+The preparation of bi-layer membranes involves two steps: 1) Fabri-
+cation of the bottom layer by electrospinning on top of a glossy paper.
+2) Fabrication of the top layer, half of the dried electrospun membrane
+(bottom layer) was covered with a glossy paper. The polymer was
+extruded and deposited onto the bottom layer to produce the second
+layer of electrospun membranes. To measure the adhesion strength
+between layers, the membrane was ﬂipped up to 180 ° using an Instron
+at 50 mm min−1 crosshead speed.
+Abrasion test
+The abrasion test was conducted with a Martindale abrasion tester
+(YG401C) based on ISO 12947. The sample (38 mm) was mounted on
+the friction area and a loading weight of 260 g was applied, during
+which wool felt was used as the abrasive.
+Washing resistance test
+Following ISO 6330, the washability of the fabric was tested by adding
+standard detergent and washing the sample in an A-type standard
+washing machine (Y089D, Program No. 4H). The samples were 5 pieces
+of 10 × 10 cm and the total air-dry mass after addition of ballast was
+controlled with 2 kg. After the last rinse, the samples were dried by
+natural hanging.
+Thermal management tests of fabrics
+To verify the thermal management performance of the fabrics for
+actual wear, different fabrics were embedded into T-shirts and the
+temperature changes on the fabric surface were recorded with an
+infrared thermal camera. In addition, a test setup for body-textile
+microenvironment was built for practicalapplication demonstrationof
+environment switching. The temperature of the body-textile micro-
+environment was tracked using thermocouples. All the participants of
+the study gave written informed consent for the publication of the
+images and data. The authors afﬁrm that human research participants
+provided written informed consent for publication of the images in
+Figs. 1 and 4.
+Cohesive energy analysis
+The MD simulation systems of PU are comprised of ﬁve polymer
+chains, each of which consists of two hard and two soft segments, in
+which the number of repeating units in the soft segments is 6 (Sup-
+plementary Figs. 33, 34). The molecular number ratios of PU/DMF and
+PU/DMF/EtOH simulation systems were set to 1/330 and 1/165/260,
+respectively, with a mass fraction of ~15 wt% for PU in the entire system
+and ~50 wt% for EtOH in the solvent (Supplementary Figs. 35, 36). The
+simulations were carried out using the Forcite module of the Materials
+Studio with COMPASS II force ﬁeld.
+The cohesive energy of a system of molecules, Ecoh, is the average
+energy required to separate all molecules to an inﬁnite distance from
+each other:
+Ecoh = - < Einter > = < Eintra > - < Etotal >
+ð4Þ
+where Einter is the total energy between all molecules, which is the total
+energy of a system (Etotal), minus the intramolecular energy (Eintra). The
+bracket, "<...>", represents an average over an NVT ensemble.
+The cohesive energy density, CED, is simply the cohesive energy
+per unit of volume:
+CED = Ecoh
+V
+ð5Þ
+Statistics and reproducibility
+Each experiment was repeated at least three times independently with
+similar results. All data are expressed as the mean ± standard
+deviation (SD).
+Reporting summary
+Further information on research design is available in the Nature
+Portfolio Reporting Summary linked to this article.
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+9
+
+Data availability
+All data are available from the corresponding author upon request.
+The data generated in this study are provided in the Source Data
+ﬁle. Source data are provided with this paper.
+References
+1.
+Wang, Z. et al. Self-sustaining personal all-day thermo regulatory
+clothing using only sunlight. Science 382, 1291-1296 (2023).
+2.
+Peng, Y. et al. Integrated cooling (i-Cool) textile of heat conduction
+and sweat transportation for personal perspiration management.
+Nat. Commun. 12, 6122 (2021).
+3.
+Peng, Y. et al. Integrated three-dimensional hydrophilicity/hydro-
+phobicity design for artiﬁcial sweating skin (i-TRANS) mimicking
+human body perspiration. Adv. Mater. 34, 2204168 (2022).
+4.
+Fang, Y., Chen, G., Bick, M. & Chen, J. Smart textiles for personalized
+thermoregulation. Chem. Soc. Rev. 50, 9357-9374 (2021).
+5.
+Tansey, E. A. & Johnson, C. D. Recent advances in thermoregulation.
+Adv. Physiol. Educ. 39, 139-148 (2015).
+6.
+Dai, B. et al. Bioinspired Janus textile with conical micropores for
+human body moisture and thermal management. Adv. Mater. 31,
+1904113 (2019).
+7.
+Lao, L., Shou, D., Wu, Y. & Fan, J. "Skin-like" fabric for personal
+moisture management. Sci. Adv. 6, eaaz0013 (2020).
+8.
+Zheng, S. et al. Hierarchical-morphology metafabric for scalable
+passive daytime radiative cooling. Science 373, 692-696 (2021).
+9.
+Wang, Y., Ma, K. & Xin, J. H. Stimuli-responsive bioinspired materials
+for controllable liquid manipulation: principles, fabrication, and
+applications. Adv. Funct. Mater. 28, 1705128 (2018).
+10.
+Liu, L., Zhang, Y., Zhang, S. & Tang, B. Advanced phase change
+materials from natural perspectives: structural design and func-
+tional applications. Adv. Sci. 10, 2207652 (2023).
+11.
+Chen, X. et al. Core-sheath heterogeneous interlocked conductive
+ﬁber enables smart textile for personalized healthcare and thermal
+management. Small 20, 2308404 (2023).
+12.
+Zhang, X. et al. Soft robotic textiles for adaptive personal thermal
+management. Adv. Sci. 11, 2309605 (2024).
+13.
+Wang, Y. et al. Reversible water transportation diode: temperature-
+adaptive smart janus textile for moisture/thermal management.
+Adv. Funct. Mater. 30, 1907851 (2020).
+14.
+Zhi, C. et al. Emerging trends of nanoﬁbrous piezoelectric and tri-
+boelectric applications: mechanisms, electroactive materials, and
+designed architectures. Adv. Mater. 36, 2401264 (2024).
+15.
+Zuo, X., Fan, T., Qu, L., Zhang, X. & Miao, J. Smart multi-responsive
+aramid aerogel ﬁber enabled self-powered fabrics. Nano Energy
+101, 107559 (2022).
+16.
+Wu, J. et al. A trimode thermoregulatory ﬂexible ﬁbrous membrane
+designed with hierarchical core-sheath ﬁber structure for wearable
+personal thermal management. ACS Nano 16, 12801-12812
+(2022).
+17.
+Pielichowska, K. & Pielichowski, K. Phase change materials for
+thermal energy storage. Prog. Mater. Sci. 65, 67-123 (2014).
+18.
+Hu, X. et al. Novel personal cooling textiles revolutionizing human
+thermal management: principles, designs and applications. Chem.
+Eng. J. 499, 155729 (2024).
+19.
+Liu, H. et al. A thermoregulatory ﬂexible phase change nonwoven
+for all‑season high‑efﬁciency wearable thermal management.
+Nano-Micro Lett. 15, 2311-6706 (2023).
+20. Gu, B. et al. A ﬁrst method for increasing phase-change micro-
+capsules in nanoﬁber textile through electrospinning. Adv. Funct.
+Mater. 35, 2412089 (2025).
+21.
+Li, X. et al. Wearable Janus-type ﬁlm with integrated all-season
+active/passive thermal management, thermal camouﬂage, and
+ultra-high electromagnetic shielding efﬁciency tunable by origami
+process. Adv. Funct. Mater. 33, 2212776 (2023).
+22. Guo, Z. et al. Engineering of chain rigidity and hydrogen bond cross-
+linking toward ultra-strong, healable, recyclable, and water-
+resistant elastomers. Adv. Mater. 35, 2300286 (2023).
+23. Yao, Y. et al. A short review on self-healing thermoplastic poly-
+urethanes. Macromol. Chem. Phys. 222, 2100002 (2021).
+24. He, W. et al. Establishing superﬁne nanoﬁbrils for robust polyelec-
+trolyte artiﬁcial spider silk and powerful artiﬁcial muscles. Nat.
+Commun. 15, 3485 (2024).
+25. Wong, C. & Choi, P. A free volume theory on the chain length
+dependence of the diffusivity of linear polymers. Soft Matter 15,
+9300-9309 (2019).
+26. Bao, Q., Yang, Z. & Lu, Z. Molecular dynamics simulation of amor-
+phous polyethylene (PE) under cyclic tensile-compressive loading
+below the glass transition temperature. Polymer 186, 121968
+(2020).
+27.
+Guo, R. et al. Extremely strong and tough biodegradable poly(-
+urethane) elastomers with unprecedented crack tolerance via
+hierarchical hydrogen-bonding interactions. Adv. Mater. 35,
+2212130 (2023).
+28. Lai, Y. et al. Colorless, transparent, robust, and fast scratch-self-
+healing elastomers via a phase-locked dynamic bonds design. Adv.
+Mater. 30, 1802556 (2018).
+29. Liao, G. et al. Durability improvement of poroelastic road surface
+with treated rubber: Molecular dynamics simulation and experi-
+mental observations. J. Clean. Prod. 369, 133334 (2022).
+30. Huang, T. et al. Study on the compatibility between polyurethane
+and asphalt based on experiment and molecular dynamics simu-
+lation. Case Stud. Constr. Mater. 17, e01424 (2022).
+31.
+Song, P. & Wang, H. High-performance polymeric materials through
+hydrogen-bond cross-linking. Adv. Mater. 32, 1901244 (2019).
+32. Wu, J. et al. Facile fabrication of nanoﬁber- and micro/nanosphere-
+coordinated PVDF membrane withultrahigh permeability of viscous
+water-in-oil emulsions. J. Mater. Chem. A 6, 7014 (2018).
+33. Jiang, S. et al. The structure of ﬁbers produced by colloid-
+electrospinning depends on the aggregation state of particles in
+the electrospinning feed. Polymer 127, 101-105 (2017).
+34. Szewczyk, P. K. & Stachewicz, U. The impact of relative humidity on
+electrospun polymer ﬁbers: From structural changes to ﬁber mor-
+phology. Adv. Colloid Interface Sci. 286, 102315 (2020).
+35. Gao, T. et al. Three-dimensional printed thermal regulation textiles.
+ACS Nano 11, 11513-11520 (2017).
+36. Miao, D. et al. A biomimetic transpiration textile for highly efﬁcient
+personal drying and cooling. Adv. Funct. Mater. 31, 2008705 (2021).
+37. Aguirresarobe, R. H. et al. Healable and self-healing polyurethanes
+using dynamic chemistry. Prog. Polym. Sci. 114, 101362 (2021).
+38. Song, Y., Liu, Y., Qi, T. & Li, G. Towards dynamic but supertough
+healable polymers through biomimetic hierarchical hydrogen-
+bonding interactions. Angew. Chem. -Int. Ed. 57, 13838-13842
+(2018).
+39. Affandi, N., Fadil, F. & Misnon, M. Preliminary Study on the Adhesion
+Strength of Electrospun Bi-Layer Membranes by 180 ° Peel Test.
+Fiber Polym. 20, 1317-1322 (2019).
+40. Al Harby, N. F., El-Batouti, M. & Elewa, M. M. Prospects of polymeric
+nanocomposite membranes for water puriﬁcation and scalability
+and their health and environmental impacts: A review. Nanoma-
+terials 12, 3637 (2022).
+41.
+Wang, G. et al. Phase change thermal storage materials for inter-
+disciplinary applications. Chem. Rev. 123, 6953-7024 (2023).
+42. Shi, S. et al. A bionic skin for health management: excellent
+breathability, in situ sensing, and big data analysis. Adv. Mater. 36,
+2306435 (2023).
+43. Lei, L. et al. Wettability gradient-induced diode: MXene-engineered
+membrane for passive-evaporative cooling. Nano-Micro Lett. 16,
+159 (2024).
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+10
+
+44. Xiao, W. et al. A viscous-bioﬂuid self-pumping organohydrogel
+dressing to accelerate diabetic wound healing. Adv. Mater. 36,
+2401539 (2024).
+45. Jing, Y. et al. Ultraﬂexible, cost-effective and scalable polymer-
+based phase change composites via chemical cross-linking for
+wearable thermal management. Nat. Commun. 14, 8060 (2023).
+46. Chen, F., Fu, M., Li, Y., Shen, S. & Guo, X. Modelling and experi-
+mental study of thermo-physiological responses of human exer-
+cising in cold environments. J. Therm. Biol. 109, 103316 (2022).
+Acknowledgements
+This work was supported by the the National Natural Science Foundation
+of China (No. 52473027, X.W.), the Textile Vision Basic Research Program
+(No. J202403, X.W.), and the AI-Enhanced Research Program of
+Shanghai Municipal Education Commission (No. SMEC-AI-DHUZ-
+06, X.W.).
+Author contributions
+Y.L. wrote the manuscript. C.Q., X.L., and C.D. organized the data. X.W.
+and B.D. conceived and design the study. J.Y. supervised the project.
+Competing interests
+The authors declare no competing interests.
+Additional information
+Supplementary information The online version contains
+supplementary material available at
+https://doi.org/10.1038/s41467-025-62049-6.
+Correspondence and requests for materials should be addressed to
+Xianfeng Wang or Bin Ding.
+Peer review information Nature Communications thanks Fan Luo, and
+the other, anonymous, reviewer(s) for their contribution to the peer
+review of this work. A peer review ﬁle is available.
+Reprints and permissions information is available at
+http://www.nature.com/reprints
+Publisher's note Springer Nature remains neutral with regard to jur-
+isdictional claims in published maps and institutional afﬁliations.
+Open Access This article is licensed under a Creative Commons
+Attribution-NonCommercial-NoDerivatives 4.0 International License,
+which permits any non-commercial use, sharing, distribution and
+reproduction in any medium or format, as long as you give appropriate
+credit to the original author(s) and the source, provide a link to the
+Creative Commons licence, and indicate if you modiﬁed the licensed
+material. You do not have permission under this licence toshare adapted
+material derived from this article or parts of it. The images or other third
+party material in this article are included in the article's Creative
+Commons licence, unless indicated otherwise in a credit line to the
+material. If material is not included in the article's Creative Commons
+licence and your intended use is not permitted by statutory regulation or
+exceeds the permitted use, you will need to obtain permission directly
+from the copyright holder. To view a copy of this licence, visit http://
+creativecommons.org/licenses/by-nc-nd/4.0/.
+© The Author(s) 2025
+Article
+https://doi.org/10.1038/s41467-025-62049-6
+Nature Communications|        (2025) 16:6735 
+11
+

@@ -1,0 +1,637 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/336084089
+Quantum Graph Neural Networks
+Preprint · September 2019
+DOI: 10.48550/arXiv.1909.12264
+CITATIONS
+6
+READS
+400
+6 authors, including:
+Enxhell Luzhnica
+University of Cambridge
+5 PUBLICATIONS   9 CITATIONS   
+SEE PROFILE
+Vikash Singh
+Stillmark
+10 PUBLICATIONS   99 CITATIONS   
+SEE PROFILE
+Stefan Leichenauer
+Google Inc.
+58 PUBLICATIONS   2,739 CITATIONS   
+SEE PROFILE
+All content following this page was uploaded by Enxhell Luzhnica on 08 October 2019.
+The user has requested enhancement of the downloaded file.
+
+Quantum Graph Neural Networks
+Guillaume Verdon
+X, The Moonshot Factory
+Mountain View, CA
+gverdon@x.team
+Trevor McCourt
+Google Research
+Venice, CA
+trevormccrt@google.com
+Enxhell Luzhnica, Vikash Singh,
+Stefan Leichenauer, Jack Hidary
+X, The Moonshot Factory
+Mountain View, CA
+{enxhell,singvikash,
+sleichenauer,hidary}@x.team
+Abstract
+We introduce Quantum Graph Neural Networks (QGNN), a new class of quantum
+neural network ansatze which are tailored to represent quantum processes which
+have a graph structure, and are particularly suitable to be executed on distributed
+quantum systems over a quantum network. Along with this general class of ansatze,
+we introduce further specialized architectures, namely, Quantum Graph Recurrent
+Neural Networks (QGRNN) and Quantum Graph Convolutional Neural Networks
+(QGCNN). We provide four example applications of QGNNs: learning Hamiltonian
+dynamics of quantum systems, learning how to create multipartite entanglement in
+a quantum network, unsupervised learning for spectral clustering, and supervised
+learning for graph isomorphism classiﬁcation.
+1
+Introduction
+Variational Quantum Algorithms are a promising class of algorithms that are rapidly emerging
+as a central subﬁeld of Quantum Computing [1, 2, 3]. Similar to parameterized transformations
+encountered in deep learning, these parameterized quantum circuits are often referred to as Quantum
+Neural Networks (QNNs). Recently, it was shown that QNNs that have no prior on their structure
+suffer from a quantum version of the no-free lunch theorem [4] and are exponentially difﬁcult to
+train via gradient descent. Thus, there is a need for better QNN ansatze. One popular class of
+QNNs has been Trotter-based ansatze [2, 5]. The optimization of these ansatze has been extensively
+studied in recent works, and efﬁcient optimization methods have been found [6, 7]. On the classical
+side, graph-based neural networks leveraging data geometry have seen some recent successes in
+deep learning, ﬁnding applications in biophysics and chemistry [8]. Inspired from this success, we
+propose a new class of Quantum Neural Network ansatz which allows for both quantum inference
+and classical probabilistic inference for data with a graph-geometric structure. In the sections below,
+we introduce the general framework of the QGNN ansatz as well as several more specialized variants
+and showcase four potential applications via numerical implementation.
+Preprint. Under review.
+arXiv:1909.12264v1  [quant-ph]  26 Sep 2019
+
+2
+Background
+2.1
+Classical Graph Neural Networks
+Graph Neural Networks (GNNs) date back to [9] who applied neural networks to acyclic graphs. [10]
+and [11] developed methods that learned node representations by propagating the information of
+neighbouring nodes. Recently, GNNs have seen great breakthroughs by adapting the convolution
+operator from CNNs to graphs [12, 13, 14, 15, 16, 17, 18]. Many of these methods can be expressed
+under the message-passing framework [19].
+Let graph G = (A, X) where A ∈Rn×n is the adjacency matrix, and X ∈Rn×d is the node feature
+matrix where each node has d features.
+H(k) = P(A, H(k−1), W (k))
+(1)
+where H(k) ∈Rn×d are the node representations computed at layer k, P is the message propagation
+function and is dependent on the adjacency matrix, the previous node encodings and some learnable
+parameters W (k). The initial embedding, H(0), is naturally X. One popular implementation of this
+framework is the GCN [15] which implements it as follows:
+H(k) = P(A, H(k−1), W (k)) = ReLU( ˜D−1
+2 ˜
+A ˜D−1
+2 H(k−1)W (k−1))
+(2)
+where ˜
+A = A + I is the adjacency matrix with inserted self-loops and ˜D = P
+j ˜
+Aij is the
+renormalization factor (degree matrix).
+2.2
+Networked Quantum Systems
+Consider a graph G = {V, E}, where V is the set of vertices (or nodes) and E the set of edges. We
+can assign a quantum subsystem with Hilbert space Hv to each vertex in the graph, forming a global
+Hilbert space HV ≡N
+v∈V Hv. Each of the vertex subsystems could be one or several qubits, a
+qudit, a qumode [20], or even an entire quantum computer. One may also deﬁne a Hilbert space for
+each edge and form HE ≡N
+e∈E He. The total Hilbert space for the graph would then be HE ⊗HV.
+For the sake of simplicity and feasibility of numerical implementation, we consider this to be beyond
+the scope of the present work, so for us the total Hilbert space consists only of HV. The edges of
+the graph dictate the communication between the vertex subspaces: couplings between degrees of
+freedom on two different vertices are allowed if there is an edge connecting them. This setup is called
+a quantum network [21, 22] with topology given by the graph G.
+3
+Quantum Graph Neural Networks
+3.1
+General Quantum Graph Neural Network Ansatz
+The most general Quantum Graph Neural Network ansatz is a parameterized quantum circuit on a
+network which consists of a sequence of Q different Hamiltonian evolutions, with the whole sequence
+repeated P times:
+ˆUQGNN(η, θ) =
+P
+Y
+p=1
+" Q
+Y
+q=1
+e−iηpq ˆ
+Hq(θ)
+#
+,
+(3)
+where the product is time-ordered [23], the η and θ are variational (trainable) parameters, and the
+Hamiltonians ˆHq(θ) can generally be any parameterized Hamiltonians whose topology of interactions
+is that of the problem graph:
+ˆHq(θ) ≡
+X
+{j,k}∈E
+X
+r∈Ijk
+Wqrjk ˆO(qr)
+j
+⊗ˆP (qr)
+k
++
+X
+v∈V
+X
+r∈Jv
+Bqrv ˆR(qv)
+j
+.
+(4)
+Here the Wqrjk and Bqrv are real-valued coefﬁcients which can generally be independent train-
+able parameters, forming a collection θ ≡∪q,j,k,r{Wqrjk} ∪q,v,r {Bqrjk}.
+The operators
+ˆR(qv)
+j
+, ˆO(qr)
+j
+, ˆP (qr)
+j
+are Hermitian operators which act on the Hilbert space of the jth node of the
+2
+
+graph. The sets Ijk and Jv are index sets for the terms corresponding to the edges and nodes,
+respectively. To make compilation easier, we enforce that the terms of a given Hamiltonian ˆHq
+commute with one another, but different ˆHq's need not commute.
+In order to make the ansatz more amenable to training and avoid the barren plateaus (quantum
+parametric circuit no free lunch) problem [4], we need to add some constraints and speciﬁcity.
+To that end, we now propose more specialized architectures where parameters are tied spatially
+(convolutional) or tied over the sequential iterations of the exponential mapping (recurrent).
+3.2
+Quantum Graph Recurrent Neural Networks (QGRNN)
+We deﬁne quantum graph recurrent neural networks as ansatze of the form of equation 3 where
+the temporal parameters are tied between iterations, ηpq 7→ηq. In other words, we have tied the
+parameters between iterations of the outer sequence index (over p = 1, . . . , P). This is akin to
+classical recurrent neural networks where parameters are shared over sequential applications of the
+recurrent neural network map. As ηq acts as a time parameter for Hamiltonian evolution under ˆHq, we
+can view the QGRNN ansatz as a Trotter-based [24, 23] quantum simulation of an evolution e−i∆ˆ
+Heff
+under the Hamiltionian ˆHeﬀ= ∆−1 P
+q ηq ˆHq for a time step of size ∆= ∥η∥1 = P
+q |ηq|. This
+ansatz is thus specialized to learn effective quantum Hamiltonian dynamics for systems living on a
+graph. In Section 4.1 we demonstrate this by learning the effective real-time dynamics of an Ising
+model on a graph using a QGRNN ansatz.
+3.3
+Quantum Graph Convolutional Neural Networks (QGCNN)
+Classical Graph Convolutional neural networks rely on a key feature: that of permutation invariance.
+In other words, the ansatz should be invariant under permutation of the nodes. This is analogous
+to translational invariance for ordinary convolutional transformations. In our case, permutation
+invariance manifests itself as a constraint on the Hamiltonian, which now should be devoid of local
+trainable parameters, and should only have global trainable parameters. The θ parameters thus
+become tied over indices of the graph: Wqrjk 7→Wqr and Bqrv 7→Bqr. A broad class of graph
+convolutional neural networks we will focus on is the set of so-called Quantum Alternating Operator
+Ansatze [5], the generalized form of the Quantum Approximate Optimization Algorithm ansatz [2].
+3.4
+Quantum Spectral Graph Convolutional Neural Networks (QSGCNN)
+We can take inspiration from the continuous-variable quantum approximate optimization ansatz
+introduced in [25] to create a variant of the QGCNN: the Quantum Spectral Graph Convolutional
+Neural Network (QSGCNN). We show here how it recovers the mapping of Laplacian-based graph
+convolutional networks [15] in the Heisenberg picture, consisting of alternating layers of message
+passing, node update, and nonlinearities.
+Consider an ansatz of the form from equation 3 with four different Hamiltonians (Q = 4) for a given
+graph. First, for a weighted graph G with edge weights Λjk, we deﬁne the coupling Hamiltonian as
+ˆHC ≡1
+2
+P
+{j,k}∈E Λjk(ˆxj −ˆxk)2.
+The Λjk here are the weights of the graph G, and are not trainable parameters. The operators
+denoted here by ˆxj are quantum continuous-variable position operators, which can be implemented
+via continuous-variable (analog) quantum computers [20] or emulated using multiple qubits on
+digital quantum computers [26, 27]. After evolving by ˆHC, which we consider to be the message
+passing step, one applies an exponential of the kinetic Hamiltonian, ˆHK ≡1
+2
+P
+j∈V ˆp2
+j. Here ˆpj
+denotes the continuous-variable momentum (Fourier conjugate) of the position, obeying the canonical
+commutation relation [ˆxj, ˆpj] = iδjk. We consider this step as a node update step. In the Heisenberg
+picture, the evolution generated by these two steps maps the position operators of each node according
+to
+e−iγ ˆ
+HKe−iα ˆ
+HC : ˆxj 7→ˆxj + γˆpj −αγ P
+k∈V Ljkˆxk,
+where
+Ljk = δjk
+ P
+v∈V Λjv
+
+−Λjk
+3
+
+Iterations
+Average post-dynamics
+inﬁdelity
+Hamiltonian 
+Parameters
+Initialization
+Ground Truth
+Learned Values
+Final Error
+Figure 1: Left: Batch average inﬁdelity with respect to ground truth state sampled at 15 randomly
+chosen times of quantum Hamiltonian evolution. We see the initial guess has a densely connected
+topology and the QGRNN learns the ring structure of the true Hamiltonian. Right: Ising Hamiltonian
+parameters (weights & biases) on a color scale.
+is the Graph Laplacian matrix for the weighted graph G. We can recognize this step as analogous to
+classical spectral-based graph convolutions. One difference to note here is that momentum is free to
+accumulate between layers.
+Next, we must add some non-linearity in order to give the ansatz more capacity.1 The next evolution
+is thus generated by an anharmonic Hamiltonian ˆHA = P
+j∈V f(ˆxj), where f is a nonlinear function
+of degree greater than 2, e.g., a quartic potential of the form f(ˆxj) = ((ˆxj −µ)2 −ω2)2 for some
+µ, ω hyperparameters. Finally, we apply another evolution according to the kinetic Hamiltonian.
+These last two steps yield an update
+e−iβ ˆ
+HKe−iδ ˆ
+HA : ˆxj 7→ˆxj + βˆpj −δβf ′(ˆxj),
+which acts as a nonlinear mapping. By repeating the four evolution steps described above in a
+sequence of P layers, i.e.,
+ˆUQSGCNN(α, β, γ, δ) =
+P
+Y
+j=1
+e−iβj ˆ
+HKe−iδj ˆ
+HAe−iγj ˆ
+HKe−iαj ˆ
+HC
+with variational parameters θ = {α, β, γ, δ}, we then recover a quantum-coherent analogue of the
+node update prescription of [15] in the original graph convolutional networks paper.2
+4
+Applications & Experiments
+4.1
+Learning Quantum Hamiltonian Dynamics with Quantum Graph Recurrent Neural
+Networks
+Learning the dynamics of a closed quantum system is a task of interest for many applications [30],
+including device characterization and validation. In this example, we demonstrate that a Quantum
+Graph Recurrent Neural Network can learn effective dynamics of an Ising spin system when given
+access to the output of quantum dynamics at various times.
+Our target is an Ising Hamiltonian with transverse ﬁeld on a particular graph,
+ˆHtarget = P
+{j,k}∈E Jjk ˆZj ˆZk + P
+v∈V Qv ˆZv + P
+v∈V ˆXj.
+We are given copies of a ﬁxed low-energy state |ψ0⟩as well as copies of the state |ψT ⟩≡
+ˆU(T) |ψ0⟩= e−iT ˆ
+Htarget for some known but randomly chosen times T ∈[0, Tmax]. Our goal
+1From a quantum complexity standpoint, adding a nonlinear operation (generated by a potential of degree
+superior to quadratic) creates states that are non-Gaussian and hence are non efﬁciently simulable on classical
+computers [28], in general composing layers of Gaussian and non-Gaussian quantum transformations yields
+quantum computationally universal ansatz [29].
+2For further physical intuition about the behaviour of this ansatz, note that the sum of the coupling and
+kinetic Hamiltonians ˆHK + ˆHC is equivalent to the Hamiltonian of a network of quantum harmonic oscillators
+coupled according to the graph weights and network topology. By adding a quartic ˆHA, we are thus emulating
+parameterized dynamics on a harmonically coupled network of anharmonic oscillators.
+4
+
+Figure 2: Left: Stabilizer Hamiltonian expectation and ﬁdelity over training iterations. A picture of
+the quantum network topology is inset. Right: Quantum phase kickback test on the learned GHZ
+state. We observe a 7x boost in Rabi oscillation frequency for a 7-node network, thus demonstrating
+we have reached the Heisenberg limit of sensitivity for the quantum sensor network.
+is to learn the target Hamiltonian parameters {Jjk, Qv}j,k,v∈V by comparing the state |ψT ⟩
+with the state obtained by evolving |ψ0⟩according to the QGRNN ansatz for a number of it-
+erations P
+≈T/∆(where ∆is a hyperparameter determining the Trotter step size).
+We
+achieve this by training the parameters via Adam [31] gradient descent on the average inﬁdelity
+L(θ) = 1 −1
+B
+PB
+j=1 | ⟨ψTj|U j
+QGRNN(∆, θ) |ψ0⟩⟩|2 averaged over batch sizes of 15 different times T.
+Gradients were estimated via ﬁnite difference differentiation with step size ϵ = 10−4. The ﬁdelities
+(quantum state overlap) between the output of our ansatz and the time-evolved data state were esti-
+mated via the quantum swap test [32]. The ansatz uses a Trotterization of a random densely-connected
+Ising Hamiltonian with transverse ﬁeld as its initial guess, and successfully learns the Hamiltonian
+parameters within a high degree of accuracy as shown in Figure 1a.
+4.2
+Quantum Graph Convolutional Neural Networks for Quantum Sensor Networks
+Quantum Sensor Networks are a promising area of application for the technologies of Quantum
+Sensing and Quantum Networking/Communication [21, 22]. A common task considered where a
+quantum advantage can be demonstrated is the estimation of a parameter hidden in weak qubit phase
+rotation signals, such as those encountered when artiﬁcial atoms interact with a constant electric
+ﬁeld of small amplitude [22]. A well-known method to achieve this advantange is via the use of a
+quantum state exhibiting multipartite entanglement of the Greenberger-Horne-Zeilinger kind, also
+known as a GHZ state [33]. Here we demonstrate that, without global knowledge of the quantum
+network structure, a QGCNN ansatz can learn to prepare a GHZ state. We use a QGCNN ansatz with
+ˆH1 = P
+{j,k}∈E ˆZj ˆZk and ˆH2 = P
+j∈V ˆXj. The loss function is the negative expectation of the sum
+of stabilizer group generators which stabilize the GHZ state [34], i.e.,
+L(η) = −⟨Nn
+j=0 ˆX + Pn−1
+j=1 ˆZj ˆZj+1⟩η
+for a network of n qubits. Results are presented in Figure 1b. Note that the advantage of using a QGNN
+ansatz on the network is that the number of quantum communication rounds is simply proportional to
+P, and that the local dynamics of each node are independent of the global network structure.
+In order to further validate that we have obtained an accurate GHZ state on the network after training,
+we perform the quantum phase kickback test on the network's prepared approximate GHZ state [35].3
+We observe the desired frequency boost effect for our trained network preparing an approximate GHZ
+state at test time, as displayed in Figure 2.
+3For this test, one applies a phase rotation N
+j∈V e−iϕ ˆ
+Zj on all the qubits in paralel, then one applies a
+sequence of CNOTs (quantum adder gates) to concentrate the phase shifts onto a single collector node, m ∈V.
+Given that one had a GHZ state initially, one should then observe a phase shift e−inϕ ˆ
+Zm where n = |V|. This
+boost in frequency of oscillation of the signal is what gives quantum multipartite entanglement its power to
+increase sensitivity to signals to super-classical levels [36].
+5
+
+Energy: -23.32, Popularity: 4
+Energy: -22.9, Popularity: 6
+Energy: -22.67, Popularity: 12
+Energy: -22.67, Popularity: 13
+Energy: -23.32, Popularity: 5
+Energy: -22.9, Popularity: 7
+Energy: -22.67, Popularity: 14
+Energy: -22.67, Popularity: 15
+Post-QAOA Energy Probability Density
+Energy
+Probabilty Density
+Energy: 1, Popularity: 0
+Energy: 1, Popularity: 1
+Energy: 1, Popularity: 4
+Energy: 1, Popularity: 5
+Energy: 3, Popularity: 8
+Energy: 3, Popularity: 9
+Energy: 2, Popularity: 10
+Energy: 2, Popularity: 11
+Post-QAOA Energy Probability Density
+Energy
+Probabilty Density
+Figure 3: QSGCNN spectral clustering results for 5-qubit precision (top) with quartic double-well
+potential and 1-qubit precision (bottom) for different graphs. Weight values are represented as opacity
+of edges, output sampled node values as grayscale. Lower precision allows for more nodes in the
+simulation of the quantum neural network. The graphs displayed are the most probable (populated)
+conﬁgurations, and to their right is the output probability distribution over potential energies. We see
+lower energies are most probable and that these conﬁgurations have node values clustered.
+4.3
+Unsupervised Graph Clustering with Quantum Graph Convolutional Networks
+As a third set of applications, we consider applying the QSGCNN from Section 3.4 to the task of
+spectral clustering [37]. Spectral clustering involves ﬁnding low-frequency eigenvalues of the graph
+Laplacian and clustering the node values in order to identify graph clusters. In Figure 3 we present the
+results for a QSGCNN for varying multi-qubit precision for the representation of the continuous values,
+where the loss function that was minimized was the expected value of the anharmonic potential
+L(η) = ⟨ˆHC + ˆHA⟩η. Of particular interest to near-term quantum computing with low numbers if
+qubits is the single-qubit precision case, where we modify the QSGCNN construction as ˆp2
+j 7→ˆXj,
+ˆHA 7→I and ˆxj 7→|1⟩⟨1|j which transforms the coupling Hamiltonian as
+ˆHC 7→1
+2
+P
+{j,k}∈E Λjk(|1⟩⟨1|j −|1⟩⟨1|k)2 = P
+jk Ljk |1⟩⟨1|j ⊗|1⟩⟨1|k ,
+(5)
+where |1⟩⟨1|k = (ˆI −ˆZk)/2. We see that using a low-qubit precision yields sensible results, thus
+implying that spectral clustering could be a promising new application for near-term quantum devices.
+4.4
+Graph Isomorphism Classiﬁcation via Quantum Graph Convolutional Networks
+Recently, a benchmark of the representation power of classical graph neural networks has been
+proposed [38] where one uses classical GCNs to identify whether two graphs are isomorphic. In this
+spirit, using the QSGCNN ansatz from the previous subsection, we benchmarked the performance
+of this Quantum Graph Convolutional Network for identifying isomorphic graphs. We used the
+single-qubit precision encoding in order to order to simulate the execution of the quantum algorithms
+on larger graphs.
+Our approach was the following, given two graphs G1 and G2, one applies the single-qubit precision
+QSGCNN ansatz QP
+j=1 eiηj ˆ
+HKeiγj ˆ
+HC with ˆHK = P
+j∈V ˆXj and ˆHC from equation 5 in parallel
+according to each graph's structure. One then samples eigenvalues of the coupling Hamiltonian ˆHC
+on both graphs via standard basis measurement of the qubits and computation of the eigenvalue at
+each sample of the wavefunction. One then obtains a set of samples of "energies" of this Hamiltonian.
+6
+
+0
+50
+100
+150
+200
+Iterations
+0.15
+0.20
+0.25
+0.30
+Loss
+Loss Curves (6 Node Graphs)
+Train (50 Samples)
+Train (20 Samples)
+Train (10 Samples)
+Validation (50 Samples)
+Validation (20 Samples)
+Validation (10 Samples)
+0
+50
+100
+150
+200
+Iterations
+0.10
+0.15
+0.20
+0.25
+0.30
+Loss
+Loss Curves (15 Node Graphs)
+Train (5000 Samples)
+Train (1000 Samples)
+Train (400 Samples)
+Validation (5000 Samples)
+Validation (1000 Samples)
+Validation (400 Samples)
+Figure 4: Graph isomorphism loss curves for training and validation for various numbers of samples.
+Left is for 6 node graphs and right is for 15 node graphs. The loss is based on the Kolmogorov-
+Smirnov statistic comparing the sampled distribution of energies of the QGCNN output on two
+graphs.
+Table 1: Classiﬁcation Accuracy for 15 Node
+Graphs
+Samples
+Test
+Validation
+5000
+100.0
+100.0
+1000
+100.0
+100.0
+400
+100.0
+100.0
+Table 2: Classiﬁcation Accuracy for 6 Node
+Graphs
+Samples
+Test
+Validation
+50
+100.0
+100.0
+20
+90.0
+100.0
+10
+100.0
+80.0
+By comparing the energetic measurement statistics output by the QSGCNN ansatz applied with
+identical parameters θ = {η, γ} for two different graphs, one can then infer whether the graphs are
+isomorphic.
+We used the Kolmogorov-Smirnoff test [39] on the distribution of energies sampled at the output
+of the QSGCNN to determine whether two given graphs were isomorphic. In order to determine the
+binary classiﬁcation label deterministically, we considered all KS statistic values above 0.4 to indicate
+that the graphs were non-isomorphic. For training and testing purposes, we set the loss function to be
+L(y, KS) = (1 −y)(1 −KS) + y KS, where y = 1 if graphs are isomorphic, and y = 0 otherwise.
+For the dataset, graphs were sampled uniformly at random from the Erdos-Renyi distribution G(n, p)
+with p = 0.5 at ﬁxed n. In all of our experiments, we had 100 pairs of graphs for training, 50
+for validation, and 50 for testing, always balanced between isomorphic and non-isomorphic pairs.
+Moreover, we only considered graphs that were connected. The networks were trained via a Nelder-
+Mead optimization algorithm.
+Presented in Figure 4 is the training and testing losses for various graph sizes and numbers of energetic
+samples. In Tables 1 and 2, we present the graph isomorphism classiﬁcation accuracy for the training
+and testing sets using the trained QGCNN with the previously described thresholded KS statistic as
+the label. We see we get highly accurate performance even at low sample sizes. This seems to imply
+that the QGCNN is fully capable of identifying graph isomorphism, as desired for graph convolutional
+network benchmarks.
+5
+Conclusion & Outlook
+Results featured in this paper should be viewed as a promising set of ﬁrst explorations of the potential
+applications of QGNNs. Through our numerical experiments, we have shown the use of these
+QGNN ansatze in the context of quantum dynamics learning, quantum sensor network optimization,
+unsupervised graph clustering, and supervised graph isomorphism classiﬁcation. Given that there is a
+7
+
+vast set of literature on the use of Graph Neural Networks and their variants to quantum chemistry,
+future works should explore hybrid methods where one can learn a graph-based hidden quantum
+representation (via a QGNN) of a quantum chemical process. As the true underlying process is
+quantum in nature and has a natural molecular graph geometry, the QGNN could serve as a more
+accurate model for the hidden processes which lead to perceived emergent chemical properties. We
+seek to explore this in future work. Other future work could include generalizing the QGNN to include
+quantum degrees of freedom on the edges, include quantum-optimization-based training of the graph
+parameters via quantum phase backpropagation [27], and extending the QSGCNN to multiple features
+per node.
+Acknowledgments
+Numerics in this paper were executed using a custom interface between Google's Cirq [40] and
+TensorFlow [41]. The authors would like to thank Edward Farhi, Jae Yoo, and Li Li for useful
+discussions. GV, EL, and VS would like to thank the team at X for the hospitality and support during
+their respective Quantum@X and AI@X residencies where this work was completed. X, formerly
+known as Google[x], is part of the Alphabet family of companies, which includes Google, Verily,
+Waymo, and others (www.x.company). GV acknowledges funding from NSERC.
+References
+[1] Jarrod R McClean, Jonathan Romero, Ryan Babbush, and Alán Aspuru-Guzik. The theory of
+variational hybrid quantum-classical algorithms. New Journal of Physics, 18(2):023023, 2016.
+[2] Edward Farhi, Jeffrey Goldstone, and Sam Gutmann. A quantum approximate optimization
+algorithm. arXiv preprint arXiv:1411.4028, 2014.
+[3] Edward Farhi and Hartmut Neven. Classiﬁcation with quantum neural networks on near term
+processors. arXiv preprint arXiv:1802.06002, 2018.
+[4] Jarrod R McClean, Sergio Boixo, Vadim N Smelyanskiy, Ryan Babbush, and Hartmut Neven.
+Barren plateaus in quantum neural network training landscapes. Nature Communications,
+9(1):4812, 2018.
+[5] Stuart Hadﬁeld, Zhihui Wang, Bryan O'Gorman, Eleanor G Rieffel, Davide Venturelli, and
+Rupak Biswas. From the quantum approximate optimization algorithm to a quantum alternating
+operator ansatz. Algorithms, 12(2):34, 2019.
+[6] Guillaume Verdon, Michael Broughton, Jarrod R McClean, Kevin J Sung, Ryan Babbush,
+Zhang Jiang, Hartmut Neven, and Masoud Mohseni. Learning to learn with quantum neural
+networks via classical neural networks. arXiv preprint arXiv:1907.05415, 2019.
+[7] Li Li, Minjie Fan, Marc Coram, Patrick Riley, and Stefan Leichenauer. Quantum optimiza-
+tion with a novel gibbs objective function and ansatz architecture search. arXiv preprint
+arXiv:1909.07621, 2019.
+[8] Steven Kearnes, Kevin McCloskey, Marc Berndl, Vijay Pande, and Patrick Riley. Molecular
+graph convolutions: moving beyond ﬁngerprints. Journal of computer-aided molecular design,
+30(8):595-608, 2016.
+[9] Alessandro Sperduti and Antonina Starita. Supervised neural networks for the classiﬁcation of
+structures. IEEE Transactions on Neural Networks, 8(3):714-735, 1997.
+[10] Marco Gori, Gabriele Monfardini, and Franco Scarselli. A new model for learning in graph
+domains. In Proceedings. 2005 IEEE International Joint Conference on Neural Networks, 2005.,
+volume 2, pages 729-734. IEEE, 2005.
+[11] Franco Scarselli, Marco Gori, Ah Chung Tsoi, Markus Hagenbuchner, and Gabriele Monfardini.
+The graph neural network model. IEEE Transactions on Neural Networks, 20(1):61-80, 2008.
+[12] Joan Bruna, Wojciech Zaremba, Arthur Szlam, and Yann LeCun. Spectral networks and locally
+connected networks on graphs. arXiv preprint arXiv:1312.6203, 2013.
+[13] Mikael Henaff, Joan Bruna, and Yann LeCun. Deep convolutional networks on graph-structured
+data. arXiv preprint arXiv:1506.05163, 2015.
+8
+
+[14] Michaël Defferrard, Xavier Bresson, and Pierre Vandergheynst. Convolutional neural networks
+on graphs with fast localized spectral ﬁltering. In Advances in neural information processing
+systems, pages 3844-3852, 2016.
+[15] Thomas N Kipf and Max Welling. Semi-supervised classiﬁcation with graph convolutional
+networks. arXiv preprint arXiv:1609.02907, 2016.
+[16] Mathias Niepert, Mohamed Ahmed, and Konstantin Kutzkov. Learning convolutional neural
+networks for graphs. In International conference on machine learning, pages 2014-2023, 2016.
+[17] Will Hamilton, Zhitao Ying, and Jure Leskovec. Inductive representation learning on large
+graphs. In Advances in Neural Information Processing Systems, pages 1024-1034, 2017.
+[18] Federico Monti, Davide Boscaini, Jonathan Masci, Emanuele Rodola, Jan Svoboda, and
+Michael M Bronstein. Geometric deep learning on graphs and manifolds using mixture model
+cnns. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition,
+pages 5115-5124, 2017.
+[19] Justin Gilmer, Samuel S Schoenholz, Patrick F Riley, Oriol Vinyals, and George E Dahl. Neural
+message passing for quantum chemistry. In Proceedings of the 34th International Conference
+on Machine Learning-Volume 70, pages 1263-1272. JMLR. org, 2017.
+[20] Christian Weedbrook, Stefano Pirandola, Raúl García-Patrón, Nicolas J Cerf, Timothy C Ralph,
+Jeffrey H Shapiro, and Seth Lloyd. Gaussian quantum information. Reviews of Modern Physics,
+84(2):621, 2012.
+[21] H Jeff Kimble. The quantum internet. Nature, 453(7198):1023, 2008.
+[22] Kevin Qian, Zachary Eldredge, Wenchao Ge, Guido Pagano, Christopher Monroe, James V
+Porto, and Alexey V Gorshkov. Heisenberg-scaling measurement protocol for analytic functions
+with quantum sensor networks. arXiv preprint arXiv:1901.09042, 2019.
+[23] David Poulin, Angie Qarry, Rolando Somma, and Frank Verstraete. Quantum simulation of
+time-dependent hamiltonians and the convenient illusion of hilbert space. Physical review
+letters, 106(17):170501, 2011.
+[24] Seth Lloyd. Universal quantum simulators. Science, pages 1073-1078, 1996.
+[25] Guillaume Verdon, Juan Miguel Arrazola, Kamil Brádler, and Nathan Killoran. A quantum
+approximate optimization algorithm for continuous problems. arXiv preprint arXiv:1902.00409,
+2019.
+[26] Rolando D Somma. Quantum simulations of one dimensional quantum systems. arXiv preprint
+arXiv:1503.06319, 2015.
+[27] Guillaume Verdon, Jason Pye, and Michael Broughton. A universal training algorithm for
+quantum deep learning. arXiv preprint arXiv:1806.09729, 2018.
+[28] Stephen D Bartlett, Barry C Sanders, Samuel L Braunstein, and Kae Nemoto. Efﬁcient classical
+simulation of continuous variable quantum information processes. Physical Review Letters,
+88(9):097904, 2002.
+[29] Seth Lloyd and Samuel L Braunstein. Quantum computation over continuous variables. In
+Quantum Information with Continuous Variables, pages 9-17. Springer, 1999.
+[30] Nathan Wiebe, Christopher Granade, Christopher Ferrie, and David G Cory. Hamiltonian
+learning and certiﬁcation using quantum resources. Physical review letters, 112(19):190501,
+2014.
+[31] Diederik P Kingma and Jimmy Ba. Adam: A method for stochastic optimization. arXiv preprint
+arXiv:1412.6980, 2014.
+[32] Lukasz Cincio, Yi˘git Suba¸sı, Andrew T Sornborger, and Patrick J Coles. Learning the quantum
+algorithm for state overlap. New Journal of Physics, 20(11):113022, 2018.
+[33] Daniel M Greenberger, Michael A Horne, and Anton Zeilinger. Going beyond bell's theorem.
+In Bell's theorem, quantum theory and conceptions of the universe, pages 69-72. Springer,
+1989.
+[34] Géza Tóth and Otfried Gühne. Entanglement detection in the stabilizer formalism. Physical
+Review A, 72(2):022340, 2005.
+9
+
+[35] Ken X Wei, Isaac Lauer, Srikanth Srinivasan, Neereja Sundaresan, Douglas T McClure, David
+Toyli, David C McKay, Jay M Gambetta, and Sarah Sheldon. Verifying multipartite entangled
+ghz states via multiple quantum coherences. arXiv preprint arXiv:1905.05720, 2019.
+[36] Christian L Degen, F Reinhard, and P Cappellaro. Quantum sensing. Reviews of modern
+physics, 89(3):035002, 2017.
+[37] Andrew Y Ng, Michael I Jordan, and Yair Weiss. On spectral clustering: Analysis and an
+algorithm. In Advances in neural information processing systems, pages 849-856, 2002.
+[38] Keyulu Xu, Weihua Hu, Jure Leskovec, and Stefanie Jegelka. How powerful are graph neural
+networks? arXiv preprint arXiv:1810.00826, 2018.
+[39] Hubert W Lilliefors. On the kolmogorov-smirnov test for normality with mean and variance
+unknown. Journal of the American statistical Association, 62(318):399-402, 1967.
+[40] Cirq: A Python framework for creating, editing, and invoking noisy intermediate scale quantum
+(NISQ) circuits. https://github.com/quantumlib/Cirq.
+[41] Martín Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo, Zhifeng Chen, Craig Citro,
+Greg S Corrado, Andy Davis, Jeffrey Dean, Matthieu Devin, et al. Tensorﬂow: Large-scale
+machine learning on heterogeneous distributed systems. arXiv preprint arXiv:1603.04467,
+2016.
+10
+View publication stats
+

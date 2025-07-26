@@ -1,0 +1,1798 @@
+Computational universality of fungal sandpile automata
+Eric Golesa,b, Michail-Antisthenis Tsompanasa, Andrew Adamatzkya,
+Martin Tegelaarc, Han A. B. Wostenc, Genaro J. Mart´ıneza,d
+aUnconventional Computing Laboratory, University of the West of England, Bristol, UK
+bFacultad de Ingenier´ıa y Ciencias, Universidad Adolfo Ib´a˜nez, Santiago, Chile
+cMicrobiology Department, University of Utrecht, Utrecht, The Netherlands
+dSuperior School of Computer Science, National Polytechnic Institute, Mexico
+Abstract
+Hyphae within the mycelia of the ascomycetous fungi are compartmentalised
+by septa. Each septum has a pore that allows for inter-compartmental and
+inter-hyphal streaming of cytosol and even organelles. The compartments,
+however, have special organelles, Woronin bodies, that can plug the pores.
+When the pores are blocked, no ﬂow of cytoplasm takes place. Inspired by the
+controllable compartmentalisation within the mycelium of the ascomycetous
+fungi we designed two-dimensional fungal automata. A fungal automaton is
+a cellular automaton where communication between neighbouring cells can
+be blocked on demand. We demonstrate computational universality of the
+fungal automata by implementing sandpile cellular automata circuits there.
+We reduce the Monotone Circuit Value Problem to the Fungal Automaton
+Prediction Problem. We construct families of wires, cross-overs and gates to
+prove that the fungal automata are P-complete.
+Keywords:
+fungi, sandpile automata, computational universality
+1. Introduction
+Fungi are ubiquitous organisms that are present in all ecological niches.
+They can grow as single cells but can also form mycelium networks covering
+up to 10 km2 of forest soil [43, 14]. Fungi can sense what humans sense
+and more, including tactile stimulation [26, 29], pH [50], metals [15], chemi-
+cals [24], light [40] and gravity [36]. Fungi exhibit a rich spectrum of electrical
+activity patterns [42, 39, 1], which can be tuned by external stimulation. On
+studying electrical responses of fungi to stimulation [1] we proposed design
+Preprint submitted to Elsevier
+arXiv:2003.08681v1  [cs.ET]  19 Mar 2020
+
+and experimental implementation of fungal computers [2]. Further numerical
+experiments demonstrated that it is possible to compute Boolean functions
+with spikes of electrical activity propagating on mycelium networks [4]. At
+this early stage of developing a fungal computer architecture we need to
+establish a strong formal background reﬂecting several alternative ways of
+computing with fungi.
+In [3] we introduced one-dimensional fungal automata, based on a com-
+position of two elementary cellular automaton functions.
+We studied the
+automata space-time complexity and discovered a range of local events es-
+sential for a future computing device on a single hypha. In present paper
+we aim to demonstrate a computational universality of fungal automata.
+To do this we modify state transition rules of sand pile, or chip ﬁring,
+automata [11, 18, 10, 5, 17] to allow a control for moving of sand grains,
+or chips, between neighbouring cells. The local control of the interactions
+between cells is inspired by a control of cytosol ﬂow control in fungal hy-
+phae [37, 30, 7, 6, 46]. Then we used developed tools of sand pile automata
+universality [19, 21, 9, 34, 16, 33] to show that functionally complete sets of
+Boolean gates can be realised in in the fungal automata.
+The paper is structured as follows. We deﬁne two dimensional fungal
+automata in Sect. 2. We represent the fungal automata as sand pile, or chip
+ﬁring, automata in Sect. 3. Section 4 places fungal automata in the context
+of computational complexity. The P-completeness of the fungal automata is
+demonstrated via implementation of Boolean circuits in Sect. 5. Alternative
+versions of the Woronin body states updates are presented in Sect. 6. Future
+developments and feasibility of practical implementation are discussed in
+Sect. 7.
+2. Two dimensional Fungal Automata
+Filamentous fungi of the phylum Ascomycota have porous septa that
+allow for cytoplasmic streaming throughout hyphae and the mycelium [37,
+30]. The pores of damaged hyphae will be plugged by a peroxisome-derived
+organelle to prevent bleeding of cytoplasm into the environment [48, 41, 49,
+28]. These Woronin bodies can also plug septa of intact hyphae [7, 45]. The
+septal pore occlusion in these hyphae can be triggered by septal ageing and
+stress conditions [7, 8, 46].
+A scheme of the mycelium with Woronin bodies is shown in Fig. 1. An
+apical compartment has one neighbouring sub-apical compartment, while
+2
+
+Septum associated
+Woronin body
+~300 𝜇m
+~50𝜇m
+Septum
+Leashin
+Cytoplasmic
+Woronin body
+(a)
+(b)
+(c)
+(d)
+(e)
+(f)
+Figure 1: Fungal automata. (a) Biological scheme. (bcdef) Abstract schemes. (b) All
+pores are closed, (c) All pores are open, (d) North and East pores are open, (e) one-
+dimensional automaton, (f) an example of an arbitrary architecture of fungal automata.
+a sub-apical compartment has a neighbouring compartment at both ends.
+Because compartments can also branch, they can have one or more addi-
+tional neighbouring compartments. Thus, the compartment with pores and
+Woronin bodies is a elementary unit of fungal automata (Fig. 1bcd). From
+these compartments one can assemble quasi-one-dimensional (Fig. 1e) and
+two-dimensional (Fig. 1f) structures.
+In this context, let us consider a cellular automaton in the two dimensional
+grid Z2 with the von Neumann neighbourhood, with set of states Q and a
+global function F. Each cell of the grid has four sides that could be open or
+closed. An open side means that the information (the state) of both cells is
+3
+
+shared. If not, when the side is closed, both sites mutually ignore each other.
+When every side is open we have the usual cellular automata model [51]. On
+the other hand, if sides are open or closed in some random or periodical way
+we get for the same local functions diﬀerent dynamic behaviours. In this
+paper we will consider only "uniform" ways to open-close the sides. Actually
+at a given step to open every vertical side (every column of the grid) or every
+horizontal side, rows of the array. So the fungal automata model becomes a
+tuple FA = ⟨Z2, Q, V, F, w⟩, where V is the von Neumann neighbourhood,
+w is a ﬁnite word on the alphabet H, V (horizontal, vertical). Each iteration
+of automaton evolution is associated with one letter of H, V .
+In this work we focus on "particles" rules. That is to say at each site there
+are a ﬁnite amount of particles or chips, that, according to a speciﬁc rule are
+disseminated in the vicinity of a site. Every step is going synchronously, so
+each site lose and receive chips simultaneously. In this context the set of
+states is Q = 0, 1, 2, ... ⊂N, the number of particles.
+3. The chip ﬁring automata
+The chip ﬁring automaton, also know as the sandpile model [20, 22, 35],
+is a particular case of the above described particle automata ⟨Z2, V, Q, F, w⟩,
+with the following local function. If a site v ∈Z2 has xv ≥4 chips then:
+x′
+v = xv −4
+∀u ∈Vv ⇒x′
+u = xu + 1
+(1)
+where Vv is the von Neumann neihborhood of the site v.
+By adding the condition of open or close sides of the site proposed here;
+the rule changes as follows:
+xv ≥4 ⇒x′
+v = xv −α
+∀u ∈Vv such that the gate is open
+⇒x′
+u = xu + 1
+(2)
+where α is the number of gates that are open.
+When the rule is applied in parallel on every site, the new state at a site
+v is:
+x′
+v = xv −α + β
+4
+
+where β is the number of chips which the site v receives from its open and
+ﬁring neighbours.
+If every side (columns and rows) is always open, then we have the usual
+chip ﬁring automaton. When a word w of open or close sides is considered,
+for instance w = HHV V , at each step we open (or close) the rows or columns
+of the grid periodically
+(HHV V )∗= HHV V HHV V HHV V ...
+(3)
+4. Computational Complexity notions
+In order to study the complexity of an automaton we can analyse a power
+of the automaton to simulate Boolean functions, i.e., by selecting speciﬁc
+initial conditions and sites as inputs and outputs to determine the diﬀerent
+Boolean functions the automaton may compute by its dynamics [23]. More
+Boolean functions are founded, more complex is the automaton. A similar
+notion, related to some prediction problems, appears in the framework of the
+theory of computational complexity. Essentially this is similar to trying to
+determine the computational time related to the size of a problem, that a
+Turing Machine take to solve it. In our context, let us consider the following
+decision or prediction problem.
+PRE: Consider the chip ﬁring fungal automaton FA = ⟨Z2, V, Q, F, w⟩,
+an initial assignment of chips to every site , x(0) ∈QZ2, an integer number
+T > 0 of steps of the automaton and a site v ∈Z2, such that xv(0) = 0.
+Question: Will xv(t) > 0 be for some t ≤T?
+Of course one may give an answer by running the automaton at most
+T steps, which can be done in a serial computer in polynomial time. But
+the question is a little more tricky: could we answer faster than the serial
+algorithm, ideally, exponentially faster in polylogarithmic time in a parallel
+computer with a polynomial number of processor?
+To answer the questions we consider two classes of decision problems,
+those belonging to P, the class of problems solved by a polynomial algo-
+rithm, and the class NC, being the problems solved in a parallel computer in
+O(logqn) steps (polylogarithmic time). This is straightforward that NC ⊆P
+because any parallel algorithm solved in polylogarithmic time can be simu-
+lated eﬃciently in a serial computer. But the strict inclusion is a very hard
+open problem (like the well know P = NP).
+5
+
+An other notion from computational complexity related with the possi-
+bility that the two classes melt is P-completeness. A problem is P-complete
+if it is in the class P, (that is to say, there exist a polynomial algorithm
+to solve it) and every other problem in P can be reduced, by a polynomial
+transformation, to it. Clearly, if one of those P-complete problems is in NC,
+both classes collapsed in one. So, to prove that a problem is P −Complete
+gives us an idea of its complexity.
+One well known P-complete problem is the Circuit Value Problem, i.e.,
+the evaluation of a Boolean Circuit (Boolean function). Roughly because any
+polynomial problem solved in a serial computer (a Turing machine) can be
+represented as a Boolean circuit. On the other hand, Boolean circuits intu-
+itively are essentially serial because in order to compute a layer of functions
+it is necessary to compute previous layers so in principle it is not clear how
+to determine the output of the circuit in parallel. Further, when the circuit
+is monotonous, i.e., it admits only or and and gates (no negations) it is also
+a P-complete problem. This is because negation can be put in the input (the
+two bits of the variable 0 and 1) and for the gates which are a negation, to
+use the De Morgan laws.
+The complexity of the chip ﬁring automata was ﬁrst studied in [20, 22],
+where it was proved that in arbitrary graphs (in particular, non-planar ones)
+the chip ﬁring automata are Turing Universal.
+To prove this a universal
+set of Boolean circuits is built by using speciﬁc automata conﬁgurations,
+so, also PRE is P-complete. In a similar way, but in a d-dimensional grid,
+Zd, it was proved in [35] that for d ≥3 the problem is P-complete and the
+complexity, until today, remains open for a two-dimensional grid. In [16] it
+was proved that in a two-dimensional grid and the von Neumann and Moore
+neighbourhood it is not possible to cross signals by constructing wires over
+quiescent conﬁgurations. That can be done only for bigger neighbourhood,
+so, in fact, over non planar graphs.
+5. Computational Complexity of the Fungal Automata
+We will study the computational complexity of the Fungal Sand Pile
+Automaton, by proving that for the word w = V 4H4 = HHHHV V V V ,
+the Prediction Problem, PRE, is P-complete. That is to say one can not
+determine an exponentially faster algorithm to answer unless NC = P.
+Proposition 1. For the word H4V 4 = HHHHV V V V the fungal chip ﬁring
+automaton is P-complete.
+6
+
+Proof. Clearly the problem is in P. It suﬃces to run the automaton at most
+T steps and see if the site i changes, which is done in O(T 3): in fact we have
+to compute the "cone" between site i, its neighbourhood at step T −1, T −2,
+and so on, until the initial values in the site in an square (2T −1)×(2T −1).
+So the number of sites is to consider is 12 + 32 + 52 + ... + 2T −1)2 which
+is bounded by a cubic polynomial, so one may compute the state of site i in
+T 3.
+To establish the completeness, we will reduce the Monotone Circuit Value
+Problem to the Fungal Automaton Prediction Problem, PRE. That is to
+say, to establish speciﬁc automaton conﬁgurations which simulates a wire,
+the and and the or gates, as well as a cross-over. This last gadget is
+important to compute non-planar circuits in the two dimensional grid.
+In the constructions below every cell which is not in the diagram is un-
+derstood initially empty, without chips (xi = 0).
+To construct the wire let us ﬁrst see what happen when V 4 is applied in
+the particular structure showed in (Fig. 2a). The important issue is that the
+initial site with 4 chips, after the application of V 4, remains with 4 chips.
+Only the adjacent sites and down change their number of chips.Then one
+applies H4 to obtain Fig. 2b which is similar to the initial conﬁguration,
+shifted to the right (Fig. 2c).
+To implement and gate (Fig. 3) and or gate (Fig. 4) we have to connect
+two wires (this corresponds to a branching of mycelium). In the and gate
+two single chips arrive to a central site with 2 chips, so to trigger ﬁring,
+threshold 3, the signal has to arrive. With H the signal continues to the
+right, thus the output is 1. The or gate functions similarly to and gate but
+the central site has 3 chips. There is an unwanted signal coming back signal
+but the computation is made to the right.
+The cross-over is demonstrated in Fig. 5.
+Here we apply four V and
+H steps.
+In Fig.
+5a we illustrate the crossing of a horizontal signal (by
+applying H4).
+For the vertical signal the dynamics is similar but V 4 is
+applied. Figure 5b shows the case when two signals arrive at the junction at
+the same time.
+6. Other words of automaton updates
+For other shorter words, like the usual chip ﬁring (with sides always open)
+and the words in the set B = {HV, H2V 2, H3V 3} we are able to construct
+7
+
+*
+*
+3
+3
+4
+2
+3
+3
+V
+4
+V
+2
+V
+4
+V
+2
+4
+→
+2
+→
+4
+→
+2
+→
+4
+3
+4
+2
+4
+2
+3
+3
+4
+2
+3
+*
+*
+(a)
+3
+3
+3
+3
+3
+3
+2
+3
+3
+2
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3 ...
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3 ...
+2
+3
+3
+2
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+3
+3
+2
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3
+3
+3 ...
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3 ...
+2
+3
+3
+2
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3
+3 ...
+2
+3
+3
+3
+3
+3
+H
+H
+H
+H
+H4
+(b)
+*
+3
+3
+3
+3
+3
+3
+2
+3
+3
+2
+2
+3
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3 ...
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3 ...
+2
+3
+3
+2
+2
+3
+3
+3
+3
+3
+3
+3
+*
+V4
+(c)
+Figure 2: Wires. (a) Application of V 4 to the wire. (b) Application of H4 to the wire.
+(c) Final state of the wire after the application of V 4.
+8
+
+3
+3
+3
+3
+2
+3
+2
+3
+3
+3
+3
+3
+3
+3
+2
+3
+3
+3
+3
+3
+3
+3 ...
+3
+3
+2
+4
+3
+3
+3
+2
+3
+3
+3
+3
+3
+3 ...
+2
+3
+3
+2
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+4
+2
+3
+3
+2
+4
+2
+3
+2
+2
+3
+3
+3
+3
+3
+3
+2
+3
+3
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3 ...
+2
+2
+3
+3
+3
+3
+3
+3
+2
+3
+2
+3
+3
+3
+3
+H4
+V4
+Input
+Output
+Input
+Figure 3: The and gate for inputs with 4 chips (signal= 1).
+3
+3
+3
+3
+3
+3
+2
+3
+3
+2
+3
+3
+3
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3 ...
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3 ...
+2
+3
+3
+2
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+*
+3
+3
+3
+3
+3
+3
+2
+2
+3
+2
+2
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+4
+3
+3 ...
+3
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3 ...
+2
+2
+3
+2
+2
+3
+3
+*
+4
+*
+3
+3
+4
+3
+2
+2
+*
+3
+2
+4
+2
+3
+*
+3
+3
+4
+3
+3
+3
+3
+3
+3
+3
+3
+H4
+V4
+Input
+Input
+H4
+Output
+Figure 4: The or gate for one ﬁring input.
+9
+
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+0
+3
+0
+3
+2
+0
+3
+0
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+2
+0
+3
+0
+3
+2
+0
+3
+0
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+H4
+(a)
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+0
+3
+0
+3
+2
+0
+3
+0
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+2
+0
+3
+0
+3
+2
+0
+3
+0
+3
+3
+3
+4
+3
+3
+*
+3
+2
+4
+2
+3
+*
+2
+2
+3
+3
+3
+3
+*
+3
+3
+4
+3
+3
+2
+0
+2
+0
+2
+3
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+2
+0
+3
+0
+2
+3
+2
+3
+2
+3
+3
+*
+3
+H4
+V4
+(b)
+Figure 5: The cross-over (a) with a horizontal signal and (b) for two signals.
+10
+
+0
+0
+0
+0
+0
+0
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+wire
+AND gate
+OR gate
+Figure 6: The wire and gates for the classical chip ﬁring automaton: every side is open.
+wires, the or and the and gates, but we are unable to built a cross-over. In
+such cases we can only implement planar circuits with non-crossing wires.
+Below we exhibit the diﬀerent constructions for those words. It is impor-
+tant to point out that the strategy we used to built the constructions has
+been by taking as initial framework a quiescent conﬁguration, i.e. a ﬁxed
+point of the automaton. In [16] it has been proved that with this strategy,
+for a two dimensional grid with the von Neumann or Moore neighbourhoods
+it is impossible to cross information, i.e. to built a cross-over. It seems that
+is also the case for the words in the set B. In this sense one may say that
+our result is the best possible: no shortest word allows to cross information,
+at least following the quiescent strategy.
+In previous situations for the usual chip ﬁring automaton the construc-
+tions are given in Fig. 6. For the word HV : wire is shown in Fig. 7a and the
+and gate in Fig. 7. For the word HHV V , the wire is shown in Fig. 8a, the
+or gate is shown in Fig. 8a and the and gate in Fig.8c.
+7. Discussion
+Using sandpile, or chip ﬁring, automata we proved that Fungal Automata
+are computationally universal, i.e., by arranging positions of branching in
+mycelium it is possible to calculate any Boolean function.
+The structure of Fungal Automata presented can be relaxed by consider
+the site ﬁring chips only when it has as many chips as open side. In present
+model, since at each step there are only two sides can be open, the ﬁring
+threshold is 2. In this situation, the wire and and the or gates can be built
+as in previous cases but not the cross-over. Dynamics of the wire is shown
+in Fig. 9, the and gate in Fig. 10.
+11
+
+2
+4
+3
+3
+3
+3
+2
+4
+3
+3
+3
+2
+2
+3
+3
+3
+2
+2
+3
+3
+2
+2
+3
+3
+3
+2
+2
+3
+3
+3
+2
+2
+4
+3
+3
+2
+3
+2
+4
+3
+H
+V
+H
+(a)
+2
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+2
+4
+3
+2
+3
+3
+2
+2
+3
+3
+3
+3
+2
+2
+3
+3
+3
+3
+3
+4
+3
+2
+3
+2
+2
+2
+2
+3
+2
+3
+3
+2
+2
+3
+3
+3
+3
+2
+2
+3
+3
+3
+3
+2
+2
+4
+3
+3
+2
+2
+4
+3
+3
+3
+2
+3
+2
+4
+3
+3
+2
+2
+2
+2
+3
+3
+3
+2
+3
+2
+3
+3
+2
+3
+2
+3
+2
+3
+3
+2
+3
+2
+4
+3
+2
+2
+2
+2
+3
+3
+3
+3
+2
+3
+V
+H
+H
+V
+V
+H
+(b)
+Figure 7: Operation of the (HV )∗word. (a) The wire. (b) The or gate.
+12
+
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+(a)
+2
+3
+3
+2
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3
+2
+4
+3
+3
+2
+3
+3
+2
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+2
+2
+3
+2
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3
+2
+4
+2
+2
+3
+2
+3
+3
+3
+4
+3
+2
+4
+2
+3
+3
+H2
+V2
+H2
+(b)
+2
+3
+3
+2
+3
+3
+3
+2
+4
+3
+2
+3
+3
+3
+3
+3
+2
+3
+3
+3
+2
+3
+3
+2
+3
+3
+3
+4
+3
+2
+4
+2
+2
+2
+2
+3
+3
+2
+3
+3
+3
+3
+3
+2
+4
+3
+3
+3
+3
+3
+3
+3
+2
+4
+2
+2
+3
+2
+2
+3
+2
+3
+2
+2
+3
+2
+3
+3
+H2
+V2
+H2
+(c)
+Figure 8: Operation of the (HHV V )∗word. (a) The wires. (b) The or gate. (c) The
+and gate.
+1
+0
+0
+1
+1
+1
+0
+0
+1
+1
+1
+0
+0
+2
+1
+0
+0
+2
+1
+1
+0
+1
+0
+2
+1
+0
+1
+0
+0
+1
+*
+H
+V
+Figure 9: Two chip-ﬁring wire.
+13
+
+a)
+2
+1
+1
+1
+1
+*
+0
+2
+1
+1
+1
+0
+1
+0
+1
+1
+0
+1
+0
+1
+1
+1
+1
+1
+1
+0
+0
+1
+1
+1
+0
+0
+1
+1
+1
+0
+2
+0
+1
+1
+1
+0
+1
+1
+1
+1
+1
+1
+1
+b)
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+0
+1
+1
+1
+1
+0
+1
+1
+1
+1
+0
+1
+1
+1
+1
+1
+1
+2
+1
+1
+2
+2
+0
+*
+0
+0
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+0
+1
+1
+1
+1
+1
+1
+1
+*
+0
+2
+*
+0
+0
+0
+0
+0
+0
+c)
+2
+1
+1
+1
+1
+*
+0
+2
+1
+1
+1
+0
+0
+1
+1
+1
+0
+1
+0
+1
+1
+0
+1
+0
+1
+1
+0
+2
+0
+1
+1
+1
+1
+1
+1
+2
+1
+1
+2
+2
+0
+*
+0
+0
+0
+0
+1
+1
+1
+0
+0
+1
+1
+1
+0
+0
+1
+1
+1
+1
+0
+1
+1
+1
+1
+0
+2
+1
+1
+1
+1
+0
+2
+1
+*
+0
+2
+0
+0
+0
+0
+0
+0
+0
+1
+0
+1
+H
+H
+V
+V
+H
+H
+V
+H
+V
+H
+V
+H
+Figure 10: The and gate for ﬁring threshold 2. (a) One horizontal signal. (b) One vertical
+signals. (c) Two signals and one output signal.
+14
+
+Consider the N ×N grid {0, 1, 2, ..., N −1}×{0, 1, 2, ..., N −1}. Another
+possibility to open-close sides could be the following: at even steps t = 0, 2, ...,
+open the even rows and columns and at odd steps, t = 1, 3, 5, ... open the
+odd rows and columns.
+If we do that we simulate exactly the Margolous partitions (2×2 blocks) [31].
+This give us another way to determine the universality and, in this case, re-
+versibility of this speciﬁc Fungal Automaton, because with this strategy one
+may simulate the Margolous billiard [32]. Not only that, given any other
+block partition automaton, say by p × p blocks there exist a way to open-
+close the sides which simulates it [38, 13, 25, 12].
+A signiﬁcance of the results presented for future implementations of fungal
+automata with living fungal colonies in experimental laboratory conditions is
+the following: in our previous research, see details in [4], we used FitzHugh-
+Nagumo model to imitate propagation of excitation on the mycelium network
+of a single colony of Aspergillus niger. Boolean values are encoded by spikes
+of extracellular potential.
+We represented binary inputs by electrical im-
+pulses on a pair of selected electrodes and we record responses of the colony
+from sixteen electrodes. We derived sets of two-inputs-on-output logical gates
+implementable the fungal colony and analyse distributions of the gates [4].
+Indeed, there were combination of functionally complete sets of gates, thus
+computing with travelling spikes is universal. However, in [4], we made a
+range of assumptions about origins, mechanisms of propagation and inter-
+actions of impulses of electrical activity. If the spikes of electrical potential
+do not actually propagate along the mycelium the model might be incorrect.
+The sandpile model designed in present paper is more relaxed because does
+not any auto-catalytic processes: avalanches can be physically simulated by
+applying constant currents, chemical stimulation to mycelium network. This
+is because the avalanches can be seen as movement of cytoplasm of products
+of fungal metabolism.
+Whilst thinking about potential experimental implementation initiating
+avalanches is just one part of the problem. Selective control of the Woronin
+bodies might bring substantial challenges. As previous studies indicate the
+Woronin bodies can block the pores due to cytoplasmic ﬂow [45] or me-
+chanical stimulation of the cell wall, high temperatures, carbon and nitrogen
+starvation, high osmolarity and low pH [47, 44, 27]. We are unaware of ex-
+perimental studies on controlling Woronin bodies with light but we believe
+this is not impossible.
+15
+
+Acknowledgement
+AA, MT, HABW have received funding from the European Union's Hori-
+zon 2020 research and innovation programme FET OPEN "Challenging cur-
+rent thinking" under grant agreement No 858132. EG residency in UWE has
+been supported by funding from the Leverhulme Trust under the Visiting
+Research Professorship grant VP2-2018-001 and from the project the project
+1200006, FONDECYT-Chile.
+References
+[1] Andrew Adamatzky. On spiking behaviour of oyster fungi Pleurotus
+djamor. Scientiﬁc reports, 7873, 2018.
+[2] Andrew Adamatzky.
+Towards fungal computer.
+Interface focus,
+8(6):20180029, 2018.
+[3] Andrew Adamatzky, Eric Goles, Genaro Martinez, Michail-Antisthenis
+Tsompanas, Martin Tegelaar, and Han A. B. Wosten. Fungal automata.
+arXiv preprint arXiv:2003.08168, 2020.
+[4] Andrew Adamatzky, Martin Tegelaar, Han AB Wosten, Anna L Powell,
+Alexander E Beasley, and Richard Mayne. On boolean gates in fungal
+colony. arXiv preprint arXiv:2002.09680, 2020.
+[5] Javier Bitar and Eric Goles. Parallel chip ﬁring games on graphs. The-
+oretical Computer Science, 92(2):291-300, 1992.
+[6] Robert-Jan Bleichrodt, Marc Hulsman, Han AB W¨osten, and Marcel JT
+Reinders. Switching from a unicellular to multicellular organization in
+an aspergillus niger hypha. MBio, 6(2):e00111-15, 2015.
+[7] Robert-Jan Bleichrodt, G Jerre van Veluw, Brand Recter, Jun-ichi
+Maruyama, Katsuhiko Kitamoto, and Han AB W¨osten. Hyphal het-
+erogeneity in a spergillus oryzae is the result of dynamic closure of septa
+by w oronin bodies. Molecular microbiology, 86(6):1334-1344, 2012.
+[8] Robert-Jan Bleichrodt, Arman Vinck, Nick D Read, and Han AB
+W¨osten.
+Selective transport between heterogeneous hyphal compart-
+ments via the plasma membrane lining septal walls of Aspergillus niger.
+Fungal Genetics and Biology, 82:193-200, 2015.
+16
+
+[9] Alessandro Chessa, H Eugene Stanley, Alessandro Vespignani, and Ste-
+fano Zapperi. Universality in sandpiles. Physical Review E, 59(1):R12,
+1999.
+[10] Kim Christensen, Hans C Fogedby, and Henrik Jeldtoft Jensen. Dy-
+namical and spatial aspects of sandpile cellular automata. Journal of
+statistical physics, 63(3-4):653-684, 1991.
+[11] Deepak Dhar. Self-organized critical state of sandpile automaton mod-
+els. Physical Review Letters, 64(14):1613, 1990.
+[12] J´erˆome Durand-Lose. Representing reversible cellular automata with re-
+versible block cellular automata. Discrete Mathematics and Theoretical
+Computer Science, 145:154, 2001.
+[13] J´erˆome O Durand-Lose.
+Reversible space-time simulation of cellular
+automata. Theoretical Computer Science, 246(1-2):117-129, 2000.
+[14] BA Ferguson, TA Dreisbach, CG Parks, GM Filip, and CL Schmitt.
+Coarse-scale population structure of pathogenic Armillaria species in a
+mixed-conifer forest in the blue mountains of northeast oregon. Cana-
+dian Journal of Forest Research, 33(4):612-623, 2003.
+[15] Marina Fomina, Karl Ritz, and Geoﬀrey M Gadd.
+Negative fungal
+chemotropism to toxic metals. FEMS Microbiology Letters, 193(2):207-
+211, 2000.
+[16] Anah´ı Gajardo and E Goles. Crossing information in two-dimensional
+sandpiles. Theoretical Computer Science, 369(1-3):463-469, 2006.
+[17] Eric Goles. Sand piles, combinatorial games and cellular automata. In
+Instabilities and Nonequilibrium Structures III, pages 101-121. Springer,
+1991.
+[18] Eric Goles. Sand pile automata. In Annales de l'IHP Physique th´eorique,
+volume 56, pages 75-90, 1992.
+[19] Eric Goles and Maurice Margenstern. Sand pile as a universal computer.
+International Journal of Modern Physics C, 7(02):113-122, 1996.
+[20] Eric Goles and Maurice Margenstern. Sand pile as a universal computer.
+International Journal of Modern Physics C, 7(02):113-122, 1996.
+17
+
+[21] Eric Goles and Maurice Margenstern.
+Universality of the chip-ﬁring
+game. Theoretical Computer Science, 172(1-2):121-134, 1997.
+[22] Eric Goles and Maurice Margenstern.
+Universality of the chip-ﬁring
+game. Theoretical Computer Science, 172(1-2):121-134, 1997.
+[23] Raymond Greenlaw, H James Hoover, Walter L Ruzzo, et al. Limits to
+parallel computation: P-completeness theory. Oxford University Press
+on Demand, 1995.
+[24] Konrad T Howitz and David A Sinclair.
+Xenohormesis: sensing the
+chemical cues of other species. Cell, 133(3):387-391, 2008.
+[25] Katsunobu Imai and Kenichi Morita.
+A computation-universal two-
+dimensional 8-state triangular reversible cellular automaton. Theoretical
+Computer Science, 231(2):181-191, 2000.
+[26] Mordecai J Jaﬀe, A Carl Leopold, and Richard C Staples.
+Thigmo
+responses in plants and fungi. American Journal of Botany, 89(3):375-
+382, 2002.
+[27] Gregory Jedd. Fungal evo-devo: organelles and multicellular complexity.
+Trends in cell biology, 21(1):12-19, 2011.
+[28] Gregory Jedd and Nam-Hai Chua. A new self-assembled peroxisomal
+vesicle required for eﬃcient resealing of the plasma membrane. Nature
+cell biology, 2(4):226-231, 2000.
+[29] Ching Kung. A possible unifying principle for mechanosensation. Na-
+ture, 436(7051):647, 2005.
+[30] Roger R Lew. Mass ﬂow and pressure-driven hyphal extension in neu-
+rospora crassa. Microbiology, 151(8):2685-2692, 2005.
+[31] Norman Margolus.
+Physics-like models of computation.
+Physica D:
+Nonlinear Phenomena, 10(1-2):81-95, 1984.
+[32] Norman Margolus. Universal cellular automata based on the collisions
+of soft spheres. In Collision-based computing, pages 107-134. Springer,
+2002.
+18
+
+[33] Bruno Martin. On goles' universal machines: A computational point of
+view. Theoretical Computer Science, 504:83-88, 2013.
+[34] Cristopher Moore and Martin Nilsson. The computational complexity
+of sandpiles. Journal of statistical physics, 96(1-2):205-224, 1999.
+[35] Cristopher Moore and Martin Nilsson. The computational complexity
+of sandpiles. Journal of statistical physics, 96(1-2):205-224, 1999.
+[36] David Moore.
+Perception and response to gravity in higher fungi-a
+critical appraisal. New Phytologist, 117(1):3-23, 1991.
+[37] Royall T Moore and James H McAlear. Fine structure of mycota. 7.
+observations on septa of ascomycetes and basidiomycetes.
+American
+Journal of Botany, 49(1):86-94, 1962.
+[38] Kenichi Morita and Masateru Harao. Computation universality of one-
+dimensional reversible (injective) cellular automata. IEICE TRANSAC-
+TIONS (1976-1990), 72(6):758-762, 1989.
+[39] S Olsson and BS Hansson. Action potential-like activity found in fungal
+mycelia is sensitive to stimulation. Naturwissenschaften, 82(1):30-31,
+1995.
+[40] Janina Purschwitz, Sylvia M¨uller, Christian Kastner, and Reinhard Fis-
+cher. Seeing the rainbow: light sensing in fungi. Current opinion in
+microbiology, 9(6):566-571, 2006.
+[41] RE Reichle and JV Alexander. Multiperforate septations, woronin bod-
+ies, and septal plugs in fusarium. The Journal of cell biology, 24(3):489,
+1965.
+[42] Cliﬀord L Slayman, W Scott Long, and Dietrich Gradmann. "Action
+potentials" in Neurospora crassa, a mycelial fungus. Biochimica et Bio-
+physica Acta (BBA)-Biomembranes, 426(4):732-744, 1976.
+[43] Myron L Smith, Johann N Bruhn, and James B Anderson. The fungus
+Armillaria bulbosa is among the largest and oldest living organisms.
+Nature, 356(6368):428, 1992.
+19
+
+[44] Shanthi Soundararajan, Gregory Jedd, Xiaolei Li, Marilou Ramos-
+Pamplo˜na, Nam H Chua, and Naweed I Naqvi. Woronin body function
+in magnaporthe grisea is essential for eﬃcient pathogenesis and for sur-
+vival during nitrogen starvation stress. The Plant Cell, 16(6):1564-1574,
+2004.
+[45] Gero Steinberg, Nicholas J Harmer, Martin Schuster, and Sreedhar Ki-
+laru. Woronin body-based sealing of septal pores. Fungal Genetics and
+Biology, 109:53-55, 2017.
+[46] Martin Tegelaar, Robert-Jan Bleichrodt, Benjamin Nitsche, Arthur FJ
+Ram, and Han AB W¨osten. Subpopulations of hyphae secrete proteins
+or resist heat stress in aspergillus oryzae colonies. Environmental mi-
+crobiology, 22(1):447-455, 2020.
+[47] Martin Tegelaar and Han AB W¨osten. Functional distinction of hyphal
+compartments. Scientiﬁc reports, 7(1):1-6, 2017.
+[48] Karen Tenney, Ian Hunt, James Sweigard, June I Pounder, Chadonna
+McClain, Emma Jean Bowman, and Barry J Bowman. Hex-1, a gene
+unique to ﬁlamentous fungi, encodes the major protein of the woronin
+body and functions as a plug for septal pores.
+Fungal Genetics and
+Biology, 31(3):205-217, 2000.
+[49] Wei Kiat Tey, Alison J North, Jose L Reyes, Yan Fen Lu, and Gregory
+Jedd.
+Polarized gene expression determines woronin body formation
+at the leading edge of the fungal colony. Molecular biology of the cell,
+16(6):2651-2659, 2005.
+[50] Ingrid M Van Aarle, P˚al Axel Olsson, and Bengt S¨oderstr¨om. Arbuscu-
+lar mycorrhizal fungi respond to the substrate ph of their extraradical
+mycelium by altered growth and root colonization.
+New Phytologist,
+155(1):173-182, 2002.
+[51] Stephen Wolfram. Cellular automata and complexity: collected papers.
+Addison-Wesley Pub. Co., 1994.
+20
+

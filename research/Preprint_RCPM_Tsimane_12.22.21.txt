@@ -1,0 +1,1570 @@
+The formal schooling niche: Longitudinal evidence from Amazonia,
+Bolivia demonstrates that higher school quality augments differences in
+children's abstract reasoning.
+Helen Elizabeth Davis1
+Department of Human Evolutionary Biology, Harvard University, Cambridge, MA, USA.
+One Pencil Project 501(c)(3), Salt Lake City, UT, USA.
+Jonathan Stieglitz
+Toulouse 1 Capitole University, Toulouse, France.
+Alberto Maito Tayo
+Tsimane Health and Life History Project, Tacuaral del Matto, Beni, Bolivia.
+Hillard Kaplan
+Economic Science Institute, Chapman University, Santa Barbara, Orange, CA, USA.
+Michael Gurven
+Department of Anthropology, University of California, Santa Barbara, Santa Barbara, CA, USA.
+Abstract
+Although it is widely accepted that abstract reasoning and schooling are crucial for occupational success and
+human capital development in wage-based labor markets, the pathways by which schooling affects cognition
+remain unclear. This study examines the effects of a pervasive cultural institution, formal schooling, on
+the development of children's abstract reasoning skills over a four-year period in the Bolivian Amazon
+(n = 290 children; 8-18 years; 42% female). Assessing school attributes, children's school-derived skills
+and nutritional status, and parental factors on children's abstract reasoning, we find that children attending
+higher quality schools score higher on abstract reasoning assessments relative to children attending low-
+quality schools. Performance gaps persist and increase over time, suggesting that higher school quality is
+a positive and more important causal determinant of abstract reasoning than many child- and family-level
+characteristics during population transitions to obligate formal schooling.
+1Corresponding author: Primary email: helendavis@fas.harvard.edu; Secondary email: helenelizabethdavis@gmail.com
+
+Keywords: child development, cognition and learning, formal schooling, cultural
+evolution, abstract reasoning, Global South
+1. Introduction
+Education has been recognized as an engine of social and economic growth for millennia, and advo-
+cates for global access to education consider formal schooling (FS) a critical component in the reduction of
+economic inequality (Besley & Burgess, 2003). Children have long been the focus of educational policies
+that aim to promote future economic productivity and civic engagement (Smithers et al., 2018) and reduce
+poverty (Lim et al., 2018). Experimental research on effects of FS indicates improvements in a variety of
+cognitive skills, such as reasoning and problem-solving (Ritchie & Tucker-Drob, 2018; Van de Werfhorst &
+Mijs, 2010), and "non-cognitive" skills, such as patience and goal setting (Heckman & Kautz, 2012). In turn,
+these skills predict diverse measures of life quality, including health (Amin et al., 2013), social competence
+(Bowles & Gintis, 2002) and income (Ishikawa & Ryan, 2002). Though there has been considerable ad-
+vances in the understanding of cognition and learning over the last 50 years, there are still many unanswered
+questions regarding the role that cultural variation, as well as the pervasiveness of cultural institutions, play
+in the development of cognitive skills during childhood.
+1.1. Formal schooling is a cultural institution
+Compulsory public schooling is a relatively recent institution in human history that, over the last 150
+years, has replaced self-directed play, exploration, and some methods of social learning as typical forms of
+education and socialization (Davis et al., 2021a; Kline, 2015). Beginning in the 1960s, considerable psy-
+chological research investigated the role of FS on cognition (see Cole 1997; Cole & Scribner 1974; Rogoff
+1981 for reviews of the literature) by focusing attention on cognition and learning in schooled versus un-
+schooled populations. This work built on groundbreaking work conducted by Luria (1976) in the early 20th
+century. Results from these renewed efforts concluded that fundamental differences did not exist in reason-
+ing capacities across populations, though there were marked differences in patterns of thought, particularly
+between schooled and unschooled groups. Notable, and relevant to this study, their findings demonstrated
+that while unschooled populations are capable of using abstract categories (after training), this type of rea-
+soning appeared to be highly counter-intuitive approach for groups without the peculiar experience of formal
+(Western) schooling. In other words, FS is not only transmitting knowledge, but it also likely shapes core
+aspects of human cognition and behavior. However, building on this work has proven difficult because once
+2
+
+a population has been exposed to FS, and over generations, it is difficult to disentangle the effects of FS
+from other relevant demographic and behavioral factors that may also influence the development of abstract
+reasoning skills (Ardila & Rosselli, 2007; Cahan & Cohen, 1989; Cahan & Davis, 1987).
+More recently, models of cultural evolution that emphasize the adaptive nature of human cognition—
+specifically the ways that many aspects of psychology mold or calibrate to incentives created by social norms
+and institutions, including the complex dynamics associated with the social transmission of knowledge, the
+accumulation of culture, and social change across temporal scales (Boyd et al., 2011; Cavalli-Sforza et al.,
+1982; Mesoudi et al., 2015; Muthukrishna et al., 2018; Richerson & Boyd, 1995)—has engaged a new cross-
+disciplinary effort to investigate various aspects of human psychology and behavior outside the Global North
+(Henrich et al., 2010; Schultz, 1961). However, given the tremendous variability in culture and FS across the
+globe, many cross-cultural experimental studies that focus specifically on cognitive development, education,
+or learning struggle with some limitations (Muthukrishna et al., 2020), including biasing testing towards
+skills deemed valuable in Western societies (Clegg et al., 2017; Legare et al., 2018). Additional difficulties
+associated with relevancy and translatability can often complicate the use of standardized assessments in
+diverse settings (Greenfield, 1997; Hruschka et al., 2018; Medin et al., 2010), making interpreting results
+difficult.
+Limited ethnographic, behavioral, and sociocultural data collection in many studies can create addi-
+tional issues, especially when attempting to identify causal mechanisms associated with the development
+of cognitive skills. One prevalent example of this is the reliance on years of schooling or highest grade
+level achieved in cross-cultural, comparative research (Lim et al., 2018), rather than focusing on educational
+quality or community-level cognitive skill development. This impedes the ability to directly assess how vari-
+ation in quality of FS—which disproportionately affects children in lower income communities, developing
+nations, and transitioning populations (Hanushek & Woessmann, 2020)—can influence human capital de-
+velopment (Hanushek & Woessmann, 2008; Heckman & Kautz, 2012) and augment inequality (Heckman,
+2011; Kaplan, 1996).
+1.2. Schooling and abstract reasoning
+Formal education may be related to abstract reasoning skills via several potential pathways. Early FS
+focuses in part on teaching children how to read, understand what is read, and perform basic mathematical
+operations. Proficiency in literacy and numeracy—a focus of this study—is frequently linked to measures
+of cognitive performance (e.g., reasoning, problem-solving; Geary 2011; Stanovich et al. 1984) and adult
+3
+
+socioeconomic status (SES). While learning literacy and numeracy, children develop new problem-solving
+techniques (Reis & Castro-Caldas, 1997; Schoenfeld, 1992), such as abstract and analytical reasoning, which
+may be employed across domains and are themselves associated with improved cognitive performance (Dias
+et al., 2005; Ritchie et al., 2015). Another aspect of FS experience that may be particularly salient in studying
+performance effects on children's abstract reasoning include children's familiarity with features of the testing
+conditions, which are similar to school tasks.
+1.3. Study goals and predictions
+Here, we present a longitudinal study of the effects of FS quality on children's abstract reasoning among
+the Tsimane of the Bolivian Amazon. We consider specific school attributes, children's school-derived skills
+and nutritional status, and parental education and wealth, which have all been linked in studies across disci-
+plines to academic performance and abstract reasoning skills. Including these conditions provides a unique
+opportunity to examine the effects of FS on abstract reasoning among children between the ages of 8 and 18.
+For example, school-derived skills reflect content of what's learned in classroom, while parental educational
+and wealth reflect children's larger learning environments, prior exposures, and potential intergenerational
+cognitive correlations.
+The implementation of Bolivia's educational reforms in the mid-2000s made sizable, but unequally dis-
+tributed, shifts in the availability of educational materials, internal (i.e., school-level) practices, and teacher
+training, leading to greater variation in school quality (Jiménez & Vera, 2010; UDAPE-UNICEF, 2008).
+Relatively uniform economic, cultural, and ecological conditions experienced by Tsimane, combined with
+variation in quality of FS, provide a rare opportunity for studying effects of school quality on cognition
+(see Methods and Supplemental). One aspect of cognition that is often linked to positive life outcomes in
+post-industrial populations is fluid ability (i.e., novel problem-solving), which is often measured through the
+capacity to reason abstractly (Deary et al., 2007). However, higher fluid ability is likely influenced by one's
+learning environment (Bratsberg & Rogeberg, 2018) and can improve with training on other cognitive skills,
+such as working memory (Jaeggi et al., 2008). Given that the current global estimate for the number of chil-
+dren that underperform on cognitive and academic assessments exceeds 200 million (Grantham-McGregor
+et al., 2007), and evidence linking structural variation in brain development associated with fluid ability to
+poverty (Hair et al., 2015), abstract reasoning has become an important focus of contemporary cognitive
+research.
+Here we evaluate multi-level predictors of abstract reasoning among Tsimane (mean±SD age[years]=12.5±3.0;
+4
+
+age range: 8-18; 42% female, n=290 children) using Raven's Coloured Progressive Matrices (RCPM),
+a commonly used 36-item instrument that does not require literacy (Pasquali et al., 2002). We ranked
+schools by quality based on a composite index incorporating teacher-child ratio, teacher training, and the
+amount/diversity of school resources (see Methods) and test whether FS quality is positively associated with
+RCPM score (P1a). We further test whether, in a cross-section, age-related differences in RCPM score are
+greater for children attending higher quality schools (P1b).
+We next examine direct and indirect pathways through which school quality may affect variation in
+children's abstract reasoning. We include in generalized linear models various child- and family-level factors
+that reflect different reasons why FS may associate with cognitive test scores. These factors have been
+reliably associated with cognitive test scores in the literature and are relevant in the Tsimane context. We
+assess conditional indirect effects with moderated mediation analysis. Higher school attendance indicates
+greater FS exposure, and potential scholastic interest on the part of the child and/or parents. School-derived
+skills (i.e., reading ability, arithmetic ability) reflect a combination of child ability and quality of learning
+environment. These factors should positively associate with greater RCPM scores (P2). Likewise, parents'
+educational attainment and household wealth should also positively associate with higher RCPM scores
+to the extent that these factors provide additional advantages to children (Von Stumm & Plomin, 2015).
+If these advantages are important enough, they should reduce the independent effect of school quality on
+RCPM score. If attendance, reading ability and arithmetic ability do not, or only partially, mediate the effect
+of school quality on RCPM score, then this could suggest that non-scholastic aspects of school quality (e.g.,
+motivation) are also important. If children with identical school-derived skills score higher on RCPM when
+attending higher quality schools, this suggests a moderating effect of the broader learning environment on
+RCPM score.
+Finally, using longitudinal RCPM data spanning four years, we test whether relevant factors at study
+baseline, and the effect of school quality, persist over time, specifically among those children who self-
+selected to continue schooling (P3).
+2. Methods
+2.1. Study population and features of the experiment
+Though historically the Tsimane were only minimally integrated into broader Bolivian society, the rel-
+atively recent (past∼40-50 years) introduction of roads, outboard motors for canoes, and subsequent en-
+croachment by neighboring Bolivian ranchers and loggers have increased market access and wage labor
+5
+
+opportunities for many Tsimane villages (Gurven et al., 2015), particularly those located near the town of
+San Borja. San Borja (pop'n ∼43,000) is the largest town and market center near the Tsimane territory.
+As such, San Borja travel distance is a reasonable proxy of village-level acculturation, but this proxy is
+unrelated to school quality (See Table S1). Thus, we avoid potential confounding effects of market "accul-
+turation" (e.g., more frequent market transactions, exposure to diverse media including television and books)
+on abstract reasoning (Greenfield & Beagles-Roos, 1988) when assessing effects of school quality.
+However, as forager-horticulturalists and at the time of this study, the Tsimane in the study villages still
+do not rely primarily on a cash-based market economy. As a result, they lack significant material wealth
+and wealth inequality across the population (Godoy et al., 2004; Jaeggi et al., 2020). All Tsimane are
+also from the same ethnolinguistic group, making them culturally and linguistically homogenous relative to
+industrialized populations, which helps avoid some endogeneity biases identified in cross-cultural research
+(Nisbett, 2009). Thus, the current study avoids several salient sources of endogeneity, enabling us to better
+isolate effects of schooling (quantity and quality) and school-derived skills on children's performance at
+time-1 and prospective abstract reasoning. However, while child nutritional status and other ecological
+conditions vary less than that of populations commonly studied in the child development literature, variation
+within villages may still be associated with cognitive outcomes. Thus, we treat children's nutritional status
+and family-level factors (i.e., parental education, travel distance to school, and household wealth) as both
+controls and predictors that may affect reasoning independently and/or interactively with schooling.
+2.2. Formal schooling among Tsimane
+In the 1990s, Bolivia's government began enacting laws to increase indigenous representation and ex-
+pand educational reforms (Howard, 2009). The election of Evo Morales as president in 2005 instituted
+sweeping changes to domestic educational policy, including efforts to install more qualified teachers, build
+more schools, and adopt a standardized academic curriculum. By the early 2000s, only about 40% of
+Tsimane villages had primary schools (1st-5th grade), and none had secondary schools (Godoy et al.,
+2007). Shortly after Morales' election, new schools were established in the Tsimane territory (∼1.2 mil-
+lion hectares) within just a couple of years. Prior to Morales's election, village teachers had mostly been
+Tsimane who were trained by local missionaries, but after the election many teachers were replaced by
+government-certified non-Tsimane with more schooling from the Bolivian highlands (Reyes-García et al.,
+2010).
+Compared to schools in the Global North, public schools in rural Bolivia have historically been at
+6
+
+the lower end of the educational quality continuum (Hanushek & Woessmann, 2012; Jiménez & Vera,
+2010; Punch, 2004). Fluctuations in the supply of educational services (e.g., infrastructure and personnel;
+(UDAPE-UNICEF, 2008)) have made providing consistent and high quality education more difficult. One
+consequence of this is that Bolivian children between 1st-5th grade are reported to attend ∼50% fewer hours
+of school than their American age-matched peers (Rowland, 2014). Among Tsimane specifically, primary
+school classes are held five days per week (Mon-Fri) but last only about four hours per day (8am-noon).
+Cancellations are common due to rain. Classroom equipment and learning materials are not consistently
+available, and while attendance is systematically recorded by teachers, truancy is not penalized (Reyes-
+García et al., 2010).
+Tsimane children begin attending school sometime between ages 5-7 years (mean±SD in the present
+sample = 6.4±2.2 years). FS is usually children's first exposure to the written alphabet and counting be-
+yond small numbers describing surroundings (e.g., one capuchin monkey, two stars in the sky). Children's
+first language is Tsimane, a linguistic isolate that contains its own words for numbers 1 (yiris) through 7
+(yävätidye'); words for numbers 8 through 10 were created in Tsimane by American missionaries in the
+1970s, and words for numbers 11 and above are derived from the base 10 system (W. and R. Gill, New
+Tribes missionary-linguists, personal communication, 2001). Tsimane children become familiar with the
+Arabic numeral system and the alphabet approximately three years later than children in the US, Canada,
+and Europe (Piantadosi et al., 2014). Delays of a similar magnitude have also been observed among low-SES
+groups within high-income countries (Jordan et al., 2009).
+2.3. Participants
+Study participants and their families were already participating in the Tsimane Health and Life History
+Project (THLHP; Gurven et al. 2017). Villages were chosen based on whether or not Bolivia's educational
+reforms had been implemented in the village school between 2006 and 2007. We also intentionally included
+villages with high, medium, and low quality schools with variable access to the market town; prior studies
+have indicated that aspects of urban market environments may affect cognitive performance independently
+of individual differences (Tine 2014; see Supplemental for further details). We avoided potential selection
+biases made by parents by excluding families who moved to communities with operating schools within 15
+years of the study.
+The study baseline sample (time-1; Table S1) includes 290 children (aged 8-18 years; 42% female) tested
+in RCPM, and for whom we collected data on school-derived skills, weight-for-height, school attendance,
+7
+
+parental education, family wealth, and travel distances to the village school and market town of San Borja.
+Sampling involved matching participants by age and sex across school quality subsets in six villages using
+the THLHP census and school records. All study procedures were approved by the Tsimane Government
+(Gran Consejo Tsimane) and the protocol and design were approved by the IRB at the University of New
+Mexico.
+We first classified villages as having high (n=2), medium (n=2), or low (n=2) quality schools (see below
+for methods on classification of school quality) to test whether exposure to higher quality FS is associated
+with higher RCPM score (P1). Children were tested on RCPM individually and in private. We found no
+evidence of a "contamination effect" on RCPM score: children who were tested later scored slightly lower
+than children tested earlier (e.g.,βTestOrder = 0.06, p = 0.02, 95% CI: 0.12, 0.01, controlling for age and sex,
+village as a random effect).
+After initial (study baseline) testing (time-1) we conducted follow-up assessments both one year (time-
+2) and three years after time-1 (time-3). During each follow-up, school-derived skills were tested, and
+school quality was reassessed because school quality frequently varies over time (Jiménez & Lizárraga,
+2003; Winters, 2019). Attendance was only collected at time-1 and time-2. Weight-for-height data were
+collected by the THLHP one to two times each year during the study, and thus these data exist at each time
+point. The longitudinal analysis included 184 children and excluded children who matriculated during the
+four-year period. Thus, all 184 students were 12 or younger at time-1. To account for potential self-selection
+resulting from children leaving school (e.g., from pregnancy, incompatible domestic work requirements),
+in villages with consistent FS, only children who were in school over the entire four year testing period
+were included in longitudinal analyses. Children dropped out of high, medium, and low quality schools at
+approximately the same rate. School quality assessment
+To determine school quality, data were collected on 11 items in each school before initial testing (time-1),
+and abbreviated assessments (see i-iv below) were conducted at times 2 and 3. The characteristics measured
+were largely informed by recommendations from the National Center of Education Statistics (Mayer et al.,
+2000), but they were adapted to local needs (e.g., presence of desks, walls on classroom or school building).
+These 11 items were reexamined against updated recommendations for international school assessments
+(Singer & Braun, 2018). Items indicating school quality combined continuous, ordinal and binary coded
+items. Continuous items included: (i) number of months a school was in session during the last calendar
+year (assessed through student attendance records maintained by the teacher when available); (ii) percentage
+of teachers who reported having government certification; (iii) teacher:student ratio per class (based on
+8
+
+teachers' class rosters), averaged across all classes in a school; (iv) number of classrooms in the school;
+and, (v) travel distance (in km) from the community to the market town of San Borja. Ordinal items were
+coded on a four-point scale (range: 0=never/none - 3=often/many) and included: (vi) books available in
+classrooms; (vii) number of students with access to classroom equipment (i.e., chairs/benches, desks/tables);
+and (viii) whether students were following teacher's instructions during unannounced visits. Binary (1=yes,
+0=no) items included: (ix) Are basic writing materials (i.e., paper and pencils) provided to students by
+the school? (x) Does/do the school/classrooms have walls (i.e., to limit distractions)? (xi) Are schools
+permanent, concrete structures?
+A composite school quality measure during initial RCPM testing was derived from the first factor from
+a principal components analysis (PCA) of the 11 school quality items (93% variance explained). We did not
+rely on data transformation methods and ordinal variables were entered directly into the PCA (Kolenikov &
+Angeles, 2009). Following Menon et al. (2000), variables with factor loadings of <0.06 were excluded (i.e.
+village distance to San Borja). The composite measure was then divided into terciles indicting low, medium,
+and high school quality (Table S4). The PCA-derived school quality categories corresponded to subjective
+rankings by HED, JS and MDG.
+2.4. Psychometric testing
+Measuring abstract reasoning in cross-cultural settings using instruments derived from populations that
+are accustomed to testing poses methodological challenges (Greenfield, 1997; Hruschka et al., 2018). To
+minimize potential obstacles arising from linguistic differences and illiteracy, we employed a nonverbal
+cognitive test designed without culturally loaded references, Raven's Colored Progressive Matrices (RCPM)
+(Raven, 2011). In constructing Raven's Matrices (Colored, Progressive, and Advanced) , Raven's intention
+was to assess participants' abstract reasoning ability (Raven, 1998). Performance assessments are themselves
+culturally specific, but RCPM, in particular, has been widely used cross-culturally (Wongupparaj et al., 2015)
+due, in large part, to its limited reliance on language or literacy. RCPM is considered well-suited for children
+aged 5-11 years, with children generally developing the skills required to score perfectly (i.e., 36/36; though
+here we report normalized scores) by adolescence (Raven, 2000). But variation in FS (Vygotsky, 1980) and
+other local factors (e.g., salience of stimuli, experience with testing, nutritional status, learning environment)
+may affect performance and the timing of cognitive skill development (Cole, 1997; Sternberg, 2000)
+A trained bilingual (Spanish-Tsimane) research assistant introduced the test to participants in the native
+Tsimane language. To reduce potential stress or anxiety associated with a novel testing situation, RCPM
+9
+
+was described to children as a puzzle rather than a test. Participants were then asked to examine 36 different
+patterns, and for each one, point to one of six pieces that fit into the missing pattern space. There is no
+time limit on the test, and children were told they could take as long as they wished to complete the task
+and to try their best. Seven children did not finish the test. Mean±SD RCPM completion time was 26±10
+minutes (min-max: 7.2 to 44.0 minutes). After completing the task each participant was compensated with
+the same items, regardless of their RCPM score, i.e., school supplies and fishing line and fishing hooks, or
+cooking items. These items were requested as compensation by communities, and children were able to
+choose which items they preferred.
+2.5. Educational assessments and school attendance
+Grade levels were recorded but may not be strictly comparable across communities (e.g., children in low
+quality schools could advance to higher grades but have lower levels of academic achievement). Therefore,
+all study participants were given brief arithmetic and reading assessments to independently evaluate school-
+derived skills. Questions for the reading assessment were derived from the Iowa Test of Basic Skills—Grade
+3 (Hoover et al., 2003). The reading assessment was scored on a Likert scale from 0-5 to assess literacy and
+reading comprehension. Children were asked by the research assistant to read a short story consisting of
+three sentences to assess literacy and then were asked a follow-up comprehension question. The arithmetic
+assessment was scored based on the number of correct responses to three arithmetic problems varying in
+difficulty (e.g., 5+3, 21-11, and 6x5). Data on school attendance (range: 30-60 days in school, immediately
+prior to the study) were obtained from teachers who systematically recorded attendance. These records
+were compared for consistency against a risk set of attendance collected during the school-based abilities
+assessment and through visual confirmation while classes were in session during the study period (∼10
+school days).
+2.6. Parent education, family wealth, and distance
+Family interviews included questions on parents' educational background.
+These data were cross-
+checked and supplemented with demographic and educational data collected previously by THLHP. Dis-
+tances from residential household to school, and to town, were calculated using GPS points collected by the
+THLHP.
+10
+
+2.7. Statistical analysis
+Abstract reasoning (RCPM) score was non-normally distributed and characterized by sub-groups of
+unequal size. We, therefore, relied on a gamma error distribution with log link in generalized linear models
+(GLMs). For ease of comparison across variables we used feature scaling (min-max normalization), which
+rescales values between 0 and 1. Akaike information criterion (AIC) was used to select the best-fit model
+(P1-P2). Results were considered statistically significant at the 5% significance level.
+Because we have a small number of clusters in our sample (i.e., villages and school quality) there is a
+possibility that the error terms in our regression models are not robust to heteroskedasticity or correlations
+within clusters during initial (time-1) analyses. Following Roodman et al. (2019) and MacKinnon and
+Webb (2017), we performed wild cluster bootstrapping tests as a post-estimation procedure. The confidence
+intervals and p-values derived from this procedure are included at the bottom of Table 1 and confirm our
+model results (see Supplemental for further details on robustness checks with wild cluster bootstrapping).
+To allow for potential causal interpretations in the longitudinal study, we first determined that there were
+no significant sociodemographic differences between the villages prior to the implementation of Morales'
+new schooling policies (see introduction for additional details). Further, after testing for multicollinearity,
+we found that shorter travel times to the market town (expressed in hours) did not associate with an increase
+in the odds of attending a higher quality school (OR = 0.99, p = 0.82, 95% CI: -0.86, 1.10, null hypothesis:
+coefficient = 1.0). Likewise, the odds of having a higher quality school in one's village did not significantly
+increase with greater family wealth (OR = 1.00, p = 0.15, 95% CI: -1.00, 1.00), more years of maternal (OR
+= 1.16, p = 0.06, 95% CI: -1.00, 1.36) or paternal schooling (OR = 1.17, p = 0.13, 95% CI: -0.98, 1.42), or
+higher child nutritional status (OR = 0.79, p = 0.17, 95% CI: -0.55, 1.11, McFadden's R2 = 0.09).
+Robustness checks (wild cluster bootstrap) were performed during analyses of initial RCPM testing. We
+defined treatment at the village level. We used a binary treatment variable, which is equal to 1 if a high
+quality school was installed in the village. All households in a given village with a high quality school
+were categorized as treated during initial testing (time-1); however, our other regression models at time-1
+did include child- and family- level predictors to account for intra-cluster differences. Our school quality
+treatment at the village level had a small number of clusters with an unbalanced sample, which ruled out
+inference based on conventional or robust clustered standard errors (Cameron et al., 2008; Webb, 2013).
+Therefore, following Webb (2014), we used a multi-point wild cluster bootstrap, which randomly draws
+probability weights from a normal distribution (M = 0, SD = 1) in order to check whether our results held.
+Because schooling effects should accumulate over time, and because resource and teacher availability fluc-
+11
+
+tuated over the study period, we did consider school quality a time-varying covariate in our longitudinal
+analyses (see Latent Growth Model details below and in supplemental).
+Finally, to model individual change in RCPM score over time (P3), we employ a latent growth curve
+model (LGCM) (Little, 2013), which allows flexibility for factor loadings associated with the slope factor
+to fit both linear and nonlinear growth trajectories for each individual over time. Because our data were not
+normally distributed, we rely on the Satorra-Bentler test statistic in place of a traditional ML chi-squared test
+(see Supplemental for further details). Model comparison of fit indices identified an unconstrained model
+as best fit. This model allowed the intercept and the factor loadings associated with the slope to vary for
+individuals over time. Additional model details for the LGCM can be found in Supplemental Methods.
+Analyses were performed in R 3.6.2. A moderated mediation model and latent growth curve analysis
+were conducted in the lavaan package for R (Rosseel, 2012). All models adjusted for age and sex.
+2.8. Missing Data
+Sample sizes for RCPM scores vary across the three time points (time-1=290, time-2=130, and time-
+3=154). We therefore examined potential differences in communities with complete and incomplete data
+across time. Across all levels of schooling, descriptive statistics were stable, indicating that group variable
+balance was robust to attrition at time-1. For example, rates of attrition after four years were 47%, 46% and
+44% for children in high, medium, and low quality schools, respectively.
+Our data did not warrant dropping missing cases, nor was overall missingness of the dataset considered
+too large to test our hypotheses at >40% (Jakobsen et al., 2017). Some participants were unavailable during
+longitudinal follow-up at one or more data-collection periods. Overall, we had a combined 19.5% missing-
+ness in RCPM and 24% missing reading scores across all time points. These data were classified as Missing
+at Random (MAR), and full information maximum likelihood (FIML) from the MICE package in R (Buuren
+& Groothuis-Oudshoorn, 2010) was used to impute these missing values.
+3. Results
+RCPM scores are similar for boys and girls (Mann-Whitney U, z = -0.82, p = 0.15). Reading and
+arithmetic ability varied by school quality: 88% of children in villages with low quality schools are illiterate
+vs. 65% and 57% of children in villages with medium and high quality schools, respectively (Table S2).
+Arithmetic ability shows a similar pattern. Only 8% of children in low quality schools correctly answer
+all three arithmetic questions vs. 25% of children in medium quality schools, and 30% of children in high
+12
+
+quality schools. Children in higher quality schools demonstrate arithmetic proficiency (answering all three
+questions correctly) approximately two years earlier (mean age±SD=11.8 ± 2.9) than children in low quality
+schools (mean age±SD=13.6 ± 4.6).
+3.1. Initial RCPM scores are associated with higher school quality (P1a), and children attending higher
+quality schools show greater age-related RCPM performance (P1b)
+RCPM scores are higher for children attending higher vs. low quality schools (βHigher(vs.Low) = 0.26, p <
+0.001, 95% CI: 0.12, 0.41; Table 1: Model 1) but scores do not differ among children attending medium vs.
+low quality schools (βMedium(vs.Low) = 0.10, p = 0.69, 95% CI: -0.06, 0.27). Compared to children attending
+low quality schools, greater age-related RCPM score are observed among children attending both higher
+(βAge∗HighQuality = 1.18, p < 0.001, 95% CI: 0.65, 1.71) and medium (βAge∗MediumQuality = 1.17, p < 0.001,
+95% CI: 0.56, 1.77) quality schools (Figure 1; Table 1: Model 2).
+Figure 1: Normalized Raven's Colored Progressive Matrices (RCPM) score by child age and school quality (n = 290), fitted with a
+smoothing spline. Shaded areas represent 95% CIs.
+13
+
+Table 1: Generalized linear models of baseline RCPM score by main effects of age, sex, school quality, and age by school quality
+Model 1:
+Model 2:
+Main effects
+Age*School quality
+β
+β
+Dependent variable: RCPM score
+(CI)
+(CI)
+Age
+0.88
+∗∗∗
+- 0.07 ∗∗
+(min-max norm)
+(0.67, 1.09)
+(-0.52, 0.38)
+Sex
+−0.14
+∗∗
+- 0.13 ∗
+(reference group: girls)
+(-0.25, 0.27)
+(-0.23, -0.03)
+Medium quality (vs. Low)
+0.10
+- 0.41 ∗
+(-0.16, 0.27)
+(-0.75, -0.08)
+High quality (vs. Low)
+0.26
+∗∗∗
+- 0.25 ˆ
+(0.12, 0.41)
+(-0.53, 0.03)
+Medium quality*Age (vs. Low)
+1.17 ∗∗∗
+(0.56, 1.77)
+High quality*Age (vs. Low)
+1.18 ∗∗∗
+(0.65, 1.71)
+Constant
+−1.28
+∗∗∗
+- 1.15 ∗∗∗
+(-1.47, -1.09)
+(-1.42, -0.86)
+Effect size d
+Low quality (vs. Medium)
+−0.24
+- 0.31
+Low quality (vs. High)
+−0.60
+- 0.72
+Medium quality (vs. High)
+−0.36
+- 0.41
+Observations
+290
+290
+AIC
+−346.15
+-362.43
+Wild Cluster Bootstrap
+(1.04, 1.99)∗∗∗
+(0.39, 1.83)∗∗∗
+∧p≤0.1; ∗p≤0.05; ∗∗p≤0.01; ∗∗∗p≤0.001
+14
+
+3.2. Reading ability partially mediates the effect of school attendance on RCPM score, while school quality
+moderates the effect of school attendance and reading ability on RCPM score during initial testing (P2)
+We first model time-1 RCPM score as a function of child-level factors and then family-level factors,
+while adjusting for school quality, age and sex. We then explore pathways by which different factors exert
+direct and indirect effects on RCPM score by employing moderated mediation analysis.
+In the child-level model (Table S3: Model 1; Figure 2), reading ability is positively associated with
+RCPM score for children in high and medium (vs. low) quality schools (βHighQuality∗Reading = 1.06, p =
+0.002, 95% CI: 0.39, 1.70; βMediumQuality∗Reading = 0.80, p = 0.04, 95% CI: 0.04, 1.55; Figure S1). There
+is also a positive, marginal association between school attendance and RCPM score (βAttendance = 0.19, p
+= 0.07, 95% CI: -0.02, 0.40). Neither arithmetic ability nor weight-for-height predict RCPM score in this
+model. Because 83% of participants had at least one co-resident sibling who also participated, we considered
+an additional adjustment for shared family environment. A generalized linear mixed model (specifying main
+effects only) that included a random term for family ID reveals similar parameter estimates as our first model
+(see Figure 2 and Table S3), and poor reliability (conditional ICC = 0.28). Thus, only results from the GLM
+are reported.
+In the family-level model, RCPM score is lower among those living farther from school (βDistance = -0.59,
+p < 0.001, 95% CI: -0.85, -0.32) and is positively, albeit marginally, associated with maternal schooling
+(βMother = 0.36, p = 0.06, 95% CI: -0.01, 0.74; Figure 2; Table S3: Model 2).
+15
+
+Figure 2: Effect sizes for school quality and child-level factors (left), school quality and family-level factors (center), and the best-fit model (right) on variation in initial RCPM
+score were calculated with generalized linear models using AIC criterion. Variance inflation factors for main effects range from 1.21-1.52 for covariates in the child-level
+model and from 1.01-1.30 in the family-level model. Data are normalized to facilitate comparability but are not mean centered (see Methods for further details). Significant
+variables (p ≤0.05)areindicatedbyblackcircles.RefertoTableS3 forparameterestimates
+16
+
+School quality remains a positive predictor in this model in both high and medium (vs. low) quality
+schools ((βHigh(vs.Low) = 0.64, p < 0.001, 95% CI: 0.36, 0.90; βMedium(vs.Low) = 0.48, p = 0.002, 95% CI:
+0.17, 0.79, respectively). There are no significant interactions between school quality and either ¬parental
+schooling, travel distance to school, or family wealth on RCPM score.
+The best-fit model of RCPM score based on AIC and adjusted D-squared explains 44% of the variance in
+the initial (time-1) RCPM score. It includes interactions between school quality (high vs. low) and both read-
+ing ability (βHighQuality∗Reading = 0.93, p = 0.006, 95% CI: 0.27, 1.58) and attendance (βHighQuality∗Attendance
+= 0.40, p = 0.04, 95% CI: 0.01, 0.78). There is also a significant effect of reading ability on RCPM score
+in medium (vs. low) quality schools (βMediumQuality∗Reading = 0.81, p = 0.04, 95% CI: 0.05, 1.56). The as-
+sociation between attendance and RCPM score is also greater for children in higher vs. low quality schools
+(Figures 2; Table S3: Model 3).
+Because our predictions focus on understanding why and under what conditions child- and family-, and
+community-level predictors relate to RCPM performance, we next employ a moderated mediation analysis.
+This combined model allows for the simultaneous investigation of the direct and conditional indirect effects
+of school quality, as well as the other predictors of initial RCPM score identified in the best-fit model, on
+children's RCPM performance (Figure S2). We find that school attendance has both direct and indirect
+effects on RCPM score, while reading ability partially mediates the effect of attendance on RCPM score
+(Table 2). We then estimate the effects of school quality, reading ability, and attendance (Figure S2). School
+quality moderates both the indirect effect of attendance (Attendance ⇒Reading ability ⇒RCPM score), the
+direct effect of attendance, and the direct effect of reading ability on RCPM score, suggesting that children
+who attend school frequently in high quality schools gain more from their scholastic experience than children
+with the same attendance and reading levels in lower quality schools. We do not find a moderating effect of
+school quality on the relation between school attendance and reading ability, indicating that increased school
+attendance improves reading ability across all levels of school quality (Figure S3; Table 2). However, both
+attendance and reading have the strongest effect on RCPM score for children in high quality schools (Figure
+S3; Table2). Overall, the moderated mediation model of conditional direct and indirect effects shows that
+school quality significantly moderates effects of school attendance and reading ability (IMM = 0.03, 95%
+CI: -0.01, 0.05; Figure 3) and explains 49.3% of the variance in initial RCPM score.
+17
+
+Table 2: Conditional indirect effects with 95% CI using bias-corrected bootstrap
+Reading ability
+RCPM score
+(mediator variable)
+(dependent variable)
+Variables
+Coeff.
+t
+Coeff.
+t
+Attendance
+0.19
+3.80 ∗∗∗
+2.70
+0.09 ∗∗
+School quality
+2.02
+0.03 ∗∗
+Attendance*School quality
+1.99
+0.07 ∗∗
+Reading
+8.49
+0.33 ∗∗∗
+Reading*School quality
+2.84
+0.15 ∗∗∗
+R2
+0.29
+0.49
+∆R2
+0.02
+∆F (1, 191) = 8.04; p = 0.005
+School quality
+(moderator variable)
+Effect
+Confidence Intervals
+lower
+upper
+Lower quality schools
+0.21
+0.08
+0.33 ∗∗
+Higher quality schools
+0.41
+0.33
+0.50 ∗∗
+Moderated Mediation Index (MMI)
+0.03
+0.01
+0.05 ∗∗
+∧p≤0.1; ∗p≤0.05; ∗∗p≤0.01; ∗∗∗p≤0.001
+18
+
+Figure 3: Interactions and simple slopes for moderated mediation analysis of (left) school quality on school attendance and RCPM
+score, and (right) school quality on reading ability and RCPM score. The strongest association between attendance and RCPM score
+occurred for children in high quality schools. There was a very weak positive association between attendance for children who attended
+low quality schools. Children in high quality schools exhibited a strong association between reading ability and RCPM score. Children
+in medium quality schools showed a strong association, but not as strong as those in high quality schools. There was a weak association
+between reading ability and RCPM score for children in low quality schools.
+3.3. School quality moderates effects of individual-level factors on RCPM score longitudinally (P3)
+To assess change in RCPM score prospectively, we reassessed school quality and retested children who
+participated at initial (time-1), one year later (time-2) and four years later (time-3). Though there was not a
+substantial change in school quality over time, teacher retention and available school resources did fluctuate.
+Therefore, in addition to reading ability and weight-for-height, school quality is entered as a time varying
+predictor in the LGCM. Children in high quality schools show the greatest mean increase (47%) in RCPM
+score over time, compared to a mean increase of 31% for children in medium quality schools and a mean
+decrease of 2% for children in low quality schools (Figure 4). RCPM scores remain significantly lower
+among children in medium vs. high quality schools (βMedium(vs.High) = -0.64, p = 0.01, 95% CI: -1.16,
+-0.12). In contrast to what we reported for initial RCPM scores, longitudinal change in RCPM score is
+19
+
+marginally greater for children in medium vs. low quality schools (βMedium(vs.Low) = 0.56, p = 0.09, 95% CI:
+-0.68, 1.18; controlling for age).
+Figure 4: Intra-individual change over time in RCPM score in low, medium, and high quality schools (n = 184 children). RCPM score
+is normalized (range: 0-1). Time 1 represents initial score, Time 2 is the score taken a year later, and Time 3 is the score taken three
+years after the first test. Children who were initially included in the longitudinal study design (see Methods for details) but did not
+remain in school during the entire study period (n = 21) are omitted in the final analysis.
+To model longitudinal change in RCPM scores while allowing for non-linear trajectories and time-
+varying covariates, we employ a Latent Growth Curve Model (LGCM) at three time points. All variables
+from the child-level model (P4) are included in the initial LGCM (Table S3; Figure 2). Only school quality,
+reading ability, and children's weight-for-height positively predict prospective change in RCPM score (Table
+3). It is possible that students who dropped out of school before follow-up may have underperformed, so to
+account for this potential endogeneity, which could inflate positive correlations between school quality and
+increase in RCPM score over time, we excluded any children that left school (i.e., dropped out, aged out
+during the study period (n = 21; >90% left school to help at home, earn wages, or because of pregnancy),
+and we confirmed that dropout rates were approximately equal across quality of schools (∼45%). Children
+20
+
+whose families moved to other villages during the study period were included in this analysis, provided they
+were still in school (n=2). Age is not predictive of change in RCPM score over time (Table 3). School
+quality interacts with reading ability and weight-for-height to affect RCPM scores over time; the interaction
+effect of school quality and reading ability is three times greater at Time 3 than Time 2.
+Table 3: Latent Growth Curve path coefficients predicting RCPM performance over time
+Parameter
+est.std (β)
+p-value
+Time invariant covariates
+Intercept
+Age
+0.04
+0.01
+Slope
+Age
+0.001
+0.94
+Time varying covariates
+Time 1
+School quality * Reading
+0.02
+0.03
+School quality * Weight-for-height
+0.02
+0.04
+Time 2
+School quality * Reading
+0.05
+<0.001
+School quality * Weight-for-height
+0.03
+0.02
+Time 3
+School quality * Reading
+0.18
+<0.001
+School quality * Weight-for-height
+0.04
+<0.001
+n = 184; χSB2 (14) = 38.67, p = 0.95; RMSEA ≤0.02;CFI≥0.91
+21
+
+4. Discussion
+We find that consistent quality schooling shows a strong association with performance in a task designed
+to capture abstract reasoning (RCPM). Children in high quality schools show higher RCPM score at study
+baseline than children in low quality schools, as early as age 9, which is just two years after children typically
+begin attending school (Figure. 1). Corroborating the cross-sectional analyses at study baseline, we found
+prospectively that RCPM scores improved most in higher quality schools, and that well-nourished and more
+literate students differentially prosper in higher quality school settings.
+As reported in previous studies in post-industrialized populations (Ceci, 1991; Ritchie et al., 2015; Stern-
+berg et al., 2001), we also find that among Tsimane children, proficiency in arithmetic and reading abilities
+(Figure 2, Table S3) are associated with greater RCPM score. A greater proportion of children in higher qual-
+ity schools demonstrate greater proficiency in arithmetic and reading abilities, and at earlier ages, compared
+to peers in low quality schools.
+4.1. What are children learning in higher quality schools that might affect observed differences?
+It is well recognized that schooling reinforces rule adherence and task completion, emphasizes goal set-
+ting, and rewards academic achievement (Dasen et al., 2004; Heyneman & Loxley, 1983). School quality
+should thus amplify effects of attendance or literacy on abstract reasoning. Our findings support these expec-
+tations: children who demonstrated greater reading ability and who attended higher quality schools scored
+higher on both initial and prospective increase in RCPM (see Figure 2, Table S3), suggesting that abstract
+reasoning may not only be a byproduct of minimal FS exposure (Sternberg et al., 2001), but improves more
+in high quality schools. This study among Tsimane children demonstrates that small improvements in school
+quality at the lower end of the educational continuum have considerable impact of abstract reasoning skills.
+4.2. Cultural institutions, school quality, and human capital inequality
+Altogether, evidence from the Tsimane suggests that early childhood learning environments that children
+are exposed to when growing up, play a crucial role in the development of abstract reasoning skills. Any
+goal to reduce educational and economic inequality requires ensuring higher rates of return on children's
+time in school, especially if school quality promotes skills needed in labor market economies (Hanushek &
+Woessmann, 2008; Heckman & Kautz, 2012). The moderating effect of school quality on attendance and
+reading ability in our study (Figure 3) and the dosage-response effect of school quality over time (Figure 4)
+suggests greater returns on time invested in high quality schools in populations with recent exposure to FS.
+22
+
+Students may have perfect attendance and attain basic competencies yet still perform poorly on cognitive
+tasks if living in areas where the schools are lower in quality. If abstract reasoning reflects a type of skill
+increasingly rewarded in transitioning economies like the Tsimane are experiencing in Bolivia, where cash
+cropping, small business creation, extraction industries, NGOs and other new opportunities are becoming
+more available, then differential exposure to quality schooling will affect who can successfully navigate
+these new prospects. Our longitudinal model further indicate that the effect that number of years in school
+has on abstract reasoning ability is heavily dependent on school quality. Thus, to adequately assess causal
+mechanisms underlying reasoning ability, researchers must do more than rely on measuring years in school
+and certain child-level abilities.
+More broadly, however, we must also consider that FS likely improves some cognitive abilities while
+eroding others. Just as family and labor commitments impose costs on children's time and success in school
+(Heady, 2003), earlier work among the Tsimane has demonstrated that learning school-based skills comes at
+the cost of other competencies often necessary for productive livelihoods in subsistence economies (Reyes-
+García et al., 2010).
+4.3. Limitations
+One major limitation is that instrument of focus in this paper, RCPM, is an etic (WEIRD) assessment of
+abstract reasoning or fluid ability. However, as this study demonstrates, RCPM does tap into the kinds of
+skills rewarded in transitional economies, suggesting that FS, and in particular higher quality FS, is helping
+to improve those "abilities" for populations in transition. Because we only collected data among school aged
+children, our study does not address effects of earlier childhood experiences on the development of abstract
+reasoning (Nonoyama-Tarumi & Ota, 2011), nor do we address the persistence of abstract reasoning skills
+once children leave school. More studies of school-derived skills other than reading and arithmetic are
+needed to understand effects of school quality on development of academic skills and abstract reasoning.
+Given this limitation, any effects of FS that are independent of reading and arithmetic may be interpreted
+as supporting non-cognitive skills, such as perseverance, conscientiousness, and motivation. But we did not
+assess or measure these non-cognitive skills, nor did we assess any village differences in school rules or
+expectations.
+23
+
+5. Conclusion
+Though educational inequality creates barriers to human capital accumulation and potential income
+growth in a competitive labor market economy (Feinstein, 2003), there has been little consensus on the
+magnitude of the effect that cultural institutions, such as FS, have on shaping cognition during childhood.
+Our findings show that among populations recently introduced to FS, abstract reasoning is cultivated through
+higher quality schooling, and that access to quality schools has a cumulative effect on children's abstract rea-
+soning abilities. Among the numerous studies evaluating cognitive performance (see Ritchie & Tucker-Drob
+2018), many maintain certain cognitive skills, such as abstract reasoning, are a reliable measure of innate
+cognitive abilities, demonstrate a universal maturational trend, and are predictive of life outcomes. Our find-
+ings suggest instead that some of the cognitive skills (and the tests that attempt to measure them) used to
+establish milestones of children's healthy cognitive development (Nisbett, 2009) may simply be a product
+of a cumulative culture, where Western FS has changed what and how children learn (Davis et al., 2021b;
+Muthukrishna et al., 2018).
+References
+Amin, V., Behrman, J. R., & Spector, T. D. (2013). Does more schooling improve health outcomes and health
+related behaviors? evidence from uk twins. Economics of education review, 35, 134-148. Publisher:
+Elsevier.
+Ardila, A., & Rosselli, M. (2007). Illiterates and cognition: The impact of education. International handbook
+of cross-cultural neuropsychology, (pp. 181-198). Publisher: Lawrence Erlbaum Associates Mahwah, NJ.
+Besley, T., & Burgess, R. (2003). Halving global poverty. Journal of economic perspectives, 17, 3-22.
+Bowles, S., & Gintis, H. (2002). Schooling in capitalist america revisited. Sociology of education, 75, 1-18.
+Boyd, R., Richerson, P. J., & Henrich, J. (2011). The cultural niche: Why social learning is essential for
+human adaptation. Proceedings of the National Academy of Sciences, 108, 10918-10925. doi:10.1073/
+pnas.1100290108.
+Bratsberg, B., & Rogeberg, O. (2018). Flynn effect and its reversal are both environmentally caused. Pro-
+ceedings of the National Academy of Sciences, 115, 6674-6678. Publisher: National Acad Sciences.
+24
+
+Buuren, v. S., & Groothuis-Oudshoorn, K. (2010). mice: Multivariate imputation by chained equations in r.
+Journal of statistical software, (pp. 1-68). Publisher: University of California, Los Angeles.
+Cahan, S., & Cohen, N. (1989). Age versus schooling effects on intelligence development. Child develop-
+ment, (pp. 1239-1249). Publisher: JSTOR.
+Cahan, S., & Davis, D. (1987). A between-grade-levels approach to the investigation of the absolute ef-
+fects of schooling on achievement. American Educational Research Journal, 24, 1-12. Publisher: Sage
+Publications.
+Cameron, A. C., Gelbach, J. B., & Miller, D. L. (2008). Bootstrap-based improvements for inference with
+clustered errors. The Review of Economics and Statistics, 90, 414-427. Publisher: MIT Press.
+Cavalli-Sforza, L., Feldman, M., Chen, K., & Dornbusch, S. (1982). Theory and observation in cultural
+transmission. Science, 218, 19-27. doi:10.1126/science.7123211.
+Ceci, S. J. (1991). How much does schooling influence general intelligence and its cognitive components?
+a reassessment of the evidence. Developmental psychology, 27, 703.
+Clegg, J. M., Wen, N., & Legare, C. H. (2017). Is non-conformity weird? cultural variation in adults' beliefs
+about children's competency and conformity. Journal of Experimental Psychology: General, 146, 428.
+ISBN: 1939-2222 publisher: American Psychological Association.
+Cole, M. (1997). Mind, culture, and activity: Seminal papers from the Laboratory of Comparative Human
+Cognition. Cambridge University Press.
+Cole, M., & Scribner, S. (1974). Culture thought: A psychological introduction.. John Wiley Sons.
+Dasen, P. R., Mishra, R., & Niraula, S. (2004). The influence of schooling on cognitive development: A
+review of research in india. URL: https://scholarworks.gvsu.edu/iaccp_papers/261.
+Davis, H., Crittenden, A. N., & Scalise Sugiyama, M. (2021a). Ecological and developmental perspectives
+on social learning.
+Human Nature, 32. URL: https://doi.org/10.1007/s12110-021-09394-9.
+doi:10.1007/s12110-021-09394-9.
+Davis, H., Stack, J., & Cashdan, E. (2021b). Cultural change reduces gender differences in mobility and
+spatial ability among seminomadic pastoralist-forager children in northern namibia. Human Nature, (pp.
+1-29). Publisher: Springer.
+25
+
+Deary, I. J., Strand, S., Smith, P., & Fernandes, C. (2007). Intelligence and educational achievement. Intel-
+ligence, 35, 13-21. doi:10.1016/j.intell.2006.02.001.
+Dias, M., Roazzi, A., & Harris, P. L. (2005).
+Reasoning from unfamiliar premises: a study with un-
+schooled adults.
+Psychological Science, 16, 550-554. doi:10.1111/j.0956-7976.2005.01573.x.
+PMID: 16008788.
+Feinstein, L. (2003). Inequality in the early cognitive development of british children in the 1970 cohort.
+Economica, 70, 73-97. Publisher: Wiley Online Library.
+Geary, D. C. (2011). Cognitive predictors of achievement growth in mathematics: a 5-year longitudinal
+study. Developmental psychology, 47, 1539. Publisher: American Psychological Association.
+Godoy, R., Gurven, M., Byron, E., Reyes-García, V., Keough, J., Vadez, V., Wilkie, D., Leonard, W. R.,
+Apaza, L., & Huanca, T. (2004). Do markets worsen economic inequalities? kuznets in the bush. Human
+Ecology, 32, 339-364. Publisher: Springer.
+Godoy, R., Seyfried, C., Reyes-García, V., Huanca, T., Leonard, W. R., McDade, T., Tanner, S., & Vadez,
+V. (2007). Schooling's contribution to social capital: Study from a native amazonian society in bolivia.
+Comparative Education, 43, 137-163. Publisher: Taylor Francis.
+Grantham-McGregor, S., Cheung, Y. B., Cueto, S., Glewwe, P., Richter, L., Strupp, B., & Group, I. C. D. S.
+(2007). Developmental potential in the first 5 years for children in developing countries. The lancet, 369,
+60-70. Publisher: Elsevier.
+Greenfield, P. M. (1997). You can't take it with you: Why ability assessments don't cross cultures. American
+psychologist, 52, 1115. Publisher: American Psychological Association.
+Greenfield, P. M., & Beagles-Roos, J. (1988). Radio vs. television: Their cognitive impact on children of
+different socioeconomic and ethnic groups. Journal of communication, 38, 71-92. Publisher: Wiley
+Online Library.
+Gurven, M., Jaeggi, A. V., von Rueden, C., Hooper, P. L., & Kaplan, H. (2015). Does market integration
+buffer risk, erode traditional sharing practices and increase inequality? a test among bolivian forager-
+farmers. Human ecology, 43, 515-530.
+26
+
+Gurven, M., Stieglitz, J., Trumble, B., Blackwell, A. D., Beheim, B., Davis, H., Hooper, P., & Kaplan, H.
+(2017). The tsimane health and life history project: Integrating anthropology and biomedicine. Evolu-
+tionary Anthropology: Issues, News, and Reviews, 26, 54-73. doi:10.1002/evan.21515.
+Hair, N. L., Hanson, J. L., Wolfe, B. L., & Pollak, S. D. (2015). Association of child poverty, brain de-
+velopment, and academic achievement. JAMA pediatrics, 169, 822-829. Publisher: American Medical
+Association.
+Hanushek, E. A., & Woessmann, L. (2008). The role of cognitive skills in economic development. Journal
+of economic literature, 46, 607-668.
+Hanushek, E. A., & Woessmann, L. (2012). Schooling, educational achievement, and the latin american
+growth puzzle. Journal of Development Economics, 99, 497-512. Publisher: Elsevier.
+Hanushek, E. A., & Woessmann, L. (2020). The economic impacts of learning losses, . Publisher: OECD.
+Heady, C. (2003). The effect of child labor on learning achievement. World Development, 31, 385-398.
+Publisher: Elsevier.
+Heckman, J. J. (2011). The economics of inequality: The value of early childhood education. American
+Educator, (p. 31-36).
+Heckman, J. J., & Kautz, T. (2012). Hard evidence on soft skills. Labour economics, 19, 451-464. Publisher:
+Elsevier.
+Henrich, J., Heine, S. J., & Norenzayan, A. (2010). The weirdest people in the world? Behavioral and Brain
+Sciences, 33, 61-83. doi:10.1017/S0140525X0999152X.
+Heyneman, S. P., & Loxley, W. A. (1983). The effect of primary-school quality on academic achievement
+across twenty-nine high-and low-income countries. American Journal of sociology, 88, 1162-1194.
+Hoover, H. D., Dunbar, S. B., Frisbie, D. A., Oberley, K. R., Ordman, V. L., Naylor, R. J., & Shannon, G. P.
+(2003). Iowa test of basic skills guide to research and development, .
+Howard, R. (2009). Education reform, indigenous politics, and decolonisation in the bolivia of evo morales.
+International Journal of Educational Development, 29, 583-593.
+27
+
+Hruschka, D. J., Munira, S., Jesmin, K., Hackman, J., & Tiokhin, L. (2018). Learning from failures of
+protocol in cross-cultural research. Proceedings of the National Academy of Sciences, 115, 11428-11434.
+Publisher: National Acad Sciences.
+Ishikawa, M., & Ryan, D. (2002). Schooling, basic skills and economic outcomes. Economics of education
+review, 21, 231-243. Publisher: Elsevier.
+Jaeggi, A. V., Blackwell, A. D., von Rueden, C., Trumble, B., Stieglitz, J., Garcia, A., Kraft, T., Kaplan, H.,
+& Gurven, M. (2020). Relative wealth and inequality associate with health in a small-scale subsistence
+society. medRxiv 2020.06.11.20121889, . Publisher: Cold Spring Harbor Laboratory Press.
+Jaeggi, S. M., Buschkuehl, M., Jonides, J., & Perrig, W. J. (2008). Improving fluid intelligence with training
+on working memory. Proceedings of the National Academy of Sciences, 105, 6829-6833.
+Jakobsen, J. C., Gluud, C., Wetterslev, J., & Winkel, P. (2017). When and how should multiple imputation
+be used for handling missing data in randomised clinical trials-a practical guide with flowcharts. BMC
+medical research methodology, 17, 162. Publisher: BioMed Central.
+Jiménez, W., & Lizárraga, S. (2003). Ingresos y desigualdad en el area rural de Bolivia. Technical Report
+La Paz.
+Jiménez, W., & Vera, M. (2010). Indigenous Population and Differences in Access to Primary Education in
+Bolivia. Technical Report.
+Jordan, N. C., Kaplan, D., Ramineni, C., & Locuniak, M. N. (2009). Early math matters: Kindergarten
+number competence and later mathematics outcomes. volume 45. Jordan, Nancy C.: School of Edu-
+cation, University of Delaware, Newark, DE, US, 19716, njordan@udel.edu: American Psychological
+Association. DOI: 10.1037/a0014939.
+Kaplan, H. (1996). A theory of fertility and parental investment in traditional and modern human societies.
+American Journal of Physical Anthropology, 101, 91-135.
+Kline, M. A. (2015). How to learn about teaching: An evolutionary framework for the study of teach-
+ing behavior in humans and other animals.
+Behavioral and Brain Sciences, 38, e31. doi:10.1017/
+S0140525X14000090.
+28
+
+Kolenikov, S., & Angeles, G. (2009). Socioeconomic status measurement with discrete proxy variables: Is
+principal component analysis a reliable answer? Review of Income and Wealth, 55, 128-165. Publisher:
+Wiley Online Library.
+Legare, C., Dale, M. T., Kim, S. Y., & Deák, G. O. (2018). The development and diversity of cognitive
+flexibility: Greater cultural variation in early rule switching than word learning, . Publisher: PsyArXiv.
+Lim, S. S., Updike, R. L., Kaldjian, A. S., Barber, R. M., Cowling, K., York, H., Friedman, J., Xu, R.,
+Whisnant, J. L., & Taylor, H. J. (2018). Measuring human capital: a systematic analysis of 195 countries
+and territories, 1990-2016. The Lancet, 392, 1217-1234. Publisher: Elsevier.
+Little, T. D. (2013). Longitudinal structural equation modeling. Guilford press.
+MacKinnon, J. G., & Webb, M. D. (2017). Wild bootstrap inference for wildly different cluster sizes. Journal
+of Applied Econometrics, 32, 233-254. Publisher: Wiley Online Library.
+Mayer, D. P., Mullens, J. E., Moore, M. T., & Ralph, J. H. (2000). Monitoring school quality: An indicators
+report. US Government Printing Office.
+Medin, D., Bennis, W., & Chandler, M. (2010). Culture and the home-field disadvantage. Perspectives on
+Psychological Science, 5, 708-713. Publisher: Sage Publications Sage CA: Los Angeles, CA.
+Menon, P., Ruel, M. T., & Morris, S. S. (2000). Socio-economic differentials in child stunting are consis-
+tently larger in urban than in rural areas. Food and Nutrition Bulletin, 21, 282-289. Publisher: SAGE
+Publications Sage CA: Los Angeles, CA.
+Mesoudi, A., Chang, L., Murray, K., & Lu, H. J. (2015). Higher frequency of social learning in china than in
+the west shows cultural variation in the dynamics of cultural evolution. Proceedings of the Royal Society
+B: Biological Sciences, 282, 20142209. doi:10.1098/rspb.2014.2209.
+Muthukrishna, M., Doebeli, M., Chudek, M., & Henrich, J. (2018). The cultural brain hypothesis: How
+culture drives brain expansion, sociality, and life history. PLoS computational biology, 14, e1006504.
+Publisher: Public Library of Science San Francisco, CA USA.
+Muthukrishna, M., Henrich, J., & Slingerland, E. (2020). Psychology as a historical science. Annual Review
+of Psychology, .
+29
+
+Nisbett, R. E. (2009). Intelligence and how to get it: Why schools and cultures count. WW Norton Company.
+Nonoyama-Tarumi, Y., & Ota, Y. (2011). The hidden crisis: Early childhood development in developing
+countries: Pre-primary education, parenting, and health care. Background paper prepared for the Educa-
+tion for All Global Monitoring Report, .
+Pasquali, L., Wechsler, S., & Bensusan, E. (2002). Matrizes progressivas do raven infantil: um estudo de
+validação para o brasil. Avaliaçao Psicologica: Interamerican Journal of Psychological Assessment, 1,
+95-110.
+Piantadosi, S. T., Jara-Ettinger, J., & Gibson, E. (2014). Children's learning of number words in an indige-
+nous farming-foraging group. Developmental science, 17, 553-63. doi:10.1111/desc.12078.
+Punch, S. (2004). The impact of primary education on school-to-work transitions for young people in rural
+bolivia. Youth Society, 36, 163-182. Publisher: Sage Publications Sage CA: Thousand Oaks, CA.
+Raven, J. (1998). Court, jh (1998). Manual for Raven's progressive matrices and vocabulary scales, .
+Raven, J. (2000). The raven's progressive matrices: change and stability over culture and time. Cognitive
+psychology, 41, 1-48.
+Raven, J. C. (2011).
+Standardization of progressive matrices, 1938.
+British Journal of Medi-
+cal Psychology, 19, 137-150. doi:10.1111/j.2044-8341.1941.tb00316.x.
+Doi: 10.1111/j.2044-
+8341.1941.tb00316.x.
+Reis, A., & Castro-Caldas, A. (1997). Illiteracy: A cause for biased cognitive development. Journal of the
+International Neuropsychological Society, 3, 444-450.
+Reyes-García, V., Kightley, E., Ruiz-Mallén, I., Fuentes-Peláez, N., Demps, K., Huanca, T., & Martínez-
+Rodríguez, M. R. (2010). Schooling and local environmental knowledge: Do they complement or substi-
+tute each other? International Journal of Educational Development, 30, 305-313. Publisher: Elsevier.
+Richerson, P. J., & Boyd, R. (1995). Not by genes alone: how culture transformed human evolution. New
+Scientist, 145, 3.
+Ritchie, S. J., Bates, T. C., & Plomin, R. (2015). Does learning to read improve intelligence? a longitudinal
+multivariate analysis in identical twins from age 7 to 16. Child development, 86, 23-36. Publisher: Wiley
+Online Library.
+30
+
+Ritchie, S. J., & Tucker-Drob, E. M. (2018). How much does education improve intelligence? a meta-
+analysis. Psychological science, 29, 1358-1369. Publisher: Sage Publications Sage CA: Los Angeles,
+CA.
+Rogoff, B. (1981). Schooling and the development of cognitive skills. Handbook of cross-cultural psychol-
+ogy, 4, 233-294.
+Roodman, D., Nielsen, M. , MacKinnon, J. G., & Webb, M. D. (2019). Fast and wild: Bootstrap inference in
+stata using boottest. The Stata Journal, 19, 4-60. Publisher: SAGE Publications Sage CA: Los Angeles,
+CA.
+Rosseel, Y. (2012). Lavaan: An r package for structural equation modeling and more. version 0.5-12 (beta).
+Journal of Statistical Software, 48, 1036.
+Rowland, J. (2014). Number of instructional days/hours in the school year. Education Commission of the
+States, . Publisher: ERIC.
+Schoenfeld, A. H. (1992). Learning to think mathematically: Problem solving, metacognition, and sense
+making in mathematics. Handbook of research on mathematics teaching and learning, 334370. Publisher:
+New York: MacMillan.
+Schultz, T. W. (1961). Investment in human capital. The American Economic Review, (p. 1-17).
+Singer, J. D., & Braun, H. I. (2018). Testing international education assessments. Science, 360, 38-40.
+Publisher: American Association for the Advancement of Science.
+Smithers, L. G., Sawyer, A. C., Chittleborough, C. R., Davies, N. M., Smith, G. D., & Lynch, J. W. (2018).
+A systematic review and meta-analysis of effects of early life non-cognitive skills on academic, psychoso-
+cial, cognitive and health outcomes. Nature human behaviour, 2, 867-880. Publisher: Nature Publishing
+Group.
+Stanovich, K. E., Cunningham, A. E., & Feeman, D. J. (1984). Intelligence, cognitive skills, and early
+reading progress. Reading research quarterly, (pp. 278-303). Publisher: JSTOR.
+Sternberg, R. J. (2000). Handbook of intelligence. Cambridge University Press.
+31
+
+Sternberg, R. J., Nokes, C., Geissler, P. W., Prince, R., Okatcha, F., Bundy, D. A., & Grigorenko, E. L.
+(2001). The relationship between academic and practical intelligence: A case study in kenya. Intelligence,
+29, 401-418.
+Tine, M. (2014). Working memory differences between children living in rural and urban poverty. Journal
+of Cognition and Development, 15, 599-613. Publisher: Taylor Francis.
+UDAPE-UNICEF (2008).
+Bolivia: Inversión social en la niñez y adolescencia: un análisis del gasto
+publico social en niveles subnacionales..
+Technical Report.
+URL: http://www.udape.gob.bo/
+index.php?option=com_content&view=article&id=64:bolivia-inversion-social&catid=
+39&Itemid=64.
+Von Stumm, S., & Plomin, R. (2015). Socioeconomic status and the growth of intelligence from infancy
+through adolescence. Intelligence, 48, 30-36. Publisher: Elsevier.
+Vygotsky, L. S. (1980). Mind in society: The development of higher psychological processes. Harvard
+university press.
+Webb, M. D. (2013). Reworking wild bootstrap based inference for clustered errors. Technical Report.
+Van de Werfhorst, H. G., & Mijs, J. J. (2010). Achievement inequality and the institutional structure of
+educational systems: A comparative perspective. Annual review of sociology, 36, 407-428. Publisher:
+Annual Reviews.
+Winters, M. A. (2019). Quality control? how school performance varies within american cities. Manhattan
+Institute for Policy Research, . Publisher: ERIC.
+Wongupparaj, P., Kumari, V., & Morris, R. G. (2015). A cross-temporal meta-analysis of raven's progressive
+matrices: Age groups and developing versus developed countries.
+Intelligence, 49, 1-9.
+Publisher:
+Elsevier.
+32
+
+Supplementary Materials for: The formal schooling niche: Longitudinal evidence from Bolivian 
+Amazon demonstrates that higher school quality augments differences in children's abstract 
+reasoning. 
+ 
+ 
+Methods 
+ 
+Sociodemographic details: Information on the child's age, parents' education and wealth, and 
+residence history were previously collected. These data were cross-checked and updated through 
+family-level interviews around the time of testing. Families that had recently moved to a study village 
+with an established school or closer to the market town within the previous 10 years were excluded 
+from our sample to rule out any selection effects among families migrating specifically for the 
+educational opportunities available in study villages. 
+Latent Growth Model: Latent growth models (LGMs) were used to capture longitudinal 
+change in RCPM score by estimating a growth trajectory for each subject in the sample, characterized 
+by a starting point (intercept factor) and the rate of change over time (slope or growth factor). Initial 
+evaluations of unconditional LGMs (without covariates) yield the fixed effects of growth (mean value 
+of the intercept and slope factors) and the random effects (variance of the intercept and slope factors) 
+to reflect individual variability at the starting point and rate of change over time (for an overview, see 
+Bollen and Curran, 2006). Growth models in the current study were estimated using the lavaan 
+package for R. We first estimated intercorrelations of RCPM scores over time by school quality 
+(Table S4). We then assessed separate unconditional LGMs of RCPM score over time with time- 
+invariant and time-varying covariates (taken from child-level factors in P4). To control for possible 
+confounds associated with universal maturation processes, significant associations identified in other 
+studies using RCPM (Cotton et al., 2005), and to increase degrees of freedom, age was entered as a 
+time invariant covariate for each analysis (M=10.62 years SD=1.68 years). All models were evaluated 
+through the following indices: the Satorra-Bentler test statistic (SBχ2), which was used in place of a 
+traditional Maximum Likelihood chi-squared test (Wu et al., 2009), the Comparative Fit Index (CFI), 
+
+and the Root Mean Square Error of Approximation (RMSEA). The best-fit model (Table 3) met the 
+minimum criteria for all goodness-of-fit indices: N = 184; CFI = 0.91; SBχ2 (14) = 38.67, p = 0.95; 
+RMSEA = 0.02. 
+Discussion and Conclusion 
+ 
+Confounds and causality 
+ 
+Despite relative SES homogeneity in our study population, the causal connection between 
+school quality and cognition can be obscured by endogenous factors (Deary & Johnson, 2010). 
+Researchers must contend with families relocating to communities or neighborhoods that provide 
+greater access to high quality schools. However, at the time of this study, the primary reason 
+individuals reported relocating to another community was due to marriage. Tsimane typically have 
+matrilocal residence patterns upon marriage, until at least the first child is born, after which patrilocal 
+residence is the norm. In our sample, only two families moved to study communities with operating 
+schools within 10 years prior to baseline data collection (and we excluded from analyses children 
+from these families). Moreover, although family- and community-level characteristics often predict 
+attendance, school-based abilities, and cognitive performance (Aikens & Barbarin, 2008; Mani et al., 
+2013; Tong et al., 2007), we did not find significant effects of parental education or residential 
+proximity to school on children's RCPM scores in best-fit models. However, given the relatively 
+limited variability in wealth, adult education, and nutritional status, it is noteworthy that in the family- 
+level model (P2), both mother's education and residential proximity to school (range: ~0.07 km- 
+3.5km) are associated with RCPM score (Figure 2). This underscores how, even with limited 
+variation in parental and population level characteristics, maternal education and easier access to 
+school can still influence children's cognitive task performance. Individual characteristics and self- 
+selection for particular learning environments play a significant role in children's academic 
+achievement and test performance (Figlio et al., 2017; Smith-Woolley et al., 2018). Increased 
+attendance could, in turn, reinforce the hard and non-cognitive skills necessary for academic 
+
+achievement and cognitive testing (Coutinho, 2007; Heckman & Kautz, 2012). We find that, 
+regardless of school quality, children who attend school more frequently demonstrate higher reading 
+ability. However, children were more likely to consistently attend school if their school was higher 
+quality (Figure 3), and the highest proportion of children with high reading ability and RCPM scores 
+were in villages with higher quality schools (Figure 3 and S2-3) Higher quality schools may thus be 
+better able to support learning for children with a wider range of abilities (Heyneman & Loxley, 
+1983). 
+
+Fig. S1. 
+ 
+ 
+ 
+Baseline RCPM score by child age (years), reading ability and school quality. The density plot 
+on the right depicts baseline RCPM scores by school quality. RCPM score and reading ability 
+are normalized for ease of comparison. 
+
+Fig. S2. 
+ 
+Hypothesized model showing the direct and conditional indirect effects on RCPM score. 
+Reading ability is proposed to mediate the effect of school attendance on RCPM score. School 
+quality moderation is predicted to effect reading ability via school attendance, and effect 
+RCPM score via reading comprehension and attendance. Dotted lines indicates effects that 
+were not included in the final model. 
+
+Fig. S3. 
+ 
+ 
+ 
+ 
+Moderated mediation model showing the mediating effect of reading ability and the 
+moderating effect of school quality on RCPM score via school attendance and reading ability. 
+Higher attendance has a direct effect on reading ability. The direct effect of reading ability on 
+RCPM score is moderated by school quality as illustrated by the interaction effect between 
+school quality and reading ability; children attending higher quality schools score higher on 
+RCPM at all reading levels. The effect of school attendance on RCPM score is also moderated 
+by school quality; children who had at least average attendance in higher quality schools have 
+higher RCPM scores vs. children in lower quality schools. Interactions are indicated in 
+individual boxes. Path coefficients are standardized. Age is a covariate in the model. Path 
+coefficients greater than p = 0.05 are not included. Interaction and conditional indirect effects 
+are further described in Table 2. *p ≤ 0.05, **p ≤ 0.01, ***p ≤ 0.001 
+
+Table S1: Sample characteristics by village, sample size (n children), and proximity 
+to the market town. Quality of schooling is measured relative to other Tsimane villages. 
+ 
+    Quality of 
+Travel time to market town 
+Village Schoola   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+aQuality indicated by terciles & calculated from 11 variables using Principal Components 
+Analysis(see Materials and Methods) 
+bAll villages had consistently operating schools >1 after baseline. Over the course of the study 
+<10 hours 
+>10 hours 
+(1) 
+(2) 
+(3) 
+(4) 
+High quality 
+Village A 
+(n=78) 
+Village D 
+(n=84) 
+Medium quality 
+Village B 
+(n=43) 
+Village E 
+(n=35) 
+Low qualityb 
+Village C 
+(n=33) 
+Village F 
+(n=17) 
+
+Table S2: Sample characteristics by school quality 
+ 
+ 
+ 
+Total 
+(n = 6 villages) 
+High 
+(n = 2 villages) 
+Medium 
+(n = 2 villages) 
+Lowa 
+(n = 2 villages) 
+Variable(range) 
+N 
+Mean(SD) 
+N 
+Mean(SD) 
+N Mean(SD) 
+N 
+Mean(SD) 
+Sex 
+290 42% girls 
+162 40% girls 
+78 
+46% girls 
+50 
+44% girls 
+Age(8-18 yrs.) 
+290 12.46(3.0) 
+162 12.25(3.0) 
+78 12.96(3.0) 
+50 12.44(3.30) 
+Raven's (RCPM) score 
+(min-max norm) 
+290 
+0.33(0.2) 
+162 0.36∗(0.2) 
+78 
+0.38(0.3) 
+50 
+0.25(0.1) 
+Reading ability 
+(min-max norm) 
+290 
+0.38(0.3) 
+162 0.42∗(0.3) 
+78 
+0.38(0.3) 
+50 
+0.29(0.2) 
+% illiterate 
+65% 
+57% 
+65% 
+88% 
+% poor 
+6% 
+8% 
+6% 
+2% 
+% moderate 
+10% 
+13% 
+7% 
+4% 
+% good 
+19% 
+22% 
+22% 
+6% 
+Arithmetic ability 
+(min-max norm) 
+290 0.53(0.99) 
+162 0.58∗(0.31) 
+78 
+0.53(0.3) 
+50 
+0.36(0.2) 
+% none 
+52% 
+43% 
+52% 
+82% 
+% low 
+9% 
+11% 
+8% 
+6% 
+% moderate 
+13% 
+16% 
+14% 
+4% 
+% good 
+25% 
+30% 
+25% 
+8% 
+School Attendance 
+(%)b 
+201 
+65% 
+127 71% 
+33 
+64% 
+41c 
+49%c 
+Weight-for-height 
+(min-max norm) 
+221 
+0.45(0.2) 
+127 0.43(0.2) 
+61 
+0.50(0.2) 
+33 
+0.44(0.2) 
+Father's yrs. school 
+(min-max norm) 
+250 
+0.21(0.2) 
+152 0.24(0.2) 
+64 
+0.16(0.1) 
+34 
+0.18(0.1) 
+Mother's yrs. school 
+(min-max norm) 
+213 
+0.25(0.2) 
+132 0.29(0.2) 
+48 
+0.14(0.1) 
+33 
+0.26(0.2) 
+Distance to school (km) 
+(min-max norm) 
+215 
+0.28(0.3) 
+139 0.33(0.3) 
+57 
+0.21(0.2) 
+19 
+0.12(0.2) 
+Family wealth 
+(min-max norm) 
+225 
+0.19(0.1) 
+143 0.16(0.2) 
+47 
+0.13(0.7) 
+35 
+0.15(0.1) 
+Between group comparison:∗p<0.05 
+a"Low quality school" includes one village that inconsistently schooled at baseline. >1 year after baseline all villages in the sample had 
+schools. 
+bCalculated as # days the participant went to school/ # days school was in session. 
+cClasses were not held consistently during baseline testing period. 
+
+ 
+ 
+Table S3: School quality with Child- and family-level predictors of baseline RCPM score from generalized 
+linear models with Gamma log-link 
+Dependent variable: Raven Score 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0.17 
+ 
+ 
+ 
+0.14 
+ 
+ 
+(−0.59, 0.37) 
+(−0.01, 0.74) 
+(−0.85, −0.32) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+School Quality*Attendance 
+Medium (vs. Low) 
+ 
+High (vs. Low) 
+ 
+Observations 
+Akaike Inf. Crit. 
+Adj. D-squared 
+Note: ∧p≤0.1; ∗p≤0.05; ∗∗p≤0.01; ∗∗∗p≤0.001 
+ 
+−0.01 
+(−0.47, 0.45) 
+0.40∗ 
+(0.01, 0.78) 
+175 
+136 
+201 
+−276.48 
+−163.31 
+−326.79 
+0.39 
+0.30 
+0.44 
+Sample sizes vary slightly due to some missing data on weight-for-height, distance to school, and attendance. 
+Variables 
+(min-max norm) 
+School quality 
++ 
+Child-level factors 
+School quality 
++ 
+Family-level factors 
+Best-fit 
+Age 
+−0.002 
+0.93∗∗∗ 
+0.04 
+(−0.30, 0.29) 
+(0.58, 1.28) 
+(-0.21, 0.29) 
+Sex (1[boys] - 2[girls]) 
+−0.10∧ 
+(−0.22, 0.01) 
+−0.11 
+(−0.26, 0.03) 
+−0.13* 
+(0.23, 0.03) 
+Reading ability 
+−0.16 
+0.12 
+Arithmetic ability 
+School attendance 
+(−0.80, 0.50) 
+(−0.07, 0.42) 
+0.19∧ 
+(0.50, 0.75) 
+0.02 
+Weight-for-height 
+(−0.02, 0.40) 
+(−0.26, 0.32) 
+Father's school yrs. 
+Mother's school yrs. 
+Distance to school 
+Family wealth 
+(−0.19, 0.47) 
+−0.12 
+0.36∧ 
+−0.59∗∗∗ 
+0.22 
+School quality 
+Medium (vs. Low) 
+−0.21 
+(−0.36, 0.82) 
+0.48∗∗ 
+−0.18 
+High (vs. Low) 
+School quality*Reading 
+Medium (vs. Low) 
+High (vs. Low) 
+(−0.52, 0.11) 
+−0.24 
+(−0.52, 0.05) 
+0.80∗ 
+(0.04, 1.55) 
+1.06∗∗ 
+(0.39, 1.70) 
+(0.17, 0.79) 
+0.64∗∗∗ 
+(0.36, 0.90) 
+(−0.50, 0.15) 
+−0.47∗∗ 
+(−0.75, −0.18) 
+0.81∗ 
+(0.05, 1.56) 
+0.93∗∗ 
+(0.27, 1.58) 
+
+ 
+ 
+Table S4: Intercorrelatons, covariances, and standard deviations for Raven (RCPM) score across three time 
+points in low, medium, and high-quality schools. 
+Low quality 
+Medium quality 
+High quality 
+Raven 1 
+Raven 2 
+Raven 3 
+Raven 1 
+Raven 2 
+Raven 3 
+Raven 1 
+Raven 2 
+Raven 3 
+(time 1) 
+(time 2) 
+(time 3) 
+(time 1) 
+(time 2) 
+(time 3) 
+(time 1) 
+(time 2) 
+(time 3) 
+time 1 
+1.00 
+1.00 
+1.00 
+(0.01) 
+(0.01) 
+(0.02) 
+ 
+time 2 
+0.62 ∗∗ 
+1.00 
+0.47 ∗∗ 
+1.00 
+0.83 ∗∗ 
+1.00 
+(0.01) 
+(0.03) 
+(0.01) 
+(0.02) 
+(0.03) 
+(0.04) 
+time 3 
+0.78 ∗∗∗   0.82 ∗∗ 
+1.00 
+0.45 ∗∗ 
+0.54 ∗∗ 
+1.00 
+0.48 ∗∗ 
+0.72 ∗∗ 
+1.00 
+ 
+ 
+ 
+∧p≤0.1; ∗p≤0.05; ∗∗p≤0.01; ∗∗∗p≤0.001 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+(0.01) 
+(0.02) 
+(0.12) 
+(0.01) 
+(0.01) 
+(0.02) 
+(0.02) 
+(0.03) 
+(0.05) 
+Mean 
+0.26 
+0.22 
+0.20 
+0.26 
+0.30 
+0.38 
+0.33 
+0.46 
+0.51 
+SD 
+0.08 
+0.17 
+0.11 
+0.11 
+0.14 
+0.13 
+0.16 
+0.19 
+0.22 
+
+Aikens, N. L., & Barbarin, O. (2008). Socioeconomic differences in reading trajectories: The contribution of family, neighborhood, and 
+school contexts. Journal of Educational Psychology, 100(2), 235. 
+Cotton, S. M., Kiely, P. M., Crewther, D. P., Thomson, B., Laycock, R., & Crewther, S. G. (2005). A normative and reliability study for 
+the Raven's Coloured Progressive Matrices for primary school aged children from Victoria, Australia. Personality and 
+Individual Differences, 39(3), 647-659. 
+Coutinho, S. A. (2007). The relationship between goals, metacognition, and academic success. Educate~, 7(1), 39-47. 
+Deary, I. J., & Johnson, W. (2010). Intelligence and education: Causal perceptions drive analytic processes and therefore conclusions. 
+International Journal of Epidemiology, 39(5), 1362-1369. 
+Figlio, D. N., Freese, J., Karbownik, K., & Roth, J. (2017). Socioeconomic status and genetic influences on cognitive development. 
+Proceedings of the National Academy of Sciences. http://www.pnas.org/content/early/2017/11/28/1708491114.abstract 
+Heckman, J. J., & Kautz, T. (2012). Hard evidence on soft skills. Labour Economics, 19(4), 451-464. 
+Heyneman, S. P., & Loxley, W. A. (1983). The effect of primary-school quality on academic achievement across twenty-nine high-and 
+low-income countries. American Journal of Sociology, 88(6), 1162-1194. 
+Mani, A., Mullainathan, S., Shafir, E., & Zhao, J. (2013). Poverty impedes cognitive function. Science, 341(6149), 976-980. 
+Smith-Woolley, E., Pingault, J.-B., Selzam, S., Rimfeld, K., Krapohl, E., von Stumm, S., Asbury, K., Dale, P. S., Young, T., & Allen, R. 
+(2018). Differences in exam performance between pupils attending selective and non-selective schools mirror the genetic 
+differences between them. Npj Science of Learning, 3(1), 1-7. 
+Tong, S., Baghurst, P., Vimpani, G., & McMichael, A. (2007). Socioeconomic position, maternal IQ, home environment, and cognitive 
+development. The Journal of Pediatrics, 151(3), 284-288. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+

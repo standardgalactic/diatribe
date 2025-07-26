@@ -1,0 +1,101 @@
+ 
+Using fungal electrical activity for computing
+June 2 2021
+  
+ 
+  
+Credit: CC0 Public Domain
+Materials have a variety of properties that can be used to solve
+computational problems, according to studies in substrate-based
+computing.BZ computers, slime mold computers, plant computers, and
+collision-based liquid marbles computers are just a few examples of
+prototypes produced for future and emergent computing devices.
+Modeling the computational processes that exist in such systems,
+1/4
+
+ 
+however, is a difficult task in general, and determining which part of the
+embodied system is doing the computation is still somewhat ill-defined.
+Claiming that fungi are the most intelligent living organisms in the world
+sounds like an exaggeration. However, a recent study by Mohammad
+Mahdi Dehshibi, a UOC researcher who is contributing to a growing
+body of knowledge on the use of fungal materials, concurs with this idea.
+Its implications are numerous and practical in both the medium and the
+long term. They include the possibility of using fungal tissues as actual
+computing devices. How could we use a fungus as if it were a computer?
+Converting the fungal electrical signals into messages
+Fungal mycelium like Pleurotus djamor, also known as the pink oyster
+mushroom, can resolve an incredible range of computational geometry
+problems, explained Mohammad Mahdi Dehshibi in a previously
+published article on fungal materials. "By changing the environmental
+conditions, we can reprogramme a geometry and a theoretical structure
+of the graphics of mycelium networks and then use the electrical activity
+of the fungi to create computing circuits," confirmed the researcher.
+In a recent study, "Electrical activity of fungi: Spikes detection and
+complexity analysis," published by Mohammad Mahdi Dehshibi of the
+Scene Understanding and Artificial Intelligence Lab (SUNAI) group at
+the UOC Faculty of Computer Science, Multimedia and
+Telecommunications, in collaboration with Andrew Adamatzky of the
+Unconventional Computing Laboratory at the UWE Bristol, the
+researchers demonstrate that the pink oyster mushroom generates a
+series of spikes in electrical potential that are propagated by a growing
+mycelium.
+The electrical activity property of the fungus corresponds to the
+extremely complex internal communication it uses, and this can be
+2/4
+
+ 
+analyzed and utilized to operate and develop computing measures. In the
+research project, the authors propose a variety of measures to be able to
+"translate" these electrical signals into messages according to the
+classification of the spikes in potential that can be detected.
+The electrical signals in the fungal tissue are so faint and complex that it
+is impossible to analyze them using the standard techniques of
+neuroscience, the discipline that traditionally measures them. The
+researchers' proposal consists of a method for detecting spike arrival
+time through an exhaustive algorithm that enables fairly efficient
+characterization of the electrical activity.
+The key to the complex language of fungi
+Fungi are among the largest, most widely distributed and oldest groups
+of living organisms in the world. The many advantages for which they
+are considered an interesting material include their tremendous
+availability at no cost, their resilience, their capacity for self-
+maintenance and their rapid growth. To all of this, as demonstrated in
+the study, we must add the communicative complexity shown by the
+electrical signals of the fungus.
+To obtain a better idea, the researchers have proven that the complexity
+of this "language" is greater than that of many human languages in terms
+of communication. That reality opens up the possibility of using the
+signals as an efficient and practical means of information transmission
+and computing, giving fungi a very interesting potential as computers.
+"At the moment, there are two major challenges to be confronted [in
+being able to use fungi as computers]", explained Dehshibi. "The first is
+to implement a computing purpose that makes sense. The second is to
+characterize the properties of the fungal substrates to discover their true
+computational potential." These two steps are essential for building
+3/4
+
+ 
+functional computing units.
+Designing environmental sensors
+Will we really see, then, a laptop computer with a microprocessor made
+with fungi? For the author, the objective of fungal computers is not to
+replace silicon chips, as the actions in this type of computer are too slow
+for that. But the properties of fungi could be used as an "environmental
+sensor on a large scale." Fungal networks could monitor large quantities
+of data flows as part of their day-to-day activity. If we were able to
+connect to their networks and interpret the signals, they use to process
+information, we could learn more about what is happening in an
+ecosystem and act accordingly.
+  More information: Mohammad Mahdi Dehshibi et al, Electrical
+activity of fungi: Spikes detection and complexity analysis, Biosystems
+(2021). DOI: 10.1016/j.biosystems.2021.104373
+Provided by Universitat Oberta de Catalunya
+Citation: Using fungal electrical activity for computing (2021, June 2) retrieved 25 July 2025
+from https://phys.org/news/2021-06-fungal-electrical.html
+This document is subject to copyright. Apart from any fair dealing for the purpose of private
+study or research, no part may be reproduced without the written permission. The content is
+provided for information purposes only.
+Powered by TCPDF (www.tcpdf.org)
+4/4
+

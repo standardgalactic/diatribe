@@ -1,0 +1,1847 @@
+1
+A full-stack view of probabilistic computing with
+p-bits: devices, architectures and algorithms
+Shuvro Chowdhury, Andrea Grimaldi, Navid Anjum Aadit, Shaila Niazi, Masoud Mohseni, Shun Kanai, Hideo
+Ohno, Shunsuke Fukami, Luke Theogarajan, Giovanni Finocchio, Supriyo Datta and Kerem Y. Camsari
+Abstract—The transistor celebrated its 75th birthday in 2022.
+The continued scaling of the transistor deﬁned by Moore's
+Law continues, albeit at a slower pace. Meanwhile, computing
+demands and energy consumption required by modern artiﬁcial
+intelligence (AI) algorithms have skyrocketed. As an alternative to
+scaling transistors for general-purpose computing, the integration
+of transistors with unconventional technologies has emerged as
+a promising path for domain-speciﬁc computing. In this article,
+we provide a full-stack review of probabilistic computing with
+p-bits as a representative example of the energy-efﬁcient and
+domain-speciﬁc computing movement. We argue that p-bits could
+be used to build energy-efﬁcient probabilistic systems, tailored
+for probabilistic algorithms and applications. From hardware,
+architecture, and algorithmic perspectives, we outline the main
+applications of probabilistic computers ranging from probabilis-
+tic machine learning and AI to combinatorial optimization and
+quantum simulation. Combining emerging nanodevices with the
+existing CMOS ecosystem will lead to probabilistic computers
+with orders of magnitude improvements in energy efﬁciency and
+probabilistic sampling, potentially unlocking previously unex-
+plored regimes for powerful probabilistic algorithms.
+Index Terms—domain-speciﬁc hardware, machine learning,
+artiﬁcial intelligence, p-bits, p-computers, stochastic magnetic
+tunnel junctions, spintronics, combinatorial optimization, sam-
+pling, quantum simulation
+I. INTRODUCTION
+T
+HE slowing down of the Moore era of electronics has
+coincided with the recent revolution in machine learning
+and AI algorithms. In the absence of steady transistor scaling
+and energy improvements, training and maintaining large-scale
+machine learning models in data centers have become a sig-
+niﬁcant energy concern [1]. The widespread implementation
+of AI, particularly in industries such as autonomous vehicles
+[2], is an indication that the energy crisis caused by large-scale
+machine learning models is not just a data center problem, but
+a global concern.
+Efforts of extending the Moore era of electronics by improv-
+ing conventional transistor technology continue vigorously.
+Examples of this approach include 3D heterogeneous inte-
+gration, 2D materials for transistors and interconnects [3],
+new transistor physics via negative capacitance [4, 5] or
+This work was supported in part by a U.S. National Science Foundation
+grant CCF 2106260, the Ofﬁce of Naval Research Young Investigator grant
+and the Semiconductor Research Corporation. S.F. acknowledges JST-CREST
+Grant No. JPMJCR19K3 and MEXT X-NICS Grant No. JPJ011438. S.K.
+acknowledges JST-PRESTO Grant No. JPMJPR21B2. A. Grimaldi and G.
+Finocchio are with the Department of Mathematical and Computer Sciences,
+Physical Sciences and Earth Sciences, University of Messina, Messina, Italy.
+M. Mohseni is with Google Quantum AI. S. Kanai, H. Ohno, and S. Fukami
+are with RIEC, CSIS, WPI-AIMR and Graduate School of Engineering,
+Tohoku University, Sendai, Japan. S. Datta is with Elmore Family School
+of Electrical and Computer Engineering, Purdue University, IN, USA. S.
+Chowdhury, N. A. Aadit, S. Niazi, L. Theogarajan, and K. Y. Camsari are
+with the Department of Electrical and Computer Engineering, University of
+California Santa Barbara, CA, 93106 USA e-mail: (camsari@ucsb.edu).
+qubits
++
+Superposition
+of 0 and 1
+bits
+or
+Either 0 or 1
+p-bits
+Fluctuates between 0 and 1
+Classical
+computing
+Quantum
+computing
+Probabilistic computing
+Fig. 1: bit, p-bit, and qubit: Each column shows a schematic representation
+of the basic computational units of classical computing (left), probabilistic
+computing (middle), and quantum computing (right). These are, respectively,
+the bit, the p-bit, and the qubit.
+entirely new approaches using spintronic and magnetoelectric
+phenomena to build energy-efﬁcient switches [6, 7].
+A complementary approach to extending Moore's Law is to
+augment the existing CMOS ecosystem with emerging, non-
+silicon nanotechnologies [8, 9]. One way to achieve this goal
+is through heterogeneous CMOS + X architectures where X
+stands for a CMOS-compatible nanotechnology. For example,
+X can be magnetic, ferroelectric, memristive or photonic
+systems. We also discuss an example of this complementary
+approach, the combination of CMOS with magnetic memory
+technology, purposefully modiﬁed to build probabilistic com-
+puters.
+II. FULL-STACK VIEW AND ORGANIZATION
+Research on probabilistic computing with p-bits originated at
+the device and physics level, ﬁrst with stable nanomagnets
+[10], followed by low barrier nanomagnets [11, 12]. In [12],
+the p-bit was formally deﬁned as a binary stochastic neuron
+realized in hardware. In both approaches with stable and
+unstable nanomagnets, the basic idea is to exploit the natural
+mapping between the intrinsically noisy physics of nanomag-
+nets to the mathematics of general probabilistic algorithms
+(e.g., Monte Carlo, Markov Chain Monte Carlo). Such a
+notion of natural computing where physics is matched to
+computation was clearly laid out by Feynman in his celebrated
+Simulating Physics with Computers talk [13]. Subsequent
+work on p-bits deﬁned it as an abstraction between bits
+and qubits (FIG. 1) with the possibility of different physical
+implementations. In addition to searching for energy-efﬁcient
+realizations of single devices, p-bit research has extended to
+ﬁnding efﬁcient architectures (through massive parallelization,
+sparsiﬁcation [14] and pipelining [15]) along with the iden-
+tiﬁcation of promising application domains. This full-stack
+research program covering hardware, architecture, algorithms,
+and applications is similar to the related ﬁeld of quantum
+computation where a large degree of interdisciplinary expertise
+arXiv:2302.06457v3  [cs.ET]  16 Mar 2023
+
+2
+machine learning & AI
+quantum simulation
+massively parallel
+ true random 
+number generation
+training & inference
+of energy-based
+ models
+training & inference 
+of belief networks
+combinatorial optimization
+QUBO/Ising machines
+graph
+representation
+solution!
+energy
+minimization
+E
+Application domains of probabilistic computing with p-bits
+quantum Monte Carlo
+machine learning
+quantum systems
+qubit network
+trotterization
+replicas
+p-bit network
+p-bit 
+network
+neural network
+ansatz
+visible
+hidden
+.
+.
+.
+0
+1
+0
+0
+0
+10
+11
+0
+0
+1
+0
+0
+0
+1
+0
+1
+0
+1
+1
+0
+0
+1
+0
+1
+0
+10
+00
+10
+10
+0
+1
+0
+0
+1
+0
+1
+0
+1
+0
+0
+1
+1
+0
+10
+10
+1
+0
+0
+1
+0
+1
+1
+1
+0
+0
+1
+0
+0
+10
+1
+1
+1
+1
+0
+1
+0
+1
+0
+1
+0
+1
+0
+0
+1
+0
+N
+P
+ 
+p
+r
+o
+b
+l
+e
+m
+s
+Max-SAT
+Factorization
+Max-Cut
+Knapsack
+Fig. 2: Applications of probabilistic computing: Potential applications of p-bits are illustrated. The list broadly includes problems in combinatorial
+optimization, probabilistic machine learning, and quantum simulation.
+is required to move the ﬁeld forward (see the related reviews
+Ref. [16, 17]). The purpose of this paper is to serve as
+a consolidated summary of recent developments with new
+results in hardware, architectures, and algorithms. We provide
+concrete and previously unpublished examples of machine
+learning and AI, combinatorial optimization, and quantum
+simulation with p-bits (FIG. 2).
+III. FUNDAMENTALS OF P-COMPUTING
+A large family of problems (FIG. 2) can be encoded to coupled
+p-bits evolving according to the following equations [12]:
+mi
+=
+sign
+
+tanh(β Ii) −r[−1,+1]
+
+(1)
+Ii
+=
+X
+j
+Wijmj + hi
+(2)
+where mi is deﬁned as a bipolar variable (m ∈{−1, +1}), r
+is a uniform random number drawn from the interval [−1, 1],
+[W] is the coupling matrix between the p-bits, β is the
+inverse temperature and {h} is the bias vector. In physical
+implementations, it is often more convenient to represent
+p-bits as binary variables, si ∈{0, 1}. A straightforward
+conversion of Eq. (1) and Eq. (2) is possible using the standard
+transformation, m →2s −1 [18].
+As stated, Eq. (1) and Eq. (2) do not place any restrictions
+on the [W], which may be a symmetric or asymmetric matrix.
+If an update order of p-bits is speciﬁed, these equations
+take the coupled p-bit system to a well-deﬁned steady-state
+distribution deﬁned by the eigenvector (with eigenvalue +1)
+of the corresponding Markov matrix [12]. Indeed, in case
+of Bayesian (belief) networks deﬁned by a directed graph,
+updating the p-bits from parent nodes to child nodes takes
+the system to a steady-state distribution corresponding to that
+obtained from the Bayes' Theorem [19].
+If the [W] matrix is symmetric, one can deﬁne an energy,
+E, whose negated partial derivative with respect to p-bit mi
+gives rise to Eq. (2):
+E(m1, m2, . . .) = −
+
+X
+i<j
+Wijmimj +
+X
+i
+himi
+
+
+(3)
+In this case, the steady-state distribution of the network is
+described by [20]:
+pi = 1
+Z exp (−βEi)
+(4)
+also known as the Boltzmann Law. As such, iterating a
+network of p-bits described by Eq. (1) and Eq. (2) eventually
+approximates the Boltzmann distribution which can be useful
+for probabilistic sampling and optimization. The approximate
+sampling avoids the intractable problem of exactly calculating
+Z. Remarkably, for such undirected networks, the steady-state
+distribution is invariant with respect to the update order of p-
+bits, as long as connected p-bits are not updated at the same
+time (more on this later). This feature is highly reminiscent of
+natural systems where asynchronous dynamics make parallel
+updates highly unlikely and the update order does not change
+the equilibrium distribution. Indeed, this gives the hardware
+implementation of asynchronous networks of p-bits massive
+parallelism and ﬂexibility in design.
+
+3
+The energy functional deﬁned by Eq. (3) is often the starting
+point of discussions in the related ﬁeld of Ising Machines
+[21-43] with different implementations (see, Ref. [44] for a
+comprehensive review). In the case of p-bits, however, we
+view Eq. (1) and Eq. (2) more fundamental than Eq. (3)
+because the former can also be used to approximate hard
+inference on directed networks while the latter always relies
+on undirected networks. Compared to undirected networks
+using Ising Machines, work on directed neural networks for
+Bayesian inference has been relatively scarce, although there
+are exciting developments [19, 45-50].
+Finally, the form of Eq. (3) restricts the type of interactions
+between p-bits to a linear one since the energy is quadratic.
+Even though higher-order interactions (k-local) between p-
+bits are possible [18] (also discussed in the context of Ising
+machines [51, 52]), such higher-order interactions can always
+be constructed by combining a standard probabilistic gate
+set at the cost of extra p-bits. In our view, in the case
+of electronic implementation with scalable p-bits, trading an
+increased number of p-bits for simpliﬁed interconnect com-
+plexity is almost always favorable. That being said, algorithmic
+advantages and the better representative capabilities of higher-
+order interactions are actively being explored [51, 53].
+IV. HARDWARE: PHYSICAL IMPLEMENTATION OF P-BITS
+A. p-bit
+The p-bit deﬁned in Eq. (1) describes a tunable and discrete
+random number generator. Its physical implementation in-
+cludes a broad range of options from noisy materials to analog
+and digital CMOS (FIG. 3). The digital CMOS implementa-
+tions of p-bits often consist of a pseudorandom number gen-
+erator (PRNG) (r), a lookup table for the activation function
+(tanh), and a threshold to generate a one-bit output. A digital
+input with a speciﬁed ﬁxed point precision (e.g., 10 bits with
+1 sign, 6 integers and 3 fractional) provides tunability through
+the activation function. Digital p-bits have been very useful
+in prototyping probabilistic computers up to tens of thousands
+of p-bits [54, 55, 14]. They also serve a useful purpose to
+illustrate why analog or mixed-signal implementations of p-
+bits with nanodevices are necessary. Even using some of the
+most advanced ﬁeld programmable gate arrays (FPGA), the
+footprint of a digital p-bit is very large: Synthesizing such
+digital p-bits with pseudo-random number generators (PRNGs)
+of varying quality of randomness results in tens of thousands
+of individual transistors. In single FPGAs that do not use time-
+division multiplexing of p-bits or off-chip memory, only about
+10,000 to 20,000 p-bits with 100,000 weights (sparse graphs
+with degree 5 to 10) ﬁt, even within high-end devices [14].
+On the other hand, using nanodevices such as CMOS-
+compatible stochastic magnetic tunnel junctions (sMTJ), mil-
+lions of p-bits can be accommodated in single cores due to
+the scalability achieved by the MRAM technology, exceeding
+1Gbit MRAM chips [56, 57]. However, before the stable
+MTJs can be controllably made stochastic, challenges at the
+material and device level must be addressed [58, 59] with
+careful magnet design [60-62]. Different ﬂavors of magnetic
+p-bits exist [63-66], for a recent review, see Ref. [67]. Unlike
+synchronous or trial-based stochasticity (e.g., [68]) that re-
+ 0 kT
+EB
+θ
+Probabilistic Computer
+Classical Computer
+Weights
+Samples
+Hybrid Probabilistic - Classical Computer
+sMTJ
+Digital
+CMOS
+Resistive
+Crossbar
+Mixed
+signal
+Δ≈
+Low barrier 
+magnet
+{mi}
+{Ii}
+m1
+mN
+Options for
+ synapse
+STT based
+SOT based
+Hardware implementations of probabilistic bits
+2
+/
+DD
+R
+V
+V
+V+ =
++
+DD
+V
+2
+/
+DD
+V
+V
+−=
+OUT
+V
+OUT
+V
+IN
+V
+IN
+V
+0
+R
+SI
+CMOS based
+PRNG
+A > B
+m
+I
+comparator
+activation
+function
+Digital
+Mixed-signal
+Capacitive
+Crossbar
+i
+i
+j
+ij
+j
+m
+I
+W
+h
+=
++
+∑
+Fig. 3: Different hardware options for building a probabilistic computer:
+(Top) Various magnetic implementations of a p-bit. These include both
+digital (CMOS) and mixed-signal implementations (based on, for example,
+stochastic magnetic tunnel junction with low barrier magnets). (Bottom) A
+hybrid of classical and probabilistic computing schemes is shown where
+the classical computer generates weights and programs the probabilistic
+computer. The probabilistic computer then generates samples accordingly with
+high throughput and sends them back to the classical computer for further
+processing. Like the building blocks of p-bits, the synapse of the probabilistic
+computer can be designed in several ways, including digital, analog, and a
+mix of both techniques.
+quires continuous resetting, the temporal noise of low-barrier
+nanomagnets makes them ideally suited to build autonomous,
+physics-inspired probabilistic computers, providing a constant
+stream of tunably random bits [69]. Following earlier theoret-
+ical predictions [70-72], recent breakthroughs in low-barrier
+magnets have shown great promise, using stochastic MTJs
+with in-plane anisotropy where ﬂuctuations can be of the order
+of nanoseconds [73-75]. Such near-zero barrier nanomagnets
+should be more tolerant to device variations because when the
+energy-barrier ∆is low, the usual exponential dependence of
+ﬂuctuations is much less pronounced. These stochastic MTJs
+may be used in electrical circuits with a few additional transis-
+tors (FIG. 3) to build hardware p-bits. Two ﬂavors of stochastic
+MTJ-based p-bits were proposed in Ref. [12] (SOT-based) and
+in Ref. [70] (STT-based). Both of these p-bits have now been
+experimentally demonstrated in Refs. [18, 76, 77] (STT) and in
+Ref. [78] (SOT). While many other implementations of p-bits
+are possible, from molecular nanomagnets [79] to diffusive
+memristors [80], RRAM [81], perovskite nickelates [82] and
+others, two additional advantages of the MRAM-based p-bits
+are the proven manufacturability (up to billion bit densities)
+and the ampliﬁcation of room temperature noise. Even with the
+thermal energy of kT in the environment, magnetic switching
+causes large resistance ﬂuctuations in MTJs, creating hundreds
+of millivolts of change in resistive dividers [70]. Typical
+noise on resistors (or memristors) is limited by the
+p
+kT/C
+limit which is far lower (millivolts) even at extremely low
+capacitances (C). This feature of stochastic MTJs ensures
+
+4
+(b) Pseudo-asynchronous Gibbs 
+5 Colors
+time to update all p-bits = Tclk
+   
+phase shifted
+(a) Synchronous Gibbs 
+ N p-bits
+time to update all p-bits = NTclk
+time to update 
+all p-bits ≈ <Tp-bit>
+   
+(c) Truly Asynchronous Gibbs 
+update
+p-bit 1
+update p-bit 2 with 
+updated p-bit 1 
+update all p-bits 
+with color 1
+update all p-bits with color 2 
+based on updated color 1 p-bits
+Tclk
+Tclk
+Hardware 
+p-bit
+VDD
+m
+update all p-bits with color 5 
+based on updated color 1 to  4 p-bits
+ N p-bits
+ N p-bits
+update p-bit N with 
+updated p-bits 1 to N - 1
+average clock
+ period <Tp-bit>
+no careful 
+phase-shifting
+ or graph coloring
+Fig. 4: Architectures of p-computer: (a) Synchronous Gibbs: all p-bits are updated sequentially. N p-bits need N clock cycles (NTclk) to perform a complete
+sweep, Tclk being the clock period. (b) Pseudo-asynchronous Gibbs: a sparse network can be colored into a few disjoint blocks where connected p-bits are
+assigned a different color. Phase-shifted clocks update the color blocks one after the other. N p-bits need ≈1 clock cycle Tclk to perform a complete sweep,
+reducing O(N) complexity of a sweep to O(1), where we assume the number of colors c ≪N. (c) Truly Asynchronous Gibbs: a hardware p-bit (e.g., a
+stochastic MTJ-based p-bit) provides an asynchronous and random clock with period ⟨Tp-bit⟩. N p-bits need approximately 1 clock to perform a complete
+sweep, as long as synapse time is less than the clock on average. No graph coloring or engineered phase shifting is required.
+that they do not require explicit ampliﬁers [83] at each p-bit,
+which can become prohibitively expensive in terms of area and
+power consumption. Estimates of sMTJs-based p-bits suggest
+they can create a random bit using 2 fJ per operation [18].
+Recently, a CMOS-compatible single photon avalanche diode-
+based implementation of p-bits showed similar, ampliﬁer-
+free operation [84] and the search for the most scalable,
+energy-efﬁcient hardware p-bit using alternative phenomena
+continues.
+B. Synapse
+The second central part of the p-computer architecture is the
+synapse, denoted by Eq. (2). Much like the hardware p-bit,
+there are several different implementations of synapses ranging
+from digital CMOS, analog/mixed-signal CMOS as well as
+resistive [85] or capacitors crossbars [86, 87]. The synap-
+tic equation looks like the traditional matrix-vector product
+(MVP) commonly used in ML models today, however, there
+is a crucial difference: thanks to the discrete p-bit output
+(0 or 1), the MVP operation is simply an addition over the
+active neighbors of a given p-bit. This makes the synaptic
+operation simpler than continuous multiplication and signiﬁ-
+cantly simpliﬁes digital synapses. In analog implementations,
+the use of in-memory computing techniques through charge
+accumulation could be useful with the added simpliﬁcation of
+digital outputs of p-bits [88, 89].
+It is important to note how the p-bit and the neuron for even-
+tually integrated p-bit applications can be mixed and matched,
+as an example of creatively combining these pieces, see the
+FPGA-stochastic MTJ combination reported in Ref. [77]. The
+best combination of scalable p-bits and synapses may lead
+to energy-efﬁcient and large scale p-computers. At this time,
+various possibilities exist with different technological maturity.
+V. ARCHITECTURE CONSIDERATIONS
+A. Gibbs sampling with p-bits
+The dynamical evolution of Eqs. (1-2) relies on an iterated
+updating scheme where each p-bit is updated one after the
+other based on a predeﬁned (or random) update order. This
+iterative scheme is called Gibbs sampling [90, 91]. Virtually
+all applications discussed in Fig. 2 beneﬁt from accelerating
+Gibbs sampling, attesting to its generality.
+In a standard implementation of Gibbs sampling in a syn-
+chronous system, p-bits will be updated one by one at every
+clock cycle as shown in FIG. 4a. It is crucial to ensure that the
+effective input each p-bit receives through Eq. (2) is computed
+before the p-bit updates. As such, the Tclk has to be longer
+than the time it takes to compute Eq. (2). In this setting, a
+graph with N p-bits will require N clock cycles (NTclk) to
+perform a complete sweep where Tclk is the clock period. This
+requirement makes Gibbs sampling a fundamentally serial and
+slow process.
+A much more effective approach is possible by the following
+observation: even though updates between connected p-bits
+need to be sequential, if two p-bits are not directly connected,
+updating one of them does not directly change the input
+of the other through Eq. (2). Such p-bits can be updated
+in parallel without any approximation. Indeed, one motiva-
+tion of designing restricted Boltzmann machines (RBMs, see
+Ref. [92]) over unrestricted BMs is to exploit this parallelism:
+RBMs consist of separate layers (bipartite) that can be updated
+in parallel. However, this idea can be taken further. If the
+underlying graph is sparse, it is often easy to split it into
+disconnected chunks by coloring the graph using a few colors.
+Even though ﬁnding the minimum number of colors is an
+NP-hard problem [93], heuristic coloring algorithms (such as
+Dsatur [94]) with polynomial complexity can color the graph
+very quickly, without necessarily ﬁnding a minimum. In this
+context obtaining the minimum coloring is not critical and
+sparse graphs typically require a few colors.
+Such an approach was taken on sparse graphs (with no
+regular structure) to design a massively parallel implemen-
+tation of Gibbs sampling in Ref. [14] (FIG. 4b). Connected
+p-bits are assigned a different color and unconnected p-bits
+are assigned the same color. Equally phase-shifted and same-
+frequency clocks update the p-bits in each color block one
+by one. In this approach, a graph with N p-bits requires only
+1 clock cycle (Tclk) to perform a complete sweep, reducing
+
+5
+O(N) complexity for a full sweep to O(1), assuming the
+number of colors is much less than N. Therefore, the key
+advantage of this approach is that the p-computer becomes
+faster with larger graphs since probabilistic "ﬂips per second",
+a key metric measured by TPU and GPU implementations
+[95, 96] linearly increases with the number of p-bits. It is
+important to note that these TPU and GPU implementations
+also solve Ising problems in sparse graphs, however, their
+graph degrees are usually restricted to 4 or 6, unlike more
+irregular and higher degree graphs implemented in Ref. [14].
+We
+term
+this
+graph-colored
+architecture
+the
+pseudo-
+asynchronous Gibbs because while it is technically synchro-
+nized to out-of-phase clocks, it embodies elements of the
+truly asynchronous architecture we discuss next. While graph
+coloring algorithmically increases sampling rates by a factor
+of N, it still requires a careful design of out-of-phase clocks. A
+much more radical approach is to design a truly asynchronous
+Gibbs sampler as shown in FIG. 4c. Here, the idea is to
+have hardware building blocks with naturally asynchronous
+dynamics, such as a stochastic magnetic tunnel junction-based
+p-bit. In such a p-bit, there exists a natural "clock", ⟨Tp-bit⟩,
+deﬁned by the average lifetime of a Poisson process [97]. As
+long as ⟨Tp-bit⟩is not faster than the average synapse time
+(tsynapse) to calculate Eq. (2), the network still updates N spins
+in a single ⟨Tp-bit⟩timescale. This is because the probability
+of simultaneous updates is extremely low in a Poisson process
+and further reduced in highly sparse graphs.
+In fact, preliminary experiments implementing such truly
+asynchronous p-bits with ring-oscillator activated clocks show
+that despite making occasional parallel updates, the asyn-
+chronous p-computer performs similarly compared to the
+pseudo-asynchronous system where incorrect updates are
+avoided with careful phase-shifting [98]. The main appeal
+of the truly asynchronous Gibbs sampling is the lack of any
+graph coloring and phase-shift engineering while retaining the
+same massive parallelism as N p-bits requires approximately
+a single ⟨Tp-bit⟩to complete a sweep. Given that the FPGA-
+based p-computers already provide about a 10X improvement
+in sampling throughput to optimized TPU and GPUs [14], such
+asynchronous systems are promising in terms of scalability.
+Stochastic MTJ-based p-bits should be able to reach high
+densities on a single chip. Around 20 W of projected power
+consumption can be reached considering 20 µW p-bit/synapse
+combinations at 1M p-bit density [54, 99, 60]. The ultimate
+scalability of magnetic p-bits is a signiﬁcant advantage over
+alternative approaches based on electronic or photonic devices.
+B. Sparsiﬁcation
+Both the pseudo-asynchronous and the truly asynchronous
+parallelism require sparse graphs to work well. The ﬁrst
+problem is the number of colors: if the graph is dense, it
+requires a lot of colors, making the architecture very similar
+to the standard serial Gibbs sampling.
+The second problem with a dense graph is the synapse time,
+tsynapse. If many p-bits have a lot of neighbors, the synapse
+unit needs to compute a large sum before the next update. If
+the time between two consecutive updates is ⟨Tp-bit⟩, it requires
+(b) Sparsified 
+(a) Original
+sparsify
+112 p-bits (Density = 6.99%)
+4
+20
+101
+number of neighbors
+0
+20
+40
+60
+80
+number of p-bits
+112 p-bits
+ 410 p-bits (Density = 0.95%)
+4
+20
+101
+number of neighbors
+0
+100
+200
+300
+400
+number of p-bits
+410 p-bits
+2 neighbors →       1
+3 neighbors →     40  
+4 neighbors →   369  
+COPY
+Edge 
+Regular
+Edge 
+Fig. 5: (a) Original graph of a 3SAT instance uf20-01.cnf [100] having 112
+p-bits and a graph density of 6.99%. (Graph density, ρ = 2|E|/(|V |2 −|V |)
+where |E| = the number of edges and |V | = the number of vertices in the
+graph). Some of the p-bits have many local neighbors up to 101 neighbors as
+shown in the histogram which slows down the synapse and the p-bits need
+to update slowly. (b) Sparsiﬁed graph of the same instance having 410 p-
+bits. COPY gates are inserted between each pair of copies of the same p-bits
+(COPY edges are highlighted in orange). The graph has a density of 0.95%
+and the maximum number of neighbors is limited to 4. The synapse operations
+are now faster and hence the p-bits can be updated faster. Even though
+the example shown here starts from a low-density graph, the sparsiﬁcation
+algorithm we give is general and applicable to any graph.
+tsynapse ≪⟨Tp-bit⟩to avoid information loss and reach the
+correct steady-state distribution [101, 54].
+However, if the graph is sparse, each p-bit has fewer
+connections and the updates can be faster without any dropped
+messages. Any graph can be sparsiﬁed using the technique pro-
+posed in [14], similar in spirit to the minor-graph embedding
+(MGE) approach pioneered by D-Wave [102], even though
+the objective here is to not ﬁnd an embedding but to sparsify
+an existing graph. The key idea is to split p-bits into dif-
+ferent copies, using ferromagnetic COPY gates. These p-bits
+distribute the original connections among them, resulting in
+identical copies with fewer connections. An important point is
+that the ground-state of the original graph remains unchanged
+[14], so the method does not involve approximations, unlike
+other sparsiﬁcation techniques, for example, based on low-rank
+approximations [103].
+FIG. 5a shows an example of this process where the original
+graph of a satisﬁability (3SAT) instance has been sparsiﬁed
+as shown in FIG. 5b. Irrespective of the input graph size, a
+sparsiﬁed graph has fewer connections locally and thus the
+neurons hardly ever need to be slowed down. One disadvantage
+of this technique is the increased number of p-bits, however,
+the reduced synapse complexity and the possibility of massive
+parallelization outweigh the costs incurred by additional p-bits,
+which we consider to be cheap in scaled, nanodevice-based
+implementations.
+
+6
+Max-SAT
+Number partitioning
+Knapsack
+maximize
+subject to
+with
+maximize
+with
+MAX
+−W
+x1
+x2
+y4
+y3
+y2
+y1
+c1
+c2
+c3
+1
+1
+with
+minimize
+n1
+Clamp sum of sets to 0
+s1
+s2
+n2
+−2
+−1
++0
++1
++2
+−2
+−1
++0
++1
++2
+−2
+−1
++0
++1
++2
+Invertible logic
+formulation
+Ising model
+formulation
+Mathematical
+formulation
+v1w1
+v2w2
+Probabilistic OR
+Probabilistic AND
+Probabilistic XOR
+Probabilistic n-bit Adder
+0
+2-bit
+2-bit
+2-bit
+Sign choice
+Clamp all
+clauses to 1
+Clamp missing
+clauses to 1
+<0
+Clamp sum of
+values to MAX
+Clamp sum of
+weights to <W
+2-bit
+2-bit
+3-bit
+2's complement
+2's complement
+Fig. 6: Invertible logic encoding: The encoding process of three optimization problems, the maximum satisﬁability problem (left column), number partitioning
+(central column), and the knapsack problem (right column), is streamlined and visually summarized into three steps: a problem ﬁrst has to be condensed into
+a concise mathematical formulation (upper part of the image); then, an invertible Boolean circuit that topologically maps the problem is conceived; ﬁnally,
+the invertible Boolean circuit is converted into an Ising model using probabilistic AND/OR/NOT gates [14].
+VI. ALGORITHMS AND APPLICATIONS
+A. Combinatorial Optimization via Invertible Logic
+When using the Ising model to solve an optimization problem,
+the ﬁrst step is to provide a mapping between the Ising
+model and the problem to be solved. Early work on quan-
+tum annealing stimulated by D-Wave's quantum annealers
+generated a signiﬁcant amount of useful research in this
+area [104], some of which are being adopted by quantum-
+inspired classical annealers. There are usually many different
+ways to ﬁnd a mapping, for example, some strategies may
+employ more nodes than others to encode the same instance,
+while others might result in graphs with topology unsuited to
+the computational architecture of choice. In this context, the
+invertible logic approach introduced in Ref. [12] stands out
+for its ﬂexibility and sparse encodings.
+The process of mapping an instance into an Ising model
+can be broadly summarized into three steps, as illustrated
+by FIG. 6. In the ﬁgure, the steps of the invertible logic
+encoding of three combinatorial optimization problems, max-
+imum satisﬁability (left column), number partitioning (middle
+column), and knapsack (right column), are shown. First, each
+problem is formalized into a tight mathematical formulation
+(top row). Next, the problem is mapped into an invertible
+Boolean logic circuit (central row), meaning that each logic
+gate can be operated using any terminals as input/output
+nodes (similar to those discussed in the context of quantum
+annealing [105, 106] and memcomputing [107, 108]). Finally,
+the probabilistic circuit is algorithmically encoded into an
+Ising model (bottom row). Each logic gate has several Ising
+encodings that map the energy landscape of its logic operator.
+After the Boolean logic formulation of a problem, this step
+can be automated in standardized synthesis tools. The overall
+approach results in relatively sparse circuits, as illustrated in
+the bottom row of FIG. 6 where all three problems show
+similarly sparse matrices [W], with bias vectors {h} shown
+under.
+The key advantage of this approach, compared to heuristic
+and dense formulations of Ref. [104], is due to the generality
+of Boolean logic, quite similar to how present-day digital VLSI
+circuits are constructed in sparse, hardware-aware networks
+using billions of transistors. As such, much of the existing
+ecosystem of high-level synthesis can be directly used to
+ﬁnd invertible logic-based encodings for general optimization
+problems.
+B. Machine Learning: energy-based models
+Energy-efﬁcient machine learning (ML) with Boltzmann Ma-
+chines (BMs) is a promising application for probabilistic com-
+puters with a recent experimental demonstration in Ref. [76].
+Mainstream ML algorithms are designed and chosen with CPU
+implementation in mind and hence some models are heavily
+preferred over others even though they are often less powerful.
+For example, the use of RBMs over the more powerful
+unrestricted or deep BMs is motivated by the former's efﬁcient
+software implementation in synchronous systems. However,
+by exploiting the technique of sparsity and massively parallel
+architecture described earlier, fast Gibbs sampling with DBMs
+
+7
+(a)
+(b)
+(d)
+(c)
+Image generation with Sparse DBMs: Full MNIST
+Sparse DBM representation
+with 2-layers of hidden p-bits 
+Overview of machine 
+learning algorithm 
+Hybrid Probabilistic - Classical Computer
+Probabilistic 
+   Computer
+       (PC)
+Classical
+Computer
+(CPU)
+get samples 
+from PC
+compute gradients
+(CPU)
+compute weigths (W) 
+and biases (h)
+(CPU)
+send W and h 
+to PC
+samples
+weights
+v
+h(1)
+h(2)
+Fig. 7: Generative neural networks with p-bits: (a) Hybrid computing
+scheme with probabilistic computer and classical computer is demonstrated
+where the probabilistic computer generates samples according to the weights
+given by CPU with a sampling speed of around 100 ﬂips/ns. (b) shows
+the overview of the learning procedure for the hybrid set-up. Receiving the
+samples from the probabilistic computer, the CPU computes the gradient,
+updates the weights and biases, and sends them back to the probabilistic
+computer until converged. (c) Sparse Deep Boltzmann Machine (DBM) is
+utilized here as a hardware-aware graph that can be represented with multiple
+hidden layers of p-bits. Both inter-layer and intra-layer connections are
+allowed between visible and hidden units. (d) The images shown here are
+generated with a sparse DBM of 4264 p-bits after training the network with
+full MNIST. The label p-bits are clamped to a speciﬁc image and the network
+evolves to that image by annealing the system from β = 0 to β = 5 with a
+step size of 0.125.
+can dramatically improve the state-of-the-art machine learning
+applications like visual object recognition and generation,
+speech recognition, autonomous driving, and many more
+[109]. Here we present an example where a sparse DBM is
+trained with MNIST handwritten digits (FIG. 7). We randomly
+distribute the visible and hidden units on the sparse DBM with
+massively parallel pseudo-asynchronous architecture which
+yields multiple hidden layers as shown in FIG. 7(c).
+Contrasting with earlier unconventional computing ap-
+proaches where the MNIST dataset is reduced to much smaller
+sizes [110, 111], we show how the full MNIST dataset
+(60,000 images and no down-sampling) can be trained using
+p-computers in FPGAs. We use 1200 mini-batches having
+50 images in each batch to train the network using the
+contrastive divergence (CD) algorithm. The process of learning
+is accomplished using a hybrid probabilistic and classical
+computer setup. The classical computer computes the gradients
+and generates new weights while the p-computer generates
+samples according to those weights (FIG. 7(b)). During the
+positive phase of sampling, the p-computer operates in its
+clamped condition under the direct inﬂuence of the training
+samples. In the negative phase, the p-computer is allowed to
+run freely without any environmental input. After training, the
+deep network not only can classify images but also generate
+images. For any given label, the network can create a new
+sample (not present in the training set) (FIG. 7(d)). This is an
+important feature of energy-based models and is commonly
+demonstrated with diffusion models [112].
+C. Quantum simulation
+One primary motivation for building quantum computers is
+to simulate large quantum many-body systems and under-
+stand the exotic physics offered by them [113]. Two ma-
+jor challenges with quantum computers are the necessity
+of using cryogenic operating temperatures and the vulner-
+ability to noise, rendering quantum computers impractical,
+especially considering practical overheads [114]. Simulating
+these systems with classical computers is often extremely
+time-consuming and mostly limited to small systems. One
+potential application of p-bits is to provide a room-temperature
+solution to boost the simulation speed and potentially enable
+the simulation of large-scale quantum systems. Signiﬁcant
+progress has been made toward this end in recent years.
+1) Simulating quantum systems with Trotterization
+One approach is to build a p-computer enabling the scalable
+simulation of sign-problem-free quantum systems by acceler-
+ating standard Quantum Monte Carlo (QMC) techniques [115].
+The basic idea is to replace the qubits in the original lattice
+with hardware p-bits and replicate the new lattice according
+to the Suzuki-Trotter transformation [116]. Recently, the con-
+vergence time of a 2D square-octagonal qubit lattice initially
+prepared in a topologically obstructed state was compared
+among a CPU, a physical quantum annealer [117] and a p-
+computer (both digital and analog) [118]. For this particu-
+lar problem, it was shown that an FPGA-based p-computer
+emulator can be around 1000 times faster than an optimized
+C++ (CPU) program. Based on SPICE simulations of a small
+p-computer, we project that signiﬁcant further acceleration
+should be possible with a truly asynchronous implementation.
+Probabilistic computers can be used for quantum Hamiltonians
+beyond the usual Transverse Field Ising Model, such as the
+antiferromagnetic Heisenberg Hamiltonian [119] and even for
+the emulation of gate-based quantum computers [120]. How-
+ever, for generic Hamiltonians, (e.g., random circuit sampling),
+the number of samples required in naive implementations
+seem to grow exponentially [120] due to the notorious sign-
+problem [121]. However, clever basis transformations [122]
+might mitigate or cure the sign-problem [123] in the future.
+2) Machine learning quantum many-body systems
+With the great success of machine learning and AI algo-
+rithms, training stochastic neural networks (such as Boltzmann
+machines) to approximately solve the quantum many-body
+problem starting from a variational guess has generated great
+excitement [124-126] and is considered to be a fruitful combi-
+nation of quantum physics and machine learning [127]. These
+algorithms are typically implemented in high-level software
+programs, allowing users to choose from various network
+
+8
+visible hidden
+(a)
+(b)
+(c)
+Start: Hamiltonian
+Generate samples
+ from weights
+ {m1, m2, ..., mN}
+Approximate
+energy from 
+sampled state
+Use energy to 
+generate 
+new weights
+End: Ground state
+ energy and wavefunction
+100
+101
+102
+103
+Number of iterations
+-18.7
+-18.6
+-18.5
+-18.4
+-18.3
+-18.2
+-18.1
+-18
+Energy
+Quantum (exact)
+ML with p-computer
+Probabilistic 
+computer
+Classical
+computer
+Update weights
+(d)
+(e)
+(
+)
+1
+1
+1
+σ σ
+σ σ
+σ σ
+Γσ
+y
+x
+z
+z
+y
+x
+Q
+z
+i
+x
+i
+i
+i
+i
+i
+y
+i
+i
+x
+H
+J
+J
++
++
++
++
++
++
+= −∑
+Fig. 8: Machine learning quantum systems with p-bits: (a) Heisenberg Hamiltonian with a transverse ﬁeld (Γ = +1) is applied to a FM coupled (JZ = +1
+and Jxy = +0.5) linear chain of twelve (12) qubits with periodic boundary. (b) To obtain the ground state of this quantum system, a restricted Boltzmann
+machine is employed with 12 visible and 48 hidden nodes, where all nodes in the visible layer are connected to all nodes in the hidden layer. (c) This
+machine learning model is then embedded onto a hardware amenable sparse p-bit network arranged in a chimera graph using minor graph embedding. We use
+a coupling strength of 1.0 among the replicated visible and hidden nodes in the embedded p-bit network. (d) An overview of the machine learning algorithm
+and the division of workload between the probabilistic and classical computers in a hybrid setting is shown. (e) The FPGA emulation of this probabilistic
+computer performs variational machine learning in tandem with a classical computer, converging to the quantum (exact) result as shown.
+models and sizes according to their needs. However, as with
+classical machine learning, the difﬁculty of training strongly
+hinders the use of deeper and more general models. With
+scaled p-computers using millions of magnetic p-bits, mas-
+sively parallel and energy-efﬁcient hardware implementations
+of the more general unrestricted/deep BMs may become fea-
+sible, paving the way to simulate practical quantum systems.
+To demonstrate one such example of this approach, we
+show how p-bits laid out in sparse, hardware-aware graphs
+can be used for machine learning quantum systems (FIG. 8).
+The objective of this problem is to ﬁnd the ground state
+of a many-body quantum system, in this case, a 1D FM
+Heisenberg Hamiltonian with an external transverse ﬁeld. We
+start with an RBM, which is one of the simplest neural
+network models, and use its functional form as the variational
+guess for the ground state probabilities (the wavefunction is
+obtained by taking the square root of probabilities according to
+the Born rule). A combination of probabilistic sampling and
+weight updates gradually adjusts the variational guess such
+that the ﬁnal guess points to the ground state of the quantum
+Hamiltonian. Emulating this variational ML approach with p-
+bits requires a few more steps. An RBM network contains all-
+to-all connections between the visible and hidden layers which
+is not conducive for scalable p-computers because of the large
+fanout demanded by the all-to-all connectivity. An alternative
+is to map the RBM onto a sparse graph through minor graph
+embedding [102]. Using a hybrid setup with fast sampling in a
+probabilistic computer coupled with a classical computer, the
+iterative process of sampling and weight updating can then be
+performed. The key advantage of having a massively parallel
+and fast sampler is the selection of higher-quality states of
+the wave function to update the variational guess. FIG. 8
+shows an example simulation of how a p-computer learns
+the ground state of a 1D FM Heisenberg model. The scaling
+of p-computers using magnetic p-bits may allow much larger
+implementations of quantum systems in the future.
+D. Outlook: algorithms and applications beyond
+Despite the large range of applications we discussed in the
+context of p-bits, much of the sampling algorithms have been
+either standard MCMC or generic simulated annealing-based
+approaches. Future possibilities involve more sophisticated
+sampling and annealing algorithms such as parallel tempering
+(PT) (see Ref. [128, 129] for some initial investigations).
+Further improvements to hardware implementation include
+adaptive versions of PT [130] as well as sophisticated nonequi-
+librium Monte Carlo (NMC) algorithms [131]. Ideas involving
+overclocking p-bits such that they violate the tsynapse ≪
+⟨Tp-bit⟩requirement for further improvement [14] or sharing
+synaptic operations between p-bits [82] could also be useful. A
+combination of these ideas with algorithm-architecture-device
+co-design may lead to orders of magnitude improvement in
+sampling speeds and quality. In this context, as a sampling
+throughput metric, increasing ﬂips/ns is an important goal. In
+addition, solution quality, the possibility of cluster updates or
+algorithmic techniques also need to be considered carefully.
+Given the plethora of approaches from multiple communities,
+we also hope that model problems, benchmarking studies
+comparing different Ising machines, probabilistic accelerators,
+physical annealers and dynamical solvers will be performed
+in the near future from all practitioners, including ourselves.
+We believe that the co-design of algorithms, architectures,
+and devices for probabilistic computing may not only help mit-
+igate the looming energy crisis of machine learning and AI but
+also lead to systems which may unlock previously inaccessible
+regimes using powerful probabilistic (randomized) algorithms
+[132]. Just as the emergence of powerful GPUs made the
+well-known backpropagation algorithm ﬂourish, probabilistic
+computers could lead us to the previously unknown territory
+of energy-based AI models, combinatorial optimization and
+quantum simulation. This research program requires a con-
+certed effort and interdisciplinary expertise from all across
+the stack and ties into the larger vision of unconventional
+computing forming in the community [133].
+
+9
+REFERENCES
+[1] D. Patterson, J. Gonzalez, Q. Le, C. Liang, L.-M.
+Munguia, D. Rothchild, D. So, M. Texier, and J. Dean,
+"Carbon emissions and large neural network training,"
+arXiv preprint arXiv:2104.10350, 2021.
+[2] S. Sudhakar, V. Sze, and S. Karaman, "Data centers
+on wheels: Emissions from computing onboard au-
+tonomous vehicles," IEEE Micro, vol. 43, no. 1, pp.
+29-39, 2022.
+[3] R. Chau, "Process and packaging innovations for
+moore's law continuation and beyond," in 2019 IEEE
+International Electron Devices Meeting (IEDM). IEEE,
+2019, pp. 1-1.
+[4] J. C. Wong and S. Salahuddin, "Negative capacitance
+transistors," Proceedings of the IEEE, vol. 107, no. 1,
+pp. 49-62, 2018.
+[5] M. A. Alam, M. Si, and P. D. Ye, "A critical review
+of recent progress on negative capacitance ﬁeld-effect
+transistors," Applied Physics Letters, vol. 114, no. 9, p.
+090401, 2019.
+[6] S. Manipatruni, D. E. Nikonov, C.-C. Lin, T. A.
+Gosavi, H. Liu, B. Prasad, Y.-L. Huang, E. Bonturim,
+R. Ramesh, and I. A. Young, "Scalable energy-efﬁcient
+magnetoelectric spin-orbit logic," Nature, vol. 565, no.
+7737, pp. 35-42, 2019.
+[7] P. Debashis, J. Plombon, C.-C. Lin, Y.-C. Liao, H. Li,
+D. Nikonov, D. Adams, C. Rogan, M. DC, M. Radosavl-
+jevic, S. Clendenning, I. Young, and I. Corporation,
+"Low-voltage and high-speed switching of a magneto-
+electric element for energy efﬁcient compute," in 2022
+IEEE International Electron Devices Meeting (IEDM),
+2022.
+[8] A. Chen, "Emerging research device roadmap and per-
+spectives," in 2014 IEEE International Conference on
+IC Design & Technology.
+IEEE, 2014, pp. 1-4.
+[9] G.
+Finocchio,
+M.
+Di
+Ventra,
+K.
+Y.
+Camsari,
+K. Everschor-Sitte, P. Khalili Amiri, and Z. Zeng, "The
+promise of spintronics for unconventional computing,"
+Journal of Magnetism and Magnetic Materials, vol.
+521, p. 167506, 2021.
+[10] B. Behin-Aein, V. Diep, and S. Datta, "A building block
+for hardware belief networks," Scientiﬁc reports, vol. 6,
+no. 1, pp. 1-10, 2016.
+[11] B. Sutton, K. Y. Camsari, B. Behin-Aein, and S. Datta,
+"Intrinsic optimization using stochastic nanomagnets,"
+Scientiﬁc Reports, vol. 7, p. 44370, 2017.
+[12] K. Y. Camsari, R. Faria, B. M. Sutton, and S. Datta,
+"Stochastic p-bits for invertible logic," Physical Review
+X, vol. 7, no. 3, p. 031014, 2017.
+[13] R. P. Feynman, "Simulating physics with computers,"
+International journal of theoretical physics, vol. 21, no.
+6-7, pp. 467-488, 1982.
+[14] N. A. Aadit, A. Grimaldi, M. Carpentieri, L. Theoga-
+rajan, J. M. Martinis, G. Finocchio, and K. Y. Camsari,
+"Massively parallel probabilistic computing with sparse
+ising machines," Nature Electronics, pp. 1-9, 2022.
+[15] J. Kaiser, R. Jaiswal, B. Behin-Aein, and S. Datta,
+"Benchmarking a probabilistic coprocessor," arXiv
+preprint arXiv:2109.14801, 2021.
+[16] S. Misra, L. C. Bland, S. G. Cardwell, J. A. C. Incorvia,
+C. D. James, A. D. Kent, C. D. Schuman, J. D. Smith,
+and J. B. Aimone, "Probabilistic neural computing with
+stochastic devices," Advanced Materials, p. 2204569,
+2022.
+[17] P. J. Coles, "Thermodynamic ai and the ﬂuctuation
+frontier," arXiv preprint arXiv:2302.06584, 2023.
+[18] W. A. Borders, A. Z. Pervaiz, S. Fukami, K. Y. Camsari,
+H. Ohno, and S. Datta, "Integer factorization using
+stochastic magnetic tunnel junctions," Nature, 2019.
+[19] R. Faria, J. Kaiser, K. Y. Camsari, and S. Datta,
+"Hardware design for autonomous bayesian networks,"
+Frontiers in computational neuroscience, vol. 15, p. 14,
+2021.
+[20] E. Aarts and J. Korst, Simulated annealing and Boltz-
+mann machines: a stochastic approach to combinatorial
+optimization and neural computing.
+John Wiley &
+Sons, Inc., 1989.
+[21] A.
+Houshang,
+M.
+Zahedinejad,
+S.
+Muralidhar,
+J. Checinski, A. A. Awad, and J. ˚Akerman, "A spin
+hall ising machine," arXiv preprint arXiv:2006.02236,
+2020.
+[22] Y. Su, J. Mu, H. Kim, and B. Kim, "A scalable cmos
+ising computer featuring sparse and reconﬁgurable
+spin interconnects for solving combinatorial optimiza-
+tion problems," IEEE Journal of Solid-State Circuits,
+vol. 57, no. 3, pp. 858-868, 2022.
+[23] S. Bhanja, D. Karunaratne, R. Panchumarthy, S. Ra-
+jaram, and S. Sarkar, "Non-boolean computing with
+nanomagnets for computer vision applications," Nature
+nanotechnology, vol. 11, no. 2, pp. 177-183, 2016.
+[24] P. Debashis, R. Faria, K. Y. Camsari, J. Appenzeller,
+S. Datta, and Z. Chen, "Experimental demonstration of
+nanomagnet networks as hardware for ising computing,"
+in Electron Devices Meeting (IEDM), 2016 IEEE Inter-
+national.
+IEEE, 2016, pp. 34-3.
+[25] P. L. McMahon et al., "A fully programmable 100-
+spin coherent ising machine with all-to-all connections,"
+Science, vol. 354, no. 6312, pp. 614-617, 2016.
+[26] S. Dutta, A. Khanna, A. Assoa, H. Paik, D. G. Schlom,
+Z. Toroczkai, A. Raychowdhury, and S. Datta, "An ising
+hamiltonian solver based on coupled stochastic phase-
+transition nano-oscillators," Nature Electronics, vol. 4,
+no. 7, pp. 502-512, 2021.
+[27] J. Chou, S. Bramhavar, S. Ghosh, and W. Herzog, "Ana-
+log coupled oscillator based weighted ising machine,"
+Scientiﬁc reports, vol. 9, no. 1, pp. 1-10, 2019.
+[28] M. Yamaoka et al., "A 20k-spin ising chip to solve com-
+binatorial optimization problems with cmos annealing,"
+IEEE Journal of Solid-State Circuits, vol. 51, no. 1, pp.
+303-309, 2016.
+[29] T. Wang and J. Roychowdhury, "Oim: Oscillator-based
+ising machines for solving combinatorial optimisa-
+tion problems," in International Conference on Un-
+conventional Computation and Natural Computation.
+Springer, 2019, pp. 232-256.
+
+10
+[30] Y. Shim, A. Jaiswal, and K. Roy, "Ising computation
+based combinatorial optimization using spin-hall effect
+(she) induced stochastic magnetization reversal," Jour-
+nal of Applied Physics, vol. 121, no. 19, p. 193902,
+2017.
+[31] T. Inagaki et al., "A coherent ising machine for 2000-
+node optimization problems," Science, vol. 354, no.
+6312, pp. 603-606, 2016.
+[32] M. Baity-Jesi, R. A. Ba˜nos, A. Cruz, L. A. Fernandez,
+J. M. Gil-Narvi´on, A. Gordillo-Guerrero, D. I˜niguez,
+A. Maiorano, F. Mantovani, E. Marinari et al., "Janus
+ii: A new generation application-driven computer for
+spin-system simulations," Computer Physics Communi-
+cations, vol. 185, no. 2, pp. 550-559, 2014.
+[33] M. Yamaoka, C. Yoshimura, M. Hayashi, T. Okuyama,
+H. Aoki, and H. Mizuno, "24.3 20k-spin ising chip for
+combinational optimization problem with cmos anneal-
+ing," in 2015 IEEE International Solid-State Circuits
+Conference-(ISSCC) Digest of Technical Papers. IEEE,
+2015, pp. 1-3.
+[34] N. G. Berloff, M. Silva, K. Kalinin, A. Askitopoulos,
+J. D. T¨opfer, P. Cilibrizzi, W. Langbein, and P. G.
+Lagoudakis, "Realizing the classical xy hamiltonian in
+polariton simulators," Nature materials, vol. 16, no. 11,
+pp. 1120-1126, 2017.
+[35] T. Takemoto, M. Hayashi, C. Yoshimura, and M. Ya-
+maoka, "2.6 a 2× 30k-spin multichip scalable annealing
+processor based on a processing-in-memory approach
+for solving large-scale combinatorial optimization prob-
+lems," in 2019 IEEE International Solid-State Circuits
+Conference-(ISSCC).
+IEEE, 2019, pp. 52-54.
+[36] H. Goto, K. Tatsumura, and A. R. Dixon, "Combina-
+torial optimization by simulating adiabatic bifurcations
+in nonlinear hamiltonian systems," Science advances,
+vol. 5, no. 4, p. eaav2372, 2019.
+[37] M. Aramon, G. Rosenberg, E. Valiante, T. Miyazawa,
+H. Tamura, and H. G. Katzgraber, "Physics-inspired op-
+timization for quadratic unconstrained problems using
+a digital annealer," Frontiers in Physics, vol. 7, p. 48,
+2019.
+[38] A. Mallick, M. K. Bashar, D. S. Truesdell, B. H.
+Calhoun, S. Joshi, and N. Shukla, "Using synchronized
+oscillators to compute the maximum independent set,"
+Nature communications, vol. 11, no. 1, pp. 1-7, 2020.
+[39] K. Yamamoto, K. Ando, N. Mertig, T. Takemoto,
+M. Yamaoka, H. Teramoto, A. Sakai, S. Takamaeda-
+Yamazaki, and M. Motomura, "7.3 statica: A 512-spin
+0.25 m-weight full-digital annealing processor with a
+near-memory all-spin-updates-at-once architecture for
+combinatorial optimization with complete spin-spin in-
+teractions," in 2020 IEEE International Solid-State Cir-
+cuits Conference-(ISSCC).
+IEEE, 2020, pp. 138-140.
+[40] S. Patel, P. Canoza, and S. Salahuddin, "Logically syn-
+thesized and hardware-accelerated restricted boltzmann
+machines for combinatorial optimization and integer
+factorization," Nature Electronics, vol. 5, no. 2, pp. 92-
+101, 2022.
+[41] R. Afoakwa, Y. Zhang, U. K. R. Vengalam, Z. Ignja-
+tovic, and M. Huang, "Cmos ising machines with cou-
+pled bistable nodes," arXiv preprint arXiv:2007.06665,
+2020.
+[42] A. Lu, J. Hur, Y.-C. Luo, H. Li, D. E. Nikonov,
+I. Young, Y.-K. Choi, and S. Yu, "Scalable in-memory
+clustered annealer with temporal noise of ﬁnfet for
+the travelling salesman problem," in 2022 International
+Electron Devices Meeting (IEDM).
+IEEE, 2022, pp.
+22-5.
+[43] W. Moy, I. Ahmed, P.-w. Chiu, J. Moy, S. S. Sapatnekar,
+and C. H. Kim, "A 1,968-node coupled ring oscillator
+circuit for combinatorial optimization problem solving,"
+Nature Electronics, vol. 5, no. 5, pp. 310-317, 2022.
+[44] N. Mohseni, P. L. McMahon, and T. Byrnes, "Ising
+machines as hardware solvers of combinatorial opti-
+mization problems," Nature Reviews Physics, vol. 4,
+no. 6, pp. 363-379, may 2022.
+[45] M. Marsman, G. Maris, T. Bechger, and C. Glas,
+"Bayesian inference for low-rank ising networks," Sci-
+entiﬁc Reports, vol. 5, no. 1, mar 2015.
+[46] M. T. McCray, M. A. Abeed, and S. Bandyopad-
+hyay, "Electrically programmable probabilistic bit anti-
+correlator on a nanomagnetic platform," Scientiﬁc re-
+ports, vol. 10, no. 1, pp. 1-11, 2020.
+[47] P. Debashis, V. Ostwal, R. Faria, S. Datta, J. Ap-
+penzeller, and Z. Chen, "Hardware implementation of
+bayesian network building blocks with stochastic spin-
+tronic devices," Scientiﬁc reports, vol. 10, no. 1, p.
+16002, 2020.
+[48] S. Nasrin, J. Drobitch, P. Shukla, T. Tulabandhula,
+S. Bandyopadhyay, and A. R. Trivedi, "Bayesian rea-
+soning machine on a magneto-tunneling junction net-
+work," Nanotechnology, vol. 31, no. 48, p. 484001,
+2020.
+[49] K.-E. Harabi, T. Hirtzlin, C. Turck, E. Vianello, R. Lau-
+rent, J. Droulez, P. Bessi`ere, J.-M. Portal, M. Boc-
+quet, and D. Querlioz, "A memristor-based bayesian
+machine," Nature Electronics, pp. 1-12, 2022.
+[50] M. G. Morshed, S. Ganguly, and A. W. Ghosh, "A deep
+dive into the computational ﬁdelity of high variability
+low energy barrier magnet technology for accelerating
+optimization and bayesian problems," 2023. [Online].
+Available: https://arxiv.org/abs/2302.08074
+[51] C. Bybee, D. Kleyko, D. E. Nikonov, A. Khosrowshahi,
+B. A. Olshausen, and F. T. Sommer, "Efﬁcient optimiza-
+tion with higher-order ising machines," arXiv preprint
+arXiv:2212.03426, 2022.
+[52] M. K. Bashar and N. Shukla, "Constructing dynamical
+systems to model higher order ising spin interactions
+and their application in solving combinatorial optimiza-
+tion problems," arXiv preprint arXiv:2211.05365, 2022.
+[53] N. Onizawa and T. Hanyu, "High convergence rates
+of cmos invertible logic circuits based on many-body
+hamiltonians," in 2021 IEEE International Symposium
+on Circuits and Systems (ISCAS). IEEE, 2021, pp. 1-5.
+[54] B. Sutton, R. Faria, L. A. Ghantasala, R. Jaiswal,
+K. Y. Camsari, and S. Datta, "Autonomous probabilistic
+coprocessing with petaﬂips per second," IEEE Access,
+
+11
+vol. 8, pp. 157 238-157 252, 2020.
+[55] J. Kaiser and S. Datta, "Probabilistic computing with
+p-bits," Applied Physics Letters, vol. 119, no. 15, p.
+150503, 2021.
+[56] S. Aggarwal, H. Almasi, M. DeHerrera, B. Hughes,
+S. Ikegawa, J. Janesky, H. Lee, H. Lu, F. Mancoff,
+K. Nagel et al., "Demonstration of a reliable 1 gb stan-
+dalone spin-transfer torque mram for industrial appli-
+cations," in 2019 IEEE International Electron Devices
+Meeting (IEDM).
+IEEE, 2019, pp. 2-1.
+[57] K. Lee, J. Bak, Y. Kim, C. Kim, A. Antonyan,
+D. Chang, S. Hwang, G. Lee, N. Ji, W. Kim et al.,
+"1gbit high density embedded stt-mram in 28nm fdsoi
+technology," in 2019 IEEE International Electron De-
+vices Meeting (IEDM).
+IEEE, 2019, pp. 2-2.
+[58] J. L. Drobitch and S. Bandyopadhyay, "Reliability and
+scalability of p-bits implemented with low energy bar-
+rier nanomagnets," IEEE Magnetics Letters, vol. 10, pp.
+1-4, 2019.
+[59] R. Rahman and S. Bandyopadhyay, "Variability of
+binary stochastic neurons employing low energy barrier
+nanomagnets with in-plane anisotropy," 2021. [Online].
+Available: https://arxiv.org/abs/2108.04319
+[60] O. Hassan, S. Datta, and K. Y. Camsari, "Quantita-
+tive evaluation of hardware binary stochastic neurons,"
+Physical Review Applied, vol. 15, no. 6, p. 064046,
+2021.
+[61] K. Y. Camsari, M. M. Torunbalci, W. A. Borders,
+H. Ohno, and S. Fukami, "Double-free-layer magnetic
+tunnel junctions for probabilistic bits," Physical Review
+Applied, vol. 15, no. 4, p. 044049, 2021.
+[62] R. Rahman and S. Bandyopadhyay, "Robustness of
+binary stochastic neurons implemented with low barrier
+nanomagnets made of dilute magnetic semiconductors,"
+IEEE Magnetics Letters, vol. 13, pp. 1-4, 2022.
+[63] Y. Lv, R. P. Bloom, and J.-P. Wang, "Experimental
+demonstration of probabilistic spin logic by magnetic
+tunnel junctions," IEEE Magnetics Letters, vol. 10, pp.
+1-5, 2019.
+[64] K. Y. Camsari, P. Debashis, V. Ostwal, A. Z. Pervaiz,
+T. Shen, Z. Chen, S. Datta, and J. Appenzeller, "From
+charge to spin and spin to charge: Stochastic magnets
+for probabilistic switching," Proceedings of the IEEE,
+vol. 108, no. 8, pp. 1322-1337, 2020.
+[65] X. Chen, J. Zhang, J. Xiao et al., "Magnetic-tunnel-
+junction-based true random-number generator with en-
+hanced generation rate," Physical Review Applied,
+vol. 18, no. 2, p. L021002, 2022.
+[66] L. Rehm, C. C. M. Capriata, M. Shashank, J. D. Smith,
+M. Pinarbasi, B. G. Malm, and A. D. Kent, "Stochastic
+magnetic actuated random transducer devices based
+on perpendicular magnetic tunnel junctions," arXiv
+preprint arXiv:2209.01480, 2022.
+[67] B. R. Zink, Y. Lv, and J.-P. Wang, "Review of magnetic
+tunnel junctions for stochastic computing," IEEE Jour-
+nal on Exploratory Solid-State Computational Devices
+and Circuits, vol. 8, no. 2, pp. 173-184, dec 2022.
+[68] A. Fukushima, T. Seki, K. Yakushiji, H. Kubota,
+H. Imamura, S. Yuasa, and K. Ando, "Spin dice:
+A scalable truly random number generator based on
+spintronics," Applied Physics Express, vol. 7, no. 8, p.
+083001, 2014.
+[69] Y. Shao, S. L. Sinaga, I. O. Sunmola, A. S. Borland,
+M. J. Carey, J. A. Katine, V. Lopez-Dominguez, and
+P. K. Amiri, "Implementation of artiﬁcial neural net-
+works using magnetoresistive random-access memory-
+based stochastic computing units," IEEE Magnetics
+Letters, vol. 12, pp. 1-5, 2021.
+[70] K. Y. Camsari, S. Salahuddin, and S. Datta, "Imple-
+menting p-bits with embedded mtj," IEEE Electron
+Device Letters, vol. 38, no. 12, pp. 1767-1770, 2017.
+[71] J. Kaiser, A. Rustagi, K. Y. Camsari, J. Z. Sun, S. Datta,
+and P. Upadhyaya, "Subnanosecond ﬂuctuations in low-
+barrier nanomagnets," Physical Review Applied, vol. 12,
+no. 5, p. 054056, 2019.
+[72] O. Hassan, R. Faria, K. Y. Camsari, J. Z. Sun, and
+S. Datta, "Low-barrier magnet design for efﬁcient hard-
+ware binary stochastic neurons," IEEE Magnetics Let-
+ters, vol. 10, pp. 1-5, 2019.
+[73] K. Hayakawa, S. Kanai, T. Funatsu, J. Igarashi, B. Jin-
+nai, W. Borders, H. Ohno, and S. Fukami, "Nanosecond
+random telegraph noise in in-plane magnetic tunnel
+junctions," Physical Review Letters, vol. 126, no. 11,
+p. 117202, 2021.
+[74] C. Safranski, J. Kaiser, P. Trouilloud, P. Hashemi,
+G. Hu, and J. Z. Sun, "Demonstration of nanosecond
+operation in stochastic magnetic tunnel junctions," Nano
+Letters, vol. 21, no. 5, pp. 2040-2045, feb 2021.
+[75] S.
+Kanai,
+K.
+Hayakawa,
+H.
+Ohno,
+and
+S.
+Fukami,
+"Theory
+of
+relaxation
+time
+of
+stochastic
+nanomagnets,"
+Phys.
+Rev.
+B,
+vol.
+103,
+p.
+094423,
+Mar
+2021.
+[Online].
+Available:
+https://link.aps.org/doi/10.1103/PhysRevB.103.094423
+[76] J. Kaiser, W. A. Borders, K. Y. Camsari, S. Fukami,
+H. Ohno, and S. Datta, "Hardware-aware in situ learning
+based on stochastic magnetic tunnel junctions," Physical
+Review Applied, vol. 17, no. 1, p. 014016, 2022.
+[77] A. Grimaldi, K. Selcuk, N. A. Aadit, K. Kobayashi,
+Q. Cao, S. Chowdhury, G. Finocchio, S. Kanai,
+H. Ohno, S. Fukami, and K. Y. Camsari, "Experimental
+evaluation of simulated quantum annealing with mtj-
+augmented p-bits," in 2022 IEEE International Electron
+Devices Meeting (IEDM), 2022.
+[78] J. Yin, Y. Liu, B. Zhang, A. Du, T. Gao, X. Ma,
+Y. Dong, Y. Bai, S. Lu, Y. Zhuo, Y. Huang, W. Cai,
+D. Zhu, K. Shi, K. Cao, D. Zhang, L. Zeng, and
+W. Zhao, "Scalable ising computer based on ultra-fast
+ﬁeld-free spin orbit torque stochastic device with ex-
+treme 1-bit quantization," in 68th International Electron
+Devices Meeting (IEDM), 2022.
+[79] G. M. Guti´errez-Finol, S. Gim´enez-Santamarina, Z. Hu,
+L. E. Rosaleny, S. Cardona-Serra, and A. Gaita-Ari˜no,
+"Lanthanide molecular nanomagnets as probabilistic
+bits," 2023. [Online]. Available: https://arxiv.org/abs/
+2301.08182
+[80] K. S. Woo, J. Kim, J. Han, W. Kim, Y. H. Jang,
+
+12
+and C. S. Hwang, "Probabilistic computing using cu0.
+1te0. 9/hfo2/pt diffusive memristors," Nature Commu-
+nications, vol. 13, no. 1, p. 5762, 2022.
+[81] Y. Liu, Q. Hu, Q. Wu, X. Liu, Y. Zhao, D. Zhang,
+Z. Han, J. Cheng, Q. Ding, Y. Han et al., "Probabilistic
+circuit implementation based on p-bits using the in-
+trinsic random property of rram and p-bit multiplexing
+strategy," Micromachines, vol. 13, no. 6, p. 924, 2022.
+[82] T. J. Park, K. Selcuk, H.-T. Zhang, S. Manna, R. Batra,
+Q. Wang, H. Yu, N. A. Aadit, S. K. Sankaranarayanan,
+H. Zhou et al., "Efﬁcient probabilistic computing with
+stochastic perovskite nickelates," Nano Letters, vol. 22,
+no. 21, pp. 8654-8661, 2022.
+[83] S. Cheemalavagu, P. Korkmaz, K. V. Palem, B. E.
+Akgul, and L. N. Chakrapani, "A probabilistic cmos
+switch and its realization by exploiting noise," in IFIP
+International Conference on VLSI, 2005, pp. 535-541.
+[84] W. Whitehead, Z. Nelson, K. Y. Camsari, and L. Theog-
+arajan, "Cmos-compatible ising and potts annealing
+using single photon avalanche diodes," arXiv preprint
+arXiv:2211.12607, 2022.
+[85] L. Xia, P. Gu, B. Li, T. Tang, X. Yin, W. Huangfu,
+S. Yu, Y. Cao, Y. Wang, and H. Yang, "Technological
+exploration of rram crossbar array for matrix-vector
+multiplication," Journal of Computer Science and Tech-
+nology, vol. 31, no. 1, pp. 3-19, 2016.
+[86] Y. Li, S. Kim, X. Sun, P. Solomon, T. Gokmen,
+H. Tsai, S. Koswatta, Z. Ren, R. Mo, C. C. Yeh et al.,
+"Capacitor-based cross-point array for analog neural
+network with record symmetry and linearity," in 2018
+IEEE Symposium on VLSI Technology.
+IEEE, 2018,
+pp. 25-26.
+[87] O. Hassan, K. Y. Camsari, and S. Datta, "Voltage-driven
+building block for hardware belief networks," IEEE
+Design & Test, vol. 36, no. 3, pp. 15-21, 2019.
+[88] M. Kang, S. K. Gonugondla, A. Patil, and N. R.
+Shanbhag, "A multi-functional in-memory inference
+processor using a standard 6t sram array," IEEE Journal
+of Solid-State Circuits, vol. 53, no. 2, pp. 642-655,
+2018.
+[89] N. Verma, H. Jia, H. Valavi, Y. Tang, M. Ozatay,
+L.-Y. Chen, B. Zhang, and P. Deaville, "In-memory
+computing: Advances and prospects," IEEE Solid-State
+Circuits Magazine, vol. 11, no. 3, pp. 43-55, 2019.
+[90] S. Geman and D. Geman, "Stochastic relaxation, gibbs
+distributions, and the bayesian restoration of images,"
+IEEE Transactions on pattern analysis and machine
+intelligence, no. 6, pp. 721-741, 1984.
+[91] D. Koller and N. Friedman, Probabilistic graphical
+models: principles and techniques.
+MIT press, 2009.
+[92] G. E. Hinton, A Practical Guide to Training Restricted
+Boltzmann Machines.
+Berlin, Heidelberg: Springer
+Berlin Heidelberg, 2012, pp. 599-619.
+[93] M. R. Garey and D. S. Johnson, Computers and in-
+tractability.
+freeman San Francisco, 1979, vol. 174.
+[94] D. Br´elaz, "New methods to color the vertices of a
+graph," Communications of the ACM, vol. 22, no. 4,
+pp. 251-256, apr 1979.
+[95] Y. F. et al., "Parallel tempering simulation of the
+three-dimensional edwards-anderson model with com-
+pact asynchronous multispin coding on gpu," Computer
+Physics Communications, vol. 185, no. 10, pp. 2467 -
+2478, 2014.
+[96] K. Yang, Y.-F. Chen, G. Roumpos, C. Colby, and
+J. Anderson, "High performance monte carlo simulation
+of ising model on tpu clusters," in Proceedings of the
+International Conference for High Performance Com-
+puting, Networking, Storage and Analysis, 2019, pp. 1-
+15.
+[97] P. Debashis, R. Faria, K. Y. Camsari, S. Datta, and
+Z. Chen, "Correlated ﬂuctuations in spin orbit torque
+coupled perpendicular nanomagnets," Physical Review
+B, vol. 101, no. 9, p. 094405, 2020.
+[98] N. A. Aadit, A. Grimaldi, G. Finocchio, and K. Y.
+Camsari, "Physics-inspired ising computing with ring
+oscillator activated p-bits," in 2022 IEEE 22nd Interna-
+tional Conference on Nanotechnology (NANO), 2022,
+pp. 393-396.
+[99] S. Bhatti, R. Sbiaa, A. Hirohata, H. Ohno, S. Fukami,
+and S. Piramanayagam, "Spintronics based random ac-
+cess memory: a review," Materials Today, vol. 20, no. 9,
+pp. 530-548, 2017.
+[100] H. Hoos and T. St¨utzle, SATLIB: An online resource for
+research on SAT.
+IOS Press, 04 2000, pp. 283-292.
+[101] A. Z. Pervaiz, L. A. Ghantasala, K. Y. Camsari, and
+S. Datta, "Hardware emulation of stochastic p-bits for
+invertible logic," Scientiﬁc reports, vol. 7, no. 1, p.
+10994, 2017.
+[102] V. Choi, "Minor-embedding in adiabatic quantum com-
+putation: Ii. minor-universal graph design," Quantum
+Information Processing, vol. 10, no. 3, pp. 343-353,
+2011.
+[103] N. Sagan and J. Roychowdhury, "Das: Implementing
+dense ising machines using sparse resistive networks,"
+in Proceedings of the 41st IEEE/ACM International
+Conference on Computer-Aided Design, 2022, pp. 1-
+9.
+[104] A. Lucas, "Ising formulations of many np problems,"
+Frontiers in Physics, vol. 2, p. 5, 2014.
+[105] E. Andriyash, Z. Bian, F. Chudak, M. Drew-Brook,
+A. D. King, W. G. Macready, and A. Roy, "Boosting
+integer factoring performance via quantum annealing
+offsets," D-Wave Technical Report Series, vol. 14, no.
+2016, 2016.
+[106] J. Biamonte, "Nonperturbative k-body to two-body
+commuting conversion hamiltonians and embedding
+problem instances into ising spins," Physical Review A,
+vol. 77, no. 5, p. 052331, 2008.
+[107] F. L. Traversa and M. Di Ventra, "Polynomial-time
+solution of prime factorization and np-complete prob-
+lems with digital memcomputing machines," Chaos: An
+Interdisciplinary Journal of Nonlinear Science, vol. 27,
+no. 2, p. 023107, 2017.
+[108] M. Di Ventra, MemComputing: Fundamentals and Ap-
+plications.
+Oxford University Press, 2022.
+[109] R. Salakhutdinov and G. Hinton, "Deep boltzmann
+
+13
+machines," in Proceedings of the Twelth International
+Conference on Artiﬁcial Intelligence and Statistics, ser.
+Proceedings of Machine Learning Research, D. van
+Dyk and M. Welling, Eds., vol. 5.
+Hilton Clearwater
+Beach Resort, Clearwater Beach, Florida USA: PMLR,
+16-18 Apr 2009, pp. 448-455. [Online]. Available:
+https://proceedings.mlr.press/v5/salakhutdinov09a.html
+[110] S. H. Adachi and M. P. Henderson, "Application of
+quantum annealing to training of deep neural networks,"
+arXiv preprint arXiv:1510.06356, 2015.
+[111] H. Manukian, F. L. Traversa, and M. Di Ventra, "Ac-
+celerating deep learning with memcomputing," Neural
+Networks, vol. 110, pp. 1-7, 2019.
+[112] J. Sohl-Dickstein, E. Weiss, N. Maheswaranathan, and
+S. Ganguli, "Deep unsupervised learning using nonequi-
+librium thermodynamics," in International Conference
+on Machine Learning.
+PMLR, 2015, pp. 2256-2265.
+[113] H. Ma, M. Govoni, and G. Galli, "Quantum simulations
+of materials on near-term quantum computers," npj
+Computational Materials, vol. 6, no. 1, p. 85, 2020.
+[114] R. Babbush, J. R. McClean, M. Newman, C. Gidney,
+S. Boixo, and H. Neven, "Focus beyond quadratic
+speedups for error-corrected quantum advantage," PRX
+Quantum, vol. 2, no. 1, p. 010103, 2021.
+[115] K. Y. Camsari, S. Chowdhury, and S. Datta, "Scal-
+able emulation of sign-problem-free hamiltonians with
+room-temperature p-bits," Physical Review Applied,
+vol. 12, no. 3, p. 034061, 2019.
+[116] M. Suzuki, "Relationship between d-dimensional quan-
+tal spin systems and (d+ 1)-dimensional ising systems:
+Equivalence, critical exponents and systematic approx-
+imants of the partition function and spin correlations,"
+Progress of theoretical physics, vol. 56, no. 5, pp. 1454-
+1469, 1976.
+[117] A.
+D.
+King,
+J.
+Raymond,
+T.
+Lanting,
+S.
+V.
+Isakov, M. Mohseni, G. Poulin-Lamarre, S. Ejtemaee,
+W. Bernoudy, I. Ozﬁdan, A. Y. Smirnov et al., "Scaling
+advantage over path-integral monte carlo in quantum
+simulation of geometrically frustrated magnets," Nature
+communications, vol. 12, no. 1, pp. 1-6, 2021.
+[118] S.
+Chowdhury,
+K.
+Y.
+Camsari,
+and
+S.
+Datta,
+"Accelerated
+quantum
+monte
+carlo
+with
+prob-
+abilistic
+computers,"
+2022.
+[Online].
+Available:
+https://arxiv.org/abs/2210.17526
+[119] S. Chowdhury, S. Datta, and K. Camsari, "A probabilis-
+tic approach to quantum inspired algorithms," in 2019
+IEEE International Electron Devices Meeting (IEDM).
+IEEE, 2019, pp. 37-5.
+[120] S. Chowdhury, K. Y. Camsari, and S. Datta, "Emulating
+quantum interference with generalized ising machines,"
+arXiv preprint arXiv:2007.07379, 2020.
+[121] M. Troyer et al., "Computational complexity and fun-
+damental limitations to fermionic quantum monte carlo
+simulations," Physical review letters, vol. 94, no. 17, p.
+170201, 2005.
+[122] D.
+Aharonov,
+X.
+Gao,
+Z.
+Landau,
+Y.
+Liu,
+and
+U. Vazirani, "A polynomial-time classical algorithm
+for noisy random circuit sampling," arXiv preprint
+arXiv:2211.03999, 2022.
+[123] D. Hangleiter, I. Roth, D. Nagaj, and J. Eisert, "Easing
+the monte carlo sign problem," Science advances, vol. 6,
+no. 33, p. eabb8341, 2020.
+[124] G. Carleo and M. Troyer, "Solving the quantum many-
+body problem with artiﬁcial neural networks," Science,
+vol. 355, no. 6325, pp. 602-606, 2017.
+[125] Z. Cai and J. Liu, "Approximating quantum many-
+body wave functions using artiﬁcial neural networks,"
+Phys.
+Rev.
+B,
+vol.
+97,
+p.
+035116,
+Jan
+2018.
+[Online].
+Available:
+https://link.aps.org/doi/10.1103/
+PhysRevB.97.035116
+[126] H. Saito and M. Kato, "Machine learning technique to
+ﬁnd quantum many-body ground states of bosons on
+a lattice," Journal of the Physical Society of Japan,
+vol. 87, no. 1, p. 014001, 2018. [Online]. Available:
+https://doi.org/10.7566/JPSJ.87.014001
+[127] S. D. Sarma, D.-L. Deng, and L.-M. Duan, "Ma-
+chine learning meets quantum physics," arXiv preprint
+arXiv:1903.03516, 2019.
+[128] N. A. Aadit, A. Grimaldi, M. Carpentieri, L. Theog-
+arajan, G. Finocchio, and K. Y. Camsari, "Computing
+with invertible logic: Combinatorial optimization with
+probabilistic bits," in 2021 IEEE International Electron
+Devices Meeting (IEDM).
+IEEE, 2021, pp. 40-3.
+[129] A. Grimaldi, L. S´anchez-Tejerina, N. A. Aadit, S. Chi-
+appini, M. Carpentieri, K. Camsari, and G. Finocchio,
+"Spintronics-compatible approach to solving maximum-
+satisﬁability problems with probabilistic computing, in-
+vertible logic, and parallel tempering," Physical Review
+Applied, vol. 17, no. 2, p. 024052, 2022.
+[130] G. Desjardins, A. Courville, and Y. Bengio, "Adaptive
+parallel tempering for stochastic maximum likelihood
+learning of rbms," arXiv preprint arXiv:1012.3476,
+2010.
+[131] M. Mohseni, D. Eppens, J. Strumpfer, R. Marino,
+V. Denchev, A. K. Ho, S. V. Isakov, S. Boixo, F. Ricci-
+Tersenghi, and H. Neven, "Nonequilibrium monte carlo
+for unfreezing variables in hard combinatorial optimiza-
+tion," arXiv preprint arXiv:2111.13628, 2021.
+[132] A. Buluc, T. G. Kolda, S. M. Wild, M. Anitescu,
+A. DeGennaro, J. Jakeman, C. Kamath, M. E. Lopes,
+P.-G. Martinsson, K. Myers et al., "Randomized algo-
+rithms for scientiﬁc computing (rasc)," arXiv preprint
+arXiv:2104.11079, 2021.
+[133] G. Finocchio, S. Bandyopadhyay, P. Lin, G. Pan, J. J.
+Yang, R. Tomasello, C. Panagopoulos, M. Carpentieri,
+V. Puliaﬁto, J. ˚Akerman et al., "Roadmap for unconven-
+tional computing with nanotechnology," arXiv preprint
+arXiv:2301.06727, 2023.
+

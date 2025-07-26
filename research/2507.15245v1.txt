@@ -1,0 +1,2031 @@
+SPAR: Scholar Paper Retrieval with LLM-based Agents for Enhanced
+Academic Search
+Xiaofeng Shi1*†
+Yuduo Li1,2*‡
+Qian Kou1*
+Longbin Yu1
+Jinxin Xie1
+Hua Zhou1§
+1Beijing Academy of Artificial Intelligence (BAAI)
+2Beijing Jiaotong University (BJTU)
+Abstract
+Recent advances in large language models
+(LLMs) have opened new opportunities for aca-
+demic literature retrieval. However, existing
+systems often rely on rigid pipelines and ex-
+hibit limited reasoning capabilities. We intro-
+duce SPAR, a multi-agent framework that in-
+corporates RefChain-based query decomposi-
+tion and query evolution to enable more flex-
+ible and effective search.
+To facilitate sys-
+tematic evaluation, we also construct SPAR-
+Bench, a challenging benchmark with expert-
+annotated relevance labels. Experimental re-
+sults demonstrate that SPAR substantially out-
+performs strong baselines, achieving up to
++56% F1 on AutoScholar and +23% F1 on
+SPARBench over the best-performing baseline.
+Together, SPAR and SPARBench provide a
+scalable, interpretable, and high-performing
+foundation for advancing research in scholarly
+retrieval. Code and data will be available at:
+https://github.com/xiaofengShi/SPAR
+1
+Introduction
+Effective academic paper retrieval is fundamental
+to research. As scientific literature continues to
+grow exponentially, researchers are increasingly
+challenged by the need to locate not just superfi-
+cially relevant papers, but comprehensive and in-
+terconnected works that span multiple subtopics,
+time periods, and academic communities (Gusen-
+bauer and Haddaway, 2020). While traditional aca-
+demic search engines such as Google Scholar (Vine,
+2006) support basic keyword queries well, they of-
+ten fall short in supporting complex, multi-intent
+queries that require deeper contextual understand-
+ing or reference-based exploration.
+Consider the query: "Show some cutting-edge
+technological advancements on how to improve the
+*Equal contribution.
+†Corresponding author. Email: xfshi@baai.ac.cn
+‡Work done during internship at BAAI.
+§Project leader.
+generalization ability of machine learning models
+across multiple domains." This query implicitly
+demands up-to-date results, an understanding of
+"generalization" in a machine learning context, and
+coverage across multiple subfields. Existing sys-
+tems tend to either return overly generic results
+or fail to capture the full semantic scope of such
+queries, leading to time-consuming manual filter-
+ing by the user.
+Recent advances in large language models
+(LLMs) (Achiam et al., 2023; Team et al., 2023;
+Liu et al., 2024; Yang et al., 2025b) have enabled
+promising developments in information retrieval,
+including query rewriting, document retrieval, and
+ranking (Zhu et al., 2023). In the academic domain,
+these capabilities offer potential to support more
+intelligent, context-aware search experiences. How-
+ever, academic research involves more than retriev-
+ing documents matching a user query: researchers
+often explore citation networks, follow references
+recursively, and synthesize insights across multi-
+ple papers. These behaviors, central to scholarly
+discovery, remain underexplored in current LLM-
+based retrieval systems.
+To address this gap, we focus on modeling aca-
+demic search as a recursive, citation-driven process
+we term the Reference Chain (RefChain). As
+illustrated in Figure 1, RefChain simulates how
+researchers follow references from one paper to
+another, expanding the scope of retrieval beyond
+direct query matches. PaSa (He et al., 2025) rep-
+resents a key step in this direction, leveraging re-
+inforcement learning (RL) to train an LLM-based
+agent to control RefChain expansion. However,
+PaSa is limited by its heavy reliance on training
+resources, its single-source retrieval design, and
+its coarse query understanding, which restrict its
+generalization across domains.
+We propose SPAR (Scholar PAper Retrieval), a
+modular and extensible framework for academic re-
+trieval built upon a multi-agent architecture. SPAR
+1
+arXiv:2507.15245v1  [cs.IR]  21 Jul 2025
+
+enhances RefChain-based exploration with five spe-
+cialized components: (1) a Query Understanding
+Agent that interprets domain-specific intent and
+refines queries accordingly; (2) a Retrieval Agent
+that interfaces with multiple academic data sources;
+(3) a Query Evolver Agent that performs iterative,
+citation-aware query reformulation; (4) a Judge-
+ment Agent that evaluates and filters relevant pa-
+pers; and (5) a Reranker Agent that reorders re-
+trieved results based on authority, recency, and
+publication quality to improve ranking effective-
+ness. Together, these agents support a comprehen-
+sive and dynamic academic search workflow that
+mirrors how human researchers conduct in-depth
+literature exploration (Figure 2).
+To systematically evaluate academic retrieval
+systems under realistic conditions, we also intro-
+duce SPARBench, a new benchmark comprising
+diverse, expert-annotated queries spanning com-
+puter science and biomedicine. Unlike existing
+datasets with narrow scopes, SPARBench captures
+the multi-faceted nature of real-world academic
+search. Each query and its associated relevant doc-
+uments were carefully reviewed and annotated by
+domain experts with strong academic backgrounds,
+ensuring high-quality and reliable ground-truth rel-
+evance labels. This rigorous construction process
+makes SPARBench a robust testbed for develop-
+ing and evaluating retrieval methods intended for
+practical academic use.
+Empirical results on both AutoScholar (He et al.,
+2025) and SPARBench demonstrate that SPAR
+significantly outperforms all compared methods.
+On AutoScholar, SPAR achieves an F1 score of
+0.3843, surpassing the previous best method, PaSa
+(0.2449), by 56.92%. Notably, SPAR maintains a
+strong balance between recall (0.4105) and pre-
+cision (0.3612), while other methods often fa-
+vor one at the expense of the other. On SPAR-
+Bench, SPAR is the only method that consistently
+achieves meaningful scores across all metrics, with
+an F1 of 0.3015, recall of 0.3103, and precision
+of 0.2932, outperforming all baselines by a clear
+margin. These results highlight SPAR's robustness
+and generalization ability across both synthetic and
+real-world academic search scenarios.
+These findings underscore the importance of
+structured, agent-based retrieval frameworks for
+addressing the complexities of modern academic
+search. Our primary contributions are summarized
+as follows:
+Figure 1: The architecture of RefChain.
+• We propose SPAR, a training-free, modular,
+and extensible academic retrieval framework
+that leverages a multi-agent architecture to per-
+form fine-grained query understanding, multi-
+source retrieval, RefChain-based exploration,
+and relevance-aware reranking.
+• We introduce SPARBench, a high-quality,
+multi-domain
+academic
+retrieval
+bench-
+mark featuring realistic queries and expert-
+annotated relevance labels across computer
+science and biomedicine. SPARBench en-
+ables rigorous and reproducible evaluation un-
+der practical academic search conditions.
+• We conduct extensive experiments on both
+AutoScholar and SPARBench, demonstrat-
+ing that SPAR consistently outperforms a
+range of strong baselines, including manual
+search engines (e.g., Google Scholar, Seman-
+tic Scholar), LLM-assisted retrieval pipelines,
+and prior agent-based methods such as PaSa
+and PaperFinder.
+2
+Related Work
+Traditional Academic Search Engines
+Conven-
+tional academic search systems such as Google
+Scholar (Vine, 2006), Semantic Scholar(Kinney
+et al., 2023), OpenAlex (Priem et al., 2022), and
+PubMed
+(Canese and Weis, 2013) provide ef-
+fective keyword-based retrieval for well-formed
+queries. However, these systems rely primarily on
+lexical matching and are limited in their ability to
+handle complex, multi-intent queries (Gusenbauer
+and Haddaway, 2020). They also lack support for
+citation-aware exploration or semantic reasoning,
+2
+
+Query Understanding
+Interpretation
+Refinement
+Retrieval
+Search Route
+Aggregation
+Judgement
+Relevance
+Knowledge Expansion
+RefChain
+Query Evolver
+Trajectory
+Relevant Doc
+Reranker
+Timeliness
+Authority
+Depth
+Figure 2: The overview of SPAR.
+which are often essential for comprehensive litera-
+ture review tasks.
+LLM-Enhanced Retrieval
+Recent advances in
+large language models have led to increasing in-
+terest in using LLMs to improve academic re-
+trieval performance (Zhu et al., 2023; Ma et al.,
+2023). Techniques such as query rewriting, se-
+mantic expansion, and LLM-based document re-
+ranking have shown promise in improving preci-
+sion and recall. However, most existing approaches
+operate in a single-turn setting and do not support
+iterative, reference-driven exploration. Moreover,
+they rarely integrate domain-aware query under-
+standing or multi-source retrieval strategies.
+Agent-Based Academic Search
+Existing agent-
+based frameworks such as PaSa (He et al., 2025)
+make notable progress in automated scholarly
+search but remain limited by their reliance on su-
+pervised training and low modularity. To address
+these issues, we introduce SPAR, a training-free,
+modular agent framework designed for fine-grained
+query understanding and multi-source document
+exploration.
+3
+Methodology
+We introduce SPAR (Scholar PAper Retrieval),
+an agent-based framework for academic literature
+search. Given a user query, SPAR first analyzes the
+input to identify search intent and perform query re-
+finement (§ 3.1). It then conducts iterative retrieval
+via multi-source search, reference chain expansion,
+and query evolution (§ 3.2). Finally, it re-ranks
+the retrieved documents based on timeliness and
+authority (§ 3.3). An overview of the framework is
+shown in Figure 2, with each component detailed
+in the following subsections.
+3.1
+Query Interpretation and Refinement
+The initial query presented by a user often repre-
+sents an incomplete articulation of a complex, un-
+derlying information need, reflecting what (Belkin,
+1980) termed an "Anomalous state of knowledge."
+Users, shaped by their unique perspectives, prior
+knowledge, or specific roles, naturally approach the
+same topic with varying informational goals and
+lines of inquiry (Teevan et al., 2005). Therefore,
+effective information retrieval requires a proactive
+strategy to discern latent user intent and to refine
+the initial query into more precise and targeted
+instructions (Carpineto and Romano, 2012; Croft
+et al., 2010). Recent studies have further empha-
+sized the importance of query refinement in un-
+covering user intent, and the advent of LLMs has
+enabled more nuanced and context-aware query re-
+finement techniques (Anand et al., 2023; Ma et al.,
+2023; Ye et al., 2023; Liu and Mozafari, 2024).
+SPAR incorporates a Query Understanding
+agent to interpret the user's search query and per-
+form query refinement for subsequent precise aca-
+demic paper retrieval. Given an academic search
+query q, the agent first performs intent classifica-
+tion, distinguishing whether the user seeks a sur-
+vey, recent advances, or methodological compar-
+isons. It simultaneously conducts domain iden-
+tification to anchor the query in a specific field
+3
+
+of study (e.g., machine learning) and detects any
+temporal constraints expressed in the query (e.g.,
+"since 2020"). These annotations help the system
+tailor downstream retrieval operations to the user's
+true research goal. Next, the agent selects one or
+more appropriate academic sources from a fixed set:
+S ={Google, ArXiv, OpenAlex, Semantic Scholar,
+PubMed}. The selection is conditioned on both the
+query domain and intent, ensuring source-query
+alignment.
+The agent then determines whether the query
+requires multi-query refinement based on its speci-
+ficity, domain clarity, and linguistic precision.
+If the query is broad, lacks technical terms, or
+includes ambiguous phrasing, the agent applies
+semantic disambiguation, correction, and intent-
+aware expansion. Refinement is guided by the
+query's recognized intent and detailed refinement
+prompt is provided in Appendix A.1:
+• For survey-focused queries, the agent gener-
+ates refined queries targeting different perspec-
+tives, including methods, applications, histori-
+cal developments, and future challenges.
+• For complex or specialized domains, the
+agent generates refined queries using domain-
+specific terms and technical specifications
+while also targeting empirical studies and pri-
+mary research.
+• When temporal constraints are present, all
+refinements incorporate the specified date
+bounds to ensure time-sensitive relevance.
+Query Understanding Agent emphasizes cover-
+age of diverse subfields and research methodolo-
+gies from the initial query. The result of this stage
+is a structured list of semantically enriched and dis-
+ambiguated queries Q = {q1, q2, · · · , qN}, each
+of which will be utilized to retrieve papers. This
+proactive query refinement lays the foundation for
+precise and context-aware academic paper search
+in SPAR.
+3.2
+RefChain-based Iterative Retrieval and
+Query Evolution
+After the Query Understanding Agent refines the
+query and identifies relevant sources, SPAR enters
+an iterative retrieval phase, coordinated by the Re-
+trieval Agent, the Judgement Agent, and the Query
+Evolver Agent. The Retrieval Agent initiates this
+process by fetching academic papers using source-
+specific strategies and de-duplicating results. It also
+expands coverage through RefChain exploration,
+uncovering related work beyond the initial query
+matches.
+The Retrieval Agent executes source-adaptive
+querying for each qi ∈Q. For sources such as Se-
+mantic Scholar or OpenAlex, it extracts keywords
+from each query; for Google, it submits the full
+query string. It then consolidates results across
+sources by merging retrieved papers, each anno-
+tated with metadata such as title, abstract, author-
+ship, publication date, and source.
+The Judgement Agent evaluates the relevance of
+each retrieved paper by comparing it to the initial
+query and accompanying metadata. Papers scor-
+ing above the relevance threshold are added to the
+Related Pool R = {r1, r2, · · · , rm}. Prompts for
+judging relevance are provided in Appendix A.3.
+Subsequently, SPAR enhances knowledge expan-
+sion through RefChain. For each paper ri ∈R, the
+Retrieval Agent extracts its list of references either
+by parsing PDFs or utilizing structured metadata
+from sources. Then these referred papers are scored
+using the same Judgement Agent. High-relevance
+papers are merged with the Related Pool. The K
+most relevant papers from the expanded pool are
+selected as final results for the current query list
+and stored in Paper Cache P = {p1, p2, · · · , pK}.
+A key design decision is to limit expansion to a
+single RefChain layer. That is, while exploring the
+references of papers in the Related Pool, it does
+not recursively expand those references' citations.
+This constraint is grounded in two considerations:
+• Precision and relevance: Deeper RefChain
+often leads to tangential topics, reducing pre-
+cision;
+• Computational efficiency: Each layer signif-
+icantly increases the retrieval and evaluation
+cost.
+Compared to PaSa, which uses RL training to deter-
+mine expansion depth, SPAR's deterministic, fixed-
+depth strategy ensures reliability, while iterative
+query evolution compensates by exploring new di-
+rections in a controlled manner.
+To ensure depth and diversity in search results,
+the Query Evolver Agent then generates three new
+queries for pi ∈P, focusing on its methodologi-
+cal insights, applications, and limitations. These
+queries are conditioned on the retrieval history tra-
+jectory, including the initial query, previous search
+4
+
+queries, and the metadata of the corresponding pa-
+per. A random subset of the resulting queries is
+selected and added to the query list Q for further
+retrieval iterations. Prompt for evolving query is
+provided in Appendix A.2.
+This retrieval-expansion loop continues until the
+Paper Cache reaches a predefined size or maxi-
+mum depth. To avoid redundancy, SPAR filters out
+previously used queries and suppresses keyword
+overlaps across iterations, ensuring efficient and
+progressive exploration of the literature space.
+3.3
+Reranker
+After retrieving and scoring candidate papers, a
+Re-ranking Module refines the final paper list. The
+reranking stage subsequently refines this candidate
+list by reordering the documents so that the most
+appropriate and informative items appear at the top.
+Besides the original relevance score, our reranker
+integrates two additional signals:
+• Publication authority, estimated from meta-
+data such as venue prestige and author reputa-
+tion;
+• Temporal relevance, determined by whether
+a document satisfies explicit time constraints
+in the query or belongs to the most recent
+publications.
+The prompt template that combines these factors
+is provided in Appendix A.4. The final output
+is an ordered list of highly relevant, timely, and
+authoritative academic papers tailored to the user's
+intent.
+4
+SPARBench
+Despite growing interest in scholarly information
+retrieval, the field still lacks robust and standard-
+ized benchmarks for systematic and realistic evalu-
+ation. This absence limits reproducibility and hin-
+ders progress in developing generalizable academic
+search systems.
+Existing resources remain limited in both scope
+and quality. For example, AutoScholar (He et al.,
+2025) is a synthetic dataset constructed from AI
+conference papers between 2023 and 2024. Al-
+though it pairs GPT-4o-generated queries with rel-
+evant documents, only 100 query-document pairs
+were manually reviewed, raising concerns about
+label quality and applicability to real-world scenar-
+ios. Another benchmark, RealScholarQuery (He
+et al., 2025), contains 50 expert-written queries col-
+lected post-hoc from AI researchers, introducing
+potential evaluation bias toward models tuned for
+that specific setup.
+Most prior benchmarks focus on closed cor-
+pora (Ajith et al., 2024; Voorhees et al., 2021; Co-
+han et al., 2004), using static queries and docu-
+ments. Such settings fail to capture key aspects of
+academic search, including query understanding,
+multi-source retrieval, and reference-based explo-
+ration. Despite efforts toward more comprehensive
+evaluation, no existing benchmark supports end-to-
+end assessment encompassing ranking, reasoning,
+source selection, and iterative exploration.
+To address these limitations, we introduce
+SPARBench, a benchmark for evaluating academic
+retrieval systems under realistic conditions. Unlike
+previous efforts, SPARBench draws from multi-
+ple academic sources—including arXiv, PubMed,
+OpenAlex, and Semantic Scholar—covering di-
+verse disciplines such as computer science and
+biomedicine.
+SPARBench reflects natural academic search be-
+havior. Initial queries are generated by GPT-4o and
+then rigorously filtered by domain experts. The
+dataset includes multi-intent queries with incom-
+plete grammar and minor spelling errors to simulate
+real-world user input. Relevance judgments follow
+a multi-stage process combining automatic filter-
+ing, small and large language models, and manual
+validation by experts, ensuring high label quality
+and domain fidelity.
+Given the high cost of producing high-quality
+academic retrieval data, the current version in-
+cludes 50 carefully curated queries, each under-
+going expert review. This initial release prioritizes
+depth and reliability, providing a solid foundation
+for future extensions to broader domains and larger
+query sets. SPARBench will be publicly released
+to support further research in academic search.
+4.1
+Benchmark Characteristics
+• Realistic Queries: Simulate authentic aca-
+demic search behavior through multi-intent,
+semantically rich queries with incomplete
+grammar and minor spelling errors.
+• Cross-Domain Coverage: Supports evalua-
+tion across computer science and biomedicine,
+enabling assessment of domain-general and
+domain-specific retrieval capabilities.
+• Multi-Source Corpus: Integrates documents
+5
+
+Scalper Screen
+SLM
+Rapid Analysis
+BenchMark
+Fine Screen
+LLM
+Rigorous analysis
+Artificial Screen
+Human Eval
+Professional
+Original Answers
+Web API
+Multichannel
+General Query
+LLM generation
+Human assessment
+Figure 3: SPARBench construction pipeline. The process includes expert-curated seed queries, GPT-4o-based query
+expansion, multi-source document retrieval, and a three-stage relevance filtering procedure combining language
+models and expert annotation.
+from arXiv, PubMed, OpenAlex, and Seman-
+tic Scholar to reduce source-specific bias and
+improve retrieval realism.
+• High-Quality Annotations: A multi-stage la-
+beling pipeline combines LLM-based filtering
+with expert validation, ensuring high-quality
+annotations and domain consistency.
+4.2
+Construction Method
+Figure 3 outlines the multi-stage pipeline used
+to construct SPARBench. A set of seed queries
+was manually curated based on real academic re-
+search scenarios. These were expanded using GPT-
+4o (Hurst et al., 2024) to introduce linguistic and se-
+mantic diversity. After expert screening, 50 queries
+were selected—35 from computer science and 15
+from biomedicine.
+Each query was submitted independently to
+arXiv, PubMed, OpenAlex, and Semantic Scholar,
+producing an initial candidate set of 198K docu-
+ments. Relevance assessment proceeded in three
+stages:
+1. Initial Pruning: Coarse relevance was esti-
+mated using Qwen2.5-7B-Instruct (Yang et al.,
+2024), reducing the set to 3K candidates.
+2. Refinement: Qwen2.5-72B-Instruct (Yang
+et al., 2024) performed fine-grained filtering,
+yielding 2K documents.
+3. Expert Validation: Graduate-level computer
+science annotators manually reviewed the re-
+maining candidates, selecting approximately
+560 relevant documents (averaging 12 per
+query).
+The final benchmark comprises 50 queries and
+560 expert-verified relevant documents. Stage-wise
+statistics are reported in Appendix E (Figure 5).
+SPARBench fills a critical gap in academic re-
+trieval research by offering a realistic, high-quality
+benchmark tailored for end-to-end evaluation of
+scholarly search systems.
+5
+Experiments
+5.1
+Evaluation Setup
+We evaluated our method against a diverse set of
+baselines, including traditional academic and web
+search engines, as well as LLM-enhanced retrieval
+systems. The evaluated baselines include:
+• GOOGLE (G): Standard Google search using
+the original query.
+• GOOGLE+GPT-4O (G+GPT):Query rewrit-
+ten for clarity using GPT-4o (Hurst et al.,
+2024) before Google search.
+• GOOGLE SCHOLAR (GS):Direct retrieval
+from Google Scholar without LLM interven-
+tion.
+• CHATGPT SEARCH (CS):We Submit query
+to ChatGPT, which is powered by search-
+enabled GPT-4o.
+• GOOGLE-ARXIV (GA):Google search re-
+stricted to arXiv.org.
+• GOOGLE-ARXIV
++
+LLM
+(GA+LLM):
+Query refined using LLM before Google
+search restricted by arXiv.
+6
+
+• OPENALEX+LLM (OA+LLM):Keywords
+extracted by LLM for the retrieval of the Ope-
+nAlex API.
+• SEMANTIC SCHOLAR+LLM(2S+LLM):LLM-
+extracted keywords used for the Semantic
+Scholar search.
+• PUBMED+LLM(PM+LLM):LLM-
+generated keywords for PubMed searches.
+• PASA:An LLM-driven academic search agent
+optimized through reinforcement learning (He
+et al., 2025).
+• PAPERFINDER:An
+LLM-powered
+aca-
+demic
+search
+assistant
+accessed
+at
+<https://paperfinder.allen.ai/chat>(accessed
+July 9, 2025). It mimics human-like iterative
+literature search by decomposing queries,
+tracking citations, and providing relevance
+explanations. (Allen Institute for AI, 2025)
+For all "+LLM" variants, we use Qwen3-
+32B (Yang et al., 2025a) for keyword extraction,
+relevance estimation or query refinement.
+For
+"+GPT" variants, GPT-4o is employed to rewrite
+the query for improved clarity before web search.
+Task-specific prompting strategies are detailed in
+Appendix A.1.
+We evaluate retrieval performance using three
+standard metrics: Precision, Recall, and F1, com-
+puted at the document level for each query. Impor-
+tantly, each retrieval system operates over its own
+native search source (e.g., OpenAlex, Semantic
+Scholar, Google Scholar), rather than performing
+search on a shared benchmark corpus. This setup
+reflects realistic usage scenarios and allows for end-
+to-end evaluation of each system's full retrieval
+pipeline, including query understanding, source se-
+lection, search execution, and result ranking. Our
+goal is to assess the overall effectiveness of each
+system as a holistic academic search solution.
+Let TP be the number of true positives (relevant
+documents correctly retrieved), FP the number
+of false positives (irrelevant documents retrieved),
+and FN the number of false negatives (relevant
+documents not retrieved). The metrics are defined
+as follows:
+Precision =
+TP
+TP + FP
+(1)
+Recall =
+TP
+TP + FN
+(2)
+F1 = 2 · Precision · Recall
+Precision + Recall
+(3)
+Precision measures the proportion of retrieved
+documents that are truly relevant, reflecting re-
+trieval accuracy. Recall measures the proportion of
+relevant documents that are successfully retrieved,
+reflecting coverage. F1 is the harmonic mean of
+Precision and Recall, providing a balanced assess-
+ment of both accuracy and completeness.
+We report results on two benchmarks:
+• AutoScholar: A synthetic benchmark intro-
+duced in the PaSa paper, designed to evaluate
+retrieval precision on fine-grained AI domain
+queries.
+• SPARBench: Our curated benchmark featur-
+ing real-world queries from computer science
+and biomedicine, with expert-validated rele-
+vance annotations.
+5.2
+Main Result
+As shown in Table 1, our proposed method SPAR
+consistently outperforms all baselines across both
+benchmarks.
+On the AUTOSCHOLAR dataset,
+SPAR achieves the highest F1 score of 0.3843 and
+the highest precision of 0.3612, while maintaining
+a competitive recall (0.4105). This demonstrates
+its strong ability to retrieve relevant documents
+with high accuracy and balance. On SPARBENCH,
+SPAR also surpasses all other methods, achieving
+the best F1 score of 0.3015, recall of 0.3103, and
+precision of 0.2932. In contrast, prior methods such
+as GA+LLM, PASA, and PAPERFINDER exhibit
+either lower precision or significant performance
+imbalance (e.g., high recall but very low precision).
+Notably, while PAPERFINDER obtains the high-
+est recall (0.8333) on AutoScholar, its precision
+(0.0261) is extremely low, leading to a much lower
+F1 score. These results highlight SPAR's superior
+capability in balancing precision and recall, thereby
+providing robust and effective academic document
+retrieval across diverse settings.
+7
+
+Method
+AutoScholar
+SPARBench
+F1
+Recall
+Precision
+F1
+Recall
+Precision
+G
+-
+0.2015
+-
+-
+0.000
+-
+G+GPT
+-
+0.2683
+-
+0.0092
+0.0082
+0.0106
+GS
+-
+0.1130
+-
+0.0043
+0.0038
+0.0050
+CS
+0.0869
+0.3046
+0.0507
+0.0045
+0.0038
+0.0055
+GA
+0.0400
+0.1571
+0.0229
+0.2451
+0.2800
+0.2180
+GA+LLM
+0.0556
+0.1692
+0.0333
+0.1923
+0.1613
+0.2382
+PM+LLM
+-
+0.000
+-
+-
+0.000
+-
+OA+LLM
+0.0045
+0.1083
+0.0023
+0.0242
+0.0988
+0.0138
+2S+LLM
+0.0044
+0.0833
+0.0023
+0.0135
+0.0449
+0.0080
+PaSa
+0.2449
+0.7931
+0.1448
+0.1041
+0.1009
+0.1076
+PaperFinder
+0.0506
+0.8333
+0.0261
+0.0418
+0.1474
+0.0244
+SPAR (ours)
+0.3843
+0.4105
+0.3612
+0.3015
+0.3103
+0.2932
+Table 1: Comparison of retrieval performance across different methods on the AutoScholar and SPARBench
+benchmarks. "-" indicates metrics unavailable due to missing valid document.
+Benchmark
+QInterp
+F1
+Recall
+Precision
+AutoScholar
+w
+0.19
+0.24
+0.16
+w/o
+0.18
+0.25
+0.14
+SPARBench
+w
+0.22
+0.16
+0.34
+w/o
+0.21
+0.21
+0.21
+Table 2: Effect of query interpretation (QInterp) on
+retrieval performance across benchmarks.
+6
+Analysis and Discussion
+6.1
+Effects on Query Interpretation
+Query Interpretation (QInterp) enhances retrieval
+by analyzing the query intent, selecting appropriate
+sources, and performing intent-aware rewriting. As
+described in Appendix D, this module introduces
+structural awareness that enables better alignment
+between queries and target documents.
+Table 2 reports retrieval results with and without
+QInterp across two benchmarks. On both datasets,
+enabling QInterp improves overall F1 and precision.
+In SPARBench, precision increases substantially
+from 0.21 to 0.34, reflecting improved ranking rel-
+evance in a complex, multi-source environment.
+However, recall tends to decrease (e.g., 0.25 to
+0.24 in AutoScholar, 0.21 to 0.16 in SPARBench),
+likely due to more restrictive interpretations that
+favor precision over coverage. This trade-off is
+consistent with observations in baseline systems
+employing aggressive query rewriting (Table 1).
+These results suggest that query interpretation
+is beneficial for precision-oriented retrieval, espe-
+cially in settings requiring fine-grained query un-
+derstanding and source selection. Future work may
+explore hybrid strategies that balance interpretation
+with recall-aware expansion.
+6.2
+Impact of RefChain
+The RefChain mechanism significantly improves
+document recall by expanding the set of candi-
+dates through citation-based traversal. As shown
+in Table 5 (Appendix C.3), RefChain enhances
+recall-oriented metrics on both the AutoScholar
+and SPARBench benchmarks.
+In AutoScholar, RefChain increases the recall
+after similarity filtering from 0.41 to 0.44 and raw
+recall from 0.58 to 0.77, while the average retrieved
+documents rise from 306.9 to 569.1. Similarly, on
+SPARBench, recall improves from 0.13 to 0.15,
+the raw recall from 0.26 to 0.31, and the retrieval
+volume from 367.8 to 504.9. However, this recall
+improvement reduces precision due to increased
+noise. In AutoScholar, precision drops from 0.29
+to 0.19, and in SPARBench from 0.22 to 0.16.
+These results indicate that RefChain is most ben-
+eficial in recall-critical scenarios, such as retrieval-
+augmented generation (RAG) for academic synthe-
+sis. In contrast, precision-focused retrieval systems
+may prefer to disable RefChain to minimize noise
+and reduce downstream filtering overhead.
+6.3
+Benefits of Query Evolution
+Query Evolution refines search queries by lever-
+aging retrieval history and high-relevance docu-
+ments, enhancing search focus via semantic guid-
+ance from top-ranked results (see case study in
+Appendix C.2).
+Table 3 reports its impact on F1, recall, and pre-
+cision across two academic search benchmarks:
+AutoScholar and SPARBench.
+Query Evolution consistently improves F1 in
+both benchmarks. Precision increases by 0.02 in
+each dataset, indicating more targeted retrieval. Al-
+8
+
+Benchmark
+Evolution
+F1
+Recall
+Precision
+AutoScholar
+w
+0.34
+0.41
+0.29
+w/o
+0.33
+0.43
+0.27
+SPARBench
+w
+0.26
+0.24
+0.27
+w/o
+0.24
+0.24
+0.25
+Table 3: Impact of query evolution on retrieval perfor-
+mance. Evolution denotes application of Query Evolu-
+tion.
+though recall slightly decreases in AutoScholar, the
+overall shift toward higher precision demonstrates
+the effectiveness of focused querying. Prompts
+used for query evolution are provided in Ap-
+pendix A.2.
+6.4
+Reranking Strategy and Its Advantages
+The reranking module reorders the top-10 retrieved
+documents to optimize Recall@5. Table 4 reports
+its effects on two benchmarks. On AutoScholar,
+Recall@5 increases from 0.3146 to 0.4015, repre-
+senting a 27.6% relative improvement. On SPAR-
+Bench, Recall@5 improves from 0.1588 to 0.1662,
+a 4.7% relative gain.
+These results demonstrate the module's effec-
+tiveness in prioritizing authoritative and contex-
+tually relevant documents, thereby enhancing re-
+trieval quality and user experience. The larger im-
+provement observed on AutoScholar suggests that
+reranking is particularly beneficial for datasets char-
+acterized by simpler query structures.
+Benchmark
+Reranking
+Recall@5
+AutoScholar
+w/o
+0.3146
+w
+0.4015
+SPARBench
+w/o
+0.1588
+w
+0.1662
+Table 4: Effect of reranking on Recall@5 for the top 5
+retrieved documents across benchmarks.
+6.5
+Relevance Assessment: Model and
+Prompt Selection
+We examine how model and prompt choices affect
+relevance assessment performance. Larger models
+do not consistently outperform smaller ones. A
+systematic evaluation reveals the most effective
+configuration.
+We compare two prompt styles—brief and
+complex—across seven language models on the
+AutoScholar and SPARBench benchmarks (Ap-
+pendix A.3; Table 6). On AutoScholar, Qwen3-
+32B with the brief prompt achieves the highest
+F1 score (0.38).
+On SPARBench, LLaMA3.3-
+70B (Grattafiori et al., 2024) with the same prompt
+performs best (F1: 0.30). Based on overall perfor-
+mance across both datasets, we select Qwen3-32B
+(brief) as the default configuration.
+Additional generalization experiments (Ap-
+pendix C.4.2) confirm the robustness of this choice,
+underscoring the importance of prompt design and
+model selection in relevance assessment.
+7
+Conclusion
+We present SPAR, a modular multi-agent frame-
+work for academic paper retrieval, designed to
+tackle the challenges of underspecified queries,
+fragmented sources, and evolving information
+needs. SPAR consists of four key stages: (1) a
+Query Understanding agent that interprets user
+intent through intent classification, domain detec-
+tion, and temporal constraint parsing, followed by
+intent-aware query refinement; (2) an Iterative Re-
+trieval phase that integrates source-adaptive query-
+ing and RefChain-based citation expansion for
+recall-oriented exploration; (3) a Query Evolver
+agent that diversifies search trajectories by generat-
+ing follow-up queries based on previously retrieved
+papers; and (4) a Reranker that ranks results using
+relevance, timeliness, and publication authority.
+To evaluate SPAR, we construct SPARBench,
+a benchmark of semantically complex academic
+queries with expert-labeled relevance. Experiments
+on SPARBench and AutoScholar demonstrate that
+SPAR consistently outperforms strong baselines.
+It achieves an F1 score of 0.3843 on AutoScholar,
+a +56% improvement over PaSa, and 0.3015 on
+SPARBench, the only method delivering balanced
+performance across all metrics.
+Our results validate the synergy of symbolic
+planning (RefChain), LLM-powered query evolu-
+tion, and agent-based modular design in addressing
+the complexity of scholarly retrieval tasks. SPAR
+and SPARBench offer a reproducible and extensi-
+ble foundation for advancing intelligent academic
+search systems.
+Limitations
+Despite the strong performance of SPAR, several
+limitations remain.
+First, SPAR limits citation-based expansion (Re-
+fChain) to a single traversal depth. While this de-
+sign reduces latency and suppresses noise, it may
+9
+
+miss deeply nested but highly relevant works, es-
+pecially in long citation chains that characterize
+foundational research.
+Second, RefChain substantially improves recall
+but introduces noisy candidates, leading to lower
+precision.
+This trade-off, while acceptable for
+recall-oriented tasks, may be suboptimal in sce-
+narios that demand high-precision retrieval, such
+as targeted literature reviews.
+Third, SPAR currently relies on static prompting
+and rule-based orchestration. The lack of feedback-
+driven learning or user interaction modeling hin-
+ders personalization and adaptation over time.
+Incorporating reinforcement signals or retrieval-
+based supervision could make the system more
+robust in dynamic search environments.
+Finally, although SPARBench provides a valu-
+able testbed for semantically complex academic
+queries, it remains limited in scale and domain di-
+versity. Future work should extend SPARBench
+to cover additional disciplines and query types, en-
+abling broader generalization and facilitating stan-
+dardized evaluation for next-generation academic
+search systems.
+References
+Josh Achiam, Steven Adler, Sandhini Agarwal, Lama
+Ahmad, Ilge Akkaya, Florencia Leoni Aleman,
+Diogo Almeida, Janko Altenschmidt, Sam Altman,
+Shyamal Anadkat, and 1 others. 2023. Gpt-4 techni-
+cal report. arXiv preprint arXiv:2303.08774.
+Anirudh Ajith, Mengzhou Xia, Alexis Chevalier, Tanya
+Goyal, Danqi Chen, and Tianyu Gao. 2024.
+Lit-
+search: A retrieval benchmark for scientific literature
+search. arXiv preprint arXiv:2407.18940.
+Allen Institute for AI. 2025. Ai2 paper finder: LLM-
+powered academic search assistant.
+https://
+paperfinder.allen.ai/chat. Accessed: 2025-07-
+09.
+Abhijit Anand, Vinay Setty, Avishek Anand, and 1 oth-
+ers. 2023. Context aware query rewriting for text
+rankers using llm. arXiv preprint arXiv:2308.16753.
+Nicholas J Belkin. 1980. Anomalous states of knowl-
+edge as a basis for information retrieval. Canadian
+journal of information science, 5(1):133-143.
+Kathi Canese and Sarah Weis. 2013. Pubmed: the bibli-
+ographic database. The NCBI handbook, 2(1):2013.
+Claudio Carpineto and Giovanni Romano. 2012. A
+survey of automatic query expansion in information
+retrieval. Acm Computing Surveys (CSUR), 44(1):1-
+50.
+A Cohan, S Feldman, I Beltagy, D Downey, and
+DS Weld. 2004. Specter: document-level represen-
+tation learning using citation-informed transformers.
+2020. arXiv preprint arXiv:2004.07180.
+W Bruce Croft, Donald Metzler, and Trevor Strohman.
+2010. Search engines: Information retrieval in prac-
+tice, volume 520. Addison-Wesley Reading.
+Aaron Grattafiori, Abhimanyu Dubey, Abhinav Jauhri,
+Abhinav Pandey, Abhishek Kadian, Ahmad Al-
+Dahle, Aiesha Letman, Akhil Mathur, Alan Schelten,
+Alex Vaughan, and 1 others. 2024. The llama 3 herd
+of models. arXiv preprint arXiv:2407.21783.
+Michael Gusenbauer and Neal R Haddaway. 2020.
+Which academic search systems are suitable for
+systematic reviews or meta-analyses?
+evaluating
+retrieval qualities of google scholar, pubmed, and
+26 other resources.
+Research synthesis methods,
+11(2):181-217.
+Yichen He, Guanhua Huang, Peiyuan Feng, Yuan Lin,
+Yuchen Zhang, Hang Li, and 1 others. 2025. Pasa:
+An llm agent for comprehensive academic paper
+search. arXiv preprint arXiv:2501.10120.
+Aaron Hurst, Adam Lerer, Adam P Goucher, Adam
+Perelman, Aditya Ramesh, Aidan Clark, AJ Ostrow,
+Akila Welihinda, Alan Hayes, Alec Radford, and 1
+others. 2024. Gpt-4o system card. arXiv preprint
+arXiv:2410.21276.
+Rodney Kinney, Chloe Anastasiades, Russell Authur,
+Iz Beltagy, Jonathan Bragg, Alexandra Buraczyn-
+ski, Isabel Cachola, Stefan Candra, Yoganand Chan-
+drasekhar, Arman Cohan, and 1 others. 2023. The
+semantic scholar open data platform. arXiv preprint
+arXiv:2301.10140.
+Aixin Liu, Bei Feng, Bing Xue, Bingxuan Wang,
+Bochao Wu, Chengda Lu, Chenggang Zhao, Chengqi
+Deng, Chenyu Zhang, Chong Ruan, and 1 others.
+2024. Deepseek-v3 technical report. arXiv preprint
+arXiv:2412.19437.
+Jie Liu and Barzan Mozafari. 2024.
+Query rewrit-
+ing via large language models.
+arXiv preprint
+arXiv:2403.09060.
+Xinbei Ma, Yeyun Gong, Pengcheng He, Hai Zhao,
+and Nan Duan. 2023. Query rewriting in retrieval-
+augmented large language models. In Proceedings
+of the 2023 Conference on Empirical Methods in
+Natural Language Processing, pages 5303-5315.
+Jason Priem, Heather Piwowar, and Richard Orr. 2022.
+Openalex: A fully-open index of scholarly works,
+authors, venues, institutions, and concepts. arXiv
+preprint arXiv:2205.01833.
+Gemini Team, Rohan Anil, Sebastian Borgeaud, Jean-
+Baptiste Alayrac, Jiahui Yu, Radu Soricut, Johan
+Schalkwyk, Andrew M Dai, Anja Hauth, Katie Mil-
+lican, and 1 others. 2023.
+Gemini: a family of
+highly capable multimodal models. arXiv preprint
+arXiv:2312.11805.
+10
+
+Jaime Teevan, Susan T Dumais, and Eric Horvitz. 2005.
+Personalizing search via automated analysis of inter-
+ests and activities. In Proceedings of the 28th annual
+international ACM SIGIR conference on Research
+and development in information retrieval, pages 449-
+456.
+Rita Vine. 2006. Google scholar. Journal of the Medi-
+cal Library Association, 94(1):97.
+Ellen Voorhees, Tasmeer Alam, Steven Bedrick, Dina
+Demner-Fushman, William R Hersh, Kyle Lo, Kirk
+Roberts, Ian Soboroff, and Lucy Lu Wang. 2021.
+Trec-covid: constructing a pandemic information re-
+trieval test collection. In ACM SIGIR Forum, vol-
+ume 54, pages 1-12. ACM New York, NY, USA.
+An Yang, Anfeng Li, Baosong Yang, Beichen Zhang,
+Binyuan Hui, Bo Zheng, Bowen Yu, Chang Gao,
+Chengen Huang, Chenxu Lv, Chujie Zheng, Dayi-
+heng Liu, Fan Zhou, Fei Huang, Feng Hu, Hao Ge,
+Haoran Wei, Huan Lin, Jialong Tang, and 41 oth-
+ers. 2025a. Qwen3 technical report. arXiv preprint
+arXiv:2505.09388.
+An Yang, Anfeng Li, Baosong Yang, Beichen Zhang,
+Binyuan Hui,
+Bo Zheng,
+Bowen Yu,
+Chang
+Gao, Chengen Huang, Chenxu Lv, and 1 others.
+2025b.
+Qwen3 technical report.
+arXiv preprint
+arXiv:2505.09388.
+An Yang, Baosong Yang, Beichen Zhang, Binyuan Hui,
+Bo Zheng, Bowen Yu, Chengyuan Li, Dayiheng Liu,
+Fei Huang, Haoran Wei, Huan Lin, Jian Yang, Jian-
+hong Tu, Jianwei Zhang, Jianxin Yang, Jiaxi Yang,
+Jingren Zhou, Junyang Lin, Kai Dang, and 22 oth-
+ers. 2024. Qwen2.5 technical report. arXiv preprint
+arXiv:2412.15115.
+Fanghua Ye, Meng Fang, Shenghui Li, and Emine Yil-
+maz. 2023. Enhancing conversational search: Large
+language model-aided informative query rewriting.
+arXiv preprint arXiv:2310.09716.
+Yutao Zhu, Huaying Yuan, Shuting Wang, Jiongnan Liu,
+Wenhan Liu, Chenlong Deng, Haonan Chen, Zheng
+Liu, Zhicheng Dou, and Ji-Rong Wen. 2023. Large
+language models for information retrieval: A survey.
+arXiv preprint arXiv:2308.07107.
+A
+Prompt Template
+A.1
+Prompt For Baseline
+Prompt for Query Refinement
+Generate a search query suitable for Google
+based on the given academic paper-related
+query. Please adhere to the following in-
+structions:
+1. Understand the Query: Carefully
+read and comprehend the given aca-
+demic query.
+2. Identify Key Elements: Extract the
+main research domain, specific meth-
+ods, or core concepts.
+3. Formulate the Search Query: Con-
+struct a concise and effective query
+that captures these components and is
+suitable for academic search engines.
+4. Avoid Site Constraints: Do not in-
+clude any site-specific filters (e.g.,
+site:xxx).
+5. Output Format: Only generate the
+refined query using the format below.
+[User's Query]: {UserQuery}
+[Generated Search Query]: <your query
+here>
+Prompt for keywords extraction
+Extract optimal search keywords from the
+given research question, specifically opti-
+mized for the {source} academic database.
+Your task is to generate concise, comma-
+separated query terms that will maximize
+relevant paper retrieval on this platform.
+Source-Specific Guidelines:
+• Semantic Scholar:
+- Focus on technical terminology
+and core concepts.
+- Include methodological terms.
+- Consider
+author-centric
+key-
+words if prominent researchers
+are known.
+- Emphasize computer science and
+AI terminology where relevant.
+11
+
+• OpenAlex:
+- Prioritize
+broader
+academic
+terms.
+- Include interdisciplinary connec-
+tions.
+- Balance specificity with cover-
+age.
+- Include field classifications where
+relevant.
+• PubMed:
+- Emphasize
+medical/biological
+terminology.
+- Include relevant MeSH (Medical
+Subject Headings) terms.
+- Consider clinical and biomedical
+contexts.
+- Include chemical/drug names or
+biological processes where rele-
+vant.
+Response Format:
+[Start] keyword1, keyword2, keyword3,
+... [End]
+Examples by Source:
+• Semantic Scholar: [Start] transformer
+architecture, attention mechanism, lan-
+guage model fine-tuning [End]
+• OpenAlex: [Start] neural networks,
+deep learning, artificial intelligence,
+pattern recognition [End]
+• PubMed: [Start] CRISPR-Cas9, gene
+editing, genetic therapy, chromosomal
+modification [End]
+Now,
+extract
+optimized
+search
+key-
+words for
+{source} from this ques-
+tion:{user_query}
+A.2
+Prompt For Query Evolution
+You are an academic search expert helping
+explore a research topic more thoroughly.
+### CONTEXT:
+- Original Query: {user_query}
+-
+Previously
+Searched
+Queries:
+{searched_queries}
+- Relevant Document Title: {doc_title}
+- Document Abstract: {doc_abstract}
+- Document Field: {doc_field}
+### TASK:
+Generate {N} NEW search queries that
+explore different aspects of this research
+area:
+1. A query exploring METHODOLOGI-
+CAL alternatives or comparisons
+2. A query focusing on APPLICATIONS
+or implementations
+3.
+A query addressing LIMITATIONS,
+challenges, or critiques
+Each query should be:
+- Clearly different from previously searched
+queries
+- Based on insights from the document
+- Relevant to the original research question
+- Specific enough to retrieve focused results
+### IMPORTANT NOTE:
+If document information is missing or
+insufficient (e.g., empty abstract), generate
+queries based primarily on the original
+query and your knowledge of the research
+domain.
+Focus on exploring comple-
+mentary aspects of the topic rather than
+requiring specific document details.
+### OUTPUT FORMAT:
+Return a JSON array of strings containing
+only the expanded queries:
+[Query 1,Query 2, Query 3]
+A.3
+Prompt for Relevance
+prompt for Relevance - Brief
+You are an expert in academic research.
+Given a query and a document in the con-
+text of a scholarly paper search, evaluate
+their relevance on a scale from 0 to 1, where
+0 means completely irrelevant and 1 means
+highly relevant. Base your evaluation on the
+query's intent, key concepts, and the docu-
+ment's content. Provide a score and explain
+your reasoning consistently.
+12
+
+Query: {UserQuery}
+Document:
+Title: {title}
+Abstract: {abstract}
+Score: [Your score between 0 and 1]
+Reasoning: [Your explanation]
+prompt for Relevance - Complex
+You are a rigorous and highly discern-
+ing academic search relevance evaluator.
+Your task is to critically assess the relation-
+ship between the user's query and the pro-
+vided scholarly article. Apply a strict, high-
+standard academic lens to evaluate concep-
+tual alignment, topical focus, and method-
+ological relevance. Be skeptical of super-
+ficial keyword matches or loosely related
+themes. Only assign a high relevance score
+(on a 0-1 scale) when there is clear and
+substantial alignment in research purpose,
+methods, and contribution. Err on the side
+of conservatism in scoring—precision
+and selectivity are paramount.
+Input Format
+Query: Raw academic search query
+Article:
+• Title: Academic article title
+• Abstract: Abstract text summarizing
+the paper's content
+Hierarchical Evaluation Protocol
+1. Critical Relevance Check (Binary
+Gate)
+If the document contains zero of the
+following, automatically score 0.0:
+• Core subject keywords from
+query
+• Matching research domain
+• Thematic alignment with query
+intent
+2. Detailed Scoring Criteria (Only if
+passes Critical Check)
+A. Core Topic Alignment (0-0.6)
+• 0.5-0.6: Directly addresses pri-
+mary subject with matching ter-
+minology
+• 0.3-0.4: Related subfield but dif-
+ferent focus area
+• 0.1-0.2: Only tangential connec-
+tion through peripheral terms
+• 0.0:
+Fails Critical Relevance
+Check
+B. Contextual Precision (0-0.3)
+• 0.2-0.3:
+Explicitly addresses
+query's specific technical aspects
+• 0.1: General thematic similarity
+without concrete details
+• 0.0: No meaningful connection to
+query intent
+C. Depth Validation (0-0.1)
+• 0.1: Provides experimental val-
+idation/novel theoretical frame-
+work
+• 0.05: Mentions concept without
+substantive analysis
+• 0.0: Superficial treatment of sub-
+ject
+Scoring Matrix (Sum Components A + B
++ C)
+• 0.00-0.19: Completely irrelevant / off-
+topic
+• 0.20-0.39:
+Minimal relevance —
+shares domain but different focus
+• 0.40-0.59: Partial relevance — ad-
+dresses some aspects
+• 0.60-0.79: Substantial relevance —
+covers key elements
+• 0.80-1.00: Optimal match — compre-
+hensive coverage
+Anti-Gaming Rules
+• Penalize -0.3 for keyword stuffing
+without contextual relevance
+• Penalize -0.2 for misleading titles/ab-
+stracts
+13
+
+• If score < 0.4, round down to nearest
+0.1
+• If score ≥0.7, require positive marks
+in all 3 criteria
+Examples
+Example 1 (Low Score)
+Query:
+"Machine learning for early
+Alzheimer's diagnosis using MRI"
+Article: "Statistical analysis of MRI ma-
+chine calibration errors"
+Reasoning: Fails Critical Relevance — no
+ML or Alzheimer's content
+Score: 0.15
+Example 2 (High Score)
+Query: "Federated learning optimization in
+IoT networks"
+Article: "Adaptive Gradient Compression
+for Energy-Efficient Federated Learning in
+Edge Computing Environments"
+Reasoning: Directly addresses FL optimiza-
+tion (0.6) + technical specifics (0.25) + ex-
+perimental validation (0.1)
+Score: 0.86
+Input Data
+Query: {query}
+Article: {doc}
+Output Format
+Reasoning: [Concise technical justifica-
+tion]
+Score: [0.00-1.00]
+A.4
+Prompt For Reranking
+Reranking with Time Requirement
+Please rerank the following {N} academic
+papers in response to the query:{Query}
+Consider these factors in your reranking:
+1. Authority:
+• Publication venue prestige (top
+conferences/journals rank higher)
+• Author prominence (authors with
+higher h-index or citation counts
+rank higher)
+2. Timeliness:
+• The query specifically asks for re-
+cent/current papers, so strongly
+prefer newer papers
+3. Maintain reasonable relevance to
+the original query
+For each paper, provide:
+1. A new numerical rank (1 being the
+highest)
+2. A brief justification (1-2 sentences)
+3. A new relevance score between 0-1
+that incorporates both relevance and
+the factors above
+List of papers with original relevance
+scores (title, year, venue, authors, rele-
+vance):
+{Doc List Here}
+Please provide your reranking with new
+scores and concise justifications in the
+following format for each document:
+Document [index]: [score] - [justification]
+For example:
+Document 1: 9.5 - Highly relevant as it
+directly addresses the query topic with
+empirical evidence.
+Document 2: 7.0 - Somewhat relevant but
+focuses on a tangential aspect of the query.
+Reranking without Time Requirement
+Please rerank the following {N} academic
+papers in response to the query: {Query}
+Consider these factors in your reranking:
+1. Authority:
+• Publication venue prestige (top
+conferences/journals rank higher)
+• Author prominence (authors with
+higher h-index or citation counts
+rank higher)
+2. Timeliness:
+14
+
+• Generally prefer more recent pa-
+pers, but don't overly penalize in-
+fluential older papers
+3. Maintain reasonable relevance to
+the original query
+For each paper, provide:
+1. A new numerical rank (1 being the
+highest)
+2. A brief justification (1-2 sentences)
+3. A new relevance score between 0-1
+that incorporates both relevance and
+the factors above
+List of papers with original relevance
+scores (title, year, venue, authors, rele-
+vance):
+{Doc List Here}
+Please provide your reranking with new
+scores and concise justifications in the
+following format for each document:
+Document [index]: [score] - [justification]
+For example:
+Document 1: 9.5 - Highly relevant as it
+directly addresses the query topic with
+empirical evidence.
+Document 2: 7.0 - Somewhat relevant but
+focuses on a tangential aspect of the query.
+B
+BenchMark Information
+B.1
+SPARBench Example
+An Example of SPARBench
+Question: "What are the potentials and eth-
+ical challenges of gene editing technologies
+(e.g., CRISPR) in treating genetic diseases?
+Provide specific explanations and recent re-
+search progress."
+Source Metadata:
+• Search Time: 2025-04-10
+• Reference Answers:
+1. - Paper ID: http://genome.cshlp.
+org/content/24/9/1526.full.
+pdf
+- Title: "Seamless gene correction of
+β-thalassemia mutations in patient-
+specific iPSCs using CRISPR/Cas9
+and piggyBac"
+- Abstract: β-thalassemia, one of
+the most common genetic diseases
+worldwide, is caused by mutations
+in human hemoglobin beta (HBB)
+gene. Creation of induced pluripo-
+tent stem cells (iPSCs) from β-
+thalassemia patients could offer an
+approach to cure this disease. Cor-
+rection of disease-causing mutations
+in iPSCs can restore normal function
+and provide a rich source for trans-
+plantation. In this study, we used the
+latest gene-editing tool, CRISPR/-
+Cas9 technology, combined with
+piggyBac transposon to efficiently
+correct patient-derived mutations
+without leaving any residual foot-
+print.
+No off-target effects were
+detected in corrected iPSCs, which
+retain full pluripotency and nor-
+mal karyotypes. When differenti-
+ated into erythroblasts using mono-
+layer culture, gene-corrected cells
+restored HBB expression compared
+to the parental line. Our study pro-
+vides an effective footprint-free cor-
+rection method, thereby demonstrat-
+ing a critical step toward future ap-
+plication of cell-based gene therapy
+for monogenic diseases.
+- Authors: Fei Xie, Lin Ye, Judy C.
+Chang, Ashley I. Beyer, Jiaming
+Wang, Marcus O. Muench, Yuet Wai
+Kan
+- Year: 2014
+- Citation Count: 381
+- Source: OpenAlex
+- Similarity Scores:
+* Small Model: 0.7
+* LLM: 0.85
+2. - Paper
+ID:
+https://www.
+nature.com/articles/
+s41392-019-0089-y.pdf
+- Title: "Applications of genome edit-
+15
+
+ing technology in the targeted ther-
+apy of human diseases:
+mecha-
+nisms, advances and prospects",
+- Abstract: "..."
+...
+C
+Strategy Result
+C.1
+Query Interpretation Result
+Example of Query Interpretation
+User Query: What
+improvements
+are
+needed
+in
+vaccine
+development
+efficiency to respond to emerging
+infectious
+diseases?
+Provide
+a
+multi-angle analysis.
+Query Intent: Literature review and multi-
+angle analysis
+Domain: Biomedical sciences / Vaccine
+development
+Suitable Sources: pubmed, openalex
+Needs Expansion: true
+Expansion Reason: The query is some-
+what broad and could be improved by
+incorporating specific technical terms
+or focusing on particular aspects of
+vaccine development. Terms like 'vac-
+cine development efficiency' are rel-
+atively general and may yield a wide
+range of results, some of which might
+not be directly relevant to respond-
+ing to emerging infectious diseases.
+The query could benefit from speci-
+fying methodologies (e.g., computa-
+tional modeling, platform technolo-
+gies, mRNA-based approaches), clar-
+ifying the scope (e.g., preclinical vs
+clinical stages), and defining the type
+of research sought (e.g., reviews, meta-
+analyses, case studies).
+Including
+terms such as 'platform vaccines', 're-
+verse vaccinology', or 'rapid antigen
+identification' would enhance preci-
+sion and relevance within the domain
+of biomedical sciences.
+Expanded Queries:
+• Systematic
+review of vaccine development
+methods for emerging infectious
+diseases
+• Literature review of vaccine appli-
+cation strategies in global health
+emergencies (2021-2025)
+• Historical survey of vaccine inno-
+vation in response to pandemics
+since 2000
+• Comparative analysis of future
+challenges in accelerating vac-
+cine development post-pandemic
+• Survey of multi-disciplinary ap-
+proaches to improve vaccine de-
+sign efficiency
+Time Requirement Description: NO
+Source Reason: PubMed is the most suit-
+able source for this query due to its
+focus on biomedical and life sciences
+research, which directly aligns with
+vaccine development. OpenAlex can
+also be useful as it provides interdisci-
+plinary context and broader metadata,
+supporting a multi-angle analysis with-
+out time constraints.
+C.2
+Query Evolution vs Native Method
+This example illustrates query-document semantic
+relationships via color coding. Tokens highlighted
+in the same color indicate shared or closely related
+concepts between queries and document content.
+Query Evolution vs Native method
+Original Query: "Can you identify any
+papers that analysed the use of target net-
+works with linear function approximation,
+needed in theoretical properties of target net-
+works?"
+Previously Searched Queries:
+• Survey of target networks with linear
+function approximation methods
+• Systematic review of historical develop-
+ment of target networks with linear func-
+tion approximation
+• Literature review of target networks ap-
+plications using linear function approxi-
+mation
+• Can you identify any papers that analysed
+16
+
+the use of target networks with linear
+function approximation, needed in theo-
+retical properties of target networks?
+• State-of-the-art in theoretical properties
+of target networks using linear function
+approximation (2024-2025)
+• Comparative analysis of future challenges
+in target networks with linear function
+approximation
+Relevant Document Title: "A Unifying
+View of Linear Function Approximation
+in Off-Policy RL Through Matrix Splitting
+and Preconditioning"
+Document Abstract: "Traditionally, TD
+and FQI are viewed as differing in the num-
+ber of updates toward the target value func-
+tion: TD makes one update, FQI makes
+an infinite number, and Partial Fitted Q-
+Iteration (PFQI) performs a finite number,
+such as the use of a target network in Deep
+Q-Networks (DQN) in the off-policy set-
+ting. This perspective, however, fails to cap-
+ture the convergence connections between
+these algorithms and may lead to incorrect
+conclusions, for example, that the conver-
+gence of TD implies the convergence of
+FQI. In this paper, we focus on linear value
+function approximation and offer a new
+perspective, unifying TD, FQI, and PFQI
+as the same iterative method for solving the
+Least Squares Temporal Difference (LSTD)
+system, but using different preconditioners
+and matrix splitting schemes. TD uses a
+constant preconditioner, FQI employs a
+data-feature adaptive preconditioner, and
+PFQI transitions between the two. Then,
+we reveal that in the context of linear func-
+tion approximation, increasing the number
+of updates under the same target value func-
+tion essentially represents a transition from
+using a constant preconditioner to data-
+feature adaptive preconditioner. This uni-
+fying perspective also simplifies the analy-
+ses of the convergence conditions for these
+algorithms and clarifies many issues. Con-
+sequently, we fully characterize the conver-
+gence of each algorithm without assuming
+specific properties of the chosen features
+(e.g., linear independence). We also exam-
+ine how common assumptions about feature
+representations affect convergence, and dis-
+cover new conditions on features that are
+important for convergence. These conver-
+gence conditions allow us to establish the
+convergence connections between these
+algorithms and to address important ques-
+tions."
+- Document Field: "cs.LG"
+QueryEvolution:
+• Practical implementation of Partial Fit-
+ted Q-Iteration with linear function ap-
+proximation in off-policy reinforcement
+learning settings
+• Challenges and convergence limitations
+of using fixed versus adaptive precondi-
+tioners in target network-based reinforce-
+ment learning algorithms
+NativeMethod:
+• Real-world implementations and case
+studies of target networks using linear
+function approximation
+• Critique of convergence and stability is-
+sues in target networks employing linear
+function approximation
+C.3
+RefChain Effect Details
+As shown in Table 5, using RefChain can im-
+prove the final Recall by 7.32% and 15.38% on
+AutoScholar and SPARBench.
+C.4
+Performance of Varies Relevance
+Assesment
+C.4.1
+Performance on Benchmarks
+Table 6 shows the comparison of different models
+for relevance judgment. Qwen3-32B with brief
+instruction achieves the best F1 score of 0.38.
+C.4.2
+Performance on OpenSource Dataset
+Table 7 shows the comparison of different mod-
+els for relevance judgment on three open-source
+benchmarks. Qwen3-32B with brief instruction
+achieves the best average performance among all
+benchmarks.
+D
+Query Interpretation Overview
+E
+SPARBench Stage Volume Change
+17
+
+Benchmark
+RefChain
+Recall
+Precision
+Raw Doc Num
+Valid Doc Num
+Recall (Raw)
+AutoScholar
+w/o
+0.41
+0.29
+306.90
+3.95
+0.58
+w
+0.44
+0.19
+569.08
+6.58
+0.77
+SPARBench
+w/o
+0.13
+0.22
+367.81
+10.77
+0.26
+w
+0.15
+0.16
+504.94
+15.00
+0.31
+Table 5: Impact of RefChain on document retrieval metrics across two benchmarks. Enabling RefChain improves
+recall but introduces more noise, leading to a drop in precision. Recall and Precision are computed based on
+documents retained after relevance filtering. Raw Doc Num refers to the total number of documents retrieved
+before filtering; Valid Doc Num indicates the number of relevant documents identified after filtering; Recall (Raw)
+is recall calculated over the full set of raw retrieved documents.
+AutoScholar
+SPARBench
+Model and Inst Variant
+F1
+Recall
+Precision
+F1
+Recall
+Precision
+PaSa_Selector
+0.34
+0.41
+0.29
+0.26
+0.24
+0.27
+Llama3.1-8B (brief)
+0.11
+0.19
+0.08
+0.20
+0.18
+0.23
+Llama3.1-8B (complex)
+0.13
+0.48
+0.07
+0.23
+0.24
+0.22
+Llama3.3-70B (brief)
+0.20
+0.38
+0.13
+0.30
+0.31
+0.29
+Llama3.3-70B (complex)
+0.18
+0.34
+0.12
+0.17
+0.34
+0.12
+Qwen2.5-7B (brief)
+0.34
+0.47
+0.27
+0.28
+0.28
+0.28
+Qwen2.5-7B (complex)
+0.08
+0.09
+0.06
+0.24
+0.27
+0.21
+Qwen2.5-72B (brief)
+0.33
+0.51
+0.24
+0.24
+0.38
+0.17
+Qwen2.5-72B (complex)
+0.17
+0.44
+0.11
+0.19
+0.27
+0.15
+Qwen3-8B (brief)
+0.29
+0.53
+0.20
+0.25
+0.30
+0.22
+Qwen3-8B (complex)
+0.31
+0.45
+0.24
+0.23
+0.31
+0.19
+Qwen3-14B (brief)
+0.21
+0.37
+0.14
+0.25
+0.32
+0.20
+Qwen3-14B (complex)
+0.22
+0.38
+0.15
+0.23
+0.34
+0.17
+Qwen3-32B (brief)
+0.38
+0.41
+0.36
+0.24
+0.29
+0.21
+Qwen3-32B (complex)
+0.08
+0.29
+0.05
+0.18
+0.30
+0.12
+Table 6: Performance Comparison of Different Models on AutoScholar and SPARBench Datasets(where 'brief'
+refers to inst-brief and 'complex' to inst-complex). Prompt details can be found in Appendix A.3.
+Model and Inst Variant
+TREC-Covid
+Scidocs
+LitSearch
+PaSa_Selector
+0.7010
+0.1291
+0.4980
+LLaMA3.1-8B (brief)
+0.6967
+0.7453
+0.5695
+LLaMA3.1-8B (complex)
+0.6537
+0.5251
+0.5080
+LLaMA3.3-70B (brief)
+0.7047
+0.7366
+0.5737
+LLaMA3.3-70B (complex)
+0.6942
+0.3278
+0.5108
+Qwen2.5-7B (brief)
+0.6930
+0.3022
+0.4808
+Qwen2.5-7B (complex)
+0.6693
+0.0751
+0.3571
+Qwen2.5-72B (brief)
+0.7163
+0.7715
+0.5830
+Qwen2.5-72B (complex)
+0.6921
+0.1668
+0.4374
+Qwen3-8B (brief)
+0.7143
+0.3553
+0.5224
+Qwen3-8B (complex)
+0.6569
+0.1203
+0.4335
+Qwen3-14B (brief)
+0.7170
+0.4756
+0.5338
+Qwen3-14B (complex)
+0.6853
+0.1238
+0.4481
+Qwen3-32B (brief)
+0.7256
+0.6082
+0.5566
+Qwen3-32B (complex)
+0.6729
+0.1651
+0.4550
+Table 7: F1 scores of various models on TREC-Covid (Voorhees et al., 2021), Scidocs (Cohan et al., 2004), and
+LitSearch-NLP-Class (Ajith et al., 2024) datasets.
+18
+
+Query:How can deep...
+Query
+Domain
+Websites
+Multichannel
+Summary
+Deep Thinking
+Rewrite
+Factor
+Expanded Queries
+Figure 4: The Overview of Query Interpretation Module
+199,041
+Raw
+100.0%
+10^5.3
+3,154
+Scalper
+1.6%
+10^3.5
+1,763
+Fine
+0.9%
+10^3.2
+560
+Artificial
+0.3%
+10^2.7
+-195,887
+(98.4%)
+-1,391
+(44.1%)
+-1,203
+(68.2%)
+Total Initial: 199,041
+Final Output: 560
+Overall Reduction: 99.7%
+Figure 5: Document volume at each filtering stage of the benchmark construction pipeline, showing the reduction
+from raw retrieval results to the final final set.
+19
+

@@ -1,0 +1,3008 @@
+1
+00:00:00,000 --> 00:00:16,380
+Hello my friends! Haha, I'm gonna slip this mic out. I'm Will Tracey, Vice President for Applied
+
+2
+00:00:16,380 --> 00:00:21,760
+Complexity up at the Santa Fe Institute. I am thrilled to be introducing tonight's lecture
+
+3
+00:00:21,760 --> 00:00:28,280
+to all of you. Before I do, I just want to touch on two items of importance very quickly. First,
+
+4
+00:00:28,280 --> 00:00:34,580
+many of you will know that our next community lecture is actually the Unalam lectures, which
+
+5
+00:00:34,580 --> 00:00:39,400
+is historically a two-part lecture. It looked at one point like we would only have one talk this
+
+6
+00:00:39,400 --> 00:00:46,340
+year, but I'm thrilled to announce that Venki has agreed to give a second lecture, and that will be
+
+7
+00:00:46,340 --> 00:00:50,240
+a second lecture on a different talk, not the same lecture twice, right? And so for those of you who
+
+8
+00:00:50,240 --> 00:00:56,720
+are unfamiliar, Venki Ramakrishnan has won some of the most prestigious honors in academia. He is
+
+9
+00:00:56,720 --> 00:01:03,140
+fractal faculty at the Santa Fe Institute. I'm being told that he also won some other award,
+
+10
+00:01:03,140 --> 00:01:09,020
+a dynamite prize or something like that. Oh no, sorry, a Nobel Prize. But more importantly, I don't
+
+11
+00:01:09,020 --> 00:01:13,220
+know if that matters or not, but he's at SFI. It's going to be a great set of lectures. The details are
+
+12
+00:01:13,220 --> 00:01:18,620
+on the back of your program. I encourage you to check it out. Before we get fully into the awesomeness
+
+13
+00:01:18,620 --> 00:01:22,720
+of Jillian's talk, and there is going to be some really good content to dig into tonight, I do just
+
+14
+00:01:22,720 --> 00:01:28,720
+want to pause for a moment and just say a word of thanks. So a lot of work goes into these lectures.
+
+15
+00:01:29,140 --> 00:01:33,880
+Caitlin McShay and her team up at SFI, the team here at the Lenzic, put a lot of time in. I should
+
+16
+00:01:33,880 --> 00:01:39,400
+also note that the Lenzic is one of our institutional partners, as is the Santa Fe Reporter, but I
+
+17
+00:01:39,400 --> 00:01:45,120
+especially want to pause and give an acknowledgement to the McKinnon Family Foundation, whose support is
+
+18
+00:01:45,120 --> 00:01:50,280
+crucial to making this happen. Those of us who are fortunate enough to call New Mexico our home,
+
+19
+00:01:50,280 --> 00:01:54,280
+I think, are aware of the great impact that the McKinnon Family has had here. So let's just
+
+20
+00:01:54,280 --> 00:01:55,280
+take a moment and a quick round of applause.
+
+21
+00:01:55,280 --> 00:02:10,280
+So now I do want to jump into it, and I'm really excited to be introducing Jillian Tett. Many of
+
+22
+00:02:10,280 --> 00:02:16,280
+you who know of Jillian might think of her as a journalist, and that's true. She spent over
+
+23
+00:02:16,280 --> 00:02:23,280
+30 years at the Financial Times, both as a leader and as a writer. Of that, she spent about a decade
+
+24
+00:02:23,280 --> 00:02:29,280
+as the U.S. managing editor of the Financial Times. Some of you also might instead think of her as an
+
+25
+00:02:29,280 --> 00:02:35,280
+academic leader, and she is now the boss at King's College in Cambridge. But when I think of Jillian,
+
+26
+00:02:35,280 --> 00:02:41,280
+I primarily, or at least initially, think of her as an anthropologist. In part, that's because of how we first
+
+27
+00:02:41,280 --> 00:02:48,280
+met. Back in 2016, we were convening a meeting to look at the intersection of political risk and the
+
+28
+00:02:48,280 --> 00:02:53,280
+world. And this was actually October of 2016. And so some of you may remember, there were big things
+
+29
+00:02:53,280 --> 00:03:00,280
+happening in U.S. politics on the horizon shortly after that meeting. And Jillian showed up, and without
+
+30
+00:03:00,280 --> 00:03:06,280
+any, you know, fear in her voice said, all of you are wrong. I've spent the last few months doing some fieldwork
+
+31
+00:03:06,280 --> 00:03:12,280
+in rural America. I've heard everyone in this room say nothing about except how this is going to be a
+
+32
+00:03:12,280 --> 00:03:18,280
+democratic blowout. But based from an anthropologist perspective of what I've seen in rural America, I
+
+33
+00:03:18,280 --> 00:03:23,280
+think all of your polling data is wrong. And at the time, everyone was like, who is this again? And no one
+
+34
+00:03:23,280 --> 00:03:30,280
+really paid much attention. But I would say about five weeks later, every editorial page of almost every
+
+35
+00:03:30,280 --> 00:03:35,280
+English-speaking paper was repeating to us the sort of the narrative that Jillian had shared with us
+
+36
+00:03:35,280 --> 00:03:40,280
+about five weeks in advance. And, you know, she later wrote a book called Anthrovision, which sort of
+
+37
+00:03:40,280 --> 00:03:43,280
+lays out the importance of bringing this anthropological vision to the different topics that you're
+
+38
+00:03:43,280 --> 00:03:47,280
+engaging with. None of these are the topics that she's talking about tonight. I'm just saying that to
+
+39
+00:03:47,280 --> 00:03:53,280
+give you a sense of sort of her ability to understand what animates these important issues. And so it is
+
+40
+00:03:53,280 --> 00:04:00,280
+with great excitement that I'm going to bring her out to talk today about AI, and in particular, how AI
+
+41
+00:04:00,280 --> 00:04:05,280
+impacts some of our social relationships and trust. So this is one, I think, of a stream of
+
+42
+00:04:05,280 --> 00:04:11,280
+conversations we've been having about AI up at the Institute, because it is such a complex issue the way
+
+43
+00:04:11,280 --> 00:04:18,280
+that AI impacts society. And as the next chapter of that, I think we're very grateful to have Jillian Tett.
+
+44
+00:04:18,280 --> 00:04:21,280
+And so with that, let me bring Jillian out. Jillian Tett!
+
+45
+00:04:33,280 --> 00:04:38,280
+Well, thank you very much indeed, Will. That was an amazing introduction. And I think after a write-up like
+
+46
+00:04:38,280 --> 00:04:44,280
+that, I can only go downhill. So I'll try not to do that too fast. But it's fantastic to be here.
+
+47
+00:04:44,280 --> 00:04:51,280
+Really amazing. I've been coming to Santa Fe for about 25 years. It's honestly one of my favourite places on the
+
+48
+00:04:51,280 --> 00:04:59,280
+planet. I deeply admire what the Santa Fe Institute is doing. And so it's a great honour to be here. It truly is.
+
+49
+00:04:59,280 --> 00:05:07,280
+Now, when I got the rubric about this talk, I was told that at the beginning I should say a few words briefly about my own
+
+50
+00:05:07,280 --> 00:05:23,280
+personal journey. So just to quickly flesh out what Will was saying, I've spent the last 30 years traipsing the halls of high finance and economics and politics with the Financial Times.
+
+51
+00:05:23,280 --> 00:05:36,280
+I'm still a columnist for them. But before that, as you just heard, I actually trained as a cultural anthropologist. And I did my field work initially in Western China and partly in Tibet.
+
+52
+00:05:36,280 --> 00:05:51,280
+But my main field work was done in a place called Tajikistan, just next to Afghanistan, where I lived up in a high mountain village for a year studying Tajik wedding rituals in the Soviet communist system.
+
+53
+00:05:51,280 --> 00:06:12,280
+Not an obvious training to become a financial journalist, let alone someone who talks about AI. But I'm just going to say very briefly why I think anthropology is one of the most underappreciated disciplines out there, where I truly think it's a superpower,
+
+54
+00:06:12,280 --> 00:06:22,280
+and why I think that more people should be paying attention to it, not just in relation to finance and economics, but also the tech landscape today.
+
+55
+00:06:22,280 --> 00:06:30,280
+And the issue is this. If you're not an anthropologist, before I ask, are there any other anthropologists in the audience?
+
+56
+00:06:30,280 --> 00:06:37,280
+Yay! Fantastic. I can tell you whenever I ask that question on Wall Street, I usually get one rather embarrassed hand go up.
+
+57
+00:06:37,280 --> 00:06:48,280
+So it's great to be amongst my peeps tonight. But when people who aren't anthropologists ask about anthropology, they tend to assume that basically it's like Indiana Jones for grownups.
+
+58
+00:06:48,280 --> 00:07:00,280
+In that you go off somewhere wacky and weird, have an amazing adventure, come back with great stories, and you're a fascinating person to have at a cocktail party, but otherwise pretty useless.
+
+59
+00:07:00,280 --> 00:07:11,280
+And that is certainly how a lot of the people I've spoken to as a Financial Times journalist have seen it over the years.
+
+60
+00:07:11,280 --> 00:07:23,280
+But in reality, anthropology, I believe, is a superpower, because it's essentially a three-part journey, intellectually, which anyone could and should learn from.
+
+61
+00:07:23,280 --> 00:07:30,280
+Part one, you deliberately immerse yourself in the lives and minds of people who are different from you.
+
+62
+00:07:30,280 --> 00:07:34,280
+That could be, in my case, in Tajikistan.
+
+63
+00:07:34,280 --> 00:07:41,280
+It could be down the end of your road, talking to people who, shock, support a different political party.
+
+64
+00:07:41,280 --> 00:07:48,280
+But you deliberately, with an open mind and humility, try and imagine yourself into their worldview.
+
+65
+00:07:48,280 --> 00:07:57,280
+And you do that not just to try and understand others, or as anthropologists say, try and make the strange familiar.
+
+66
+00:07:57,280 --> 00:08:09,280
+You also do it because the single best way to understand yourself is to jump out of your skin, go immerse yourself in the minds and lives of others, and then look back with fresh eyes.
+
+67
+00:08:09,280 --> 00:08:13,280
+The Chinese have a great proverb saying, a fish can't see water.
+
+68
+00:08:13,280 --> 00:08:24,280
+None of us can see the assumptions we inherit, which shape us, until we jump out of our fishbowl, go swim with other fish, and look back.
+
+69
+00:08:24,280 --> 00:08:31,280
+And when we do that, we can begin to see another crucial thing, which is social silences.
+
+70
+00:08:31,280 --> 00:08:34,280
+The context of our world.
+
+71
+00:08:34,280 --> 00:08:46,280
+All the assumptions that shape us that we never think about, but which matter enormously, if we want to not just understand other people, but also understand ourselves.
+
+72
+00:08:46,280 --> 00:09:13,280
+And I would argue that right now, that insider-outsider perspective, that determination to see context, is absolutely critical if you want to understand how artificial intelligence, AI, is shaping or reshaping our social connections, both for good and bad.
+
+73
+00:09:13,280 --> 00:09:17,280
+And the reason is this.
+
+74
+00:09:17,280 --> 00:09:27,280
+We live at a time when AI is obviously accelerating in a dramatic and, many people would say, scary way.
+
+75
+00:09:27,280 --> 00:09:34,280
+It's reshaping our world in a way that most of us have barely even begun to understand.
+
+76
+00:09:34,280 --> 00:09:41,280
+We also live at a time when many people are very nervous about AI.
+
+77
+00:09:41,280 --> 00:09:43,280
+Probably many of you in the room.
+
+78
+00:09:43,280 --> 00:09:52,280
+And polls show, just to give a couple of examples, that about two-thirds of Americans regard AI as deeply worrying.
+
+79
+00:09:52,280 --> 00:09:54,280
+Half of them think it's going to do harm.
+
+80
+00:09:54,280 --> 00:10:00,280
+And only about a quarter think it's actually going to bring about benefits for them personally.
+
+81
+00:10:00,280 --> 00:10:21,280
+But aside from the fact that the population is pretty nervous about AI, we also live at a time when the whole question of trust has become incredibly tangled and, in many ways, incredibly depressing in our society.
+
+82
+00:10:21,280 --> 00:10:24,280
+Or so it seems.
+
+83
+00:10:24,280 --> 00:10:42,280
+If you look at recent surveys about trust, and I recently worked with a group of people at Jigsaw, which is one of the incubators at Google, which is using anthropologists and ethnographers to study how humans are interacting with digital technology and platforms.
+
+84
+00:10:42,280 --> 00:10:47,280
+So I recently wrote a piece in foreign affairs about this with one of them.
+
+85
+00:10:47,280 --> 00:10:55,280
+And the data that we were looking at in terms of trust in general in society are, on the face of it, unbelievably depressing.
+
+86
+00:10:55,280 --> 00:11:08,280
+Essentially, if you look at surveys right now, only 70, sorry, if you go back six decades ago, 77% of Americans trusted Congress.
+
+87
+00:11:08,280 --> 00:11:11,280
+Today, I can hear the laughter already.
+
+88
+00:11:11,280 --> 00:11:15,280
+Anyone dare to guess what the number is today?
+
+89
+00:11:15,280 --> 00:11:18,280
+It's actually 2%.
+
+90
+00:11:18,280 --> 00:11:28,280
+Okay, just to make sure that this is equal opportunity embarrassment, back in 1999, 55% of Americans trusted the media.
+
+91
+00:11:28,280 --> 00:11:32,280
+Today, that's 32% and falling.
+
+92
+00:11:32,280 --> 00:11:47,280
+In fact, the Edelman Trust Barometer suggests that, although back in 2008 and 2009, it was bankers who were losing the trust of the public, today, trust in journalists and the media is even lower than bankers.
+
+93
+00:11:47,280 --> 00:11:51,280
+You can call that divine justice if you're a banker.
+
+94
+00:11:51,280 --> 00:11:56,280
+But almost everywhere you look, trust has been collapsing.
+
+95
+00:11:56,280 --> 00:12:09,280
+But what I'm going to argue is that if you want to understand how AI is playing into the dynamics of trust, or rather how trust is affecting how we do or don't approach AI,
+
+96
+00:12:09,280 --> 00:12:21,280
+one of the first things you have to do is to take an anthropological look and step back and ask, what are we not talking about in relation to trust?
+
+97
+00:12:21,280 --> 00:12:22,280
+What's the bigger context?
+
+98
+00:12:22,280 --> 00:12:24,280
+What's the social silence around this?
+
+99
+00:12:24,280 --> 00:12:34,280
+Because I believe that that impacts very profoundly how we are interacting with AI today.
+
+100
+00:12:34,280 --> 00:12:51,280
+And in particular, I believe that there are two big trends that are happening in the world around us today that we don't talk about very much, which matter very deeply in terms of how we are interacting with our digital technologies.
+
+101
+00:12:51,280 --> 00:12:54,280
+Now, the first revolves around the question of trust.
+
+102
+00:12:54,280 --> 00:13:06,280
+And in essence, anthropologists have been fascinated by trust for a very long time because trust is the glue that holds social groups together.
+
+103
+00:13:06,280 --> 00:13:21,280
+It also, with my Financial Times hat on, it's a glue that holds finance together because the roots of the word credit, as in credit markets, come from the Latin credere, meaning to believe, which is all about trust.
+
+104
+00:13:21,280 --> 00:13:31,280
+But when I was an anthropologist at Cambridge doing my PhD, we were taught that essentially trust can exist on two axes.
+
+105
+00:13:31,280 --> 00:13:46,280
+You can have horizontal trust, which is basically peer-to-peer trust, and that's kind of eyeball-to-eyeball trust that you have with people who you know well in your family, your class, your social group.
+
+106
+00:13:46,280 --> 00:13:49,280
+That's small, horizontal trust.
+
+107
+00:13:49,280 --> 00:13:56,280
+But it used to be assumed that that kind of trust was limited by geographical proximity.
+
+108
+00:13:56,280 --> 00:13:59,280
+You had to be close to people who you're going to eyeball.
+
+109
+00:13:59,280 --> 00:14:18,280
+And so the thinking was that when groups got big, you then started to rely on vertical trust, which is trust in leaders, trust in institutions, trust in authority figures, trust in rules and bureaucracy.
+
+110
+00:14:18,280 --> 00:14:31,280
+And those two types of trust don't necessarily contradict each other because in our everyday lives, people often oscillate between the two.
+
+111
+00:14:31,280 --> 00:14:40,280
+But the vision that used to exist was that you had peer-to-peer small group trust or vertical trust when groups got big.
+
+112
+00:14:40,280 --> 00:14:55,280
+In particular, any of you who read Robin Dunbar, that brilliant evolutionary anthropologist, points out that when you get above 150 people, your brain can't really cope with that many people, so you start to create an institution.
+
+113
+00:14:55,280 --> 00:15:10,280
+Now, what's fascinating about today and what matters deeply for AI is that the advent of this, our cell phones, excuse my case that's falling apart, has changed that pattern.
+
+114
+00:15:10,280 --> 00:15:23,280
+Because for the first time in history, it's now possible to create peer group trust on a massive scale amongst people who don't have the ability to eyeball each other.
+
+115
+00:15:23,280 --> 00:15:27,280
+There's a technical word for it, distributed trust.
+
+116
+00:15:27,280 --> 00:15:42,280
+And essentially what it means is that you can have large groups of peers who all interact and trust to some degree without actually being able to see each other physically or know each other that well.
+
+117
+00:15:42,280 --> 00:16:04,280
+Now, that might sound very weird, but if you stop and think about it for a moment, back in the old days, when someone like me came to Santa Fe and I wanted to find an amazing restaurant, I would turn to an expert authority figure, a leader, and ask them where to go.
+
+118
+00:16:04,280 --> 00:16:09,280
+I mean, I might have used, say, a travel agent. Remember those? An expert.
+
+119
+00:16:09,280 --> 00:16:13,280
+I might have used Fodor's or Zagat, some kind of restaurant guide.
+
+120
+00:16:13,280 --> 00:16:26,280
+Today, you're more likely to go online and look at a travel platform and look at the star rating from the crowds and take your advice from your peer group that's distributed.
+
+121
+00:16:26,280 --> 00:16:41,280
+Or if you think about another example, you know, 20 years ago, if someone said to you that you were going to get into a stranger's car or put your kid in a stranger's car, you would have said, you're nuts.
+
+122
+00:16:41,280 --> 00:16:48,280
+Today, courtesy of Uber and Lyft, many of us do it all the time.
+
+123
+00:16:48,280 --> 00:16:54,280
+And if you ask yourself, why? What do I trust about this? Well, maybe you trust Uber.
+
+124
+00:16:54,280 --> 00:16:59,280
+Maybe you trust the idea that the government's looking at Uber. I kind of doubt it.
+
+125
+00:16:59,280 --> 00:17:15,280
+You probably actually, if you think about it, trust the fact that there is a peer rating system whereby if you get into a car with a driver whose rating is one, you're going to go, yikes, and look at what other people have posted about them.
+
+126
+00:17:15,280 --> 00:17:22,280
+And I'm not saying that kind of system for trust safety nets is foolproof because it's absolutely not.
+
+127
+00:17:22,280 --> 00:17:34,280
+But the point is this. We now have three types of trust. We have eyeball to eyeball trust, we have vertical trust, and we have distributed trust.
+
+128
+00:17:34,280 --> 00:17:45,280
+And what I would argue very strongly is that the surveys that show that our trust is collapsing in the world today are all about vertical trust, or almost all.
+
+129
+00:17:45,280 --> 00:17:51,280
+For the most part, they ask people, do you trust in the government? And everyone goes, heck no.
+
+130
+00:17:51,280 --> 00:17:58,280
+They don't say, do you trust in your online crowd when you're actually trying to decide where to go on holiday?
+
+131
+00:17:58,280 --> 00:18:05,280
+And what you have in essence is a pattern where trust is migrating rather than collapsing.
+
+132
+00:18:05,280 --> 00:18:13,280
+Because insofar as there are surveys of our peer group trust, those indicate they've actually held up very, very well.
+
+133
+00:18:13,280 --> 00:18:34,280
+I mean, Edelman, to go back to the PR company, which runs a huge survey on trust each year, has found consistently that a metric known as a person like me, trust in that has held up and in some surveys actually risen to a point where people trust a person like me more than a CEO.
+
+134
+00:18:34,280 --> 00:18:48,280
+And in fact, Edelman is now advising companies that if they want to send trusted messages, get used to the fact that your highly paid CEO may not be automatically trusted when they open their mouth.
+
+135
+00:18:48,280 --> 00:18:55,280
+And in fact, people might actually trust employees more for the truth than the CEO.
+
+136
+00:18:55,280 --> 00:19:01,280
+So that's the first big shift, and I'll come back in a moment as to how that's changing AI.
+
+137
+00:19:01,280 --> 00:19:20,280
+But the second big shift, which I think is also reshaping us, is the rise of what I sometimes call Gen P, Generation Pick and Mix, or Generation C, Gen Customization.
+
+138
+00:19:20,280 --> 00:19:29,280
+And by that I mean something quite fundamental has gone on in recent decades about how we imagine the individual relative to society.
+
+139
+00:19:29,280 --> 00:19:33,280
+And the issue is this.
+
+140
+00:19:33,280 --> 00:19:52,280
+Back when I was doing my anthropology PhD, what we were taught classically was that sometime after the Enlightenment era in Western Europe, there was a Copernican shift in terms of how we imagine the individual humans interacting with a social group.
+
+141
+00:19:52,280 --> 00:20:04,280
+And to be very, very crude about it, in many cultures in the past, and in parts of the world today, an individual is seen as a derivative of the social group.
+
+142
+00:20:04,280 --> 00:20:16,280
+Meaning, as the evolutionary anthropologist Joseph Henrich says, you know, I as an individual, essentially, I'm just a cog in a machine of a social group.
+
+143
+00:20:16,280 --> 00:20:20,280
+And my role and my identity is assigned at birth, pretty much.
+
+144
+00:20:20,280 --> 00:20:24,280
+Or it's assigned according to my family position or where I'm born.
+
+145
+00:20:24,280 --> 00:20:28,280
+And so, if someone says to you, who are you?
+
+146
+00:20:28,280 --> 00:20:36,280
+In many non-Western cultures, you'll say, I'm the son of so-and-so, or I'm the wife of so-and-so.
+
+147
+00:20:36,280 --> 00:20:51,280
+But, starting with the Enlightenment and accelerating in the last 200 years, essentially, the idea took hold that, in fact, society was a derivative of individuals.
+
+148
+00:20:51,280 --> 00:20:54,280
+I think, therefore, I am.
+
+149
+00:20:54,280 --> 00:20:56,280
+I exist independently of society.
+
+150
+00:20:56,280 --> 00:21:03,280
+And when you look at the 20th century, that idea took hold deeper and deeper.
+
+151
+00:21:03,280 --> 00:21:10,280
+You know, Margaret Thatcher famously said, for any of you who are British or have been in Britain, there is no such thing as society.
+
+152
+00:21:10,280 --> 00:21:12,280
+It's just individuals.
+
+153
+00:21:12,280 --> 00:21:14,280
+You had the rise of the me generation.
+
+154
+00:21:14,280 --> 00:21:16,280
+The idea the world revolved around me.
+
+155
+00:21:16,280 --> 00:21:18,280
+I had human rights.
+
+156
+00:21:18,280 --> 00:21:22,280
+I had the right to do whatever I want to basically shape the world myself.
+
+157
+00:21:22,280 --> 00:21:27,280
+That has taken on more and more importance in the late 20th century.
+
+158
+00:21:27,280 --> 00:21:36,280
+But, today, I would argue that this, again, our cell phones, has added a whole new twist to it.
+
+159
+00:21:36,280 --> 00:21:45,280
+And, essentially, what our cell phones have taught us to do is not just assume that I am the center of my world,
+
+160
+00:21:45,280 --> 00:21:55,280
+but to also think that I have the right to fashion and customize the world according to my personal desires.
+
+161
+00:21:55,280 --> 00:22:05,280
+In a way that, yes, it existed before in history, but used to only belong to kings or leaders or the ultra-rich.
+
+162
+00:22:05,280 --> 00:22:11,280
+And to understand what I mean by that, think for a moment about music.
+
+163
+00:22:11,280 --> 00:22:22,280
+If you wanted to listen to amazing music 150 years ago, your only option was to come somewhere like here
+
+164
+00:22:22,280 --> 00:22:28,280
+and listen to a concert set on someone else's schedule playing what they wanted.
+
+165
+00:22:28,280 --> 00:22:33,280
+And then we had radio, which you could switch on and listen as you wanted,
+
+166
+00:22:33,280 --> 00:22:36,280
+but someone else chose what was going to play.
+
+167
+00:22:36,280 --> 00:22:41,280
+Then you had vinyl records. Remember those?
+
+168
+00:22:41,280 --> 00:22:45,280
+I mean, you look like you're old enough, many of you.
+
+169
+00:22:45,280 --> 00:22:50,280
+And you could play that whenever you wanted, but somebody else assembled it.
+
+170
+00:22:50,280 --> 00:23:01,280
+Today, no Gen Z person, and I can see one or two of you, can imagine a world without a playlist.
+
+171
+00:23:01,280 --> 00:23:07,280
+Nobody can imagine a world where you couldn't put headphones on and listen to what you want, where you want,
+
+172
+00:23:07,280 --> 00:23:10,280
+how you want, whenever you want, on tap.
+
+173
+00:23:10,280 --> 00:23:14,280
+It's the rise of Gen P, Gen Playlist.
+
+174
+00:23:14,280 --> 00:23:19,280
+And that is extrapolated to almost every area of our life today.
+
+175
+00:23:19,280 --> 00:23:22,280
+I mean, thinking about consumer culture.
+
+176
+00:23:22,280 --> 00:23:27,280
+You know, the old days when you went to a coffee shop and you said black or white.
+
+177
+00:23:27,280 --> 00:23:30,280
+I mean, any of you who have got teenagers and gone to Starbucks, good luck.
+
+178
+00:23:30,280 --> 00:23:33,280
+It takes half an hour to order a coffee.
+
+179
+00:23:33,280 --> 00:23:35,280
+I mean, think about food.
+
+180
+00:23:35,280 --> 00:23:40,280
+There was a time when schools served one school meal for everybody.
+
+181
+00:23:40,280 --> 00:23:43,280
+Today, almost no school does that.
+
+182
+00:23:43,280 --> 00:23:45,280
+Everyone has buffets.
+
+183
+00:23:45,280 --> 00:23:49,280
+I know because in my role at Cambridge, whenever I have the students over and I say to them,
+
+184
+00:23:49,280 --> 00:23:50,280
+what do you want to eat?
+
+185
+00:23:50,280 --> 00:23:55,280
+I come back with a page this long setting out all their food requirements.
+
+186
+00:23:55,280 --> 00:23:58,280
+I mean, I usually end up saying, okay, I'll get Metze.
+
+187
+00:23:58,280 --> 00:23:59,280
+Just pick a mix.
+
+188
+00:23:59,280 --> 00:24:02,280
+Do whatever you want.
+
+189
+00:24:02,280 --> 00:24:05,280
+We have the same approach towards jobs.
+
+190
+00:24:05,280 --> 00:24:13,280
+I mean, again, any of you who are employers of Gen Z know that the idea of telling them to turn up nine to five, five days a week,
+
+191
+00:24:13,280 --> 00:24:18,280
+and this is your career ladder, is increasingly unpopular.
+
+192
+00:24:18,280 --> 00:24:20,280
+And it's not just because of COVID.
+
+193
+00:24:20,280 --> 00:24:23,280
+It's extrapolated onto politics.
+
+194
+00:24:23,280 --> 00:24:26,280
+I mean, political parties are like vinyl records.
+
+195
+00:24:26,280 --> 00:24:34,280
+It's a preassembled package that people today say, hang on a sec, I want to pick and mix my issues and my brands.
+
+196
+00:24:34,280 --> 00:24:39,280
+I like this issue and that issue and that person.
+
+197
+00:24:39,280 --> 00:24:41,280
+And our identities are the same.
+
+198
+00:24:41,280 --> 00:24:47,280
+You know, the old days of being told who you were by virtue of where you were born have gone.
+
+199
+00:24:47,280 --> 00:24:52,280
+You can go online and you can be anybody you want in any way.
+
+200
+00:24:52,280 --> 00:25:01,280
+And if you want to change your gender, if you want to change your name, if you want to change your presentation, you can do it.
+
+201
+00:25:01,280 --> 00:25:07,280
+If you want to define your family as having a dog in it, you can do that too.
+
+202
+00:25:07,280 --> 00:25:11,280
+I bet many of you have got dogs in your family.
+
+203
+00:25:11,280 --> 00:25:13,280
+That's a very common idea today.
+
+204
+00:25:13,280 --> 00:25:17,280
+A hundred years ago, it was totally weird because dogs were in the yard.
+
+205
+00:25:17,280 --> 00:25:21,280
+You couldn't redefine them as part of a family like a quasi-human being.
+
+206
+00:25:21,280 --> 00:25:24,280
+But we are living in this pick and mix era.
+
+207
+00:25:24,280 --> 00:25:33,280
+And in some ways, when you look at those two trends, the shift in pattern from vertical to horizontal,
+
+208
+00:25:33,280 --> 00:25:40,280
+and the idea that we can all pick and mix everything, it's unbelievably empowering and wonderful and amazing.
+
+209
+00:25:40,280 --> 00:25:56,280
+And I don't think anybody in Gen Z, or probably older, would want to go back to a world where they had to simply suck it up, one size fit all, listen to authority figures, and do what they're told.
+
+210
+00:25:56,280 --> 00:25:59,280
+But there are also big dangers too, obviously.
+
+211
+00:25:59,280 --> 00:26:10,280
+I mean, one problem is that if you only trust your peer group for advice, say in the media, and you're also essentially pick and mixing your tribe online,
+
+212
+00:26:10,280 --> 00:26:21,280
+the tendency always is to resort to more tribalism, not less, and to essentially create these echo chambers that are polarized and which don't actually interact.
+
+213
+00:26:21,280 --> 00:26:23,280
+We've seen that over and over again.
+
+214
+00:26:23,280 --> 00:26:29,280
+Because one of the bitter, bitter ironies of this is that as we have a pick and mix customized culture,
+
+215
+00:26:29,280 --> 00:26:35,280
+and as people have the ability to define their identity, they're not becoming less tribal.
+
+216
+00:26:35,280 --> 00:26:46,280
+On the contrary, many of us are choosing online to cling to people we recognize and feel comfortable with and cling to the symbols of that and become more tribal, not less.
+
+217
+00:26:46,280 --> 00:27:04,280
+So a world of pick and mix combined with a world of shifting trust is also a recipe for polarization and fragmentation and echo chambers and cyber flash mobs and all the stuff we're living with right now in our political ecosystem.
+
+218
+00:27:04,280 --> 00:27:11,280
+So, like every single innovation, there's a good side and a bad side.
+
+219
+00:27:11,280 --> 00:27:23,280
+But all of this is a backdrop, the context that we're not talking about in terms of how AI is entering our lives.
+
+220
+00:27:23,280 --> 00:27:37,280
+Because we are interacting with AI amid these changes, and that's shaping how we're both creating AI tools and reacting to them in very profound ways.
+
+221
+00:27:37,280 --> 00:27:43,280
+And to explain what I mean, I'll give you three data points.
+
+222
+00:27:43,280 --> 00:27:53,280
+Jigsaw, which I mentioned earlier, recently did a big ethnographic study of Gen Z in both India and America.
+
+223
+00:27:53,280 --> 00:28:12,280
+And they looked at what they trust for medical information and, to a certain degree, financial information too, and discovered that a majority of Gen Z prefer to deal with AI bots for medical information rather than human doctors.
+
+224
+00:28:12,280 --> 00:28:19,280
+If any of you are doctors in the room, that might sound scary.
+
+225
+00:28:19,280 --> 00:28:25,280
+But a majority of Gen Z prefer to deal with AI bots than human doctors for medical information.
+
+226
+00:28:25,280 --> 00:28:53,280
+Second data point, another ethnographic study by Jigsaw shows that when Gen Z consume content, i.e. read stories online, what they typically do is read the headline first, then read the comments under the article, and only then actually read the article if they feel that the comments justify reading it.
+
+227
+00:28:53,280 --> 00:29:01,280
+And when I tell people who, like me, are Gen Xers or Boomers this, they actually don't believe me.
+
+228
+00:29:01,280 --> 00:29:05,280
+Go find a Gen Z person and ask them about it.
+
+229
+00:29:05,280 --> 00:29:08,280
+Or watch them reading things online.
+
+230
+00:29:08,280 --> 00:29:12,280
+Because the reality is, this is very widespread now.
+
+231
+00:29:12,280 --> 00:29:22,280
+And what both of those things show is that essentially what you're seeing is trust patterns shifting.
+
+232
+00:29:22,280 --> 00:29:33,280
+As people move away, sorry, the media one, as people move away from trust in authority figures to trust in their online peer group crowd.
+
+233
+00:29:33,280 --> 00:29:36,280
+One other data point.
+
+234
+00:29:36,280 --> 00:29:51,280
+Oliver Wyman recently did a survey of workers and discovered that amongst Gen Z, about 39% in America prefer to have an AI bot as a manager rather than a human manager.
+
+235
+00:29:51,280 --> 00:29:53,280
+In fact, 39%.
+
+236
+00:29:53,280 --> 00:29:58,280
+Again, very similar finding to the issue about medical bots.
+
+237
+00:29:58,280 --> 00:30:04,280
+And that sounds really scary.
+
+238
+00:30:04,280 --> 00:30:12,280
+Except, if you start thinking about the two big trends I sketched out just now.
+
+239
+00:30:12,280 --> 00:30:16,280
+The shift in trust and the move towards pick and mix.
+
+240
+00:30:16,280 --> 00:30:19,280
+In some ways, it's not surprising.
+
+241
+00:30:19,280 --> 00:30:34,280
+Because when people think about AI and imagine how humans might interact with AI or not AI, we often talk about our interactions with AI as if it's a kind of single, undifferentiated mass.
+
+242
+00:30:34,280 --> 00:30:39,280
+You know, we're dealing with a robot, we're dealing with a human.
+
+243
+00:30:39,280 --> 00:30:45,280
+But in reality, if you stop and think about it, there's actually at least four ways that we can interact with AI.
+
+244
+00:30:45,280 --> 00:30:50,280
+And they're not the same, and they matter enormously around trust.
+
+245
+00:30:50,280 --> 00:31:04,280
+One image of AI is that, essentially, we can have AI introduced into our lives through that vertical trust axis as a kind of almost overlord or authority figure.
+
+246
+00:31:04,280 --> 00:31:09,280
+That's a vision of AI that most of us have probably got in our heads.
+
+247
+00:31:09,280 --> 00:31:18,280
+Because in Western media culture, we grew up with the idea of AI robots taking over the world and dominating us.
+
+248
+00:31:18,280 --> 00:31:26,280
+You know, Space Odyssey 2001, how in the spaceship, and AI as a bossy thing telling us what to do.
+
+249
+00:31:26,280 --> 00:31:30,280
+That's the vision of AI as a master.
+
+250
+00:31:30,280 --> 00:31:41,280
+But you can also imagine AI as a mate, somebody who's actually on our horizontal plane, almost like a friendly member of our tribe, our peer group.
+
+251
+00:31:41,280 --> 00:31:45,280
+That's almost more like R2G2 in Star Wars.
+
+252
+00:31:45,280 --> 00:31:50,280
+Or you can have AI as a mirror to ourselves.
+
+253
+00:31:50,280 --> 00:31:55,280
+And you can also have AI as a moderator in terms of conversations between humans.
+
+254
+00:31:55,280 --> 00:31:58,280
+And I'll come on to that one in a moment.
+
+255
+00:31:58,280 --> 00:32:11,280
+But much of American culture has tended to assume, I would argue, that insofar as AI was going to come into our world, it was going to come in as a master.
+
+256
+00:32:11,280 --> 00:32:13,280
+It's one reason we're scared of it.
+
+257
+00:32:13,280 --> 00:32:16,280
+It's going to come in and take us over.
+
+258
+00:32:16,280 --> 00:32:23,280
+Now, I should stress that that vision of AI is not actually universal.
+
+259
+00:32:23,280 --> 00:32:32,280
+I mean, yes, sitting in America, we tend to assume that Silicon Valley dominates the way we imagine AI culturally.
+
+260
+00:32:32,280 --> 00:32:37,280
+And we assume that everyone else must have the same attitude as well.
+
+261
+00:32:37,280 --> 00:32:40,280
+Newsflash, they don't.
+
+262
+00:32:40,280 --> 00:32:48,280
+If you go somewhere like Japan, where I lived for a number of years, attitudes towards AI and robots are actually quite different.
+
+263
+00:32:48,280 --> 00:32:50,280
+They are much more positive.
+
+264
+00:32:50,280 --> 00:32:55,280
+People in Japan are not nearly as scared of AI as Americans are.
+
+265
+00:32:55,280 --> 00:32:58,280
+I mean, again, to go back to the survey, when I said that only...
+
+266
+00:32:58,280 --> 00:33:01,280
+Where are we?
+
+267
+00:33:01,280 --> 00:33:02,280
+Going down.
+
+268
+00:33:02,280 --> 00:33:03,280
+Yes.
+
+269
+00:33:03,280 --> 00:33:10,280
+So, two thirds of adults in the United States and the United Kingdom and Canada say that AI makes them nervous.
+
+270
+00:33:10,280 --> 00:33:12,280
+In Japan, it's only 29%.
+
+271
+00:33:12,280 --> 00:33:20,280
+And although only a third of people in America say they're excited about AI, in Japan, it's about half.
+
+272
+00:33:20,280 --> 00:33:25,280
+Very, very different attitude towards AI and robots.
+
+273
+00:33:25,280 --> 00:33:30,280
+In fact, Japan is the only country in the world I know where even the unions like the idea of automation.
+
+274
+00:33:30,280 --> 00:33:32,280
+That's partly because of demographics.
+
+275
+00:33:32,280 --> 00:33:34,280
+They're running out of workers.
+
+276
+00:33:34,280 --> 00:33:37,280
+It's also because their media history is quite different.
+
+277
+00:33:37,280 --> 00:33:51,280
+In the sense that when Americans were being terrified of robots by, you know, HAL in Space 2001 Odyssey, or in Star Trek or Star Wars, or if you're British, with Daleks and Doctor Who,
+
+278
+00:33:51,280 --> 00:33:58,280
+Japanese were reading things like Astro Boy, which presents AI and robots in a very positive, cuddly way.
+
+279
+00:33:58,280 --> 00:34:03,280
+And the other reason, I also suspect, is because of Shintoism.
+
+280
+00:34:03,280 --> 00:34:11,280
+That Japanese culture, or rather the Shintoist religion, doesn't clearly distinguish between animate and inanimate objects.
+
+281
+00:34:11,280 --> 00:34:12,280
+It's a spectrum.
+
+282
+00:34:12,280 --> 00:34:19,280
+And if you believe that a rock can have a soul, then it's actually not that hard to believe that your iPhone can have a soul as well.
+
+283
+00:34:19,280 --> 00:34:25,280
+In America, in Judeo-American tradition, in fact, the dividing line is much, much clearer.
+
+284
+00:34:25,280 --> 00:34:32,280
+And that means that people tend to get very scared by the idea that a machine might actually have a brain or a soul.
+
+285
+00:34:32,280 --> 00:34:34,280
+So attitudes towards AI are not universal.
+
+286
+00:34:34,280 --> 00:34:40,280
+But in America, the idea has been that AI would come into our lives through a vertical axis.
+
+287
+00:34:40,280 --> 00:34:48,280
+In reality, though, it's actually coming into our lives, I would argue, in a horizontal axis of trust.
+
+288
+00:34:48,280 --> 00:34:55,280
+Because the way that most of us are encountering AI and digital technologies is through this.
+
+289
+00:34:55,280 --> 00:34:58,280
+It's literally at the tip of our fingers.
+
+290
+00:34:58,280 --> 00:35:01,280
+It's a very intimate relationship.
+
+291
+00:35:01,280 --> 00:35:09,280
+And I would argue that we're putting it into our lives on a horizontal platform of trust.
+
+292
+00:35:09,280 --> 00:35:14,280
+And it's almost becoming part of our peer group.
+
+293
+00:35:14,280 --> 00:35:16,280
+And that's critically important.
+
+294
+00:35:16,280 --> 00:35:28,280
+Because when you think about why Gen Z in India and America might say that they prefer AI bots to human doctors,
+
+295
+00:35:28,280 --> 00:35:35,280
+one way to make sense of that is, well, you can argue, if you're a human doctor, that they're just stupid.
+
+296
+00:35:35,280 --> 00:35:44,280
+Or you can say, well, actually, if you're a Gen Z person, getting hold of a human doctor is actually quite hard.
+
+297
+00:35:44,280 --> 00:35:45,280
+It's time consuming.
+
+298
+00:35:45,280 --> 00:35:47,280
+It's inconvenient.
+
+299
+00:35:47,280 --> 00:35:50,280
+Your phone's at the end of your fingers all the time.
+
+300
+00:35:50,280 --> 00:35:59,280
+And doctors, like many human authority figures, are perceived by Gen Z as having an irritating habit of lecturing them,
+
+301
+00:35:59,280 --> 00:36:04,280
+telling them what to do, being bossy, being an authority figure.
+
+302
+00:36:04,280 --> 00:36:11,280
+So, whereas an AI bot is often neutral.
+
+303
+00:36:11,280 --> 00:36:18,280
+I mean, Gen Z, according to these studies, suggests that they find human doctors more threatening for their privacy,
+
+304
+00:36:18,280 --> 00:36:23,280
+because they're authority figures, than AI bots in their phones.
+
+305
+00:36:23,280 --> 00:36:28,280
+Again, for most of you, this might sound mind-boggling.
+
+306
+00:36:28,280 --> 00:36:33,280
+But it makes sense when you think about the two bigger shifts.
+
+307
+00:36:33,280 --> 00:36:35,280
+Same thing for financial advice.
+
+308
+00:36:35,280 --> 00:36:40,280
+Same thing for trusting AI bots as managers, instead of human managers.
+
+309
+00:36:40,280 --> 00:36:42,280
+They're less bossy.
+
+310
+00:36:42,280 --> 00:36:45,280
+They're less intrusive.
+
+311
+00:36:45,280 --> 00:36:52,280
+And in many ways, they also echo the fact that we live in Gen P, Generation Playlist.
+
+312
+00:36:52,280 --> 00:36:59,280
+Because what AI essentially does is reinforce our love for customization.
+
+313
+00:36:59,280 --> 00:37:03,280
+We have an AI bot that knows all about me.
+
+314
+00:37:03,280 --> 00:37:05,280
+It gives me what I want.
+
+315
+00:37:05,280 --> 00:37:06,280
+I'm the center of my world.
+
+316
+00:37:06,280 --> 00:37:10,280
+I can customize it courtesy of that bot.
+
+317
+00:37:10,280 --> 00:37:12,280
+It's addictive.
+
+318
+00:37:12,280 --> 00:37:26,280
+And of course, the very fact we love customization is part of what's driving the rise of AI as it hoovers up all of our data and what makes us personally tick.
+
+319
+00:37:26,280 --> 00:37:45,280
+So customization and shifting trust patterns, in some ways, make it entirely rational that you have these results where Gen Z says they prefer AI bots to human doctors.
+
+320
+00:37:45,280 --> 00:37:46,280
+Is this bad or good?
+
+321
+00:37:46,280 --> 00:37:51,280
+Well, in many ways, it's terrifying.
+
+322
+00:37:51,280 --> 00:38:06,280
+Because when I said before that you've got the ability to have AI as a master, as a mate, as a mirror, or as a moderator, there's a fifth M, which is as a manipulator.
+
+323
+00:38:06,280 --> 00:38:15,280
+And AI bots in the wrong hands can be manipulative and dangerous in ways that we're only really beginning to get our heads around.
+
+324
+00:38:15,280 --> 00:38:27,280
+Some of you may have read that tragic, shocking story about the teenager who committed suicide because of interacting with a bot via character AI.
+
+325
+00:38:27,280 --> 00:38:32,280
+And essentially, and I should stress, this is all subject to lawsuits.
+
+326
+00:38:32,280 --> 00:38:35,280
+So obviously, there's still a lot to come out.
+
+327
+00:38:35,280 --> 00:38:56,280
+But according to the reporting of that story, it seems that a 14-year-old fell in love with an AI bot that came from the Game of Thrones, that interacted with it for a long time, and essentially persuaded him to eventually not only kill himself, but even taught him how to unlock the gun that his father had in the house.
+
+328
+00:38:56,280 --> 00:39:09,280
+That's a dark side of trusting in an AI bot as part of your peer group in a very, very intimate way, the most intimate way possible.
+
+329
+00:39:09,280 --> 00:39:16,280
+And I fully expect that there's going to be endless amounts of stories coming out like that over the next year or two.
+
+330
+00:39:16,280 --> 00:39:29,280
+But, but, but, but, like all innovations, every innovation from the creation of fire onwards, there's a dark side and there's a light side.
+
+331
+00:39:29,280 --> 00:39:36,280
+And this shift in trust patterns and our interaction with AI can also do amazingly positive things.
+
+332
+00:39:36,280 --> 00:39:43,280
+I mean, let's start with the issue of Gen Z trusting AI bots and medical advice more than human doctors.
+
+333
+00:39:43,280 --> 00:39:46,280
+Yes, that is horrifying to a human doctor.
+
+334
+00:39:46,280 --> 00:39:53,280
+But we also live in a world where access to healthcare is really difficult and expensive.
+
+335
+00:39:53,280 --> 00:40:02,280
+Wouldn't it be great if everybody could suddenly get expertise literally at the tip of their fingers here?
+
+336
+00:40:02,280 --> 00:40:05,280
+Or think about education.
+
+337
+00:40:05,280 --> 00:40:12,280
+Think about the propensity for using AI bots as a kind of mirror, if you like, almost for therapy.
+
+338
+00:40:12,280 --> 00:40:18,280
+That's happening today, and it's happening in some cases in a very positive way.
+
+339
+00:40:18,280 --> 00:40:34,280
+Or think about the use of AI platforms and bots in quite a different context, which is the fourth M I mentioned as a moderator between human-to-human conversations.
+
+340
+00:40:34,280 --> 00:40:37,280
+And this is truly fascinating.
+
+341
+00:40:37,280 --> 00:40:45,280
+I said earlier that we live in a society which is becoming increasingly polarized and fragmented because we have this shift in trust patterns
+
+342
+00:40:45,280 --> 00:40:52,280
+and the growing pick-and-mix generation choosing to be in echo chambers who ignore everyone else.
+
+343
+00:40:52,280 --> 00:41:00,280
+And as we all know from, if you're older, reading the newspapers, some people still do that,
+
+344
+00:41:00,280 --> 00:41:04,280
+or from talking around the dinner table or looking at communities,
+
+345
+00:41:04,280 --> 00:41:10,280
+one consequence of this is a deeply fragmented and polarized landscape today in America.
+
+346
+00:41:10,280 --> 00:41:17,280
+It's very hard for people from different political tribes to even talk to each other today effectively.
+
+347
+00:41:17,280 --> 00:41:34,280
+But here's something very interesting, which is that just as the brilliant techies have created bots and tools which can translate languages from one language to another,
+
+348
+00:41:34,280 --> 00:41:43,280
+they can also be used to translate political dialogue and conversations and viewpoints.
+
+349
+00:41:43,280 --> 00:41:51,280
+They can actually act as moderators for difficult conversations between large groups of people.
+
+350
+00:41:51,280 --> 00:42:04,280
+And if that sounds very far-fetched, big experiments have been going on in Taiwan recently under an amazingly innovative digital minister called Audrey Tang
+
+351
+00:42:04,280 --> 00:42:12,280
+to do exactly that with thousands of people communicating with each other through AI platforms
+
+352
+00:42:12,280 --> 00:42:18,280
+and trying to find common ground on issues in a way that you couldn't have done with human moderators.
+
+353
+00:42:18,280 --> 00:42:26,280
+There's an experiment going on, or just been going on recently, over in Kentucky in a town called Bowling Green,
+
+354
+00:42:26,280 --> 00:42:34,280
+which has, or is in the process of doubling in size, and the urban civic leaders are trying to plan the future for the town.
+
+355
+00:42:34,280 --> 00:42:37,280
+They wanted to get everyone engaged.
+
+356
+00:42:37,280 --> 00:42:43,280
+They knew that trying to do old-fashioned voting would take far too long, and polling is very crude.
+
+357
+00:42:43,280 --> 00:42:53,280
+So they organized a massive conversation over a number of weeks using AI platforms to try and work out what the community cared about.
+
+358
+00:42:53,280 --> 00:42:55,280
+And the results were quite amazing.
+
+359
+00:42:55,280 --> 00:43:04,280
+And the most encouraging thing of all is that in Kentucky, where passions can run very high around politics sometimes,
+
+360
+00:43:04,280 --> 00:43:12,280
+what they discovered was that on the vast majority of issues there was a huge amount of consensus that no one had even realized
+
+361
+00:43:12,280 --> 00:43:17,280
+because they were so busy shouting at each other about what they all thought about Donald Trump.
+
+362
+00:43:17,280 --> 00:43:28,280
+And humans would have found it very hard to find that common ground of consensus because humans can't scan 10,000 conversations.
+
+363
+00:43:28,280 --> 00:43:32,280
+There's actually another experiment like that going on right now in New Jersey,
+
+364
+00:43:32,280 --> 00:43:38,280
+and there's another one that's been done by DeepMind in Oxford with a very similar kind of pattern.
+
+365
+00:43:38,280 --> 00:43:48,280
+AI bots can actually be more effective in moderating human-to-human conversations sometimes than humans can.
+
+366
+00:43:48,280 --> 00:43:50,280
+Or I'll give you another example.
+
+367
+00:43:50,280 --> 00:43:56,280
+There's a lot of research now showing that if you want to talk to a conspiracy theorist,
+
+368
+00:43:56,280 --> 00:44:06,280
+the best way to actually deal with them and debunk conspiracy theories is not with a bossy, do-gooding human
+
+369
+00:44:06,280 --> 00:44:09,280
+who tells them why they're wrong.
+
+370
+00:44:09,280 --> 00:44:12,280
+It's actually with an AI bot.
+
+371
+00:44:12,280 --> 00:44:23,280
+And if you think I'm joking, a group of researchers recently at MIT have done a massive study using an AI bot for that very purpose
+
+372
+00:44:23,280 --> 00:44:30,280
+and shown that actually belief in conspiracy theories declines dramatically with an AI bot compared to a human.
+
+373
+00:44:30,280 --> 00:44:34,280
+And the reason is very similar to Gen Z with doctors.
+
+374
+00:44:34,280 --> 00:44:41,280
+The bots are seen as being neutral, less of an authority figure, they're not patronizing and bossy,
+
+375
+00:44:41,280 --> 00:44:46,280
+they're patient, they don't lose their temper, they don't storm out,
+
+376
+00:44:46,280 --> 00:44:50,280
+you don't have a family row over the dinner table with a bot.
+
+377
+00:44:50,280 --> 00:44:53,280
+They actually listen.
+
+378
+00:44:53,280 --> 00:44:57,280
+And they can act like mirrors and moderators.
+
+379
+00:44:57,280 --> 00:45:03,280
+So what I'm really trying to say is that as we look at how we interact with AI,
+
+380
+00:45:03,280 --> 00:45:07,280
+we're in very, very early days in terms of how this evolves.
+
+381
+00:45:07,280 --> 00:45:10,280
+There are enormous dangers.
+
+382
+00:45:10,280 --> 00:45:13,280
+There are enormous potential benefits.
+
+383
+00:45:13,280 --> 00:45:20,280
+And what happens next really comes down to a key word that we should all be thinking about a lot,
+
+384
+00:45:20,280 --> 00:45:24,280
+which is agency.
+
+385
+00:45:24,280 --> 00:45:31,280
+There is a way of managing our interaction with bots, which gives us, or AI tools, agency.
+
+386
+00:45:31,280 --> 00:45:36,280
+Emotional agency, economic agency, political and social agency.
+
+387
+00:45:36,280 --> 00:45:45,280
+There's a way of seeing bots and AI as tools or companions that we can deploy when we want.
+
+388
+00:45:45,280 --> 00:45:49,280
+And they can be designed in that way to be effective.
+
+389
+00:45:49,280 --> 00:45:55,280
+Or there's a way to turn around and say, these things are taking over our world,
+
+390
+00:45:55,280 --> 00:45:58,280
+we're going to surrender our agency, turn off our brains,
+
+391
+00:45:58,280 --> 00:46:04,280
+and essentially let big tech design them without any guardrails,
+
+392
+00:46:04,280 --> 00:46:08,280
+without any knowledge of what they're doing to us, and simply sit back.
+
+393
+00:46:08,280 --> 00:46:21,280
+To a large degree, that choice now is with us as a society about how we actually choose to interact with AI.
+
+394
+00:46:21,280 --> 00:46:28,280
+What path we go on will partly depend on how we also interact with other human beings,
+
+395
+00:46:28,280 --> 00:46:33,280
+and the level of confidence we have in our own political economy.
+
+396
+00:46:33,280 --> 00:46:38,280
+One of the other interesting details of the anthropologists working with Jigsaw,
+
+397
+00:46:38,280 --> 00:46:42,280
+who are looking around the world at how different cultures are interacting with AI,
+
+398
+00:46:42,280 --> 00:46:49,280
+and I can't stress strongly enough, the American vision of AI is not the only one at all.
+
+399
+00:46:49,280 --> 00:46:55,280
+But one of the very interesting things they discovered is that in countries which have a high level of social stability
+
+400
+00:46:55,280 --> 00:47:04,280
+and trust in government overall, like Singapore, AI bots and tools are seen really just as tools.
+
+401
+00:47:04,280 --> 00:47:10,280
+They're something you use to augment your life, but they're simply an addition.
+
+402
+00:47:10,280 --> 00:47:17,280
+Whereas in countries like America, where there's a high level of anxiety about the future and instability,
+
+403
+00:47:17,280 --> 00:47:22,280
+you increasingly see the flourishing of AI tools as, say, quasi-therapists.
+
+404
+00:47:22,280 --> 00:47:26,280
+You don't see that in Singapore.
+
+405
+00:47:26,280 --> 00:47:30,280
+So there's all kinds of interesting cross-cultural patterns happening.
+
+406
+00:47:30,280 --> 00:47:33,280
+And there's also a lot of cultural shift.
+
+407
+00:47:33,280 --> 00:47:38,280
+And this is really the last point I want to leave you with, which is this.
+
+408
+00:47:38,280 --> 00:47:46,280
+As an anthropologist, you know, I'm often told or I tell people that what I study is culture.
+
+409
+00:47:46,280 --> 00:47:56,280
+And people think, well, culture exists a bit like a Tupperware box in that you have something called, say, maybe English culture,
+
+410
+00:47:56,280 --> 00:48:06,280
+which is sealed, static, fixed, and you can stack up different cultures like Tupperware boxes on top of each other in a hierarchy of value.
+
+411
+00:48:06,280 --> 00:48:18,280
+So if you're English, you assume that English culture, the Tupperware box called English culture, sits at the top, followed by maybe French culture, Italian culture, whatever else.
+
+412
+00:48:18,280 --> 00:48:22,280
+But that vision is actually completely wrong.
+
+413
+00:48:22,280 --> 00:48:29,280
+Cultures never exist as static boxes, which have boundaries and sealed edges.
+
+414
+00:48:29,280 --> 00:48:32,280
+They're more like slow-moving rivers.
+
+415
+00:48:32,280 --> 00:48:34,280
+They constantly change.
+
+416
+00:48:34,280 --> 00:48:38,280
+And new streams come in, and the banks are very muddy.
+
+417
+00:48:38,280 --> 00:48:42,280
+We've seen that with technology.
+
+418
+00:48:42,280 --> 00:48:58,280
+I mean, one of the most interesting studies I've seen in recent years of how humans are interacting with digital technology came from a group at Intel who went out about a decade ago to study facial recognition technologies.
+
+419
+00:48:58,280 --> 00:49:03,280
+And they did on the ground research in China and in America.
+
+420
+00:49:03,280 --> 00:49:20,280
+And what they wanted to study was why Chinese consumers back then appeared to be totally embracing of facial recognition technologies and were really excited about them in a way that they assumed was very alien to American culture or American cultures.
+
+421
+00:49:20,280 --> 00:49:26,280
+Because in America, there was this fear of facial recognition technologies and AI and things like that.
+
+422
+00:49:26,280 --> 00:49:40,280
+So the whole study was predicated on the idea that Chinese cultures, consumers, generally liked AI and liked facial recognition technologies for convenience, and whereas American ones didn't.
+
+423
+00:49:40,280 --> 00:49:49,280
+Within a month of that study being published, we suddenly had the introduction of facial recognition technologies on our iPhones.
+
+424
+00:49:49,280 --> 00:49:52,280
+And guess what?
+
+425
+00:49:52,280 --> 00:49:58,280
+We all, or almost all of us, adopted it instantaneously.
+
+426
+00:49:58,280 --> 00:50:06,280
+And suddenly, frankly, we've all started to look more Chinese than American in terms of our attitudes towards facial recognition technologies.
+
+427
+00:50:06,280 --> 00:50:09,280
+Ideas and attitudes cross borders.
+
+428
+00:50:09,280 --> 00:50:18,280
+It's a very, very fluid time in how we interact with each other and technology.
+
+429
+00:50:18,280 --> 00:50:21,280
+So my last point is this.
+
+430
+00:50:21,280 --> 00:50:30,280
+If you want to understand how we are trusting or not trusting AI, don't just look at the noise.
+
+431
+00:50:30,280 --> 00:50:35,280
+technologies, don't just look at AI and technology.
+
+432
+00:50:35,280 --> 00:50:42,280
+Look at the silence around that, which is how are we trusting other human beings or not?
+
+433
+00:50:42,280 --> 00:50:45,280
+And how does AI play into that or not?
+
+434
+00:50:45,280 --> 00:50:57,280
+Dana Boyd, a very brilliant anthropologist, went off about two decades ago or 15 years ago to study how teenagers reacted to social media and their cell phones.
+
+435
+00:50:57,280 --> 00:51:17,280
+And made the obvious point that we tend to ignore, which is that one reason why teenagers are addicted to cell phones is because it's the only place that they can actually roam without parents snooping in a world where we all have stranger danger fear, where teenagers are massively over-scheduled.
+
+436
+00:51:17,280 --> 00:51:21,280
+They can't travel as they used to do 100 years ago.
+
+437
+00:51:21,280 --> 00:51:29,280
+And so iPhones are the only place, cyberspace, where they can actually roam freely and congregate and experiment without parents watching them.
+
+438
+00:51:29,280 --> 00:51:42,280
+So you can't understand how teenagers use iPhones without looking at how they're behaving in the real world without iPhones and how parents have changed their environments at the same time.
+
+439
+00:51:42,280 --> 00:51:54,280
+We can't understand how we're interacting with AI until we start looking at how we're interacting with each other and how patterns of trust are shifting.
+
+440
+00:51:54,280 --> 00:52:01,280
+So a world of artificial intelligence needs a world of anthropology intelligence too.
+
+441
+00:52:01,280 --> 00:52:13,280
+One AI needs the other AI to create what I think we should be aiming for today, which is the third type of AI, which is augmented intelligence.
+
+442
+00:52:13,280 --> 00:52:25,280
+Where we have the agency to set where we're going, not just with the bots, but with other humans too.
+
+443
+00:52:25,280 --> 00:52:27,280
+So thank you all for listening.
+
+444
+00:52:27,280 --> 00:52:30,280
+And I welcome questions about that or anything else.
+
+445
+00:52:30,280 --> 00:52:40,280
+And for all of you who are not a Gen Z-er, I hope this understands your own weird Gen Z people in your life a little bit better.
+
+446
+00:52:40,280 --> 00:52:57,280
+Thank you.
+
+447
+00:52:57,280 --> 00:52:59,280
+Okay, so if you have a question, please raise your hand.
+
+448
+00:52:59,280 --> 00:53:02,280
+My friend Joan and I will be coming around with the microphone.
+
+449
+00:53:02,280 --> 00:53:04,280
+We'll try to address everyone as we can.
+
+450
+00:53:04,280 --> 00:53:09,280
+We also want to hear from unfamiliar voices, maybe representatives from all generations.
+
+451
+00:53:09,280 --> 00:53:12,280
+So I'll come over here to start.
+
+452
+00:53:12,280 --> 00:53:32,280
+I should say, by the way, while we're getting a question, one of the other places where the idea of using an AI as a moderator between human to humans to decode what different tribes are thinking, and I'm not joking, is inside companies where baffled CEOs and the C-suite are trying to understand their Gen Z workers.
+
+453
+00:53:32,280 --> 00:53:41,280
+And they're literally doing experiments in some companies now of using AI tools as moderators between these different generational tribes.
+
+454
+00:53:41,280 --> 00:53:43,280
+Hi, thank you so much.
+
+455
+00:53:43,280 --> 00:53:56,280
+My question is how you think about the direction of AI in light of the falling hierarchical trust, so trust in institutions.
+
+456
+00:53:56,280 --> 00:54:10,280
+So who directs the version of AI that we all agree societally to move towards sort of aligned AI, right, values aligned AI, versus the sort of more malignant AI?
+
+457
+00:54:10,280 --> 00:54:14,280
+That's a really good question, and the answer is we don't know at the moment.
+
+458
+00:54:14,280 --> 00:54:19,280
+There are ways to have more distributed development and agency.
+
+459
+00:54:19,280 --> 00:54:30,280
+You know, that involves things like giving consumers a lot of choice about what platforms and what companies they use for different AI tools.
+
+460
+00:54:30,280 --> 00:54:45,280
+Giving them transparency about the different choices, giving them the ability to essentially use agency in choosing what kind of data sets are being used to train different AI bots and models, which is absolutely critical.
+
+461
+00:54:45,280 --> 00:54:52,280
+And to also decide how to actually deploy any AI advice or not.
+
+462
+00:54:52,280 --> 00:54:57,280
+And there are experiments going on around how to do that right now.
+
+463
+00:54:57,280 --> 00:55:09,280
+And the idea that you might be able to give different institutions or different people institutions much more agency and control over how you actually develop and train the tools that you are or are not using.
+
+464
+00:55:09,280 --> 00:55:30,280
+You know, in an ideal world, coming back to the point about retaining a human agency around it, you know, one way to try and visualize it is a bit like a Fitbit or an Aura ring, whereby you can use amazing digital tech to tell you all kinds of things you wouldn't have known otherwise about yourself and your fitness and health.
+
+465
+00:55:30,280 --> 00:55:39,280
+And you can use that ring or anything else to go and prod you to go and live a healthier lifestyle and do all kinds of things.
+
+466
+00:55:39,280 --> 00:55:52,280
+And you can even set it up to lecture you if you want or just be like a friend or you can use peer group pressure and you can put your competitive training scores up on some common platform with your friends and you have peer to peer pressure that way.
+
+467
+00:55:52,280 --> 00:55:59,280
+But you at the end of the day retain control over whether you actually decide to go on that run or not.
+
+468
+00:55:59,280 --> 00:56:02,280
+So there's still an element of agency there.
+
+469
+00:56:02,280 --> 00:56:13,280
+And ideally, that would be the kind of model of what we'd use in terms of developing our use of AI bots and tools in our everyday life to have that sense of agency and control in the last moment.
+
+470
+00:56:13,280 --> 00:56:31,280
+But whether we can do that also depends obviously in the macro picture and the question of whether at the moment these two very hierarchical vertical institutions and hierarchies of government and big tech will actually create the ability for us to do that.
+
+471
+00:56:31,280 --> 00:56:34,280
+And that comes back down to common pressure.
+
+472
+00:56:34,280 --> 00:56:41,280
+You know, a world where only 2% of people trust Congress is probably not a world where people trust Congress to do the right thing around AI.
+
+473
+00:56:41,280 --> 00:56:46,280
+And therein lies the problem.
+
+474
+00:56:46,280 --> 00:56:49,280
+Actually, this is a good piggyback question.
+
+475
+00:56:49,280 --> 00:56:56,280
+If you were in front of all of Congress and the Senate right now, so I think they could cuddle up in here right and fit.
+
+476
+00:56:56,280 --> 00:57:09,280
+What case would you make for the legislation we need to pass to protect the future that you would best imagine, whether it's data privacy or transparency?
+
+477
+00:57:09,280 --> 00:57:11,280
+What legislation do we need?
+
+478
+00:57:11,280 --> 00:57:14,280
+I think, personally speaking, I think there are several key things.
+
+479
+00:57:14,280 --> 00:57:23,280
+One is to have maximum consumer choice around platforms and to make sure we don't just end up with an oligarchy of platform choices.
+
+480
+00:57:23,280 --> 00:57:30,280
+To have maximum choice and transparency around the data sets that are being used to train the platforms.
+
+481
+00:57:30,280 --> 00:57:39,280
+To have some element, I would argue very strongly, for intellectual IP protection for the people actually creating content.
+
+482
+00:57:39,280 --> 00:57:46,280
+I'm obviously totally biased in that respect because I spent most of my career as a journalist.
+
+483
+00:57:46,280 --> 00:57:49,280
+And media content is being scraped all the time.
+
+484
+00:57:49,280 --> 00:57:56,280
+And, you know, in a way that's essentially taking away the economic value of journalism and giving to tech companies.
+
+485
+00:57:56,280 --> 00:58:09,280
+I'm in the group of people who think that eventually tech companies are going to have to pay some kind of tax or some kind of way of paying back into society for all the material they're extracting right now.
+
+486
+00:58:09,280 --> 00:58:14,280
+You know, we can't have taxes on robots right now, but we probably should do.
+
+487
+00:58:14,280 --> 00:58:27,280
+So, and I think also, at the end of the day, we need to look very seriously at the legal code around the culpability or not of bots and AI.
+
+488
+00:58:27,280 --> 00:58:30,280
+Because at the moment, it's a gray zone.
+
+489
+00:58:30,280 --> 00:58:41,280
+And also, try and put in guardrails against some of the worst potential outcomes, like, you know, a 14-year-old committing suicide because of their interaction with the bot.
+
+490
+00:58:41,280 --> 00:58:44,280
+Now, again, I can't stress strongly enough.
+
+491
+00:58:44,280 --> 00:58:58,280
+When people say AI is dangerous because it does horrible things to humans and we can't trust it because it can abuse us and prompt us to do horrible things, that is totally true.
+
+492
+00:58:58,280 --> 00:59:06,280
+But, newsflash, humans do horrible things to other humans all the time on a massively bigger scale right now.
+
+493
+00:59:06,280 --> 00:59:18,280
+So, the amount of, I hate to say this, amount of deaths occurring because of an AI bot going mad is nothing compared to the amount of human-on-human abuse that's occurring.
+
+494
+00:59:18,280 --> 00:59:21,280
+And everything we talk about has to be seen in that context.
+
+495
+00:59:21,280 --> 00:59:37,280
+But that doesn't mean that just as we have rules for trying to prevent horrible things that humans might do to other humans from not occurring, we need to apply that to bots as well, in my view.
+
+496
+00:59:45,280 --> 00:59:46,280
+Hello. Thank you for your talk.
+
+497
+00:59:46,280 --> 00:59:52,280
+So, one thing that I was curious about is the factor of social isolation in this.
+
+498
+00:59:52,280 --> 00:59:56,280
+And you've referenced that young man who committed suicide a few times.
+
+499
+00:59:56,280 --> 01:00:05,280
+When I read that story, I actually thought that that was very resonant as a symptom of social isolation as a consequence of this dependency on the AI bot.
+
+500
+01:00:05,280 --> 01:00:10,280
+And I don't know if you remember reading the actual transcript that he had shared with that bot.
+
+501
+01:00:10,280 --> 01:00:11,280
+Yeah.
+
+502
+01:00:11,280 --> 01:00:14,280
+It hadn't actually encouraged him to commit suicide.
+
+503
+01:00:14,280 --> 01:00:18,280
+He had posed that idea and it gave very bland, generic responses.
+
+504
+01:00:18,280 --> 01:00:19,280
+It was a mirror.
+
+505
+01:00:19,280 --> 01:00:20,280
+Yeah.
+
+506
+01:00:20,280 --> 01:00:21,280
+Yeah.
+
+507
+01:00:21,280 --> 01:00:33,280
+And related to what you were talking about with online communities contributing to extremism, one thing that I kind of think about is how online communities can be a substitute for real life community.
+
+508
+01:00:33,280 --> 01:00:44,280
+And how AI can kind of create communities of one where you will never need to interact with another human being if you decide that you'd rather substitute that to a bot.
+
+509
+01:00:44,280 --> 01:00:46,280
+So, I'm curious about the social isolation aspect.
+
+510
+01:00:46,280 --> 01:00:47,280
+I couldn't agree more.
+
+511
+01:00:47,280 --> 01:00:53,280
+And like everything, it cuts both positive and very negative.
+
+512
+01:00:53,280 --> 01:01:04,280
+You know, on the one hand, if we just stick with the technology aspect of it, when I was a teenager growing up, I was an obsessive writer.
+
+513
+01:01:04,280 --> 01:01:09,280
+And I wrote novels in my bedroom by myself all through my teenage years.
+
+514
+01:01:09,280 --> 01:01:14,280
+And I didn't know anybody else who had this weird obsession like me.
+
+515
+01:01:14,280 --> 01:01:16,280
+And I never showed my writing to anybody else.
+
+516
+01:01:16,280 --> 01:01:23,280
+And I felt completely on my own in that respect, you know, in 1970s suburban Britain.
+
+517
+01:01:23,280 --> 01:01:29,280
+My youngest kid has somehow inherited this obsession too.
+
+518
+01:01:29,280 --> 01:01:39,280
+And her experience could not be more different because, like me, they started scribbling away, age 12, 13, passionately, obsessively.
+
+519
+01:01:39,280 --> 01:01:47,280
+But then they immediately went online and discovered something called Wattpad, which to my mind is an absolutely brilliant innovation.
+
+520
+01:01:47,280 --> 01:01:53,280
+And it's basically a club for other weirdo teenagers who also write obsessively.
+
+521
+01:01:53,280 --> 01:02:03,280
+And it's amazing because you can go online, you can post your writing, you can talk to people all over the world, and you can get your stuff read.
+
+522
+01:02:03,280 --> 01:02:14,280
+And you actually make better literature very fast by creating a community almost immediately, which you would never have been able to do, in my case, 50 years ago or 40 years ago.
+
+523
+01:02:14,280 --> 01:02:19,280
+That's the upside, that you can suddenly find a community where you never had it before.
+
+524
+01:02:19,280 --> 01:02:24,280
+And, of course, the other upside is you have the validation of thinking, you know what, I'm not weird.
+
+525
+01:02:24,280 --> 01:02:36,280
+And if I want to define myself as a writer, and my parents don't think I should be writing, they think I should be a jock playing lacrosse every weekend, you can literally go online and you can be empowered to be who you want to be.
+
+526
+01:02:36,280 --> 01:02:38,280
+That is amazing.
+
+527
+01:02:38,280 --> 01:02:47,280
+And I would not for a millisecond want to lose that, because in so many ways this digital technology has brought about incredible opportunities.
+
+528
+01:02:47,280 --> 01:03:06,280
+The dark side, of course, is that the rise of digitization, the fact we had COVID, those two things together, as people like Jonathan Haidt have described so brilliantly, have done terrible things, it seems, to teenagers' mental health, and cultivated this sense of isolation.
+
+529
+01:03:06,280 --> 01:03:11,280
+And for some kids, cause them to withdraw into their bedrooms and from the world.
+
+530
+01:03:11,280 --> 01:03:13,280
+And that's horrifying.
+
+531
+01:03:13,280 --> 01:03:17,280
+You know, it's also created very dark communities.
+
+532
+01:03:17,280 --> 01:03:22,280
+You know, you talk about incels and extremists.
+
+533
+01:03:22,280 --> 01:03:32,280
+I mean, the one that I know a lot about, because of my own family, wider family network, is eating disorders and suicidal ideation.
+
+534
+01:03:32,280 --> 01:03:37,280
+And I've seen up close and personal what can happen when kids get sucked into that.
+
+535
+01:03:37,280 --> 01:03:58,280
+But, again, talking about the light and dark, you know, a couple of kids I know who have almost not made it to the age of 20, because they've been dragged down into that dark world by virtue of social media, have then recovered also by virtue of social media.
+
+536
+01:03:58,280 --> 01:04:11,280
+Because out there on the internet, and if any of you have ever had the horror of dealing with a teenager who's been in this situation, you might know about this, there's now a whole community of recovery apps and recovery tools and recovery communities.
+
+537
+01:04:11,280 --> 01:04:17,280
+You know, Recovery Row, you know, Linda Sun, all these people are amazing.
+
+538
+01:04:17,280 --> 01:04:27,280
+And if you're a recovering teen today from an eating disorder, and by the way, if anyone is in that situation of having kids in your life in that situation, I can't stress strongly enough, there's actually a way to use social media for good.
+
+539
+01:04:27,280 --> 01:04:34,280
+That has been a crucial part of their recovery journey.
+
+540
+01:04:34,280 --> 01:04:36,280
+So, as I say, it's good and bad.
+
+541
+01:04:36,280 --> 01:04:40,280
+And the question for us now is how do we harness the good and minimize the bad?
+
+542
+01:04:40,280 --> 01:04:42,280
+That's a critical question.
+
+543
+01:04:46,280 --> 01:04:49,280
+Three observations and a question.
+
+544
+01:04:49,280 --> 01:04:56,280
+At one point in time, television was an innovative technology, and it turned into a wasteland where violence is entertainment.
+
+545
+01:04:56,280 --> 01:05:02,280
+People are now developing different identities.
+
+546
+01:05:02,280 --> 01:05:05,280
+They have an internet identity and their real life identity.
+
+547
+01:05:05,280 --> 01:05:08,280
+Some people think this makes people schizophrenic.
+
+548
+01:05:08,280 --> 01:05:17,280
+Also, the difference in Europe and America, or Europe, they trust government more and corporations less, and the US is the opposite.
+
+549
+01:05:17,280 --> 01:05:20,280
+They trust corporations more and the government less.
+
+550
+01:05:20,280 --> 01:05:24,280
+So, in this, where does hacking fit into all this?
+
+551
+01:05:24,280 --> 01:05:27,280
+You mean hacking in the sense of?
+
+552
+01:05:27,280 --> 01:05:40,280
+Your personal hacking, your Instagram, everybody else gets hacked, they want to get money, and on the larger case with governments, information, corporations, they get very compromised.
+
+553
+01:05:40,280 --> 01:05:41,280
+It's terrifying.
+
+554
+01:05:41,280 --> 01:05:42,280
+It's terrifying.
+
+555
+01:05:42,280 --> 01:05:43,280
+There's no two ways about it.
+
+556
+01:05:43,280 --> 01:05:44,280
+It's terrifying.
+
+557
+01:05:44,280 --> 01:05:49,280
+I mean, you know, we're dealing with potential both hacking in the sense of massive manipulation.
+
+558
+01:05:49,280 --> 01:05:56,280
+You know, the reason why the data, you know, it is absolutely critically important what the AI tools are being trained on in terms of data sets.
+
+559
+01:05:56,280 --> 01:06:06,280
+And, you know, there are already signs that people are trying to pollute and revert the data sets by hacking into the data sets or basically putting all kinds of horrible material into that stream.
+
+560
+01:06:06,280 --> 01:06:11,280
+There's hacking in terms of simple robbery from people.
+
+561
+01:06:11,280 --> 01:06:14,280
+There's hacking in terms of identity theft.
+
+562
+01:06:14,280 --> 01:06:17,280
+You know, I mean, it's an absolute Wild West right now.
+
+563
+01:06:17,280 --> 01:06:27,280
+And there is an urgent need for both more resources, more appreciation, and more coordination in efforts to try and fight back.
+
+564
+01:06:27,280 --> 01:06:31,280
+And, frankly, a lot more education of anyone who's going online at the same time.
+
+565
+01:06:31,280 --> 01:06:33,280
+So, it's very, very serious.
+
+566
+01:06:33,280 --> 01:06:36,280
+And I'm not, for a millisecond, downplaying that whatsoever.
+
+567
+01:06:36,280 --> 01:06:38,280
+It's very serious.
+
+568
+01:06:38,280 --> 01:06:57,280
+Of course, I mean, I would just also point out that, you know, if you go back, you know, 150, 200 years, where we're standing right now could also be very dangerous because of things like highway robberies and all other kinds of, you know, violence as well, which, thankfully, is less common now.
+
+569
+01:06:57,280 --> 01:07:06,280
+So, forms of, you know, ways for humans to do horrible things to other humans have been, you know, prevalent for a very, very long time.
+
+570
+01:07:06,280 --> 01:07:09,280
+But, I mean, I'm not trying to minimize cyber hacking, but that is a new threat today.
+
+571
+01:07:09,280 --> 01:07:18,280
+Thank you.
+
+572
+01:07:18,280 --> 01:07:29,280
+Given what you've described as almost chaotic cultural changes, do you think that there is a fundamental concept of trust?
+
+573
+01:07:29,280 --> 01:07:32,280
+Do you think the definition of trust has changed?
+
+574
+01:07:32,280 --> 01:07:41,280
+It seems to me that when you talk about distributed trust, that the notion of trust is somehow more restricted.
+
+575
+01:07:41,280 --> 01:07:42,280
+Maybe that's my own impression.
+
+576
+01:07:42,280 --> 01:07:43,280
+Trust is restricted.
+
+577
+01:07:43,280 --> 01:07:44,280
+More restricted.
+
+578
+01:07:44,280 --> 01:07:51,280
+We're almost turning a blind eye to some areas where we might have trusted or not trusted before.
+
+579
+01:07:51,280 --> 01:07:55,280
+And perhaps I'm not quite understanding this concept of silence.
+
+580
+01:07:55,280 --> 01:08:15,280
+And my second question, more of a question, sorry, is if AI systems are going to become as agentic or perhaps more agentic than us, will we need some kind of formalism for what trust is?
+
+581
+01:08:15,280 --> 01:08:16,280
+I think that's a very good question.
+
+582
+01:08:16,280 --> 01:08:20,280
+I mean, first of all, to make the obvious point, trust exists in a spectrum.
+
+583
+01:08:20,280 --> 01:08:24,280
+So it's all the way from complete lack of trust to total blind trust.
+
+584
+01:08:24,280 --> 01:08:32,280
+And as we all know, in terms of our human relationships or anything else, interactions in the world, trust can shift, trust can be shattered, it can change.
+
+585
+01:08:32,280 --> 01:08:42,280
+You know, the old thing of trust and, you know, trust and then verify, I think is, again, a mantra that should be taught to everyone going online right now.
+
+586
+01:08:42,280 --> 01:08:51,280
+So, you know, I'm not saying it's black or white at all, but I'm trying to indicate that there is more than one way to create trust than the traditional time of pattern.
+
+587
+01:08:51,280 --> 01:09:05,280
+And, you know, the other thing I should have said is that, you know, because we've gone into this world of, you know, trust migrating from a vertical to a horizontal and growing pick and mix, it doesn't mean that necessarily we'll always keep going in that direction forever.
+
+588
+01:09:05,280 --> 01:09:08,280
+I mean, you know, these things can swing back and forth.
+
+589
+01:09:08,280 --> 01:09:17,280
+I sometimes think, you know, is there anything that could cause our modern generations to suddenly say, I don't want customization all the time.
+
+590
+01:09:17,280 --> 01:09:20,280
+I'm happy to have a one size fits all.
+
+591
+01:09:20,280 --> 01:09:29,280
+Is there anything which could basically cause us to suddenly say, yes, I'm going to fall in line and obey authority figures unquestioningly, no matter what?
+
+592
+01:09:29,280 --> 01:09:33,280
+Frankly, I think probably the only thing that could do that today is war.
+
+593
+01:09:33,280 --> 01:09:42,280
+That, you know, if you're in the army, the definition of being in the army is you have to basically suck it up as a one size fits all and deal with authority figures.
+
+594
+01:09:42,280 --> 01:09:46,280
+We've seen periods of time when that was a norm in the past.
+
+595
+01:09:46,280 --> 01:09:52,280
+You know, if, heavens forbid, we end up in a military conflict, maybe this trust pattern will shift again.
+
+596
+01:09:52,280 --> 01:10:05,280
+But certainly at the moment, it's very hard to see anything that would actually put the genie back in the bottle where suddenly society collectively says we all are going to trust government and trust authority figures in the way that people did 80 years ago.
+
+597
+01:10:05,280 --> 01:10:09,280
+Okay, so I have one over here.
+
+598
+01:10:09,280 --> 01:10:19,280
+Hi, thank you for your very human perspective on things.
+
+599
+01:10:19,280 --> 01:10:22,280
+When I think of trust, I think of the word faith.
+
+600
+01:10:22,280 --> 01:10:36,280
+And I think about how one of the longest standing institutions of trust besides trusting the physical world and physics, we trust, I think, religion and faith.
+
+601
+01:10:36,280 --> 01:10:40,280
+There's a lot of talk about consciousness.
+
+602
+01:10:40,280 --> 01:10:42,280
+I really love that you brought up Shintoism.
+
+603
+01:10:42,280 --> 01:10:55,280
+And so my question for you, as somebody who studies culture, is I see us going towards a new faith in something very tangible.
+
+604
+01:10:55,280 --> 01:11:01,280
+And I think artificial superintelligence is inevitable.
+
+605
+01:11:01,280 --> 01:11:04,280
+I think it's going to happen within the next five to 10 years.
+
+606
+01:11:04,280 --> 01:11:09,280
+So what happens culturally when we have a very tangible digital messiah?
+
+607
+01:11:09,280 --> 01:11:21,280
+Well, then we will have a whole new iteration of potential trust, blind trust, misplaced trust, trust that can be manipulated.
+
+608
+01:11:21,280 --> 01:11:23,280
+We don't know.
+
+609
+01:11:23,280 --> 01:11:33,280
+But on the issue of religion, again, religion is another area where we are starting to see a sense of pick and mix culture coming in.
+
+610
+01:11:33,280 --> 01:11:42,280
+You know, there's a lot of dispute right now about whether, you know, younger Americans are less religious, more religious.
+
+611
+01:11:42,280 --> 01:11:47,280
+And a lot of that debate centers around the definition of what is religion.
+
+612
+01:11:47,280 --> 01:12:01,280
+Is believing in wellness and wellness apps and meditation and having a finch on your phone, which is one of these little apps that tells you, you know, sort of ethical messages every day.
+
+613
+01:12:01,280 --> 01:12:08,280
+Is that religion or is religion in a church or a mosque or a synagogue?
+
+614
+01:12:08,280 --> 01:12:15,280
+You know, again, we're dealing with a world of, you know, is the idea of going to church like having a vinyl record?
+
+615
+01:12:15,280 --> 01:12:22,280
+You're given a preset menu on a platter in a world where people like to pick and mix what they want all the time.
+
+616
+01:12:22,280 --> 01:12:30,280
+And so that's the main way that I thought about, you know, how religious patterns and behavior is shifting.
+
+617
+01:12:30,280 --> 01:12:45,280
+But, you know, if you're right and we're going to end up with, you know, AGI, you know, an artificial super intelligence soon that we all end up blinding blindly trusting, will that be a deity or new deity?
+
+618
+01:12:45,280 --> 01:12:48,280
+I think for many people in the room, they would say absolutely not.
+
+619
+01:12:48,280 --> 01:12:50,280
+And look at that with horror.
+
+620
+01:12:50,280 --> 01:12:59,280
+But, you know, if you're looking at that within the whole spectrum of how culture is shifting, then one might potentially frame it in those ways.
+
+621
+01:12:59,280 --> 01:13:05,280
+Remember, I come, my day job is at King's College in Cambridge, which has a massive great chapel.
+
+622
+01:13:05,280 --> 01:13:17,280
+And I spent a huge amount of time in a 600-year-old chapel, you know, looking up at the ceiling and thinking about how extraordinary it is that this chapel, created 600 years ago under Henry VIII,
+
+623
+01:13:17,280 --> 01:13:29,280
+remained so dominant in that college and that city and culture in a way that certainly I would not have expected necessarily.
+
+624
+01:13:29,280 --> 01:13:31,280
+Would that be replaced by an AGI?
+
+625
+01:13:31,280 --> 01:13:33,280
+Hard to believe.
+
+626
+01:13:33,280 --> 01:13:43,280
+But we are going into some really fascinating, terrifying, but also exciting times in all kinds of areas in terms of what AI could end up doing.
+
+627
+01:13:43,280 --> 01:13:46,280
+So we have time for three more questions.
+
+628
+01:13:46,280 --> 01:13:48,280
+And I've acknowledged three individuals.
+
+629
+01:13:48,280 --> 01:13:50,280
+So there's this man in the center with a microphone.
+
+630
+01:13:50,280 --> 01:13:52,280
+And then there's a young woman in the front who had a question.
+
+631
+01:13:52,280 --> 01:13:54,280
+And then Chris will end with you.
+
+632
+01:13:54,280 --> 01:13:56,280
+Thank you for a wonderful presentation.
+
+633
+01:13:56,280 --> 01:13:58,280
+I have a question.
+
+634
+01:13:58,280 --> 01:14:06,280
+Historically, journalists and people doing research get other opinions before they publish.
+
+635
+01:14:06,280 --> 01:14:08,280
+They double check.
+
+636
+01:14:08,280 --> 01:14:24,280
+I saw a presentation recently where an individual involved in AI went to one AI source, one chat, then went to another and asked it what they thought of the first.
+
+637
+01:14:24,280 --> 01:14:27,280
+And in fact, he used four.
+
+638
+01:14:27,280 --> 01:14:31,280
+Do you see a role for this in the future?
+
+639
+01:14:31,280 --> 01:14:35,280
+Well, again, there's a good and bad side.
+
+640
+01:14:35,280 --> 01:14:46,280
+The bad side is that, as you would have read, increasingly training data to train the models is essentially relying on AI-generated data.
+
+641
+01:14:46,280 --> 01:14:55,280
+So you're ending up with a kind of hall of mirrors and self-referential hall of mirrors that ends up polluting and corrupting much of the source material.
+
+642
+01:14:55,280 --> 01:15:02,280
+And so the idea of AI using other AI tools to kind of verify, et cetera, et cetera, is potentially very dangerous.
+
+643
+01:15:02,280 --> 01:15:15,280
+And it's one of the reasons why you can end up with crazy results, hallucinations, or things like the recent grok results around Hitler that some of you may have seen.
+
+644
+01:15:15,280 --> 01:15:22,280
+So that's the dark side of creating a self-referential, self-feeding echo chamber feedback loop, et cetera.
+
+645
+01:15:22,280 --> 01:15:39,280
+The other side, and this is a positive way to try and look at AI, is that it can actually expand your team of fact-checkers and second opinions in a very creative way that might actually create a much richer sense of knowledge and dialogue.
+
+646
+01:15:39,280 --> 01:15:51,280
+And as a journalist, increasingly people are using AI tools to kind of, as checks and balances, to crowdsource ideas, to crowdsource facts.
+
+647
+01:15:51,280 --> 01:16:00,280
+It doesn't mean the AI is necessarily writing the pieces, but you actually get a much wider range of ideas and prompts by potentially using them to be more creative.
+
+648
+01:16:00,280 --> 01:16:22,280
+And one of the many bitter ironies of my own sort of career in life is that about, when my last book came out called Anthrovision, I went around about five years ago saying with great misplaced confidence that there was one thing that AI would never do, which is to tell a really good joke.
+
+649
+01:16:22,280 --> 01:16:29,280
+So I used to say, well, the great thing is, if you're a comedian, you have job security.
+
+650
+01:16:29,280 --> 01:16:34,280
+And the reason is that humor, in many ways, is the ultimate cultural artifact.
+
+651
+01:16:34,280 --> 01:16:39,280
+Because the reason why anyone laughs at anything else rests in a sense of tribalism.
+
+652
+01:16:39,280 --> 01:16:42,280
+You know, you have to be in the in-group to get a joke.
+
+653
+01:16:42,280 --> 01:16:44,280
+If you're not in the in-group, you don't get the joke.
+
+654
+01:16:44,280 --> 01:16:47,280
+So jokes define tribal groups and vice versa.
+
+655
+01:16:47,280 --> 01:16:55,280
+But also because humor tends to work through contradiction and ambiguity in our cultural patterns.
+
+656
+01:16:55,280 --> 01:17:00,280
+And it also tends to tap into social silences, the stuff we don't actually want to acknowledge.
+
+657
+01:17:00,280 --> 01:17:09,280
+And it used to be assumed that all of that was very, very hard for AI platforms and tools to actually read or replicate.
+
+658
+01:17:09,280 --> 01:17:14,280
+And then it turned out that I was dead wrong.
+
+659
+01:17:14,280 --> 01:17:26,280
+And the reason is as follows that the old AI systems, pre-transformers, which were basically about trying to plot a logical path of thought, did indeed find it very hard to tell jokes.
+
+660
+01:17:26,280 --> 01:17:34,280
+Because jokes aren't logical, generally, unless they are the very crude, knock, knock, who's there, Christmas cracker type jokes.
+
+661
+01:17:34,280 --> 01:17:47,280
+If you're using transformers and you're basically working on a probabilistic prediction system, you can just observe loads of jokes and work out the probability of what will be funny next time around.
+
+662
+01:17:47,280 --> 01:17:52,280
+And what's happened is that joke writing apps have cropped up.
+
+663
+01:17:52,280 --> 01:17:56,280
+And they're only funny about 40% of the time.
+
+664
+01:17:56,280 --> 01:18:03,280
+But newsflash, human comedians are only funny 40% of the time too.
+
+665
+01:18:03,280 --> 01:18:15,280
+And I say that because, I'm actually deadly serious, because if you look at who actually writes late night television comedy skits, insofar as we still have late night television comedy skits on TV.
+
+666
+01:18:15,280 --> 01:18:24,280
+You know, you might think it's one brilliant person, Stephen Colbert, sitting in a room, developing his jokes, all by himself, boom, magic, he tells them.
+
+667
+01:18:24,280 --> 01:18:26,280
+And that's not true.
+
+668
+01:18:26,280 --> 01:18:28,280
+Any of you who've worked in the television world know.
+
+669
+01:18:28,280 --> 01:18:36,280
+What actually happens is you have a team of comedy writers sitting together, coming up with jokes, only of which 40% are funny.
+
+670
+01:18:36,280 --> 01:18:40,280
+And they throw out the other 60% and they refine them.
+
+671
+01:18:40,280 --> 01:18:52,280
+So now what's actually happening is that you're having, in some cases, an AI bot added into the team and creating another set of 40% good jokes.
+
+672
+01:18:52,280 --> 01:18:59,280
+And simply adding into the mix and making a richer dynamic in terms of checks and balances at the moment.
+
+673
+01:18:59,280 --> 01:19:10,280
+Now, in the future, maybe that AI bot will end up being the only joke teller, or you'll have a whole team of AI jokes, each of which are producing jokes which are 40% funny.
+
+674
+01:19:10,280 --> 01:19:12,280
+And I'm deadly serious, if anyone's interested.
+
+675
+01:19:12,280 --> 01:19:16,280
+I mean, there's actually quite, there's some very interesting research done on this whole thing.
+
+676
+01:19:16,280 --> 01:19:36,280
+But what I'm trying to say is when it comes to journalism and fact checking, you know, in some ways, I imagine the best, most positive outcome and future will be using AI, not as artificial intelligence, but augmented intelligence, or additional intelligence, or accelerated intelligence, to actually create a richer dynamic in a team.
+
+677
+01:19:36,280 --> 01:19:39,280
+That, to me, is the best way looking forward.
+
+678
+01:19:39,280 --> 01:19:45,280
+Thank you.
+
+679
+01:19:45,280 --> 01:19:51,280
+So, you've given advice to Congress, and we've heard you talk a lot about the good and the bad.
+
+680
+01:19:51,280 --> 01:19:54,280
+And another group that's really struggling to navigate that is parents.
+
+681
+01:19:54,280 --> 01:20:00,280
+So, what advice would you give to parents who are struggling, one, with the social isolation that you've already talked about,
+
+682
+01:20:00,280 --> 01:20:09,280
+and two, trying to preserve space for that wandering and discovery that you mentioned is more rare of a commodity these days?
+
+683
+01:20:09,280 --> 01:20:10,280
+Yes.
+
+684
+01:20:10,280 --> 01:20:15,280
+Well, I feel very unqualified to give advice, because I'm a parent, and I screwed up endlessly myself.
+
+685
+01:20:15,280 --> 01:20:16,280
+So, there you go.
+
+686
+01:20:16,280 --> 01:20:36,280
+So, I guess what I'd say is, firstly, take what Dana Boyd says to heart, that you cannot begin to understand how teenagers are using cell phones and computers and digital devices just by looking at the noise, which is a cell phone.
+
+687
+01:20:36,280 --> 01:20:40,280
+You have to look at how they're interacting in the physical world as well.
+
+688
+01:20:40,280 --> 01:20:55,280
+And someone like Jonathan Haidt says, and I strongly agree, that if you want to create kids who are less prone to being addicted and seduced by digital tech, let them roam in the real world in a way that's gone out of fashion today.
+
+689
+01:20:55,280 --> 01:20:57,280
+So, that's the first point.
+
+690
+01:20:57,280 --> 01:21:06,280
+Secondly, I would agree with a lot of what Jonathan says about trying to make sure that you have some sense of oversight insofar as you can.
+
+691
+01:21:06,280 --> 01:21:09,280
+Be aware of your own behavior.
+
+692
+01:21:09,280 --> 01:21:16,280
+You know, if someone's addicted to their cell phone as an adult, it's very unfair to expect kids not to behave the same way.
+
+693
+01:21:16,280 --> 01:21:27,280
+Ask your kids to teach you about how they're using social media and apps and try and learn from them as well.
+
+694
+01:21:27,280 --> 01:21:32,280
+And try and recognize that there's both a very good and very bad side to all this.
+
+695
+01:21:32,280 --> 01:21:35,280
+And, you know, the bad side is not going to disappear.
+
+696
+01:21:35,280 --> 01:21:36,280
+It really isn't.
+
+697
+01:21:36,280 --> 01:21:39,280
+There are so many horrifying dangers today.
+
+698
+01:21:39,280 --> 01:21:45,280
+But trying to plug into the good side as well is really important.
+
+699
+01:21:45,280 --> 01:22:00,280
+And at the end of the day, you know, what will shape or what will give us the best chance of having healthy human-AI interactions for teens as well as anyone else is having healthy human-to-human interactions.
+
+700
+01:22:00,280 --> 01:22:04,280
+And that really is the most important thing of all.
+
+701
+01:22:04,280 --> 01:22:15,280
+But, again, I think keeping this idea in your mind of, you know, AI or bots as masters, mates, mirrors, or moderators is quite a good way to frame it.
+
+702
+01:22:15,280 --> 01:22:19,280
+And recognize that there are different ways that teens are using these today.
+
+703
+01:22:19,280 --> 01:22:21,280
+Mostly it's around mates or mirrors.
+
+704
+01:22:21,280 --> 01:22:26,280
+And trying to see where the both good and bad sides are.
+
+705
+01:22:26,280 --> 01:22:31,280
+Thank you, Dr. Tett, very much.
+
+706
+01:22:31,280 --> 01:22:33,280
+A long-time fan of FT.
+
+707
+01:22:33,280 --> 01:22:35,280
+And it's wonderful to hear that you have a relationship with Santa Fe.
+
+708
+01:22:35,280 --> 01:22:36,280
+So welcome back.
+
+709
+01:22:36,280 --> 01:22:38,280
+I couldn't help but...
+
+710
+01:22:38,280 --> 01:22:48,280
+I really chuckled at your characterization of, like, the US thinking of AI as like HAL 9000 and Singapore thinking of it more as a R2-D2 type of interaction.
+
+711
+01:22:48,280 --> 01:22:59,280
+But I'm just curious to hear your kind of sober prognostication of, like, what this will turn out to be in the US given kind of our political directions.
+
+712
+01:22:59,280 --> 01:23:13,280
+While at the same time thinking of Singapore as a place where, you know, what LKY is spinning in his grave because he didn't have AI to help, you know, shape the Singaporean society with the PAP.
+
+713
+01:23:13,280 --> 01:23:19,280
+And then the corollary to that is I really like the vertical versus horizontal trust framework.
+
+714
+01:23:19,280 --> 01:23:29,280
+But I feel like the MAGA movement is kind of a strange creature in the sense that they coalesced in a horizontal way but now are finding themselves in a vertical way.
+
+715
+01:23:29,280 --> 01:23:32,280
+So I don't know how you see that kind of playing out in the bigger picture.
+
+716
+01:23:32,280 --> 01:23:36,280
+Yeah, I mean, I can't stress strongly enough. It's not always an either or.
+
+717
+01:23:36,280 --> 01:23:45,280
+And so what's happened with something, you know, what typically happens with something like the MAGA movement is that they are operating as a peer group, you know, as a horizontal platform.
+
+718
+01:23:45,280 --> 01:23:54,280
+But coalescing around a shiny brand, if you like, you know, they're not adopting the entire political party called Republicanism.
+
+719
+01:23:54,280 --> 01:24:04,280
+You know, that's like vinyl records. They're choosing to pick a mix bits of what's on offer and that right now the brand they're coalescing around is Donald Trump and it's a personality cult.
+
+720
+01:24:04,280 --> 01:24:13,280
+It's a personality cult. And so it's a personality cult that they hang on to very strongly because they chose it. They feel they chose it.
+
+721
+01:24:13,280 --> 01:24:23,280
+If you choose something and choose a symbol, then you tend to hang on to it even stronger than it is simply assigned to you at birth or an entire package is just given to you.
+
+722
+01:24:23,280 --> 01:24:36,280
+You know, in terms of what that means for AI, where it's going, I mean, you know, I wouldn't dare to make a prediction as to how those two things are going to interact in the next 10 years.
+
+723
+01:24:36,280 --> 01:24:47,280
+But clearly, AI is accelerating. Clearly, at the moment, one of the things I find very scary is the concentration of power and knowledge around AI into a small group of people.
+
+724
+01:24:47,280 --> 01:24:54,280
+And there's a real danger of regulatory capture or political capture that you see in any industry.
+
+725
+01:24:54,280 --> 01:25:01,280
+You know, I was covering finance on Wall Street for many years and saw that there. And there's a real danger of that occurring.
+
+726
+01:25:01,280 --> 01:25:19,280
+And what's particularly alarming in the US context is the lack of digital literacy on a mass scale and also the lack of any sort of proactive training or, dare I say, industrial policy around this in a way that will actually engage a wide range of people.
+
+727
+01:25:19,280 --> 01:25:26,280
+You know, I am not remotely starry eyed about Singapore. You know, it's got some very bad things about it as well as good things.
+
+728
+01:25:26,280 --> 01:25:42,280
+However, Singapore is striking because there is a high level of digital literacy and there's a very deliberate, very, very deliberate effort to create maximum digital literacy and engagement and agency in schools.
+
+729
+01:25:42,280 --> 01:25:49,280
+There's a very clear cut industrial policy which is trying to, you know, essentially underpin that.
+
+730
+01:25:49,280 --> 01:26:01,280
+And as I said earlier, there is a sense of some level of social cohesion and social trust, which means that people are turning to AI tools as a supplement, not a crutch.
+
+731
+01:26:01,280 --> 01:26:14,280
+And that's quite different. But, you know, once again, I can't stress strongly enough the way that cultures and things can change. And one other example I'll cite is Ukraine.
+
+732
+01:26:14,280 --> 01:26:21,280
+In that I've been going to Ukraine for many years and gone many, many times since the war started.
+
+733
+01:26:21,280 --> 01:26:39,280
+And one of the things that most people in the West don't know about Ukraine is that even before the war started, because Ukraine had a massive population of mostly back office coders and techies, which were serving Western companies in the country.
+
+734
+01:26:39,280 --> 01:26:48,280
+And because they were very much respected, you really had a much more digitally savvy, savvy culture and government.
+
+735
+01:26:48,280 --> 01:26:57,280
+And before the war started, they created something called Dia, which is an app on your phone, which basically allows you to do most government functions, most civic functions on your phone.
+
+736
+01:26:57,280 --> 01:27:12,280
+They have it in Estonia and places like Singapore as well. And when the war started, Dia almost overnight went from being a sort of nice to have to an absolute bedrock of how Ukrainian society exists today.
+
+737
+01:27:12,280 --> 01:27:19,280
+So today you can have your passport and your driving license and file your tax forms and your bank accounts.
+
+738
+01:27:19,280 --> 01:27:27,280
+And you can report bombing. You can send pictures in from, you know, bash buildings.
+
+739
+01:27:27,280 --> 01:27:32,280
+You can take photographs of existing still still unbombed buildings to save them for future generations.
+
+740
+01:27:32,280 --> 01:27:41,280
+You can do just about everything on your app. And if you want to know how Ukrainian societies kept functioning, although half the population has fled through Dia.
+
+741
+01:27:41,280 --> 01:27:55,280
+And, you know, that's really changed culture and it's changed how people interact with each other and created a lot of, you know, horizontal interactions in ways that were unimaginable 10, 20 years ago.
+
+742
+01:27:55,280 --> 01:28:06,280
+So the point I'm trying to make is that, and by the way, there's also all kinds of air raid alarm systems and stuff like that as well on, you know, on people's phones.
+
+743
+01:28:06,280 --> 01:28:12,280
+Cultures can change more rapidly than we realize when technology comes in, particularly when there's a crisis.
+
+744
+01:28:12,280 --> 01:28:20,280
+And conversely, if people are mindful, you can also use your cultural base to shape how technology develops as well.
+
+745
+01:28:20,280 --> 01:28:23,280
+And that, in essence, is what I'm trying to argue.
+
+746
+01:28:23,280 --> 01:28:29,280
+AI needs a second AI, anthropology intelligence, to create augmented intelligence.
+
+747
+01:28:29,280 --> 01:28:35,280
+And augmented intelligence with agency is above all else what we should be aiming for today.
+
+748
+01:28:35,280 --> 01:28:36,280
+Thank you very much.
+
+749
+01:28:36,280 --> 01:28:37,280
+Thank you.
+
+750
+01:28:37,280 --> 01:28:38,280
+Thank you.
+
+751
+01:28:38,280 --> 01:28:39,280
+Thank you.
+
+752
+01:28:39,280 --> 01:28:42,280
+.
+

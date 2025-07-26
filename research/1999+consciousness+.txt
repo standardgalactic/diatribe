@@ -1,0 +1,838 @@
+ 
+The evolution of consciousness 
+ 
+By Geoffrey Miller 
+ 
+Previously unpublished 
+Miller, G. F. (1999). The evolution of consciousness. Unpublished manuscript, Sept. 21.   
+ 
+ 
+Philosophical writing about consciousness often sounds like love poetry.  Philosophers 
+of mind, like medieval troubadours and lovesick teenagers, dwell upon the sublime 
+redness of the rose, the emotional urgency of music, the soft warmth of skin, the 
+bittersweet pangs of memory, the vertiginous freedom of imagination, and the existential 
+loneliness of the self.   
+ 
+Some philosophers list such experiences in an attempt to show that natural selection 
+could not possibly account for human consciousness.  How could these subjective 
+experiences have improved our survival prospects?  On the other hand, the love poets 
+list such experiences to attract mates, understanding that their expression is the very 
+heart of human courtship.   How could these experiences not have improved our 
+reproductive prospects?   
+ 
+We saw how sexual choice may have increased the size of our brains, penises, and 
+breasts, and our capacities for art, morality, language, and creativity.  Could it have 
+reached all the way into our subjective experience, crafting a new, human kind of 
+consciousness out of a primate brain?  Can evolutionary psychology storm the citadel of 
+the self?   
+ 
+Psychologist Stuart Sutherland once wrote "Consciousness is a fascinating but elusive 
+phenomenon: it is impossible to specify what it is, what it does, or why it evolved. 
+Nothing worth reading has been written about it."  Yet the study of consciousness has 
+blossomed in recent years.  Many of the new consciousness researchers agree that 
+there are easy kinds of consciousness to explain, and a hard core of subjective 
+experience that seems immune to scientific explanation.   
+ 
+The easy kinds are usually called "psychological consciousness" or "third-person 
+consciousness".  But I will use the term "objective consciousness", because these 
+include all the externally observable aspects of human consciousness, such as being 
+alive rather than dead, awake rather than asleep, and sober rather than drugged.  They 
+also include the ability to articulate one's state of mind by talking about sensory 
+experiences, self-consciousness, and identity.  With progress in cognitive neuroscience 
+and artificial intelligence, these capacities now seem less like transcendental mysteries 
+and more like technical problems of brain design.  It looks increasingly possible to build 
+a robot that implements these forms of objective consciousness.  
+ 
+However, there appears to be some residue left over, which philosophers call 
+"phenomenal consciousness", "first-person consciousness", or "subjective 
+consciousness".  Many philosophers believe that science cannot account for these 
+subjective phenomena, which include the sense of what it is like to be oneself, and what 
+it is like to have personal experiences.  For example, David Chalmers argued that there 
+might exist "zombies" that are physically identical to ordinary humans down to every 
+brain cell and elementary particle, and that behave just like ordinary people, but that 
+
+ 
+might not have any subjective experience.  The lights would be on, but there'd be 
+nobody home.   
+ 
+A major problem for evolutionary psychology is that if such zombies could really exist, 
+evolution could not account for subjective consciousness.  This is because selection can 
+only shape mental adaptations insofar as they affect behavior.  As defined by 
+philosophers, only objective consciousness affects behavior, while subjective 
+consciousness is just along for the ride.  A zombie that behaved identically to a person 
+with subjective experience would have the same survival and reproduction prospects.   
+ 
+If subjective consciousness is not manifest in behavior, then selection, which operates 
+on behavior, cannot favor it, and evolutionary cannot explain it.  
+ 
+There seems to be a gap between objective, third-person consciousness and subjective, 
+first-person consciousness, and this gap is what makes zombies look conceivable.  I will 
+try to bridge the gap by considering the intermediate case of second-person 
+consciousness, as revealed during courtship.  In courtship, a third-person "him" or "her" 
+becomes a second-person "you" - an entity whose objective consciousness becomes so 
+well known to us through love and romance that their subjective consciousness is no 
+longer in any doubt.   
+ 
+Zombies only look possible if you hold them at arm's length.  Embrace them, and I think 
+the theoretical possibility of objective consciousness without subjective consciousness 
+crumbles before our eyes.  
+ 
+ 
+I married a zombie but she broke my heart 
+ 
+Imagine you're a heterosexual male philosopher and you meet one of these female 
+zombies at a night club.  Her flesh isn't dropping off and she isn't stumbling around.  
+Remember, according to the philosophical thought experiment, she may be 
+indistinguishable in every detail from a beautiful, fascinating person.  She just doesn't 
+have any real subjective experience behind all her apparent awareness.  Suppose a 
+mutual attraction develops.  You share a drink with the zombie, dance around, and talk 
+all night.  
+ 
+Assume that you and the zombie discover common interests and experiences.  You go 
+home and have great sex with her.  She appears to have twelve loud, passionate 
+orgasms.  (But she must be faking it, like all zombies.)  A relationship develops.  The 
+zombie talks about her childhood love of red crayons, her fondness for Tom Waits 
+albums, her nervousness about public speaking, and her Ph.D. thesis, which compared 
+the philosophical writings of John Searle to the naval artillery tactics of Lord Nelson.  
+She is perfectly good at talking about her experiences, because, by definition, she has 
+all the usual kinds of objective consciousness, including the ability to report sensations, 
+memories, and plans.   She just isn't subjectively aware of what she's reporting - she 
+supposedly has no real experience. 
+ 
+As the relationship matures, you meet her family, travel together, share your lives for 
+decades, and have children together (who are presumably half-conscious.) 
+ 
+But remember, she might be a zombie!   
+
+ 
+ 
+The conceivability argument about the possibility of zombies requires that you could take 
+her aside at your tenth wedding anniversary, look her in the eye, and say with a straight 
+face: "I realize that you show all the signs of objective consciousness, but I can still 
+imagine the logical possibility that you are not having any subjective experiences 
+whatsoever inside there."   
+ 
+Don't expect an intellectual argument.  Expect a divorce.  Your zombie spouse would 
+take your zombie kids to go live with her aunt on the other side of zombie-town.  
+ 
+Arguments about the possibility of zombies only work if you think of the zombies as 
+strangers, not as sexual partners.  Such thought experiments reveal the social 
+psychology of how we dehumanize strangers, not the hypothetical gap between 
+subjective consciousness and objective consciousness.   
+ 
+The real mystery of consciousness is not that we have it, but how easy it is for us treat 
+others as if they didn't have it.  Belief in the conceivability of zombies is the opposite of 
+human sympathy.  In courtship and sympathetic sexual relationships, the philosophical 
+question of "other minds" seems to fall apart.  Falling in love is, among other things, the 
+process of learning to appreciate someone's subjective consciousness given how they 
+behave and talk.  
+ 
+Computer pioneer Alan Turing alluded to the importance of courtship for testing 
+someone's mental capacities in the original 1950 version of his "imitation game", which 
+has come to be known as the "Turing Test".  In the imitation game, an interrogator tries 
+to determine whether they are interacting with a real woman or a computer program that 
+imitates a woman.  Turing was more interested in intelligence than female flesh, so he 
+eliminated the physical cues of womanhood, and limited the interrogator to typing 
+questions on a terminal, and receiving answers on a screen.  The questions can be as 
+challenging as the interrogator likes, such as "Please write me a sonnet on the subject of 
+the Forth Bridge".  In Turing's view, if a computer can successfully lead an interrogator to 
+believe that he is interacting with a real woman, it should be considered intelligent.  He 
+emphasized that the computer must be capable of credibly demonstrating a very wide 
+range of behaviors - his list included being kind, using words properly, having a sense of 
+humor, catching us by surprise, claiming to enjoy strawberries and cream, falling in love, 
+and making someone fall in love with it.   
+ 
+After Turing, philosophers of Artificial Intelligence considered the sexual aspect of the 
+imitation game a confusing distraction, and stripped it away from modern versions of the 
+Turing Test.  However, Turing's original version subtly pointed to the special challenges 
+of demonstrating human intelligence during courtship.  Even a very simple 1960s 
+computer program like ELIZA can fool people into thinking that they are interacting with 
+a real psychotherapist - but no one has fallen in love with ELIZA, as far as I know.   
+ 
+Turing's more sexualized imitation game is a much better parallel to our zombie 
+example.  In both cases, it seems hard to argue that there is some magic ingredient to 
+human intelligence or consciousness beyond that which could be demonstrated through 
+verbal courtship. 
+ 
+Of course, there may be good evolutionary reasons why we treat almost everyone as 
+zombies except our relatives, sexual partners, offspring, and friends.  Such egocentrism 
+
+ 
+kept our sympathy from spreading too far, where its costs would have undermined our 
+fitness.  If we had evolved from social insects like ants or termites, we would not 
+consider "other minds" a philosophical problem.  But in social primates like us, our 
+selfish genes benefit from this illusion that consciousness is piled up like Mt. Everest on 
+one's own mind and sprinkled in little hillocks across the minds of one's acquaintances, 
+with the rest of nature an ocean of unconsciousness.   
+ 
+Our brains are constructed from the ground up to act as if spreading our genes at the 
+expense of all others is the single most important thing in the universe.  The impression 
+that our first-person consciousness is qualitatively special may be the greatest 
+confidence trick that evolution has played on us.  That egocentrism appears to have 
+been moderated only by kinship, reciprocal altruism, and sexually-selected sympathy.  
+ 
+ 
+Reducing consciousness versus evolving consciousness  
+ 
+Reductionism is the scientific strategy of trying to understand complex phenomena in 
+terms of the interaction of simple components.   It is an enormously successful and 
+powerful strategy, often misunderstood and wrongly maligned.  However, it has proven 
+difficult to apply to consciousness.  Philosopher John Searle defined the problem of 
+consciousness as a problem of neurophysiological reductionism: "How exactly do 
+neurobiological processes in the brain cause consciousness?".   The fashionable belief 
+that neuroscience will replace psychology has exacerbated worries about subjective 
+consciousness.  It seems hard to understand how a three-pound lump of brain cells 
+could give rise to an "I".   
+ 
+This is a common problem with reductionism in biology.  It is often hard to understand 
+how a complex biological adaptation works in terms of how its constituent parts interact.  
+How does a peacock's tail grow?  How does a termite mound work?  These are valid 
+questions, but questions about "proximate" mechanisms are only part of biology.  
+ 
+Reductionism is a valid research strategy, but it is extremely hard to apply to complex 
+biological adaptations unless one has an idea what the adaptation evolved to do.  
+Recent popular books on consciousness by Francis Crick, Gerald Edelman, Roger 
+Penrose, and Daniel Dennett have tried to explain it in terms of cognitive operations, 
+neural firings, or quantum effects.  This approach usually has only limited success, 
+because it does not ask the most important evolutionary question: "What selection 
+pressures shaped consciousness?".  That is, how did human consciousness contribute 
+to survival or reproduction during human evolution?  
+ 
+Proximate and evolutionary explanations are complementary.  Both are good science.  
+But in a world of limited scientific resources and limited popular interest, there is often a 
+tension between them.  Reductionists often warn that "evolutionary speculations" should 
+wait until reductive explanations are complete.  They seem not to realize that 
+evolutionary theories explaining the functions of animal behavior are much more 
+sophisticated and successful than theories of how animal nervous systems produce 
+adaptive behavior.   
+ 
+Neuroscience has no theories as powerful as the theories of natural selection, kin 
+selection, and sexual selection.  Darwin knew that eyes were selected for vision because 
+eyes are particularly good at forming images on the retina. He did not need to know how 
+
+ 
+photo-pigment molecules change their shapes when light hits them.  Likewise, we are 
+likely to understand why species become conscious a very long time before we 
+understand how brains become conscious. 
+ 
+The more efficient an adaptation is, the more difficult reductionist explanations tend to 
+become.  This is because evolution demands performance, not comprehensibility.  
+Evolution frequently makes adaptations work by using "emergent properties" that are 
+hard to deduce from the interaction of simple components.   
+ 
+For example, models of brain function called "neural networks" are very efficient at 
+perception, inference, and learning.  But their efficiency depends on a way of 
+representing information that makes them very hard to analyze reductively.  At University 
+of Sussex, where Dave Cliff and I evolved little neural networks to control simulated 
+robots that could flee from predators, we found that the most efficient networks were the 
+least comprehensible.  They only had twenty simulated brain cells, but the dozens of 
+feedback connections between the cells, which made them good at fleeing 
+unpredictably, also made them hard to understand.  Compare that to the human brain, 
+with its hundred billion brain cells, and ten trillion connections between them.   
+ 
+Suppose an alien spaceship flew over a consciousness conference and dropped the 
+complete reductive explanation for human consciousness, all fourteen thousand 
+volumes of it, onto the assembled philosophers.  I suspect almost none of the survivors 
+would bother reading beyond page ten.  The account would probably be about as 
+interesting as the machine code specification of a computer's operating system.   
+ 
+A few cognitive scientists might enjoy that, but most of the philosophers would just sigh 
+in relief: "At last, dualism refuted, and reductionist materialism triumphant!".  They would 
+realize that what they really wanted was proof that a reductive explanation exists, 
+without really caring what that reductive explanation is in any detail.  After the second 
+Armagnac of the evening, some might even ask "So why did human consciousness 
+evolve to work like that?"   
+ 
+Fortunately, we do need alien neuroscientists to answer all of our how-questions before 
+we have permission to ask why-questions.  Evolutionary psychology does not have to 
+wait for neuroscience to finish before it begins, any more than evolutionary biology had 
+to wait for genetics to finish first.  There is room for both - as long as the reductionists do 
+not get greedy and demand 100% of the research money instead of the 99% they get 
+now.  To ask how natural selection and sexual selection shaped human consciousness, 
+we only need to know a few things: consciousness exists, it has certain design features, 
+it had various possible fitness costs and benefits, and it had genetically heritable 
+variation. 
+ 
+ 
+Introspective, articulate ape seeks same 
+ 
+"So tell me, are you experienced? 
+Have you ever been experienced?  
+Well, I have" - Jimi Hendrix 
+ 
+The strongest common-sense evidence for other people having subjective 
+consciousness is the fact that they can talk about their experiences.  This is no comfort 
+
+ 
+to philosophers who are paranoid about zombies, but it is to the rest of us seeking 
+friends and partners who are more or less conscious.   
+ 
+The consciousness of others is revealed mainly through language.  Maybe we should 
+see the evolution of human consciousness as an extension of sexual selection for 
+language.  
+ 
+Two key parts of consciousness are "reportability" (the ability to articulate what we 
+consciously experience) and "introspection" (the ability to consciously experience some 
+of the thoughts and feelings that guide our behavior).  If sexual selection on courtship 
+conversation was the main force shaping human consciousness, we would expect the 
+limits of reportability, introspection, and subjective experience to be roughly equal.  We 
+should be able to talk about anything we experience, because there would be no point in 
+experiencing it if we could not report it during courtship.  And we should be able to talk 
+about anything we can introspect about too, for the same reason.   
+ 
+This point makes little sense until we consider different possible ways consciousness 
+could have worked.  If subjective consciousness just popped up at a certain point in 
+evolution for no reason, it could easily have been mute.  We would have selves with 
+subjective experience, but they might be totally unable to report their experience to 
+anyone else.  They would be chained in solitary confinement, metaphysical prisoners 
+unknown to the Amnesty International of reportability.   
+ 
+I don't know about you, but that's not my experience.  Articulate people can articulate 
+anything they experience.  For example, the psychologist William James and his brother, 
+the novelist Henry James, could express almost any subtlety of consciousness - even 
+subtleties their readers may never have noticed before reading them.  Inarticulate people 
+have trouble finding the words, but that is a defect of their communication ability, not 
+their consciousness.   
+ 
+Lovers sometimes say "Words cannot express what I feel about you", but this attention-
+getting device usually precedes hours of impassioned chatter or love-making.  
+Reportability is a key to courtship, not just to consciousness.  Lovers talk constantly 
+about their thoughts, feelings, and experiences.  Once some form of proto-language 
+emerged, sexual selection could have begun to shape the reportability of consciousness.  
+If this new selection pressure favored maximum reportability, it would have lured more of 
+our thoughts and feelings out into the open, on introspection's parade ground, reporting 
+for duty.   
+ 
+Language became a conduit for sexual selection pressures to shape consciousness 
+more directly than ever before.   
+ 
+The result is the effortless, fluid way we can translate from perceived objects through 
+consciously attended qualities into spoken observations. We can walk with a lover 
+through Sissinghurst Garden, notice a rose, consciously describe its distinctive color and 
+fragrance, and perhaps even whisper a relevant quote from Shakespeare's sonnet 
+fifteen, observing "Where wasteful Time debateth with Decay to change your day of 
+youth to sullied night; And all in war with Time for love of you, as he takes from you I 
+engraft you new."   
+ 
+
+ 
+This high-bandwidth channel from perception into consciousness, memory, and 
+articulate communication seems unique to humans.  In animals without language, there 
+would have been no opportunity for sexual selection to have shaped their consciousness 
+in this way.  Only when sexual choice favored reportability did our strangely promiscuous 
+introspection abilities emerge, such that we seem to have instant conscious access to 
+such a range of impressions, ideas, and feelings.  
+ 
+Sexual selection for consciousness is the opposite of sexual objectification.  In a sense, 
+it is a process of sexual subjectification - a way for evolution to create subjective 
+experience where none existed before.   
+ 
+Some evolutionary psychology research has focused so much on the beauty of the 
+human body that it seems to imply that humans naturally view potential mates as nothing 
+more than "sex objects" in the feminist sense.  And in our earlier zombie example, the 
+male philosopher was certainly objectifying the female zombie by denying her 
+subjectivity.  (Perhaps there is more than just a metaphorical relationship between the 
+Cartesian tradition in philosophy of mind and the patriarchal tradition of objectifying 
+women.)  In both evolutionary psychology and philosophy, a greater emphasis on the 
+psychological intricacies of courtship might help to overcome the unethical objectification 
+of others. 
+ 
+Mate choice is not the only evolutionary force that could have favored reportability and 
+introspection.  Any other social selection pressure would work, once language began to 
+evolve. If reportability attracted and retained good friends, social selection would favor it.  
+If reportability improved cooperation between relatives or communication between 
+parents and offspring, then kin selection would favor it.  Even if reportability was 
+originally favored in courtship contexts only, other social contexts would probably have 
+reinforced it.   
+ 
+Mate choice was probably always the most powerful form of social selection, including 
+the most powerful shaper of reportability and consciousness.  But reportability was also 
+so useful in relating to friends, relatives, children, and clan members that the 
+consciousness behind it no longer feels very specialized for courtship. 
+ 
+ 
+Shareable Data 
+ 
+If sexual selection developed such a lust for reportability, why can't we introspect about 
+everything that goes on in our brains?  Why do cognitive neuroscientists need to spend 
+millions of dollars on brain imaging equipment to find out what cortical areas light up 
+when people read the word "boondoggle", instead of just asking them?   
+ 
+We could have evolved the sort of consciousness that Commander Data had in the 
+1980s Star Trek: The Next Generation T.V. series.  Data could run all sorts of self-
+diagnostics concerning the operational details of his "positronic brain", and verbally 
+report the results.  But it was not Data's self-diagnostics that made the girls swoon; it 
+was his status as one of the first American television characters to show a sense of 
+irony.   
+ 
+Irony depends on a reportable personal reaction to a publicly observable event.  
+Perhaps this is the answer.  Sexual selection favors reliable indicators of fitness.  But 
+
+ 
+courting hominids would lie about their self-diagnostics.  They might claim a 98% brain 
+efficiency in converting glucose energy into cognitive processing, when they were only 
+achieving 40%.  Our ancestors could have caught such liars only if they happened to 
+have portable laboratories for monitoring cerebral blood flow, complete with injections of 
+radioactive xenon and a helmet full of Geiger counters for every potential mate.   
+ 
+By contrast, articulate reactions to external events make more reliable indicators of 
+mental functioning.  A choosy hominid could observe the same event, have his or her 
+own reaction, and compare it to the reaction reported by a suitor.  If the suitor's comment 
+is inaccurate, deluded, or trite, his or her consciousness may not measure up.  If a suitor 
+reports a rhinoceros when you see a rose, you know something is wrong somewhere 
+along his or her flow of information from sensation through perception, recognition, 
+semantic memory, and speech.   
+ 
+In many quality control situations, it is easier to monitor products than production 
+processes.  Mate choice seems to have paid attention only to the more verifiable of our 
+mental processes, crafting a consciousness that introspects mostly about things that 
+sexual partners might care to hear about.  This idea was inspired by psychologist 
+Jennifer Freyd's theory of "shareability", which suggested that some of our cognitive 
+processes, such as the ways we categorize objects and events, were shaped by the 
+demands of language to produce more easily reportable results.  Here, I am just putting 
+shareability in a courtship context, where sexual choice favored a cognitive psychology 
+better adapted to romance than survival.    
+ 
+Despite sexual selection for reportability, most of our mental processes are 
+encapsulated in special-purpose brain modules that are not open to introspection.  We 
+have no idea what mental calculations allow us to perceive depth, throw a ball, or speak 
+grammatical sentences.  Mate choice would like to know about the efficiency of these 
+calculations, but it does not ask us, because we would lie.  Instead, it pays attention to 
+how well we see, throw, or speak.  Since our hominid ancestors rarely asked their mates 
+how their mental processes worked, we have no introspective access to them.   
+ 
+Incidentally, this problem of signal reliability in hominid sexual selection explains why 
+psychology is such a difficult science - if we had introspective access to all of our brain 
+processes, psychological research would demand nothing more than a comfortable 
+armchair, a pen, and a notebook. 
+ 
+This leads a key hypothesis: Our mental processes became consciously accessible only 
+insofar as their reportability contributed to effective courtship conversations.  We evolved 
+conscious access to our mental representations of external objects so we could make 
+relevant, interesting comments about them.  Memories of past experiences became 
+conscious so we could tell life stories.  Emotions, motives, and plans became conscious 
+so we could reassure partners of our love and good intentions.  Impressions of other 
+people became conscious so we could gossip about them.   
+ 
+Consciousness is the clearing-house that links language, memory, attention, and 
+perception, to produce better displays of how our minds are working.  
+ 
+The main competing hypothesis about introspection is that it evolved as an executive 
+control process that allowed more efficient thinking, planning, and behaving.  Like the 
+Baby Boom generation did to the United States, introspection may have developed to 
+
+ 
+tune in, turn on, and take over.  Perhaps unsurprisingly, many psychologists of the Baby 
+Boom generation favor this theory of consciousness, which transforms it from a 
+psychedelic mystery into a political elite that governs the brain's circuits through opinion 
+polls.  This sort of executive consciousness would be directed inward rather than 
+outward.  In cartoon terms, it would be like Homer Simpson's job, monitoring safety 
+systems in a nuclear power plant.  It would not be like Clark Kent's day job, monitoring 
+news from around the world at the Daily Planet. 
+ 
+However, there is no clear reason why these control processes need to be centralized, 
+consciously accessible, and reportable.  They could work independently and 
+autonomously, as do the homeostatic systems that control the body's physiology.  The 
+autonomic nervous system helps coordinate many bodily processes, but it isn't notably 
+conscious.  Our consciousness seems more Kentish than Simpsonian, more adapted to 
+report external news than to monitor internal processing.  
+ 
+ 
+Sweet qualia  
+ 
+Why does red look red?  It sounds like a silly question, but this is what philosophers call 
+the problem of "qualia": the subjective, qualitative impressions made by things.  The 
+demands of reportability do not seem to explain qualia.  Couldn't we just see red and 
+report red without experiencing redness?   
+ 
+Notably, only a few kinds of perceptual information seem weird enough to be regularly 
+offered by philosophers as examples of qualia.  Classic examples of qualia include the 
+colors of visual objects, the timbres of musical sounds, and the sharpness of pain.  I 
+suspect that these examples are used again and again because the subjective 
+experiences they yield seem under-determined by the functional requirements of 
+perception.  The subjective graspable feel of a hammer's handle does not seem so 
+puzzling, because shape information seems less arbitrary.  If hammers felt like melons, 
+we would try to pick them up the wrong way.  But if red looked like blue, what difference 
+would it make, as long as we knew which was which?  
+ 
+From a functional point of view, I do not find the apparent arbitrariness of some qualia 
+very surprising.  How should perceptual information like visual color and musical timbre 
+be mentally represented?  Psychologist Roger Shepard has argued that it doesn't much 
+matter how individual attributes are mentally represented, as long as the objective 
+similarities of real-world attributes are mapped accurately by the subjective similarities 
+between qualia.  The subjective relationships between qualia matter much more than the 
+qualia themselves.  The functionally important attribute of red is its subjective similarity 
+to orange and purple.   
+ 
+Still, what determines the subjective feel of individual qualia?  The answer seems 
+obvious: they're arbitrary.  We needn't worry about it.  Azure could look vermilion, and 
+trombones could sound like termites, but as long as the rest of our brain kept track of 
+what was what, it wouldn't matter.  Why should we expect arbitrary perceptual labels to 
+feel anything other than arbitrary?  One can get all existential about that arbitrariness, 
+but that may not be the best way to understand consciousness. 
+ 
+If we are serious about understanding qualia, why not start with the easy examples first?  
+The philosopher Martin Heidegger got further thinking about the graspability of hammers 
+
+ 
+than the redness of red.  Easy qualia like visual shape and musical rhythm have a 
+subjective spatial or temporal form that seems more clearly related to external space 
+and time.  Temporal qualia seem an especially promising place to start, since, as Roger 
+Shepard observed, time is the only dimension that the mind truly shares with the world.  
+Red may seem arbitrary, but it is hard to view the subjective rhythmic qualia of orgasm 
+as divorced from the objective rhythms of copulation.  
+ 
+ 
+The peak of consciousness 
+ 
+Consciousness is not constant.  Like health, motivation, and creativity, it rises to a peak 
+in young adulthood and then declines in the ever-slowing dance of senescence. Qualia, 
+introspection, and self-consciousness all seem most intense in the late teens and early 
+20s, with the peak of mating effort and courtship.  For old philosophers, consciousness 
+is a dusty, half-finished puzzle.  For young people just reaching sexual maturity, it is a 
+fantastic discovery, something to be enjoyed, explored, altered, displayed, and talked 
+about during courtship.   
+ 
+There are many symptoms of this young adult consciousness peak.  This is when 
+interest in mysticism, altered states, psychology, and philosophy of mind tends to peak.  
+When people look for the meaning of life, whether in religious cults, political idealism, or 
+rock music lyrics.  When people take powerful psychoactive drugs.  When people 
+develop schizophrenia.  As consciousness peaks, the risks of developing disorders of 
+consciousness peak as well, as a handicap model might predict.  The consciousness 
+peak is not just a modern phenomenon: young people in many tribal societies pursue 
+"vision quests" at this age.   
+ 
+As courtship effort fades a bit by the late 20s, consciousness fades as well, giving way to 
+a more pragmatic, less flashy mind-set.   Habit sets in.  Life becomes more automated, 
+as routine skills replace conscious attention.  Days go by on auto-pilot.  We become 
+zombies most of the time, as far as subjective consciousness goes.  We may suddenly 
+realize we have been driving the last ten miles unconsciously.  We may wake up after 
+years of quotidian drudgery, and ask: Is this my beautiful house?  Is this my beautiful 
+wife?  How did I get here?  Where did my qualia go?  Life passes by faster and faster as 
+we spend less and less time being conscious.  Darwin lamented his creeping inability to 
+enjoy art or music as he aged and became more immersed in scientific theorizing.  
+William James wrote of habit as the enemy of consciousness.  The caffeine-addicted 
+number theorist Paul Erdos once complained that he felt like a machine for turning 
+coffee into theorems.   
+ 
+There are effective ways to reactivate the raw qualia of youth: meditation, long 
+vacations, changing careers, moving abroad, painting from life, playing with children, 
+recreational drugs, and flirtations that demand renewed courtship effort.  But most of 
+these strategies seem like too much trouble, so we tend to sit and watch television 
+instead, squandering the human consciousness that we pretend to value so highly.   
+ 
+Why do we let consciousness fade after courtship?  It seems a matter of laziness, like 
+failing to exercise.  It is as if consciousness costs too much energy - not just objective 
+physical energy, but subjective attention and psychological effort.  Perhaps this means 
+consciousness is yet another costly fitness indicator.  We activate it only when 
+necessary, to cope with novel situations, especially new lovers.   
+
+ 
+ 
+ 
+ 
+The evolution of intimacy 
+ 
+As a couple live together over the years, their two minds grow together.  This happens in 
+the quite literal sense that they share more of the same memories, knowledge, beliefs, 
+and plans.  Their self-consciousness may merge into a sense of couple-consciousness, 
+in which their sense of personal identity is somewhat dissolved in the couple's shared 
+social identity and joint interests.  First person singular plus second person singular 
+becomes first person plural.  The "problem of other minds" becomes a long-forgotten 
+joke.  
+ 
+Intimacy develops within relationships, but the capacity for intimacy must have evolved 
+across many generations.   I think intimacy brought two main adaptive benefits: more 
+efficient coordination, and more efficient courtship when necessary.  Successful couples 
+start as two separate vehicles for their selfish genes, but as they accumulate children, 
+the relevant unit of adaptive function becomes the couple itself.  Their two sets of genes 
+are now in the same boat, as the relationship becomes the principal conduit for their joint 
+reproductive success.   
+ 
+As Richard Dawkins pointed out in The Extended Phenotype, evolution can favor 
+efficient coordination at any level of adaptive function where genes share common 
+interests.  The genes in a cell have a common interest in the cell's success, so they 
+cooperate to sustain a shared metabolism.  Likewise for the cells in an individual body: 
+they all want the body's gonads to successfully reproduce, so they act as one, evolving 
+sophisticated coordination mechanisms called nervous systems designed to keep the 
+gonads alive and to put them in the right places at the right times.   
+ 
+From the body, some evolutionary psychologists jump all the way up to the level of the 
+tribal group as the next obvious unit of cooperation.  In shaping morality and language, 
+group competition can act as an equilibrium selection device that favors more efficient 
+groups, and this does not demand "group selection" that favors altruists.  However, this 
+jump to the group leap-frogs over the couple as an adaptive unit.   
+ 
+Couples develop shared interests not just at the psychological level, but the genetic 
+level.  In A Treatise on the Family, economist Gary Becker emphasized that couples 
+become potent economic units by developing efficient coordination signals, mutual 
+understanding, and divisions of labor.  These also make couples potent reproductive 
+units.  The shared consciousness called intimacy may have evolved to reap the 
+reproductive rewards of efficient coordination within couples.   
+ 
+Yet couples do not have completely overlapping interests, because they sometimes split 
+up.  Continued courtship effort is sometimes necessary to sustain a relationship.  
+Intimacy also makes this intermittent courtship effort more efficient.  It allows each 
+partner to understand the other's interests and needs, so they can target their attempts 
+at attraction more precisely.  Couples can use subtle, customized sexual signals that 
+would be baffling to strangers: allusions to shared experiences, in-jokes, idiosyncratic 
+ways of derogating sexual competitors.  They do not need to rely on the stereotyped 
+sexual signals of early courtship that play to the lowest common denominator of human 
+
+ 
+nature - status, beauty, wealth.  By comparison, outsiders are shooting in the dark.  
+They may offer novelty, but no intimacy.  
+ 
+In human evolution, retaining desired sexual partners can be as important as attracting 
+them in the first place.  If intimacy helped individuals sustain valued relationships, then 
+sexual selection would have favored the capacity for intimacy.  Sexual temptation was 
+always an issue in the Pleistocene.  Individuals who formed a series of relatively long-
+lasting, efficiently coordinated, intimate relationships probably reproduced more 
+successfully than those who were always jumping from stranger to stranger.   
+ 
+The pleasures of intimacy - including both copulation and conversation - deterred 
+individuals from switching partners too often, saving them the time and energy costs of 
+establishing efficient coordination with a new partner.  
+ 
+Our ancestors achieved higher reproductive success by merging their individual 
+consciousness into the intimacy of sexual couples.  They gained clear benefits from 
+doing so: more efficient coordination in daily family life, and more efficient renewed 
+courtship when the relationship was threatened by outside temptation.  Sexual selection 
+does not just explain superficial traits like large penises and long hair.  It can explain any 
+psychological capacity that tended to initiate, improve, and sustain reproductively 
+successful relationships.  Sexual selection is where we find it. 
+ 
+ 
+Sexual personae 
+ 
+People act differently when in love.  One's drab, ordinary character seems to fall away, 
+replaced by a persona that is more energetic, daring, humorous, witty, romantic, kind, 
+successful, and charismatic.  Attractive beliefs, habits, memories, and ambitions seem to 
+crowd out the less attractive.  Love often changes people almost beyond recognition, 
+reminding parents and friends of grubs transformed into butterflies.   
+ 
+Chimpanzees have the capacity for "tactical deception", for pretending to do something 
+other than what they are really doing.  But they cannot pretend to be someone other 
+than who they were.  Sexual courtship may have been the arena in which we evolved 
+the capacity for dramatic role-playing.  Courtship was the original role-playing game.  
+The character-masks that our ancestors wore to attract mates may have been crucial in 
+shaping our ability to act as different characters.   
+ 
+Acting is not the prerogative of a few high-strung professionals, but a human birthright, 
+automatically activated whenever we fall in love.  This may help us understand human 
+consciousness and the sense of identity.  
+ 
+At first glance, courtship just requires changing the settings on a few personality dials.  
+Increase energy output.  Boost kindness and sympathy.  Turn off neuroticism.  Smile 
+more, talk faster, make more jokes.  But we also tend to match our expressed interests 
+and preferences to those of a desired individual.  One develops a crush on a mountain-
+climber, and suddenly feels drawn to the sublime solitude of the Alps.  One dates a jazz 
+musician, and feels prone to sell one's outdated heavy metal albums.  Should an 
+otherwise perfect lover confide her secret belief in the healing power of crystals, one 
+may find yesterday's sneering skepticism about such nonsense replaced by a sudden 
+open-mindedness, a certain generosity of faith that must have lain dormant all these 
+
+ 
+years.  In courtship, we re-invent ourselves, working our way into roles that we think will 
+prove attractive.   
+ 
+With each new lover, there is a shift in image and identity.  These shifts are rarely as 
+dramatic as the changes of sexual personae adopted by David Bowie or Madonna with 
+each new album.  But they are more profound.  Often, we may find it difficult to relate to 
+our former selves from previous romances.  Events experienced by that former self, 
+which seemed so vivid and unforgettable at the time, become locked away in a separate 
+quadrant of memory's labyrinth, accessible only if we happen to run into the former 
+lover.   
+ 
+Our consciousness undergoes these sexual revolutions, reshaping itself to each new 
+lover like an advertising company dreaming up new campaigns for capturing new market 
+niches.  And consciousness has been sexually selected to be good at these re-
+brandings, these roles, these sexual personae.  We slip into character without any of the 
+self-conscious drills of a Method actor.  
+ 
+In courtship, all the world became a stage, and all the proto-humans merely players.  We 
+evolved the ability to role-play because sexual choice favored those who were better at 
+adopting an attractive series of sexual personae.  Our identity-shifts operate not only at 
+the level of consciousness and identity, but at all observable levels: ornamentation, 
+clothing, posture, gesture, accent, facial expression, attitude, opinion, and ideology.   
+ 
+This brings us back to objective versus subjective consciousness.  To a skeptic, sexual 
+selection could only have shaped our objective consciousness and our acting ability, not 
+our "true subjective consciousness".  Our selfish genes evolved human consciousness 
+as a grand amusement park full of simulators.  There may be nothing behind our 
+curtains.  Yet our acting ability included the capacity for telling our life stories, reporting 
+our sensory experiences, and developing emotional intimacy over many years.   
+ 
+I do not see how an organism could put on such an act without evolving a true subjective 
+consciousness.  Admittedly, this is nothing more than an argument from personal 
+incredulity.  But zombie arguments are nothing more than arguments from personal 
+conceivability.  I don't know how to weigh one against the other.  From an evolutionary 
+viewpoint, the distinction between objective and subjective consciousness makes little 
+sense if one considers other individuals as sexual partners rather than strangers.  If the 
+zombie problem is over-stated, there was nothing to keep sexual selection from acting 
+on subjective consciousness, by favoring objective consciousness.   
+ 
+In simple terms, my argument boils down to this: our ancestors may have favored sexual 
+partners who acted more consciously to those who acted less consciously, and this may 
+explain why we are so conscious.   
+ 
+ 
+Conscious knowledge 
+ 
+Animals with delusions should be eliminated by natural selection.  Evolution should 
+produce species with more and more accurate models of the world.  This reasoning has 
+led to the field of "evolutionary epistemology", which studies how evolutionary processes 
+can generate reliable knowledge.  Leaders of this field such as Karl Popper, Donald 
+Campbell, and John Ziman have credited evolution with a tendency to endow animals 
+
+ 
+with reasonably accurate models of the world.  This idea seems to solve many of the 
+traditional philosophical worries about epistemology, which studies the reliability of 
+human knowledge.  
+ 
+For most kinds of knowledge embodied in most of our psychological adaptations, I think 
+their argument is correct.  Natural selection has endowed us with an intuitive physics 
+that allows us to understand mass, momentum, and movement well enough to deal with 
+the material world.  We also have an intuitive biology that allows us to understand plants 
+and animals well enough to survive, and an intuitive psychology that lets us understand 
+people.  For two decades, psychologists have been busy investigating these intuitive 
+forms of knowledge in children and adults.  Our hundreds of adaptations for sensation, 
+perception, categorization, inference, and behavior embody thousands of important 
+truths about the world.   
+ 
+However, sexual selection makes these reliability arguments fall apart at the level of 
+conscious ideologies.  While natural selection for survival may have made perception 
+pragmatically accurate, mate choice may not have cared about the accuracy of our more 
+complex belief systems.  Sexual selection could have favored ideologies that were 
+entertaining, exaggerated, exciting, dramatic, pleasant, comforting, narratively coherent, 
+aesthetically balanced, wittily comic or nobly tragic.  It could have shaped our minds to 
+be amusing and conscious, but deeply fallible.  As long as our ideologies do not 
+undermine our more pragmatic adaptations, their epistemological frailty does not matter 
+to evolution. 
+ 
+Imagine some young hominids huddling around a Pleistocene campfire, enjoying their 
+newly-evolved language ability.  Two males get into an argument about the nature of the 
+world, and start holding forth, displaying their ideologies.  The hominid named Carl 
+proposes: "We are mortal, fallible primates who survive on this fickle savannah only 
+because we cluster in these jealousy-ridden groups.  Everywhere we have ever travelled 
+is just a tiny, random corner of a vast continent on an unimaginably huge sphere 
+spinning in a vacuum.  The sphere has travelled billions and billions of times around a 
+flaming ball of gas, which will eventually blow up to incinerate our empty, fossilized 
+skulls.  I have discovered several compelling lines of evidence in support of these 
+hypotheses ...."   
+ 
+The hominid named Candide interrupts: "No, I believe we are immortal spirits gifted with 
+these beautiful bodies because the great god Wug chose us as his favorite creatures.  
+Wug blessed us with this fertile paradise that provides just enough challenges to keep 
+things interesting.  Behind the moon, mystic nightingales sing our praises, some of us 
+more than others.  Above the azure dome of the sky the smiling sun warms our hearts.  
+After we grow old and enjoy the babbling of our grand-children, Wug will lift us from 
+these bodies to join our friends to eat roasted gazelle and dance eternally.  I know these 
+things because Wug picked me to receive this special wisdom in a dream last night." 
+ 
+Which ideology do you suppose would prove more sexually attractive?  Will Carl's truth-
+seeking genes - which may discover some rather ugly truths - out-compete Candide's 
+wonderful-story genes?  The evidence of human history suggests our ancestors were 
+more like Candide than Carl.  We are naturally Candide-like. It usually takes years of 
+watching BBC science documentaries to become as objective as Carl.   
+ 
+
+ 
+Runaway sexual selection for ideological entertainment would not have produced 
+accurate belief-systems, except by accident.  If ideological displays were favored as 
+fitness indicators, the only truth they had to convey was truth about fitness.  They need 
+not be accurate world-models any more than the eyes of a peacock's tail need to 
+represent real eyes.  Das Capital demonstrated Karl Marx's intelligence, imagination, 
+and energy, but its reliability as a fitness-indicator does not guarantee the truth of 
+dialectical materialism.   The majesty of Brigham Young's religious visions was sufficient 
+to attract 27 wives, but that does guarantee the veracity of his belief that dead ancestors 
+can be retroactively converted to the Mormon faith.   
+ 
+When we considered the evolution of language, we saw that sexual selection rarely 
+favors displays that include accurate conceptual representations of the world.  Across 
+millions of species throughout the earth's history, there are only two good examples of 
+sexual selection for world-representing truth: human language and human 
+representational art.  Even so, human language's ability to refer to real objects and 
+events does not guarantee the reliability of human ideologies expressed through 
+language.   
+ 
+Sexual selection is like an insanely greedy tabloid newspaper editor who deletes all 
+news and leaves only advertisements.  In human evolution, it is as if the editor suddenly 
+recognized a niche market for news in a few big-brained readers.  She told all her 
+reporters she wanted wall-to-wall news, but she never bothered to set up a fact-checking 
+department.  Human ideology is the result: a tabloid concoction of religious conviction, 
+political idealism, urban myth, tribal myth, wishful thinking, memorable anecdote, and 
+pseudo-science.   
+ 
+Richard Dawkins has suggested that these ideological phenomena all result from 
+"memes" - virus-like ideas that evolved at the cultural level to propagate themselves by 
+grabbing our attention, remaining memorable, and being easy to transmit to others.  The 
+meme idea offers a novel perspective on human culture, but it begs several questions: 
+Why do people display such ideas so fervently in young adulthood, especially during 
+courtship?  Why do people compete to invent new memes that will make them famous?  
+Why were most memes invented by men?  Why did natural selection leave us so 
+vulnerable to ideological nonsense?  Perhaps by viewing ideological displays as part of 
+courtship, we can answer such questions.  Mostly, we use our memes to improve our 
+sexual and social status; they do not just use us.   
+ 
+This sexual selection theory of ideology is a serious challenge to evolutionary 
+epistemology.  Natural selection can favor accurate intuitive models of the world, but it 
+seems incapable of producing communication systems that can consciously share those 
+models.  Sexual selection can favor rich communication systems, but it tends to debauch 
+and distort any consciously-expressed world-models to be more entertaining than 
+accurate.   
+ 
+There seems to be a trade-off between reliable individual cognition and social 
+communication.  We can be mute realists or chatty fabulists, but not both.  This is far 
+from the evolutionary epistemology view, in which truth-seeking cognition evolved with 
+truth-sharing language to give us a double-barrelled defence against falsehood.   
+ 
+Our conscious beliefs are a thin layer of marzipan on the fruitcake of the mind.  Most of 
+our mental adaptations that patiently guide our behavior remain intuitively accurate.  
+
+ 
+They are our humble servants, toiling away at ground level, unaffected by the strange 
+signals flying overhead from one consciousness to another during the mental fireworks 
+show of courtship.  Sexual selection has not messed up our depth perception, voice 
+recognition, sense of balance, or ability to throw rocks accurately.   
+ 
+But sexual selection may have profoundly undermined the reliability of our conscious 
+beliefs.  This is the level of epistemology that people care about when arguing about all 
+of the domains where people challenge other people's claims to "knowledge": religion, 
+politics, medicine, psychotherapy, social policy, the humanities, and the philosophy of 
+science.  It is in these domains that sexual selection undermines the evolutionary 
+epistemology argument, by turning consciousness from a servant of truth into an 
+ornamental advertisement of our fitness.  
+ 
+ 
+Conscious science  
+ 
+Given minds shaped by sexual selection for ideological entertainment rather than 
+epistemic accuracy, what hope do we have of discovering truths about the world? 
+History suggests that we had very little hope until the social institutions of science arose.  
+Before science, there was no apparent cumulative progress in the accuracy of human 
+belief systems.  After science, everything changed.   
+ 
+From a sexual selection perspective, science is a set of social institutions for channeling 
+our sexually-selected instincts for ideological display in certain directions according to 
+strict rules.  These rules award social status to individuals for proposing good theories 
+and gathering good data, not for physical attractiveness, health, kindness, or other 
+fitness indicators.  Scientists learn to derogate the normal human forms of ideological 
+display: armchair speculation, entertaining narratives, comforting ideas, and memorable 
+anecdotes.  (Of course, this spills over into derogation of popular science books that try 
+to present serious ideas in attractive form.)  Science separates the arenas of intellectual 
+display (conferences, classrooms, journals) from other styles of courtship display (art, 
+music, drama, comedy, sports, charity).  Science writing is standardized to channel 
+creativity into inventing new ideas and arguments instead of witty phrases and colorful 
+metaphors.   
+ 
+These scientific traditions are ingenious ways of harnessing human courtship effort to 
+produce cumulative progress towards world-models that are abstract, communicable, 
+and true.  It is surprising that science works so well, given the absence of referential 
+content in the sexual signals of all other species, and our Scheherezade-style genius for 
+fictional entertainment.  Science is not asexual or passionless.  But neither is it a result 
+of some crudely sublimated sex drive.  Rather, it is one of our most sophisticated arenas 
+for human courtship, which is the most complex and conscious form of mating that has 
+ever evolved on our planet.  
+ 
+

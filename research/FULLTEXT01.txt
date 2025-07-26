@@ -1,0 +1,2749 @@
+Learning quantum state
+properties with quantum and
+classical neural networks
+ARTHUR PESAH
+Master in Engineering Physics
+Date: May 27, 2019
+Supervisor: Peter Wittek (University of Toronto)
+Examiner: Val Zwiller (KTH)
+School of Engineering Sciences
+Host company: University of Toronto
+Swedish title: Inlärning av kvanttillståndens egenskaper med kvant och
+klassiska neurala nätverk
+
+
+iii
+Abstract
+While the simulation of quantum systems on near-term quantum devices
+have witnessed rapid advances in recent years, it is only the ﬁrst step in
+understanding these systems. The eﬃcient extraction of useful informa-
+tion from a simulated state represents a second important challenge. The
+traditional technique is to reconstruct the state using quantum state to-
+mography before analytically computing the desired properties. However,
+this process requires, in general, an exponential number of measurements
+and it is inherently ineﬃcient if we are not interested in the state itself,
+but only in a handful of scalar properties that characterize it.
+In this thesis, we introduce several quantum algorithms to estimate
+quantum state properties directly without relying on tomography. The
+algorithms are a combination of quantum and classical neural networks,
+trained to return the desired property. Our contribution is both theo-
+retical and numerical: we prove the universality of several architectures
+for the class of properties given as polynomial functionals of a density
+matrix, and evaluate their performance on some particular properties—
+purity and entropy—using quantum circuit simulators. Furthermore, we
+provide an extension of each architecture for continuous-variable states.
+
+iv
+Sammanfattning
+Samtidigt som simuleringen av kvantsystem på kortsiktiga enheter har
+visat sig snabba framsteg under de senaste åren är det bara det förs-
+ta steget i att förstå dessa system. Den eﬀektiva extraktionen av an-
+vändbar information från ett simulerat tillstånd representerar en andra
+viktig utmaning. Den traditionella tekniken är att rekonstruera tillstån-
+det med hjälp av kvantstatstomograﬁinnan man analyserar de önskade
+egenskaperna analytiskt. Denna process kräver emellertid i allmänhet
+ett exponentiellt antal mätningar och det är i sig ineﬀektivt om vi inte
+är intresserade av kvanttilståndet själv, utan bara i en handfull skalär
+egenskaper som karakteriserar den.
+I denna avhandling introducerar vi ﬂera kvantalgoritmer för att be-
+räkna kvantstatusegenskaper direkt utan att förlita sig på tomograﬁ. Al-
+goritmerna är en kombination av kvant- och klassiska neurala nätverk,
+tränade för att returnera den önskade egenskapen. Vårt bidrag är både
+teoretiskt och numeriskt: vi bevisar universaliteten hos ﬂera arkitekturer
+för klassen av egenskaper som ges som en polynomialfunktion av en den-
+sitetsmatris och utvärderar deras prestanda på vissa speciella egenskaper
+— renhet och entropi — med användning av kvantkretssimulatorer. Dess-
+utom ger vi en förlängning av varje arkitektur för kontinuerliga variabla
+stater.
+
+Contents
+1
+Introduction
+1
+1.1
+Motivation . . . . . . . . . . . . . . . . . . . . . . . . . .
+1
+1.2
+Previous work . . . . . . . . . . . . . . . . . . . . . . . .
+3
+1.3
+Contributions . . . . . . . . . . . . . . . . . . . . . . . .
+4
+1.4
+Outline of the thesis
+. . . . . . . . . . . . . . . . . . . .
+5
+2
+Background
+6
+2.1
+Continuous-Variable quantum computing . . . . . . . . .
+6
+2.1.1
+Physical motivation: quantizing light . . . . . . .
+7
+2.1.2
+Classiﬁcation of qumodes . . . . . . . . . . . . . .
+10
+2.1.3
+Quantum gates in a CV system . . . . . . . . . .
+20
+2.1.4
+Measuring a CV state
+. . . . . . . . . . . . . . .
+23
+2.2
+Quantum neural networks
+. . . . . . . . . . . . . . . . .
+25
+2.2.1
+General idea . . . . . . . . . . . . . . . . . . . . .
+25
+2.2.2
+Training . . . . . . . . . . . . . . . . . . . . . . .
+26
+2.2.3
+Discrete ansatz . . . . . . . . . . . . . . . . . . .
+27
+2.2.4
+Continuous ansatz
+. . . . . . . . . . . . . . . . .
+28
+2.3
+Quantum property estimation . . . . . . . . . . . . . . .
+29
+2.3.1
+Approximating polynomials
+. . . . . . . . . . . .
+29
+2.3.2
+Purity . . . . . . . . . . . . . . . . . . . . . . . .
+31
+3
+Method
+33
+3.1
+Quantum Polynomial Network with ancilla . . . . . . . .
+34
+3.1.1
+Discrete-variable case . . . . . . . . . . . . . . . .
+34
+3.1.2
+Continuous-variable case . . . . . . . . . . . . . .
+35
+3.2
+Quantum Polynomial Network with correlations . . . . .
+37
+3.2.1
+Discrete-variable case . . . . . . . . . . . . . . . .
+37
+3.2.2
+Continuous-variable case . . . . . . . . . . . . . .
+39
+3.3
+Quantum Polynomial Network with averages . . . . . . .
+40
+v
+
+vi
+CONTENTS
+3.3.1
+Discrete-variable case . . . . . . . . . . . . . . . .
+40
+3.3.2
+Continuous-variable case . . . . . . . . . . . . . .
+41
+3.4
+Training procedure . . . . . . . . . . . . . . . . . . . . .
+42
+3.4.1
+Dataset preparation
+. . . . . . . . . . . . . . . .
+42
+3.4.2
+Training . . . . . . . . . . . . . . . . . . . . . . .
+44
+4
+Experiments
+45
+4.1
+Software stack . . . . . . . . . . . . . . . . . . . . . . . .
+45
+4.2
+State preparation . . . . . . . . . . . . . . . . . . . . . .
+46
+4.2.1
+Discrete states . . . . . . . . . . . . . . . . . . . .
+47
+4.2.2
+CV states . . . . . . . . . . . . . . . . . . . . . .
+49
+4.3
+Discrete-variable Polynomial Network . . . . . . . . . . .
+49
+4.3.1
+PolyNet with ancilla
+. . . . . . . . . . . . . . . .
+49
+4.3.2
+PolyNet with correlations
+. . . . . . . . . . . . .
+50
+4.3.3
+PolyNet with averages . . . . . . . . . . . . . . .
+51
+4.4
+Continuous-variable Polynomial Network . . . . . . . . .
+52
+4.4.1
+PolyNet with ancilla
+. . . . . . . . . . . . . . . .
+52
+4.4.2
+PolyNet with correlations
+. . . . . . . . . . . . .
+52
+4.4.3
+PolyNet with averages . . . . . . . . . . . . . . .
+53
+5
+Conclusion
+55
+
+Chapter 1
+Introduction
+1.1
+Motivation
+After more than three decades since Richard Feynman's proposal of per-
+forming simulations using quantum phenomena [1], the ﬁrst practical
+quantum computers are ﬁnally being built. The scope of calculations
+signiﬁcantly expanded beyond simulations, with a range of promising
+applications emerging. In the short term, we must accept the presence
+of noise in the system. Despite this, some applications can still be ac-
+celerated using these early quantum computers. In this so-called Noisy
+Intermediate-Scale Quantum (NISQ) era [2], potential applications that
+could be accelerated include optimization [3, 4], chemistry [5, 6, 7] and
+machine learning [8, 9, 10].
+In the process of enhancing machine learning using quantum com-
+puters, the concept of quantum neural network (QNN) has emerged as
+a promising application. Like their classical counterpart, QNNs can be
+used as classiﬁcation and regression machines [11, 12], as well as gen-
+erative models [13, 14]. While their advantage to process classical data
+has not yet been demonstrated, there is one area where the advantage is
+clear: quantum data processing. When the input of the QNN is itself a
+quantum state—prepared with another circuit that feeds into it—it has
+indeed no classical analogue to compete with. Yet, we can identify at
+least two use cases where QNNs with a quantum input can be useful:
+quantum simulation and quantum property testing.
+Quantum simulation, as originally introduced by Feynman, is based
+on the idea that the state of n particles is described by exponentially
+many complex numbers.
+It would therefore require an exponentially
+1
+
+2
+CHAPTER 1. INTRODUCTION
+large memory to be stored and processed on a classical computer. On
+the contrary, a quantum device can manipulate the quantum state di-
+rectly, without requiring to store each of its individual components. One
+important area of science that can be enhanced by quantum simulation
+is quantum chemistry. In this ﬁeld, one wants, for instance, to compute
+the properties of the stable state (or ground-state) of a molecule. Many
+recent advances have allowed to compute the ground-state—as well as
+the ﬁrst excited states—of a Hamiltonian on near-term, circuit-based,
+quantum computers [15, 16]. However, obtaining the ground-state of a
+system is rarely the last step of a quantum simulation: one wants to
+extract useful properties from it. In the case of molecules, the charge
+density, the dipole moment or the exchange-correlation energy are exam-
+ples of properties interesting to chemist and material scientists [6]. The
+traditional technique is to reconstruct the entire state using quantum
+state tomography before analytically computing the desired properties.
+However, this process requires in general an exponential number of mea-
+surements and is inherently ineﬃcient if we are interested in only a few
+scalar properties. Training a QNN to take the state as input and its
+properties as outputs is therefore one way to alleviate this issue.
+Another area where QNNs can provide an advantage is quantum prop-
+erty testing. When building a quantum computer—or more generally
+any type of quantum technology—testing your device is of paramount
+importance, since current devices are subject to many sources of noise:
+decoherence, gate and measurements errors, loss, etc. One way to test
+it is to verify that, given a circuit, the output state corresponds to the
+theoretical one. In order to avoid once again the exponential process
+of quantum state tomography, another idea could be to check that sev-
+eral properties of the state hold, such as its entanglement or its purity.
+A QNN trained to output those values, before comparing them to the
+theory, would therefore allow an eﬃcient testing of the device.
+In this thesis, we study the possibility of eﬃciently estimating prop-
+erties of two kinds of state: qubit states and continuous-variable (CV)
+states. While the former lays at the core of the most common quantum
+computing paradigm, CV states have recently regained popularity, with
+the creation of Python libraries to manipulate them [17, 18] and several
+algorithms for near-term devices using them [19, 20, 21].
+
+CHAPTER 1. INTRODUCTION
+3
+1.2
+Previous work
+The idea of using quantum circuits to estimate properties of a state
+without full reconstruction goes back to [22], which introduced a class
+of circuits, based on the controlled-SWAP gate, to evaluate all the func-
+tionals tr
+h
+ρki
+(for k ∈N), using k copies of ρ but the measurement of
+only one qubit in the σz-basis.
+They noted that getting the value of
+tr
+h
+ρki
+for all k ∈{2, ..., n} (with n the number of qubits) is suﬃcient to
+obtain the spectrum of ρ, and therefore estimate any functional of the
+form tr[f(ρ)]. The main downside of this approach is that it requires to
+build a circuit with n2 qubits. Around the same time [23] presented a
+class of circuits that can compute any observable, i.e. linear functional
+of the form tr[Oρ]. [24] and [25] generalized those circuits in a coherent
+framework, showing that any polynomial functional of a density matrix
+can be written tr
+h
+Oρ⊗ki
+and directly estimated with a controlled unitary
+gate and two Hadamard gate. However, the question of how to obtain
+this unitary in practice was still considered open by the authors.
+Direct measurements of CV state functionals of the form tr
+h
+ρki
+have
+also been considered in the literature. [26] showed that performing a
+discrete Fourier transform on k copies of the state, followed by a parity
+measurement was enough to evaluate those polynomials. [27] discovered
+the same method independently and generalized the circuit to arbitrary
+multi-partite states. A clear summary of those two approaches is carried
+through in [28]. However, as far as we know, the most general case of
+eﬃciently evaluating tr
+h
+Oρ⊗ki
+has not yet been considered in the litera-
+ture.
+The notion of quantum neural network has been developed more re-
+cently and can refer to very diﬀerent quantum algorithms or circuits
+inspired by classical neural networks. As suggested in [29], quantum ma-
+chine learning algorithms can be classiﬁed into three categories: classical
+machine learning (ML) to solve quantum tasks ("QC" ML) [30, 31, 32],
+quantum algorithms to enhance classical ML ("CQ" ML) [11, 12, 33] and
+quantum algorithms to solve quantum tasks ("QQ" ML) [29, 34, 35]. The
+last case is the one of interest for this thesis. In [35], the authors devel-
+oped an architecture of QNN that respect certain symmetries, and use it
+to estimate ground-state topological phase of a many-body system. [34]
+trained parametrized circuits (with a varying number of gates) to com-
+pute the overlap tr[ρσ] between two states ρ and σ (which becomes the
+purity when ρ = σ) with less gates than the traditional SWAP test. Fi-
+
+4
+CHAPTER 1. INTRODUCTION
+nally, [29] developed a universal ansatz and training algorithm for learn-
+ing unitary circuits, and evaluates them on random unitary matrices.
+However, none of those papers framed the problem as learning general,
+non-linear functionals of a state. Closer to our approach is [33], which
+constructed an architecture of QNN able to learn polynomial functions
+of real data (for classical ML tasks).
+The papers mentioned above considered QNNs acting on discrete
+states (qubits). More general architectures working for continuous-variable
+states have been introduced in [36, 37]. However, by the time of writ-
+ing, we haven't found any theoretical or numerical result for learning
+quantum properties with them.
+1.3
+Contributions
+In this thesis, we introduce three diﬀerent quantum neural network ar-
+chitectures designed to compute polynomial functionals f(ρ) of a state
+ρ:
+1. Quantum Polynomial Network with ancilla (PolyNet-ancilla): uni-
+versal circuit that can estimate f(ρ) as the average value ⟨Za⟩of
+an ancilla qubit
+2. Quantum Polynomial Network with correlations (PolyNet-corr):
+universal circuit whose predicted value for f(ρ) is a linear com-
+bination of all the correlations ⟨Zi1...Zij⟩of the output qubits.
+3. Quantum Polynomial Network with averages (PolyNet-avg): cir-
+cuit whose predicted value for f(ρ) is a non-linear function (given
+by a classical neural network) of the averages ⟨Z1⟩, ..., ⟨Zn⟩of all
+the output qubits
+We prove the universality of the ﬁrst two circuits in the qubit-case
+and exhibit the challenges faced by the three of them in the continuous-
+variable case. We present an algorithm to train those three circuits, and
+evaluate them numerically on purity tr[ρ2] and von Neumann entropy
+tr (ρ log(ρ)) estimation, for both qubits and continuous-variable states,
+using a simulator. While we achieve compelling performance in the qubit
+case, the results obtained for continuous-variable states, combined with
+the theory, can be seen as a no-go result.
+
+CHAPTER 1. INTRODUCTION
+5
+1.4
+Outline of the thesis
+This thesis is divided into three main sections.
+Background
+We start by an extensive introduction to the world of
+continuous-variable quantum computing, assuming the reader familiar
+with the basics of discrete quantum computing (qubits, gates, measure-
+ments). We then review the two main concepts combined in this thesis:
+quantum neural networks and property estimation. In particular, we ex-
+hibit some previous theoretical work that we rely on in the rest of the
+thesis.
+Method
+We introduce here our three architectures independently, along
+with the theory that goes with them.
+We then present the training
+procedure and the dataset preparation
+Experiments
+Finally, we show and analyze the practical results ob-
+tained with the diﬀerent architectures, properties to estimate, and quan-
+tum computing paradigms.
+
+Chapter 2
+Background
+2.1
+Continuous-Variable quantum computing
+Most introductions to quantum computing consider the qubit as the unit
+of information. A qubit is a quantum state describing a two-level system,
+such as the spin of an electron, the polarization of light, or the energy
+level of an atom. If we deﬁne |0⟩and |1⟩as respectively the ground state
+and the excited state of the system, a general 1-qubit state can be written
+|ψ⟩= a|0⟩+b|1⟩where |a|2 +|b|2 = 1. A natural extension of the qubit is
+the qudit, a state describing a d-levels system and which can be written
+|ψ⟩= a0|0⟩+ ... + ad|d⟩.
+However, many systems in nature are described by a Hamiltonian
+with inﬁnitely many eigenstates.
+One example of such system is the
+quantum harmonic oscillator, described by the Hamiltonian H = 1
+2(p2 +
+ω2q2), where q and p are the position and momentum operators.
+A
+general solution of this system is called a qumode and can be written
+|ψ⟩= P∞
+n=0 an|n⟩, where |n⟩is the eigenstate of the Hamiltonian with
+energy nℏω. The Hilbert space of qumodes is radically diﬀerent than the
+space of qubits and therefore requires the use of a diﬀerent paradigm of
+quantum computing: continuous-variable.
+This section will be dedicated to the study of continuous-variable
+systems. We will start by motivating the use of qumodes in quantum
+computing, showing that such states correspond to states of light—i.e.
+solutions of the quantized Maxwell's equation—and can therefore be used
+in photonic experiments. The following parts will be dedicated to the
+diﬀerent components of a CV system:
+• the qumode and its diﬀerent basis and representation.
+6
+
+CHAPTER 2. BACKGROUND
+7
+• the gates that allow qumodes to evolve and getting entangled
+• the measurement process, which can be carried in three diﬀerent
+ways.
+We assume that the reader is familiar with qubit-based quantum com-
+puting (gates, Bloch sphere, measurements) and will try to draw analo-
+gies with this traditional framework whenever it is relevant.
+2.1.1
+Physical motivation: quantizing light
+The continuous-variable framework of quantum computing directly emerges
+from one of its experimental realizations: the photonic quantum com-
+puter. In this device, the vector of information—the qumode—is carried
+out by photons. This section is dedicated in ﬁnding the quantum state
+associated to a photon.
+In classical physics, light is described by an electromagnetic ﬁeld
+(E, B), solution of Maxwell's equations. In empty space, those are given
+by:
+∇× E = ∂B
+∂t
+∇× B = µ0ϵ0
+∂E
+∂t
+∇· E = 0
+∇· B = 0
+(2.1)
+The usual process to turn classical equations into quantum is to ﬁnd a
+pair of variables, usually called q and p, such that the energy function
+H(q, p) follows Hamilton's equations:
+∂H
+∂p = ˙q
+∂H
+∂q = −˙p
+(2.2)
+The quantization process then consists in turning q and p into opera-
+tors, such that they obey the so-called canonical commutation relations:
+[qi, pj] = iℏδij
+(2.3)
+
+8
+CHAPTER 2. BACKGROUND
+For any quantum state following Schrödinger's equation, it is then pos-
+sible to show, using Ehrenfest theorem, that Hamilton's equation will be
+respected in average for q and p, recovering the classical case.
+With this objective in mind, let us start by examining the solutions
+of (2.1) in the simple case of a one-dimensional ﬁeld conﬁned inside a
+cavity with perfectly conducting walls at z = 0 and z = L. Assuming
+the electric ﬁeld is polarized in the x-direction, the single-mode solution
+of Maxwell's equations is given by:
+E(z, t) =
+ 2ω2
+V ϵ0
+! 1
+2
+q(t)sin(kz)ex
+B(z, t) = µ0ϵ0
+k
+ 2ω2
+V ϵ0
+! 1
+2
+˙q(t)cos(kz)ey
+(2.4)
+where ω is the frequency of the mode, V the eﬀective volume of the
+cavity, k = ω
+c the wave number, and q a function encapsulating the time
+dependency of the ﬁelds. We will show that q(t) and p(t) = ˙q(t) can be
+used as our canonical variables.
+It is known that the energy of an electromagnetic ﬁeld is given by
+H = 1
+2
+Z
+dV
+"
+ϵ0E2(r, t) + 1
+µ0
+B2(r, t)
+#
+(2.5)
+Inserting our solution (2.4) in (2.5), we get:
+H = 1
+2(p2 + ω2q2)
+(2.6)
+We can see that Hamilton's equations (2.2) are met if we choose q and p
+as our canonical variables. Our system is therefore ready to be quantized:
+ˆH = 1
+2(ˆp2 + ω2ˆq2)
+(2.7)
+where [ˆq, ˆp] = iℏ. The operators ˆq and ˆp are often called position and
+momentum operators in the literature. However, despite this denomi-
+nation, they do not correspond to the position and momentum of any
+physical object in our case, but rather to the amplitudes of the electric
+and magnetic ﬁelds. Another convenient way to write our Hamiltonian
+is using the so-called quadrature operators ˆX =
+q ω
+2ℏˆq and ˆP =
+1
+√
+2ℏω ˆp,
+which correspond to position and momentum without unit:
+ˆH = ℏω( ˆX2 + ˆP 2)
+(2.8)
+
+CHAPTER 2. BACKGROUND
+9
+Operators
+Deﬁnition
+Commutation relation
+Position and momentum
+Quantization of q(t) and p(t)
+[ˆq, ˆp] = iℏ
+Quadratures
+ˆX =
+q ω
+2ℏˆq
+[ ˆX, ˆP] = i
+2
+ˆP =
+1
+√
+2ℏω ˆp
+Annihilation and creation
+ˆa = ˆX + i ˆP
+[a, ˆa†] = 1
+ˆa† = ˆX −i ˆP
+Table 2.1: Summary of the diﬀerent canonically conjugate operators
+This Hamiltonian describes a quantum harmonic oscillator, whose
+solution is detailed in every quantum mechanics textbook. Finding the
+eigenvalues of ˆH essentially consists in the following steps:
+1. Deﬁning the operators ˆa = ˆX + i ˆP and ˆa† = ˆX −i ˆP, called re-
+spectively annihilation and creation operators, as well as ˆN = ˆa†ˆa,
+called the number operator.
+2. Showing that, for every eigenstate |x⟩of ˆH associated to the pos-
+itive eigenvalue x, ˆa†|x⟩= √x + 1|x + 1⟩, ˆa|x⟩= √x|x −1⟩and
+ˆN|x⟩= x|x⟩
+3. Proving that all eigenvalues are in fact positive integer
+4. Showing that ˆH = ℏω( ˆN + 1
+2) and deducing that the eigenvalues of
+ˆH are given by ℏω(n + 1
+2) where n is a positive integer.
+To sum it up, single-mode photons are described by a Hamiltonian
+ˆH which has a discrete but inﬁnite number of eigenvectors, as shown in
+Figure 2.1. The eigenstates |n⟩of ˆH are called Fock states and constitute
+an orthonormal basis of our Hilbert space. Therefore, every single-mode
+photon state |ψ⟩can be written |ψ⟩= P
+n an|n⟩, with ⟨n|m⟩= δnm. We
+call such a state a qumode.
+
+10
+CHAPTER 2. BACKGROUND
+Figure 2.1: The quantum harmonic oscillator is characterized by a dis-
+crete but inﬁnite number of equally spaced energy levels. A state in one
+of those levels is called a Fock state
+2.1.2
+Classiﬁcation of qumodes
+At this stage of the presentation, a question arises: if a qumode is de-
+scribed using a discrete basis, why do we call this computational model
+"continuous-variable"? We will answer that question in this section, show-
+ing that there exists several other bases to represent a photonic state,
+described by continuous variables. In the same way as the Fock basis
+was extracted from the spectrum of the Hamiltonian ˆH, other bases will
+be constructed by looking at the eigenstates of diﬀerent operators.
+ˆX and ˆP eigenstates
+The operators ˆX and ˆP are both Hermitian observables and can therefore
+be diagonalized:
+ˆX|x⟩= x|x⟩
+ˆP|p⟩= p|p⟩
+The spectrum of those operators is continuous and the eigenstates {|x⟩}
+and {|p⟩} form a continuous basis of the state space: for any state |ψ⟩,
+|ψ⟩=
+Z
+ψ(x)|x⟩dx
+|ψ⟩=
+Z
+φ(p)|p⟩dp
+.
+
+CHAPTER 2. BACKGROUND
+11
+Since [ ˆX, ˆP] = i
+2, there is no eigenstate |x, p⟩of both ˆX and ˆP: that
+is the uncertainty principle. Therefore, it is not possible to associate a
+probability distribution p(x, p) to the whole phase space. However, it is
+possible to construct so-called quasi-probability distributions on the phase
+space: real functions of x and p that implicitly contain the probability
+associated with each variables. The most common quasi-probability dis-
+tribution is the Wigner function, which motivates the deﬁnition of a very
+important category of states: Gaussian states.
+Wigner's representation and Gaussian states
+In classical probability theory, a probability distribution can be deﬁned
+in two ways: with a density function or with its Fourier transform, the
+characteristic function.
+More precisely, for a random variable X, the
+characteristic function is deﬁned as χ(t) = E
+h
+eiXti
+.
+Although it is not possible to associate a density function to the quan-
+tum phase space, one can construct the equivalent of the characteristic
+function for a general density matrix ρ:
+χ(α, β) = Eρ
+h
+ei(α ˆ
+X+β ˆP)i
+= tr
+h
+ρei(α ˆ
+X+β ˆP)i
+(2.9)
+for α, β ∈R.
+The Wigner function is deﬁned as the inverse Fourier
+transform of the characteristic function:
+W(x, p) = 1
+π2
+Z
+e−i(αx+βp)χ(α, β)dαdβ
+(2.10)
+This process is summarized in the commutative diagram in Figure 2.2.
+p(x)
+W(x, p)
+E
+h
+eiXti
+tr
+h
+ρei(α ˆ
+X+β ˆP)i
+FT
+quantization
+FT−1
+Figure 2.2: Construction of the Wigner function
+If interpreting the Wigner function in general is not straightforward,
+there are several properties that can help us to do so:
+
+12
+CHAPTER 2. BACKGROUND
+1. W(x, p) ∈R and is normalized:
+Z
+W(x, p)dxdp = 1
+2. The marginal distributions over x and p correspond to the actual
+probability distributions:
+Z
+W(x, p)dp = |ψ(x)|2
+Z
+W(x, p)dx = |φ(p)|2
+3. W(x, p) ≥0 ⇐⇒W(x, p) is a Gaussian distribution
+States whose Wigner function respects condition 3 are called Gaussian
+states. An example of Gaussian state is the vacuum Fock state |0⟩, whose
+Wigner function is represented below:
+All other Fock states |n⟩with n ≥1 are non-Gaussian. Here is the
+Wigner function of |1⟩for example:
+So why do we care about Gaussian states? Here are some insights:
+
+CHAPTER 2. BACKGROUND
+13
+1. They are the easiest to implement experimentally. The light pro-
+duced by a laser is a Gaussian state and can be transformed into
+any other Gaussian state by means of linear optics and squeez-
+ing. Obtaining non-Gaussian states is one of the main challenges
+of experimental quantum optics.
+2. Gaussian operations, i.e. operations which turn Gaussian states
+into Gaussian states, correspond to aﬃne transformations of the
+phase space. Transformations such as rotations, scaling and trans-
+lations preserve Gaussian distributions.
+On the contrary, non-
+Gaussian operations are non-linear in the phase space.
+We will
+use this property when talking about quantum neural networks.
+3. They can be simulated eﬃciently by classical computers. There-
+fore, any CV quantum algorithm with a speed-up over classical
+computation must contain non-Gaussian operations.
+Due to Heisenberg's uncertainty principle, not all Gaussian distribu-
+tions can be associated to a Gaussian state. There exists actually only
+two types of valid Gaussian states: coherent states and squeezed states.
+Coherent states
+Informally, coherent states are Gaussian states with the same variance
+on the x and p axes. Here are examples of coherent states (in the Wigner
+representation):
+Figure 2.3: Wigner representation of several coherent state. Left: |0⟩.
+Middle: |α = (2, 2)⟩. Right: |α = (−1, 0)⟩
+All coherent states have the same variance and are therefore only
+characterized by the two components of the mean.
+
+14
+CHAPTER 2. BACKGROUND
+Formally, coherent states are deﬁned as eigenstates of the annihilation
+operator ˆa:
+ˆa |α⟩= α |α⟩
+The ﬁrst example of ˆa eigenstate is the Fock state |0⟩: ˆa|0⟩= 0 by
+deﬁnition of ˆa. To obtain other coherent states, we need to introduce the
+displacement operator, deﬁned as
+D(α) = eαˆa†−α∗ˆa
+for α ∈C.
+We will now prove three important facts about coherent
+states:
+1. |α⟩have the following decomposition in the Fock basis:
+|α⟩= e−|α|2
+2
+∞
+X
+n=0
+αn
+√
+n! |n⟩
+2. Every coherent state can be written |α⟩= D(α) |0⟩
+3. Coherent states are Gaussian states with mean (Re α, Im α) and
+variance 1
+4 on the ˆX and ˆP axis (as introduced in the ﬁrst para-
+graph)
+Proposition 1. For all α ∈C, the coherent state |α⟩have the following
+decomposition in the Fock basis:
+|α⟩= e−|α|2
+2
+∞
+X
+n=0
+αn
+√
+n! |n⟩
+.
+Proof. Since the Fock states form a basis of our space, every |α⟩can be
+written
+|α⟩=
+∞
+X
+n=0
+Cn |n⟩.
+Applying the deﬁnition of |α⟩as an eigenstate of ˆa and the relation
+ˆa |n⟩= √n |n −1⟩, we have:
+ˆa |α⟩= α |α⟩
+∞
+X
+n=0
+Cnˆa |n⟩=
+∞
+X
+n=0
+αCn |n⟩
+∞
+X
+n=1
+Cn
+√n |n −1⟩=
+∞
+X
+n=0
+αCn |n⟩
+∞
+X
+n=0
+Cn+1
+√
+n + 1 |n⟩=
+∞
+X
+n=0
+αCn |n⟩
+(2.11)
+
+CHAPTER 2. BACKGROUND
+15
+By identifying the coeﬃcients on both sides, we get the recurrent relation
+∀n ∈N, Cn+1
+√
+n + 1 = αCn
+(2.12)
+whose solution is:
+Cn = C0
+αn
+√
+n!
+(2.13)
+We can obtain C0 using the normalization condition
+⟨α|α⟩= 1
+|C0|2
+∞
+X
+n=0
+|α|2n
+n!
+= 1
+|C0|2e|α|2 = 1
+C0 = e−|α|2
+2
+(2.14)
+which leads to the expected results:
+|α⟩= e−|α|2
+2
+∞
+X
+n=0
+αn
+√
+n! |n⟩
+(2.15)
+Proposition 2. Every coherent state |α⟩can be written |α⟩= D(α) |0⟩
+where D(α) = eαˆa†−α∗ˆa is the displacement operator
+Proof. To prove this proposition, we will show that the states D(α) |0⟩
+have the same expansion as coherent states in the Fock basis. Let us ﬁrst
+notice that the displacement operator can be rewritten
+D(α) = e−1
+2 |α|2eαˆa†e−α∗ˆa
+(2.16)
+Indeed, the Baker-Campbell-Hausdorﬀformula tells us that
+eX+Y = eXeY e
+1
+2 [X,Y ]
+if [X, Y ] is a multiple of the identity. In our case, X = αˆa†, Y = α∗ˆa
+and [X, Y ] = |α|2[ˆa†, ˆa] = −|α|2I. We used the fact that [ˆa, ˆa†] = I,
+which can be proven using the canonical commutation relation [p, q] = iℏI
+(introduced in Section 2.1.1) and the deﬁnition of the annihilation and
+creation operators.
+Applying (2.16) to the vacuum state leads to
+e−|α|2
+2 eαˆa†e−α∗ˆa |0⟩= e−|α|2
+2 eαˆa† |0⟩
+(2.17)
+
+16
+CHAPTER 2. BACKGROUND
+since all terms (α∗)kˆak |0⟩of the Taylor expansion of e−α∗ˆa will be 0
+except for k = 0. Taylor expanding the second exponential and using
+ˆa† |n⟩= √n + 1 |n + 1⟩gives us
+e−|α|2
+2 eαˆa† |0⟩= e−|α|2
+2
+∞
+X
+n=0
+αn(ˆa†)
+n
+n!
+|0⟩
+= e−|α|2
+2
+∞
+X
+n=0
+αn
+n!
+√
+n! |n⟩
+= e−|α|2
+2
+∞
+X
+n=0
+αn
+√
+n! |n⟩
+(2.18)
+Therefore, the states D(α) |0⟩, also called displaced vacuum states are
+exactly the coherent states with eigenvalue α.
+Proposition 3. |α⟩is a Gaussian state with mean (Re α, Im α) and vari-
+ance 1
+4 on both the ˆX and ˆP axes.
+Proof. We need to prove that the Wigner function of |α⟩is a Gaussian
+distribution. As a reminder, the Wigner function of a density matrix ρ
+is deﬁned as the Fourier transform of the characteristic function
+χ(λx, λp) = tr
+h
+ρei(λx ˆ
+X+λp ˆP)i
+for λx, λp ∈R. Noticing that
+i(λx ˆX + λp ˆP) = i
+
+λx
+1
+2(ˆa + ˆa†) + λp
+1
+2i(ˆa −ˆa†)
+
+= 1
+2 (λp + iλx) ˆa + 1
+2 (λp −iλx) ˆa†
+= λ∗ˆa −λˆa†
+(2.19)
+where λ := 1
+2(λp −iλx), we can rewrite the characteristic function as
+χ(λ) = tr [ρD(λ)] ,
+(2.20)
+which is often taken as the textbook deﬁnition of the characteristic func-
+tion.
+In our case, ρ = D(α) |0⟩⟨0| D†(α) and
+χ(λ) = tr
+h
+D(α) |0⟩⟨0| D†(α)D(λ)
+i
+.
+(2.21)
+
+CHAPTER 2. BACKGROUND
+17
+Using D†(α) = D(−α) and D(α)D(β) = ei Im αβ∗D(α + β) (eq. (3.38)
+and (3.42) of [38]),
+χ(λ) = ⟨0| D(−α)D(λ)D(α) |0⟩
+= e−i Im(αλ∗) ⟨0| D(λ −α)D(α) |0⟩
+= e−i Im(αλ∗)ei Im((λ−α)α∗)) ⟨0| D(λ) |0⟩
+= e2i Im λα∗⟨0|λ⟩
+= e2i Im λα∗e−|λ|2
+2
+χ(λ) = e−1
+2(|λ|2−4i Im λα∗)
+(2.22)
+Completing the square gives us
+χ(λ) = e−1
+2(|λ−2iα|2−4|α|2)
+= e−1
+2 |λ−β|2e
+1
+2 |β|2
+(2.23)
+where β := 2iα.
+We previously deﬁned the Wigner function as the Fourier transform
+of χ(λx, λp):
+W(x, p) = 1
+π2
+Z
+e−i(λxx+λpp)χ(λx, λp)dλxdλp
+(2.24)
+However, as in (2.19), we can rewrite the exponential by deﬁning λ :=
+1
+2(λp −iλx) and z = x + ip. We can now calculate the Wigner function:
+W(z) = e
+1
+2 |β|2 Z
+χ(λ)ezλ∗−z∗λd2λ
+= e
+1
+2 |β|2 Z
+e−1
+2 |λ−β|2e−2i Im λz∗d2λ
+= e
+1
+2 |β|2 Z
+e−1
+2(|λ−β|2+4i Im λz∗)d2λ
+= e
+1
+2 |β|2 Z
+e−1
+2(|λ−β|2+4i Im(λ−β)z∗+4i Im βz∗)d2λ
+= e
+1
+2 |β|2 Z
+e−1
+2(|λ−β+2iz|2−|z|2+4i Im βz∗)d2λ
+= e
+1
+2 |β|2e
+1
+2 |z|2e−2i Im βz∗Z
+e−1
+2 |λ−β+2iz|2d2λ
+= e
+1
+2 (|β|2−4i Im βz∗)e
+1
+2 |z|2 Z
+e−1
+2 |λ−β+2iz|2d2λ
+= e
+1
+2 |β−2iz|2e−1
+2 |z|2e
+1
+2 |z|2 Z
+e−1
+2 |λ−β+2iz|2d2λ
+W(z) = e
+1
+2 |β−2iz|2 Z
+e−1
+2 |λ−β+2iz|2d2λ
+(2.25)
+
+18
+CHAPTER 2. BACKGROUND
+Noticing that the integrand is a (non-normalized) two-dimensional Gaus-
+sian distribution with variance 1 and mean β−2iz, we get for the Wigner
+function:
+W(z) = 1
+π22πe
+1
+2 |β−2iz|2
+= 2
+πe
+1
+2 |2iz−2iα|2
+=
+1
+2πσ2e
+|z−α|2
+2σ2
+(2.26)
+where σ := 1
+4. Therefore, W(z) = W(x + ip) is a Gaussian distribution
+with mean α and variance 1
+4.
+Remark 1. The uncertainty relation for the quadrature operators is given
+by
+⟨(∆X)2⟩⟨(∆P)2⟩≥1
+16
+(2.27)
+For coherent states, we showed that ⟨(∆X)2⟩= ⟨(∆P)2⟩=
+1
+4, which
+means that ⟨(∆X)2⟩⟨(∆P)2⟩=
+1
+16. Therefore, coherent states are said to
+saturate, or equalize, the uncertainty relation.
+Remark 2. It can be shown that coherent states |α⟩form a basis of our
+Hilbert space. However, this basis is NOT an orthogonal basis:
+⟨α1|α2⟩= e−|α1−α2|2
+Squeezed states
+To deﬁne the second type of Gaussian states, we give back freedom to
+the variance. However, due to the uncertainty principle, decreasing the
+noise on one axis necessarily increases the noise on the orthogonal axis
+with the same amount. States with diﬀerent standard deviations on two
+axes are called squeezed states and are represented in Figure (2.4).
+
+CHAPTER 2. BACKGROUND
+19
+Figure 2.4:
+Wigner representation of several squeezed state.
+Left:
+|α = 0, z = (0.5, 0)⟩.
+Middle:
+|α = 0, z = (0.5, 0.5)⟩.
+Right:
+|α =
+(1.5, 1.5), z = (0.5, −0.5)⟩
+As for coherent states, formally deﬁning squeezed states requires the
+introduction of a new operator, called squeezing operator and given by
+S(ξ) = e
+1
+2(ξ∗ˆa2−ξ(ˆa†)2)
+for ξ ∈C. Squeezed states are then deﬁned as the states
+|ξ, α⟩= D(α)S(ξ) |0⟩.
+Writing ξ = reiθ, we can interpret θ as the angle of the axis in which
+the squeezing is performed, r as the amount of squeezing, and α as the
+position of the mean, as highlighted by the following proposition:
+Proposition 4. |α, ξ⟩is a Gaussian state with mean (Re α, Im α) and
+covariance matrix
+C(r, θ) = 1
+4R
+ 
+−θ
+2
+!  
+e−2r
+0
+0
+e2r
+!
+R
+ θ
+2
+!
+where R(θ) :=
+ 
+cos(θ)
+−sin(θ)
+sin(θ)
+cos(θ)
+!
+.
+Remark 3. ˆX and ˆP eigenstates can be seen as a limit of squeezed states:
+|x⟩= lim
+r→∞|α = x, ξ = r⟩
+|p⟩= lim
+r→∞|α = ip, ξ = −r⟩
+(2.28)
+
+20
+CHAPTER 2. BACKGROUND
+Figure 2.5: Wigner representation of ˆX and ˆP eigenstates. Left:
+ˆX-
+eigenstate |x = 1.5⟩. Right: ˆP-eigenstate |p = 1.5⟩.
+2.1.3
+Quantum gates in a CV system
+We will ﬁrst review the general formalism of CV operations, before de-
+scribing the most common gates used in CV quantum computing.
+The two representations of CV gates
+As we've seen, there are two ways to understand operations on CV quan-
+tum states: either as unitary operations acting on the state vector, or
+as transformations of the phase space. For instance, the displacement of
+a state |ψ⟩, with Wigner function W(x, p), can be represented both by
+D(α) |ψ⟩and W(x + Re α, p + Im α).
+In the Hilbert space picture, unitary operators can always be written
+as the exponential of a skew-symmetric operator1:
+U = eS
+For instance, S = αˆa† −α∗ˆa corresponds to a displacement. In practice,
+most unitaries considered in CV quantum computing consist in the ex-
+ponential of polynomial functions of ˆa and ˆa† (or equivalently ˆx and ˆp).
+In particular, second-order polynomials correspond to Gaussian trans-
+formations (i.e. transformations that turn Gaussian states into Gaussian
+1Since the Lie algebra of the unitary group consists in the skew-symmetric opera-
+tors
+
+CHAPTER 2. BACKGROUND
+21
+states), while higher order polynomial correspond to non-Gaussian trans-
+formations.
+In the phase space picture, the distinction between Gaussian and
+non-Gaussian transformations is also very clear.
+Gaussian operations
+are aﬃne transformations of the phase space:
+ 
+x
+p
+!
+7→M
+ 
+x
+p
+!
++
+ 
+αR
+αI
+!
+(2.29)
+However, not all linear transformations M are allowed, but only those
+preserving the uncertainty principle, called symplectic matrices.
+The symplectic formalism
+Preserving the uncertainty principle comes down to preserving the canon-
+ical commutation relations. In the general multimode case, noting ˆx =
+(ˆx1, ..., ˆxn)T, ˆp = (ˆp1, ..., ˆpn)T and ˆr =
+ 
+ˆx
+ˆp
+!
+the canonical commutation
+relations can be written
+[ˆr,ˆrT] = iΩ
+(2.30)
+where the Lie bracket between vectors of operators is deﬁned as
+[ˆa, ˆb] = ˆaˆb −(ˆaˆb)T
+and
+Ω=
+ 
+0
+−I
+I
+0
+!
+is the 2n × 2n symplectic form. Therefore, any matrix M that preserves
+the canonical commutation relations must verify the relation
+[Mˆr,ˆrTM T] = iΩ
+(2.31)
+Developing the LHS gives us
+[Mˆr,ˆrTM T] = MˆrˆrTM T −
+
+MˆrˆrTM T T
+= M
+
+ˆrˆrT −
+
+ˆrˆrT T 
+M T
+= iMΩM T
+(2.32)
+This motivates the deﬁnition of a symplectic matrix: a matrix M is
+symplectic if
+M TΩM = Ω.
+All the Gaussian gates described below can be shown to respect this
+property.
+
+22
+CHAPTER 2. BACKGROUND
+Displacement gate
+D(α)
+Figure 2.6: Symbol of a displacement gate
+The displacement gate D(α) = eαˆa†−α∗ˆa (for α ∈C) is a single mode
+Gaussian gate which translates the phase space the following way:
+ 
+x
+p
+!
+7→
+ 
+x
+p
+!
++
+ 
+Re α
+Im α
+!
+Squeezing gate
+S(ξ)
+Figure 2.7: Symbol of a squeezing gate
+The squeezing gate S(ξ) = e
+1
+2(ξ∗ˆa2−ξ(ˆa†)2) (for ξ = reiθ ∈C) is a single
+mode Gaussian gate which squeezes the phase space the following way:
+ 
+x
+p
+!
+7→R
+ θ
+2
+!  
+e−r
+0
+0
+er
+!
+R
+ 
+−θ
+2
+!  
+x
+p
+!
+Rotation gate
+R(φ)
+Figure 2.8: Symbol of a rotation gate
+The rotation gate R(θ) = eiθˆa†ˆa (for θ ∈[0, 2π)) is a single mode Gaussian
+gate which rotates the phase space:
+ 
+x
+p
+!
+7→
+ 
+cos(θ)
+−sin(θ)
+sin(θ)
+cos(θ)
+! 
+x
+p
+!
+
+CHAPTER 2. BACKGROUND
+23
+Beam splitter
+BS(θ, φ)
+Figure 2.9: Symbol of a beam splitter
+A beam splitter BS(θ, φ) = eθ(eiφˆaiˆa†
+j−e−iφˆa†
+i ˆaj) (for θ, φ ∈[0, 2π]) is a
+two-modes Gaussian gate which entangles the phase space the following
+way:
+
+
+
+
+
+
+x1
+x2
+p1
+p2
+
+
+
+
+
+7→
+
+
+
+
+
+
+cos(θ)
+−sin(θ)
+0
+0
+sin(θ)
+cos(θ)
+0
+0
+0
+0
+cos(θ)
+−sin(θ)
+0
+0
+sin(θ)
+cos(θ)
+
+
+
+
+
+
+
+
+
+
+
+
+x1
+x2
+p1
+p2
+
+
+
+
+
+
+Examples of non-Gaussian gates
+V (γ)
+Figure 2.10: Symbol of a cubic gate
+K(κ)
+Figure 2.11: Symbol of a Kerr gate
+Non-Gaussian gates are unitaries of the form eP(ˆa,ˆa†), where P is a poly-
+nomial of degree at least three. Examples are the cubic gates ei γ
+3ℏx3 and
+the Kerr gates eiκˆa†
+1ˆa1ˆa†
+2ˆa2.
+More advanced non-Gaussian gates can be simulated using all the
+Gaussian gates presented above and at least one non-Gaussian gate.
+2.1.4
+Measuring a CV state
+In most applications of traditional quantum computing, a measurement
+consists in projecting the state on the computational basis (usually the
+Z-Pauli eigenstates). On the other side, CV states make use of many dif-
+ferent bases and therefore also require to perform several diﬀerent types
+
+24
+CHAPTER 2. BACKGROUND
+of measurements. The most common types of measurements are homo-
+dyne, heterodyne, and photon-counting, each corresponding to one of the
+diﬀerent bases presented above.
+Photon-counting measurement
+N
+Figure 2.12: Symbol of a Fock measurement
+Photon-counting, also called Fock measurement or photon-number resolv-
+ing measurement, consists in projecting the state into the Fock basis. It
+is therefore represented by the set {|n⟩⟨n|}n∈N of projective operators.
+When one mode of a multimode Gaussian state is measured in the Fock
+basis, the remaining state will become non-Gaussian. It can therefore be
+used as a method to create non-Gaussian states [39].
+Homodyne measurement
+Xφ
+Figure 2.13: Symbol of a homodyne measurement on the eigenstates of
+ˆXφ
+A homodyne measurement consists in projecting the state into a rotated
+quadrature, i.e. an eigenstate of ˆXφ = cos(φ) ˆX +sin(φ) ˆP. In the Wigner
+representation, it means projecting it on a a rotated axis. Homodyne
+measurements are represented by the set {|xφ⟩⟨xφ|}xφ∈R of projective
+operators.
+A multimode Gaussian state remains Gaussian after a homodyne
+measurement on one mode [17].
+Heterodyne measurement
+α
+Figure 2.14: Symbol of a heterodyne measurement
+
+CHAPTER 2. BACKGROUND
+25
+We saw that the coherent states form another (non-orthogonal) basis of
+the Hilbert space. Therefore, it is also possible to deﬁne a measurement
+that projects the state into a coherent state |α⟩: that's what we call a
+heterodyne measurement. They can be seen as a simultaneous measure-
+ment of ˆx and ˆp with some uncertainty [17]. They are represented by the
+set {|α⟩⟨α|}α∈C of projective operators.
+A multimode Gaussian state remains Gaussian after a heterodyne
+measurement on one mode [17].
+2.2
+Quantum neural networks
+2.2.1
+General idea
+Most machine learning tasks can be framed as function approximation
+problems, whether the function is the class of an input image, the trans-
+lation of a sentence or the best action to take in a game. Neural networks
+are a particular type of function approximators that have been particu-
+larly successful to process images, texts and sounds. In the same way, the
+notion of quantum neural networks has appeared recently to designate
+several diﬀerent types of quantum function approximators.
+Formally, one can deﬁne a quantum neural network (QNN), also called
+variational circuit or parametrized circuit, as a circuit depending on a set
+of parameters that can be trained to approximate a certain set of quan-
+tum functions. In general, a QNN can be written fθ(ρ) = tr
+h ˆBU †(θ)ρU(θ)
+i
+where ˆB is an observable and U(θ) a parametrized unitary matrix. A
+circuit architecture U(θ) is called a variational form, or ansatz. If an
+ansatz on n qubits (or qumodes in the CV case) can approximate any
+unitary matrix acting on those qubits (or qumodes), it is said to be uni-
+versal. Examples of universal ansatz for one and two qubits are given in
+Figure 2.15 and 2.16.
+One of the main challenges of QNNs is to approximate non-linear
+quantum functions, since typical quantum circuits are unitary, and there-
+fore linear. In practice, non-linear quantum functions arise when you
+either consider quantum properties such as the purity ρ 7→tr[ρ2], or em-
+bed classical data into the quantum realm to speed the approximation
+of classical functions: ρ(x) 7→f(x). To solve it, one can either introduce
+measurements in the circuit [35] or have the circuit act on several copies
+of the input [33].
+
+26
+CHAPTER 2. BACKGROUND
+Another challenge is to ﬁnd the best ansatz for a given class of func-
+tions. Universal ansatz can be constructed in general in both the discrete
+[40] and CV [37] cases, but they might not be the most eﬃcient if the
+functions have some known symmetries. Examples of ansatz respecting
+some symmetries are convolutional QNN for quantum many-body sys-
+tems [35] and UCCSD for chemistry [41].
+2.2.2
+Training
+Training a QNN consists in ﬁnding the parameters that minimize a cer-
+tain cost function. If the problem is a supervised learning problem, i.e.
+we have access to a dataset of input/output states {(ρ(i)
+in , ρ(i)
+out}i, and we
+call our QNN fθ, an example of objective is
+min
+θ
+1
+2
+X
+i
+||fθ(ρ(i)
+in ) −ρ(i)
+out||1
+where 1
+2||ρ −σ||1 = 1
+2 tr
+hq
+(ρ −σ)†(ρ −σ)
+i
+is the trace distance.
+Calling our cost function C(θ), there are two ways to optimize it:
+• Non-diﬀerentiable methods: evaluating C(θ) at several nearby points
+and deducing a good update for the parameters. Examples of algo-
+rithms include Nelder-Mead and gradient descent with numerical
+gradient calculation.
+• Diﬀerentiable methods: evaluating the gradient of C(θ) analytically
+before performing any variant of gradient descent.
+For QNNs, the main challenge of diﬀerentiable methods is to eﬃciently
+compute the gradient ∇θfθ(ρ). The library Strawberry Fields [17] im-
+plements it for CV gates on its simulator using automatic diﬀerentiation
+(since all operations involved are made of linear transformations and ele-
+mentary functions). However, when fθ(ρ) is evaluated on a real quantum
+computer, ∇θfθ(ρ) must as well be evaluated on the quantum computer.
+A general method to compute the gradient of a quantum circuit on a
+quantum computer has recently been introduced in [42] and implemented
+in the library PennyLane [18]. We will brieﬂy describe the method here
+for the discrete case, since we use it extensively in our experiments.
+Let µ ∈θ a scalar parameter aﬀecting only one gate G(µ), such that
+the circuit can be written U(θ) = V G(µ)W. The unitary G(µ) can be
+written in its exponential form
+G(µ) = e−iµG
+(2.33)
+
+CHAPTER 2. BACKGROUND
+27
+where G is Hermitian. Assuming that G has two distinct eigenvalues a
+and b (degenerate in the case of a multi-qubit gate), we can multiply G
+by a phase factor without loss of generality (since the global phase is not
+observable), such that its eigenvalues become ±r. The partial derivative
+of fθ(ρ) = tr
+h ˆBU †(θ)ρU(θ)
+i
+is then given by the following theorem [42] :
+Theorem 1. If G(µ) = e−iµG and G has two distinct eigenvalues ±r, we
+have
+∂µfθ(ρ) = r (fθ(ρ + s) −fθ(ρ −s))
+(2.34)
+where s = π
+4r
+Computing each component of the gradient therefore comes down to
+evaluating the circuit twice, with shifted parameters. For example, if
+G(µ) is a rotation Rx(φ) = e−iφ ˆ
+X/2, then r = 1
+2 and s = π
+2. Similar forms
+of the gradient can be derived in the case where there are more than two
+distinct eigenvalues, as well as in the CV case [42].
+Once we have a method to compute the gradient, most ﬁrst-order
+optimization algorithms used in machine learning can be used here, such
+as Adam [43] or AMSGrad [44].
+2.2.3
+Discrete ansatz
+Rz(θ1)
+Ry(θ2)
+Rz(θ3)
+Figure 2.15: Universal ansatz for one qubit: any 2x2 unitary matrix can
+be constructed with this circuit [45]
+U1(θ1)
+Rz(θ3)
+•
+U3(θ6)
+U2(θ2)
+•
+Ry(θ4)
+Ry(θ5)
+•
+U4(θ7)
+Figure 2.16: Universal ansatz for two qubits, that can be shown to be op-
+timal in the number of continuous parameters and CNOT gates [45, 46].
+Here, U is a universal ansatz for one qubit, such as the one represented
+in Figure 2.15.
+In the discrete setting, there are several ways to build universal ansatz.
+For one and two qubits—the maximum number of qubits simulated in
+
+28
+CHAPTER 2. BACKGROUND
+our experiments—we considered the ansatz proposed in [46], made of
+rotations and CNOT, and represented in Figures 2.15 and 2.16. A more
+general universal ansatz is proposed in [40], working for any number of
+qubits and also made of rotations of CNOT.
+2.2.4
+Continuous ansatz
+We will present here a very general ansatz for continuous-variable, in-
+troduced in [37]. It consists of a succession of layers (that we will call
+Nathan's layers), each layer being made of linear optics (rotations and
+beam splitters), displacement, squeezing and non-Gaussian gates, as dis-
+played in Figure 2.17. This architecture can approximate any CV unitary
+matrix by adding enough layers, which makes it universal (in a weaker
+sense than for qubits).
+This CV QNN can be seen as a classical neural network acting on the
+phase space. Indeed, as we saw in Section 2.1.3, the Gaussian component
+of each layer acts as a linear transformation of the phase space with a
+bias term, while the non-Gaussian gates act as a non-linearity:
+ 
+x
+p
+!
+7→Φ
+ 
+M
+ 
+x
+p
+!
++
+ 
+αR
+αI
+!!
+(2.35)
+where M is a symplectic matrix and Φ a non-linear function. Moreover,
+the succession of gates that constitutes the Gaussian part of the layer is
+shown in [37] to generate the whole space of symplectic matrices, so all
+the possible linear transformations of the phase space.
+Figure 2.17: Nathan's layer acting on N qumodes, where U1 and U2 are
+two universal linear interferometers [37]
+
+CHAPTER 2. BACKGROUND
+29
+BS(θ1, φ1)
+BS(θ4, φ4)
+R(α1)
+BS(θ3, φ3)
+BS(θ6, φ6)
+R(α2)
+Figure 2.18: Linear interferometer acting on 3 qumodes
+BS(θ1, φ1)
+BS(θ4, φ4)
+R(α1)
+BS(θ3, φ3)
+BS(θ6, φ6)
+R(α2)
+BS(θ2, φ2)
+BS(θ5, φ5)
+R(α3)
+Figure 2.19: Linear interferometer acting on 4 qumodes
+2.3
+Quantum property estimation
+In this work, we leverage quantum neural networks to solve the problem
+of estimating properties of quantum states. A property can be deﬁned as
+a functional f : S(n) →R from the space S(n) of n-qubit (or n-qumode)
+density matrices.
+The problem of quantum property estimation is to
+ﬁnd an algorithm that compute f(ρ) when ρ is the output of quantum
+device. When the algorithm is a quantum circuit whose output is f(ρ),
+it is called a direct estimation [24], as opposed to full quantum state to-
+mography. This section introduces diﬀerent methods to directly estimate
+polynomial properties, and present the two functionals considered in this
+work: purity and von Neumann entropy.
+2.3.1
+Approximating polynomials
+The ﬁrst assumption is that f is a polynomial function of ρ. Examples
+include the purity function, deﬁned by f(ρ) = tr[ρ2], as well as all the
+functions of the form f(ρ) = tr[ρm], which can be used to compute Rényi
+entanglement entropies H(ρ, m) =
+1
+1−m log(tr[ρm]). Considering all the
+functions that can be approximated as polynomial functions through
+their Taylor expansion, this case is rather general.
+
+30
+CHAPTER 2. BACKGROUND
+The ﬁrst thing to notice is that if f is at least quadratic, it is not
+possible to ﬁnd a unitary matrix U and an observable O such that f(ρ) =
+tr
+h
+OU †ρU
+i
+, since the RHS is linear in ρ while the LHS is not. Therefore,
+there is no circuit that takes a quantum state as input and returns f(ρ)
+as the average of one of the qubits. A ﬁrst idea could be to add ancilla
+qubits to the circuit, but since it does not create any non-linearity, it
+cannot solve the problem neither.
+To alleviate this issue, [25] and [24] propose to use m copies of ρ as
+input, where m is the degree of f. In the case of discrete states, [25]
+proves two important statements:
+Proposition 5. Let f : S(n) →R a polynomial functional from the set
+S(n) of n-qubit density matrices. Then, for all ρ ∈S(n):
+1. there exists an observable Of such that f(ρ) = tr[Ofρ⊗m]
+2. there exists a unitary matrix Uf such that f(ρ) = P
+j oj⟨j|U †
+fρ⊗mUf|j⟩
+where |j⟩is the jth element of the computational basis and {oj} the
+eigenvalues of Of (the ordering being determined in the construc-
+tion of Uf)
+Let us study the consequences of those two statements.
+The ﬁrst
+point reduces the computation of a functional to the computation of an
+observable.
+It means that if we can ﬁnd a circuit that measures Of,
+f(ρ) will simply be equal to the average measurement. The second point
+proves the existence of an actual circuit Uf and algorithm to approximate
+f(ρ) from this circuit: estimate the probability p(j) = ⟨j|U †
+fρ⊗mUf|j⟩of
+getting the output j, and compute f(ρ) = P
+j ojp(j). The main downside
+of this algorithm is that in general estimating the probability distribution
+of the output is almost as demanding as performing a whole quantum
+state tomography.
+Inspired by [24] and [23], [25] analyses another circuit—that we will
+call Ekert circuit—which requires this times only the average of one qubit
+in the computational basis:
+|0⟩
+H
+•
+H
+Z
+ρ⊗m
+Uf
+Figure 2.20: Ekert circuit to estimate polynomials using measurements
+of an ancilla qubit
+
+CHAPTER 2. BACKGROUND
+31
+The gate Uf can be any unitary such that Of =
+1
+2
+
+Uf + U †
+f
+
+, for
+instance Uf = Of + i
+q
+I −O2
+f. It is possible to show that
+f(ρ) = tr
+
+(Z ⊗I ⊗... ⊗I)U
+
+|0⟩⟨0| ⊗ρ⊗m
+U †
+where U corresponds to the circuit above [25].
+It means that taking
+the average of the observable Z on the ancilla qubit gives us the answer
+directly.
+If this approach has the advantage to prove the existence of a circuit
+to estimate polynomials without tomography, its practical advantage is
+limited: except in some special cases, there is no guarantee that Uf can
+be prepared eﬃciently, as stated in [25]:
+While such a circuit always exists, there is no guarantee that
+it will achieve the desired unitary transformation eﬃciently.
+Indeed, most unitary transformations cannot be approximated
+eﬃciently. A protocol of this nature would only be worthwhile
+if it were substantially more eﬃcient than performing quan-
+tum state tomography on ρ and then calculating the function
+directly. [...]
+There is no known eﬃcient algorithm for ﬁnding the simplest
+circuit that produces a given unitary transformation. Indeed,
+that is almost certain a computationally intractable problem
+in itself.
+This piece was written in 2002 before the introduction of variational
+circuits, which are now commonly begin used to ﬁnd the simplest circuit
+that produces a given unitary transformation [45, 34]. The goal of our
+work is precisely to ﬁnd this unitary using variational circuits.
+2.3.2
+Purity
+The ﬁrst experiments considered in this thesis concerned a particular
+polynomial: the purity. The purity of a state ρ is deﬁned as tr[ρ2] and
+quantiﬁes how much a state is mixed. It has several important properties:
+1. For a pure state ρ, tr[ρ2] = tr[ρ] = 1
+2. If ρ is an n-qubit state,
+1
+2n ≤tr[ρ2] ≤1
+
+32
+CHAPTER 2. BACKGROUND
+The most common technique to compute purity is called the SWAP
+test [47, 48] and is deﬁned by the circuit represented in Figure 2.21.
+|0⟩
+H
+•
+H
+Z
+ρ
+SWAP
+σ
+Figure 2.21: SWAP test: circuit to compute the state overlap of discrete
+states ρ and σ [47, 48]. When ρ = σ, the purity is computed
+This circuit computes the state overlap between two states ρ and
+σ, deﬁned as tr[ρσ], using the average of Z in the ancilla qubit as the
+output. It can therefore evaluate the purity when ρ = σ. It can be seen
+as a particular case of the circuit presented in Figure 2.20. Indeed, the
+SWAP operator can be written
+ˆS =
+X
+i,j
+|i⟩⟨j| ⊗|j⟩⟨i|
+(2.36)
+which gives us
+tr
+h ˆSρ⊗2i
+=
+X
+i,j
+tr [|i⟩⟨j| ρ ⊗|j⟩⟨i| ρ]
+=
+X
+i,j
+tr [|i⟩⟨j| ρ] [|j⟩⟨i| ρ]
+=
+X
+i,j
+ρjiρij
+= tr
+h
+ρ2i
+(2.37)
+Since ˆS is both unitary and Hermitian, it proves that Uf = Of = ˆS for
+f : ρ 7→tr[ρ2] (following the notations of Proposition 5)
+Direct estimation of the purity is also possible for continuous-variable
+states, and also comes down to computing the average tr
+h ˆSρ⊗2i
+of the
+SWAP operator. [26] shows that a circuit made of a 50:50 beam splitter
+ei π
+4 (ˆa1ˆa†
+2+ˆa†
+1ˆa2) and the measurement of the parity observable (−1) ˆ
+N on the
+ﬁrst qumode—as represented in Figure 2.22—does the job.
+ρ
+BS(π
+4, π
+2)
+(−1) ˆ
+N
+ρ
+Figure 2.22: Circuit to compute the purity of a CV state ρ [26]
+
+Chapter 3
+Method
+In this thesis, we propose three models to compute polynomials of states
+using quantum circuits.
+The ﬁrst one, Quantum Polynomial Network
+with ancilla (PolyNet-ancilla), is an adaptation of the Ekert circuit pre-
+sented in Section 2.3.1 where the central part is a variational circuit. The
+second one, Quantum Polynomial Network with correlation (PolyNet-
+corr), uses n-points correlations between each qubit of a quantum circuit
+as input of a linear network. The ﬁnal one, Quantum Polynomial Net-
+work with averages (PolyNet-avg), uses the average of all the qubits as
+input of non-linear neural network. In this section, we will describe the
+three architectures in both the discrete and CV cases, give some univer-
+sality results, and specify how to train those circuits using an artiﬁcially
+generated dataset.
+In this section, we will call n the number of qubits of our input states,
+f : S(n) →R the polynomial function we try to approximate, with S(n)
+the space of n-qubit density matrices, and m the degree of f.
+33
+
+34
+CHAPTER 3. METHOD
+3.1
+Quantum Polynomial Network with ancilla
+3.1.1
+Discrete-variable case
+|0⟩
+H
+•
+H
+Z
+ρ
+U(θ)
+ρ
+.
+.
+.
+ρ
+Figure 3.1: PolyNet with ancilla, an adaptation of the Ekert Circuit
+where the unitary U(θ) is a parametrized circuit trained to approximate
+the polynomial f
+The ﬁrst architecture considered in this project is an adaptation of the
+Ekert circuit introduced in Section 2.3.1, with a variational part. The
+circuit, represented in Figure 3.1, consists of two Hadamard gates and
+a controlled unitary part U(θ) depending on some parameters θ.
+To
+evaluate a polynomial f of degree m, it requires m copies of ρ as input.
+The predicted value of f(ρ) is read by measuring the ancilla qubit in the
+Z-basis and taking the average.
+We saw the existence of a unitary matrix Uf corresponding to every
+polynomial f. So, if U(θ) is a universal ansatz, we can ﬁnd a vector θ∗
+such that U(θ) = Uf. Therefore, PolyNet-ancilla is a universal polyno-
+mial approximator.
+The two main advantages of this architecture are its universality and
+the measurement of only one qubit for the output. The main downside
+is the necessity to add an ancilla qubit, which can be a real constraint
+for near-term devices.
+
+CHAPTER 3. METHOD
+35
+3.1.2
+Continuous-variable case
+|0⟩
+H
+H
+N
+|1⟩
+•
+•
+•
+•
+ρ
+SWAP
+U(θ)
+SWAP
+ρ
+SWAP
+SWAP
+Figure 3.2: PolyNet with ancilla generalized to CV systems. The two
+ﬁrst qumodes simulate an ancilla qubit which controls the application of
+U(θ) through the controlled-SWAP, generalizing the technique proposed
+in [49] for hybrid discrete/CV systems. Circuits for polynomials of higher
+degrees can be constructed following the same pattern with more copies
+of ρ
+The Ekert circuit can also be adapted in the continuous-variable case, by
+using a hybrid qubit/qumode architecture. As in the discrete setting, the
+variational component takes m copies of the state ρ as input. However,
+ρ is this time continuous and so is the unitary U(θ). On the other hand,
+the ancilla part is made of Hadamard gates and a control, and must
+therefore remain a two-level system.
+In a full CV device, the qubit component must be simulated with
+qumodes.
+Several methods exist for that purpose [50].
+The simplest
+approach is to encode the logical qubits |0L⟩and |1L⟩in two elements of
+a CV basis: the Fock states |0⟩and |1⟩, coherent states |α⟩and |−α⟩,
+etc. However, most discrete gates are challenging to simulate using this
+encoding and usual CV gates. In the so-called dual-rail encoding, each
+qubit is instead simulated using two qumodes:
+|0D⟩:= |0L1L⟩
+|1D⟩:= |1L0L⟩,
+(3.1)
+for any two single-mode basis states |0L⟩and |1L⟩. If we take |0L⟩and
+|1L⟩to be the Fock states |0⟩and |1⟩, [51] noticed that the rotation of a
+dual-rail qubit in the Bloch sphere can be performed using beam splitters
+of the form BS
+
+θ, π
+2
+
+= eiθ(ˆa1ˆa†
+2+ˆa†
+1ˆa2):
+BS
+
+θ, π
+2
+
+|0L1L⟩= cos(θ) |0L1L⟩+ i sin(θ) |1L0L⟩
+(3.2)
+
+36
+CHAPTER 3. METHOD
+In particular, a Hadamard gate corresponds to the operator BS
+
+π
+4, π
+2
+
+.
+In order to adapt the Ekert circuit for CV states, we ﬁnally need to
+construct hybrid controlled unitaries. In the qubit setting, [49] suggests
+a procedure to turn any unitary operation into a controlled unitary. It
+consists in associating an ancilla qubit to each input qubit and applying
+a controlled-SWAP to each pair, before and after the unitary. That way,
+if the control qubit is |0⟩, the SWAP is not applied and the unitary is.
+If it is |1⟩, the state is temporary stored on an other set of qubits via
+the SWAP, and restored onto the original qubits after the unitary has
+been applied to some trash qubits. To have a usual controlled unitary
+operation where the unitary is applied when the control qubit is |1⟩, a
+NOT can be applied on the control at the beginning.
+Fortunately, the controlled-SWAP is one of the only hybrid gates con-
+sidered in the literature. For instance, [51] proposes an implementation
+using beam splitters and quartic gates.
+The ﬁnal circuit is given in Figure 3.2.
+One last diﬃculty is the
+preparation of the single-photon state |1⟩in the second qumode of the
+circuit. A simple way to do it is to learn this preparation. [14] showed a
+high ﬁdelity in the preparation of single-photon states with a CV QNN.
+
+CHAPTER 3. METHOD
+37
+3.2
+Quantum Polynomial Network with corre-
+lations
+3.2.1
+Discrete-variable case
+Figure 3.3: Quantum Polynomial Network with correlations (PolyNet-
+corr). The ﬁrst part consists in a quantum circuit U(θ) that takes ρ⊗m
+as input. Then, a succession of measurements is performed on the Z
+basis, from which can be extracted all the n-points correlations. Those
+2nm correlations form the input of a linear neural network whose output
+is an estimation of f(ρ)
+Our second architecture is a QNN U(θ) followed by measurements of
+each qubit in the computational basis. Using those measurements, one
+can approximate all the correlation functions ⟨M1 ⊗... ⊗Mnm⟩where
+Mi = I or Z. Those 2nm averages are then passed as input to a classical
+linear neural network whose output is an estimation of f(ρ). Proving
+that such an architecture is able to compute f(ρ) is possible and comes
+down to proving the following theorem:
+Theorem 2 (Universality of PolyNet-corr). Let f : S(n) →R a polyno-
+mial function of degree m from the space S(n) of n-qubit density matrices.
+
+38
+CHAPTER 3. METHOD
+Then:
+∃Uf ∈U(2nm), ∃α ∈R2nm, ∀ρ ∈S(n), f(ρ) =
+X
+i
+αi tr
+h
+M (i)Ufρ⊗mU †
+f
+i
+(3.3)
+where each M (i) is an observable from the set {M1 ⊗... ⊗Mnm|∀j, Mj ∈
+{I, Z}}
+Proof. By Proposition 5, we know that there exists Of such that f(ρ) =
+tr[Ofρ⊗m]. Therefore, proving (3.3) is equivalent to proving the following:
+tr
+h
+Ofρ⊗mi
+= tr
+" X
+i
+αiM (i)
+!
+Ufρ⊗mU †
+f
+#
+= tr
+"
+U †
+f
+ X
+i
+αiM (i)
+!
+Ufρ⊗m
+#
+In particular, this equality is true if
+Of = U †
+f
+ X
+i
+αiM (i)
+!
+Uf
+(3.4)
+Since P
+i αiM (i) is diagonal (as a linear combination of tensor products of
+diagonal matrices), (3.4) is simply a statement about the diagonalization
+of Of. To prove that there exists Uf and α such that (3.4) is true, we
+therefore need to show that P
+i αiM (i) can represent any diagonal matrix.
+It comes down to proving the following lemma:
+Lemma 1. The set {M1 ⊗... ⊗Mnm|∀j, Mj ∈{I, Z}} forms a basis of
+D(2nm) (space of diagonal matrices in dimension 2nm).
+To prove Lemma 1, one can consider the vectors mj consisting of
+the diagonal elements of each matrix Mj and reduce the lemma to a
+statement about the elements m1 ⊗... ⊗mnm. Let h : R2 →D(2) the
+isomorphism that associates to any vector the corresponding diagonal
+matrix: h(mj) = Mj. By deﬁnition, each mj is either
+ 
+1
+1
+!
+(if Mj = I) or
+ 
+1
+−1
+!
+(if Mj = Z) and those two vectors forms a basis of R2. Therefore,
+the set consisting of all the tensor products m1 ⊗... ⊗mj forms a basis
+of R2 ⊗...⊗R2 ∼= R2nm. By construction, M1 ⊗...⊗Mnm = h(m1)⊗...⊗
+h(mnm) = (h ⊗... ⊗h)(m1 ⊗... ⊗mnm). Since the function h ⊗... ⊗h is
+
+CHAPTER 3. METHOD
+39
+an isomorphism from R2nm to D(2nm), it maps a basis to another basis.
+Therefore {M1 ⊗... ⊗Mnm|∀j, Mj ∈{I, Z}} forms a basis of D(2nm)
+The advantages of this architecture are its universality and the ab-
+sence of any ancilla qubit. The main downside is that the input of the
+linear network is exponentially large, since it contains all the 2nm k-
+point correlations. The number of parameters to learn grows therefore
+exponentially as well. Another drawback is that estimating higher-order
+correlation functions with a low variance can require a large number of
+measurements.
+3.2.2
+Continuous-variable case
+Figure 3.4: CV PolyNet-corr. The ﬁrst part consists in a quantum circuit
+U(θ) that takes ρ⊗m as input. Then, for all the qubits, the average of the
+observable N is computed and fed into a classical neural network whose
+output is an estimation of f(ρ)
+To adapt PolyNet-corr for CV states, we replaced the measurements in
+the computational basis by measurements in the Fock basis. However,
+the universality property does not hold anymore.
+Indeed, the set of
+observables {M1 ⊗... ⊗Mnm|∀j, Mj ∈{I, N}} does not form a basis of
+all diagonal operators anymore, since this space is inﬁnite and the set is
+
+40
+CHAPTER 3. METHOD
+ﬁnite. Hence, 1 does not hold for CV states. We can therefore consider
+this architecture as a no-go result.
+3.3
+Quantum Polynomial Network with aver-
+ages
+3.3.1
+Discrete-variable case
+Figure 3.5: Quantum Polynomial Network with averages (PolyNet-avg).
+The ﬁrst part consists in a quantum circuit U(θ) that takes ρ⊗m as input.
+Then, for all the qubits, the average of the observable Z is computed and
+fed into a classical neural network whose output is an estimation of f(ρ)
+The last architecture considered in this work is a QNN U(θ) followed by
+measurements of each qubit in the computational basis. The averages of
+all the measurements are passed into a classical non-linear neural net-
+work. At the time of this writing, the universality has not been proved
+theoretically, even though it is suggested by our experiments (see Chapter
+4). We therefore enounce it as a conjecture:
+Conjecture 1 (Universality of PolyNet-avg). Let f : S(n) →R a poly-
+nomial functional of degree m from the space S(n) of n-qubit density
+
+CHAPTER 3. METHOD
+41
+matrices (2n dimensional Hermitian semi-positive matrices of trace 1).
+Then:
+∃U ∈U(2nm), ∃g ∈C0(Rnm), ∀ρ ∈S(n),
+f(ρ) = g
+
+tr
+h
+Z1Uρ⊗mU †i
+, ..., tr
+h
+ZnmUρ⊗mU †i
+(3.5)
+where each Zi is a Z =
+ 
+1
+0
+0
+−1
+!
+operator applied to the ith qubit: Zi =
+I ⊗... ⊗Z ⊗... ⊗I
+This architecture has the beneﬁts to use only a linear number of
+observables and not to use any ancilla.
+However, it requires to learn
+both a classical and a quantum neural network at the same time, which
+can make the training part harder than the two previous architectures
+(as we also noticed in the experiments).
+3.3.2
+Continuous-variable case
+Figure 3.6: CV PolyNet-avg. The ﬁrst part consists in a quantum circuit
+U(θ) that takes ρ⊗m as input. Then, for all the qubits, the average of the
+observable N is computed and fed into a classical neural network whose
+output is an estimation of f(ρ)
+As for PolyNet-corr, the adaptation of PolyNet-avg for CV states simply
+consists in replacing the measurements in the Pauli basis by measure-
+
+42
+CHAPTER 3. METHOD
+ments in the Fock basis. The universality of this CV architecture remains
+an open question at the time of writing.
+3.4
+Training procedure
+3.4.1
+Dataset preparation
+In order to train our model, we need a dataset of elements {(ρi, f(ρi))}i,
+where the density matrices ρi are the inputs of our network and f(ρi)
+the target outputs. Since PolyNet takes quantum data as input, every
+density matrix needs to be prepared with a circuit. Therefore, creating
+the dataset requires two steps: generating density matrices on a classical
+computer and building quantum circuits that prepare each state.
+Generating the dataset
+Learning a model with the best generalization capabilities requires a
+dataset that covers the input and target spaces as uniformly as possi-
+ble. For that, we generate random density matrices using the following
+construction (d is the size of the Hilbert space in consideration):
+1. Randomly generate (λi)1≤i≤d ∈[0, 1]d such that
+P
+i λi = 1 using
+the procedure below:
+(a) Sample λ1 uniformly in [0, 1]
+(b) At step i ≥2, sample λi uniformly in [λi−1, 1]
+2. Sample a unitary matrix U with the Haar measure.
+3. ρ = U
+
+
+
+
+λ1
+(0)
+...
+(0)
+λd
+
+
+
+U †
+Then, in order to obtain balanced target values, we perform a rejec-
+tion sampling step.
+We ﬁrst discretize the output set f(S(n)):
+let
+t0, ..., tN ∈f(S(n)) such that t0 = min f(S(n)) and ti+1 = ti + ϵ (where
+ϵ =
+max f(S(n))−min f(S(n))
+N
+is a hyperparameter, ﬁxed at 0.01 in our ex-
+periments). Then, for all ti, we generate density matrices ρ using the
+method above and only keep those for which f(ρ) ∈[ti, ti+1], By prepar-
+ing the same number of states for all ti, we ensure that the dataset will
+be balanced.
+
+CHAPTER 3. METHOD
+43
+In the CV case, the library Strawberry Fields requires a cutoﬀc in
+the Fock space to simulate CV circuits, meaning that |c⟩will be the
+eigenstate of higher energy. Therefore, the density matrices will be of
+size d = cn (with n the number of qumodes) and can be generated using
+the method above.
+Preparing the states
+Figure 3.7: State preparation procedure for one qubit, using the universal
+ansatz presented in Section 2.2.3
+The next step is to prepare each density matrix of our dataset with a
+quantum circuit. Since the output of a circuit is always a pure state,
+we need to use a common trick to encode generic density matrices: pu-
+riﬁcation. For every state ρ acting on a Hilbert space HA, there exists
+another system HB (with the same dimension as HA) and a pure state
+|ψ⟩∈HA ⊗HB, such that trB [|ψ⟩⟨ψ|] [52].
+Therefore, to prepare a
+state ρ with n qubits, we can use a variational circuit with 2n qubits and
+learn to prepare a state |ψ⟩such that ρ = trB [|ψ⟩⟨ψ|] approximates ρ,
+as presented in Figure 3.7 for 1-qubit states.
+As a cost function, we use the trace distance between the prepared
+state ˆρ(θ) and the real state ρ:
+L(θ) := tr
+q
+(ˆρ(θ) −ρ)2
+
+=
+X
+i
+|λi|
+(3.6)
+where the λi are the eigenvalues of (ˆρ(θ) −ρ).
+Since our goal is to generate a dataset of prepared states with bal-
+anced property values (e.g. balanced purity), conserving the property of
+
+44
+CHAPTER 3. METHOD
+each state is particularly important. Therefore, we also add a regular-
+ization term in the loss in order to minimize the diﬀerence in property
+of the real and generated states:
+L(θ) := tr
+q
+(ˆρ(θ) −ρ)2
+
++ λ (f(ˆρ(θ)) −f(ρ))2
+(3.7)
+3.4.2
+Training
+Figure 3.8: Complete circuit used during training. The state preparation
+part processes each input state ρi. The second part is one of the three
+polynomial network presented above: it's composed of a QNN U(θ),
+measurements and a classical network gλ.
+Once every state ρi of the dataset has been prepared, each ρi can be
+associated to a circuit V (φi).
+The polynomial network is trained to
+minimize the following loss function:
+L(θ, λ) =
+X
+i
+ ˜f(ρi) −f(ρi)
+2
+(3.8)
+where θ represents the parameters of the quantum circuit U(θ) and λ
+of the classical neural network gλ. The optimization procedure can be
+performed using gradient descent, as explained in Section 2.2.
+
+Chapter 4
+Experiments
+We performed experiments with the three proposed architectures for both
+discrete and continuous variables. Two functionals were considered in
+those experiments: purity and entropy.
+The code used to perform the experiments is available at github.com/artix41/quantum-
+polynomial-network.
+4.1
+Software stack
+All the experiments were performed in the programming language Python,
+using a set of four diﬀerent libraries for quantum computing:
+• PyQuil [53]
+• Strawberry Fields [17]
+• Pennylane [18]
+• QuTiP [54]
+PyQuil is a qubit-based circuit simulator.
+We used it to prepare
+discrete-variables states and to simulate the diﬀerent architectures (through
+the PyQuil module in Pennylane).
+Strawberry Fields is a library to simulate and optimize CV circuits,
+based on the machine learning library TensorFlow [55]. We used it to
+simulate and train all our CV QNN.
+Pennylane is a framework made to optimize the parameters of both
+CV and discrete circuits by gradient descent. It allows to compute the
+gradient of quantum circuits and hybrid architectures directly on the
+45
+
+46
+CHAPTER 4. EXPERIMENTS
+quantum computer. The circuit simulation part is carried out through
+modules corresponding to other libraries (PyQuil, Qiskit, Strawberry
+Fields, etc.). We used it to optimize our discrete-variables architectures.
+QuTiP is a toolbox for manipulating quantum states. We used it to
+compute the Wigner representation of CV states in the diﬀerent ﬁgures
+of Section 2.1.2, as well as to generate random density matrices in the
+state preparation part.
+Apart from those quantum computing libraries, the usual scientiﬁc
+computing packages NumPy [56], SciPy [57] and MatplotLib [58] were
+also used extensively in this project.
+4.2
+State preparation
+The ﬁrst step to conduct our experiments was to prepare a dataset of
+states. Since the generation method as well as the loss function depend on
+the property we want to predict, we prepared diﬀerent datasets for purity
+and entropy. In the CV case, since we did not perform any experiment
+on entropy, only a purity dataset was prepared.
+For the preparation of CV states, we had to use a cutoﬀin the Fock
+space, as required by the library Strawberry Fields in order to simulate
+CV circuits. We tested our method with two cutoﬀs—3 and 5—since
+higher cutoﬀlead to much slower simulations.
+For each dataset, we show three histograms to evaluate the perfor-
+mance of the preparation:
+• The distribution of the property value (e.g. purity) in the dataset.
+Since the goal of the generation method presented in Section 3.4.1
+was to have a balanced dataset, we expect a uniform distribution.
+• The distribution of the trace distance (ﬁrst term of the cost func-
+tion) over all the prepared density matrices. We expect a distribu-
+tion concentrated around zero if the preparation step has worked
+as desired.
+• The distribution of the mean squared error between the property
+of the generated and the real density matrices (second term of the
+cost function). We expect a distribution concentrated around zero
+if the preparation step has worked as desired.
+
+CHAPTER 4. EXPERIMENTS
+47
+4.2.1
+Discrete states
+In the discrete state preparation experiments, we prepared a dataset of
+400 samples, training the ansatz presented in Figure 2.16 with the cost
+function of equation 3.7. We used λ = 1 as our regularization coeﬃcient
+and minimized the cost function using the non-diﬀerentiable version of
+the optimization algorithm L-BFGS-B (through its implementation in
+Scipy).
+We can see in Figures 4.2 and 4.4 that the preparation procedure was
+particularly eﬃcient: we reached a precision of less than 10−8 for the two
+parts of the cost function, for both the purity and the entropy. Figures
+4.1 and 4.3 show that the distribution of the purity and the entropy over
+each dataset is very close to a uniform distribution, as expected.
+Purity
+Figure 4.1: Distribution of the purity of density matrices generated using
+the method described in Section 3.4.1
+
+48
+CHAPTER 4. EXPERIMENTS
+Figure 4.2: Distribution of the diﬀerence between real and prepared den-
+sity matrices in our dataset, by comparing them using trace distance
+(left) and their diﬀerence in terms of purity (right)
+Entropy
+Figure 4.3: Distribution of the purity of density matrices generated using
+the method described in Section 3.4.1
+
+CHAPTER 4. EXPERIMENTS
+49
+Figure 4.4: Distribution of the diﬀerence between real and prepared den-
+sity matrices in our dataset, by comparing them using trace distance
+(left) and their diﬀerence in terms of entropy (right)
+4.2.2
+CV states
+4.3
+Discrete-variable Polynomial Network
+Once we had a dataset of discrete density matrices and their correspond-
+ing property, we were able to train our three polynomial networks. As
+for the state preparation, we used the ansatz presented in Figure 2.16 as
+our QNN. We split our dataset with 300 training samples and 100 test
+samples. We trained each architecture until convergence with the library
+Pennylane, using the algorithm Adam with a learning rate of λ = 5·10−2
+and a batch size of 16.
+For each experiment, we show the graph of predicted vs true value of
+the property after training, for both the training and test sets. In those
+graphs, each point corresponds to a density matrix of the dataset. On
+top of each graph is displayed the value of the cost function. In a totally
+accurate predictor, all the points should be on the line y = x
+4.3.1
+PolyNet with ancilla
+Learning purity
+Learning purity with PolyNet-ancilla was our most successful experiment.
+As you can see in Figure 4.5, the cost function is below 10−7 and all the
+points seem to lie on the line y = x.
+
+50
+CHAPTER 4. EXPERIMENTS
+Figure 4.5: Results for PolyNet-ancilla for purity in the discrete case.
+Left: training set ; Right: test set
+Learning entropy
+Entropy is a non-linear functional of the state. Using only a quadratic
+function approximator, we therefore expect less accurate results than for
+purity. However, Figure 4.6 shows that our architecture came up with a
+relatively good approximation, with a cost function of 4·10−4 on the test
+set. It sets a promising path for approximating non-linear functionals
+using polynomial estimators.
+Figure 4.6: Results for PolyNet-ancilla for entropy in the discrete case.
+Left: training set ; Right: test set
+4.3.2
+PolyNet with correlations
+Learning purity
+Using PolyNet-corr to estimate the purity of qubit states was also a very
+successful experiment. As we can see in Figure 4.7, the cost function
+converges to 10−6 and all the points look aligned.
+
+CHAPTER 4. EXPERIMENTS
+51
+Figure 4.7: Results for PolyNet-corr for purity in the discrete case. Left:
+training set ; Right: test set
+Learning entropy
+The results for entropy are also very similar to PolyNet-ancilla, with a
+convergence of the cost function to 4 · 10−4
+Figure 4.8: Results for PolyNet-corr for entropy in the discrete case.
+Left: training set ; Right: test set
+4.3.3
+PolyNet with averages
+We only trained PolyNet-avg with purity: the experiment for entropy is
+let as future work. The last component of this architecture is a classical
+neural network. We used 4 hidden layers, 20 hidden nodes per layer, and
+ReLU as an activation function, except for the output layer where we
+used a sigmoid.
+The results are less encouraging than for the two previous architec-
+tures, with a convergence of the cost function to 2·10−4. Several reasons
+may account for this phenomenon:
+• We did not prove the universality of PolyNet-avg. Therefore, it is
+
+52
+CHAPTER 4. EXPERIMENTS
+possible that it is not universal, and in that case that purity cannot
+be estimated exactly by this architecture.
+• Training non-linear neural networks is a harder task than the linear
+neural network PolyNet-corr. It is therefore possible that a better
+tuning of the hyperparameters (number of nodes/layers, learning
+rate, etc.) or a longer training would have improved the perfor-
+mance.
+Figure 4.9: Results for PolyNet-avg for purity in the discrete case. Left:
+training set ; Right: test set
+4.4
+Continuous-variable Polynomial Network
+We also trained our architectures to predict the properties of CV states.
+However, as explained in the state preparation part, a cutoﬀon Fock
+space was required for the simulation, and we used 3 by default for most
+experiments. One experiment with cutoﬀ5 was performed, for PolyNet-
+avg.
+4.4.1
+PolyNet with ancilla
+Since the CV version of PolyNet-ancilla has been invented at a very late
+stage of the thesis, I did not have time to perform experiments on it.
+Those experiments are let as future work.
+4.4.2
+PolyNet with correlations
+With a convergence of the cost function to 2 · 10−4, the results for CV
+PolyNet-corr were encouraging.
+However, they are worst than in the
+
+CHAPTER 4. EXPERIMENTS
+53
+qubit case and the apparent convergence might be due to the small cutoﬀ.
+Figure 4.10: Results for PolyNet-corr for purity in the CV case. Left:
+training set ; Right: test set
+4.4.3
+PolyNet with averages
+We tested PolyNet-avg with two diﬀerent cutoﬀs on the Fock space: 3
+and 5. As you can see in Figures 4.11 and 4.12, there is a big diﬀerence
+between the two experiments: increasing the cutoﬀleads to decreased
+performance. It suggests that the cutoﬀplays an important role when
+running our CV architectures.
+Simulating CV states with cutoﬀ3 is
+similar to simulating qutrits, and the task of estimating the property of
+qutrits is easier than for general CV states.
+Cutoﬀ3
+Figure 4.11: Results for PolyNet-avg for purity in the CV case with cutoﬀ
+3. Left: training set ; Right: test set
+
+54
+CHAPTER 4. EXPERIMENTS
+Cutoﬀ5
+Figure 4.12: Results for PolyNet-avg for purity in the CV case with cutoﬀ
+5. Left: training set ; Right: test set
+
+Chapter 5
+Conclusion
+We introduced three circuit architectures based on quantum and classi-
+cal neural networks that can be used to compute polynomial properties
+of a state.
+For two of them, PolyNet with ancilla and PolyNet with
+correlations, we proved that they have the capacity to learn polynomial
+properties of qubit states, and conjecture that it is also the case for
+PolyNet with averages. In the CV case, we introduced a generalization
+of PolyNet with ancilla, the only architecture to generalize well for CV
+states. Except for this last architecture—that requires more computa-
+tional resources than available during the writing of this thesis—we tested
+all the other circuits for both CV and qubit states on simulators. We
+showed that for one-qubit states, the three circuits are able to learn the
+purity almost perfectly and the entropy with some error, due to its non-
+polynomial character. For one-qumode states, the results degraded with
+the increase of the cutoﬀ, which suggests that they would not generalize
+well to real CV states, as predicted by the theory.
+Several possible tracks can be considered for future work. First, prov-
+ing that PolyNet with averages is universal (Conjecture 1). Then, experi-
+mentally testing PolyNet with ancilla in the CV case, as well as the other
+architectures with a biggest number of qubits and other functionals.
+55
+
+Bibliography
+[1]
+Richard P. Feynman. "Simulating physics with computers". In: In-
+ternational Journal of Theoretical Physics 21.6 (1982), pp. 467-
+488. doi: 10.1007/BF02650179 (cit. on p. 1).
+[2]
+John Preskill. "Quantum Computing in the NISQ era and beyond".
+In: Quantum 2 (2018), p. 79. doi: 10.22331/q-2018-08-06-79
+(cit. on p. 1).
+[3]
+Edward Farhi, Jeﬀrey Goldstone, and Sam Gutmann. "A quantum
+approximate optimization algorithm". In: arXiv:1411.4028 (2014).
+url: https://arxiv.org/abs/1411.4028 (cit. on p. 1).
+[4]
+Fernando G.S.L. Brandao and Krysta Svore. "Quantum Speed-ups
+for Semideﬁnite Programming". In: 2017 IEEE 58th Annual Sym-
+posium on Foundations of Computer Science (FOCS) (2017). url:
+https://arxiv.org/abs/1609.05537 (cit. on p. 1).
+[5]
+Sam McArdle et al. "Quantum computational chemistry". In: arXiv:1808.10402
+(2018). url: https://arxiv.org/abs/1808.10402 (cit. on p. 1).
+[6]
+Yudong Cao et al. "Quantum Chemistry in the Age of Quantum
+Computing". In: arXiv:1812.09976 (2018). url: https://arxiv.
+org/abs/1812.09976 (cit. on pp. 1, 2).
+[7]
+Chris Sparrow et al. "Simulating the vibrational quantum dynamics
+of molecules using photonics". In: Nature 557.7707 (2018), pp. 660-
+667. doi: 10.1038/s41586-018-0152-9 (cit. on p. 1).
+[8]
+Jacob Biamonte et al. "Quantum machine learning". In: Nature 549
+(2017), 195 EP. doi: 10.1038/nature23474 (cit. on p. 1).
+[9]
+Peter Wittek. Quantum Machine Learning: What Quantum Com-
+puting Means to Data Mining. Academic Press, 2014 (cit. on p. 1).
+56
+
+BIBLIOGRAPHY
+57
+[10]
+Maria Schuld and Francesco Petruccione. Supervised Learning with
+Quantum Computers. Springer International Publishing, 2018 (cit.
+on p. 1).
+[11]
+Nathan Wiebe, Ashish Kapoor, and Krysta M Svore. "Quantum
+Perceptron Models". In: 30th Conference on Neural Information
+Processing Systems (NIPS 2016) (2016). url: https://arxiv.
+org/abs/1602.04799 (cit. on pp. 1, 3).
+[12]
+Edward Farhi and Hartmut Neven. "Classiﬁcation with Quantum
+Neural Networks on Near Term Processors". In: arXiv:1802.06002
+(2018). url: https://arxiv.org/abs/1802.06002 (cit. on pp. 1,
+3).
+[13]
+Seth Lloyd and Christian Weedbrook. "Quantum Generative Ad-
+versarial Learning". In: Phys. Rev. Lett. 121 (4 2018), p. 040502.
+doi: 10.1103/PhysRevLett.121.040502 (cit. on p. 1).
+[14]
+Juan Miguel Arrazola et al. "Machine learning method for state
+preparation and gate synthesis on photonic quantum computers".
+In: Quantum Science and Technology 4.2 (2018), p. 024004. url:
+https://arxiv.org/abs/1807.10781 (cit. on pp. 1, 36).
+[15]
+Alberto Peruzzo et al. "A variational eigenvalue solver on a quan-
+tum processor". In: Nature Communications volume 5, Article num-
+ber: 4213 (2018). url: https://arxiv.org/abs/1304.3061 (cit.
+on p. 2).
+[16]
+Ryan LaRose et al. "Variational Quantum State Diagonalization".
+In: arXiv:1810.10506 (2018). url: https://arxiv.org/abs/
+1810.10506 (cit. on p. 2).
+[17]
+Nathan Killoran et al. "Strawberry Fields: A Software Platform
+for Photonic Quantum Computing". In: Quantum 3 (2019), p. 129.
+doi: 10.22331/q-2019-03-11-129 (cit. on pp. 2, 24-26, 45).
+[18]
+Ville Bergholm et al. "PennyLane: Automatic diﬀerentiation of hy-
+brid quantum-classical computations". In: arXiv:1811.04968 (2018).
+url: https://arxiv.org/abs/1811.04968 (cit. on pp. 2, 26, 45).
+[19]
+Guillaume Verdon et al. "A Quantum Approximate Optimization
+Algorithm for continuous problems". In: arXiv:1902.00409 (2019).
+url: https://arxiv.org/abs/1902.00409 (cit. on p. 2).
+
+58
+BIBLIOGRAPHY
+[20]
+Patrick Rebentrost, Brajesh Gupt, and Thomas R. Bromley. "Pho-
+tonic quantum algorithm for Monte Carlo integration". In: arXiv:1809.02579
+(2018). url: https://arxiv.org/abs/1809.02579 (cit. on p. 2).
+[21]
+Leonardo Banchi et al. "Molecular Docking with Gaussian Boson
+Sampling". In: arXiv:1902.00462 (2019). url: https://arxiv.
+org/abs/1902.00462 (cit. on p. 2).
+[22]
+Paweł Horodecki and Artur Ekert. "Method for Direct Detection
+of Quantum Entanglement". In: Phys. Rev. Lett. 89 (12 2002),
+p. 127902. doi: 10.1103/PhysRevLett.89.127902 (cit. on p. 3).
+[23]
+J.P. Paz and A. Roncaglia. "A quantum gate array can be pro-
+grammed to evaluate the expectation value of any operator". In:
+Phys. Rev. Lett. 88, 217901 (2003). url: https://arxiv.org/
+abs/quant-ph/0306143 (cit. on pp. 3, 30).
+[24]
+Artur K. Ekert et al. "Direct estimations of linear and non-linear
+functionals of a quantum state". In: Phys. Rev. Lett. 88, 217901
+(2002). url: https://arxiv.org/abs/quant-ph/0203016 (cit.
+on pp. 3, 29, 30).
+[25]
+Todd Brun. "Estimating Polynomial Functions of a Quantum State".
+In: AIP Conference Proceedings 734, 71 (2004). url: https://
+arxiv.org/abs/quant-ph/0401067 (cit. on pp. 3, 30, 31).
+[26]
+K. L. Pregnell. "Measuring Nonlinear Functionals of Quantum Har-
+monic Oscillator States". In: Phys. Rev. Lett. 96.6 (2006). doi:
+10.1103/physrevlett.96.060501 (cit. on pp. 3, 32).
+[27]
+A. J. Daley et al. "Measuring Entanglement Growth in Quench
+Dynamics of Bosons in an Optical Lattice". In: Phys. Rev. Lett.
+109 (2 2012), p. 020505. doi: 10.1103/PhysRevLett.109.020505
+(cit. on p. 3).
+[28]
+Hyunseok Jeong et al. "Detecting the degree of macroscopic quan-
+tumness using an overlap measurement". In: J. Opt. Soc. Am. B
+31.12 (2014), pp. 3057-3066. doi: 10.1364/JOSAB.31.003057 (cit.
+on p. 3).
+[29]
+Edward Farhi and Hartmut Neven. "Eﬃcient Learning for Deep
+Quantum Neural Networks". In: arXiv:1408.7005 (2018). url: https:
+//arxiv.org/abs/1408.7005 (cit. on pp. 3, 4).
+
+BIBLIOGRAPHY
+59
+[30]
+Giuseppe Carleo and Matthias Troyer. "Solving the quantum many-
+body problem with artiﬁcial neural networks". In: Science 355.6325
+(2017), pp. 602-606. doi: 10.1126/science.aag2302 (cit. on p. 3).
+[31]
+M. Tiersch, E. J. Ganahl, and H. J. Briegel. "Adaptive quantum
+computation in changing environments using projective simula-
+tion". In: Scientiﬁc Reports 5 (2015), 12874 EP. doi: 10.1038/
+srep12874 (cit. on p. 3).
+[32]
+Giacomo Torlai et al. "Neural-network quantum state tomogra-
+phy". In: Nature Physics 14.5 (2018), pp. 447-450. doi: 10.1038/
+s41567-018-0048-5 (cit. on p. 3).
+[33]
+K. Mitarai et al. "Quantum circuit learning". In: Phys. Rev. A 98
+(3 2018), p. 032309. doi: 10.1103/PhysRevA.98.032309 (cit. on
+pp. 3, 4, 25).
+[34]
+Lukasz Cincio et al. "Learning the quantum algorithm for state
+overlap". In: New J. Phys. 20 113022 (2018). url: https : / /
+arxiv.org/abs/1803.04114 (cit. on pp. 3, 31).
+[35]
+Iris Cong, Soonwon Choi, and Mikhail D. Lukin. "Quantum Con-
+volutional Neural Networks". In: arXiv:1810.03787 (2018). url:
+https://arxiv.org/abs/1810.03787 (cit. on pp. 3, 25, 26).
+[36]
+Michael Broughton Guillaume Verdon Jason Pye. "A Universal
+Training Algorithm for Quantum Deep Learning". In: arXiv:1806.09729
+(2018). url: https://arxiv.org/abs/1806.09729 (cit. on p. 4).
+[37]
+Nathan Killoran et al. "Continuous-variable quantum neural net-
+works". In: arXiv:1806.06871 (2018). url: https://arxiv.org/
+abs/1806.06871 (cit. on pp. 4, 26, 28).
+[38]
+Christopher Gerry and Peter Knight. Introductory Quantum Op-
+tics. Cambridge University Press, 2004. doi: 10.1017/CBO9780511791239
+(cit. on p. 17).
+[39]
+Daiqin Su, Casey R. Myers, and Krishna Kumar Sabapathy. "Con-
+version of Gaussian states to non-Gaussian states using photon
+number-resolving detectors". In: arXiv:1902.02323 (2019). url:
+https://arxiv.org/abs/1902.02323 (cit. on p. 24).
+
+60
+BIBLIOGRAPHY
+[40]
+P. B. M. Sousa and R. V. Ramos. "Universal Quantum Circuit
+for N-qubit Quantum Gate: A Programmable Quantum Gate". In:
+Quantum Info. Comput. 7.3 (2007), pp. 228-242. url: http://
+dl.acm.org/citation.cfm?id=2011717.2011721 (cit. on pp. 26,
+28).
+[41]
+Panagiotis Kl. Barkoutsos et al. "Quantum algorithms for elec-
+tronic structure calculations: Particle-hole Hamiltonian and opti-
+mized wave-function expansions". In: Phys. Rev. A 98 (2 2018),
+p. 022322. doi: 10.1103/PhysRevA.98.022322 (cit. on p. 26).
+[42]
+Maria Schuld et al. "Evaluating analytic gradients on quantum
+hardware". In: arXiv:1811.11184 (2019). url: https://arxiv.
+org/abs/1811.11184 (cit. on pp. 26, 27).
+[43]
+Sashank J. Reddi, Satyen Kale, and Sanjiv Kumar. "Adam: A
+Method for Stochastic Optimization". In: arXiv:1412.6980 (2014).
+url: https://arxiv.org/abs/1412.6980 (cit. on p. 27).
+[44]
+Sashank J. Reddi, Satyen Kale, and Sanjiv Kumar. "On the Con-
+vergence of Adam and Beyond". In: arXiv:1904.09237 (2019). url:
+https://arxiv.org/abs/1904.09237 (cit. on p. 27).
+[45]
+Farrokh Vatan and Colin Williams. "Quantum-assisted quantum
+compiling". In: Phys. Rev. A 69, 032315 (2018). url: https://
+arxiv.org/abs/1807.00800 (cit. on pp. 27, 31).
+[46]
+Farrokh Vatan and Colin Williams. "Optimal Quantum Circuits for
+General Two-Qubit Gates". In: Phys. Rev. A 69, 032315 (2004).
+url: https://arxiv.org/abs/quant-ph/0308006 (cit. on pp. 27,
+28).
+[47]
+Daniel Gottesman and Isaac Chuang. "Quantum Digital Signa-
+tures". In: arXiv:quant-ph/0105032 (2001). url: https://arxiv.
+org/abs/quant-ph/0105032 (cit. on p. 32).
+[48]
+Harry Buhrman et al. "Quantum ﬁngerprinting". In: Phys. Rev.
+Lett. 87, 167902 (2001). url: https://arxiv.org/abs/quant-
+ph/0102001 (cit. on p. 32).
+[49]
+Xiao-Qi Zhou et al. "Adding control to arbitrary unknown quantum
+operations". In: Nature Communications 2 (2011), 413 EP. doi:
+10.1038/ncomms1392 (cit. on pp. 35, 36).
+
+BIBLIOGRAPHY
+61
+[50]
+Hoi-Kwan Lau and Martin B. Plenio. "Universal Quantum Com-
+puting with Arbitrary Continuous-Variable Encoding". In: Phys.
+Rev. Lett. 117 (10 2016), p. 100501. doi: 10.1103/PhysRevLett.
+117.100501 (cit. on p. 35).
+[51]
+Hoi-Kwan Lau et al. "Quantum Machine Learning over Inﬁnite
+Dimensions". In: Phys. Rev. Lett. 118 (8 2017), p. 080501. doi:
+10.1103/PhysRevLett.118.080501 (cit. on pp. 35, 36).
+[52]
+Michael A. Nielsen and Isaac L. Chuang. Quantum Computation
+and Quantum Information: 10th Anniversary Edition. Cambridge
+University Press, 2010. doi: 10.1017/CBO9780511976667 (cit. on
+p. 43).
+[53]
+Robert S Smith, Michael J Curtis, and William J Zeng. "A Practi-
+cal Quantum Instruction Set Architecture". In: arXiv:1608.03355
+(2016). url: https://arxiv.org/abs/1608.03355 (cit. on p. 45).
+[54]
+J.R. Johansson, P.D. Nation, and F. Nori. "QuTiP: An open-source
+Python framework for the dynamics of open quantum systems". In:
+Computer Physics Communications 183.8 (2012), pp. 1760-1772.
+doi: 10.1016/j.cpc.2012.02.021 (cit. on p. 45).
+[55]
+Martin Abadi et al. TensorFlow: Large-Scale Machine Learning
+on Heterogeneous Systems. Software available from tensorﬂow.org.
+2015. url: https://www.tensorflow.org/ (cit. on p. 45).
+[56]
+Travis E Oliphant. A guide to NumPy. Vol. 1. Trelgol Publishing
+USA, 2006 (cit. on p. 46).
+[57]
+Eric Jones, Travis Oliphant, Pearu Peterson, et al. SciPy: Open
+source scientiﬁc tools for Python. [Online; accessed <today>]. 2001.
+url: http://www.scipy.org/ (cit. on p. 46).
+[58]
+J. D. Hunter. "Matplotlib: A 2D graphics environment". In: Com-
+puting in Science & Engineering 9.3 (2007), pp. 90-95. doi: 10.
+1109/MCSE.2007.55 (cit. on p. 46).
+

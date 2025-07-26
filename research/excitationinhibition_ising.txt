@@ -1,0 +1,1626 @@
+PHYSICAL REVIEW E 99, 032408 (2019)
+Ensemble inhibition and excitation in the human cortex: An Ising-model analysis with uncertainties
+Cristian Zanoci,* Nima Dehghani,† and Max Tegmark‡
+Department of Physics and Center for Brains, Minds and Machines, Massachusetts Institute of Technology,
+Cambridge, MA 02139, USA
+(Received 22 October 2018; revised manuscript received 31 January 2019; published 7 March 2019)
+The pairwise maximum entropy model, also known as the Ising model, has been widely used to analyze
+the collective activity of neurons. However, controversy persists in the literature about seemingly inconsistent
+ﬁndings, whose signiﬁcance is unclear due to lack of reliable error estimates. We therefore develop a method for
+accurately estimating parameter uncertainty based on random walks in parameter space using adaptive Markov-
+chain Monte Carlo after the convergence of the main optimization algorithm. We apply our method to the activity
+patterns of excitatory and inhibitory neurons recorded with multielectrode arrays in the human temporal cortex
+during the wake-sleep cycle. Our analysis shows that the Ising model captures neuronal collective behavior much
+better than the independent model during wakefulness, light sleep, and deep sleep when both excitatory (E)
+and inhibitory (I) neurons are modeled; ignoring the inhibitory effects of I neurons dramatically overestimates
+synchrony among E neurons. Furthermore, information-theoretic measures reveal that the Ising model explains
+about 80-95% of the correlations, depending on sleep state and neuron type. Thermodynamic measures show
+signatures of criticality, although we take this with a grain of salt as it may be merely a reﬂection of long-range
+neural correlations.
+DOI: 10.1103/PhysRevE.99.032408
+I. INTRODUCTION
+One of the main questions in neuroscience is how to
+accurately model the dynamics of networks of ﬁring neu-
+rons. This question involves controversies not only about the
+correct dynamics but also about the most relevant degrees
+of freedom in the network. One important example is the
+issue of temporal versus rate coding, i.e., whether the precise
+time of spiking or only the overall spiking rates matter in
+the description of network dynamics. A number of theoretical
+[1-3] and experimental [4-8] studies provide evidence for the
+importance of the exact timing of spikes, but this view has
+been challenged by alternative perspectives advocating for
+less time-constrained and more probabilistic models [9-13].
+Attempts at answering this central question have been ham-
+pered both by experimental difﬁculties in acquiring adequate
+data and computational challenges related to the exponential
+(in system size) growth of the number of dependencies that a
+network model has to capture. Recent advances in experimen-
+tal techniques using multielectrode arrays [14-17] enable us
+to simultaneously record the activity of large populations of
+neurons, further amplifying the need to formulate an effective
+theory describing the macroscopic characteristics of large
+neuronal networks given their numerous degrees of freedom.
+Statistical mechanics provides many examples of such the-
+ories that relate the macroscopic properties of matter to the
+interactions between its microscopic degrees of freedom.
+*czanoci@mit.edu
+†nima.dehghani@mit.edu
+‡tegmark@mit.edu
+One such family of models, known as maximum entropy
+models, consists of the least structured probability distribu-
+tions that are consistent with a set of empirical statistics on
+ﬁnite data. In a landmark study, it was shown that pairwise
+maximum entropy models, also known as Ising models, based
+on average spiking probability and correlations between pairs
+of neurons, give a good description of the activity patterns in
+retinal ganglion cells [11]. Since then, these models have been
+widely used to describe the activity of ensembles of neurons
+in a variety of systems, both in vitro and in vivo [7,18-25].
+Despite Ising models' success in describing the statistics
+of activity patterns, they also have certain limitations. First,
+it has been argued that higher-order neuron couplings could
+play an important role in population coding, so that pair-
+wise couplings fail to capture the full dynamics [26-34],
+especially if exact spike timing is important [35,36]. Second,
+the model's reliability may be distance dependent, leading
+to successful predictions for neurons separated by large dis-
+tances, but poor ﬁts to the activity of local clusters of neurons
+that might be dominated by high-order correlations due to
+distance-dependent connectivity proﬁles [29,37,38]. Finally,
+Ising models may not be scalable to the full size of real
+neuronal networks [39-41].
+Although pairwise maximum entropy models have known
+limitations and have been extensively studied before, they
+remain one of the few simple models that can explain the main
+characteristics of collective behavior. As new data sets for
+increasingly larger neuronal populations become available, it
+is imperative to rigorously test the applicability and predictive
+power of Ising models on these data sets. Unfortunately,
+without any approximations, the computational cost of mak-
+ing predictions using these models grows exponentially with
+the number of neurons, thus rendering them intractable [24].
+2470-0045/2019/99(3)/032408(16)
+032408-1
+©2019 American Physical Society
+
+ZANOCI, DEHGHANI, AND TEGMARK
+PHYSICAL REVIEW E 99, 032408 (2019)
+Moreover, in part due to these computational challenges, the
+existing literature on neural Ising models is largely devoid of
+any quantiﬁcations of uncertainties on their parameters, which
+makes it harder to resolve controversies about whether Ising
+models ﬁt experimental data well [7,11] or not [29,39,42].
+It is therefore timely to develop an improved method for
+neural Ising modeling that can be applied to modern exper-
+imental data sets and can quantify parameter uncertainties
+while remaining computationally tractable. We will introduce
+such a method in this paper, and then use it to study the
+collective behavior of cortical excitatory and inhibitory neu-
+rons during the wake-sleep cycle (wakefulness, light sleep,
+and deep sleep) at multiple timescales. We seek to identify
+differences between excitatory and inhibitory neurons, as well
+as their distinctive behavior during wakefulness and sleep.
+Finally, we will also study the thermodynamic properties of
+the learned models.
+II. METHODS
+A. Data
+We used data obtained from a set of multielectrode record-
+ings in layers II/III of the human temporal cortex. Data were
+initially sampled at 30 kHz and then ﬁltered and thresholded
+during the spike detection step. After spike sorting, a com-
+bination of morphological features of the spike waveforms
+along with the cross-correlogram of spike times were used to
+classify the cells as either excitatory (E) or inhibitory (I). This
+procedure produced a time series of spikes for each of the N
+neurons [Fig. 1(a)]. The 12-h recordings spanning overnight
+sleep were staged, yielding multiple state labels: awake, light
+sleep (stages II and III), deep sleep [slow-wave sleep (SWS)],
+and rapid eye movement (REM). In Sec. III, we will use
+our method to analyze the awake, light sleep, and deep sleep
+states. Note that the data used in our analyses were devoid of
+any seizures. Additional details about the recordings and neu-
+ron classiﬁcation procedure are presented in Appendices A
+and B.
+B. Maximum-entropy models
+The maximum-entropy concept originates from statistical
+mechanics, and the connection between maximum-entropy
+models and classical thermodynamic distributions has been
+long known [43]. The main objective of maximum-entropy
+models is to construct a probability distribution that matches a
+set of empirical observations but is otherwise as unconstrained
+and unstructured as possible. In this paper, we will focus on
+independent and pairwise models, which respectively match
+the ﬁrst and second moments of the probability distribution of
+data.
+Consider a network of N neurons for which we discretize
+each neuron's spike time series into small windows of size t
+[Fig. 1(b)]. We performed this analysis for windows of size
+20, 50, and 100 ms. For each neuron i, we assign σi = +1
+if it generated an action potential (spiked) within this time
+window or σi = −1 otherwise. Therefore, at each time step,
+our system can be described by a conﬁguration vector
+σ ∈{−1, 1}N, visualized as a column of N bits in Fig. 1(c).
+(a)
+(b)
+(c)
+FIG. 1. Schematic representation of experimental data. (a) The
+spike train response of a set of 92 neurons in the human temporal
+cortex. (b) Discretization of the region delimited by the red rectangle
+into time bins of width t = 50 ms. (c) The raster corresponding to
+the discretization in panel (b), where red (σi = +1) denotes spiking
+of neuron i, and blue (σi = −1) represents silence.
+Suppose our data consist of a set of activity patterns X =
+{σ(1), σ(2), . . . , σ(M)} ∈RN×M, where each σ(k) is a conﬁgu-
+ration vector. Then we can compute the mean spiking activity
+of each neuron,
+mi = ⟨σi⟩X = 1
+M
+M
+
+k=1
+σ (k)
+i
+,
+(2.1)
+and the two-point function between pairs of neurons,
+Qi j = ⟨σiσj⟩X = 1
+M
+M
+
+k=1
+σ (k)
+i
+σ (k)
+j ,
+(2.2)
+where ⟨·⟩X denotes the empirical average with respect to our
+data X. This average depends on the choice of window size
+t. We also deﬁne the covariance matrix
+Ci j = ⟨σiσj⟩X −⟨σi⟩X⟨σj⟩X = Qi j −mimj.
+(2.3)
+Our goal is to build a model for the observed probability
+distribution P(N)(σ) which is consistent with the one- and
+two-point functions m and Q of the empirical data set X. More
+formally, we derive the probability distribution by maximizing
+its entropy, subject to the constraints that enforce agreement
+with m and Q. Using the method of Lagrange multipliers
+to impose each constraint, the solution to the optimization
+problem is given by the Boltzmann distribution [43]:
+P(2)(σ, θ) = e−βH(σ,θ)
+Z(θ)
+,
+(2.4)
+032408-2
+
+ENSEMBLE INHIBITION AND EXCITATION IN THE ...
+PHYSICAL REVIEW E 99, 032408 (2019)
+where
+H(σ, θ) = −
+N
+
+i=1
+hiσi −
+N
+
+i,j=1
+Ji jσiσj = −hT σ −σT Jσ
+(2.5)
+is the Hamiltonian of the system and θ = (h, J) is the pa-
+rameter vector of our model. P(2)(σ, θ) is the probability that
+the network of neurons described by parameters θ is in a
+state σ. The partition function Z(θ) = 
+σ′ e−βH(σ′,θ) normal-
+izes the probability distribution. In physics applications, β is
+interpreted as the inverse temperature, but in the context of
+neuroscience it is simply a parameter that scales h and J,
+since the probability distribution depends on these parameters
+only through the combination βh and βJ. Therefore, without
+loss of generality, we can set β = 1 when ﬁtting the model
+and absorb the scaling into our parameters h and J. The
+dependence of the system on this scaling parameter β will be
+explored in Sec. II C.
+The Hamiltonian in Eq. (2.5) represents an energy function
+that assigns a weight to each conﬁguration of spikes and
+silences. This Hamiltonian is identical to that of an Ising
+model for a system of interacting spins [44]. Therefore, we
+will refer to the pairwise model as the Ising model. In con-
+trast to the usual Ising models in physics, where couplings
+typically reﬂect translational symmetry in some number of
+dimensions, these neural Ising models allow arbitrary all-to-
+all couplings. The parameter vector h ∈RN can be interpreted
+as the intrinsic tendency of each neuron to ﬁre and J ∈RN×N
+as the strength of pairwise interactions between the neurons. A
+positive Ji j favors the neurons ﬁring together, while a negative
+Ji j does the opposite. We require that all the diagonal entries
+of J (i.e., self-interactions) are zeros (Jii = 0), since σ 2
+i = 1
+implies that Jii only contribute an irrelevant overall constant
+to our Hamiltonian. Without loss of generality, we take J to
+be symmetric (Ji j = Jji), since 
+i j Ji jσiσj = 
+i j Ji jσjσi =
+
+i j Jjiσiσj.
+Note that θ has N(N + 1)/2 independent components,
+which for a system with N = 92 neurons yields a parameter
+space of size 4278. This is a reasonable number of parameters
+to describe our data set with 234 848 entries (based on 50-ms
+binning). However, if we include higher-order interactions,
+then the model would have at least O(N3) parameters, which
+will require signiﬁcantly more data points to avoid overﬁtting.
+A simpliﬁed version of the pairwise model is obtained by
+assuming that J = 0, i.e., that each neuron spikes indepen-
+dently of all the others. This deﬁnes what we will refer to
+as the independent model P(1)(σ, h), which only constrains
+the mean spiking activity. Although the independent model
+is obviously not a realistic description of actual biological
+neural networks, it nonetheless provides a useful baseline
+comparison for the pairwise model. The main advantage of
+the independent model is that it is exactly solvable, since
+the partition function factorizes. One can easily show that its
+parameters must satisfy
+hi = arctanh(mi).
+(2.6)
+Unfortunately, such a closed-form correspondence between
+model parameters and data do not exist for the Ising model
+[44].
+If we know the parameters θ of the Ising model, then we
+can compute any thermodynamic quantity, although it may
+take an exponential amount of time to evaluate the partition
+function Z(θ). In particular, we can compute the mean spiking
+activity and the two-point correlation function:
+mi(θ) = ⟨σi⟩θ =
+
+σ
+P(2)(σ, θ)σi,
+(2.7)
+Qi j(θ) = ⟨σiσj⟩θ =
+
+σ
+P(2)(σ, θ)σiσj,
+(2.8)
+where ⟨·⟩θ denotes the expectation value with respect to our
+model. This is known as the forward Ising problem.
+Our objective is to solve the inverse Ising problem—
+namely ﬁnding the best Ising model parameters θ that describe
+our data X. Although this inference problem is complicated
+for large networks, efﬁcient algorithms for solving it are
+an active area of research [45], and a variety of methods
+have been used over the years to learn maximum entropy
+models. These methods include histogram Monte Carlo [46],
+minimum probability ﬂow [47], adaptive cluster expansions
+[48,49], and pseudolikelihood [50]. In this work, we use a
+combination of Markov-chain Monte Carlo (MCMC) [51,52]
+and gradient descent to iteratively estimate model averages of
+observables and update the parameters θ. A detailed descrip-
+tion of our algorithm is presented in Appendix C.
+Once we have learned the parameters of our model, a
+natural next step is to estimate the uncertainties associated
+with these parameters. As mentioned in Sec. I, this question
+has not been rigorously addressed in previous works on
+maximum entropy models. Our approach is to estimate the
+uncertainties using adaptive MCMC on the space of parameter
+vectors θ. We perform a random walk using MCMC with a
+Gaussian proposal distribution centered at the solution of the
+inverse Ising problem, as found by our optimization procedure
+described in Appendix C. In order to determine the best value
+for the variance of the proposal distribution, we use adaptive
+MCMC to learn this parameter from previously generated
+Monte Carlo samples. A complete description of our method
+is given in Appendix D. One advantage of performing this
+random walk in parameter space is that we can ﬁne-tune the
+solution previously obtained from the optimization algorithm.
+C. Thermodynamic and information-theoretic quantities
+The model parameters θ that we found can be interpreted
+as describing a system in thermal equilibrium at temperature
+T = 1, since as mentioned above, we set without loss of gen-
+erality β = 1/kBT = 1/T = 1. By analogy with a statistical
+mechanics system described by a Boltzmann distribution, we
+can introduce the temperature T as a scaling parameter of our
+Hamiltonian, which deﬁnes a one-parameter family of models
+whose thermodynamic properties can be explored. By varying
+T , we change the weights assigned to different activity pat-
+terns. It is important to emphasize that T is simply a model
+parameter, just like h and J, and we have no actual neural
+network that corresponds to this model at T ̸= 1. Further,
+we estimate the heat capacity C(T ) and entropy S(T ) of our
+network. The heat capacity of a network of neurons can be
+interpreted as the variance of the surprise, where the surprise
+−log P(σ) determines how unexpected a particular activity
+032408-3
+
+ZANOCI, DEHGHANI, AND TEGMARK
+PHYSICAL REVIEW E 99, 032408 (2019)
+pattern σ is for the network [22,53,54]. A small heat capacity
+indicates that all activity patterns appear with roughly the
+same probability, whereas a large heat capacity suggests that
+there is a balance between a few frequent patterns and mul-
+tiple rare patterns [54,55]. Moreover, divergences in the heat
+capacity can be used to determine the presence of a critical
+point.
+The entropy S, on the other hand, can be used to compute
+the effective number 2S of activity patterns of our system,
+which is an indicator of the size of the neural vocabulary. It
+also provides a bound on the network's capacity to encode
+and transmit information [22]. Furthermore, we can use the
+information-theoretic interpretation of entropy to asses the
+accuracy of our model. For this, we deﬁne a hierarchy of
+models, consisting of the independent P(1)(σ, h), pairwise
+P(2)(σ, θ), and observed P(N)(σ) models, in this order. Each
+subsequent model captures more correlations among the data,
+with the empirical model capturing all the correlations. Given
+how the models are sorted from least to most structured,
+their respective entropies should satisfy S1 ⩾S2 ⩾SN. The
+amount of correlation in the network is quantiﬁed by the
+"multi-information"
+IN ≡S1 −SN,
+(2.9)
+i.e., the decrease in entropy relative to the independent model
+[56,57]. Similarly, I2 ≡S1 −S2 measures the decrease in en-
+tropy that is solely due to pairwise correlations. Therefore,
+the multi-information ratio I2/IN can be used to quantify
+the fraction of correlations captured by the pairwise model
+[11,55].
+To compute entropies and heat capacities, we take the
+following steps. For the empirical entropy SN we use a low-
+bias estimator, speciﬁcally the Bayesian estimator with a
+centered Dirichlet mixture as its prior [58]. The entropy S1
+of the independent model can be computed analytically [44].
+As for the entropy of the pairwise model, it is not feasible
+to compute the probability associated with every activity
+pattern, and even Monte Carlo sampling would lead to a
+poor approximation of the probability distribution due to the
+exponential growth of the phase space. A standard technique
+for approximating the entropy relies on integrating the heat
+capacity [22,53]. However, this method requires generating
+Monte Carlo samples at many intermediate temperatures in
+order to get an accurate estimate of the integral, which can
+get computationally expensive. For our purposes, we therefore
+choose to use the Wang-Landau algorithm [59], which is
+better suited for this task and yields an estimate for both the
+entropy and the heat capacity. A summary of the algorithm is
+given in Appendix E.
+III. RESULTS
+In this section, we apply our methods to the above-
+mentioned data from in vivo multielectrode array record-
+ings of neurons in the human temporal cortex. We construct
+maximum-entropy models of both inhibitory and excitatory
+neurons across multiple sleep stages. The ﬁgures presented in
+this section are based on the temporal bin size t = 50 ms,
+thus striking a good balance between capturing correlations
+among neurons and providing enough data for analysis. This
+value of t is slightly larger than the conventional 20-ms
+window used for retinal neurons [11,22,24,60], reﬂecting the
+sparsity of activity patterns in the temporal cortex [61]. We re-
+peated our analysis for both smaller (t = 20 ms) and larger
+(t = 100 ms) time bins and conﬁrmed that our conclusions
+also hold on these timescales and across all four data sets.
+Figure 2 shows a sample ﬁt of the pairwise model to
+the data recorded from 92 neurons in the human temporal
+cortex during wakefulness, with the neurons sorted in order
+of decreasing activity mi. Figures 2(a) and 2(c) display the
+measured statistical properties m and C of the network, while
+Figs. 2(b) and 2(d) show the inferred model parameters h and
+J. This analysis shows that the majority of neurons have a very
+low probability of spiking, with the last 65 neurons ﬁring in
+less than 3% of all time bins. The values of the covariance
+Ci j for these less active neurons are close to zero, reﬂecting
+the fact that pairs of neurons are likely to be simultaneously
+silent. The majority of bias terms hi take on negative values,
+thus showing the neurons' intrinsic tendency to remain silent.
+The model uncertainties on h are slightly larger than those
+on J, but still below 5%. The couplings Ji j between neurons
+are widespread and can have either sign. The distribution of
+Ji j is seen to be roughly symmetric and centered around zero.
+This behavior is reminiscent of spin glasses [62], where com-
+peting interactions lead to frustration in the system. Therefore,
+we would expect the high-dimensional energy landscape to
+become increasingly uneven and develop many local minima
+as the system size increases [22,62]. This is consistent with
+the fact that multiple microscopic realizations of a system
+can lead to very similar macroscopic behaviors. We ﬁnd that
+qualitatively similar observations and conclusions apply to
+both light and deep sleep states.
+A. Reliable neurons
+We conﬁrm numerically that the optimization problem
+does indeed have multiple local minima. By running the algo-
+rithm described in Appendix C with different initializations,
+we observe that the optimization subroutine converges to a
+slightly different set of parameters each time. Since we want
+to be able to meaningfully interpret the model parameters θ,
+we will now investigate this issue.
+To do so, we introduce cosine similarity as a measure of
+how reliably the parameters θ are replicated from run to run.
+The cosine similarity is a commonly used measure of the
+similarity of two vectors, deﬁned simply as the cosine of the
+angle between them, computed via their dot product,
+cos[θ(i), θ( j)] ≡θ(i) · θ( j)
+|θ(i)||θ( j)|
+,
+(3.1)
+where |θ(i)| ≡[θ(i) · θ(i)]1/2 denotes vector length. If two pa-
+rameter vectors differ only slightly, then they are almost
+aligned in the parameter space and their cosine similarity
+is close to 1. If instead the difference between parameters
+is large, then the two vectors will be roughly perpendicular
+in their high-dimensional parameter space and their cosine
+similarity will be near zero.
+There are two candidate explanations for why our al-
+gorithm might produce different parameters θ for different
+initializations:
+032408-4
+
+ENSEMBLE INHIBITION AND EXCITATION IN THE ...
+PHYSICAL REVIEW E 99, 032408 (2019)
+(a)
+(b)
+(d)
+(c)
+FIG. 2. Maximum entropy model for the population of 92 neurons in the awake state. (a) The mean spiking activity mi = ⟨σi⟩. (b) The
+bias terms hi of the inferred model, with a mean error of 0.01. Note that in the presence of interactions, the relationship between hi and mi no
+longer follows the closed form given in Eq. (2.6). (c) The correlation coefﬁcients between pairs of neurons Ci j = ⟨σiσ j⟩−⟨σi⟩⟨σ j⟩. The inset
+shows the population distribution of the correlation coefﬁcients. (d) The pairwise coupling terms Ji j of the inferred model, with a mean error
+of 0.004. The inset shows the population distribution of the pairwise couplings. Note that panels (c) and (d) only show the lower triangle of the
+symmetric matrices C and J. In all panels, neurons are ordered by decreasing spiking frequency.
+(1) The hypothetical true values of m and C that we would
+measure if we had access to inﬁnite data unfortunately lead to
+multiple local optima when ﬁtting for θ.
+(2) These true m and C would give a unique local and
+global optimum θ, but the empirical m and C that we estimate
+from our ﬁnite data X are sufﬁciently far from the true values,
+so that local optima arise.
+The more two neurons i and j spike, the more accurately
+and reliably we can estimate mi and Ji j, whose uncertainties
+scale roughly as the square root of the number of spikes.
+To distinguish between explanations 1 and 2, we therefore
+perform 10 independent estimations of θ after discarding all
+but the N′ most active neurons and plot the average cosine
+similarity between pairs of parameter vectors as a function of
+N′ in Fig. 3. The results support the second hypothesis: Pa-
+rameters inferred from only the most active neurons are quite
+reliably recovered multiple times with different initializations,
+whereas those involving less active neurons are not.
+We therefore deﬁne reliable neurons to be those for which
+the cosine similarity is above a given threshold, set here to
+0.25. Intuitively, reliable neurons are those for which we have
+enough data to conﬁdently infer their model parameters. For
+our data, this heuristic choice of threshold corresponds to
+neurons ﬁring in at least 5% of the time windows and selects
+approximately 20 neurons as reliable for each sleep state,
+roughly equally split between inhibitory and excitatory neu-
+rons. In the remainder of this section, we will only consider
+reliable neurons.
+In a related approach based on reliable interactions [23],
+during the model ﬁtting, only the frequent activity patterns of
+the network were taken into account and all the conﬁgurations
+whose occurrence rate was below a certain threshold were
+032408-5
+
+ZANOCI, DEHGHANI, AND TEGMARK
+PHYSICAL REVIEW E 99, 032408 (2019)
+N'
+FIG. 3. Cosine similarity between all pairs of 10 parameter vec-
+tors θ estimated from 10 independent runs of our algorithm, when
+keeping only the N′ most active neurons. Higher values of the cosine
+similarity indicate a smaller variance in parameters from run to run,
+so we see that the parameters of more active neurons can be more
+reliably measured. Our threshold for reliable neurons (horizontal
+line) is set at 0.25.
+discarded. Our approach is similar, except that instead of
+discarding time segments, we discard the least active neurons.
+B. Collective behavior
+The ﬁrst success of the pairwise model applied to reliable
+neurons can be seen when looking at the collective behav-
+ior in the network. Figure 4(a) shows the probabilities that
+the independent and Ising models assign to each activity
+pattern. The Ising model is seen to signiﬁcantly outperform
+the independent model, accurately predicting the observed
+pattern frequencies, except for the most rarely encountered
+patterns. Figure 4(b) shows the spike synchrony, deﬁned as
+the probability that a given number of neurons spike within
+the same time window, revealing that the independent model
+strongly underpredicts events with many synchronous spikes.
+The Ising model is seen to perform dramatically better.
+C. Information-theoretic quantities
+In addition to Fig. 4, we can quantify the success of the
+Ising model by computing the information-theoretic quantities
+introduced in Sec. II C for different sleep states and subsets of
+neuron types. The results are summarized in Table I.
+Recall that each activity pattern can be viewed as a vector
+of N bits that speciﬁes which of the N neurons ﬁred during
+a given time interval. Since the entropy Si can be interpreted
+as the number of bits required to describe a typical pattern
+drawn from the probability distribution P(i), we expect Si = N
+if all neurons randomly ﬁred or remained silent with equal
+probability. However, since neurons are mostly inactive, the
+entropy is seen to be signiﬁcantly smaller (S1/N ∼0.3-0.4)
+for the independent model that accounts for these ﬁring rates
+and even smaller (S2 < S1) for the Ising model that also
+incorporates predictable regularities due to pairwise interac-
+tions. The entropy is the smallest (SN < S2) for the observed
+(a)
+(b)
+FIG. 4. Model predictions for the network of 19 reliable neurons
+during the awake state. (a) The probability of occurrence of each
+activity pattern predicted by the maximum entropy model [P(1)(σ, h)
+or P(2)(σ, θ)] is plotted against the observed pattern frequency from
+measured data [P(N)(σ)]. The black line corresponds to prediction
+matching observation. The apparent stratiﬁcation on the lower end of
+the spectrum is due to the ﬁnite size of the data set. (b) The predicted
+and observed distribution of the number of simultaneously spiking
+neurons in each time bin. Error bars are asymmetrical because of the
+logarithmic scale. Similar results hold across all states, timescales,
+and data sets.
+distribution, which includes regularities not captures by the
+Ising model.
+The multi-information ratio I2/IN = (S1 −S2)/(S1 −SN )
+[see Eq. (2.9)] is listed in the last column of Table I. It
+reveals that the Ising model captures the majority of the
+correlative structure in the data: In transitioning from the
+independent model to the observed probability distribution
+for neuron activity patterns, the Ising model accounts for 80-
+95% of the correlations, depending on sleep state and neuron
+type.
+Last, for a given model P(i), the Kullback-Leibler (KL)
+divergence DKL[P(i) ∥P(N)] can be interpreted as the number
+of extra bits required to describe the observed neuron activity
+032408-6
+
+ENSEMBLE INHIBITION AND EXCITATION IN THE ...
+PHYSICAL REVIEW E 99, 032408 (2019)
+TABLE I. Information-theoretic quantities for populations of reliable inhibitory and excitatory neurons across different sleep states for
+data set 1. Similar results hold across all timescales and data sets. The numbers in parenthesis represent the uncertainty in the last digit.
+Neuron
+KL divergence per neuron
+type
+State
+N
+Independent
+Ising
+S1/N
+S2/N
+SN/N
+I2/IN
+I
+Awake
+23
+0.0146(1)
+0.0044(1)
+0.3326(1)
+0.3227(2)
+0.3204(2)
+0.81(2)
+I
+Light sleep
+23
+0.0325(1)
+0.0102(1)
+0.3578(1)
+0.3337(2)
+0.3282(2)
+0.81(1)
+I
+Deep sleep
+23
+0.0376(1)
+0.0129(1)
+0.3611(3)
+0.3347(3)
+0.3292(3)
+0.83(2)
+E
+Awake
+6
+0.0008(2)
+0.00010(3)
+0.3975(3)
+0.3893(3)
+0.3890(3)
+0.96(7)
+E
+Light sleep
+6
+0.0010(2)
+0.00030(3)
+0.3205(3)
+0.3102(2)
+0.3092(3)
+0.91(5)
+E
+Deep sleep
+14
+0.0054(1)
+0.0016(1)
+0.2885(1)
+0.2858(2)
+0.2851(2)
+0.80(8)
+I and E
+Awake
+19
+0.0185(1)
+0.0056(1)
+0.4826(2)
+0.4698(2)
+0.4673(2)
+0.84(2)
+I and E
+Light sleep
+16
+0.0323(1)
+0.0116(1)
+0.3976(1)
+0.3811(2)
+0.3792(1)
+0.90(1)
+I and E
+Deep sleep
+23
+0.0444(1)
+0.0189(1)
+0.4374(2)
+0.4055(3)
+0.4033(3)
+0.94(1)
+patterns simply because the model does not ﬁt the data per-
+fectly. Thus taking the KL divergence as a measure of how
+poorly a model ﬁts the observed probability distribution of
+activity patterns, Table I shows that the Ising model outper-
+forms the independent model for all the nine cases listed,
+typically by a factor greater than three. We also see that
+excitatory neurons are the easiest to predict, which is at least
+partly because we run our algorithm on a smaller subset of
+them. Furthermore, we observe that the Ising model provides
+a slightly better match to the observed activity pattern in
+the awake state. A worthwhile question for future theoretical
+work is to investigate whether more desynchronized states
+(such as the awake state) can in general be better modeled
+using purely pairwise interactions, without considering strong
+(synchronizing) external drives.
+D. Excitatory and inhibitory neurons
+We now turn to a central question of this paper: identifying
+differences between inhibitory and excitatory neurons. We
+begin by investigating the interactions between these two
+neuron types. Figure 5 shows the couplings Ji j between
+neurons of both types, revealing an interesting pattern: The
+couplings among I neurons and among E neurons are almost
+all positive, whereas the couplings between I and E neurons
+are a mix of positive and negative values, slightly skewed
+toward the positive. This observation suggests a nontrivial
+interaction between the I and E neurons, reﬂecting the ability
+of I neurons to inhibit E neurons in response to their excitation
+by E neurons. The exact causal relationship and timescale
+of such interactions is hard to interpret given that we are
+signiﬁcantly subsampling (by orders of magnitude) from tens
+(a)
+(b)
+FIG. 5. The pairwise coupling matrix J inferred from the population of reliable neurons in the deep sleep state. Neurons are sorted by
+type, with (a) inhibitory neurons at positions 1-13 and excitatory neurons at positions 14-23 for data set 1, (b) inhibitory neurons at positions
+1-15 and excitatory neurons at positions 16-27 for data set 2. The couplings Ji j among inhibitory neurons, as well as the couplings among
+excitatory neurons (diagonal blocks) are almost entirely positive. The couplings Ji j between inhibitory and excitatory neurons (off-diagonal
+blocks) display a mix of both positive and negative values. Similar results hold across all states, timescales, and data sets.
+032408-7
+
+ZANOCI, DEHGHANI, AND TEGMARK
+PHYSICAL REVIEW E 99, 032408 (2019)
+(a)
+(c)
+(d)
+Excitatory
+(b)
+Inhibitory
+FIG. 6. Difference between E and I neurons. The probability of occurrence of each activity pattern predicted by the maximum entropy
+model [P(1)(σ, h) or P(2)(σ, θ)] is plotted against the observed pattern frequency from measured data [P(N)(σ)] for a network of (a) 14 E
+neurons and (b) 23 I neurons. The black line corresponds to prediction matching observation. The predicted and observed distribution of
+the number of simultaneously spiking neurons in each time bin for a network of (c) 14 E neurons and (d) 23 I neurons. Error bars are not
+symmetrical because of the logarithmic scale. All plots are for the deep sleep state, but similar results hold across all states, timescales, and
+data sets.
+of thousands of neurons in these local circuits. In addition,
+the observed positive correlation among the I neurons may
+hint to the existence of a strong common input or higher-order
+correlations, both of which are inherently not addressable due
+to the size of the neuron pool and the nature of the pairwise
+model used in this study.
+To further uncover the differences between inhibitory and
+excitatory neurons, we ﬁt Ising models separately for each
+neuron type. Figure 6 shows that the Ising model works fairly
+well for the I neurons alone but fails completely for the E
+neurons alone, dramatically overpredicting how often neurons
+spike together.
+The success is arguably as noteworthy as the failure: It is
+striking that the Ising model works as well as it does even
+though the couplings of our observed neurons to the other
+roughly 1011 neurons in the brain are completely ignored. One
+interpretation of this success is the well-known hypothesis
+that collective neural dynamics occurs on a low-dimensional
+submanifold [63], such that observing a modest number of
+neurons sufﬁces for determining a state's location in this
+submanifold.
+Within the context of this interpretation, Fig. 4 illustrates
+how a subsystem of merely 19 reliable neurons sufﬁce to
+capture enough information about their surrounding dynamics
+to be accurately modeled as an isolated system, as long as
+both excitatory and inhibitory neurons are included. On the
+other hand, if the inhibitory effects of I neurons are not
+modeled, then the synchrony among E neurons is dramatically
+032408-8
+
+ENSEMBLE INHIBITION AND EXCITATION IN THE ...
+PHYSICAL REVIEW E 99, 032408 (2019)
+(a)
+(b)
+FIG. 7. Pearson correlation coefﬁcients Ri j between the same set
+of (a) 14 (data set 1) and (b) 18 (data set 2) reliable neurons during
+awake and deep sleep states. The coefﬁcients Ri j are labeled based on
+the type of neurons i and j. The correlations are different during the
+two states, with I-I correlations being predominantly larger during
+deep sleep.
+overestimated [Fig. 6(c)]. Conversely, there is a slight hint that
+if the excitatory effects of E neurons are not modeled, then
+the synchrony among I neurons is slightly, but consistently,
+underestimated [Fig. 6(d)]. In other words, accurate modeling
+of the joint system of E and I neurons requires sampling from
+both of its two distinct subpopulations.
+E. Sleep states
+Now that we have described the behavior of inhibitory
+and excitatory neurons that is common to all sleep states, we
+proceed to investigate the distinctions that appear between E
+and I neurons in different states. It is well known that the spik-
+ing frequencies of many neurons vary strongly between sleep
+states and our data conﬁrms this fact [64-68]. Additionally,
+we show that such a dependence on sleep states applies not
+only to the ﬁrst moments m (corresponding to ﬁring frequen-
+cies) but also to second moments C. Figure 7 compares the
+Pearson correlation coefﬁcients Ri j ≡Ci j/[CiiCj j]1/2 between
+all neuron pairs. Note that we only study the neurons that
+are reliable in both states and split the correlation coefﬁcients
+according to neuron types. Noticeably, most dots lie far from
+(a)
+(b)
+FIG. 8. Heat capacity and entropy in maximum entropy models.
+(a) Heat capacity per neuron C(T )/N as a function of temperature
+for different types of neurons in the awake and SWS states. The heat
+capacity peaks around T = 1 (vertical dotted line). (b) Entropy per
+neuron S(T )/N as a function of temperature for different types of
+neurons in the awake and SWS states. The entropy experiences a
+jump around T = 1 and saturates to its maximum value S(T )/N = 1
+(horizontal dotted line) at high temperatures. Both panels indicate
+signatures of criticality. Errors are displayed as shaded regions
+around the main lines. Similar results hold across all time bins and
+data sets.
+the diagonal line, meaning that the corresponding correlations
+are different during wakefulness and sleep. For both data sets,
+we observe that I-I correlations are slightly higher during deep
+sleep, which is indicated by their points lying predominantly
+above the diagonal line. This means that the network of
+inhibitory neurons is more internally correlated during sleep,
+perhaps reﬂecting the familiar slow-wave coherent oscilla-
+tions associated with deep sleep.
+F. Thermodynamic quantities
+Finally, we study the thermodynamic properties of our
+models. Figure 8 shows the heat capacity and entropy as a
+function of temperature for inhibitory, excitatory, and mixed
+networks of neurons in different sleep states. It is noteworthy
+that these thermodynamic curves look qualitatively similar
+across neuron types and sleep states despite the strong de-
+032408-9
+
+ZANOCI, DEHGHANI, AND TEGMARK
+PHYSICAL REVIEW E 99, 032408 (2019)
+pendence on sleep state that we saw above at the level of
+individual neurons. We see that for all networks, the heat
+capacity peaks around the operating temperature T = 1, while
+the entropy exhibits a jump near that same temperature.
+This behavior is reminiscent of a phase transition, in which
+the system goes from an ordered, low-entropy state, to a
+disordered, high-entropy state [44]. At high temperatures,
+where all conﬁgurations have the same Boltzmann weight,
+the entropy approaches its maximum S(T ) = N. The peak in
+the heat capacity curves becomes sharper for larger system
+size N, which is consistent with ﬁnite-size scaling. In all the
+networks studied, the heat capacity peak is found to be at a
+slightly higher temperature than the operating point T = 1.
+Moreover, these signatures of criticality are robust to changes
+in parameters θ, as indicated by the small size of our error
+bars. The question of interpreting these criticality hints is
+subtle and we will return to it in Sec. IV B.
+IV. DISCUSSION
+In this paper, we have introduced a statistically rigorous
+and computationally efﬁcient method for inferring an Ising
+model of the spiking activity of neural networks and have
+applied it to excitatory and inhibitory human cortical neurons
+during the wake-sleep cycle. Our method provides accurate
+uncertainty estimates for all model parameters and derived
+quantities, as described in Appendix D, and remains tractable
+for large (N ≈100) neuronal networks. This further improves
+previous work where parameters uncertainty was estimated
+either by repeatedly running the inference algorithm for differ-
+ent neuron subsets [11,20,22-24,53,54] or not at all [7,18,61];
+the former approach may suffer from the population of neu-
+rons being inhomogeneous, consisting of different neuron
+types, being exposed to variable stimuli, or having drastically
+varying ﬁring rates.
+A. Modeling spiking behavior
+We found that the Ising model describes neuronal col-
+lective behavior much better than the independent model
+throughout the sleep cycle as long as both E and I neurons
+are modeled (Fig. 4). These observations are consistent across
+sleep states and data sets. We found that the pairwise cor-
+relations in the Ising model accounted for 80-95% of all
+correlations in the data and that the Ising model yielded a
+KL divergence more than three times smaller than that of the
+independent model (Table I).
+By modeling inhibitory and excitatory networks separately,
+we found that accurately predicting neuron synchrony re-
+quires sampling both E and I neurons. If the inhibitory effects
+of I neurons were ignored, then synchrony among E neurons
+was dramatically overestimated [Fig. 6(c)]. In contrast, the
+I neurons could be fairly accurately modeled on their own,
+although ignoring the excitatory effects of the E neurons
+caused a slight underestimation of their synchronous activity
+[Fig. 6(d)]. The inhibitory effect of I neurons on E neurons
+was also reﬂected by negative pairwise couplings Ji j between
+the two neuron types (Fig. 5).
+A recent study [61] also examined excitatory and inhibitory
+neurons in the human cortex during wakefulness and deep
+sleep, reporting that the spiking activity is dominated by
+pairwise interactions during wakefulness but is population-
+wide during deep sleep [61] to an extent not captured by the
+Ising model for inhibitory neurons. While we found I neurons
+to be accurately ﬁt by the Ising model, we reproduced the
+conclusion of Ref. [61] that inhibitory neurons have higher
+average correlation during sleep by analyzing the intra-class
+(I-I, E-E) and inter-class (E-I) interactions (Fig. 7). Moreover,
+we found this higher I-I correlation to be more pronounced in
+deep sleep than in light sleep.
+These ﬁndings further complement prior observed differ-
+ences between excitatory and inhibitory neurons in the wake-
+sleep cycle. It has been shown that the cortical neurons man-
+ifest an overall multiscale balance, i.e., ensemble excitation
+and inhibition coﬂuctuate, a property that is observed across
+multiple timescale and involves transient deviations from the
+absolute balance that are more prominent during deep sleep
+[69]. In addition, excitatory neurons show a tendency to be
+active more focally, manifesting a distance-dependent decay
+in their correlation, while, in contrast, inhibitory neurons show
+a more robust correlation within the span of a cortical column
+[68]. These collective features are well matched with the
+envisioned signiﬁcant role of the inhibitory neurons in gating
+information [70,71] and in regulating oscillations including
+slow-wave sleep [68,72].
+B. Is the cortex critical?
+Whether the collective neural activity is optimized to oper-
+ate at a critical point [53,73,74] or reﬂects an "asynchronous
+irregular" (AI) regime [75,76] (as a result of irregular ﬁring
+with weak mean correlations despite substantial shared input)
+remains a controversial topic. A number of studies have used
+thermodynamic-based measures of population activity, such
+as the divergence of heat capacity and the power-law scaling
+of neural activity [53-55,60,77], as evidence in support of crit-
+icality. Each of these hypotheses has important implications
+for neural coding. On one hand, the critical regime provides
+optimal information retention [78], information integration
+[79], and maximum sensitivity to input variations [80]. On
+the other hand, the AI regime reﬂects a dynamic balance state
+of excitatory and inhibitory ﬂuctuations [81,82], providing
+nonredundant fast network responses [82].
+We tested for criticality by measuring the heat capacity and
+entropy as a function of temperature. We found that although
+the activity and correlation between individual neurons varied
+dramatically with sleep state (Fig. 7), the thermodynamic
+quantities remained qualitatively unchanged, with the heat
+capacity C(T ) peaking just after T = 1 [Fig. 8(a)] and entropy
+S(T ) experiencing a signiﬁcant jump at T ≈1 [Fig. 8(b)].
+These characteristics may suggest long-range correlation at
+the critical temperature, allowing the neurons to coordinate
+across extended distances. As a consequence, the divergence
+of response functions would maximize the sensitivity of the
+system to the stimuli. In addition, the jump in entropy near
+the critical point implies a signiﬁcant increase in the number
+of effective activity patterns available to the system, thus
+allowing it to exhibit a larger spectrum of possible responses.
+However, we wish to draw attention to experimental and
+theoretical evidence for why we should take these criticality
+032408-10
+
+ENSEMBLE INHIBITION AND EXCITATION IN THE ...
+PHYSICAL REVIEW E 99, 032408 (2019)
+indications with a grain of salt. Experimentally, previous
+analysis of our data set have shown that across the wake-sleep
+cycle, human (as well as monkey and cat) cortical neurons do
+not show power-law scaling and are better ﬁt with a multi-
+exponential model, suggesting that the underlying dynamics
+mirror the interaction of excitation and inhibition at multiple
+timescales [69,83].
+Turning to theoretical evidence, shared input to the net-
+work [84,85], higher-order couplings [30], and randomly
+subsampled data [86,87] can all masquerade as signatures of
+criticality. In fact, networks in self-sustained irregular regimes
+away from criticality can still manifest universal scaling func-
+tions [88]. Our data, and essentially any in vivo multielectrode
+measurements, dramatically subsample the neural activity and
+only provide partial measurements to estimate correlations
+and leave us with latent variables that can only be inferred
+indirectly.
+Finally, it has been suggested that the alleged criticality of
+the maximum entropy models can be a consequence of the
+inference procedure [89-92]. The basic argument is that the
+Ising model only supports long-range correlations when it is
+near critical, such that if the data contain long-range correla-
+tions, then the Ising model that best ﬁts these correlations is
+likely to be near critical. The fact that we observe signatures
+of criticality independent of sleep state (awake, light sleep,
+and deep sleep), neuron type (E, I, and mixed), and timescale
+(20, 50, and 100 ms) thus suggests long-range correlations in
+all states that may or may not be due to critical behavior. A
+more detailed analysis of spatial and temporal correlations is
+required in order to settle the criticality controversy.
+C. Outlook
+To shed further light on the workings of biological neu-
+ral networks, there are many opportunities to improve the
+method we have presented. The Ising model is simply the
+maximum-entropy model that matches all ﬁring rates and
+equal-time two-point correlations. Therefore, straightforward
+generalizations involve including correlations between differ-
+ent times and including three-point functions and higher-order
+correlations.
+The addition of higher-order moments as constraints has
+the potential to improve the model [28,31-34,93], especially
+since input nonlinearities have been argued to affect beyond-
+pairwise correlations [13,27]. However, even the inclusion of
+three-point functions already results in a model with O(N3)
+parameters, which requires signiﬁcantly more data points to
+avoid overﬁtting. Moreover, adding higher-order correlations
+renders the optimization problem even harder since the en-
+ergy landscape will likely have even more local minima.
+Recently, several methods have been introduced for capturing
+beyond-pairwise correlations that may provide computation-
+ally tractable solutions [30,94-96], but building accurate mod-
+els of neuronal networks whose parameters and associated
+uncertainties can be inferred efﬁciently remains an active area
+of research.
+Spatiotemporal extensions of the maximum entropy model
+to include correlations between different times have also been
+pursued in the past [97-99]. However, there are still plenty of
+interesting questions to study using these models and many
+valuable opportunities for improving their reliability, uncer-
+tainty estimation, and computational efﬁciency. For example,
+a spatiotemporal extension of our analysis should be able to
+explicitly quantify which neurons are exciting or inhibiting
+others at later times.
+There are also ample opportunities to tackle the above-
+mentioned subsampling limitation, i.e., that current neuron
+data tend be recorded from merely a minuscule fraction of
+all neurons. If it is correct that the relevant dynamics occur
+on a low-dimensional submanifold, then there is great value
+in further experimental and theoretical work to determine its
+dimensionality (and how many neurons sufﬁce for capturing
+said dynamics).
+Fortunately, rapid technological progress is enabling si-
+multaneous high-quality recordings from ever-larger numbers
+of neurons. This will produce a gold mine of data that can
+be tested using our method and further improvements thereof
+to deepen our understanding of biological neural network
+dynamics.
+ACKNOWLEDGMENTS
+The authors thank James Crutchﬁeld, Cina Aghamoham-
+madi, and Joshua Deutsch for helpful discussions and the
+Center for Brains, Minds, and Machines for hospitality. This
+work was supported by NSF Grant No. 1734870, the Foun-
+dational Questions Institute, and the Rothberg Family Fund
+for Cognitive Science. C.Z. was supported by the Whiteman
+Fellowship.
+APPENDIX A: PATIENTS AND RECORDINGS
+For this study, we used four multielectrode temporal cortex
+recording sessions, each lasting 12 h, including overnight
+sleep. The recordings were done using silicon-based Neu-
+roProbe (from BlackRock Microsystems Inc.), composed of
+a 10 × 10 two-dimensional array of micro-electrodes, each
+1 mm thick, separated by a 400-μm spacing [14,15]. Four
+corner electrodes were used for grounding the electronics,
+resulting in 96 functional electrodes sampling the data at
+30 kHz. All patients had focal epilepsy as conﬁrmed by
+postoperative histology. Based on the postexcision histolog-
+ical exams, electrode tips reached the layers II/III of the
+middle temporal gyrus. The array implantation and surgical
+excision were performed for medical purposes according to
+IRB approved experiments. Patient multielectrode recording
+experiment approval was granted by the Institutional Review
+Boards of Massachusetts General Hospital, and Brigham and
+Women's Hospital. Sleep staging was performed based on
+video monitoring and a combination of scalp EEG and in-
+tracranial EEG recordings simultaneously acquired with the
+multielectorde array system. Sleep-wake categories were as-
+signed as awake, light sleep, SWS, and REM. Due to the short
+duration of REM sleep, we did not use the REM sleep data in
+our study. For more details on patients and recordings, see
+the methods and supplementary material of prior publications
+[68,72].
+032408-11
+
+ZANOCI, DEHGHANI, AND TEGMARK
+PHYSICAL REVIEW E 99, 032408 (2019)
+APPENDIX B: SPIKE SORTING AND CELL
+CATEGORIZATION
+After thresholding the raw data for spike detection, the
+selected spikes were sorted ofﬂine using the ﬁrst three prin-
+cipal components of spike waveforms from each electrode.
+This step was then followed by an automated clustering us-
+ing expectation-maximization. The overall morphofunctional
+characteristics of the spike waveform and putative mono-
+synaptic connections provided the ﬁnal two cell classes of
+excitatory (E) and inhibitory (I). First, each cell's average
+spike waveforms was used to measure a variety of features,
+such as half-width of the positive peak, half-width of the
+negative peak, interval between negative and positive peaks
+(valley-to-peak), and the ratio of the negative to positive peak
+amplitude. Based on a k-means algorithm, these features were
+used to categorize the cells based on the morphology of
+the spike waveform of fast-spiking (FS, putative inhibitory)
+and regular-spiking (RS, putative excitatory) [100,101]. The
+FS and RS functional labels were later tested and veriﬁed
+by the cross-correlograms interactions indicative of putative
+monosynaptic connections [102]. Only the veriﬁed catego-
+rized cells were used in the analyses. This resulted in four data
+sets, each with 92, 80, 36, and 30 neurons, respectively. More
+details about spike sorting and cell classiﬁcation are provided
+in the methods and supplementary material of Refs. [68,69].
+APPENDIX C: LEARNING THE PARAMETERS
+OF THE ISING MODEL
+To solve the inverse Ising problem, we must ﬁnd the
+parameters θ such that the Boltzmann distribution P(2)(σ, θ)
+is as close as possible to the observed distribution P(N)(σ)
+over the data set X = {σ(1), σ(2), . . . , σ(M)}. More formally,
+this implies maximizing the likelihood
+L(X, θ) =
+M
+
+k=1
+e−H(σ(k),θ)
+Z(θ)
+= e−M
+k=1 H(σ(k),θ)
+ZM(θ)
+.
+(C1)
+that the data are produced by our model. In practice, it is often
+more convenient to consider the log-likelihood
+log L(X, θ) = −
+M
+
+k=1
+H(σ(k), θ) −M log Z(θ)
+=
+M
+
+k=1
+
+hT σ(k) + σ(k)T Jσ(k)
+−M log Z(θ)
+= M
+N
+
+i=1
+himi + M
+N
+
+i,j=1
+Ji jQi j −M log Z(θ)
+= M[hT m + Tr(JQ) −log Z(θ)].
+(C2)
+Notice that the log-likelihood depends only on one- and two-
+point correlation functions and not on the entire data set.
+This is consistent with our expectation that m and Q provide
+sufﬁcient information to learn the pairwise model.
+The log-likelihood in Eq. (C2) can be maximized by using
+optimization algorithms, such as gradient descent. The gradi-
+ent of the log-likelihood is straightforward to compute [45]
+and is given by
+∂log L(X, θ)
+∂hi
+= M[mi −mi(θ)],
+(C3)
+∂log L(X, θ)
+∂Ji j
+= M[Qi j −Qi j(θ)],
+(C4)
+where m(θ) and Q(θ) denote the ﬁrst and second moments
+predicted by the Ising model using Eqs. (2.7) and (2.8). The
+gradient descent update rule at each iteration is simply
+h ←h + η[m −m(θ)],
+(C5)
+J ←J + η[Q −Q(θ)],
+(C6)
+where we have absorbed M into the learning rate η. Once
+we reach the maximum log-likelihood, the gradient and hence
+these updates will vanish, implying that our model will match
+the ﬁrst and second moments of the observed distribution, as
+expected for a pairwise maximum entropy model.
+In order to compute the average values m(θ) and Q(θ)
+on the right-hand side of the equations above, we need to
+sum over all 2N possible conﬁgurations of the system. For
+large system sizes (N > 30), this computation becomes in-
+tractable. We therefore use MCMC [51,52] with the usual
+Metropolis-Hastings sampling procedure to generate repre-
+sentative samples from P(2)(σ, θ) and estimate m(θ) and Q(θ)
+using Eqs. (2.7) and (2.8). In practice, we draw 106 samples
+and set η = 0.01.
+At each iteration, we need to assess how closely our
+model matches the data. Ideally, we would compute the
+log-likelihood, but estimating the partition function takes an
+exponential amount of time. Therefore, we use the root-mean-
+squared error between the predicted and measured one- and
+two-point functions as a proxy for monitoring the convergence
+of the optimization algorithm
+ℓ=
+
+
+
+	 1
+N
+N
+
+i=1
+[mi −mi(θ)]2 + 1
+N2
+N
+
+i,j=1
+[Qi j −Qi j(θ)]2, (C7)
+which is simply the likelihood gradient magnitude |∇θL|
+except for two normalization factors. Our success criterion for
+stopping the optimization procedure is ℓ< 0.001.
+APPENDIX D: ESTIMATING UNCERTAINTIES
+ON THE PARAMETERS OF THE ISING MODEL
+1. MCMC on parameter space
+Suppose that our optimization routine, described in
+Appendix C, converged to θ∗= (h∗, J∗), which is the maxi-
+mum likelihood estimate of our model parameters given a data
+set X. We now start at θ∗and perform a random walk in the
+space of parameters θ using MCMC with a Gaussian proposal
+distribution and assuming an uniform prior. The algorithm is
+as follows:
+(1) Initiate the MCMC chain with θ0 = θ∗.
+(2) At each iteration t:
+(a) Draw a candidate step st ∈RN(N+1)/2 according to
+the multivariate Gaussian distribution N (0, ), where  is
+the step covariance matrix. The proposed parameter vector
+is θ′ = θt−1 + st.
+032408-12
+
+ENSEMBLE INHIBITION AND EXCITATION IN THE ...
+PHYSICAL REVIEW E 99, 032408 (2019)
+(b) Accept the proposed move with probability
+paccept = min
+
+1, L(X, θ′)
+L(X, θt−1)
+
+= min
+
+1, eM{(h′−ht−1)T m+Tr[(J′−Jt−1)Q]+log[
+Z(θt−1)
+Z(θ′) ]}
+.
+(D1)
+(3) After generating k representative samples {θ1, . . . , θk},
+we can use them to compute the mean and standard deviation
+on θ, thus quantifying the uncertainty for the Ising model
+parameters.
+2. Adaptive MCMC
+One important technicality is choosing the step covariance
+matrix . If  is too small, then most of our proposals will be
+accepted but we will not get to explore much of the parameter
+space. If  is too large, then our steps will be very big and
+most of our proposals will be rejected. Moreover, we do not
+know how large  has to be along each dimension.
+A standard way to deal with these problems is to employ
+adaptive MCMC techniques, which use the history of previous
+samples to update the proposal distribution dynamically at
+each step [103]. We can update  using either a ﬁxed num-
+ber of previous states, as is the case for adaptive proposal
+(AP) MCMC [104], or the whole chain generated so far,
+as in adaptive metropolis (AM) MCMC [105]. Updating the
+proposal distribution during our algorithm gives us a better
+chance at convergence. However, the adaptive algorithms lead
+to a stochastic process that is clearly no longer Markovian.
+Therefore, adaptive schemes may converge to incorrect distri-
+butions, since the standard ergodicity result no longer applies
+to non-Markovian processes. This is indeed the case for the
+AP algorithm, whereas AM has proven to be ergodic [105].
+Therefore, we use the AM algorithm in this work.
+The covariance matrix t at each iteration t is chosen
+according to
+t =
+
+0
+if t ⩽t0
+λdCov(θ1, . . . , θt−1)
+if t > t0 ,
+(D2)
+where t0 is the initial period after which adaptation begins.
+Typically, we set t0 = 500 and run the simulation for 10 000
+steps. The scaling parameter λd = 2.42/d depends only on
+the dimension of the parameter space d = N(N −1)/2 and
+is chosen so that it optimizes the mixing properties of the
+random walk in the case of Gaussian proposal and target
+distributions [106]. As an initial guess for the covariance
+matrix we choose the identity 0 = αId, scaled down by a
+factor α = 10−5 such that approximately half of the proposed
+steps get accepted during MCMC.
+3. Approximating ratios of partition functions
+The algorithm presented above relies on computing the
+ratio of partition functions in its second step. This can be
+performed exactly for small systems, where we can directly
+compute the partition function. However, it becomes unfeasi-
+ble for larger systems, including those with N ≈100 which
+we are interested in. Therefore we need a way to approximate
+the ratio of partition functions.
+Although there are a few methods for directly estimating
+the partition function, such as the Wang-Landau algorithm
+(see Appendix E), they can be computationally expensive to
+run at each MCMC step and for now we are more interested
+in approximating the ratio of partition functions Z(θ′)/Z(θ),
+rather than the partition functions themselves. We can rewrite
+the ratio as follows:
+Z(θ′)
+Z(θ) =
+1
+Z(θ)
+
+σ
+e−H(σ,θ′)
+=
+
+σ
+e−H(σ,θ′)
+e−H(σ,θ) P(2)(σ, θ) = ⟨e−H(σ,θ′−θ)⟩θ.
+(D3)
+Now we can approximate the right-hand side by drawing
+Monte Carlo samples from the model with parameters θ. If
+we draw M such samples σ(k), then
+Z(θ′)
+Z(θ) ≈1
+M
+M
+
+k=1
+e−H(σ(k),θ′−θ),
+(D4)
+where the approximation sign was used to denote the fact that
+the two equations are equal only in the limit of inﬁnite samples
+M. In practice, the right-hand side of Eq. (D4) is a good
+approximation only when the distribution P(2)(σ, θ) is close
+to P(2)(σ, θ′). If the two probability distributions are not close
+to each other, then most samples drawn from the θ model will
+have a very low probability under the θ′ model and therefore
+make a negligible contribution to the sum in Eq. (D4).
+Fortunately, since we will be computing ratios of parti-
+tion functions for model parameters drawn on consecutive
+iterations, θt−1 and θt, and since our covariance matrix 
+tends to be very small, it is reasonable to assume that θt−1
+and θt are close enough to each other, such that Eq. (D4)
+is applicable with relatively few (M ≈105) samples. There-
+fore, the runtime at each MCMC iteration t will mostly
+consist of drawing M Monte Carlo samples from our previous
+model θt−1.
+APPENDIX E: THE WANG-LANDAU ALGORITHM
+The main idea behind the Wang-Landau algorithm [59] is
+to directly estimate the density of states g(E), i.e., the number
+of states (conﬁguration vectors) with a given energy E. Once
+we know the density of states, we can compute the partition
+function by grouping the terms in the sum by energy
+Z(θ) =
+
+σ′
+e−βH(σ′,θ) =
+
+E
+g(E)e−E/T .
+(E1)
+Other important thermodynamic quantities, such as the av-
+erage energy, heat capacity, and entropy, follow from the
+partition function:
+⟨E⟩θ =
+1
+Z(θ)
+
+E
+g(E)Ee−E/T ,
+(E2)
+C(T ) = ⟨E2⟩θ −⟨E⟩2
+θ
+T 2
+,
+(E3)
+S(T ) = ⟨E⟩θ −F
+T
+= ⟨E⟩θ
+T
++ ln Z(θ),
+(E4)
+where F = −T ln Z(θ) is the free energy. It is worth mention-
+ing that g(E) is independent of temperature. Hence we can
+032408-13
+
+ZANOCI, DEHGHANI, AND TEGMARK
+PHYSICAL REVIEW E 99, 032408 (2019)
+compute the above quantities at any temperature T without
+rerunning the algorithm.
+In order to estimate the density of states, the Wang-Landau
+algorithm performs a random walk in energy space and ac-
+cepts the energy E associated with each conﬁguration with
+a certain probability, designed to encourage the exploration
+of states with different energies [107]. For systems with con-
+tinuous spectra, or systems with a lot of accessible energies
+(as is the case here), we begin by discretizing the spectrum
+into energy levels that are  apart. We assume that the energy
+spectrum is bounded, such that there is a ﬁnite number of
+energy levels. During the random walk, we keep a histogram
+ρ(E) which is incremented each time we visit a state with
+energy E. The histogram has support only on the discretized,
+bounded spectrum. The random walk continues until the
+energy histogram ρ(E) becomes ﬂat, i.e., all its entries are
+within 20% of the mean value ⟨ρ(E)⟩. We check the ﬂatness
+of the histogram every 10 000 steps.
+The procedure during the random walk is as follows [107]:
+(1) Initialize g(E) = 1 and ρ(E) = 0 for all energies E.
+(2) At each iteration t:
+(a) Generate a new conﬁguration by randomly ﬂipping
+a state σi.
+(b) Let Et−1 and E′ be the energies of the previous
+and current conﬁgurations respectively. Accept the new
+conﬁguration and set Et = E′ with probability
+paccept = min
+
+1, g(Et−1)
+g(E′)
+
+.
+(E5)
+Otherwise, Et = Et−1.
+(c) Update the density of states by a modiﬁcation factor
+f , i.e., g(Et ) →f g(Et ).
+(3) If the histogram ρ(E) is ﬂat and ln f > ϵ, then reduce
+the modiﬁcation factor f →√f , reset the histogram ρ(E) =
+0, and proceed to step 2.
+The modiﬁcation factor f controls how well we approx-
+imate g(E). Therefore, periodically decreasing f leads to a
+ﬁner approximation of the density of states. Typical values
+for the parameters of the algorithm are  = 0.005, f = e =
+2.7182, and ϵ = 10−11.
+[1] M. Abeles, Corticonics: Neural Circuits of the Cerebral Cortex
+(Cambridge University Press, Cambridge, 1991).
+[2] M. Diesmann, M.-O. Gewaltig, and A. Aertsen, Nature 402,
+529 (1999).
+[3] G. Kreiman, Phys. Life Rev. 1, 71 (2004).
+[4] C. M. Gray and W. Singer, Proc. Natl. Acad. Sci. USA 86,
+1698 (1989).
+[5] M. Abeles, H. Bergman, E. Margalit, and E. Vaadia, J.
+Neurophysiol. 70, 1629 (1993).
+[6] A. Riehle, S. Grün, M. Diesmann, and A. Aertsen, Science
+278, 1950 (1997).
+[7] J. Shlens, G. D. Field, J. L. Gauthier, M. I. Grivich, D.
+Petrusca, A. Sher, A. M. Litke, and E. J. Chichilnisky, J.
+Neurosci. 26, 8254 (2006).
+[8] J. W. Pillow, J. Shlens, L. Paninski, A. Sher, A. M. Litke, E. J.
+Chichilnisky, and E. P. Simoncelli, Nature 454, 995 (2008).
+[9] M. N. Shadlen and W. T. Newsome, J. Neurosci. 18, 3870
+(1998).
+[10] L. F. Abbott and P. Dayan, Neural Comput. 11, 91 (1999).
+[11] E. Schneidman, M. J. Berry, II, R. Segev, and W. Bialek,
+Nature 440, 1007 (2006).
+[12] B. B. Averbeck, P. E. Latham, and A. Pouget, Nat. Rev.
+Neurosci. 7, 358 (2006).
+[13] K. Josi´c, E. Shea-Brown, B. Doiron, and J. de la Rocha, Neural
+Comput. 21, 2774 (2009).
+[14] P. K. Campbell, K. E. Jones, R. J. Huber, K. W. Horch, and
+R. A. Normann, IEEE Trans. Biomed. Eng. 38, 758 (1991).
+[15] K. E. Jones, P. K. Campbell, and R. A. Normann, Ann.
+Biomed. Eng. 20, 423 (1992).
+[16] A. M. Litke, N. Bezayiff, E. J. Chichilnisky, W. Cunningham,
+W. Dabrowski, A. A. Grillo, M. Grivich, P. Grybos, P.
+Hottowy, S. Kachiguine, R. S. Kalmar, K. Mathieson, D.
+Petrusca, M. Rahman, and A. Sher, IEEE Trans. Nucl. Sci.
+51, 1434 (2004).
+[17] B. D. Allen, C. Moore-Kochlacs, J. G. Bernstein, J. P. Kinney,
+J. Scholvin, L. F. Seoane, C. Chronopoulos, C. Lamantia,
+S. B. Kodandaramaiah, M. Tegmark, and E. S. Boyden,
+J. Neurophysiol. 120, 2182 (2018).
+[18] J. Shlens, G. D. Field, J. L. Gauthier, M. Greschner, A. Sher,
+A. M. Litke, and E. J. Chichilnisky, J. Neurosci. 29, 5022
+(2009).
+[19] S. Yu, D. Huang, W. Singer, and D. Nikoli´c, Cerebr. Cortex
+18, 2891 (2008).
+[20] G. Tkaˇcik, E. Schneidman, I. Berry, J. Michael, and W. Bialek,
+arXiv:0912.5409 (2009).
+[21] G. Tkaˇcik, O. Marre, T. Mora, D. Amodei, M. J. Berry, II, and
+W. Bialek, J. Stat. Mech. (2013) P03011.
+[22] G. Tkaˇcik, O. Marre, D. Amodei, E. Schneidman, W. Bialek,
+and M. J. Berry, II, PLoS Comput. Biol. 10, 1 (2014).
+[23] E. Ganmor, R. Segev, and E. Schneidman, Proc. Natl. Acad.
+Sci. USA 108, 9679 (2011).
+[24] E. Ganmor, R. Segev, and E. Schneidman, J. Neurosci. 31,
+3044 (2011).
+[25] G. Tavoni, U. Ferrari, F. P. Battaglia, S. Cocco, and R.
+Monasson, Netw. Neurosci. 1, 275 (2017).
+[26] B. Staude, S. Grün, and S. Rotter, Front. Comput. Neurosci. 4,
+16 (2010).
+[27] J. Zylberberg and E. Shea-Brown, Phys. Rev. E 92, 062707
+(2015).
+[28] F. Montani, R. A. A. Ince, R. Senatore, E. Arabzadeh, M. E.
+Diamond, and S. Panzeri, Philos. Trans. R. Soc. A 367, 3297
+(2009).
+[29] I. E. Ohiorhenuan, F. Mechler, K. P. Purpura, A. M. Schmid,
+Q. Hu, and J. D. Victor, Nature 466, 617 (2010).
+[30] J. H. Macke, M. Opper, and M. Bethge, Phys. Rev. Lett. 106,
+208102 (2011).
+[31] F. Montani, E. Phoka, M. Portesi, and S. R. Schultz, Physica
+A 392, 3066 (2013).
+[32] U. Koster, J. Sohl-Dickstein, C. M. Gray, and B. A. Olshausen,
+PLoS Comput. Biol. 10, e1003684 (2014).
+[33] H. Shimazaki, K. Sadeghi, T. Ishikawa, Y. Ikegaya, and T.
+Toyoizumi, Sci. Rep. 5, 9821 (2015).
+032408-14
+
+ENSEMBLE INHIBITION AND EXCITATION IN THE ...
+PHYSICAL REVIEW E 99, 032408 (2019)
+[34] D. A. Leen and E. Shea-Brown, J. Math. Neurosci. 5, 17
+(2015).
+[35] L. Martignon, G. Deco, K. Laskey, M. Diamond, W. Freiwald,
+and E. Vaadia, Neural Comput. 12, 2621 (2000).
+[36] E. N. Brown, R. E. Kass, and P. P. Mitra, Nat. Neurosci. 7, 456
+(2004).
+[37] V. Pernice, B. Staude, S. Cardanobile, and S. Rotter, PLoS
+Comput. Biol. 7, e1002059 (2011).
+[38] S. Yu, H. Yang, H. Nakahara, G. S. Santos, D. Nikoli´c, and D.
+Plenz, J. Neurosci. 31, 17514 (2011).
+[39] Y. Roudi, S. Nirenberg, and P. E. Latham, PLoS Comput. Biol.
+5, e1000380 (2009).
+[40] Y. Roudi, E. Aurell, and J. A. Hertz, Front. Comput. Neurosci.
+3, 22 (2009).
+[41] Y. Roudi, J. Tyrcha, and J. Hertz, Phys. Rev. E 79, 051915
+(2009).
+[42] V. Rostami, P. Porta Mana, S. Grün, and M. Helias, PLoS
+Comput. Biol. 13, e1005762 (2017).
+[43] E. T. Jaynes, Phys. Rev. 106, 620 (1957).
+[44] M. Kardar, Statistical Physics of Fields (Cambridge University
+Press, Cambridge, 2007).
+[45] H. C. Nguyen, R. Zecchina, and J. Berg, Adv. Phys. 66, 197
+(2017).
+[46] T. Broderick, M. Dudik, G. Tkaˇcik, R. E. Schapire, and W.
+Bialek, arXiv:0712.2437 (2007).
+[47] J. Sohl-Dickstein, P. B. Battaglino, and M. R. DeWeese, Phys.
+Rev. Lett. 107, 220601 (2011).
+[48] S. Cocco, S. Leibler, and R. Monasson, Proc. Natl. Acad. Sci.
+USA 106, 14058 (2009).
+[49] S. Cocco and R. Monasson, Phys. Rev. Lett. 106, 090601
+(2011).
+[50] E. Aurell and M. Ekeberg, Phys. Rev. Lett. 108, 090201
+(2012).
+[51] N. Metropolis, A. W. Rosenbluth, M. N. Rosenbluth, A. H.
+Teller, and E. Teller, J. Chem. Phys. 21, 1087 (1953).
+[52] W. K. Hastings, Biometrika 57, 97 (1970).
+[53] G. Tkaˇcik, T. Mora, O. Marre, D. Amodei, S. E. Palmer, M. J.
+Berry, and W. Bialek, Proc. Natl. Acad. Sci. USA 112, 11508
+(2015).
+[54] T. Mora, S. Deny, and O. Marre, Phys. Rev. Lett. 114, 078105
+(2015).
+[55] T. Mora and W. Bialek, J. Stat. Phys. 144, 268 (2011).
+[56] T. M. Cover and J. A. Thomas, Elements of Information Theory
+(John Wiley & Sons, New York, 2012).
+[57] E. Schneidman, S. Still, M. J. Berry, and W. Bialek, Phys. Rev.
+Lett. 91, 238701 (2003).
+[58] E. W. Archer, I. M. Park, and J. W. Pillow, in Advances in
+Neural Information Processing Systems (Curran Associates,
+Inc., Lake Tahoe, Nevada, 2013), Vol. 26, pp. 1700-1708.
+[59] F. Wang and D. P. Landau, Phys. Rev. Lett. 86, 2050
+(2001).
+[60] M. L. Ioffe and M. J. Berry, II, PLoS Comput. Biol. 13,
+e1005792 (2017).
+[61] T.-A. Nghiem, B. Telenczuk, O. Marre, A. Destexhe, and U.
+Ferrari, Phys. Rev. E 98, 012402 (2018).
+[62] S. F. Edwards and P. W. Anderson, J. Phys. F 5, 965 (1975).
+[63] R. A. Stefanescu and V. K. Jirsa, PLoS Comput. Biol. 4,
+e1000219 (2008).
+[64] F.
+Amzica
+and
+M.
+Steriade,
+Electroencephalogr.
+Clin.
+Neurophysiol. 107, 69 (1998).
+[65] A. Destexhe, D. Contreras, and M. Steriade, J. Neurosci. 19,
+4595 (1999).
+[66] M. Steriade, I. Timofeev, and F. Grenier, J. Neurophysiol. 85,
+1969 (2001).
+[67] V. V. Vyazovskiy, U. Olcese, Y. M. Lazimy, U. Faraguna, S. K.
+Esser, J. C. Williams, C. Cirelli, and G. Tononi, Neuron 63,
+865 (2009).
+[68] A. Peyrache, N. Dehghani, E. N. Eskandar, J. R. Madsen, W. S.
+Anderson, J. A. Donoghue, L. R. Hochberg, E. Halgren, S. S.
+Cash, and A. Destexhe, Proc. Natl. Acad. Sci. USA 109, 1731
+(2012).
+[69] N. Dehghani, A. Peyrache, B. Telenczuk, M. Le Van Quyen,
+E. Halgren, S. S. Cash, N. G. Hatsopoulos, and A. Destexhe,
+Sci. Rep. 6, 23176 (2016).
+[70] M. Steriade, A. Nunez, and F. Amzica, J. Neurosci. 13, 3266
+(1993).
+[71] M. Steriade, Neuronal Substrates of Sleep and Epilepsy
+(Cambridge University Press, Cambridge, 2003).
+[72] M. Le Van Quyen, L. E. Muller, B. Telenczuk, E. Halgren, S.
+Cash, N. G. Hatsopoulos, N. Dehghani, and A. Destexhe, Proc.
+Natl. Acad. Sci. USA 113, 9363 (2016).
+[73] J. M. Beggs and D. Plenz, J. Neurosci. 23, 11167 (2003).
+[74] D. R. Chialvo, Nat. Phys. 6, 744 (2010).
+[75] A. S. Ecker, P. Berens, G. A. Keliris, M. Bethge, N. K.
+Logothetis, and A. S. Tolias, Science 327, 584 (2010).
+[76] W. Softky and C. Koch, J. Neurosci. 13, 334 (1993).
+[77] S. Yu, H. Yang, O. Shriki, and D. Plenz, Front. Syst. Neurosci.
+7, 42 (2013).
+[78] C. Haldeman and J. M. Beggs, Phys. Rev. Lett. 94, 058101
+(2005).
+[79] M. Tegmark, Chaos Solitons Fractals 76, 238 (2015).
+[80] O. Kinouchi and M. Copelli, Nat. Phys. 2, 348 (2006).
+[81] A. Renart, J. de la Rocha, P. Barthó, L. Hollender, N. Parga,
+A. Reyes, and K. D. Harris, Science 327, 587 (2010).
+[82] C. van Vreeswijk and H. Sompolinsky, Science 274, 1724
+(1996).
+[83] N. Dehghani, N. Hatsopoulos, Z. Haga, R. Parker, B. Greger,
+E. Halgren, S. Cash, and A. Destexhe, Front. Physiol. 3, 302
+(2012).
+[84] D. J. Schwab, I. Nemenman, and P. Mehta, Phys. Rev. Lett.
+113, 068102 (2014).
+[85] L. Aitchison, N. Corradi, and P. E. Latham, PLoS Comput.
+Biol. 12, 1 (2016).
+[86] M. Nonnenmacher, C. Behrens, P. Berens, M. Bethge, and
+J. H. Macke, PLoS Comput. Biol. 13, e1005718 (2017).
+[87] V. Priesemann, M. Wibral, M. Valderrama, R. Pröpper, M. Le
+Van Quyen, T. Geisel, J. Triesch, D. Nikoli´c, and M. H. J.
+Munk, Front. Syst. Neurosci. 8, 108 (2014).
+[88] J. Touboul and A. Destexhe, Phys. Rev. E 95, 012413 (2017).
+[89] I. Mastromatteo and M. Marsili, J. Stat. Mech. (2011) P10012.
+[90] M. Marsili, I. Mastromatteo, and Y. Roudi, J. Stat. Mech.
+(2013) P09003.
+[91] J. Tyrcha, Y. Roudi, M. Marsili, and J. Hertz, J. Stat. Mech.
+(2013) P03005.
+[92] A. Haimovici and M. Marsili, J. Stat. Mech. (2015) P10013.
+[93] S.-i. Amari, H. Nakahara, S. Wu, and Y. Sakai, Neural
+Comput. 15, 127 (2003).
+[94] C. Gardella, O. Marre, and T. Mora, eNeuro 3, 0160 (2016).
+[95] C. O'Donnell, J. T. Gonçalves, N. Whiteley, C. Portera-
+Cailliau, and T. J. Sejnowski, Neural Comput. 29, 50 (2017).
+032408-15
+
+ZANOCI, DEHGHANI, AND TEGMARK
+PHYSICAL REVIEW E 99, 032408 (2019)
+[96] H. Huang, J. Stat. Mech. (2017) 033501.
+[97] A. Tang, D. Jackson, J. Hobbs, W. Chen, J. L. Smith, H. Patel,
+A. Prieto, D. Petrusca, M. I. Grivich, A. Sher, P. Hottowy, W.
+Dabrowski, A. M. Litke, and J. M. Beggs, J. Neurosci. 28, 505
+(2008).
+[98] O. Marre, S. El Boustani, Y. Frégnac, and A. Destexhe,
+Phys. Rev. Lett. 102, 138101 (2009).
+[99] J. Vasquez, O. Marre, A. Palacios, M. Berry, and B. Cessac,
+J. Physiol. (Paris) 106, 120 (2012).
+[100] D. A. McCormick, B. W. Connors, J. W. Lighthall, and D. A.
+Prince, J. Neurophysiol. 54, 782 (1985).
+[101] P. Barthó, H. Hirase, L. Monconduit, M. Zugaro, K. D. Harris,
+and G. Buzsáki, J. Neurophysiol. 92, 600 (2004).
+[102] S. Fujisawa, A. Amarasingham, M. T. Harrison, and G.
+Buzsáki, Nat. Neurosci. 11, 823 (2008).
+[103] C. Andrieu and J. Thoms, Stat. Comput. 18, 343 (2008).
+[104] H. Haario, E. Saksman, and J. Tamminen, Comput. Stat. 14,
+375 (1999).
+[105] H. Haario, E. Saksman, and J. Tamminen, Bernoulli 7, 223
+(2001).
+[106] A. Gelman, G. O. Roberts, and W. R. Gilks, in Bayesian
+Statistics V, edited by J. O. Berger, J. M. Bernardo, A. P.
+Dawid, and A. F. M. Smith (Oxford University Press, Oxford,
+1996), pp. 599-607.
+[107] D. P. Landau, S.-H. Tsai, and M. Exler, Am. J. Phys. 72, 1294
+(2004).
+032408-16
+

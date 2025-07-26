@@ -1,0 +1,927 @@
+Operating Coupled VO2-based Oscillators for 
+Solving Ising Models 
+María J. Avedillo, Manuel Jiménez, Corentin Delacour, Aida Todri-Sanial, Bernabé Linares-Barranco and Juan Núñez  
+ 
+Abstract— Coupled nano-oscillators are attracting increasing interest because of their potential to perform 
+computation efficiently, enabling new applications in computing and information processing. The potential of 
+phase transition devices for such dynamical systems has recently been recognized. This paper investigates 
+the implementation of coupled VO2-based oscillator networks to solve combinatorial optimization problems. 
+The target problem is mapped to an Ising model, which is solved by the synchronization dynamics of the 
+system.  Different factors that impact the probability of the system reaching the ground state of the Ising 
+Hamiltonian and, therefore, the optimum solution to the corresponding optimization problem, are analyzed.  
+The simulation-based analysis has led to the proposal of a novel Second-Harmonic Injection Locking (SHIL) 
+schedule. Its main feature is that SHIL signal amplitude is repeatedly smoothly increased and decreased. 
+Reducing SHIL strength is the mechanism that enables escaping from local minimum energy states. Our 
+experiments show better results in terms of success probability than previously reported approaches. An 
+experimental Oscillatory Ising Machine (OIM) has been built to validate our proposal.  
+Keywords—Phase Transition Devices, VO2, Coupled oscillators, Oscillation based computing, Phase locking, Ising 
+machine, Combinatorial optimization. 
+I. INTRODUCTION 
+Current computing platforms demand fast and energy-efficient solutions to computationally hard and data-intensive 
+problems.  
+Solutions to these challenges are currently being investigated from many different perspectives, including techniques 
+at the physical, circuit, architectural, or system level. More breakthrough approaches to provide medium-term solutions, 
+explore different devices to replace or complement the MOS transistor, as well as alternative computing paradigms. 
+An active research area that merges both approaches is that of oscillator-based computing (OBC) and its 
+synchronization phenomena [1]-[4]. The idea is to take advantage of the rich dynamics of coupled oscillator systems 
+and implement them with compact and very low-energy oscillators enabled by emerging technologies. In particular, 
+Phase Shift Key (PSK) OBC uses oscillators of ideally identical frequency, and the processing corresponds to obtaining 
+a phase pattern for the oscillation phases of the coupled oscillators.  
+Combinatorial optimization problems (COPs) are hard computational problems encountered in many areas of activity 
+with great economic impact, such as finance, manufacturing, mobility, logistics, or cryptography [5]. This means that 
+the development of hardware platforms that allow them to be solved more efficiently than using conventional computers 
+is of great interest. It is well known that many relevant COPs can be mapped to an Ising model [6], a mathematical 
+model of the statistical mechanics to study ferromagnetism. So, there are many efforts to develop efficient Ising solvers 
+or Ising machines. There are already available pure CMOS digital solutions [7], but also quantum-based ones [8], which 
+are referred as annealers. Research using alternative physics-based computing paradigms to keep the advantages of 
+the quantum approach, but without exhibiting its disadvantages such as operating temperature, is being conducted. 
+In particular, recently, PSK OBC Ising machines with coupled oscillators that exploit their dynamics of evolution towards 
+a minimal energy state have been explored from different points of view. Implementations using different technologies 
+have been proposed and experimentally validated. In particular, an experimental implementation of an Ising solver using 
+coupled phase-transition nano-oscillators with VO2 devices has been reported [9]. Experimentally calibrated numerical 
+simulations show they exhibit high energy efficiency and potential for several orders of magnitude improvement over 
+CPU, GPU, quantum and photonic approaches [10]. 
+Manuscript submitted May 03, 2023. Revised July 31, 2023, September 15, 2023 and October 27, 2023. 
+M.J. Avedillo, M. Jiménez, B. Linares-Barranco and J. Núñez are with the Instituto de Microelectrónica de Sevilla, IMSE-CNM (CSIC/Universidad 
+of Sevilla). Av. Américo Vespucio 28, 41092, Sevilla, Spain. e-mail: jnunez@imse-cnm.csic.es.  
+C. Delacour and A. Todri-Sanial are with LIRMM, University of Montpellier, 56227 Montpellier, France. A. Todri-Sanial is also with Electrical 
+Engineering Department, Eindhoven Technical University, Eindhoven, Netherlands 
+ 
+ 
+ 
+
+VO2 devices have also been applied to realize associative memory functionality. The authors have developed different 
+architectures for this application [11]-[16]. Based on this experience, we address now the implementation of Ising 
+machines. We claim that both applications are somehow two faces of the same coin and that each one requires to be 
+operated differently. Implementation features that are drawbacks for one of them can be beneficial for the other. This 
+analysis leads to propose an operating protocol for oscillation-based Ising machines, supported both by simulation and 
+hardware experiments.  The suitable operation of Ising machines is comprehensively addressed in [17], where an in-
+depth analysis of the performance of a network of coupled stochastic injection-locked VO2 oscillators is presented in 
+terms of its Lyapunov energy and its continuous-time dynamics and how the latter can be harnessed to perform classical 
+annealing. On this basis, we further investigate other factors that can also affect Ising solver performance. Unlike the 
+mentioned work, the simulation results correspond to transient electrical simulations using a model for VO2 devices 
+which incorporates stochasticity, instead of oscillator models in the phase domain that introduce phase noise. Moreover, 
+experimental validation is also carried out.  Our simulation and experimental results solving Max-Cut optimization 
+problems contribute to a deeper understanding of how to operate a network of coupled oscillators as an Ising machine. 
+The rest of the paper is organized as follows. Section II introduces VO2 oscillators, the applications of coupled oscillator 
+systems, and the Ising machine concept. Section III is devoted to the suitable operation for the Ising machine 
+application. Extensive simulations are described to introduce the different factors which impact its behavior and 
+introduce a proposal for operating it. Section IV describes experiments carried out with a hardware implementation of 
+an oscillator-based Ising machine to support our proposal. Finally, Section VI is devoted to the conclusions. 
+II. BACKGROUND 
+A. VO2 oscillators 
+VO2 undergoes metal-insulator transitions under given electrical stimuli. That is, abrupt switching occurs from/to a high 
+resistivity state (insulating phase) to/from a low resistivity state (metallic phase). Without electrical stimuli, VO2 tends to 
+stabilize in the insulating phase. When the applied voltage increases and the current density flowing through it reaches 
+JC-IMT, an insulator-to-metal transition (IMT) occurs. Once in the metallic state, when the voltage decreases and the 
+current density drops below JC-MIT, metal-to-insulator transition (MIT) takes place. Fig 1a shows the I-V characteristic of 
+a generic VO2 device. VIMT (VMIT) is the voltage at which the insulator-to-metal transition, (IMT) (metal-to-insulator 
+transition, MIT) occurs. RINS (RMET) is the resistance in the insulating (metallic) state. Since MIT and IMT transitions are 
+abrupt but not instantaneous, transition times (TTIMT, TTMIT) are also considered. 
+For simulations, the behavioral Verilog-A model of the VO2 device reported in [18] is selected. In this work, we use the 
+VO2 device with the electrical parameters shown in TABLE I [19]. 
+ 
+TABLE I. VO2 ELECTRICAL PARAMETERS. 
+PARAMETER 
+VALUE 
+VIMT 
+1.99V 
+VMIT 
+0.99V 
+RMET 
+0.99KΩ 
+RINS 
+100.2KΩ 
+TT 
+30ns 
+ 
+Fig 1b shows a VO2-based oscillator [20], [21]. It consists of a VO2 device through which a capacitance C is charged, 
+which is discharged through a resistance R. Fig 1c depicts waveforms for the oscillator output. The state of the VO2 is 
+also shown to better illustrate the circuit behavior. VO2,STATE='INS' means the device is in the insulating state. 
+VO2,STATE='MET' corresponds to the device in the metallic state. Assuming that the VO2 is in an insulating state (marked 
+with "A" in Fig 1c), the oscillator output is discharged through the resistor. This increases the voltage drop across the 
+VO2 (VDD - VOUT) and so the current through it increases. Once enough current density circulates (JC-IMT), it switches to 
+the metallic state (marked with "B" in Fig 1c). Equivalently, using the electrical model, switching to the metallic state 
+occurs once the VO2 voltage reaches VIMT. The capacitor is then charged through the VO2. This charging is very fast 
+because of the low RMET value. The voltage seen by the VO2 decreases until it reaches VMIT and the transition from 
+metal to insulator state occurs.  
+ 
+B. Coupled Oscillator Networks 
+Oscillator Based Computation (OBC) relies on the dynamics of coupled oscillator systems. It has received considerable 
+interest and has become an active research area due to the emergence of devices, operating on the basis of very 
+different physical phenomena, with the ability to implement very compact oscillators and with very low power 
+consumption. Instead of using voltage levels as logic levels, the phase differences between an oscillator signal and a 
+reference signal are used.  
+
+Recent works have shown that almost all types of nonlinear self-sustaining oscillators are suitable to implement systems 
+with the inherent convergence property towards a minimal energy state. This can be applied to implement different 
+functionalities by suitably configuring the couplings so that the minimal energy states are the solutions to the target 
+problem. In [22]-[23], the graph coloring problem (GC) is solved from the steady state of a network of oscillators, which 
+represent the nodes, and where the branches of the corresponding graph are mapped in interconnections that push to 
+separate the phases of the adjacent oscillators. Associative memory applications (AM) derive coupling strengths so that 
+the patterns to be stored correspond to minimal energy states of the network.  Similarly, combinatorial optimization 
+problems can be solved by coupled oscillator systems embedding the target solution into the ground state of the system. 
+For this, the Ising model concept described in the next subsection is used.  
+ 
+C. Ising Machine  
+It is well-known that a wide variety of NP optimization problems can be formulated as an Ising model. An Ising model is 
+a mathematical model used in statistical mechanics to study ferromagnetism. It is composed of N binary spins, σi ∈ {±1}, 
+and interactions between pairs of spins, Jij denotes the interaction between spin i and spin j. The Ising Hamiltonian is a 
+function of the spin configuration of the system, defined as: 
+𝐻𝐻(𝜎𝜎) = −∑
+𝐽𝐽𝑖𝑖,𝑗𝑗𝜎𝜎𝑖𝑖𝜎𝜎𝑗𝑗   (1 ≤𝑖𝑖, 𝑗𝑗≤𝑁𝑁)
+𝑖𝑖<𝑗𝑗
+          (1) 
+Solving an Ising model corresponds to determining the spin configuration which minimizes H (ground state). Solving an 
+Ising model is itself an NP hard problem [6]. 
+A special type of computer, called an Ising machine (IM) or Ising solver, solves Ising models. Thus, it has been put 
+forward as an efficient way of performing optimization. An IM solves a class of optimization problems by mapping them 
+to the Ising Hamiltonian of a spin glass system and finding its ground state solution.   
+In this paper, the unweighted Max-Cut problem, a well know optimization problem which can be mapped to an Ising 
+model, has been selected for our experiments. A maximum cut of a graph is a partition of the vertices of the graph into 
+two complementary sets such that the number of edges between them is the largest possible. The problem of finding a 
+maximum cut in a graph is known as the Max-Cut problem. Formally, it can be formulated as follows. Given an 
+unweighted graph G = (V, E), where V are the vertices and E are the edges between them, the solution of the Max-Cut 
+problem provides a disjoint partition V1 ∪ V2 = V such that the cardinal of set E' ={(u,v), (u,v) ∈ E, u ∈ V1, v ∈ V2} is 
+maximized. 
+Assuming:  
+ 
+𝑥𝑥𝑖𝑖= ൜1       𝑖𝑖𝑖𝑖      𝑖𝑖 ∈  𝑉𝑉2
+0       𝑖𝑖𝑖𝑖       𝑖𝑖 ∈  𝑉𝑉1                     (2) 
+ 
+ the value of the cut can be written as: 
+ 
+𝐶𝐶= ∑
+𝑤𝑤𝑖𝑖,𝑗𝑗 
+(1− x𝑖𝑖x𝑗𝑗 )
+2
+𝑖𝑖<𝑗𝑗
+= 1
+2 ∑
+𝑤𝑤𝑖𝑖,𝑗𝑗−1
+2 ∑
+𝑤𝑤𝑖𝑖,𝑗𝑗 x𝑖𝑖x𝑗𝑗
+𝑖𝑖<𝑗𝑗
+ 
+𝑖𝑖<𝑗𝑗
+  (3)   
+ 
+where wi,j = 1 if (I,j) ∈ E and 0 otherwise. Thus, the relationship with the Ising model is evident. C can be written in terms 
+of the Hamiltonian in (1):               
+ 
+𝐶𝐶= 
+1
+2 ∑
+𝑤𝑤𝑖𝑖,𝑗𝑗−
+1
+2 𝐻𝐻(𝑥𝑥)
+𝑖𝑖<𝑗𝑗
+                        (4) 
+ 
+with Ji,j=-wi,j.= -1. Note that the first term is constant and that by minimizing H, the value of cut, C, is maximized. 
+       
+VO2
+VOUT
+VDD
+R
+C
+b)
+ 
+  
+ 
+Fig 1. (a) Generic I-V curve of a VO2 device. VO2 oscillator (b) circuit topology, (c) operation waveforms in which points corresponding to insulator-
+to-metal and metal-to-insulator transitions have been marked with arrows. 
+VMIT
+VVO2
+IVO2
+VIMT
+IIMT
+IMIT
+MIT
+IMT
+gMET
+gINS
+V
+V
+DD
+MIT
+-
+VOUT
+time
+MET
+INS
+VO2,STATE
+IMT
+MIT
+A
+V
+V
+DD
+IMT
+-
+B
+c)
+
+ 
+In [24], IMs are classified into three main categories according to their operating principle: classical annealing, quantum 
+annealing, and dynamical system evolution, although different operating principles can be combined. Examples of digital 
+dedicated annealers are the Fujitsu digital annealer [7], [25], the Toshiba bifurcation machine [26] or the FPGA-based 
+solution reported in [27]. In the analog domain, it has been proposed to exploit the intrinsic randomness of nanodevices 
+to avoid the area and energy cost associated to the pseudo-random number generators required in their digital 
+counterparts, also improving the quality of randomness. For example, using magnetic tunnel junctions [28], [29]. In [8] 
+a quantum annealer built by D-Wave Systems is reported. However, it suffers from various problems. These included 
+the need to operate at a temperature close to absolute zero as well as the difficulty of scaling up the machine size, a 
+consequence of its use of quantum techniques.  The third type of IM is based on the evolution of a dynamical system 
+in which the state of the system is naturally driven towards the lowest energy state of the Ising model. In particular, 
+coupled oscillators exhibit such behavior and several oscillation-based IMs (OIMs) have been proposed using very 
+different types of oscillators, including optical parametric oscillators, [30]-[32], electronic conventional ones, such as 
+discrete LC oscillators [33],[34],[35], ring oscillators [36], [37], differential oscillators [38] or Schmitt Trigger oscillators 
+[17], as well as other built based on non-conventional devices like phase transition materials [9],[10], Ferroelectric 
+transistors [39] or spin torque devices [40].   
+III. OPERATING COUPLED OSCILLATOR SYSTEMS 
+Each of the three applications of coupled oscillator networks enumerated in Section IIB (GC, AM, IM) requires being 
+operated differently. Let us illustrate this with the simple four-oscillator system in Fig.2.   
+Graph Coloring 
+The graph coloring problem assigns a colour to each vertex of a graph such that any two adjacent vertices have different 
+colors while minimizing the number of colors. 
+The network in Fig.2 can solve the graph coloring problem corresponding to the graph in Fig.3a in which each node is 
+adjacent to every other. Thus, four colors are necessary to color it.  Fig.3b depicts the simulated waveforms. Note that 
+after several oscillation cycles, there are four stable phases 90º apart.   
+ 
+VO2
+OUT1
+VDD,1
+R
+C
+VO2
+OUT2
+VDD,2
+R
+C
+VO2
+OUT3
+VDD,3
+R
+C
+VO2
+OUT4
+VDD,4
+R
+C
+VO2
+OUT1
+VDD,1
+R
+C
+VO2
+OUT2
+VDD,2
+R
+C
+VO2
+OUT3
+VDD,3
+R
+C
+VO2
+OUT4
+VDD,4
+R
+C
+VSYNC
+VSYNC
+VSYNC
+VSYNC
+C
+CC
+CC
+CC
+CC
+1
+4
+3
+2
+CC
+CC
+Fig.2. Schematic of a coupled oscillator system. 
+ 
+Fig.3. Circuit in Fig.2 solving the graph colouring problem. 
+ 
+
+ 
+Associative Memory (AM) 
+A coupled oscillator network resembles a Hopfield Neural Network (HNN). An HNN is a recurrent neural network defined 
+by a symmetric weight matrix W, and an update rule. Wij denotes the weight associated with the connection between 
+neuron i and j. Furthermore, in its discrete and synchronous version, each neuron state, 𝑠𝑠𝑖𝑖, operates with bipolar values 
+(1, -1) and is updated simultaneously as: 
+                          
+                                  𝑠𝑠𝑖𝑖= 𝑠𝑠𝑠𝑠𝑠𝑠𝑠𝑠(∑𝑤𝑤𝑖𝑖𝑖𝑖𝑠𝑠𝑗𝑗
+𝑗𝑗
+)    
+(5) 
+ 
+The stored patterns are those state of the system which are fixed points of (2). 
+Under this model, the network in Fig.2 has the weight matrix shown in Fig 4a and it is storing any pattern with exactly 
+two zeros and two ones, as depicted in Fig 4b. Using the HNN as associative memory requires applying a test pattern, 
+which if it is not a stored one, should evolve towards the closest stored one. It is said to be retrieved or inferred.  
+             a) 
+ 
+ 
+Fig 4. (a) HNN weight matrix associated with the system in Fig.2. (b) Patterns stored in the HNN. 
+ 
+ 
+Fig.5. Operation of a fully connected 4-node HNN for AM applications. (a) Applied and expected patterns to the HNN. (b) Output 
+waveforms. 
+                                                        
+ 
+b)
+SHIL
+OUT1
+OUT2
+OUT3
+OUT4
+
+Therefore, for this application, only two phases should be possible for the oscillators to represent '1' and "-1". This is 
+different from the requirements of the graph coloring application. Additionally, it is critical to the initial state of the coupled 
+oscillator network.  
+ 
+ 
+The first requirement is achieved through Second-Harmonic Injection Locking (SHIL) [41]. When a suitable 
+synchronization signal (VSYNC) of frequency fSYNC is injected to an oscillator of the natural frequency close enough to 
+fSYNC/N, SHIL occurs and the oscillator adopts a frequency equal to fSYNC/N and becomes phase synchronized within 
+one of N possible phases that are (360/N)º apart. N=2 is used to work with two phases. 
+In these oscillators, the initialization is carried out through the pulsed bias signal, which rises from the ground to a 
+constant value (VDD) after a certain delay. This delay is closely linked to the oscillation period, so that for two coupled 
+oscillators, they could be initialized in phase or out-of-phase simply by making the difference between the switching 
+times of their polarization zero and half a period respectively [19]. 
+ 
+The operation of a fully connected 4-node oscillator network (Fig.2) operating as AM is illustrated in Fig.5. For this 
+purpose, the grayscale input pattern shown in Fig.5a is applied, with which an output pattern as shown in the same 
+figure (and also in Fig 4b) should be retrieved. The waveforms corresponding to this example are depicted in Fig.5b. 
+Note how the outputs switch at different instants, corresponding to the delayed initialization according to the applied 
+input pattern. As expected, outputs 1 and 2 are in one phase, while outputs 3 and 4 are 180 degrees apart. 
+ 
+Ising Machine (IM) 
+The network in Fig.2 can also be described as an Ising machine to solve the Max-Cut optimization problem for the graph 
+in Fig.3a. The network is operated and the final distribution of the oscillator phases defines the two partitions. Clearly, 
+SHIL is also a requirement to discretize into two possible phases.  
+Clearly, a partition with any two vertices in each one is a Max-Cut of the graph under analysis. All those corresponding 
+network states have the same Hamiltonian energy, and this is the minimum among all possible states. 
+Fig.6 depicts waveforms for the system in Fig.2 which correspond to the Ising solver for the Max-Cut of the complete 
+graph in Fig.3a. The four oscillators are initialized in phase and the system evolves towards an optimal solution (4 cuts) 
+in which two oscillators exhibit one phase and the other two the complementary one. It can also be observed that after 
+the application of SHIL (5s), there are only two possible phases. Note the difference with the waveforms in Fig.3, 
+corresponding to the simulation of the same circuit but without applying SHIL. 
+ 
+These simple examples have been useful to explain how depending on the operation conditions of the same coupled 
+oscillator system, solutions to different problems can be obtained. Graph colouring does not require SHIL while the 
+other two do. However, we claim that operation as associative memory and as Ising machine should be completely 
+different. Moreover, what can benefit one application could be dramatic for the other.  
+ 
+On the one hand, thinking in terms of the system energy landscape, configured by the couplings, can help to understand 
+this statement. The system dynamics naturally evolves to states with less energy, but the system can be trapped at a 
+local minimum. From the point of view of the optimization problems, this impedes obtaining the optimum solution. Unlike 
+this, this local minimal can correspond to the store pattern closest to the applied test pattern. In the first case, being 
+able to escape from it is positive, as it could improve the quality of the solution, but it is negative in the second one since 
+a wrong pattern could be retrieved, reducing accuracy. The role of SHIL and stochasticity in escaping from local minima 
+is being investigated. 
+ Additionally, considering the probabilistic nature requirement of OIMs can also be useful in realizing the differences 
+between both applications since a nondeterministic behavior is not compatible with the AM application. In this respect, 
+noise or cycle-to-cycle variability is very well welcomed for OIMs, but should be kept under control for associative 
+memory operation.  Because of this probabilistic nature, there is no guarantee that the optimum solution (or ground 
+state) is reached. The probability of reaching it is called success probability and is widely used as a figure of merit in 
+the performance of IMs. Thus, the performance of many trials is often reported in the literature as a mechanism to 
+increase the quality of the solutions. Note that the probability of success can be closely related to the problem to be 
+solved. It seems reasonable to assume that, for problems with a high number of vertices, the probability of reaching a 
+local minimum is smaller than in a simpler one [10].  
+ 
+We have designed a set of experiments to gain insight into the factors pointed out in previous paragraphs and their 
+relationships to derive how to operate coupled oscillators to achieve good performance as IMs.   
+Fig.6. Circuit in Fig.2 solving the Max-Cut optimization problem. 
+
+ 
+IV. OPERATING COUPLED OSCILLATOR-BASED IMS 
+A. Analysis of factors  
+To explore the role of the SHIL signal, noise, initial phase relationship, and coupling strength in the operation of coupled 
+oscillators as IMs, the behavior of a solver of the Max-Cut problem in Fig 7a is further investigated. Its energy landscape 
+is depicted in Fig 7b. The Hamiltonian energy for the sixteen spin configurations is shown using a Karnaugh map as a 
+representation. That is, spin configurations associated with adjacent cells differ in a single spin. There are two global 
+minimum energy configurations which have been marked. Any of them is a solution to the corresponding Max-Cut 
+problem. As expected, these global minimum energy configurations have spins 1 and 3 at the same value, and spins 2 
+and 4 take the opposite value. It corresponds to the optimum Max-Cut (cut value equal to 4) shown in Fig 7a.  To be 
+successful in solving the associated optimization problem, the oscillator system should evolve to a one of those spin 
+configurations.  
+SHIL signal strength, noise and coupling strength are closely related. In our simulation experiments, we keep the 
+coupling strength fixed and illustrate the impact and relationship of the other two.  
+A key component of hardware IMs that can be fundamental in efficiently solving COPs is the internal noise of the circuit, 
+which helps escape from suboptimal solutions (local energy minimum). In fact, in digital IMs, random number generators 
+are used for this. Moreover, different authors have stated the critical role of inherent stochasticity in the implementation 
+of IMs, which is identified with a probabilistic exploration [36],[10]. Because of this, they report that many trials are 
+conducted so that the chance of obtaining the optimum solution increases. 
+It is well-known and has been reported in the literature that actual VO2 devices exhibit variability in the state transition 
+voltages. In [42] it is reported that VIMT exhibits variability more than seven times larger than for VMIT.  It is also reported 
+that it varies stochastically for all cycles without a reduction in the mean or range and can be approximated by a normal 
+distribution. Additionally, the impact of the insulating-to-metal variability in the performance of coupled oscillator systems 
+is much greater than the one associated with the reverse phase transition [12]. Thus, a cycle-to-cycle variability of its 
+insulating to metal voltage (VIMT) has been included in the VO2 model described in Section II.A. A normal distribution is 
+associated with it. That is, VIMT changes in time following a normal distribution around its nominal value, with a given 
+standard deviation denoted NOISE or noise level.  It translates in cycle-to-cycle variations in the oscillation period (jitter). 
+The chosen name refers to the fact that it, not only allows us to model the experimental variability observed in said 
+parameter, but also allows to capture the effect of other noise sources that  
+ 
+Fig 7. Fully interconnected 4-node Max-Cut problem. (a) Optimal solution (4 cuts). (b) Energy landscape. 
+ 
+Fig 8. Evolution of the number of cuts with time for two different noise levels (a) and two different SHIL amplitudes (b). 
+
+manifest as jitter in the oscillation period. Note that there is also mathematical noise associated with the integration 
+algorithms and their tolerances. 
+Fig 8a shows simulation results for the cut value associated with the evolution of the 4-oscillator system representing 
+the graph of Fig 7a with two different noise levels. Identical initial state and synchronization signals have been used in 
+both simulations. It can be observed that the system with a very small noise level becomes trapped in a local minimum 
+with a cut-value equal to 2, not a maximum. The system with more noise can reach the global optimum (minimum 
+energy spin configuration).  
+Fig 8b depicts the result of simulations with a very small noise level and two different amplitudes for the synchronization 
+signal. This experiment shows how SHIL counteracts noise. Reducing the amplitude of the synchronization signal allows 
+escaping from the local minimum. That is, as already mentioned, there is a relationship between the different factors 
+involved in the dynamic evolution of the coupled oscillator system. 
+Another point to take into account is the SHIL signal scheduling. Different scheduling's have been proposed in the 
+literature. In particular, an improvement in the success probability of reaching the optimum solution has been reported 
+by linearly increasing SHIL amplitude compared to a constant SHIL [43] This has been compared to a thermal annealing 
+process in which the reduction of the temperature is associated with the reduction of the stochastic noise in the system 
+as a consequence of the increase in the amplitude of SHIL signal. 
+ 
+Fig 9 illustrates the potential of using a SHIL with smoothly increases its amplitude and its impact on the system. It can 
+be observed that the application of the constant amplitude SHIL signal freezes the system in a non-optimum phase 
+relationship with three oscillators in one phase (cut value equal to 2). This is in agreement with [31] in which it is stated 
+that the freeze-out effects associated with the discretization of the oscillator phases are a limitation for the 
+synchronization dynamics. 
+ 
+In [44], we showed results that the success probability can also be increased by delaying the application of the 
+synchronization signal. In both cases, we are giving time for the system to evolve towards a minimal energy state before 
+forcing a binary discretization of the oscillator phases, which occurs for an enough large SHIL amplitude. Contrary, if a 
+strong enough synchronization signal is applied from the very beginning or too early, the system gets stuck in a stable 
+state in the neighborhood of the initial one which, in general, can be suboptimal. That is a local minimum. 
+Fig 10. The proposed SHIL schedule (SHIL3) and the parameters that describe its configuration. 
+ 
+                                                 
+ 
+Fig 9. Waveforms for two SHIL schedules, a) constant amplitude and b) increasing amplitude. 
+
+Finally, the initial state of the system (phase relationships) also impacts its dynamics. However, this has not been 
+discussed to the best of our knowledge in the literature. Even if stochasticity is not considered, starting in different initial 
+states can also be advantageous for improving the success probability of optimally solving the associated COP problem. 
+B. Ising machine operation protocol 
+On the basis of the analysis of the experiments carried out, we propose the following OIM operating protocol. 
+• 
+SHIL scheduling according to Fig 10.  The VMAX  parameter is the signal amplitude, and KPER controls the linear 
+increment/decrement of its amplitude speed. It is measured in cycles of period, TOSC. The amplitude rises from 0 
+to VMAX in KPER cycles.  The repetitive scheme of sweeping SHIL amplitude allows further exploration of the 
+associated energy landscape of the Ising model, such as the use of many trials reported in the literature, and 
+enables an important escape mechanism from local minimum solutions when SHIL strength is reduced. 
+• 
+The solution is selected on multiple readings and the selection of the best one. This aims to counteract the 
+possibility of escaping a global minimum or worsening the quality of the solution. This could occur because of 
+excessive noise in the system or as a consequence of SHIL strength reduction. Readings must be carried out with 
+enough SHIL signal strength so that phases are binarized and so that the reading process is simplified. Readings 
+are carried out around the points at which the SHIL signal reaches its maximum amplitude. Thus, how many 
+readings take place depends on how long the OIM is operated (TCOMP) and KPER. 
+To evaluate the proposed operation protocol, a second Max-Cut instance, depicted in Fig 11 has been used in the 
+simulation experiments. Note that it exhibits critical difference with respect to the analyzed in the previous subsection 
+(graph in Fig 7). The associated oscillator system presents phase contention. This means that it is not possible to fulfil 
+all phase constraints imposed by the capacitors that connect pairs of oscillators in the associated IM. In addition, it is a 
+non-balanced graph in the sense that nodes exhibit a different number of connections." 
+The IM associated with the graph in Fig 11 has been evaluated with three different SHIL schedules illustrated in Fig 12: 
+an already introduced increasing amplitude SHIL signal (SHIL1), a SHIL signal periodically switching between two 
+different amplitudes (SHIL2) [45] and the proposed one (SHIL3). The multiple reading approach has been used in all 
+the cases. For each of them, 20 Monte Carlo (MC) runs have been performed for each of the 64 possible initial binary 
+phase combinations. MC analysis is used because of the random distribution included in the VO2 model. This 
+experiment was carried out for three different values (no noise, 1mV and 10mV). Three TCOMP values were analyzed. 
+TCOMP1 corresponds to 1.5 periods of the SHIL3 signal (2 readings), TCOMP2 corresponds to 9.5 periods and 10 readings, 
+and TCOMP3 to 17.5 periods and 18 readings.  For selected VMAX and KPER, TCOMP1 is 12µs. VMAX=0.4V has been chosen 
+so that it is strong enough to produce the desired discretization of the phases and its amplitude is similar to that of the 
+oscillators themselves. KPER =20 has been selected. 
+ 
+ 
+Fig 11. 6-node Max-Cut problem with two optimum solutions with 8 cuts. 
+ 
+Fig 12. SHIL schedules used for the evaluation of the OIM. 
+1
+6
+5
+2
+3
+4
+1
+6
+5
+2
+3
+4
+
+TABLE II shows the number of initial system states from which an optimum solution is obtained for different computation 
+times. That is, at least one of their associated 20 MC simulations obtained an optimum solution. Note that a single 
+simulation is carried out when no noise is modeled. It is clear that noise is beneficial in increasing the number of 
+successful initial states, although this figure of merit alone does not completely support the above statement, but the 
+improvement observed (especially for the SHIL1 and TCOMP1) between 1mV and 10mV of noise also suggests this.  It 
+can also be seen that the number of SHIL1 results is much worse than the other two for the shortest computation time. 
+This can be explained since the capability of exploring the energy landscape and so escaping from a local minimum 
+reduces once a strong enough SHIL is applied. Both SHIL2 and SHIL3 benefit from the reduction of the SHIL strength. 
+When the computation time is increased, the chance of escaping due to noise is increased, and so the number of 
+successful initial states for the SHIL1 experiment also increases significantly. Also, it can be observed that the noise 
+level has little impact but for the SHIL1 and the shortest computation time.  This agrees with our above explanation. 
+The higher the noise level increases the probability of escaping from local minima. 
+ 
+TABLE II. Number of initial states from which an optimum solution is obtained with SHIL1, SHIL2, and SHIL3, respectively. 
+NOISE 
+TCOMP1 
+TCOMP2 
+TCOMP3 
+0mV (no 
+noise) 
+9, 18, 26 
+18, 16, 48 
+21, 49, 58 
+1mV 
+31, 61, 64 
+58, 64, 64 
+62, 64, 64 
+10mV 
+41, 62, 64 
+55, 64, 64 
+62, 64, 64 
+Much more insight into system performance can be obtained if the fraction of MC runs achieving the optimum solution 
+is also analyzed. It can be considered as the success probability. A value of 1 for this figure of merit means that the 20 
+runs produce an optimum solution. 
+Fig 13 shows such a fraction for each of the 64 initial states versus its normalized Hamming distance to the closest 
+optimum solution. A Hamming distance equal to 0 means that the initial state is an optimum solution to the associated 
+optimization problem. The differences are notorious among the three SHIL schedules. On the one hand, a fraction of 
+successful runs is significantly higher for the proposed SHIL (black points are over 0.8 for all the initial states) than for 
+the other two. The worst results are obtained with SHIL1. The second interesting aspect to be pointed out is that the 
+results are almost independent of the initial state (the 64 points have very little dispersion) for the proposed SHIL while 
+this is not so for the other SHILs, especially for SHIL1. In fact, very few black points appear since many of them occupy 
+the same position. This reduced dependence is also a consequence of reducing the SHIL strength during the operation, 
+allowing a better exploration of the solution space.  
+It is also interesting to analyze the fraction of successful runs for different computation times. In this analysis, the 
+average and standard deviation over the 64 initial states have been used. A value of 1 for the average means of 1280 
+(64x20) runs produced an optimum result. Fig 14 depicts the average of the success rate including bars for the standard 
+deviation. Note that there are two additional computation times with respect to previous experiments (TCOMP12 and 
+TCOMP23). The limitations of SHIL1 are also evident from this figure. Both SHIL2 and SHIL3 achieved better results in 
+TCOMP1 than SHIL1 in TCOMP3, although TCOMP1 is around ten times shorter than TCOMP3. The smaller standard deviation 
+exhibited by SHIL3 also indicates that the initial state is less relevant for SHIL3, as already pointed out when describing 
+Fig 13.  
+In [10], the Max-Cut problem depicted in Fig.15a was experimentally solved using VO2 oscillators and the SHIL schedule 
+identified in this paper as SHIL1. They report a Max-Cut value equal to 10 with a 96% success rate with KPER over 600 
+oscillation cycles. We have simulated the same graph with SHIL3. Computation time have been fixed to 600 cycles for 
+ 
+ 
+Fig 13. Success ratio versus Hamming distance between the initial state and the optimum solution for the three SHIL schedules. Simulation 
+parameters: VMAX=0.4V, σNOISE = 1mV, TCOMP3. 
+
+a fair comparison. In particular, three SHIL3 cycles with KPER= 100 have been applied. 20 Monte Carlo simulations for 
+each of 50 different initial states have been carried out. Fig.15b depicts obtained results. Note that Max-Cut values 
+higher than 10 have been obtained. In particular, the optimum solution to the problem (Max-Cut=12) have been obtained 
+in 46.4% of the trials. Moreover, max-cut values equal or greater than 10 have been achieved in 96.1% of all the 
+simulations. The experiment in [10] has been also simulated with our VO2 models. The optimum Max-Cut value is 
+obtained in 14.8% of the trials. 
+Additionally, these results indicate that the proposed SHIL scheme could also translate into advantages in terms of 
+energy efficiency. In [10], as already mentioned, analysis results that show the potential of VO2 based OIMs to drastically 
+increase operations per second and per watt with respect to platforms conventionally used to solve optimization 
+problems are reported. The ability of SHIL3 to achieve higher success rates in shorter computation times could only 
+contribute to increasing this figure of merit with respect to [10] that applied SHIL1. 
+In summary, this simulation analysis has shown the potential of increasing and decreasing the SHIL amplitude to escape 
+from local minimum energy states in OIMs associated to a six-node Max-Cut problem and the role of noise in this energy 
+landscape exploration. However, experimental validation is  
+mandatory.  This work is described in the next section, where, in addition, an exploration of different KPER values to 
+further explore the annealing scheme is included. This was not addressed in the simulation framework due to limitations 
+of computation times. However, we consider it interesting because of some reported results using SHIL1. According to 
+[10], the probability of success increases with KPER (their annealing cycles). Thus, an open question is whether this 
+statement holds for SHIL3. 
+IV. EXPERIMENTAL RESULTS 
+                                                                        
+Fig 14. (a)  Average and standard deviation of the success rate for the three SHIL schemes evaluated at five different computation times. b) 
+Normalized with respect to SHIL1. 
+ 
+Fig.15. (a) 8-node Max-Cut problem reported in [10] with 12 cuts (b) Histogram representing the probability of success of obtaining at least 10, 11 
+or 12 cuts. 
+
+Here, we experimentally investigate the OIM operation protocol using the triangular schedule (SHIL3). There is not a 
+specific controllable source of noise like in simulation, but the one associated to the experimental setup. We designed 
+a 9-node OIM proof-of-concept using off-the-shelf components on a Printed Circuit Board (PCB) shown in Fig 16a. The 
+OIM can implement any 9-node graph with various densities, where graph nodes are oscillators, and edges are synaptic 
+capacitors. Each one of the 9(9-1)/2=36 synapses can be programmed by placing a discrete capacitor in the 
+corresponding support. The oscillator circuit diagram is shown in Fig 16b and consists of a Schmitt trigger-based 
+oscillator that charges and discharges a load capacitance CL, similar to a VO2 relaxation oscillator. The operating 
+frequency of the OIM is 30kHz. Each oscillator has an SHIL input that receives the sinusoidal synchronization signal at 
+f=60 kHz. An FPGA initializes and samples the phases at each oscillation cycle to enable real-time phase monitoring. 
+The data are sent to a laptop and post-processed with MATLAB. 
+ 
+For each experiment, we map the graph edges to 100 pF-coupling capacitors. For each one of the 100 trials, the 
+oscillators are randomly initialized and driven by the triangular modulation (SHIL3) with two periods of 500 oscillation 
+cycles each (Fig 16c with KPER=250). The cuts are computed based on four sets of phases sampled (read) at KPER, 
+2∙KPER, 3∙KPER, and 4∙KPER oscillation cycles, and normalized by the Max-Cut value. Note that the sampling times t=KPER 
+and t=3∙KPER cycles correspond to the largest SHIL amplitude, while SHIL is OFF when sampling at t=2∙KPER and 
+t=4∙KPER cycles. Thus, comparing the four cuts when SHIL is maximum or minimum gives insight into the cut dynamics. 
+So, we can experimentally validate that decreasing SHIL enables further exploration of the energy landscape.  
+                                     
+ 
+Fig 16. a) 9-neuron ONN on PCB with 36 recurrent synapses. The FPGA initializes and samples the phase at each oscillation cycle and sends the 
+data to a laptop. b) Schmitt trigger-based relaxation oscillator that emulates a VO2 oscillator. Resistances R3 and R4 set the discharging and 
+charging times, respectively. Q1 is used to turn on the oscillator, while Q2 injects the SHIL signal. c) Triangular SHIL schedule with a period of 500 
+cycles. We computed four cuts based on phase measurements at 250, 500, 750, and 1000 cycles. 
+ 
+Fig 17. The success rate for two-cycle SHIL3 with different KPER values. 
+
+Fig 17 depicts the success rate for the 6-node in Fig 11 for different KPER values and the procedure described in the 
+previous paragraph.   These results are consistent with the success rates obtained in the simulation experiments for 
+TCOMP1. TCOMP1 corresponds to 1.5 SHIL3 cycles, similar to the 2 cycles used here. Note that identical quantitative results 
+are not expected at all. 
+Fig 18 depicts results also for the 6-node in Fig 11 with KPER=250, but now details of the four readings are shown. The 
+histograms of the normalized cut vales measures when the SHIL amplitude is maximum (first and third histograms) are 
+very different from those obtained with SHIL OFF (second and fourth histograms). Clearly, removing SHIL, the oscillator 
+phases are unfrozen, as we explained before. Thus, allowing the displacement towards other regions of the energy 
+landscape in which the minimum objective could eventually be found. Note that the number of trials producing the 
+maximum max-cut is similar in readings 1 and 3, however, there are trials for which the first reading exhibits a suboptimal 
+result but an optimum one in the second reading. This is demonstrated by the fact that if the best of all the readings is 
+computed (purple bar in the fourth histogram), the number of attempts that produce a maximum cut is higher than that 
+obtained for each of the readings.   
+Identical experimental set-up has been applied to two unbalanced 9-node graphs, depicted in Fig 19 together with their 
+histograms. Although improvements associated with the multi-reading triangular SHIL are observed, the success rate 
+is under 50% for both examples.   
+Therefore, we investigate alternative SHIL3 configurations assuming a computation time of 1000 oscillation cycles. That 
+is, different values of KPER were used. Lower KPER values allow for more SHIL3 cycles to be accommodated in identical 
+computation time. For a value of KPER=250, as in the previous experiment, two cycles of SHIL3 fit, while for a value of 
+KPER =25 there is room for 20 cycles. Fig 20 shows the results obtained for the graph in Fig 19b. Fig 20a depicts 
+histograms for KPER=26 at the 1st, 10th, and 19th SHIL3 cycles. Fig 20b (c) shows the average cut value over the 100 
+trials versus the SHIL cycle, as well as the best cut for KPER=26 (58).   
+It can be observed comparing Fig 19d and Fig 20a that the fraction of trials that reach the ground state or optimal 
+solution to the Max-Cut problem is significantly increased. It is improved from less than 50% to 100%.   
+It is also interesting to compare Fig 20b and c. The best cut smaller than 1 for KPER=58 (c) indicates that not all the trials 
+led to an optimal solution, in comparison with KPER=26 (b). In the latter case, the evolution of the cut value is more 
+attractive as it increases after each SHIL cycle. 
+These results indicate that there seems to be an optimal KPER value for which the OIM is driven towards a lower energy 
+state after each SHIL cycle. However, the optimal KPER value is graph-dependent as we had to adjust the KPER value for 
+each graph instance to observe a similar behavior. Overall, a high KPER value corresponds to each SHIL cycle behaving 
+like a new trial, i.e.  the OIM memory is lost during the sequence of SHIL cycles. With KPER<23 the results have 
+worsened, not reaching the 100% success rate, as the SHIL period gets probably smaller than the OIM settling time. 
+This was also observed in Fig 17 by sweeping the KPER value. 
+ 
+ 
+Fig 18. Histograms of cut values measured at 250, 500, 750, and 1000 oscillation cycles. The purple dashed histogram on the right-hand side 
+shows the best cut among the four values. 
+0.5
+1
+Cut/Max-cut
+0
+20
+40
+60
+80
+100
+Count
+250 cycles
+0.5
+1
+Cut/Max-cut
+0
+20
+40
+60
+80
+100
+Count
+500 cycles
+0.5
+1
+Cut/Max-cut
+0
+20
+40
+60
+80
+100
+Count
+750 cycles
+0.5
+1
+Cut/Max-cut
+0
+20
+40
+60
+80
+100
+Count
+1000 cycles
+Best cut
+
+ 
+ 
+Fig 19. Histograms of cut values measured at 250, 500, 750, and 1000 cycles c) for graph a, d) for graph b). 
+ 
+Fig 20. Results for the graph in Fig 19b, a) Histograms of cut values measured in the 1st, 10th, and 19th cycles for KPER=26, b) Cut and best cut 
+versus SHIL cycle for KPER=26, c) KPER=58. 
+
+In summary, results obtained experimentally are in agreement with those found by electrical simulation. In particular, 
+both simulation and experimental results have shown that running long SHIL cycles on our OIM does not necessarily 
+improve the accuracy over time. We believe this is mainly caused by the unlocking of phases when SHIL is OFF which 
+prevents any kind of memory throughout the SHIL operation. However, long SHIL cycles still enable the exploration of 
+a wider region in the energy landscape from a single initial network state. A good compromise seems to occur when 
+both OIM settling and SHIL ramping times are similar. In this regime, the OIM can escape local energy minima that are 
+reached at each SHIL cycle. However, the OIM settling time depends on each input problem and thus the optimal KPER 
+value is not unique. Finally, complementing the proposed SHIL schedule by taking the best cut value among several 
+measurements can increase the success rate, and so the performance of the OIM for solving optimization problems.  
+V. CONCLUSIONS 
+This article has shown how a network of coupled oscillators can be operated to solve different computational tasks. It 
+is one of the very few to explore the performance of coupled oscillator networks at the electrical level or by physical 
+implementations. Phase-based simulations used in other works are hardware agnostic and do not consider important 
+effects. Using VO2 based oscillators, the different operation conditions required to implement an AM or an IM machine 
+with an identical architecture have been illustrated. The IM functionality requires being able to escape from local 
+minimum energy states. Simulation-based analysis of the role of several factors such as SHIL signal, noise, or initial 
+network state in that target behaviour has led to the proposal of a novel SHIL schedule. Its main feature is that the SHIL 
+signal amplitude is increased and decreased. Reducing SHIL strength is the mechanism that enables escape from local 
+minimum energy states. Its combination with a multi-reading scheme can improve the performance of the OIM for 
+solving optimization problems. An experimental OIM has been built to validate our proposal and to further explore the 
+impact of how fast the SHIL amplitude is varied. Our simulation and experimental results solving several instances of 
+Max-Cut optimization problems contribute to a deeper understanding of how to operate a network of coupled oscillators 
+as an Ising machine. Proposed SHIL schedule has shown potential for an efficient exploration of the energy landscape 
+of the associated Ising model for the analyzed OIMs. However, selection of the parameters that configure the SHIL 
+schedule, such as the KPER value or SHIL amplitude, is still an open question that requires further research to analyze 
+graphs with different sparsity and size. Regarding the scalability of our proposal, it is appropriate to point out that this 
+requires abandoning the idea of an all-to-all connection scheme and choosing a specific architecture. The selection of 
+the said architecture and the mapping from the Ising model to the specific architecture is beyond the scope of this paper 
+and is a future line of work. 
+ACKNOWLEDGMENTS 
+This work was funded by the NeurONN Project (Horizon 2020 - Grant agreement ID: 871501) and Fondo Europeo de 
+Desarrollo Regional (FEDER) and Consejería de Transformación Económica, Industria, Conocimiento y Universidades 
+de la Junta de Andalucía, dentro del Programa Operativo FEDER 2014-2020 (Project US-1380876). The VO2 model 
+was provided by IBM-Research, Zurich. 
+REFERENCES 
+[1] F.C. Hoppensteadt, E. Izhikevich. "Oscillatory Neurocomputers with Dynamic Connectivity" Phys. Rev. Lett., vol. 82, no. 14, April 
+1999. doi: 10.1103/PhysRevLett.82.2983. 
+[2] A. Raychowdhury et al., "Computing with Networks of Oscillatory Dynamical Systems," Proc. of the IEEE, vol. 107, no. 1, pp. 73-
+89, Jan. 2019. doi: 10.1109/JPROC.2018.2878854. 
+[3] T. C. Jackson, A. A. Sharma, J. A. Bain, J. A. Weldon and L. Pileggi, "Oscillatory Neural Networks Based on TMO Nano-Oscillators 
+and Multi-Level RRAM Cells", IEEE Journal on Emerging and Selected Topics in Circuits and Systems, vol. 5, no. 2, pp. 230-241, 
+June 2015, doi: 10.1109/JETCAS.2015.2433551. 
+[4] G. Csaba. "Coupled oscillators for computing: A review and perspective". Applied Phys. Reviews, vol. 7, no. 011302, Jan. 2020. 
+[5] Fujitsu, 
+"The 
+white 
+book 
+of 
+quantum 
+computing", 
+available 
+https://sp.ts.fujitsu.com/dmsp/Publications/public/Digital_Annealer_White_Book.pdf 
+[6] A. Lucas, "Ising Formulations of many NP Problems," Frontiers in Physics, vol. 2, 2014, doi: 10.3389/fphy.2014.00005. 
+[7] M. Sao, H., Watanabe, Y. Musha, A. Utsunomiya, "Application of Digital Annealer for Faster Combinatorial Optimization", Fujitsu 
+Scientific & Technical Journal, vol. 55, no. 2, pp.45-51, 2019. 
+[8] R. Hamerly et al., "Experimental investigation of performance differences between coherent Ising machines and a quantum 
+annealer", Sci. Adv., vol. 5, no. 5, pp. 1-11, May 2019. doi: 10.48550/arXiv.1805.05217. 
+[9] S. Dutta, A. Khanna, J. Gomez, K. Ni, Z. Toroczkai and S. Datta, "Experimental Demonstration of Phase Transition Nano-
+Oscillator Based Ising Machine," IEEE Intern. Electron Devices Meeting (IEDM), San Francisco, USA, 2019, pp. 37.8.1-37.8.4. doi: 
+10.1109/IEDM19573.2019.8993460. 
+[10] S. Dutta, A. Khanna, A.S. Assoa, H Paik, D.G. Schlom, Z. Toroczkai, A. Raychowdhury, and S Datta "An Ising Hamiltonian 
+solver based on coupled stochastic phase-transition nano-oscillators". Nature Electronics, vol. 4, pp. 502-512. July 2021. doi: 
+10.1038/s41928-021-00616-7. 
+[11] J. Núñez, M.J. Avedillo, M. Jiménez and B. Linares-Barranco, "Oscillatory Neural Networks using VO2 based Phase Encoded 
+Logic," Frontiers in Neuroscience, Apr. 2021. doi: 10.3389/fnins.2021.655823. 
+[12] J. Shamsi, M. J. Avedillo, B. Linares-Barranco and T. Serrano-Gotarredona, "Effect of Device Mismatches in Differential 
+Oscillatory Neural Networks," in IEEE Transactions on Circuits and Systems I: Regular Papers, vol. 70, no. 2, pp. 872-883, Feb. 
+2023, doi: 10.1109/TCSI.2022.3221540. 
+
+[13] A. Todri-Sanial, S. Carapezzi, C. Delacour, M. Abernot, T. Gil, Elisabetta Corti, S.F. Karg, J. Nüñez, M. Jiménez, M.J. Avedillo 
+and B. Linares-Barranco, "How Frequency Injection Locking Can Train Oscillatory Neural Networks to Compute in Phase", IEEE 
+Transactions on Neural Networks and Learning Systems, Volume 33, Issue 5, pp. 1996-2009, May 2022. doi: 
+10.1109/TNNLS.2021.3107771. 
+[14] C. Delacour and A. Todri-Sanial, "Mapping Hebbian Learning Rules to Coupling Resistances for Oscillatory Neural Networks", 
+Front. Neurosci., Sec. Neuromorphic Engineering, vol. 15, Nov. 2021. doi: 10.3389/fnins.2021.694549. 
+[15] C. Delacour, S. Carapezzi, M. Abernot and A. Todri-Sanial, "Energy-Performance Assessment of Oscillatory Neural Networks 
+Based on VO2 Devices for Future Edge AI Computing", IEEE Transactions on Neural Networks and Learning Systems, doi: 
+10.1109/TNNLS.2023.3238473. 
+[16] S. Carapezzi et al., "Advanced Design Methods From Materials and Devices to Circuits for Brain-Inspired Oscillatory Neural 
+Networks for Edge Computing", IEEE Journal on Emerging and Selected Topics in Circuits and Systems, vol. 11, no. 4, pp. 586-596, 
+Dec. 2021, doi: 10.1109/JETCAS.2021.3128756. 
+[17] M. K. Bashar, A. Mallick, D. S Truesdell, B. H. Calhoun, S. Joshi, N. Shukla, "Experimental Demonstration of a Reconfigurable 
+Coupled Oscillator Platform to Solve the Max-Cut Problem", IEEE J. Explor. Solid-State Computat. Devices Circuits, vol. 6, pp. 116-
+126, 2020. doi: 10.1109/TNNLS.2023.3238473. 
+[18] P. Maffezzoni, L. Daniel, N. Shukla, S. Datta and A. Raychowdhury, "Modeling and Simulation of Vanadium Dioxide Relaxation 
+Oscillators," in IEEE Transactions on Circuits and Systems I: Regular Papers, vol. 62, no. 9, pp. 2207-2215, Sept. 2015, doi: 
+10.1109/TCSI.2015.2452332. 
+[19] E. Corti, B. Gotsmann, K. Moselund, I. Stolichnov, A. Ionescu and S. Karg, "Resistive Coupled VO2 Oscillators for Image 
+Recognition", 2018 IEEE International Conference on Rebooting Computing (ICRC), McLean, VA, USA, 2018, pp. 1-7. doi: 
+10.1109/ICRC.2018.8638626. 
+[20] A. Parihar, N. Shukla, S. Datta, A. Raychowdhury, "Synchronization of pairwise-coupled, identical, relaxation oscillators based 
+on metal-insulator phase transition devices: a model study", J. Appl. Phys., vol. 117, no. 5, 2015. doi: 10.1063/1.4906783. 
+[21] P. Maffezzoni, L. Daniel, N. Shukla, S. Datta, and A. Raychowdhury, "Modeling and Simulation of Vanadium Dioxide Relaxation 
+Oscillators", IEEE Transactions On Circuits And Systems—I, vol. 62, pp. 2207-2215, Sep. 2015. doi: 10.1109/TCSI.2015.2452332. 
+[22] J. Wu, L. Jiao, R. Li, and W. Chen, "Clustering dynamics of nonlinear oscillator network: Application to graph coloring problem", 
+Physica D, vol. 240, no. 24, pp. 1972-1978, 2011. doi: 10.1016/j.physd.2011.09.010. 
+[23] A. Raychowdhury, A. Parihar, et al. "Computing with networks of oscillatory dynamical systems," Proc. IEEE vol. 107, no. 1, 
+pp.73-89, Jan. 2019. doi: 10.1109/JPROC.2018.2878854. 
+[24] Naeimeh Mohseni, Peter L. McMahon, and Tim Byrnes, "Ising machines: Hardware solvers for combinatorial optimization 
+problems", Nature Review Physics, no. 4, pp. 363-379, May 2022. doi: 10.1038/s42254-022-00440-8. 
+[25] Matsubara, S. et al. "Digital annealer for high-speed solving of combinatorial optimization problems and its applications", IEEE 
+25th Asia and South Pacific Design Automation Conference (ASP-DAC), pp. 667-672, 2020. doi: 10.1109/ASP-
+DAC47756.2020.9045100. 
+[26] Yamaoka, M. et al. "A 20k-spin Ising chip to solve combinatorial optimization problems with CMOS annealing", IEEE J. Solid-
+State Circuits, vol. 51, pp. 303-309, Jan. 2016. doi: 10.1109/JSSC.2015.2498601. 
+[27] H. M. Waidyasooriya and M. Hariyama, "Highly-Parallel FPGA Accelerator for Simulated Quantum Annealing," IEEE 
+Transactions on Emerging Topics in Computing, vol. 9, no. 4, pp. 2019-2029, 1 Oct.-Dec. 2021. doi: 10.1109/TETC.2019.2957177. 
+[28] F Camsari, K. Y., Salahuddin, S., Datta, S., "Implementing P-Bits with Embedded MTJ". IEEE Electron Device Letters, vol. 38 
+no. 12, pp. 1767-1770, Dec. 2017. doi: 10.1109/LED.2017.2768321.  
+[29] William A Borders et al. "Integer factorization using stochastic magnetic tunnel junctions", Nature 573, pp. 390-393, Sept. 2019. 
+doi: 10.1038/s41586-019-1557-9. 
+[30] Inagaki, T. et al. "A coherent Ising machine for 2000-node optimization problems", Science 354, pp. 603-606, Oct. 2016. doi: 
+10.1126/science.aah4243. 
+[31] Haribara, Y., Utsunomiya, S. & Yamamoto, Y. A, "Coherent Ising Machine for MAX-CUT Problems: Perfor-mance Evaluation 
+against Semidefinite Programming and Simulated Annealing", Principles and Methods of Quantum Information Technologies 
+(Springer Japan) pp. 251-262, 2016. doi: 10.1007/978-4-431-55756-2_12. 
+[32] McMahon, P. L. et al. "A fully programmable 100-spin coherent Ising machine with all-to-all connections", Science 354, pp. pp. 
+614-617, Nov. 2016. Doi: 10.1126/science.aah5178. 
+[33] Wang, T., Wu, L., Nobel, P. et al. "Solving combinatorial optimisation problems using oscillator based Ising machines". Nature 
+Computing no. 20, pp. 287-306, Jun. 2021. doi: 10.1007/s11047-021-09845-3. 
+[34] T. Wang, L. Wu, J. Roychowdhury. Late Breaking Results: New Computational Results and Hardware Proto-types for Oscillator-
+based Ising Machines. arXiv preprint arXiv:1904.10211, 2019. 
+[35] Wang, T.; Wu, L.; Roychowdhury, J., "New computational results and hardware prototypes for oscillator-based ising machines", 
+Proceedings of the 56th Annual Design Automation Conference, Las Vegas, NV, USA, 2-6 June 2019. Doi: 
+10.1145/3316781.3322473.  
+[36] Ahmed, I.; Chiu, P.W.; Moy, W.; Kim, C.H, "A probabilistic compute fabric based on coupled ring oscillators for solving 
+combinatorial optimization problems", IEEE J. Solid-State Circuits, 56, 2870-2880, Sept. 2021. doi: 10.1109/JSSC.2021.3062821. 
+[37] Moy, W.; Ahmed, I.; Chiu, P.W.; Moy, J.; Sapatnekar, S.S.; Kim, C.H. "A 1,968-node coupled ring oscillator circuit for 
+combinatorial optimization problem solving", Nat. Electron, vol. 5, pp. 310-317, May 2022. doi: 10.1038/s41928-022-00749-3. 
+[38] M. Graber and K. Hofmann, "A Versatile & Adjustable 400 Node CMOS Oscillator Based Ising Machine to Investigate and 
+Optimize the Internal Computing Principle," 2022 IEEE 35th International System-on-Chip Conference (SOCC), Belfast, United 
+Kingdom, 2022, pp. 1-6, doi: 10.1109/SOCC56010.2022.9908118. 
+[39] J. Núñez, S. Thomann, H. Amrouch and M. J. Avedillo, "Mitigating the Impact of Variability in NCFET-based Coupled-Oscillator 
+Networks Applications," 2022 29th IEEE International Conference on Electronics, Circuits and Systems (ICECS), Glasgow, United 
+Kingdom, 2022, pp. 1-4, doi: 10.1109/ICECS202256217.2022.9970771. 
+[40] Albertsson, D.I.; Zahedinejad, M.; Houshang, A.; Khymyn, R.; Åkerman, J.; Rusu, A., "Ultrafast Ising Machines using spin torque 
+nano-oscillators", Appl. Phys. Lett. 118, 112404, Mar. 2021. Doi: 10.1063/5.0041575. 
+
+[41] A. Neogy and J. Roychowdhury. "Analysis and Design of Sub-harmonically Injection Locked Oscillators", Proc. IEEE DATE, Mar 
+2012. doi: 10.1109/DATE.2012.6176677.  
+[42] M. Jerry, A. Parihar, A. Raychowdhury and S. Datta, "A random number generator based on insulator-to-metal electronic phase 
+transitions", 75th Annual Device Research Conference (DRC), 2017, pp. 1-2. doi: 10.1109/DRC.2017.7999423. 
+[43] Dutta, S.; Khanna, A.; Datta, S, "Understanding the continuous-time dynamics of phase-transition nano-oscillator-based Ising 
+Hamiltonian solver", IEEE J. Explor. Solid-State Computat. Devices Circuits, vol. 6, pp. 155-163, Dec. 2020. doi: 
+10.1109/JXCDC.2020.3045074. 
+[44] J. Núñez, M.J. Avedillo, and M. Jiménez, "Solving Combinatorial Optimization Problems with Coupled Phase Transition based 
+Oscillators,", XXXVII Conference on Design of Circuits and Integrated Systems (DCIS), Nov. 2022. 
+[45] K. Bashar, A. Mallick and N. Shukla, "Experimental Investigation of the Dynamics of Coupled Oscillators as Ising Machines," 
+IEEE Access, vol. 9, pp. 148184-148190, 2021. doi: 10.1109/ACCESS.2021.3124808. 
+ 
+ 
+María J. Avedillo received the Ph.D. degree (summa cum laude) from the Department of Electronics and Electromagnetism, 
+Universidad de Sevilla, in 1992. She joined at Universidad de Sevilla as an Assistant Professor in 1988, where she has been 
+a Full Professor since 2010. In 1989, she became a Researcher with the Department of Analog Design, National 
+Microelectronics Center (currently, Instituto de Microelectrónica de Sevilla). She has authored over 150 technical papers in 
+leading international journals and conferences. Her current research interests focus on the design of circuits using emerging 
+devices, including steep slope transistors and phase transition materials, and non-conventional computing paradigms with 
+emphasis on energy constrained applications. In 1994, the Council of the Institution of Electrical Engineers awarded her the 
+Kelvin Premium for two published articles. 
+ 
+ 
+Manuel Jiménez Través received the B.S. degree in electronics, robotics and mechatronics and the M.S. degree in 
+micro/nanoelectronics from the University of Sevilla, Spain, in 2015 and 2019, respectively. Currently, he is pursuing the Ph.D. 
+degree in micro/nanoelectronics. He has been working as Technical Researcher in the Institute of Microelectronics of Sevilla 
+since 2017 inside the Group of Design and Test of Mixed-Signal Integrated Circuits.  His current research interests include 
+emerging devices and circuits, neuro-inspired computing and oscillator-based computing, especially concerning energy-
+efficient and low-power circuits. 
+ 
+ 
+Corentin Delacour received the Engineering degree from CentraleSupélec, Paris, France, in 2018, and the Master of Science 
+degree in microelectronics from the Swiss Federal Institute of Technology Lausanne (EPFL) Lausanne, Switzerland, in 2020. 
+He is currently pursuing the Ph.D. degree with the University of Montpellier, Montpellier, France. His Ph.D. research focuses 
+on the architecture design for oscillatory neural networks. 
+ 
+Aida Todri-Sanial received the B.S. degree in electrical engineering from Bradley University, IL in 2001, M.S. degree in 
+electrical engineering from Long Beach State University, CA, in 2003 and a Ph.D. degree in electrical and computer 
+engineering from the University of California, Santa Barbara, in 2009. She is currently a Full Professor in Electrical Engineering 
+Department at Eindhoven University of Technology, Netherlands and Director of Research for the French National Council of 
+Scientific Research (CNRS). She was a visiting fellow at the Cambridge Graphene Center and Wolfson College at the 
+University of Cambridge, UK during 2016-2017. Previously, she was an R&D Engineer for Fermi National Accelerator 
+Laboratory, IL. She has also held visiting research positions at Mentor Graphics, Cadence Design Systems, 
+STMicroelectronics and IBM TJ Watson Research Center. Her research interests focus on emerging technologies and novel 
+computing paradigms such as neuromorphic and quantum computing.  
+ 
+ 
+Bernabé Linares-Barranco (Fellow, IEEE) received the B.S. degree in electronic physics, the M.S. degree in microelectronics, 
+and the first Ph.D. degree in high-frequency OTA-C oscillator design from the University of Seville (Spain) in 1986, 1987, and 
+1990, respectively, and the second Ph.D. degree in analog neural network design from Texas A&M University, College Station, 
+TX, (1991). 
+From 1988 to 1991, he was a Graduate Student at the Department of Electrical Engineering, Texas A&M University. Since 
+1991, he has been a Tenured Scientist at the "Instituto de Microelectrónica de Sevilla", Seville. In 2003, he was promoted to 
+Tenured Researcher, and in 2004 to Full Professor. He has been involved in circuit design for telecommunication, VLSI 
+emulators of biological neurons, VLSI neural-based pattern recognition systems, hearing aids, precision circuit design for 
+instrumentation equipment, and VLSI transistor mismatch parameters characterization and in in neuromorphic spiking circuits 
+and systems.  
+ 
+Juan Núñez received the Telecommunication Engineering degree in 2005. Since then, he has been with the "Instituto de 
+Microelectrónica de Sevilla" (IMSE-CNM) and the Department of Electronics and Electromagnetism at the University of Seville, 
+Seville, Spain. In 2011, he obtained the Ph. D. degree from that University. In 2022, he obtained a position as Tenured 
+Scientist at IMSE-CNM. 
+Currently, his main line of research is dedicated to the design of circuits based on unconventional computing paradigms using 
+emerging devices, as well as the development of design strategies for low-power variability-aware and secure circuits based 
+on state-of-the-art CMOS and emerging beyond-CMOS technologies.
+

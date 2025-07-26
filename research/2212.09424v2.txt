@@ -1,0 +1,1702 @@
+Nonequilibrium dynamics of the Ising model on heterogeneous networks with an arbitrary
+distribution of threshold noise
+Leonardo S. Ferreira and Fernando L. Metz
+Physics Institute, Federal University of Rio Grande do Sul, 91501-970 Porto Alegre, Brazil
+The Ising model on networks plays a fundamental role as a testing ground for understanding cooperative
+phenomena in complex systems. Here we solve the synchronous dynamics of the Ising model on random
+graphs with an arbitrary degree distribution in the high-connectivity limit. Depending on the distribution of the
+threshold noise that governs the microscopic dynamics, the model evolves to nonequilibrium stationary states.
+We obtain an exact dynamical equation for the distribution of local magnetizations, from which we ﬁnd the
+critical line that separates the paramagnetic from the ferromagnetic phase. For random graphs with a negative
+binomial degree distribution, we demonstrate that the stationary critical behavior as well as the long-time critical
+dynamics of the ﬁrst two moments of the local magnetizations depend on the distribution of the threshold noise.
+In particular, for an algebraic threshold noise, these critical properties are determined by the power-law tails of
+the distribution of thresholds. We further show that the relaxation time of the average magnetization inside each
+phase exhibits the standard mean-ﬁeld critical scaling. The values of all critical exponents considered here are
+independent of the variance of the negative binomial degree distribution. Our work highlights the importance of
+certain details of the microscopic dynamics for the critical behavior of nonequilibrium spin systems.
+I.
+INTRODUCTION
+Understanding cooperative phenomena in large interacting
+complex systems is at the forefront of various branches of sci-
+ence [1-4]. The Ising model on random graphs provides a
+general framework to tackle this problem and to explore how
+heterogeneous interactions among the spins inﬂuence their
+dynamical behavior. Heterogeneity here refers to local ﬂuctu-
+ations in the graph topology, such as the number of neighbors
+coupled to each spin (the so-called degrees [5]).
+Universal scaling around phase transitions is perhaps the
+most striking collective property of spin models [6]. Renor-
+malization group theory and the computation of critical ex-
+ponents have prompted the notion of universality classes, i.e.,
+the fact that systems very different in nature share the same
+critical behavior. Understanding how network heterogeneities
+modify the critical properties of spin models is a central prob-
+lem in network science [1]. Speciﬁcally, the equilibrium crit-
+ical behavior of the Ising model on networks is characterized
+by mean-ﬁeld critical exponents [7-9], as long as the fourth
+moment of the degree distribution is ﬁnite.
+Progress has been much slower on the side of the dynam-
+ical critical properties of spin models on networks. To our
+knowledge, the effect of network heterogeneities on the dy-
+namical exponents [10] of the Ising model is not known. More
+than that, depending on the details of the dynamics and of
+the network structure [11-13], the Ising model may evolve to
+nonequilibrium stationary states that do not follow the Boltz-
+mann distribution. In this case, even if the interest lies only
+on the stationary critical properties, one has to abandon equi-
+librium statistical mechanics and shift to a full dynamical ap-
+proach.
+The nonequilibrium dynamics of the Ising model on ran-
+dom graphs has been exactly solved in the thermodynamic
+limit using the generating functional approach [14, 15] and
+the cavity method [16].
+Even though the microscopic dy-
+namics of the model is by construction a Markovian process,
+symmetric couplings among the spins induce retarded self-
+interactions and the formal solution of the problem is a path-
+probability for the effective dynamics of a single spin [16].
+The history dependency encoded in the path-probability pre-
+vents any attempt to calculate analytically the trace over the
+single-spin conﬁgurations. Besides that, the dimension of the
+path-probability grows exponentially in time, which quickly
+renders numerical computations unfeasible. These features
+make the dynamics of spin models on networks a notorious
+difﬁcult problem, which has stimulated the design of various
+approximate methods. Some of them rely on assumptions to
+reduce the number of variables in the problem and obtain a
+closed set of dynamical equations [17-20], while other ap-
+proaches, such as the dynamical TAP equations [21-23] and
+cluster variational methods [24, 25], are inspired in well estab-
+lished methods for the equilibrium properties of spin models.
+There are two main classes of graphs for which the effective
+problem simpliﬁes and one can derive closed-form dynamical
+equations: dense random graphs and sparse directed random
+graphs [15, 16, 26]. In the former case, each spin is densely
+connected with the rest of the network and the path probability
+simpliﬁes on account of the law of large numbers. In the sec-
+ond case, the absence of bidirected edges eliminate the history
+dependency and the effective dynamics becomes Markovian.
+In both cases, the exact dynamics follows from a simpliﬁed
+form of the cavity equations for the path probability [16].
+The cavity or message-passing equations provide an algo-
+rithm to compute the local marginals of a variety of problems
+deﬁned on random graphs [4, 27, 28]. In general, these equa-
+tions do not admit analytic solutions on undirected graphs
+with an heterogeneous structure.
+However, the spectra of
+undirected random graphs [29, 30] and the equilibrium of spin
+models on networks [31] have been recently studied by means
+of an interesting family of analytic solutions of the cavity
+equations, in which the mean degree is inﬁnitely large, but
+the solutions still depend on the full degree distribution. This
+class of solutions is simple enough that it allows to address the
+role of degree ﬂuctuations in a comprehensive way. Since the
+cavity equations share the same formal structure across differ-
+ent areas [4], one expects to extract an analogous solution for
+arXiv:2212.09424v2  [cond-mat.stat-mech]  20 Mar 2023
+
+2
+the dynamics of the Ising model on heterogeneous networks.
+Here we conﬁrm this expectation and derive an exact so-
+lution for the synchronous dynamics of the Ising model on
+highly-connected random graphs with an arbitrary degree dis-
+tribution. The stochastic dynamics of the spins is governed
+by an arbitrary distribution of the threshold noise that mim-
+ics the contact of the system with a thermal bath. Depending
+on the choice of the distribution of thresholds [11], the model
+evolves to stationary states that are not described by the Boltz-
+mann distribution.
+Therefore, the present model allows to
+clearly study how degree ﬂuctuations and the nonequilibrium
+nature of the stationary states inﬂuence the critical properties
+of the Ising model. Besides that, networks of binary units with
+random thresholds give valuable insights into neural networks
+[11, 12], choice and opinion dynamics [3, 32, 33], gene regu-
+latory networks [13, 34-36], and socio-economic phenomena
+[37].
+We derive a simple dynamical equation for the full distribu-
+tion of local magnetizations, from which we ﬁnd the critical
+line that separates the paramagnetic from the ferromagnetic
+region. We compute stationary and dynamical critical expo-
+nents for the mean and the variance of local magnetizations
+in the case of a negative binomial degree distribution [30, 31].
+For an hyperbolic tangent distribution of thresholds, for which
+the stationary states follow a Boltzmann-like distribution [38],
+all critical indexes assume their standard mean-ﬁeld values
+[10, 39-41]. In contrast, when the threshold noise follows
+an algebraic distribution and detailed balance is presumably
+broken, the stationary critical behavior and the long-time crit-
+ical dynamics are both characterized by the same values of
+the critical indexes, which are determined by the power-law
+tails of the distribution of thresholds. On the other hand, the
+characteristic time for the exponential relaxation of the aver-
+age magnetization inside each phase always exhibits a mean-
+ﬁeld critical behavior [10], independently of the distribution
+of thresholds. Lastly, we derive analytic expressions for the
+stationary distribution of local magnetizations inside the fer-
+romagnetic phase and we show that its variance displays a
+maximum as a function of the temperature, due to the inter-
+play between threshold noise and degree ﬂuctuations. Some
+of our theoretical ﬁndings are corroborated by numerical sim-
+ulations.
+The paper is organized as follows. In the next section we
+deﬁne the model and its microscopic dynamics. Section III
+explains how to obtain the recurrence equation for the dynam-
+ics of the distribution of local magnetizations. We present the
+results for the critical exponents in section IV, and some ﬁ-
+nal remarks in section V. The paper contains an appendix that
+explains how to solve the dynamics using the generating func-
+tional approach.
+II.
+MODEL DEFINITIONS
+We study the dynamics of N Ising spins σi(t) ∈{−1, 1}
+(i = 1, . . . , N) that interact through the edges of an undi-
+rected and simple random graph [42].
+The states evolve
+in time t by following a Markov process, in which t =
+0, 1, . . . , tmax is a discrete variable and all spins are syn-
+chronously updated according to their local ﬁelds at the pre-
+vious time step
+σi(t + 1) = sign (hi [σ(t)] + Tζi(t)) ,
+(1)
+where {ζi(t)} are independent and identically distributed ran-
+dom variables drawn from a distribution µ(ζ) that fulﬁlls
+µ(−ζ) = µ(ζ) . The temperature T ≥0 controls the thresh-
+old noise in the stochastic dynamics: for T = 0 the dynamics
+is deterministic, whereas for T →∞it is completely random.
+The local ﬁeld hi[σ(t)] at time t due to the global state
+σ(t) = (σ1(t), . . . , σN(t)) is given by
+hi[σ(t)] = J
+c
+N
+X
+j=1
+Cijσj(t),
+(2)
+where the binary random variables Cij ∈{0, 1} are the ele-
+ments of the adjacency matrix C that speciﬁes the topology of
+the random graph model. If there is an interaction between the
+spins located at nodes i and j, then we set Cij = 1, whereas
+Cij = 0 if the corresponding spins do not interact. The matrix
+C is symmetric (the graph is undirected) and its diagonal en-
+tries are zero. The parameter J > 0 denotes the strength of the
+pairwise ferromagnetic interactions between adjacent spins,
+while c is the so-called mean degree (see below) or average
+coordination number. The scaling of the coupling strengths
+with c is suitable to analyze the model in the limit c →∞.
+In order to derive a discrete map for the time evolution of
+the global magnetization,
+m(t) = 1
+N
+N
+X
+i=1
+σi(t),
+(3)
+it is more convenient to formulate the dynamics in terms of
+probabilities. Equation (1) deﬁnes a Markov process and the
+probability p(σ, t) to observe a global conﬁguration σ =
+(σ1, . . . , σN) at time t evolves as follows
+p(σ, t + 1) =
+X
+σ′
+W(σ|σ′)p(σ′, t),
+(4)
+whereP
+σ′ runs over the 2N conﬁgurations of the system, and
+the matrix element W(σ|σ′) is the conditioned probability to
+observe a transition from state σ′ to σ. By integrating over
+ζi(t) in Eq. (1), one ﬁnds the explicit form of the transition
+matrix elements W(σ|σ′)
+W(σ|σ′) =
+N
+Y
+i=1
+1
+2 (1 + σiF [βhi(σ′)]) ,
+(5)
+where β = T −1, and F(x) is determined by the distribution
+µ(ζ) of the threshold noise as follows
+F(x) =
+Z x
+−x
+dζ µ(ζ).
+(6)
+The function F(x) satisﬁes the properties
+F(−x) = −F(x),
+lim
+x→±∞F(x) = ±1.
+(7)
+
+3
+Depending on the choice of µ(ζ), the stationary distribution of
+the spin conﬁgurations is not given by the Boltzmann distri-
+bution and we expect that detailed balance breaks down [11].
+Let us now specify the random graph ensemble. The coor-
+dination number or degree Ki of node i, deﬁned in terms of
+C as
+Ki =
+N
+X
+j=1
+Cij,
+(8)
+gives the number of spins coupled to σi. One of our pur-
+poses is to investigate how ﬂuctuations in the degree sequence
+K1, . . . , KN impact the stationary and the dynamical critical
+properties of the Ising model. Thus, we consider the conﬁg-
+uration model of networks [5, 43, 44], in which the degrees
+K1, . . . , KN are independently drawn from a common distri-
+bution
+pk = lim
+N→∞
+1
+N
+N
+X
+i=1
+δKi,k,
+(9)
+and a single graph instance is generated by randomly choos-
+ing pairs of nodes and then connecting them subject to the
+prescribed degrees. The ﬁrst moment of pk yields the average
+degree
+c =
+∞
+X
+k=0
+kpk,
+(10)
+which provides the mean number of neighbors coupled to a
+single spin. Since the degree distribution pk is speciﬁed at
+the outset, the conﬁguration model provides the ideal setting
+to explore the effect of degree ﬂuctuations by changing the
+shape of pk.
+In the next section, we exactly solve the nonequilibrium
+dynamics of this model in the limit N →∞for arbitrary
+distributions pk and µ(ζ). The solution is valid in the high-
+connectivity limit c →∞, provided c/N →0. This regime
+is achieved by ﬁrst taking the limit N →∞and then c →∞
+afterwards [31].
+III.
+RECURRENCE EQUATIONS FOR THE DYNAMICS
+In this section we derive an exact map for the time evolu-
+tion of the global magnetization and for the full distribution of
+local magnetizations in the limit c →∞by using the law of
+large numbers. As a byproduct, we put forward an effective
+approximation for the interactions between the spins valid for
+large c. In the appendix A, we present a more rigorous deriva-
+tion of the dynamical equation for the global magnetization
+by using the generating functional approach [12, 45].
+The probability pi(σ, t) of observing the spin at site i in the
+state σ ∈{−1, 1} at time t follows from the marginalization
+pi(σ, t) =
+X
+σ\σi
+p(σ, t),
+(11)
+where P
+σ\σi sums over the conﬁgurations of all spins except
+for σi. The local magnetization mi(t) at time t reads
+mi(t) =
+X
+σ
+σpi(σ, t),
+(12)
+while the global magnetization m(t) is given by
+m(t) = 1
+N
+N
+X
+i=1
+mi(t).
+(13)
+Our primary aim is to obtain an exact recursive equation for
+m(t) in the thermodynamic limit N →∞. Inserting Eq. (4)
+in Eq. (11) and using the explicit form of W(σ|σ′), Eq. (5),
+one can write the local magnetization as
+mi(t + 1) =
+X
+σ
+p(σ, t)F
+
+βJ
+c
+X
+j∈∂i
+σj
+
+,
+(14)
+where ∂i represents the set of nodes that are adjacent to node
+i. Since the sum over j ∈∂i contains a number of terms of
+order O(Ki), we invoke the law of large numbers for c →∞
+and replace this sum by the expectation value
+1
+Ki
+X
+j∈∂i
+σj
+c→∞
+−−−→u(t) =
+X
+σ
+P(σ, t)σ,
+(15)
+where
+P(σ, t) =
+PN
+ij=1 Cij
+P
+σ′ pi(σ′, t)δσ′σ
+PN
+ij=1 Cij
+(16)
+is the probability that a randomly chosen edge has one of its
+spins in the state σ at time t. Thus, the spatial ﬂuctuations of
+the local ﬁeld on the right hand side of Eq. (14) are solely
+determined by the degree distribution. In the limit c →∞,
+the local magnetization fulﬁlls
+mi(t + 1) = F [βJGiu(t)] ,
+(17)
+where the rescaled degrees Gi = Ki/c (i = 1, . . . , N) are
+distributed as follows
+ν(g) = lim
+c→∞
+∞
+X
+k=0
+pkδ
+
+g −k
+c
+
+.
+(18)
+In terms of ν(g), the global magnetization at time t + 1 is
+determined by recurrence equation
+m(t + 1) =
+Z ∞
+0
+dg ν(g) F [βJgu(t)] .
+(19)
+Equations (17) and (19) are valid when the variance of the
+rescaled degrees remains ﬁnite in the high-connectivity limit.
+One can access this connectivity regime for N →∞by set-
+ting c ∝N a (0 < a < 1) [31]. In contrast, one recovers
+the dynamics of a fully-connected system in the dense regime
+
+4
+c ∝N (N →∞), for which degree ﬂuctuations are irrele-
+vant.
+In order to determine m(t + 1), we need to ﬁnd the recur-
+rence equation for u(t). Inserting Eq. (16) in the deﬁnition of
+u(t), we obtain
+u(t + 1) =
+PN
+ij=1 Cijmi(t + 1)
+PN
+ij=1 Cij
+.
+(20)
+For large c, we can use Eq. (17) and rewrite u(t+1) as follows
+u(t + 1) =
+PN
+i=1 KiF [βJGiu(t)]
+PN
+i=1 Ki
+.
+(21)
+We see that u(t) is a global observable that weights the lo-
+cal magnetization of each site according to its rescaled degree
+Gi = Ki/c. In the limit c →∞, the above equation is rewrit-
+ten as
+u(t + 1) =
+Z ∞
+0
+dg ν(g) g F [βJgu(t)] .
+(22)
+Equations (19) and (22) describe the nonequilibrium dynam-
+ics of the global magnetization of the Ising model on inﬁnitely
+large random graphs in the high-connectivity limit c →∞.
+This solution is valid for arbitrary distributions ν(g) and µ(ζ).
+In the appendix A, we present a formal derivation of such
+equations by using the generating functional approach pio-
+neered in [45].
+In contrast to fully-connected models, the local magneti-
+zations on heterogeneous random graphs ﬂuctuate from site
+to site. Equation (17) fully characterizes the spatial ﬂuctua-
+tions of mi(t) at any time step t. The probability distribu-
+tion P(m, t) of the local magnetization at time t is determined
+only by ν(g) and by the activation function F(x). By mak-
+ing a simple change of variables, we ﬁnd a formal recurrence
+relation for P(m, t)
+P(m, t + 1) =
+1
+βJu(t)
+dF−1(m)
+dm
+ν
+F−1(m)
+βJu(t)
+
+,
+(23)
+in which F−1(x) is the inverse of F(x) under composition.
+The above equation allows to study the nonequilibrium dy-
+namics of the distribution P(m, t).
+Interestingly, we can also compute the stationary distribu-
+tion
+p∞(σ) ≡lim
+t→∞p(σ, t)
+(24)
+of the spin conﬁgurations in the high-connectivity limit. The
+object p∞(σ) fulﬁlls the self-consistent equation
+p∞(σ) =
+X
+σ′
+W(σ|σ′)p∞(σ′).
+(25)
+Thus, in the stationary regime, σ′ in the local ﬁeld hi(σ′) of
+Eq. (5) is sampled from p∞(σ′). By using the law of large
+numbers, we can write
+hi(σ′) = J
+c
+X
+j∈∂i
+σ′
+j
+c→∞
+−−−→JGiu,
+(26)
+where we have assumed that u(t) evolves to a ﬁxed-point u
+when t →∞. From Eqs. (5) and (26), we conclude that
+W(σ|σ′) becomes independent of σ′ for large c, which im-
+mediately leads to
+p∞(σ) =
+N
+Y
+i=1
+1
+2 [1 + σiF (βJGiu)] .
+(27)
+The above equation describes the stationary distribution of the
+spins for a single realization of the graph in which both c and
+N are very large, but the ratio c/N is vanishing small.
+Equation (27) explicitly depends on the distribution µ of
+the threshold noise by means of F(x).
+For the particular
+choice F(x) = tanh(x), the long-time synchronous dynam-
+ics fulﬁlls detailed balance and Eq.
+(27) corresponds to a
+Boltzmann-like distribution [11, 38], which enables the appli-
+cation of equilibrium statistical mechanics. Indeed, by start-
+ing from the standard form of the equilibrium distribution
+p∞(σ) ∼Q
+i=1 cosh [βhi(σ)] for synchronous dynamics
+[11], one can duplicate the conﬁguration space, apply the law
+of large numbers on the local ﬁelds in the high-connectivity
+limit, and then recover Eq. (27) when F(x) = tanh(x). The
+fact that Eq. (27) is not generally given by a Boltzmann-like
+form strongly indicates that detailed balance breaks down de-
+pending on the choice of F(x) [11].
+We end this section by presenting an useful approxima-
+tion for the interaction matrix of the Ising model on random
+graphs. We note from Eqs. (17) and (21) that the local ﬁeld at
+node i can be written for large c as
+hi [σ(t)] = J
+N
+N
+X
+j=1
+GiGjmj(t).
+(28)
+It follows from Eqs. (2) and (28) that the entries of the original
+adjacency matrix C can be replaced, for large enough c, by the
+effective matrix elements
+Ceﬀ
+ij = c
+N GiGj(i ̸= j).
+(29)
+The above equation provides a practical way to simulate the
+adjacency matrix of the ferromagnetic Ising model on highly-
+connected random graphs with arbitrary degree distributions,
+without having to generate random graph instances using
+more sophisticated algorithms [44, 46]. Equation (29) deﬁnes
+a complete graph that is essentially equivalent to the graph en-
+semble studied in [9]. Below we conﬁrm the exactness of Eq.
+(29) by comparing our theoretical recurrence equation for the
+average magnetization with numerical simulations.
+IV.
+RESULTS
+Equations (22) and (23) describe the dynamics of the Ising
+model on an inﬁnitely large random graph with an arbitrary
+degree distribution ν(g) and for any symmetric distribution
+µ(ζ) of the threshold noise. In this section we present results
+for the stationary and the dynamical critical properties of the
+
+5
+model in the case of a negative binomial degree distribution
+pbin
+k
+= Γ(α + k)
+k!Γ(α)
+ c
+α
+k 
+α
+α + c
+α+k
+,
+(30)
+which is parametrized by 0 < α < ∞and the mean degree c.
+The variance σ2 of pbin
+k
+is given by
+σ2 = c + c2
+α .
+(31)
+We recover the geometric degree distribution [5] and the Pois-
+son degree distribution by setting, respectively, α = 1 and
+α →∞. Given that
+lim
+c→∞
+σ2
+c2 = 1
+α,
+(32)
+the relative variance of pbin
+k
+is controlled only by α in the high-
+connectivity limit, which renders the negative binomial distri-
+bution very convenient to probe the effect of heterogeneous
+degrees on the dynamics. Substituting Eq. (30) in Eq. (18),
+we can ﬁnd the explicit form of ν(g)
+νbin(g) =
+αα
+Γ(α)gα−1e−αg.
+(33)
+In the limit α →∞, the relative variance goes to zero and we
+expect to recover the recurrence equations for the dynamics of
+the Curie-Weiss model [12].
+We will present numerical results for two different distribu-
+tions of the threshold noise
+µh(ζ)= 1
+2
+
+1 −tanh2 (ζ)
+
+,
+(34)
+µa(ζ)=
+1
+2 (1 + ζ2κ)1+ 1
+2κ ,
+(35)
+where κ in µa(ζ) is a positive integer which ensures that the
+symmetry µa(ζ) = µa(−ζ) is preserved. More precisely, we
+will discuss results for κ ∈{1, 2, 3}. The corresponding acti-
+vation functions are given by
+Fh(x) = tanh (x),
+(36)
+Fa(x) =
+x
+(1 + x2κ)
+1
+2κ .
+(37)
+The hyperbolic tangent distribution µh(ζ) has exponen-
+tial tails, while the algebraic distribution µa(ζ) behaves as
+µa(ζ) ∝|ζ|−2κ−1 for |ζ| ≫1. Consequently, the n-th mo-
+ment of µa(ζ) diverges if n ≥2κ. In addition, if the thresh-
+old noise is sampled from µh, the stationary spin conﬁgu-
+rations follow a Boltzmann-like distribution, obtained from
+Eqs. (27) and (36). In contrast, the long-time behavior of
+the system is not described by a Boltzmann-like distribution
+if the threshold noise follows from µa. In this case the sys-
+tem reaches nonequilibrium stationary states and equilibrium
+statistical mechanics is not applicable. Thus, our choices of
+µ allow us to examine how strong ﬂuctuations in the thresh-
+old noise and the concomitant absence of Boltzmann equilib-
+rium impact the dynamics and the stationary states of the Ising
+model.
+A.
+Stationary behavior
+The ﬁxed-point equations of the dynamics are obtained by
+setting limt→∞u(t) = u and limt→∞m(t) = m in Eqs. (19)
+and (22)
+m =
+Z ∞
+0
+dg ν(g) F (βJgu) ,
+(38)
+u =
+Z ∞
+0
+dg ν(g) g F (βJgu) .
+(39)
+The above expressions generalize the standard mean-ﬁeld de-
+scription of the Curie-Weiss model [47]. By setting F(x) =
+Fh(x), we recover the ﬁxed-point equations derived through
+equilibrium statistical mechanics in reference [31].
+Since F(0) = 0, Eqs. (38) and (39) admit a paramagnetic
+solution u = m = 0. By expanding the integrand of Eq. (39)
+up to O(u), we ﬁnd that a nontrivial solution |u| > 0 appears
+below the critical temperature
+Tc = JAµ(1 + ∆2
+ν),
+(40)
+where
+∆2
+ν =
+Z ∞
+0
+dgg2ν(g) −1,
+Aµ = dF
+dx
+
+x=0.
+(41)
+Equation (40) is valid for arbitrary distributions ν(g) and
+µ(ζ), and it shows that the model has a ﬁnite critical tem-
+perature when the variance of ν(g) is ﬁnite [7-9]. The tails
+of µ(ζ) are irrelevant for the critical temperature Tc, which
+depends on µ(ζ) only through its behavior around ζ = 0.
+For ∆2
+ν = 0 and Aµ = 1, we obtain the critical tempera-
+ture Tc = J of the Curie-Weiss model [47]. Regular random
+graphs and Erd¨os-R´enyi random graphs [42] are the most rep-
+resentative homogeneous random graph ensembles for which
+∆2
+ν = 0.
+The system undergoes a continuous transition between the
+ferromagnetic (|m| > 0) and the paramagnetic (m = 0)
+phase at T = Tc. The stationary order-parameter u deter-
+mines the global magnetization m and all moments of the sta-
+tionary distribution P(m) = limt→∞P(m, t) of local mag-
+netizations. For u > 0 (u < 0) the support of P(m) is the
+interval m ∈[0, 1] (m ∈[−1, 0]). By setting |u| ̸= 0, we
+obtain from Eqs. (23), (36), and (37) the corresponding distri-
+butions
+Ph(m) =
+1
+βJ|u|(1 −m2)ν
+tanh−1(m)
+βJu
+
+(42)
+and
+Pa(m) =
+1
+βJ|u|(1 −m2κ)1+ 1
+2κ ν
+"
+m
+βJu (1 −m2κ)
+1
+2κ
+#
+(43)
+for the hyperbolic and the algebraic activation function, re-
+spectively.
+For homogeneous random graphs, in which
+ν(g) = δ(g −1), the above equations yield the δ-distribution
+P(m) = δ (m −F(βJm)).
+
+6
+Figure 1 shows the global magnetization m and the vari-
+ance Var(m) of P(m) as a function of the temperature T for
+the hyperbolic distribution of the threshold noise and different
+values of α, which controls the relative variance of the nega-
+tive binomial degree distribution. The solid lines in ﬁgure 1
+are the theoretical results, obtained from Eqs. (38), (39), and
+(42), while the symbols are numerical simulations of Eq. (1)
+for large random graphs with c = 100. Due to the interplay
+0
+0.2
+0.4
+0.6
+0.8
+1
+0
+0.2
+0.4
+0.6
+0.8
+1
+(a)
+T/Tc
+m
+α →∞
+α = 10
+α = 2.5
+α = 0.625
+0
+0.2
+0.4
+0.6
+0.8
+1
+0
+0.05
+0.1
+0.15
+(b)
+T/Tc
+Var(m)
+FIG. 1. (a) Stationary magnetization m and (b) variance Var(m) of
+the distribution Ph(m) of local magnetizations as a function of the
+rescaled temperature T/Tc (see Eq. (40)) for the hyperbolic tangent
+distribution µh of the threshold noise. The parameter 1/α is the
+relative variance of the negative binomial degree distribution (see Eq.
+(32)). The solid lines follow from the analytic Eqs. (38), (39), and
+(42). The symbols are results obtained from numerical simulations
+of Eq. (1) for N = 104 and mean degree c = 102. The vertical bars
+are the standard deviation calculated from 10 independent runs of the
+simulations. The random graph samples in the numerical simulations
+are generated from Eq. (29).
+between topological and thermal ﬂuctuations, Var(m) is a
+non-monotonic function of T, with a maximum that shifts to-
+wards smaller temperatures for decreasing α. For 0 < α ≪1,
+the degrees are very heterogeneous and a small amount of
+thermal noise leads to strong ﬂuctuations of the local mag-
+netizations. Figure 2 illustrates the typical shape of Ph(m)
+for a negative binomial degree distribution and different tem-
+peratures. Similarly to the distribution of effective ﬁelds cal-
+culated in [31], the distribution Ph(m) exhibits a power-law
+divergence at m = 0 for α < 1, which reﬂects the singular be-
+havior of the rescaled degree distribution ν(g) at g = 0. The
+results in ﬁgures 1 and 2 remain qualitatively the same for the
+algebraic distribution of the threshold noise.
+In the case of the hyperbolic activation function Fh(x), we
+can expand Eqs. (38) and (39) in powers of u for 0 < Tc −
+0
+0.2
+0.4
+0.6
+0.8
+1
+0
+2
+4
+6
+8
+10
+m
+Ph(m)
+T = 0.2Tc
+T = 0.4Tc
+T = 0.6Tc
+T = 0.8Tc
+T = 0.99Tc
+FIG. 2. The stationary distribution Ph(m) of local magnetizations
+inside the ferromagnetic phase of the Ising model on random graphs
+with a negative binomial degree distribution with α = 2.5 (see Eq.
+(32)) and the hyperbolic tangent distribution µh of the threshold
+noise.
+T ≪1 and show that
+m ≃±
+s
+3⟨G2⟩
+⟨G4⟩
+Tc −T
+Tc
+ 1
+2
+,
+(44)
+Var(m) ≃3⟨G2⟩
+⟨G4⟩
+ ⟨G2⟩−1
+ Tc −T
+Tc
+
+,
+(45)
+where ⟨Gn⟩is the n-th moment of the distribution ν(g). Con-
+sistently with previous works [7-9], Eq. (44) shows that m
+exhibits the usual mean-ﬁeld critical scaling when ⟨G4⟩is ﬁ-
+nite. The variance Var(m) vanishes linearly with Tc −T,
+analogously to the variance of the replica-symmetric effective
+ﬁeld distribution of fully-connected spin-glass models [48].
+In the case of the algebraic activation function Fa(x), an
+expansion in powers of u contains diverging coefﬁcients, but
+we can still expand Eqs. (38) and (39) in powers of u2κ and
+derive the asymptotic behaviors
+m ≃±
+ 2κ⟨G2⟩
+⟨G2κ+2⟩
+ 1
+2κ Tc −T
+Tc
+ 1
+2κ
+,
+(46)
+Var(m) ≃
+ 2κ⟨G2⟩
+⟨G2κ+2⟩
+ 1
+κ  ⟨G2⟩−1
+ Tc −T
+Tc
+ 1
+κ
+.
+(47)
+The above equations hold when ⟨G2κ+2⟩is ﬁnite. Remark-
+ably, the critical exponents in Eqs. (46) and (47) are deter-
+mined by the tails of the distribution µa of the threshold noise.
+This is a surprising ﬁnding for a mean-ﬁeld model with long-
+ranged interactions between the spins. Figure 3 compares Eqs.
+(46) and (47) with numerical solutions obtained from Eqs.
+(39) and (43) for different κ. The agreement between the an-
+alytic results for the critical exponents and the numerical data
+is excellent.
+B.
+Dynamical behavior
+The nonequilibrium dynamics of the full distribution
+P(m, t) of local magnetizations is obtained by iterating Eqs.
+
+7
+−12
+−10
+−8
+−6
+−4
+−2
+−7
+−5
+−3
+−1
+(a)
+ln
+
+T−Tc
+Tc
+
+ln(m)
+κ = 1
+κ = 2
+κ = 3
+−12
+−10
+−8
+−6
+−4
+−13
+−11
+−9
+−7
+−5
+(b)
+ln
+
+T−Tc
+Tc
+
+ln [Var(m)]
+FIG. 3. (a) The stationary magnetization m and (b) the variance
+Var(m) of the distribution Pa(m) of local magnetizations as a func-
+tion of the reduced temperature (Tc−T)/Tc (see Eq. (40)) for α = 1
+and the algebraic distribution µa of the threshold noise. The symbols
+are numerical results obtained from Eq. (43), while the dashed lines
+are the analytic expressions of Eqs. (46) and (47).
+(22) and (23) from an initial condition u(0), which is related to
+the local magnetizations m1(0), . . . , mN(0) by means of Eq.
+(20). Throughout this section we consider a homogeneous ini-
+tial condition mi(0) = m(0) (i = 1, . . . , N), which implies
+that u(0) = m(0). Figure 4 compares the iteration of Eqs.
+(19) and (22) for the average magnetization m(t) with numer-
+ical simulations of Eq. (1) inside the ferromagnetic phase,
+conﬁrming the exactness of the theoretical recurrence equa-
+tions for c →∞. The ﬁnite-size simulation results of ﬁgure
+4 converge for t ≫1 to the ﬁxed-point solutions obtained
+from Eqs. (38) and (39). The inset of ﬁgure 4 shows numeri-
+cal simulations on random graphs generated through both the
+conﬁguration model and the effective matrix of Eq. (29) for
+the same system size, conﬁrming that the simulation results
+obtained from each method are approximately the same for
+large values of N and c.
+Now we discuss the nonequilibrium dynamics of m(t) and
+Var [m(t)] at the critical temperature T = Tc. After an ini-
+tial transient that depends on m(0), the average magnetization
+m(t) and the variance Var [m(t)] become independent of the
+initial conditions for large t and they exhibit, respectively, the
+power-law decays
+m(t) ∝1
+tz1
+and
+Var [m(t)] ∝1
+tz2 ,
+(48)
+with dynamical exponents z1 and z2 that only depend on the
+distribution of thresholds. For the algebraic distribution µa(ζ)
+of the threshold noise, the dynamical exponents are given by
+0
+2
+4
+6
+8
+10
+0
+0.1
+0.2
+0.3
+0.4
+t
+m(t)
+κ = 2
+κ = 1
+µh
+0
+5
+10
+0
+0.2
+0.4
+Conﬁguration model
+Equation (29)
+FIG. 4. Dynamics of the average magnetization m(t) inside the fer-
+romagnetic phase of the Ising model on random graphs with a nega-
+tive binomial degree distribution with α = 0.625. The dashed lines
+are derived from Eqs. (19) and (22), while the symbols are numerical
+simulations of Eq. (1) for N = 104 and mean degree c = 100. The
+main panel shows results for the hyperbolic tangent distribution and
+for the algebraic distribution (see Eq. (35)) of the threshold noise
+with temperature T = Tc/2. The random graphs in the numerical
+simulations of the main panel are sampled from Eq. (29). The inset
+compares numerical simulation results obtained from the conﬁgura-
+tion model and from the effective matrix of Eq. (29) for the distribu-
+tion µh. The vertical bars are the standard deviations calculated from
+10 independent simulations.
+z1 = 1/2κ and z2 = 1/κ, where κ controls the power-law
+tails of µa(ζ). Figure 5 illustrates the critical dynamics of
+m(t) and Var [m(t)] for κ = 2. For an hyperbolic tangent
+distribution µh(ζ), the exponents are given by z1 = 1/2 and
+z2 = 1. These are the standard mean-ﬁeld values for the criti-
+cal dynamics of purely dissipative systems (models with non-
+conserved order-parameter) [39, 40]. Note that z1 and z2 have
+the same values as the critical indexes that govern the station-
+ary critical behavior (see Eqs. (44-47)). The inset of ﬁgure
+5-(a) clearly shows that z1 and z2 are independent of the vari-
+ance 1/α of the negative binomial degree distribution.
+Lastly, we investigate how degree ﬂuctuations and the dis-
+tribution of thresholds inﬂuence the dynamics of m(t) inside
+each phase. For an arbitrary initial condition 0 < m(0) < 1,
+the magnetization ﬂows exponentially fast to its stationary
+state m, namely
+|m(t) −m| ∝e−t/τ
+(t ≫1).
+(49)
+Close to a critical point, the relaxation time τ typically be-
+haves as [10]
+τ ∝ξZ,
+(50)
+where ξ is the correlation length and Z deﬁnes a dynami-
+cal exponent. In the homogeneous mean-ﬁeld Ising model,
+the correlation length and the relaxation time diverge, respec-
+tively, as ξ ∝|T −Tc|−1/2 and τ ∝|T −Tc|−1, which implies
+that Z = 2 [10]. Below we examine the critical scaling of τ
+in the present model.
+Figure 6 shows τ(α) as a function of α for T = 2J. As the
+critical value αc is approached from each side of the transi-
+
+8
+104
+105
+106
+0.01
+0.02
+t−1
+4
+(a)
+t
+m(t)
+103
+104
+0.01
+0.1
+104
+105
+106
+0.0001
+0.001
+t−1
+2
+(b)
+t
+Var [m(t)]
+m(0) = 0.03
+m(0) = 0.05
+m(0) = 0.2
+FIG. 5. (a) Dynamics of the global magnetization m(t) and of the
+(b) variance Var [m(t)] of the distribution of local magnetizations
+at the critical temperature T = Tc. The degrees follow a negative
+binomial degree distribution with relative variance 1/α. The main
+panels show results for α = 1, different initial conditions m(0),
+and for the algebraic distribution µa(ζ) of the threshold noise with
+κ = 2. The inset in ﬁgure (a) illustrates the long-time power-law
+decay of m(t) for m(0) = 0.4 and different α (the other parameters
+are the same as in the main panels): α = 2 (⋄), α = 1 (×), and
+α = 0.5 (+).
+tion, the relaxation time diverges as τ(α) ∝|α −αc|−1, inde-
+pendently of the distribution of thresholds. For ﬁxed α, τ(T)
+also diverges as τ(T) ∝|T −Tc|−1, regardless the shape of
+µ(ζ). Thus, it is reasonable to conclude that Z = 2 in the
+present model, independently of the degree distribution and
+of the distribution of thresholds.
+V.
+FINAL REMARKS
+We have presented an exact solution for the dynamics of
+the Ising model on highly-connected random graphs with an
+arbitrary degree distribution. The spins are updated in par-
+allel according to a stochastic dynamical rule which depends
+on a threshold noise that emulates the contact of the system
+with a thermal bath. For certain choices of the distribution of
+thresholds, the microscopic stationary states of the dynamics
+do not follow the Boltzmann distribution, which rules out the
+application of equilibrium statistical mechanics.
+The solution of the model is given in terms of a general
+dynamical equation for the distribution of local magnetiza-
+tions, which encapsulates all information about the effect of
+both degree and threshold ﬂuctuations in the behavior of the
+10−3
+10−2
+10−1
+100
+100
+101
+102
+103
+|α −αc|−1
+(a)
+αc −α
+τ
+µh
+κ = 1
+κ = 2
+10−3
+10−2
+10−1
+100
+100
+101
+102
+103
+|α −αc|−1
+(b)
+α −αc
+τ
+FIG. 6. Relaxation time τ of the average magnetization as a function
+of α for ﬁxed temperature T = 2J, approaching the critical value
+αc = 1 (see Eq. (40)) from the (a) ferromagnetic and from the (b)
+paramagnetic phase. The quantity 1/α is the relative variance of the
+negative binomial degree distribution. Each data point is obtained by
+ﬁtting the long-time dynamics of m(t), derived from the recurrence
+Eqs. (19) and (22), with the exponential function of Eq. (49).
+system. The theoretical results for the stationary as well as
+for the nonequilibrium dynamics of the average magnetiza-
+tion have been validated by numerical simulations of the mi-
+croscopic dynamics. In addition, our numerical simulations
+have conﬁrmed that the interaction matrix of the Ising model
+on graphs sampled from the conﬁguration model converges
+to the suitable matrix decomposition of Eq. (29) in the high-
+connectivity limit. This equation enables to simulate the Ising
+model on networks with an arbitrary degree distribution with-
+out resorting to more sophisticated algorithms to sample graph
+instances [44]. We have shown that the model undergoes a
+continuous transition between a paramagnetic and a ferromag-
+netic phase.
+We have presented results for random graphs with a
+negative binomial degree distribution, in which the high-
+connectivity limit is solely parameterized by the variance of
+the rescaled degrees. In particular, we have focused on the
+critical exponents that characterize the stationary critical be-
+havior and the long-time critical dynamics of the mean and
+the variance of the local magnetizations. Our main result is
+to show that these critical exponents depend on the distribu-
+tion of the threshold noise. If the distribution of thresholds is
+such that the model evolves to equilibrium states, then both
+exponents assume their standard mean-ﬁeld values [10]. In
+contrast, if the distribution of thresholds is such that the sta-
+tionary states do not follow the Boltzmann distribution, then
+the aforementioned critical exponents may depend on the ﬂuc-
+tuations of the threshold noise. Remarkably, in the case of
+an algebraic threshold noise both critical exponents are deter-
+mined by the power-law tails of the distribution of thresholds.
+
+9
+In addition, we have shown that the dynamical exponent for
+the relaxation time of the average magnetization inside each
+phase always assumes its standard mean-ﬁeld value, regard-
+less the distribution of the threshold noise. Overall, our results
+show that the details of the microscopic dynamics and the ab-
+sence of detailed balance are relevant factors in determining
+the universality classes of spin models, in line with the critical
+properties of other nonequilibrium systems [10]. Still, the fact
+that the critical properties of the global magnetization do not
+belong to the mean-ﬁeld universality class is somewhat sur-
+prising, given that random graphs can be seen as the inﬁnite
+dimensional, mean-ﬁeld limit of ﬁnite-dimensional lattices.
+Although the values of all critical exponents studied here
+are independent of the degree ﬂuctuations, we point out that
+all moments of the negative binomial degree distribution are
+ﬁnite. It is well established that, in the case of scale-free net-
+works, the equilibrium critical scaling of the magnetization
+depends on the power-law decay of the degree distribution [9]
+when its fourth moment diverges. In this respect, it would
+be very interesting to consider the nonequilibrium dynam-
+ics of the Ising model on scale-free networks and understand
+whether strong degree heterogeneities are able to modify the
+dynamical exponents of spin models.
+The probabilistic approach discussed here is general
+enough that it can be adapted to study the parallel as well as
+the sequential dynamics of other agent-based models of inter-
+acting binary variables on undirected networks [3, 13, 36, 37].
+For sequential dynamics, in which a single spin is updated at
+each time step, there is an extra critical index that describes the
+short-time, non-monotonic critical dynamics of spin models
+[39, 49]. Our work paves the way to understand whether net-
+work heterogeneities change this critical exponent in mean-
+ﬁeld models. We leave this and other aforementioned prob-
+lems as interesting perspectives of future works.
+ACKNOWLEDGMENTS
+L. S. F. acknowledges a fellowship from CAPES/Brazil (ﬁ-
+nance code 001). F. L. M. thanks CNPq/Brazil for ﬁnancial
+support.
+Appendix A: Solution via the generating functional approach
+In this appendix we present a more rigorous derivation of
+Eqs. (19) and (22) based on the generating functional ap-
+proach [12, 45]. The time-dependent local ﬁeld is deﬁned by
+Eq. (2). We assume that the entries Cij of the adjacency ma-
+trix C are generated according to
+Cij = c
+N GiGj(1 −δij),
+(A1)
+where G1, . . . , GN are independent random variables drawn
+from the rescaled degree distribution ν(g). The above effec-
+tive matrix C has been put forward in section III based on the
+asymptotic form of the local ﬁeld for c →∞. Here we take
+Eq. (A1) as the deﬁnition of the adjacency matrix elements
+and the starting point of our derivations, from which we will
+re-obtain the recurrence equation for the magnetization. The
+calculations in this appendix further conﬁrm that Eq. (A1) is
+the correct form of C for c →∞.
+Our aim is to compute the disorder averaged generating
+functional
+Z[ψ] =
+X
+σ(0),...,σ(t)
+exp
+
+−i
+t
+X
+s=0
+N
+X
+j=1
+ψj(s)σj(s)
+
+
+× p0(σ(0))
+*t−1
+Y
+s=0
+W [σ(s + 1)|σ(s)]
++
+{Gi}
+, (A2)
+where p0(σ(0)) is the probability distribution of the initial
+state and ⟨(. . . )⟩{Gi} represents the average over the rescaled
+degrees G1, . . . , GN. The derivatives of Z[ψ] with respect
+to the auxiliary ﬁelds {ψi(t)} yield all moments of the spin
+variables. For instance, the magnetization follows from
+m(t) = lim
+N→∞
+i
+N
+N
+X
+i=1
+δZ
+δψi(t)
+
+ψ=0
+,
+(A3)
+where the shorthand notation ψ = 0 means that ψj(s) = 0 for
+any j = 1, . . . , N and s = 0, . . . , t.
+By substituting Eq. (5) in Eq. (A2), we can rewrite Z[ψ]
+as follows
+Z[ψ] =
+X
+σ(0),...,σ(t)
+p0(σ(0)) e
+−i
+t
+P
+s=0
+N
+P
+j=1
+ψj(s)σj(s)
+×
+Z
+R
+
+
+N
+Y
+j=1
+t−1
+Y
+s=0
+dhj(s)dˆhj(s)
+4π
+[1 + σj(s + 1)F (βhj(s))]
+
+
+× e
+i
+N
+P
+j=1
+t−1
+P
+s=0
+hj(s)ˆhj(s) *
+e
+−iJ
+N
+t−1
+P
+s=0
+N
+P
+jk=1
+GjGkˆhj(s)σk(s)+
+{Gi}
+,
+(A4)
+in which the integration variables {hj(s), ˆhj(s)} have been
+introduced through Dirac δ-functions [12]. In order to per-
+form the average over G1, . . . , GN, we need to decouple sites
+in the exponent of the above equation, which is achieved by
+inserting the macroscopic order-parameters
+u(s) = 1
+N
+N
+X
+i=1
+Giσi(s)
+and
+v(s) = 1
+N
+N
+X
+i=1
+Giˆhi(s)
+via Dirac δ-functions that enforce the above deﬁnitions.
+Moreover, by assuming that the initial states of the spins are
+independent, p0(σ(0)) = QN
+i=1 p0(σi(0)), the computation
+
+10
+of Z[ψ] can be recast in terms of the calculation of an in-
+tegral over the order-parameters and its conjugate variables
+{ˆu(s), ˆv(s)}, namely
+Z[ψ] =
+Z
+R
+ t−1
+Y
+s=0
+N 2du(s)dv(s)dˆu(s)dˆv(s)
+4π2
+!
+eNΦ[u,v,ˆu,ˆv].
+(A5)
+The functional Φ[u, v, ˆu, ˆv] is given by
+Φ[u, v, ˆu, ˆv] = i
+t−1
+X
+s=0
+[u(s)ˆu(s) + v(s)ˆv(s) −Ju(s)v(s)]
++ 1
+N
+N
+X
+j=1
+ln
+( X
+⃗σ
+Z
+R
+d⃗hd⃗ˆh
+(2π)t e
+−i
+t
+P
+s=0
+ψj(s)σ(s)
+×
+D
+MG
+
+⃗h,⃗ˆh,⃗σ
+E
+G
+)
+,
+(A6)
+where d⃗hd⃗ˆh =
+t−1
+Q
+s=0
+dh(s)dˆh(s) and
+MG
+
+⃗h,⃗ˆh,⃗σ
+
+= p0(σ(0))
+t−1
+Y
+s=0
+1
+2 [1 + σ(s + 1)F (βh(s))]
+e
+i
+t−1
+P
+s=0
+h(s)ˆh(s)−iG
+t−1
+P
+s=0
+ˆu(s)σ(s)−iG
+t−1
+P
+s=0
+ˆv(s)ˆh(s)
+.
+(A7)
+Note that we have deﬁned the vectors ⃗σ = (σ(0), . . . , σ(t))T ,
+⃗h = (h(0), . . . , h(t −1))T , and ⃗ˆh = (ˆh(0), . . . , ˆh(t −1))T ,
+which reﬂects the reduction of the computation of Z[ψ] to an
+effective single-spin problem.
+In the limit N →∞, the integral in Eq. (A5) is solved by
+the saddle-point method and the generating functional reads
+Z[ψ] ≃exp (NΦ∗[u, v, ˆu, ˆv]),
+(A8)
+where Φ∗[u, v, ˆu, ˆv] is the stationary value of Φ. By deriving
+the functional Φ[u, v, ˆu, ˆv] with respect to its arguments and
+then setting ψ = 0, we obtain the saddle-point equations for
+the order-parameters and their conjugate variables,
+ˆu(l) = Jv(l),
+(A9)
+ˆv(l) = Ju(l),
+(A10)
+u(l) =
+P
+⃗σ
+R
+R d⃗hd⃗ˆh σ(l)
+D
+GMG
+
+⃗h,⃗ˆh,⃗σ
+E
+G
+P
+⃗σ
+R
+R d⃗hd⃗ˆh
+D
+MG
+
+⃗h,⃗ˆh,⃗σ
+E
+G
+,
+(A11)
+v(l) =
+P
+⃗σ
+R
+R d⃗hd⃗ˆh ˆh(l)
+D
+GMG
+
+⃗h,⃗ˆh,⃗σ
+E
+G
+P
+⃗σ
+R
+R d⃗hd⃗ˆh
+D
+MG
+
+⃗h,⃗ˆh,⃗σ
+E
+G
+,
+(A12)
+which give the arguments of Φ∗[u, v, ˆu, ˆv]. The magnetization
+m(t) =
+P
+⃗σ
+R
+R d⃗hd⃗ˆh σ(t)
+D
+MG
+
+⃗h,⃗ˆh,⃗σ
+E
+G
+P
+⃗σ
+R
+R d⃗hd⃗ˆh
+D
+MG
+
+⃗h,⃗ˆh,⃗σ
+E
+G
+(A13)
+is obtained from Eqs. (A3) and (A8).
+The last step consists in simplifying the saddle-point equa-
+tions. By adding a term of the form Gjθj(s) to the local ﬁeld,
+Eq. (2), and then performing the same calculation that led us
+to the above saddle-point integral, one ﬁnds that the single-site
+conjugate ﬁelds {ˆh(s)} couple to the external ﬁelds {θj(s)}
+in such a way that the order-parameter v(s) can be written
+in terms of the derivatives
+δZ
+δθj(s)
+
+ψ=0. Combining this fact
+with the normalization property Z[0] = 1, one can show that
+v(s) = 0 ∀s, which leads to the following expression for the
+magnetization
+m(t) =
+Z
+R
+d⃗hd⃗ˆh
+(2π)t
+*
+e
+i
+t−1
+P
+s=0
+ˆh(s)[h(s)−GJu(s)]
++
+G
+×
+X
+⃗σ
+p0(σ(0))σ(t)
+t−1
+Y
+s=0
+1
+2 [1 + σ(s + 1)F (βh(s))]
+(A14)
+and for the order-parameter u(t)
+u(t) =
+Z
+R
+d⃗hd⃗ˆh
+(2π)t
+*
+G e
+i
+t−1
+P
+s=0
+ˆh(s)[h(s)−GJu(s)]
++
+G
+×
+X
+⃗σ
+p0(σ(0))σ(t)
+t−1
+Y
+s=0
+1
+2 [1 + σ(s + 1)F (βh(s))] .
+(A15)
+Recalling that the random variable G follows from the distri-
+bution ν(g), it is straightforward to recover Eqs. (19) and (22)
+by performing the sum over ⃗σ and the integrals over the ﬁelds
+in the above expressions.
+[1] S. N. Dorogovtsev, A. V. Goltsev, and J. F. F. Mendes, "Critical
+phenomena in complex networks," Rev. Mod. Phys. 80, 1275-
+1335 (2008).
+
+11
+[2] A. Barrat, M. Barth´elemy,
+and A. Vespignani, Dynamical
+Processes on Complex Networks (Cambridge University Press,
+2008).
+[3] Claudio Castellano, Santo Fortunato, and Vittorio Loreto, "Sta-
+tistical physics of social dynamics," Rev. Mod. Phys. 81, 591
+(2009).
+[4] M. M´ezard and A. Montanari, Information, Physics, and Com-
+putation (Oxford University Press, 2009).
+[5] M. E. J. Newman, S. H. Strogatz,
+and D. J. Watts, "Ran-
+dom graphs with arbitrary degree distributions and their appli-
+cations," Phys. Rev. E 64, 026118 (2001).
+[6] J. Cardy, P. Goddard,
+and J. Yeomans, Scaling and Renor-
+malization in Statistical Physics, Cambridge Lecture Notes in
+Physics (Cambridge University Press, 1996).
+[7] M. Leone, A. V´azquez, A. Vespignani, and R. Zecchina, "Fer-
+romagnetic ordering in graphs with arbitrary degree distribu-
+tion," Eur. Phys. J. B 28, 191 (2002).
+[8] S. N. Dorogovtsev, A. V. Goltsev, and J. F. F. Mendes, "Ising
+model on networks with an arbitrary distribution of connec-
+tions," Phys. Rev. E 66, 016104 (2002).
+[9] S. Dommers, C. Giardin`a, C. Giberti, R. van der Hofstad, and
+M. L. Prioriello, "Ising critical behavior of inhomogeneous
+curie-weiss models and annealed random graphs," Commun.
+Math. Phys. 348, 221 (2016).
+[10] G´eza ´Odor, "Universality classes in nonequilibrium lattice sys-
+tems," Rev. Mod. Phys. 76, 663-724 (2004).
+[11] A.C.C. Coolen, "Chapter 14 statistical mechanics of recurrent
+neural networks i—statics," in Neuro-Informatics and Neural
+Modelling, Handbook of Biological Physics, Vol. 4, edited by
+F. Moss and S. Gielen (North-Holland, 2001) p. 553.
+[12] A.C.C. Coolen, "Chapter 15 statistical mechanics of recurrent
+neural networks ii — dynamics," in Neuro-Informatics and
+Neural Modelling, Handbook of Biological Physics, Vol. 4,
+edited by F. Moss and S. Gielen (North-Holland, 2001) p. 619.
+[13] Giuseppe Torrisi, Reimer K¨uhn, and Alessia Annibale, "Un-
+covering the non-equilibrium stationary properties in sparse
+boolean networks," Journal of Statistical Mechanics: Theory
+and Experiment 2022, 053303 (2022).
+[14] J P L Hatchett, B Wemmenhove, I P´erez Castillo, T Nikole-
+topoulos, N S Skantzos, and A C C Coolen, "Parallel dynamics
+of disordered ising spin systems on ﬁnitely connected random
+graphs," Journal of Physics A: Mathematical and General 37,
+6201 (2004).
+[15] Kazushi Mimura and A C C Coolen, "Parallel dynamics of
+disordered ising spin systems on ﬁnitely connected directed
+random graphs with arbitrary degree distributions," Journal of
+Physics A: Mathematical and Theoretical 42, 415001 (2009).
+[16] I Neri and D Boll´e, "The cavity approach to parallel dynam-
+ics of ising spins on a graph," Journal of Statistical Mechanics:
+Theory and Experiment 2009, P08009 (2009).
+[17] A. Mozeika and A. C. C. Coolen, "Dynamical replica analy-
+sis of processes on ﬁnitely connected random graphs: I. vertex
+covering," Journal of Physics A: Mathematical and Theoretical
+41, 115003 (2008).
+[18] F L Metz and W K Theumann, "Instability of frozen-in states
+in synchronous hebbian neural networks," Journal of Physics A:
+Mathematical and Theoretical 41, 265001 (2008).
+[19] Gino Del Ferraro and Erik Aurell, "Dynamic message-passing
+approach for kinetic spin models with reversible dynamics,"
+Phys. Rev. E 92, 010102 (2015).
+[20] E. Aurell, G. Del Ferraro, E. Dom´ınguez,
+and R. Mulet,
+"Cavity master equation for the continuous time dynamics of
+discrete-spin models," Phys. Rev. E 95, 052119 (2017).
+[21] Yasser Roudi and John Hertz, "Mean ﬁeld theory for nonequi-
+librium network reconstruction," Phys. Rev. Lett. 106, 048702
+(2011).
+[22] Yasser Roudi and John Hertz, "Dynamical tap equations for
+non-equilibrium ising spin glasses," Journal of Statistical Me-
+chanics: Theory and Experiment 2011, P03031 (2011).
+[23] Erik Aurell and Hamed Mahmoudi, "Dynamic mean-ﬁeld and
+cavity methods for diluted ising systems," Phys. Rev. E 85,
+031119 (2012).
+[24] A. Pelizzola, "Variational approximations for stationary states
+of ising-like models," Eur. Phys. J. B 86, 120 (2013).
+[25] Eduardo Dom´ınguez V´azquez, Gino Del Ferraro, and Federico
+Ricci-Tersenghi, "A simple analytical description of the non-
+stationary dynamics in ising spin systems," Journal of Statistical
+Mechanics: Theory and Experiment 2017, 033303 (2017).
+[26] B. Derrida, E. Gardner, and A. Zippelius, "An exactly solvable
+asymmetric neural network model," Europhysics Letters 4, 167
+(1987).
+[27] M. M´ezard and G. Parisi, "The bethe lattice spin glass revis-
+ited," Eur. Phys. J. B 20, 217 (2001).
+[28] M. M´ezard and G. Parisi, "The cavity method at zero tempera-
+ture," J. Stat. Phys. 111, 1 (2003).
+[29] Fernando L. Metz and Jeferson D. Silva, "Spectral density of
+dense random networks and the breakdown of the wigner semi-
+circle law," Phys. Rev. Research 2, 043116 (2020).
+[30] Jeferson D. Silva and Fernando L. Metz, "Analytic solution of
+the resolvent equations for heterogeneous random graphs: spec-
+tral and localization properties," (2022).
+[31] Fernando L Metz and Thomas Peron, "Mean-ﬁeld theory of
+vector spin models on networks with arbitrary degree distribu-
+tions," Journal of Physics: Complexity 3, 015008 (2022).
+[32] Yashodhan Kanoria and Andrea Montanari, "Majority dynam-
+ics on trees and the dynamic cavity method," The Annals of
+Applied Probability 21, 1694 - 1748 (2011).
+[33] James Holehouse and Jos´e Moran, "Exact time-dependent dy-
+namics of discrete binary choice models," Journal of Physics:
+Complexity 3, 035005 (2022).
+[34] S.A. Kauffman, "Metabolic stability and epigenesis in ran-
+domly constructed genetic nets," Journal of Theoretical Biology
+22, 437-467 (1969).
+[35] Alexander Mozeika and David Saad, "Dynamics of boolean
+networks: An exact solution," Phys. Rev. Lett. 106, 214101
+(2011).
+[36] Christian John Hurry, Alexander Mozeika, and Alessia Anni-
+bale, "Dynamics of sparse boolean networks with multi-node
+and self-interactions," Journal of Physics A: Mathematical and
+Theoretical 55, 415003 (2022).
+[37] Jean-Philippe
+Bouchaud,
+"Crises
+and
+collective
+socio-
+economic phenomena: Simple models and challenges," J. Stat.
+Phys. 151, 567 (2013).
+[38] P. Peretto, "Collective properties of neural networks: A statisti-
+cal physics approach," Biol. Cybern. 50, 51 (1984).
+[39] H.K. Janssen, B. Schaub, and B. Schmittmann, "New universal
+short-time scaling behaviour of critical relaxation processes," Z.
+Physik B 73, 539 (1989).
+[40] Pasquale Calabrese and Andrea Gambassi, "Ageing properties
+of critical systems," Journal of Physics A: Mathematical and
+General 38, R133 (2005).
+[41] L.Ts. Adzhemyan, D.A. Evdokimov, M. Hnatiˇc, E.V. Ivanova,
+M.V. Kompaniets, A. Kudlis,
+and D.V. Zakharov, "The dy-
+namic critical exponent z for 2d and 3d ising models from ﬁve-
+loop epsilon expansion," Physics Letters A 425, 127870 (2022).
+[42] B. Bollob´as, Random Graphs, Cambridge Studies in Advanced
+Mathematics (Cambridge University Press, 2001).
+[43] Michael Molloy and Bruce Reed, "A critical point for random
+
+12
+graphs with a given degree sequence," Random Structures &
+Algorithms 6, 161 (1995).
+[44] Bailey K. Fosdick, Daniel B. Larremore, Joel Nishimura, and
+Johan Ugander, "Conﬁguring random graph models with ﬁxed
+degree sequences," SIAM Review 60, 315 (2018).
+[45] P. C. Martin, E. D. Siggia, and H. A. Rose, "Statistical dynam-
+ics of classical systems," Phys. Rev. A 8, 423 (1973).
+[46] A.C.C. Coolen, A. Annibale, and E. Roberts, Generating Ran-
+dom Networks and Graphs (Oxford University Press, 2017).
+[47] M Kochma´nski, T Paszkiewicz, and S Wolski, "Curie-weiss
+magnet—a simple model of phase transition," European Journal
+of Physics 34, 1555 (2013).
+[48] David Sherrington and Scott Kirkpatrick, "Solvable model of a
+spin-glass," Phys. Rev. Lett. 35, 1792 (1975).
+[49] Celia Anteneodo, Ezequiel E Ferrero, and Sergio A Cannas,
+"Short-time dynamics of ﬁnite-size mean-ﬁeld systems," Jour-
+nal of Statistical Mechanics: Theory and Experiment 2010,
+P07026 (2010).
+

@@ -1,0 +1,1123 @@
+Article
+https://doi.org/10.1038/s41467-025-61651-y
+Topology meets time-reversal symmetry
+breaking in FeSe1−xTex superconductors
+Masaki Roppongi
+1,12
+, Yipeng Cai2,3, Koki Ogawa1, Supeng Liu1,
+Guoqiang Zhao
+4, Mohamed Oudah
+2,3, Takenori Fujii
+5, Kumpei Imamura1,
+Shengjie Fang1, Kota Ishihara
+1, Kenichiro Hashimoto
+1, Kohei Matsuura6,
+Yuta Mizukami
+7, Mathew Pula8, Cyrus Young
+3, Igor Marković
+2,3,
+Douglas A. Bonn
+2,3, Takao Watanabe
+9, Aichi Yamashita10,
+Yoshikazu Mizuguchi
+10, Graeme M. Luke
+8, Kenji M. Kojima
+2,3,
+Yasutomo J. Uemura
+11
+& Tasakada Shibauchi
+1
+Time-reversal symmetry breaking (TRSB) in magnetic topological insulators
+induces a Dirac gap in the topological surface state (TSS), leading to exotic
+phenomena such as the quantum anomalous Hall effect. Yet, the interplay
+between TRSB and topology in superconductors remains underexplored due
+to limited suitable materials. Here we employ zero-ﬁeld muon spin relaxation
+(μSR) as a sensitive probe of TRSB to map out the electronic phase diagrams of
+iron-chalcogenide superconductors FeSe1−xTex. For the Te composition
+x = 0.64 with the highest superconducting transition temperature Tc = 14.5 K,
+which is known to host a TSS and Majorana zero modes within vortices, we
+detect spontaneous magnetic ﬁelds below Tc distinct from a magnetic order.
+This signiﬁes a TRSB superconducting state in the bulk, revealing the con-
+vergence of unconventional TRSB superconductivity with topologically non-
+trivial electronic structures in FeSe1−xTex. Given the relatively high Tc and the
+tunability of the Fermi level through chemical substitution, iron-chalcogenide
+superconductors offer an intriguing platform for investigating the synergy
+between topological superconductivity and TRSB.
+Symmetry breaking and topology are key concepts describing the
+electronic states in quantum materials. In topological insulators
+(TIs), the insulating band gap in the bulk is required to be closed at
+the surface, leading to the gapless Dirac-cone dispersion (Fig. 1a),
+which is protected by time-reversal symmetry (TRS). In magnetic
+TIs, however, broken TRS leads to the opening of a gap in the
+TSS Dirac dispersion, as schematically shown in Fig. 1b1,2. With this
+Dirac gap, magnetic TIs with TRSB exhibit one-dimensional gapless
+chiral channels in the edges of top and bottom surfaces, leading to
+a quantum anomalous Hall insulator state or an axion insulator
+state
+depending
+on
+the
+absence
+or
+presence
+of
+inversion
+symmetry3.
+Received: 7 August 2024
+Accepted: 27 June 2025
+Check for updates
+1Department of Advanced Materials Science, University of Tokyo, Kashiwa, Chiba 277-8561, Japan. 2Stewart Blusson Quantum Matter Institute, University of
+British Columbia, Vancouver, British Columbia V6T 1Z4, Canada. 3Department of Physics and Astronomy, University of British Columbia, Vancouver V6T 1Z1,
+Canada. 4Kavli Institute for Theoretical Sciences, University of Chinese Academy of Sciences, Beijing 101408, China. 5Cryogenic Research Center, University
+of Tokyo, Bunkyo-ku, Tokyo 113-0032, Japan. 6Department of Applied Physics, University of Tokyo, Bunkyo-ku, Tokyo 113-8656, Japan. 7Department of Physics,
+Tohoku University, Sendai 980-8578, Japan. 8Department of Physics and Astronomy, McMaster University, Hamilton, Ontario L8S 4M1, Canada. 9Graduate
+School of Science and Technology, Hirosaki University, Hirosaki, Aomori 036-8561, Japan. 10Department of Physics, Tokyo Metropolitan University, Hachioji
+192-0397, Japan. 11Department of Physics, Columbia University, New York, NY 10027, US. 12Present address: RIKEN Center for Quantum Computing, 2-1
+Hirosawa, Wako-shi, Saitama 351-0198, Japan.
+e-mail: masaki.roppongi@riken.jp; yu2@columbia.edu; shibauchi@k.u-tokyo.ac.jp
+Nature Communications|        (2025) 16:6573 
+1
+1234567890():,;
+1234567890():,;
+
+Much less understood is the case for topological super-
+conductivity. Enormous efforts have been devoted to the search for
+the Majorana bound states using several superconductors with topo-
+logically nontrivial order parameters or proximity-induced super-
+conductivity
+in
+topological
+materials4-6,
+but
+the
+results
+and
+interpretations remain largely controversial. Another promising
+approach is to focus on bulk superconductors with topologically
+nontrivial electronic structures in the normal state7-14. Among others,
+the most signiﬁcant Majorana evidence has been obtained in the iron-
+based superconductors FeSe1−xTex, which exhibit high Tc up to ~30 K
+under pressure15 and high critical ﬁelds up to ~ 50 T16. In FeSe-based
+superconductors17, the partial substitution of Se with Te shifts down
+the chalcogen p band toward the Fermi level, making the topological
+band inversion along Γ −Z direction of the Brillouin zone. Indeed, this
+results in the observation of a Dirac TSS in FeSe1−xTex (x = 0.55)9,18, and
+thus this system exhibits both bulk superconductivity and a topolo-
+gical electronic structure. Moreover, clear zero-bias conductance
+peaks in the fraction of superconducting vortices have been observed
+by the high-resolution scanning tunneling spectroscopy11, which can
+be reproduced by considering the Majorana bands and disordered
+vortex distribution19. These results make FeSe1−xTex a strong candidate
+for topological superconductors. When TRS is broken in such a
+topological superconducting state, the Dirac gap is formed (Fig. 1c,d),
+which can lead to exotic properties such as chiral edge modes and
+possibly non-Abelian statistics5.
+To discuss the nature of superconductivity in FeSe1−xTex, let us
+start with the underlying general phase diagrams of the FeSe-based
+superconductors. Pure FeSe (x = 0) exhibits a nonmagnetic elec-
+tronic nematic order, which can be suppressed by isovalent S or Te
+substitution for Se20,21. In FeSe1−xSx, recent μSR measurements
+reported evidence for TRSB in the superconducting state both in the
+nematic (x < 0.17) and tetragonal (x > 0.17) regimes22. It has been
+proposed that the TRSB superconductivity in the nematic phase of
+FeSe1−xSx can be realized in an s + eiθd-wave state with the phase θ
+changing from ~ 0 to ~ π near the nematic twin boundary22-25. In the
+tetragonal phase, an anomalously large residual density of states in
+the superconducting state has been observed22,26-28 in addition to
+TRSB, which is consistent with an ultranodal state with Bogoliubov
+Fermi surfaces29. In FeSe1−xTex, Tc initially decreases to a minimum
+(Tc ~ 7 K) at x ~ 0.3, then rises again, reaching the maximum
+Tc ~ 14.5 K near a nematic quantum critical point at x ~ 0.5, where
+nematicity is completely suppressed15,21. By combining the phase
+diagrams of FeSe1−xSx and FeSe1−xTex, it has been discussed that
+these FeSe-based materials have three different superconducting
+(SC) phases; SC1 phase in tetragonal FeSe1−xSx (x > 0.17), SC2 phase
+showing
+the
+ﬁrst
+dome
+connecting
+FeSe1−xSx
+(x < 0.17)
+and
+FeSe1−xTex (x ≲0.3), and SC3 phase showing the second dome in
+FeSe1−xTex (x ≳0.3)21. In this series, only the SC3 phase with the
+highest Tc maximum includes the topological region30. As the TRSB
+superconductivity has been reported by μSR measurements in SC1
+and SC2 phases, here we perform the μSR measurements for 5 dif-
+ferent compositions in SC3 phase; x ~ 0.35(5) within the nematic
+regime, x = 0.64(2), 0.75(1), 0.83(1), and 0.94(1) in the tetragonal
+regime (see Supplementary Information). We use collections of
+single crystals prepared by chemical vapor transport (CVT) (x ~ 0.35)
+and by Bridgman method with Te-annealing (x ≥0.64) (see Meth-
+ods). It has been previously reported that low Te-substituted sam-
+ples synthesized by CVT do not have excess irons15. In high-
+concentration samples synthesized by the Bridgman method,
+excess iron can be sufﬁciently removed by Te annealing31-33. Indeed,
+in our measured samples, no signiﬁcant effects of excess irons on
+the temperature dependence of magnetization and resistivity were
+observed at least for samples with x ≤0.75 (see Supplementary
+Information). Here we note that the end material FeTe (x = 1) exhi-
+bits a long-range antiferromagnetic (AFM) order of double stripe-
+type, which suppresses bulk superconductivity34. Thus, the effect of
+spin ﬂuctuations of this order should be considered for large x
+regions. Moreover, recent experiments such as surface-sensitive
+photoemission and Kerr effect30,35,36, diamond magnetometry37, as
+well as scanning superconducting quantum interference device
+(SQUID) microscopy and Josephson junctions using ﬂakes38,39 have
+suggested the emergence of spontaneous ferromagnetism at the
+surfaces or interfaces of FeSe1−xTex in the topological region. To
+elucidate the nature of the superconducting state, it is essential to
+investigate the bulk state of FeSe1−xTex from the μSR measurements.
+Results
+TRSB can be effectively studied by zero-ﬁeld (ZF) μSR, which detects
+the magnetic ﬁeld inside the bulk of samples with high sensitivity in the
+absence of external ﬁeld22,40. In the TRSB superconducting state, a
+small magnetic ﬁeld can be induced near defects or boundaries of the
+TRSB domains41, which enhances the relaxation rate of the ZF-μSR
+asymmetry spectrum. Figure 2a-d show the results of ZF-μSR mea-
+sured for the collections of single crystals of FeSe1−xTex in the nematic
+phase (x ~ 0.35) and tetragonal phase (x = 0.64, 0.75 and 0.83). For
+x ~ 0.35 (Tc ~ 8 K) and x = 0.64 (Tc = 14.5 K), the ZF-μSR asymmetry
+spectra in the superconducting state (T < Tc) shows faster relaxation
+than that in the normal state (T > Tc) (Fig. 2a, b). We ﬁt these asym-
+metry spectra using the stretched and simple exponential functions (as
+described in Supplementary Information). The temperature depen-
+dence of the relaxation rate obtained from the ﬁttings is shown in
+Fig. 2e, f. The temperature-independent relaxation observed in the
+normal state can be attributed to randomly aligned nuclear magnetic
+moments, ﬂuctuating at a rate slower than the μSR timescale. An
+important observation is that the relaxation rates are enhanced in the
+superconducting state for both non-spin-rotated (NSR) and spin-
+rotated (SR) conﬁguration modes, indicating the emergence of mag-
+netic ﬁelds in the superconducting state. We also ﬁnd that the tem-
+perature dependence of the relaxation rate in ZF-μSR is similar to that
+in transverse ﬁeld (TF) measurements (see Fig. S5), which represents
+the temperature dependence of the superﬂuid density (an order
+parameter of superconductivity). Moreover, under a longitudinal ﬁeld
+(LF) of 100 G (x ~ 0.35) or 200 G (x = 0.64), we ﬁnd that the relaxation
+rate is much suppressed and its temperature dependence becomes
+weaker than the ZF results (Fig. 2e, f). Such a suppression of the LF
+relaxation is due to the muons being decoupled from the internal ﬁeld
+by the weak LF, implying that the enhancement of relaxation observed
+in ZF-μSR is due to a static ﬁeld rather than a dynamic one. These
+ﬁndings indicate that TRS is broken in the superconducting state in the
+bulk below an onset temperature TTRSB ( ≲Tc) in these compositions
+(x ~ 0.35 and x = 0.64) of FeSe1−xTex. In x = 0.64, the onset temperature
+of TRSB (TTRSB ~ 11.5 ± 1.5 K, Fig. 2f) is consistent with the result of the
+previous Kerr effect measurement36. Note that although the Kerr
+measurement is a surface-sensitive technique and suggests some sur-
+face magnetism, the present μSR detects deep in the bulk with much
+longer stopping depth than the coherence length, implying that the
+bulk superconductivity breaks time-reversal symmetry. We also note
+that the early-stage studies on polycrystalline samples of FeSe-based
+superconductors with impurity phases (excess-Fe in FeSe0.98
+42 and
+Fe3O4 inclusions in FeSe0.5Te0.5
+43) have shown no enhancement of ZF-
+μSR relaxation rate, possibly due to the background contributions that
+can mask the intrinsic signal. These results imply that the enhanced
+relaxation rate observed in the superconducting state of well-
+characterized single crystals does not arise from the combination of
+superconductivity and magnetic impurities, even if present.
+In comparisons, the asymmetry spectra of ZF- and LF-μSR for
+x = 0.75 and 0.83 single crystals, which are close to the anti-
+ferromagnetic (AFM) phase of FeTe, are shown in Fig. 2c, d. In these
+compositions, we do not observe any clear AFM transitions by DC
+magnetization
+measurements
+(see
+Supplementary
+Information).
+Article
+https://doi.org/10.1038/s41467-025-61651-y
+Nature Communications|        (2025) 16:6573 
+2
+
+However, the ZF- and LF-μSR spectra of these compositions exhibit
+two major differences from those of x ~ 0.35 and x = 0.64. First, for
+x = 0.75 and 0.83, we observe two distinct relaxation components in
+time spectra of asymmetry: a fast relaxation in the initial time region
+(t < 1 μs) followed by another slower relaxation. We ﬁt these spectra
+using a two-component exponential function (see Supplementary
+Information) and obtain the temperature dependence of the fast and
+slow relaxation rates (Fig. 2g, h). The fast relaxation rate is con-
+siderably larger than the slow relaxation, exceeding ~ 10 μs−1 at the
+lowest temperature. Another key difference is that neither the fast nor
+slow relaxation components are suppressed under an application of LF
+200 G, which is at odds with the results in x ~ 0.35 and x = 0.64. In
+addition, the increase of both relaxation rates starts from a char-
+acteristic temperature T* > Tc for both x = 0.75 and x = 0.83. These
+results imply that the fundamental causes of both types of relaxation
+are unrelated to the superconducting state.
+To further clarify the effects of AFM order near the FeTe end, we
+also measure the x = 0.94 samples, which show a clear AFM transition
+at TN ~ 45 K in DC magnetization (see Supplementary Information).
+Figure 3a shows the ZF-μSR spectra for various temperatures (2 K <
+T ≤70 K) in x = 0.94 single crystals. Similar to the results of x = 0.75 and
+0.83, we obtain two-component ZF relaxation curves, characterized by
+the fast relaxation in the initial time window followed by the slower
+relaxation in the AFM phase below TN. The fast relaxation is vanishing
+above ~TN. As shown in Fig. 3b, the temperature dependence of the
+relaxation rate obtained from our ﬁtting (see Supplementary Infor-
+mation) clearly shows that the fast component appears below TN, and
+that both fast and slow relaxations are not suppressed in the LF-μSR. A
+distinctdifference from the results of x ≤0.83 samples is the signiﬁcant
+loss of initial asymmetry A0 at low temperatures in ZF- and LF-μSR
+(Fig. 3a, d). Such a loss of initial fast asymmetry is commonly observed
+in the presence of the inhomogeneous magnetic phase44,45. To esti-
+mate the magnetic volume fraction, we also measure the weak trans-
+verse ﬁeld (wTF)-μSR. The amplitude of low-frequency oscillations in
+wTF is proportional to the paramagnetic volume fraction, and thus we
+can estimate the magnetic volume fraction from the amplitude loss
+(see Supplementary Information). Our results of wTF-μSR show that
+the amplitude loss starts from TN ~ 45 K (Fig. 3c, d), consistent with the
+ZF- and LF-μSR, and the magnetic volume fraction is estimated to be
+~90% atlow temperatures (Fig. 3e). Similar results of the amplitude loss
+in the wTF-μSR spectra together with the absence of oscillations in ZF-
+μSR have been reported in previous studies of Fe1+ySexTe1−x with ~3%
+excess Fe, which exhibit the incommensurate AFM order46.
+Discussion
+Our μSR measurements in FeSe1−xTex reveal signiﬁcant differences in
+the microscopic properties of electronic states between x ≤0.64 and
+x ≥0.75. For x = 0.75 and 0.83, we have no evidence of long-range AFM
+order, but we observe the initial fast relaxation at low temperatures
+somewhat similar to the AFM state. These compositions are close to
+the AFM ordered phase (x ≳0.9), and thus the observed fast relaxation
+is likely attributed to short-range AFM correlations of double-stripe
+type. Indeed, such an initial fast relaxation is often observed in other
+materials with short-range ordered or inhomogeneous magnetic pha-
+ses, such as spin glasses, especially near the magnetically ordered
+phase44,47. The presence of the short-range AFM in x = 0.75 and 0.83 is
+b
+a
+Bulk
+Bulk
+Dirac gap
+kx
+kz
+ky
+c
+TRS SC
+Bulk
+d
+TRSB SC
+Bulk
+m
+Dirac gap
+ Insulating 
+gap
+ Insulating gap
++
+Magnetism
+m
+SC gap
+SC gap
++
+Spontenous
+field
+TRS TI
+TRSB TI
+Fig. 1 | Schematic comparisons between topological insulators (TIs) and
+superconductors (SCs) having topological surface states (TSSs) with and
+without time-reversal symmetry (TRS). a In TIs with TRS, the insulating gap exists
+in the bulk, which closes at the surfaces with a Dirac-cone dispersion with spin
+momentum locking (red and blue arrows). b Magnetism in TIs breaks TRS, which
+induces the Dirac gap at the surfaces. c In TRS-preserved superconductors with
+topologically nontrivial electronic structures, the Dirac-like TSS will appear on the
+surfaces. d When TRS is broken in the bulk of superconductor with topological
+electronic structures, the spontaneous ﬁelds emerge in the bulk and the Dirac gap
+opens in the TSS.In (c) and (d) the possible opening of the surface superconducting
+gap near the Fermi level due to proximity effect is not shown for simplicity.
+Article
+https://doi.org/10.1038/s41467-025-61651-y
+Nature Communications|        (2025) 16:6573 
+3
+
+also supported by the ZF and LF-μSR spectra, which show the tem-
+perature dependence of relaxation rate even above Tc = 14 and 11 K.
+This is in sharp contrast with the spectra for x ~ 0.35 and x = 0.64, which
+show T-independent relaxation above Tc ~ 8 K and Tc = 14.5 K, respec-
+tively (Fig. 2e-h).
+The difference between x ≤0.64 and x ≥0.75 is further corrobo-
+rated by the magnetization and speciﬁc heat measurements at low
+temperatures. For x ≥0.75, a ﬁnite residual density of state in the
+superconducting state is resolved, indicative of a fraction of non-
+superconducting regions (Fig. S2). Thus, our results suggest that the
+short-range AFM order and superconducting phase coexist below Tc,
+contributing to the observed fast relaxation for x ≥0.75. In contrast,
+the residual density of states in the zero-temperature limit for x ≤0.64
+is almost zero, which indicates that we have no AFM short-range order,
+consistent with the absence of the fast relaxation in the ZF-μSR.
+From our systematic μSR measurements of FeSe1−xTex together
+with the previous studies of FeSe1−xSx
+22, we have obtained the phase
+diagram of FeSe-based superconductors as shown in Fig. 4. Within the
+nematic phase of pure FeSe, FeSe1−xSx (x ≲0.17), and FeSe1−xTex
+(x ≲0.5), TRSB superconductivity with a small internal ﬁeld ( ~ 0.1 G) is
+observed, suggesting the realization of the TRSB s + eiθd-wave state in
+the bulk or near the nematic twin boundaries17,22. In the tetragonal
+phase of FeSe1−xSx (x ≳0.17), an ultranodal state with the Bogoliubov
+Fermi surface (BFS) has been proposed29, which can explain the TRSB
+and the residual density of states observed in clean samples22,26,28. In
+FeSe1−xTex side, we ﬁnd the coexistence of short-range AFM with
+superconductivity for high Te composition (x = 0.75 and 0.83), and a
+long-range AFM order is conﬁrmed for x = 0.94. Most importantly, we
+discover the bulk TRSB superconductivity in the tetragonal phase at
+x = 0.64, without a sign of inclusion of magnetic order. The x depen-
+dence of the fraction ffast of the fast relaxation in the ZF-μSR spectra
+and the residual electronic speciﬁc heat Ce/γT∣T→0 (left axis on the
+lower panel of Fig. 4) indicates the full superconducting volume for
+x ≤0.64. In FeSe1−xTex in a range including x = 0.64, topologically
+nontrivial electronic structures are found with the TSS, and thus our
+observation implies that the bulk TRSB superconductivity meets with
+TSS. This ﬁnding clariﬁes that the bulk TRSB pairing state induces the
+Dirac gap in TSS and possibly ferromagnetic-like signatures as repor-
+ted previously30,35-37,39.
+From our ZF-μSR experiments, the TRSB internal ﬁeld values at
+the lowest temperature are estimated as Bint = 0.09 (0.62) G for
+x ~ 0.35 and 0.76 (1.53) G for x = 0.64 in the NSR (SR) mode,
+respectively. Within the nematic phase, our previous NSR-mode
+study for FeSe22 reported consistent value of Bint = 0.1 G with the
+present result for x ~ 0.35. FeSe has compensated hole and electron
+bands, and the gap structure is highly anisotropic, which accounts
+for the energy proximity of s-wave and d-wave superconducting
+states17. Such a superconducting state of FeSe can be realized in the
+complex order parameter s + eiθd-wave state with its phase θ
+deviating from 0 or π in bulk and changes near the twin boundaries,
+which has been theoretically proposed23,48. The variation in θ implies
+that the superconducting gap has a characteristic change near the
+twin boundaries, which has been supported in STM and ARPES
+measurements24,25.
+Meanwhile, in x = 0.64, a larger spontaneous ﬁeld of ~1 G is found
+in the superconducting state. This value is notably larger than the
+spontaneous
+ﬁelds
+typically
+observed
+in
+other
+TRSB
+superconductors22,40. As x = 0.64 is in the tetragonal phase, the TRSB
+pairing state with such a large ﬁeld is different from that in the
+nematic phase. Indeed, the temperature dependence of electronic
+speciﬁc heat Ce/T at low temperatures shows a very ﬂat dependence
+with no residual term in x = 0.64 indicative of well-developed full
+gap, which is in sharp contrast to the strong T dependence with
+anisotropic gap inside the nematic phase (Fig. S2b). A possible TRSB
+pairing that produces such a large spontaneous ﬁeld in a tetragonal
+FeSe1−xTex has been proposed in terms of symmetry-based theore-
+tical analysis and the inﬂuence of spin-orbit interaction49,50. In
+FeSe1−xTex, the superconducting gap symmetry of A1(2)g, B1(2)g, and
+E1(2)g are nearly degenerate, in which case the mean-ﬁeld theory
+favors a TRSB pairing with a phase difference of ± π
+2 between the two
+0.20
+0.15
+0.10
+0.05
+0
+Relaxation rate (s
+-1)
+60
+50
+40
+30
+20
+10
+0
+T (K)
+12
+10
+8
+6
+4
+2
+0
+         ZF    LF
+ slow
+ fast 
+T
+ *
+Tc
+0.18
+0.16
+0.14
+0.12
+0.10
+0.08
+ Asymmetry
+8
+6
+4
+2
+0
+Time (s)
+ ZF (NSR mode)   LF (100 G) 
+ 
+  2 K            
+2 K
+ 
+15 K 
+0.20
+0.15
+0.10
+0.05
+ Asymmetry
+8
+6
+4
+2
+0
+Time (s)
+ ZF (NSR mode)   LF (200 G) 
+ 
+  2 K            
+1.9 K
+ 
+19 K 
+0.06
+0.04
+0.02
+0
+Relaxation rate (s
+-1)
+15
+10
+5
+0
+T (K)
+0.4
+0.3
+0.2
+0.1
+0
+ZF (NSR mode)
+ZF (SR mode)
+LF (100 G)
+TTRSB
+Tc
+a
+e
+b
+f
+c
+d
+g
+h
+x ~ 0.35
+x = 0.6
+0.20
+0.15
+0.10
+0.05
+0
+Relaxation rate (s
+-1)
+20
+15
+10
+5
+0
+T (K)
+0.4
+0.3
+0.2
+0.1
+0
+ZF (NSR mode)
+ZF (SR mode)
+LF (200 G)
+Tc
+TTRSB
+x = 0.7
+x = 0.8
+0.20
+0.15
+0.10
+0.05
+Asymmetry
+8
+6
+4
+2
+0
+Time (s)
+ ZF (NSR mode)   LF (200 G) 
+ 
+1.9 K           
+1.9 K
+ 
+ 19 K 
+0.20
+0.15
+0.10
+0.05
+0
+Asymmetry
+8
+6
+4
+2
+0
+Time (s)
+䢢ZF (NSR mode)   LF (200 G) 
+ 
+1.9 K           
+1.9 K
+ 
+ 19 K 
+0.15
+0.10
+0.05
+0
+Relaxation rate (s
+-1)
+60
+50
+40
+30
+20
+10
+0
+T (K)
+15
+10
+5
+0
+         ZF    LF
+ slow
+ fast 
+T
+ *
+Tc
+Fig. 2 | Zero-ﬁeld (ZF) and longitudinal-ﬁeld (LF) μSR in FeSe1−xTex super-
+conductors. a−d Time spectra of the μSR asymmetry in the non-spin rotated (NSR)
+mode for x ~ 0.35 (a), x = 0.64 (b), x = 0.75 (c), and x = 0.83 (d). These spectra are
+representative of the lowest temperature below Tc (ZF: red circles and LF: green
+squares), and above Tc (blue circles (ZF)). Solid lines represent ﬁtting curves. Error
+bars are estimated from the statistical noise. e−h Temperature dependence of
+relaxation rate for x ~ 0.35 (e), x = 0.64 (f), x = 0.75 (g), and x = 0.83 (h). The vertical
+dashed lines represent Tc, and the onsets of TRSB (TTRSB) and short-range AFM (T*)
+are indicated by arrows. Here, the relaxation rate of ZF NSR mode (red circles) and
+LF (red circles and green squares) correspond to the left axis, and those for ZF SR
+mode (blue circles) correspond to the right axis. For x = 0.75 (g) and 0.83 (h), the
+relaxation rate obtained by the ﬁtting with the two-component relaxation function
+in ZF and LF-μSR (both in NSR mode) are displayed. The slow relaxation compo-
+nents (ZF: red circles and LF: yellow triangles) correspond to the left axis, while the
+fast relaxation components (ZF: blue circles and LF: green triangles) correspond to
+the right axis, respectively. Error bars for TTRSB are estimated from the threshold
+noise level. Error bars for relaxation rate are estimated from the uncertainties of the
+ﬁtting.
+Article
+https://doi.org/10.1038/s41467-025-61651-y
+Nature Communications|        (2025) 16:6573 
+4
+
+degenerate functions50. Such TRSB pairing can lead to a spontaneous
+ﬁeld along the z-axis, and the strong spin-orbit coupling with Te can
+enhance it and induce a Dirac gap below the Fermi energy49,50. Our
+results show a larger relaxation in the SR mode, a conﬁguration more
+sensitive to the internal ﬁeld along the c-axis, which is consistent with
+the above theory. However, additional investigations are essential to
+fully elucidate the nature and detail of the TRSB pairing state in
+FeSe1−xTex.
+Finally, in the magnetic topological insulator, doping with
+magnetic elements or making the heterostructure with magnetic
+materials can break TRS, inducing a Dirac gap. In these systems,
+tuning the chemical potential within the gap leads to various topo-
+logical phenomena, including the quantum anomalous Hall effect
+and topological (axion) electrodynamics1,51,52, making them sig-
+niﬁcant subjects in modern physics. The present results showing the
+coexistence of the TRSB superconducting state and nontrivial
+topology in FeSe1−xTex promise a playground for studying novel
+synergy effects of TRSB and topology in superconductors, with the
+capability of the chemical potential control by chemical substitution
+or doping. Our ﬁndings provide evidence for the realization of a
+time-reversal symmetry breaking (TRSB) superconducting state in
+the bulk of iron-chalcogenide superconductors, and suggest the
+possibility of a novel TRSB superconducting state intertwined with
+nontrivial band topology.
+Methods
+Single crystal growth
+Single crystals of FeSe1−xTex (x ~ 0.35) were grown by the chemical
+vapor transport (CVT) technique15. Fe, Se, and Te powders were
+mixed with AlCl3 and KCl and sealed in a quartz ampoule as transport
+agents. The temperatures of the source and sink sides were con-
+trolled from 620−450 ∘C, respectively. The Te compositions of single
+crystals were determined by the c-axis length measured by X-ray
+diffraction (XRD)15,21.
+Single crystals with high Te compositions (x ≥0.64) were grown
+by the Bridgman method. Initial materials of Fe, Te, and Se with
+nominal composition Fe1.03Se1−xTex were mixed and sealed into a
+quartz tube. Obtained quartz ampoule was heated at 1050 ∘C for 85 h,
+and then cooled down to 550 ∘C at a rate of 4 ∘C/h under a temperature
+gradient of around 8 ∘C/cm, and ﬁnally cooled down to room tem-
+perature in the furnace. In order to remove excess Fe, as-grown crys-
+tals were annealed under Te vapor. They were sealed with pulverized
+Te into a Pyrex tube and heated at 400 ∘C for >300 h31,32. The Te
+compositions of these single crystals were determined by energy-
+dispersive x-ray (EDX) spectroscopy (see Supplementary Information).
+μSR experiment and its analysis
+μSR experiments were carried out at the Centre for Molecular and
+Materials Science at TRIUMF in Vancouver, Canada, using the LAMPF
+a
+c
+b
+d
+e
+-0.3
+-0.2
+-0.1
+0
+0.1
+0.2
+0.3
+ Asymmetry
+8
+6
+4
+2
+0
+Time (s)
+12 K
+40 K 
+30 K
+50 K 
+36 K
+70 K 
+x = 0.9 wTF
+0.25
+0.20
+0.15
+0.10
+0.05
+0
+ Asymmetry
+8
+6
+4
+2
+0
+Time (s)
+x = 0.9
+      ZF
+2.1 K
+14 K
+35 K
+42 K
+50 K
+70 K
+0.25
+0.20
+0.15
+0.10
+0.05
+0
+A0
+100
+80
+60
+40
+20
+0
+T (K)
+䢢 x = 0.9
+ 
+ wTF 
+ 
+ ZF
+ 
+ LF
+TN
+20
+15
+10
+5
+0
+100
+80
+60
+40
+20
+0
+T (K)
+0.3
+0.2
+0.1
+0
+Relaxation rate (s
+-1)
+ x = 0.9
+          ZF   LF
+ slow
+ fast 
+TN
+Tc
+1.0
+0.8
+0.6
+0.4
+0.2
+0
+Magnetic volume fraction
+80
+60
+40
+20
+0
+T (K)
+x = 0.9
+TN
+Fig. 3 | μSR results in FeSe0.06Te0.94. a Time spectra of the asymmetry of ZF-μSR
+(NSR mode) for x = 0.94 at several representative temperatures. b Temperature
+dependence of relaxation rate in ZF and LF-μSR (NSR mode), obtained by ﬁtting
+with the two-component function. The symbols for each data and corresponding
+axes are the same as in Fig. 2g, h. The onset of the AFM phase TN is represented by
+the pink arrow. c Time spectra of the asymmetry in the weak transverse ﬁeld (wTF)-
+μSR (SR mode) for x = 0.94 at several representative temperatures. d Temperature
+dependence of the initial asymmetry A0 in ZF (blue circles), LF (green circles), and
+wTF-μSR (red circles). For wTF-μSR, A0 is estimated from the oscillation amplitude
+at the initial time. e Temperature dependence of the magnetic volume fraction
+estimated from the temperature-dependent loss of the oscillation amplitude in the
+wTF-μSR spectra (see Supplementary Information). Error bars for asymmetry are
+estimated from the statistical noise. Error bars for relaxation rate are estimated
+from the uncertainties of the ﬁtting.
+Article
+https://doi.org/10.1038/s41467-025-61651-y
+Nature Communications|        (2025) 16:6573 
+5
+
+spectrometer. We performed Zero-ﬁeld (ZF), longitudinal-ﬁeld (LF),
+and transverse-ﬁeld (TF) μSR experiments at the M20D beamline. For
+ZF-μSR, to achieve accurate zero ﬁelds at the sample position, it was
+calibrated using a Hall probe and achieved a magnetic ﬁeld <1 mG.
+Both non-spin rotated (NSR) and spin rotated (SR) mode were mea-
+sured in ZF-μSR. Besides, we performed the LF-μSR measurements
+with NSR mode and TF-μSR with SR mode because the magnetic ﬁeld
+could be applied along only the c-axis of the sample (beam axis).
+Samples were aligned with the c-axis perpendicular to the beam axis
+and parallel to the muon spin direction in spin rotation (SR) mode,
+mounted in wrapped mylar tape. More details on the experimental
+setup and data analysis are provided in Supplementary Information.
+Resistivity, magnetization, and heat capacity measurements
+The electrical resistivity was measured at ambient pressure by the
+4-terminal method using a Physical Property Measurement System
+(PPMS) from Quantum Design with the lowest temperature of about 2 K.
+The magnetization was measured by using a Magnetic Property Mea-
+surement System (MPMS) from Quantum Design. The speciﬁc heat
+measurements were performed by adiabatic method with using PPMS
+for x≥0.64 and the long relaxation method with 3He cryostat for x ~ 0.3527.
+Data availability
+Source Data are provided with this paper.
+References
+1.
+Tokura, Y., Yasuda, K. & Tsukazaki, A. Magnetic topological insula-
+tors. Nat. Rev. Phys. 1, 126-143 (2019).
+2.
+Chang, C.-Z., Liu, C.-X. & MacDonald, A. H. Colloquium: Quantum
+anomalous Hall effect. Rev. Mod. Phys. 95, 011002 (2023).
+3.
+Sekine, A. & Nomura, K. Axion electrodynamics in topological
+materials. J. Appl. Phys. 129, 141101 (2021).
+4.
+Fu, L. & Kane, C. L. Superconducting proximity effect and Majorana
+fermions at the surface of a topological insulator. Phys. Rev. Lett.
+100, 096407 (2008).
+5.
+Qi, X.-L. & Zhang, S.-C. Topological insulators and super-
+conductors. Rev. Mod. Phys. 83, 1057-1110 (2011).
+6.
+Sato, M. & Fujimoto, S. Majorana fermions and topology in super-
+conductors. J. Phys. Soc. Jpn 85, 072001 (2016).
+7.
+Sasaki, S. & Mizushima, T. Superconducting doped topological
+materials. Phys. C. 514, 206-217 (2015).
+8.
+Neha, P., Biswas, P. K., Das, T. & Patnaik, S. Time-reversal symmetry
+breaking in topological superconductor Sr0.1Bi2Se3. Phys. Rev.
+Mater. 3, 074201 (2019).
+9.
+Zhang, P. et al. Observation of topological superconductivity on the
+surface of an iron-based superconductor. Science 360, 182-186
+(2018).
+10.
+Wang, D. et al. Evidence for Majorana bound states in an iron-based
+superconductor. Science 362, 333-335 (2018).
+11.
+Machida, T. et al. Zero-energy vortex bound state in the super-
+conducting topological surface state of Fe(Se, Te). Nat. Mater. 18,
+811-815 (2019).
+12.
+Zhu, S. et al. Nearly quantized conductance plateau of vortex zero
+mode in an iron-based superconductor. Science 367, 189-192
+(2020).
+13.
+Ghosh, S. K. et al. Time-reversal symmetry breaking super-
+conductivity in three-dimensional Dirac semimetallic silicides. Phys.
+Rev. Res. 4, L012031 (2022).
+14.
+Shang, T. et al. Unconventional superconductivity in topological
+Kramers nodal-line semimetals. Sci. Adv. 8, eabq6589 (2022).
+15.
+Mukasa, K. et al. High-pressure phase diagrams of FeSe1−xTex: cor-
+relation between suppressed nematicity and enhanced super-
+conductivity. Nat. Commun. 12, 381 (2021).
+16.
+Mukasa, K. et al. Enhanced superconducting pairing strength near a
+pure nematic quantum critical point. Phys. Rev. X 13, 011032
+(2023).
+17.
+Shibauchi, T., Hanaguri, T. & Matsuda, Y. Exotic superconducting
+states in FeSe-based materials. J. Phys. Soc. Jpn 89, 102002 (2020).
+18.
+Li, Y.-F. et al. Orbital ingredients and persistent Dirac surface state
+for the topological band structure in FeTe0.55Se0.45. Phys. Rev. X 14,
+021043 (2024).
+19.
+Chiu, C.-K., Machida, T., Huang, Y., Hanaguri, T. & Zhang, F.-C.
+Scalable Majorana vortex modes in iron-based superconductors.
+Sci. Adv. 6, eaay0443 (2020).
+20. Hosoi, S.et al. Nematic quantum critical point without magnetism in
+FeSe1−xSx superconductors. Proc. Natl. Acad. Sci. USA 113,
+8139-8143 (2016).
+21.
+Ishida, K. et al. Pure nematic quantum critical point accompanied by
+a superconducting dome. Proc. Natl. Acad. Sci. USA 119,
+e2110501119 (2022).
+22. Matsuura, K. et al. Two superconducting states with broken time-
+reversal symmetry in FeSe1−xSx. Proc. Natl. Acad. Sci. USA 120,
+e2208276120 (2023).
+23. Kang, J., Chubukov, A. V. & Fernandes, R. M. Time-reversal sym-
+metry-breaking nematic superconductivity in FeSe. Phys. Rev. B 98,
+064508 (2018).
+24. Watashige, T. et al. Evidence for time-reversal symmetry breaking of
+the superconducting state near twin-boundary interfaces in FeSe
+revealed by scanning tunneling spectroscopy. Phys. Rev. X 5,
+031022 (2015).
+TRSB SC
+Ts
+AFM
+TN
+T *
+TTRSB
+ 
+Tc
++
+TRSB SC
+Topological
+Orthorhombic 
+(nematic)
+SC
++
+0.4
+0.2
+0
+ffast (2 K)
+0.6
+0.4
+0.2
+0
+Ce / T |T0
+1.0
+0.8
+0.6
+0.4
+0.2
+0
+Te composition
+0.2
+0.1
+0
+S composition
+60
+40
+20
+0
+T (K)
+1.5
+1.0
+0.5
+0
+TRSB field (G)
+FeSe1-xTex
+FeSe1-xSx
+䣐䣕䣔䢢䣯䣱䣦䣧䢢
+䣕䣔䢢䣯䣱䣦䣧
+AFM
+Short-range
+BFS
+Fig. 4 | Electronic phase diagrams of FeSe-based superconductors. (Top panel)
+Schematic phase diagram of temperature versus S/Te composition obtained in this
+study for FeSe1−xTex, combined with the reported results of FeSe1−xSx
+22. Ts (blue
+line), TN (pink line), and Tc (black line) denote the nematic, antiferromagnetic
+(AFM), and superconducting transition temperatures, respectively15,17,21. The onsets
+of TRSB superconducting states TTRSB (red circles) and short-range AFM T* (orange
+triangles) are obtained from ZF-μSR. The superconducting state is divided to the
+possible ultranodal state (purple shade) with Bogoliubov Fermi surface (BFS) in the
+tetragonal phase of FeSe1−xSx (x > 0.17), the ﬁrst superconducting dome inside the
+nematic phase (yellow shade), topologically nontrivial state with high Tc near
+x = 0.64 in FeSe1−xTex (green shade), and the coexistence region x ≳0.75 between
+short-range AFM and superconductivity (orange shade). Error bars for x are esti-
+mated from the variation of compositions. Error bars of transition temperatures are
+estimated from the threshold noise level. (Middle panel) Spontaneous ﬁeld in the
+bulk of TRSB superconducting states estimated from the NSR (orange diamonds)
+and SR (blue diamonds) modes of ZF-μSR. Error bars are estimated by considering
+the comparisons between ZF and LF data. (Bottom plane) The residual density of
+states from the electronic speciﬁc heat data, Ce/γT (purple triangles, left axis),
+estimated by the extrapolation of Ce/T to T →0, where γ is the normal-state Som-
+merfeld constant. Fraction of fast relaxation in the two-component analysis of ZF-
+μSR at the lowest temperature ~2 K is also shown (green pentagons, right axis).
+Error bars are estimated from the uncertainties from the extrapolations.
+Article
+https://doi.org/10.1038/s41467-025-61651-y
+Nature Communications|        (2025) 16:6573 
+6
+
+25. Hashimoto, T. et al. Superconducting gap anisotropy sensitive to
+nematic domains in FeSe. Nat. Commun. 9, 282 (2018).
+26. Hanaguri, T. et al. Two distinct superconducting pairing states
+divided by the nematic end point in FeSe1−xSex. Sci. Adv. 4,
+eaar6419 (2018).
+27.
+Mizukami, Y. et al. Unusual crossover from Bardeen-Cooper-
+Schrieffer to Bose-Einstein-condensate superconductivity in iron
+chalcogenides. Commun. Phys. 6, 183 (2023).
+28. Sato, Y. et al. Abrupt change of the superconducting gap structure
+at the nematic critical point in FeSe1−xSx. Proc. Natl. Acad. Sci. USA
+115, 1227-1231 (2018).
+29. Setty, C., Bhattacharyya, S., Cao, Y., Kreisel, A. & Hirschfeld, P.
+Topological ultranodal pair states in iron-based superconductors.
+Nat. Commun. 11, 523 (2020).
+30. Li, Y. et al. Electronic properties of the bulk and surface states of
+Fe1+yTe1−xSex. Nat. Mater. 20, 1221-1227 (2021).
+31.
+Koshika, Y. et al. Effects of annealing under tellurium vapor for
+Fe1.03Te0.8Se0.2 single crystals. J. Phys. Soc. Jpn 82, 023703 (2013).
+32. Watanabe, T. et al. Electronic phase diagram of Fe1+yTe1−xSex
+revealed by magnetotransport measurements. Mod. Phys. Lett. B
+34, 2040051 (2020).
+33. Fujii, T., Uezono, Y., Otsuka, T., Hagisawa, S. & Watanabe, T. Elec-
+tronic phase diagram in Te-annealed superconducting FeTe1−xSex
+revealed by magnetic susceptibility. Proc. 29th Int. Conf. Low.
+Temp. Phys. 38, 011027 (2023).
+34. Tranquada, J. M., Xu, G. & Zaliznyak, I. A. Magnetism and super-
+conductivity in Fe1+yTe1−xSex. J. Phys.: Condens. Matt. 32,
+374003 (2020).
+35. Zaki, N., Gu, G., Tsvelik, A., Wu, C. & Johnson, P. D. Time-reversal
+symmetry breaking in the Fe-chalcogenide superconductors. Proc.
+Natl Acad. Sci. USA 118, e2007241118 (2021).
+36. Farhang, C. et al. Revealing the origin of time-reversal symmetry
+breaking in Fe-chalcogenide superconductor FeTe1−xSex. Phys. Rev.
+Lett. 130, 046702 (2023).
+37. McLaughlin, N. J. et al. Strong correlation between super-
+conductivity and ferromagnetism in an Fe-chalcogenide super-
+conductor. Nano Lett. 21, 7277-7283 (2021).
+38. Lin, Y. S. et al. Direct observation of quantum anomalous vortex in
+Fe(Se, Te). Phys. Rev. X 13, 011046 (2023).
+39. Qiu, G. et al. Emergent ferromagnetism with superconductivity in
+Fe (Te, Se) van der Waals Josephson junctions. Nat. Commun. 14,
+6691 (2023).
+40. Luke, G. M. et al. Time-reversal symmetry-breaking super-
+conductivity in Sr2RuO4. Nature 394, 558-561 (1998).
+41.
+Matsumoto, M. & Sigrist, M. Quasiparticle states near the surface
+and the domain wall in a px ± ipy -wave superconductor. J. Phys. Soc.
+Jpn 68, 994-1007 (1999).
+42. Bendele, M. et al. Coexistence of superconductivity and magnetism
+in FeSe1-x under pressure. Phys. Rev. B 85, 064517 (2012).
+43. Biswas, P. K. et al. Muon-spin-spectroscopy study of the penetration
+depth of FeTe0.5Se0.5. Phys. Rev. B 81, 092510 (2010).
+44. Sundar, S. et al. Ubiquitous spin freezing in the superconducting
+state of UTe2. Commun. Phys. 6, 24 (2023).
+45. Cheung, S. C. et al. Disentangling superconducting and magnetic
+orders in NaFe1-xNixAs using muon spin rotation. Phys. Rev. B 97,
+224508 (2018).
+46. Khasanov, R. et al. Coexistence of incommensurate magnetism and
+superconductivity in Fe1+ySexTe1-x. Phys. Rev. B 80, 140511 (2009).
+47. Hiraishi, M. et al. Bipartite magnetic parent phases in the iron oxy-
+pnictide superconductor. Nat. Phys. 10, 300-303 (2014).
+48. Sigrist, M., Kuboki, K., Lee, P. A., Millis, A. J. & Rice, T. M. Inﬂuence of
+twin boundaries on Josephson junctions between high-
+temperature and conventional superconductors. Phys. Rev. B 53,
+2835-2849 (1996).
+49. Lado, J. L. & Sigrist, M. Detecting nonunitary multiorbital super-
+conductivity with Dirac points at ﬁnite energies. Phys. Rev. Res. 1,
+033107 (2019).
+50. Hu, L.-H., Johnson, P. D. & Wu, C. Pairing symmetry and topological
+surface state in iron-chalcogenide superconductors. Phys. Rev. Res.
+2, 022021 (2020).
+51.
+Qi, X.-L., Hughes, T. L. & Zhang, S.-C. Topological ﬁeld theory of
+time-reversal invariant insulators. Phys. Rev. B 78, 195424 (2008).
+52. Mogi, M. et al. A magnetic heterostructure of topological insulators
+as a candidate for an axion insulator. Nat. Mater. 16, 516-521 (2017).
+Acknowledgements
+We thank M. V. De Toro Sanchez for technical help and P. Dai, S. Fuji-
+moto, H. Kontani, E.-G. Moon, S. Onari, M. Sato, K. Shiozaki, and Y.
+Yamakawa for fruitful discussions. This work was supported by Grants-
+in-Aid for Scientiﬁc Research (KAKENHI) (No. JP22H00105,
+JP22KJ1092, JP23K26522), Grant-in-Aid for Scientiﬁc Research on inno-
+vative areas "Quantum Liquid Crystals" (No. JP19H05824), Grants-in-Aid
+for Scientiﬁc Research for Transformative Research Areas (A) "Con-
+densed Conjugation" (No. JP20H05869) and "Correlation Design Sci-
+ence" (No. JP25H01248) from Japan Society for the Promotion of
+Science (JSPS), FOREST (No. JPMJFR236O) and CREST (No. JPMJCR19T5)
+from Japan Science and Technology (JST), and Division Of Materials
+Research (DMR)-2104661 from U.S. National Science Foundation. G.Q.Z.
+has been supported in part by CAS Project for Young Scientists in Basic
+Research (2022YSBR-048). This work was partially funded by the Max
+Planck-UBC-UTokyo Center for Quantum Materials and the Canada First
+Research Excellence Fund, Quantum Materials and Future Technologies
+Program.
+Author contributions
+Y.J.U. and T.S. conceived the project. M.R., Y.C., K.O., S.L., G.Q.Z., M.O.,
+M.P., C.Y., G.M.L., K.M.K, and Y.J.U. performed μSR measurements. M.R.,
+Y.C., K.O., G.Q.Z., K.M., and Y.J.U. analyzed the μSR data. M.R., K.O., S.L.,
+K.I., S.F., K.H., and Y.Mizukami performed the resistivity, magnetization,
+and speciﬁc heat measurements. K.O., M.O., T.F., K.M., I.M., D.A.B., T.W.,
+A.Y., and Y.Mizuguchi prepared samples. M.R., Y.J.U., and T.S. prepared
+the manuscript with inputs from Y.G., G.Q.Z., K.I., K.H., T.F., and T.W. All
+authors discussed the experimental results.
+Competing interests
+The authors declare no competing interests.
+Additional information
+Supplementary information The online version contains
+supplementary material available at
+https://doi.org/10.1038/s41467-025-61651-y.
+Correspondence and requests for materials should be addressed to
+Masaki Roppongi, Yasutomo J. Uemura or Tasakada Shibauchi.
+Peer review information Nature Communications thanks Vadim Gri-
+nenko, and the other, anonymous, reviewer(s) for their contribution to
+the peer review of this work. A peer review ﬁle is available.
+Reprints and permissions information is available at
+http://www.nature.com/reprints
+Publisher's note Springer Nature remains neutral with regard to jur-
+isdictional claims in published maps and institutional afﬁliations.
+Article
+https://doi.org/10.1038/s41467-025-61651-y
+Nature Communications|        (2025) 16:6573 
+7
+
+Open Access This article is licensed under a Creative Commons
+Attribution-NonCommercial-NoDerivatives 4.0 International License,
+which permits any non-commercial use, sharing, distribution and
+reproduction in any medium or format, as long as you give appropriate
+credit to the original author(s) and the source, provide a link to the
+Creative Commons licence, and indicate if you modiﬁed the licensed
+material. You do not have permission under this licence toshare adapted
+material derived from this article or parts of it. The images or other third
+party material in this article are included in the article's Creative
+Commons licence, unless indicated otherwise in a credit line to the
+material. If material is not included in the article's Creative Commons
+licence and your intended use is not permitted by statutory regulation or
+exceeds the permitted use, you will need to obtain permission directly
+from the copyright holder. To view a copy of this licence, visit http://
+creativecommons.org/licenses/by-nc-nd/4.0/.
+© The Author(s) 2025
+Article
+https://doi.org/10.1038/s41467-025-61651-y
+Nature Communications|        (2025) 16:6573 
+8
+

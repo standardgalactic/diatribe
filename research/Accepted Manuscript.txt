@@ -1,0 +1,2867 @@
+LA-UR-22-23371
+Accepted Manuscript
+Group-Invariant Quantum Machine Learning
+Cerezo de la Roca, Marco Vinicio Sebastian
+Larocca, Martin
+Sauvage, Frederic Antoine
+Verdon, Guillaume
+Coles, Patrick Joseph
+Provided by the author(s) and the Los Alamos National Laboratory (2023-03-30).
+To be published in: PRX Quantum
+DOI to publisher's version: 10.1103/PRXQuantum.3.030341
+Permalink to record: 
+http://permalink.lanl.gov/object/view?what=info:lanl-repo/lareport/LA-UR-22-23371
+Los Alamos National Laboratory, an affirmative action/equal opportunity employer, is operated by Triad National Security, LLC for the National Nuclear Security
+Administration of U.S. Department of Energy under contract 89233218CNA000001.  By approving this article, the publisher recognizes that the U.S. Government
+retains nonexclusive, royalty-free license to publish or reproduce the published form of this contribution, or to allow others to do so, for U.S. Government purposes.
+Los Alamos National Laboratory requests that the publisher identify this article as work performed under the auspices of the U.S. Department of Energy.  Los Alamos
+National Laboratory strongly supports academic freedom and a researcher's right to publish; as an institution, however, the Laboratory does not endorse the
+viewpoint of a publication or guarantee its technical correctness. 
+
+PRX QUANTUM 3, 030341 (2022)
+Group-Invariant Quantum Machine Learning
+Martín Larocca ,1,2,† Frédéric Sauvage ,1,† Faris M. Sbahi ,3,4 Guillaume Verdon,3,5,6
+Patrick J. Coles,1,7 and M. Cerezo
+7,8,*
+1Theoretical Division, Los Alamos National Laboratory, Los Alamos, New Mexico 87545, USA
+2Center for Nonlinear Studies, Los Alamos National Laboratory, Los Alamos, New Mexico 87545, USA
+3X, Mountain View, California 94043, USA
+4Google Brain, Mountain View, California 94043, USA
+5Institute for Quantum Computing, University of Waterloo, Ontario, Canada
+6Department of Applied Mathematics, University of Waterloo, Ontario, Canada
+7Quantum Science Center, Oak Ridge, Tennessee 37931, USA
+8Information Sciences, Los Alamos National Laboratory, Los Alamos, New Mexico 87545, USA
+ (Received 13 May 2022; accepted 24 August 2022; published 19 September 2022)
+Quantum machine learning (QML) models are aimed at learning from data encoded in quantum states.
+Recently, it has been shown that models with little to no inductive biases (i.e., with no assumptions about
+the problem embedded in the model) are likely to have trainability and generalization issues, especially
+for large problem sizes. As such, it is fundamental to develop schemes that encode as much information as
+available about the problem at hand. In this work we present a simple, yet powerful, framework where the
+underlying invariances in the data are used to build QML models that, by construction, respect those sym-
+metries. These so-called group-invariant models produce outputs that remain invariant under the action of
+any element of the symmetry group G associated with the dataset. We present theoretical results under-
+pinning the design of G-invariant models, and exemplify their application through several paradigmatic
+QML classiﬁcation tasks, including cases when G is a continuous Lie group and also when it is a discrete
+symmetry group. Notably, our framework allows us to recover, in an elegant way, several well-known
+algorithms for the literature, as well as to discover new ones. Taken together, we expect that our results
+will help pave the way towards a more geometric and group-theoretic approach to QML model design.
+DOI: 10.1103/PRXQuantum.3.030341
+I. INTRODUCTION
+Symmetries have always held a special place in the
+imaginarium of scientists seeking to understand the uni-
+verse through physical theories. As such, it is not strange
+for a scientist to equate a theory's beauty and elegance with
+its symmetry and harmony [1]. Still, the role of symmetries
+in science is more than simply aesthetic, as in many cases
+they constitute the underlying force behind a theory. For
+instance, Galilean invariance is pivotal in Newton's laws
+of motion [2], and Lorentz and gauge invariances were
+fundamental for Maxwell to unify electricity and mag-
+netism into the general theory of electromagnetism [3].
+*cerezo@lanl.gov
+†The two ﬁrst authors contributed equally.
+Published by the American Physical Society under the terms of
+the Creative Commons Attribution 4.0 International license. Fur-
+ther distribution of this work must maintain attribution to the
+author(s) and the published article's title, journal citation, and
+DOI.
+In the twentieth century, symmetries would take center
+stage as Einstein's theory of general relativity provided
+the ﬁrst geometrization of symmetries [4,5]. Soon after,
+Noether's theorem showed a connection between diﬀer-
+entiable symmetries and conserved quantities [6], proving
+that symmetries have deﬁning implications in nature.
+More recently, the importance of symmetries has been
+explored in the context of machine learning, and is core
+to the development of the ﬁeld of geometric deep learn-
+ing [7]. Here, the key insight was to note that the most
+successful neural network architectures can be viewed as
+models with inductive biases that respect the underly-
+ing structure and symmetries of the domain over which
+they act. The inductive bias refers to the fact that the
+model explores only a subset of the space of func-
+tions due to the assumptions imposed on its deﬁnition.
+Geometric deep learning not only constitutes a unify-
+ing mathematical framework for studying neural network
+architectures, but also provides guidelines to incorpo-
+rate prior physical (and geometrical) knowledge into new
+architectures with better generalization performance, more
+2691-3399/22/3(3)/030341(25)
+030341-1
+Published by the American Physical Society
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+eﬃcient data requirements, as well as favorable optimiza-
+tion landscapes [7-10].
+In this work, we propose to import ideas from the
+ﬁeld of geometric deep learning to the realm of quantum
+machine learning (QML). QML has recently emerged as
+a leading candidate to make practical use of near-term
+quantum devices [11,12]. QML formally generalizes clas-
+sical machine learning by embedding it into the formalism
+of quantum mechanics and quantum computation. This
+formal generalization can lead to practical speedups with
+the potential to signiﬁcantly outperform classical machine
+learning [13], since quantum computers can eﬃciently
+manipulate information stored in quantum states living in
+exponentially large Hilbert spaces.
+Similar to their classical counterparts, the ability of
+QML models to solve a given task hinges on several fac-
+tors, with one of the most important being the choice of
+the model itself. If the inductive biases [14] of a model
+are uninformed, its expressibility is large, leading to issues
+such as barren plateaus in the training landscape [15-20].
+Adding sharp priors to the model narrows the eﬀective
+search space, increases its performance, and improves its
+generalization performance [21-24]. As such, a great deal
+of eﬀort has recently been put forward towards design-
+ing more problem-speciﬁc schemes with strong inductive
+biases [25-33]. Despite these eﬀorts, most architectures
+currently used in the literature remain problem agnostic, as
+there is no overarching theoretical framework that provides
+guidelines for how to embed symmetries of the problem
+into the QML model.
+The main contribution of this work is a series of Propo-
+sitions (Propositions 1-4) characterizing the landscape
+of possible strategies leading to group-invariant quantum
+machine learning models. By identifying diﬀerent types
+of constructions for invariant models, we pave the way
+for a more systematic and eﬃcient QML model design.
+The power of our framework is showcased by applying
+it to classifying datasets based on purity, time-reversal
+dynamics, multipartite entanglement, and graph isomor-
+phism, where we are able to recover, in an eﬀortless man-
+ner, many celebrated quantum protocols and algorithms,
+including very recent ones [34-46]. We also discuss the
+extension of our framework to the design of equivariant
+quantum neural networks (QNN). Finally, we highlight the
+exciting outlook for the new ﬁeld of geometric quantum
+machine learning, for which our article lays some of the
+groundwork.
+II. PRELIMINARIES
+Here we provide the background and deﬁnitions needed
+for our group-invariant QML framework.
+A. Symmetry groups in supervised QML
+In this work we consider supervised binary classiﬁcation
+tasks on quantum data. We remark, however, that the
+methods derived here can be readily applied to more
+general supervised learning scenarios or to unsupervised
+learning tasks. In addition, our work applies to classical
+data that has been encoded into quantum states.
+For our purposes, we consider the case where one is
+given repeated access to a set of labeled training data
+from a dataset of the form S = {(ρi, yi)}N
+i=1. Here, the ρi
+are n-qubit quantum states from a data domain R in a
+d-dimensional Hilbert space (with d = 2n), while yi are
+binary labels from a label domain Y = {0, 1}. The data in
+S are drawn independent and identically distributed from
+a distribution deﬁned over R × Y, and we assume that
+the labels associated with each quantum state are assigned
+according to some (unknown) function f : R →Y, so that
+f (ρi) = yi. As shown in Fig. 1(a), the goal is to train a
+parameterized model (or hypothesis) hθ to produce labels
+that match those of the target function f with high proba-
+bility. Here θ denotes the set of trainable parameters in the
+model.
+For a given dataset, a fundamental question to ask is:
+what is the set of unitary operations on the states ρi that
+leave their respective labels yi unchanged? Such a set
+of operations forms a group [47] G ⊆U(d), a subset of
+U(d), the unitary group of degree d. In the following,
+G is referred to as the symmetry group of the dataset.
+(a)
+(b)
+FIG. 1.
+The role of inductive biases. (a) In a quantum super-
+vised learning task, the goal is to train a parameterized model
+hθ to match the label predictions of an unknown function f .
+The inductive biases represent the assumptions (priors) about our
+knowledge of how the inputs are related to the output predic-
+tions. These are encoded in the way the model is built. The goal
+of this work is to determine geometric priors from the underlying
+symmetries in the quantum data. (b) Because of the biases in the
+model, hθ explores only a subset of all possible functions.
+030341-2
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+Explicitly, for every element V in G, the label associated
+with any transformed state VρiV† is exactly the same as the
+label associated with the original ρi. Hence, it is natural
+to require that the model we are training should produce
+labels that also remain invariant under the action of G
+on the data. To capture such invariance, we introduce the
+following deﬁnition.
+Deﬁnition 1: (G-invariance). A function h is G-invariant
+if and only if
+h(VρV†) = h(ρ)
+for all V ∈G, ρ ∈R.
+(1)
+In principle, such G-invariance could be heuristically
+learnt by hθ via data augmentation [48], i.e., by includ-
+ing additional training instances of the form {VρiV†, yi}.
+However, such eﬀort is undesirable for two main reasons.
+First, it obviously means an increased algorithmic run-time
+cost. But second, and most importantly, such invariance
+learning is not guaranteed to be completely successful
+(especially when G is large or continuous) [7]. Instead,
+as shown in Fig. 2, our main approach here is to design
+QML models hθ that are, by construction, G-invariant for
+all θ. To achieve this, we introduce biases in the structure
+of hθ, for instance, by carefully choosing the architecture
+of the quantum neural network employed and the physical
+observable measured.
+In the context of binary classiﬁcation, there are two main
+scenarios to consider. In a ﬁrst scenario, the data in both
+classes are invariant under a same symmetry group G, and
+thus hθ needs to be invariant under this sole symmetry
+group. In the second scenario the data in diﬀerent classes
+have diﬀerent symmetries, and we denote as G0 and G1 the
+symmetry groups corresponding to data with labels yi = 0
+and yi = 1, respectively. In such cases, we have the free-
+dom to consider QML models that are either G0-invariant,
+G1-invariant, or both. As shown below, it is often con-
+venient to build models that are invariant only under the
+action of one of the symmetry groups, as this is suﬃcient
+for data classiﬁcation.
+SWAP
+FIG. 2.
+Group invariance in QML. Consider a QML task of
+classifying single-qubit states according to their purity. The sym-
+metry group G of this task is the unitary group U(2), as any
+unitary V ∈U(2) preserves the spectral properties of the data.
+By imposing G-invariance into the quantum model, so that
+hθ(VρV†) = hθ(ρ) for all V ∈U(2), we can rediscover several
+known algorithms, such as those listed in the ﬁgure.
+B. Conventional and quantum-enhanced experiments
+Thus far, we have not deﬁned what constitutes the
+parameterized model hθ. This choice is tied to the physical
+resources one may have access to, i.e., the way quantum
+data can be stored, accessed, and measured. Since there is
+a large amount of freedom in this regard, we ﬁnd it useful
+to restrict ourselves to two scenarios. Following the demar-
+cation proposed in Refs. [49,50], we consider two settings,
+a conventional and a quantum-enhanced setting, which are
+deﬁned as follows.
+Deﬁnition 2: (Conventional experiment). In conventional
+experiments, each data instance ρi is processed in a quan-
+tum computer and measured individually.
+Deﬁnition
+3: (Quantum-enhanced
+experiment).
+In
+quantum-enhanced experiments, multiple copies of each
+data instance ρi can be stored in a quantum memory, and
+later simultaneously processed and measured in a quantum
+computer.
+In both settings, the model predictions are obtained from
+the quantum device experiment outcomes. However, as
+illustrated in Fig. 3, the key diﬀerence between the clas-
+sical and quantum-enhanced settings is that, in the latter,
+the QML model is allowed to act coherently on multiple
+copies of ρi. This is in contrast with the conventional set-
+ting where the QML model can only operate over a single
+copy of ρi at a time.
+C. QML model structure
+Throughout this work, we consider models consisting in
+a quantum neural network U(θ) (i.e., a parameterized uni-
+tary that can be realized on a quantum computer) operating
+on k copies of an input state ρ, followed by a measurement
+on the resulting state. In other words, we work with models
+belonging to the following hypothesis class.
+Hypothesis Class 1. We deﬁne hypothesis class H1 as
+composed of functions of the form
+h(k)
+θ (ρ) = Tr[U(θ)(ρ⊗k)U†(θ)O],
+(2)
+where k is the number of copies of the data state ρ, U(θ) is
+a quantum neural network, and O is a Hermitian operator.
+For k = 1 copies, the models belonging to hypothesis
+class H1 correspond to those that can be computed on
+a conventional experiment according to Deﬁnition 2. On
+the other hand, k ⩾2 copies lead to models in quantum-
+enhanced experiment according to Deﬁnition 3.
+Arguably, models from Hypothesis Class 1 are not of the
+most general form. For instance, these could be extended
+to allow for nontrivial classical postprocessing of the mea-
+surement outcomes and also to involve more than one
+circuit or observable. Still, Hypothesis Class 1 already
+encompasses most of the current QML frameworks [51]
+030341-3
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+(a)
+(b)
+FIG. 3.
+Conventional and quantum-enhanced experiments. (a) In a conventional experiment, each data instance ρi in the dataset is
+sent to a quantum device. The state obtained at the output of the quantum computation is measured, with the measurement outcomes
+used to make predictions. (b) In a quantum-enhanced experiment, a quantum memory allows us to store several copies of each state
+ρi in the dataset. These copies can be simultaneously sent to a quantum device. The state obtained at the output of the quantum
+computation is measured, with the measurement outcomes used to make predictions.
+and can serve as a basis for more expressive QML models.
+In the following we restrict our attention to models pertain-
+ing to H1 and leave the study of more general models for
+future work.
+D. Classiﬁcation accuracy
+Let us deﬁne some terminology that will allow us to
+assess the accuracy of a model's classiﬁcation. First, we
+remark that we do not consider precision issues when dis-
+cussing classiﬁcation accuracy. Recall that the model's
+predictions in Eq. (2) are expectation values, which in
+practice need to be estimated via measurements on a quan-
+tum computer. Hence, given a ﬁnite number of shots
+(measurement repetitions), these can only be resolved up
+to some additive errors. However, for the sake of sim-
+plicity, we here assume the limit of zero shot noise (i.e.,
+inﬁnite precision), and we challenge this assumption when
+appropriate in the results section. With this remark in hand,
+consider the following deﬁnitions of diﬀerent degrees of
+classiﬁcation accuracy.
+Deﬁnition 4: (Classiﬁcation accuracy). (i) We say that a
+model provides no information that can classify the data
+if its outputs are always the same irrespective of the label
+associated with the input quantum state.
+(ii) We say that a model performs noisy classiﬁcation
+if its outputs are the same for some, but not all, data in
+diﬀerent classes.
+(iii) We say that a model perfectly classiﬁes the data if
+its outputs are never the same for data in diﬀerent classes.
+We note that in some cases a model can, at best, only
+perform noisy classiﬁcation as its accuracy will be funda-
+mentally limited by the distinguishability of the quantum
+states in the dataset. Note that this is typically not an
+issue for classical datasets, although the issue does arise
+for noisy classical data. In some cases, for example as in
+the time-reversal dataset that we consider below, the quan-
+tum data states associated with diﬀerent output labels are
+nonorthogonal. In this case, perfect classiﬁcation cannot be
+achieved, regardless of the form of the model.
+E. Useful deﬁnitions
+In this, rather mathematical, section we present deﬁni-
+tions that will be used throughout the main text. For further
+reading, we refer the reader to Refs. [52,53].
+While G describes the symmetries in the data, it will
+be crucial to characterize the symmetries of G itself. The
+symmetries of a group are captured by the commutant
+C(G) = {W ∈Cd×d | [W, V] = 0 for all V ∈G},
+(3)
+which is the vector space of all d × d complex matrices
+that commute with G. More generally, one can also con-
+sider the space of matrices in Cdk×dk commuting with the
+kth power tensor of the elements in G [54].
+Deﬁnition 5: (kth-order symmetries). Given a unitary rep-
+resentation G ⊆U(d) of a group, its kth-order symmetries
+are
+C(k)(G) = {W ∈Cdk×dk | [W, V⊗k] = 0 for all V ∈G}
+(4)
+for all positive integers k.
+First-order symmetries (k = 1) are known as the linear
+symmetries, while second-order ones (k = 2) are known
+as quadratic symmetries of G. In general, there may be
+kth-order symmetries that are not Hermitian (and, thus, not
+physical observables). However, as proved in Appendix A,
+any matrix in C(k)(G) has nonzero projection into the
+Hermitian subspace of C(k)(G). Hence, one can always
+associate any non-Hermitian element in C(k)(G) with a
+Hermitian one that also belongs in C(k)(G).
+While the kth-order symmetries can be deﬁned for any
+group, in the case when G is a Lie group there exists addi-
+tional structure that one can exploit. In particular, there
+exists an associated Lie algebra g ⊆u(d) such that eg =
+G. That is, g = {g ∈u(d) | eg ∈G}. Here, u(d) denotes
+the set of d × d skew-symmetric matrices. We also ﬁnd it
+convenient to introduce the following deﬁnition.
+030341-4
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+Deﬁnition 6: (Orthogonal complement). Given a Lie alge-
+bra g ⊆u(d), its orthogonal complement with respect to
+the Hilbert-Schmidt norm is deﬁned as
+g⊥= {h ∈u(d) | Tr[h†g] = 0 for all g ∈g}.
+(5)
+Note that g⊥is not a Lie algebra.
+III. GENERAL RESULTS FOR G-INVARIANCE
+In this section we determine conditions leading to mod-
+els that are G-invariant by design. These results are stated
+in a general problem agnostic way and will be applied to
+speciﬁc datasets in Secs. IV and V.
+A. A single symmetry group
+Let us ﬁrst consider the case when there is a single
+symmetry group G associated with all the instances in
+the dataset. We aim at ﬁnding models h(k)
+θ
+from hypoth-
+esis class H1 that are G-invariant, i.e., models such that
+h(k)
+θ (VρV†) = h(k)
+θ (ρ) for all V ∈G and choice of parame-
+ters θ. Deﬁning
+O(θ) = U†(θ)OU(θ),
+(6)
+so that h(k)
+θ (ρ) = Tr[ρ⊗kO(θ)], we explicitly have
+h(k)
+θ (VρV†) = Tr[V⊗kρ⊗k(V†)⊗kO(θ)].
+(7)
+Evidently, the model will be invariant under G if
+[O(θ), V⊗k] = 0 for all V ∈G. Thus, the following propo-
+sition holds.
+Proposition 1. Let h(k)
+θ
+∈H1 be a model in Hypothe-
+sis Class 1, and let G be the symmetry group associated
+with the dataset. The model will be G-invariant if O(θ) ∈
+C(k)(G).
+Proof. The
+proof
+of
+this
+proposition
+follows
+from
+Deﬁnition 5. If O(θ) belongs to the vector space of the kth-
+order symmetries C(k)(G) then [O(θ), V⊗k] = 0, and thus
+h(k)
+θ (VρV†) = h(k)
+θ (ρ) for all V ∈G.
+■
+Furthermore, as previously discussed, we can guaran-
+tee that O(θ) in Proposition 1 can always be taken as a
+Hermitian operator and thus as an observable.
+Complementary to Proposition 1 we now prescribe a
+second way of ensuring G-invariance of the model when
+G forms a Lie group. This is achieved when the opera-
+tor O(θ) can be taken orthogonal to (VρV†)⊗k for all V in
+G and for all ρ in S. We formalize this statement in the
+following proposition, proved in Appendix B.
+Proposition 2. Let h(k)
+θ
+∈H1 be a model in Hypothesis
+Class 1. Then, let G be the symmetry Lie group associ-
+ated with the dataset, and let g ⊆u(d) be its Lie algebra
+with i1 ∈g. The model will be G-invariant when ρ ∈ig
+and O(θ) ∈span({Aj ⊗Aj }j ). Here, Aj ∈ig⊥, an element
+of the orthogonal complement of g, is a Hermitian opera-
+tor acting on the j th copy of ρ, and Aj is an operator acting
+on all copies of ρ but the j th one.
+Note that in Proposition 2 we have assumed that i1 ∈
+g, where 1 denotes the d × d identity matrix. However,
+it could happen that i1 is in g⊥instead. In this case, the
+proposition will hold if ρ ∈ig⊥and Aj ∈ig, as ρ needs to
+have support on a vector space containing the identity.
+B. Multiple symmetry groups
+Let us now consider the case when each of the two
+classes in the dataset have a diﬀerent symmetry group asso-
+ciated with them, which we denote as G0 and G1. The con-
+cepts used in the previous section to obtain group-invariant
+models, i.e., commutant and orthogonal complement, can
+also be leveraged to derive conditions under which a
+model h(k)
+θ
+is G0-invariant, G1-invariant, or both. The fol-
+lowing proposition, proved in Appendix C, generalizes
+Proposition 1 to the case of two symmetry groups.
+Proposition 3. Let h(k)
+θ
+∈H1 be a model in Hypothe-
+sis Class 1, and let G0 and G1 be the symmetry groups
+associated with the dataset. The model will be G0- and
+G1-invariant if O(θ) ∈C(k)(G0) and O(θ) ∈C(k)(G1). In
+addition, the model will be G0-invariant but not necessar-
+ily G1-invariant if O(θ) ∈C(k)(G0) but O(θ) ̸∈C(k)(G1).
+Conversely, while not stated explicitly in Proposition
+3, the model will be G1-invariant but not necessarily
+G0-invariant if O(θ) ∈C(k)(G1) but O(θ) ̸∈C(k)(G0).
+Additionally, when G0 and G1 are Lie groups, with
+associated Lie algebras g0 and g1, we can generalize
+Proposition 2 to the case of two symmetry groups. Then,
+the following proposition, proved in Appendix C, holds.
+Proposition 4. Let h(k)
+θ
+∈H1 be a model in Hypothe-
+sis Class 1, and let G0 and G1 be the symmetry Lie
+groups associated with the dataset, with g0 and g1 their
+respective Lie algebras with i1 ∈g0, g1. The model will
+be G0-invariant and G1-invariant when ρ ∈ig0, ig1 and
+when O(θ) ∈span({Aj ⊗Aj }j ). Here, Aj ∈ig⊥
+0 , ig⊥
+1 is a
+Hermitian operator acting on the j th copy of ρ, and Aj
+is an operator acting on all copies of ρ but the j th one . In
+addition, the model will be G0(1)-invariant but not neces-
+sarily G1(0)-invariant when ρ ∈ig0, igi and Aj ∈ig⊥
+0 but
+Aj ̸∈ig⊥
+1 .
+In Proposition 4 we have assumed that i1 belongs to g0
+and g1. However, if i1 instead belongs to g⊥
+i (with i = 0, 1)
+then the proposition will hold by replacing gi by g⊥
+i , and
+conversely.
+030341-5
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+Propositions 1-4 provide conditions under which one
+can guarantee that a QML model in Hypothesis Class 1
+is G-invariant. While the results presented in this section
+are valid for the case when there are two symmetry groups,
+the previous propositions can be readily extended to more
+general scenarios (such as multiclass classiﬁcation), where
+one has a set {Gi}i of symmetry groups. For instance, one
+could generalize Proposition 3 to show that a model will be
+invariant under all symmetry groups Gi if O(θ) ∈C(k)(Gi)
+for all i.
+IV. LIE GROUP-INVARIANT MODELS
+We now apply the general results presented in the pre-
+vious section to identify G-invariant models that can clas-
+sify states originating from several paradigmatic quantum
+datasets whose invariances are captured by Lie groups.
+These include the purity dataset (Sec. IV A), the time-
+reversal dataset (Sec. IV B), and the multipartite entan-
+glement dataset (Sec. IV C). Our results are stated in the
+form of theorems. For pedagogical reasons, we include in
+the main text the proofs for most of these theorems, as they
+provide a constructive introduction to our framework.
+A. Purity dataset
+As a ﬁrst application, we consider the QML task of clas-
+sifying n-qubit states according to their purity [49]. Given
+a dataset S = {(ρi, yi)}N
+i=1, we want to discriminate those
+ρi that are pure from those that are not. That is, we assign
+labels
+yi =
+
+1
+if Tr[ρ2
+i ] = 1,
+0
+if Tr[ρ2
+i ] = b < 1
+(8)
+to states ρi according to values of their purities Tr[ρ2
+i ].
+The symmetry group G associated with the data in both
+classes is the group of unitaries U(d). This follows from
+the fact that unitaries preserve the spectral properties of
+quantum states, and thus their purities remain unchanged
+under the action of U(d).
+1. Conventional experiments
+Let us ﬁrst consider the case of conventional experi-
+ments (see Deﬁnition 2), i.e., when the model h(1)
+θ
+in Eq. (2)
+has access to k = 1 copies of each data at a time. For such
+a case, we can derive the following theorem.
+Theorem 1. Let h(1)
+θ
+∈H1 be a model in Hypothesis Class
+1, computable in a conventional experiment. There exists
+no quantum neural network U(θ) and operator O such that
+h(1)
+θ
+is invariant under the action of U(d) and can classify
+(i.e., provide any relevant information about) the data in
+the purity dataset.
+Proof. The strategy of this proof is as follows. First,
+we identify the possible G-invariant models arising from
+Propositions 1 and 2. Then, we show that these models can-
+not be used to perform classiﬁcation for the purity dataset.
+Finally, we prove that no other G-invariant model within
+H1 (with k = 1 copies) exist.
+Recall from Proposition 1 that a model is G-invariant
+under U(d) if O(θ) is in the commutant of U(d). Since
+G = U(d) is irreducible [55] in Cd×d, we know from
+Schur's lemma [52] that
+C(G) = span({1}).
+(9)
+It follows that if O(θ) is in C(G), it takes the form O(θ) =
+λ1. Moreover, we impose λ ∈R to ensure the Hermiticity
+of O(θ). This yields a constant model prediction h(1)
+θ (ρ) =
+λ for any ρ. Hence, the G-invariant models of Proposition
+1 do not provide any information about the purity of a state,
+and thus cannot classify the data.
+Let us now analyze the models arising from Proposi-
+tion 2. Since g = u(d), we have
+g⊥= {0},
+(10)
+where 0 denotes the d × d null matrix. Hence, if O(θ) ∈
+ig⊥then h(1)
+θ (ρ) = 0 for any ρ. This shows that the G-
+invariant models arising from Proposition 2 do not provide
+any information about the purity of a state and cannot
+classify the data.
+So far, we have seen that G-invariant models obtained
+by applying Propositions 1 and 2 do not allow for classiﬁ-
+cation of the purity dataset. Still, this does not preclude the
+existence of other G-invariant models within H1 that may
+be adequate for classiﬁcation. However, we now prove that
+no other G-invariant models exist, beyond those already
+considered. Given that h(1)
+θ (VρV†) = h(1)
+θ (ρ) should be true
+for any unitary V in U(d), the latter also needs to hold
+when uniformly averaging h(1)
+θ (VρV†) over all possible V
+in G. Namely, we require that EG[h(1)
+θ (VρV†)] = h(1)
+θ (ρ).
+The left-hand side of the equality is evaluated as
+EG[h(1)
+θ (VρV†)] =
+
+U(d)
+dμ(V)Tr[U(θ)VρV† U†(θ)O]
+= Tr
+
+U(d)
+dμ(V)U(θ)Vρ(U(θ)V)†
+
+O
+
+= Tr
+ 
+U(d)
+dμ(V)VρV†
+
+O
+
+= Tr[ρ]Tr[O]
+d
+,
+(11)
+where the integral denotes the Haar average over the
+unitary group. In the second equality, we have used the
+linearity of the trace and of the integral. Then, in the third
+030341-6
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+equality, we have used the left invariance of the Haar
+measure. Finally, in the fourth equality, we have explic-
+itly computed the integration via the Weingarten calculus
+[56,57]. From Eq. (11) we can see that the only way for
+h(1)
+θ (ρ) to be equal to Tr[ρ]Tr[O] for general quantum
+states is to have O ∝1/d or O = 0, which leads to the
+solutions given by Propositions 1 and 2. Hence, we have
+shown that there are no models in Hypothesis Class 1 that
+are G-invariant under the action of U(d) and that can clas-
+sify the data in the purity dataset as they all provide no
+information according to Deﬁnition 4.
+■
+The previous proposition shows that one cannot classify
+the data in the purity dataset with a model in H1 operating
+in a conventional experiment. In hindsight, one could have
+foreseen this result. Indeed, computing the purity requires
+evaluating a polynomial of order two in the matrix ele-
+ments of ρ, and, thus, the linear functions such as those
+considered here are deemed to fail. From a QML per-
+spective, h(1)
+θ
+is ultimately a linear classiﬁer where the
+parameterized quantum neural network U(θ) deﬁnes a
+hyperplane such that the expectation value of O(θ) is pos-
+itive for one class and negative for the other. However,
+the manifolds of quantum states with diﬀerent purities are
+not linearly separable in the state space. This can be bet-
+ter exempliﬁed by single-qubit states in the Bloch sphere,
+where no plane can be drawn across the sphere that linearly
+separates pure and mixed states.
+In the spirit of kernel tricks [58], one can introduce
+nonlinearities by allowing the models h(k)
+θ
+to coherently
+access multiple copies of ρ. This is precisely the setting of
+quantum-enhanced experiments, which we now explore.
+2. Quantum-enhanced experiments
+We now consider the case of quantum-enhanced experi-
+ments (see Deﬁnition 3) where multiple copies of a state
+in the dataset can be operated over in a coherent man-
+ner. As we now see, k = 2 copies are already enough for
+classifying states according to their purity.
+Theorem 2. Let h(2)
+θ
+∈H1 be a model in Hypothesis Class
+1, computable in a quantum-enhanced experiment. There
+always exists quantum neural networks U(θ) and opera-
+tors O, resulting in O(θ) ∈span({1 ⊗1, SWAP}), such that
+h(2)
+θ
+is invariant under the action of U(d). If the model
+has nonzero component in SWAP, it can perfectly clas-
+sify the data in the purity dataset. The special choice of
+O(θ) = SWAP leads to h(2)
+θ (ρ) = Tr[ρ2].
+Proof. Recall from Proposition 1 that a model h(2)
+θ
+in
+Hypothesis Class 1 is G-invariant if O(θ) is a quadratic
+symmetry of U(d), i.e., if, for all V ∈U(d),
+(V†)⊗2O(θ)V⊗2 = O(θ).
+(12)
+,
+,
+,
+,
+,
+,
+SWAP
+SWAP
+FIG. 4.
+Elements of the symmetric group. The symmetric
+group Sk is composed of the k! distinct permutations over k
+indices. Here we illustrate its representation acting on tensor
+product systems for the cases of k = 1, 2, and 3 copies of n-
+qubit states (each represented as a line). For example, the element
+SWAP ⊗1 ∈S3 depicted second from left to right, acts on a ten-
+sor product state as SWAP ⊗1 |ψ1⟩|ψ2⟩|ψ3⟩= |ψ2⟩|ψ1⟩|ψ3⟩.
+From the Schur-Weyl duality [59] we know that the kth-
+order symmetries of U(d) are given by
+C(k)[U(d)] = span(Sk),
+(13)
+with Sk the representation of the symmetric group that acts
+by permuting subsystems of the k-fold tensor product of
+the input state (depicted in Fig. 4).
+As shown in Fig. 4, for the case of k = 2 copies, this
+group contains only two elements [60]
+S2 = {1 ⊗1, SWAP},
+(14)
+with 1 ⊗1 the identity acting on each of the two copies of
+ρ, and SWAP the operator swapping these copies. As a con-
+sequence, h(2)
+θ
+can be made G-invariant under the action of
+U(d) when O(θ) = a1 1 ⊗1 + a2 SWAP with a1, a2 ∈R.
+The latter is diagrammatically presented in Fig. 5. This
+yields predictions
+h(2)
+θ (ρ) = a1 + a2Tr[ρ2],
+(15)
+showing that the model will be able to perfectly classify
+the states in the purity dataset (according to Deﬁnition 4)
+for any choice of a2 ̸= 0.
+■
+We now make several remarks regarding the results
+in Theorem 2, and regarding our framework in general.
+First, we note that while Proposition 1 provides a straight-
+forward guideline to obtain G-invariant models, it does
+not prescribe how to actually build the quantum neural
+networks U(θ) and the measurement operators O ensur-
+ing that O(θ) = U†(θ)OU(θ) is a kth-order symmetry. All
+that we know is the speciﬁc form that the resulting O(θ)
+needs to have. Thus, it is still necessary to ﬁnd an ade-
+quate ansatz for U(θ) and an appropriate observable O that
+030341-7
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+,
+,
+(a)
+(b)
+(c)
+SWAP
+FIG. 5.
+Quadratic symmetries for G = U(d). (a) A model h(2)
+θ
+is G-invariant when O(θ) is a quadratic symmetry of G, that
+is, when (V†)⊗2O(θ)V⊗2 = O(θ) for all V ∈G. This equality is
+shown in diagrammatic tensor representation, where each line
+corresponds to a d-dimensional Hilbert space hosting a copy of
+ρ, and boxes represent unitary operations. (b) For V ∈U(d), we
+have VV† = V†V = 1 depicted on the left. Furthermore, we know
+that the quadratic symmetries of U(d) are spanned by the iden-
+tity 1 ⊗1 and the SWAP operators. We depict these on the right.
+(c) Using the diagrammatic tensor representation, we verify that
+(V†)⊗2O(θ)V⊗2 = O(θ) for the case when O(θ) = SWAP.
+can be eﬃciently measured. For instance, it is clear that
+simply choosing U(θ) = 1 ⊗1 for all θ and O = SWAP
+satisﬁes the conditions of Theorem 2. This has the issue
+that one cannot eﬃciently estimate the expectation value of
+the SWAP operator—its Pauli decomposition has a number
+of terms that scales exponentially with n—using a model
+such as h(2)
+θ . However, it is well known that by adding an
+ancilla qubit and by using the Hadamard test [34] one can
+eﬃciently estimate the expectation value of the SWAP oper-
+ator. In Appendix D, we show how our present formalism
+can be applied to models that include an ancillary qubit.
+Surprisingly, the latter allows us to discover a new con-
+nection between the SWAP test [34] and the ancilla-based
+algorithm of Ref. [61].
+B. Time-reversal dataset
+In this section we are interested in classifying states
+according to whether they are obtained from a time-
+reversal-symmetric [62] dynamic or from an arbitrary one.
+That is, the states ρi of the corresponding dataset S =
+{(ρi, yi)}N
+i=1 now have labels
+yi =
+
+1
+if ρi is real valued,
+0
+if ρi is Haar random.
+(16)
+Speciﬁcally, the states in the dataset have a label yi = 1
+if they are generated by evolving some (ﬁxed) real-valued
+ﬁduciary state with a time-reversal-symmetric unitary (and
+thus are real valued too), and a label yi = 0 if they are gen-
+erated by evolving the same reference state with a Haar
+random unitary.
+In contrast to the case of the purity dataset previously
+considered, one can now associate a distinct symmetry
+group to each of the two classes. On the one hand, the
+states with label yi = 0 have G0 = U(d) as a symmetry
+group. On the other hand, the states with label yi = 1 have,
+as a symmetry group, G1 = O(d), which is the orthogonal
+Lie group of degree d. This is because the unitaries in O(d)
+preserve the time-reversal symmetry of the states (and thus
+their label).
+For convenience, we recall that O(d) is the group of
+d × d orthogonal matrices. That is, for all V ∈O(d), VVt =
+VtV = 1. This group can be obtained by exponentiation
+of the orthogonal Lie algebra, which consists of d × d
+skew-symmetric matrices, g1 = o(d), i.e., O(d) = eo(d).
+Moreover, the unitary Lie algebra g0 = u(d) can be split
+as u(d) = o(d) ⊕uC(d). Here, note that o(d) corresponds
+to the purely real-valued subspace of the unitary algebra.
+Its orthogonal complement
+g⊥
+1 = uC(d)
+(17)
+corresponds to the purely imaginary subspace of the uni-
+tary Lie algebra.
+Having two symmetry classes allows for the design of
+a new classiﬁcation strategy. Namely, one can classify the
+data using a G1-invariant model (but not G0-invariant) h(k)
+θ
+such that
+h(k)
+θ (ρi) = c
+if yi = 1,
+h(k)
+θ (ρi) ∈[b1, b2]
+if yi = 0,
+(18)
+with c, b1, and b2 real values determined by the measure-
+ment operator and the states in the dataset. If c ̸∈[b1, b2]
+then Eq. (18) suﬃces for perfect classiﬁcation according
+to Deﬁnition 4. If c ∈[b1, b2], we can still use Eq. (18)
+for noisy classiﬁcation (see Deﬁnition 4), but there could
+be a chance of misclassiﬁcation as one cannot perfectly
+distinguish between states in diﬀerent classes yielding the
+same prediction. Such misclassiﬁcation events will remain
+unlikely as long as the probability that h(k)
+θ (ρi) = c (up to
+some additive error) is small for states with label yi = 0.
+In Appendix E, we present a lemma that formalizes the
+previous statement. In any case, for now, we assume that
+a model satisfying Eq. (18) can classify the data in the
+dataset with high enough probability, and will challenge
+this assumption in due course.
+1. Conventional experiments
+For the case of conventional experiments, i.e., k =
+1 copies in Eq. (2), the results in Proposition 3 can-
+not be used to ﬁnd G1-invariant models classifying the
+030341-8
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+time-reversal dataset. Indeed, since the representation of
+G1 = O(d) is irreducible, using Schur's lemma [52], we
+know that
+C(G1) = span({1}),
+(19)
+i.e., G1 has no nontrivial linear symmetries that could be
+exploited for the purpose of classiﬁcation.
+Still, we can use Proposition 4 to ﬁnd group-invariant
+models. First, we note that the input states ρi belong to
+g⊥
+1 = uC(d) when they are time-reversal symmetric but to
+g0 = u(d) when they are Haar random. Hence, h(1)
+θ
+will
+be invariant under the action of G1, but not necessarily
+invariant under the action of G0, if O(θ) is in ig1 but not in
+ig⊥
+0 . This is formalized below.
+Theorem 3. Let h(1)
+θ
+∈H1 be a model in Hypothesis Class
+1, computable in a conventional experiment. There always
+exist real-valued quantum neural networks U(θ) and oper-
+ators O, resulting in O(θ) ∈io(d) with O(θ) ̸= 0, such that
+h(1)
+θ
+is invariant under the action of O(d) and can perform
+noisy classiﬁcation of the data in the time-reversal dataset.
+Proof. We aim at ﬁnding models that are G1-invariant
+[with
+G1 = O(d)]
+but
+not
+necessarily
+G0-invariant
+[with G0 = U(d)], distinguishing time-reversal-symmetric
+states from Haar random ones. According to Proposition
+4, the model will be G1-invariant but not G0-invariant if
+O(θ) ∈ig1 = io(d) and O(θ) ̸= 0, e.g., if O(θ) is a purely
+imaginary operator.
+Now, lets show that there is a choice of O and U(θ)
+allowing for classiﬁcation. Taking O ∈ig1 and U(θ) ∈
+G1 = O(d), the resulting O(θ) is also contained in ig1,
+since a Lie algebra is closed under the action of its asso-
+ciated Lie group. Because time-reversal-symmetric states
+ρi are exclusively contained in ig⊥
+1 , it follows from Eq. (5)
+that
+h(1)
+θ (ρi) = 0
+for all ρi with label yi = 1.
+Moreover, the previous equation is not satisﬁed for Haar
+random states, as these will generally have both real
+and complex parts. As such, h(1)
+θ (ρi) will not necessar-
+ily be zero for states with label yi = 0. Hence, the model
+satisﬁes Eq. (18) such that it can perform noisy classi-
+ﬁcation (according to Deﬁnition 4) for the states in the
+time-reversal dataset.
+■
+So far, we have identiﬁed models that yield predicted
+values of 0 for time-reversal-symmetric states, but yield
+values in a continuous range for states drawn from the
+Haar distribution. As such, when taking into account noise
+in the prediction of the model, any non-time-reversal state
+with prediction values close to zero may be misclassiﬁed.
+In fact, as proven in Appendix F, Haar random states lead
+to prediction values that (with probability close to one) lie
+in a range that becomes exponentially concentrated around
+zero with the number of qubits n. In turn, it can be shown
+that to classify states in the dataset with a success probabil-
+ity of at least 2/3, one would need to repeat the experiment
+a number of times that scales as (22n/7) [49,50,63].
+This raises attention towards a practical aspect in the
+design of QML models that we have not previously consid-
+ered: the scaling in the number of experiment repetitions
+required for accurate classiﬁcation. Our framework allows
+us to identify G-invariant models, but we are not guaran-
+teed that such models are practical for large system sizes
+n. In fact, we have seen that an exponential number of rep-
+etitions are needed to make practical use of the models in
+Theorem 3. This motivates us to further continue the search
+of G-invariant models in quantum-enhanced experiments
+in the hope that these might avoid the exponential scaling
+present in conventional experiments.
+2. Quantum-enhanced experiments
+For quantum-enhanced experiments, i.e., k = 2 copies
+in Eq. (2), we can show that the following theorem holds.
+Theorem 4. Let h(2)
+θ
+∈H1 be a model in Hypothesis Class
+1, computable in a quantum-enhanced experiment. There
+always exist quantum neural networks U(θ) and opera-
+tors O, resulting in O(θ) = |+⟩⟨+| + with |+⟩the
+Bell state on 2n qubits, such that h(2)
+θ
+is invariant under the
+action of O(d) and can perform noisy classiﬁcation of the
+data in the time-reversal dataset.
+Proof. We aim at ﬁnding models that are invariant under
+O(d), but not under U(d). According to Proposition 3,
+this can be achieved by ensuring that O(θ) is a quadratic
+symmetry of O(d) but not of U(d). From the Schur-Weyl
+duality we know that the kth-order symmetries of O(d) are
+given by the Brauer algebra Bk [64],
+C(k)[O(d)] = Bk.
+(20)
+The elements of Bk are depicted in Fig. 6.
+As shown in Fig. 7, for k = 2, the Brauer algebra is
+spanned by three elements
+B2 = span({1 ⊗1, SWAP, |+⟩⟨+|}),
+(21)
+where |+⟩denotes the Bell state on 2n qubits
+|+⟩= 1
+d
+d
+	
+j =1
+|j ⟩|j ⟩.
+(22)
+It can be veriﬁed that |+⟩⟨+| is indeed a quadratic sym-
+metry for O(d). To see that, recall the ricochet property
+030341-9
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+SWAP
+FIG. 6.
+Elements of the Brauer algebra. A basis for the Brauer
+algebra Bk is composed of 2k!/(2kk!) possible pairings on a set of
+2k elements, where any element may be matched to another. Here
+we illustrate its representation acting on tensor product systems
+for the cases of k = 1, 2, and 3 copies.
+(also called the transpose trick), which states that, for any
+linear operator A acting on a d-dimensional Hilbert space,
+(A ⊗1) |+⟩= (1 ⊗At) |+⟩.
+(23)
+Using Eq. (23), one can assert that (Vt)⊗2 |+⟩⟨+| V⊗2 =
+(1 ⊗VtV) |+⟩⟨+| (1 ⊗VtV) = |+⟩⟨+|, and hence
+that |+⟩⟨+| ∈C(2)[O(d)] [see also Fig. 7(b) for a dia-
+grammatic proof].
+(a)
+(b)
+SWAP
+FIG. 7.
+Quadratic symmetries for G = O(d). (a) We know
+that any V ∈O(d) is such that VVt = VtV = 1. We schematically
+show this fundamental property on the left. We know that the
+quadratic symmetries of O(d) are elements of the Brauer algebra
+B2 whose basis contains three elements: the identity 1 ⊗1, the
+SWAP operator, and the projector onto the Bell state |φ+⟩⟨φ+|. We
+depict these on the right. (c) Using the diagrammatic tensor rep-
+resentation, we verify that (Vt)⊗2O(θ)V⊗2 = O(θ). For the case
+of |φ+⟩⟨φ+|, we use the ricochet property of Eq. (23).
+(a)
+(b)
+FIG. 8.
+Circuits used in quantum-enhanced experiments. (a)
+When classifying time-reversal states, the dataset is composed
+of states ρi obtained by evolving a ﬁduciary real-valued state
+with an orthogonal unitary or with a Haar random unitary. (b)
+When classifying time-reversal-symmetric dynamics, the dataset
+is composed of orthogonal and Haar random unitaries Wi. Here
+we are free to choose the 2n-qubit initial state |	in⟩that will
+be evolved under the action of W⊗2
+i . In both panels we have
+indicated with a red dashed box the circuit for implementing a
+Bell-basis measurement. In particular, an all-zero measurement
+outcome corresponds to the probability of measuring |+⟩.
+The only element that is in C(2)[O(d)] but not in
+C(2)[U(d)] is the projector onto the Bell state |+⟩⟨+|.
+Hence, according to Proposition 3, h(2)
+θ
+is O(d)-invariant if
+O(θ) = λ |+⟩⟨+| with λ ∈R. Now, the model is such
+that h(2)
+θ (ρi) = λ ⟨+| (ρ⊗2
+i
+) |+⟩. In Fig. 8(a) we show a
+circuit that could be used to measure this overlap.
+Recall that the time-reversal states ρi are obtained by
+evolving a real-valued ﬁduciary state—taken to be |0⟩⊗n
+without loss of generality—under a unitary in O(d). One
+can verify that if O(θ) = |+⟩⟨+| then
+h(2)
+θ (ρi) = |⟨+|0⟩⊗2n|2 = 1
+d2
+(24)
+for all ρi with labels yi = 1. On the other hand, the model
+output will not be constant for states with labels yi = 0, i.e.,
+for states obtained by evolving |0⟩⊗n under a Haar random
+unitary Wi. In this case one has
+h(2)
+θ (ρi) = |⟨+|(Wi ⊗Wi)|0⟩⊗2n |2,
+(25)
+which depends on the choice of Wi. Overall, we have
+shown that choosing O(θ) = |+⟩⟨+| leads to a model
+invariant under O(d) that satisﬁes Eq. (18), and hence that
+can perform noisy classiﬁcation (according to Deﬁnition
+4) of the states in the time-reversal dataset.
+■
+Theorem 4 shows that measuring the Bell state allows
+us to do classiﬁcation. However, this does not solve
+the scaling issue discussed earlier. Indeed, as proven in
+Appendix F, the prediction values of the model given in
+Eq. (25) still concentrate exponentially close to zero as
+a function of the number of qubits. This implies that we
+still need an exponential number of experiment repeti-
+tions to accurately classify the data. However, as we now
+030341-10
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+show, this problem can be overcome if we slightly modify
+the task at hand, from the classiﬁcation of time-reversal-
+symmetric states to the classiﬁcation of time-reversal-
+symmetric dynamics.
+For this new task, rather than being given states, we
+assume instead access to the unitaries used to produce
+these states. The corresponding dataset has the form
+{Wi, yi}N
+i=1 with
+yi =
+
+1
+if Wi ∈O(d),
+0
+if Wi ∈U(d),
+(26)
+which has the same two symmetry groups G1 = O(d) and
+G0 = U(d) as before.
+As shown in Fig. 8(b), the main advantage of this sce-
+nario is that we are now allowed to initialize the 2n-qubit
+register to any global state |	in⟩, and to simultaneously
+evolve the ﬁrst and the second n qubits according to the
+same unitary Wi. To capture this additional freedom, we
+consider models in a new hypothesis class.
+Hypothesis Class 2. We deﬁne hypothesis class H2, com-
+putable in a quantum-enhanced experiment, as composed
+of functions of the form
+hθ(W) = Tr[U(θ)(W⊗2) |	in⟩⟨	in| (W⊗2)†U†(θ)O], (27)
+where U(θ) is a quantum neural network acting on the 2n
+qubits, O is a Hermitian operator, and |	in⟩is an initial
+state on 2n qubits.
+In this context, we can still use Proposition 3 to show
+that the following theorem holds.
+Theorem 5. Let hθ ∈H2 be a model in Hypothesis Class
+2, computable in a quantum-enhanced experiment. There
+always exist quantum neural networks U(θ) and opera-
+tors O, resulting in O(θ) = |+⟩⟨+| with |+⟩being the
+Bell state on 2n qubits, such that hθ is O(d)-invariant,
+but not U(d)-invariant, and can perfectly classify the
+dynamics in the time-reversal dataset. The special choice
+of |	in⟩= |+⟩recovers the algorithm for classifying
+time-reversal-symmetric dynamics presented in Ref. [49].
+Proof. Recall from Proposition 3 that hθ is invariant under
+O(d), but not under U(d), if O(θ) is in C(2)[O(d)] but
+not in C(2)[U(d)]. Following the proof of Theorem 4, we
+know that this can be achieved with the choice of O(θ) =
+|+⟩⟨+|. Moreover, a straightforward calculation shows
+that if we choose |	in⟩= |+⟩, we have
+hθ(Wi) = 1
+for all Wi with label yi = 1,
+(28)
+recovering the algorithm in Ref. [49]. On the other hand,
+hθ(Wi) is Wi-dependent and will concentrate around zero
+if yi = 0 (see Appendix F). This means that the model out-
+puts a value of 1 if the unitary has label yi = 1, and outputs
+a value of 0 (with high probability) if the unitary has label
+yi = 0. Thus, the models in Hypothesis Class 2 can per-
+form perfect classiﬁcation (according to Deﬁnition 4) of
+time-reversal-symmetric dynamics.
+■
+As shown in the proof of Theorem 5, now the model
+gives nonoverlapping predictions for the data in diﬀerent
+classes, meaning that we can now perform classiﬁcation
+with O(1) experiment repetitions. This is in contrast to
+the model deﬁned in Theorem 4, which requires an expo-
+nential number of experiments for accurate classiﬁcation.
+This illustrates how QML models capable of achieving a
+quantum advantage naturally emerge in our framework as
+G-invariant models.
+C. Multipartite entanglement dataset
+In this section, we consider the more involved task of
+classifying pure quantum states according to the amount
+of multipartite entanglement they possess. Entanglement
+has been shown to be a fundamental resource [65,66] in
+quantum information, quantum computation, and quantum
+sensing [67-75]. Hence, its study and characterization is
+quintessential for quantum sciences.
+Here, we recall that entanglement is relatively well
+understood for bipartite pure quantum states (e.g., via
+the Schmidt decomposition for pure states [76]), and that
+group-invariance arguments have been previously used to
+characterize entanglement in bipartite mixed states [77,
+78]. However, the same cannot be said for multipartite
+entanglement [79]. In this case, the entanglement com-
+plexity scales exponentially with the number of parties and
+there is no unique measure to quantify it. Thus, we employ
+our framework to not only obtain G-invariant QML mod-
+els—that can accurately classify multipartite entangled
+states—but also to better understand the unique nature of
+multipartite entanglement. In this context, we also recall
+that the presence of publicly available datasets, such as the
+NTangled dataset [80], composed of quantum states with
+varying amounts of multipartite entanglement, makes this
+an extremely rich application for our framework and for
+benchmarking QML models.
+Let E be a multipartite entanglement measure satisfying
+E(ρ) ∈[0, 1], with E(ρ) = 0 if the state is separable and
+E(ρ) > 0 if the state contains multipartite entanglement
+between the n qubits (for instance, see the entanglement
+measures in Refs. [36,81-83]). The multipartite entangle-
+ment dataset is of the form S = {(ρi, yi)}N
+i=1, where
+yi =
+
+1
+if E(ρi) = b > 0,
+0
+if E(ρi) = 0.
+(29)
+Here, the symmetry group G associated with the data in
+both classes is the Lie group G = 
+n
+j =1 U(2), with an
+030341-11
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+associated Lie algebra g = n
+j =1 su(2). This is due to
+the fact that local unitaries 
+n
+j =1 Vj do not change the
+multipartite entanglement in a quantum state.
+1. Conventional experiments
+Since computing entanglement typically requires evalu-
+ating a nonlinear function of the quantum state [65], it is
+expected that models in conventional experiments will not
+be able to classify the states in this dataset. This intuition
+can be conﬁrmed with the following theorem.
+Theorem 6. Let h(1)
+θ
+∈H1 be a model in Hypothesis Class
+1, computable in a conventional experiment. There exists
+no quantum neural network U(θ) and operator O such that
+h(1)
+θ
+is invariant under the action of 
+n
+j =1 U(2) and can
+classify (i.e., provide any relevant information about) the
+data in the multipartite entanglement dataset.
+Proof. First let us verify that Propositions 1 and 2 do not
+yield any adequate model for classiﬁcation purposes. To
+identify the linear symmetries of G required for the appli-
+cation of Proposition 1, we apply the commutation theorem
+for tensor products [84,85], which states that the commu-
+tant of a tensor product of operators is the tensor product
+of the commutants of each operator. Hence,
+C(G) = span ({1⊗n
+2 }),
+(30)
+where 12 denotes the 2 × 2 identity. This results in the
+choice O(θ) = λ1 (λ ∈R) and constant model predictions
+[for all ρi, h(1)
+θ (ρi) = λ] that cannot distinguish between
+states. Additionally, one can verify that the orthogonal
+complement of g is trivial, i.e.,
+g⊥= {0⊗n
+2 }
+(31)
+with 02 the 2 × 2 null matrix, such that models designed
+under Proposition 2 would also result in uninformative
+constant-value predictions.
+Hence, using Propositions 1 and 2 to obtain G-invariant
+models from Hypothesis Class 1 (with k = 1) will lead to
+trivial models that cannot classify the states in the multi-
+partite entanglement dataset. Following a similar argument
+to that developed in the last part of the proof of Theorem
+1, one can also verify that no other G-invariant models
+exist with k = 1. Indeed, if h(1)
+θ (VρV†) is invariant for any
+V = 
+d
+j =1 Vj , it also has to be invariant when uniformly
+averaged over every Vj in U(2). Performing this averaging,
+we obtain
+EG[h(1)
+θ (VρV†)] = Tr[ρ]Tr[O]
+d
+(32)
+for V = 
+d
+j =1 Vj . The only way for h(1)
+θ (ρ) to be equal
+to Tr[ρ]Tr[O]/d for any state ρ is to have O ∝1/d or
+O = 0, that is, solutions already covered by Propositions 1
+and 2.
+■
+2. Quantum-enhanced experiments
+Let us ﬁrst consider the case of k = 2 copies in Eq. (2).
+We can show that the following theorem holds.
+Theorem 7. Let h(2)
+θ
+∈H1 be a model in Hypothesis Class
+1, computable in a quantum-enhanced experiment. There
+always exist quantum neural networks U(θ) and oper-
+ators O, resulting in O(θ) = span(
+n
+j =1{1(j )
+4 , SWAP(j )}),
+such that h(2)
+θ
+is invariant under the action of 
+n
+j =1 U(2)
+and can perfectly classify the data in the multipartite
+entanglement dataset. Here, 1(j )
+4
+denotes the 4 × 4 iden-
+tity matrix on the j th qubit of each copy of ρ, and SWAP(j )
+denotes the operator that swaps the j th qubits of each
+copy of ρ. There exist special choices of O(θ) that recover
+all the multipartite entanglement measures proposed in
+Refs. [36-42].
+Proof. From Proposition 1 we know that h(2)
+θ
+will be G-
+invariant if O(θ) is a quadratic symmetry of G. Here
+we can again invoke the commutation theorem for tensor
+products to obtain the space of these symmetries:
+C(2)(G) = span
+
+n
+
+j =1
+{1(j )
+4 , SWAP(j )}
+
+.
+(33)
+Here 1(j )
+4
+denotes the 4 × 4 identity matrix acting on the
+j th qubit of each of the two copies of ρ, and SWAP(j )
+denotes the operator that swaps the j th qubits of the copies
+of ρ. Note that C(2)(G) is spanned by 2n elements, mean-
+ing that there exists an exponentially large freedom in
+choosing O(θ). Evidently, some choices of O(θ) will not
+be useful for characterizing multipartite entanglement. For
+instance, O(θ) = 
+n
+j =1 1(j )
+4
+leads to the trivial model's
+predictions h(2)
+θ (ρ) = Tr[ρ⊗2] = 1 for any state ρ. Sim-
+ilarly, O(θ) = 
+n
+j =1 SWAP(j ) = SWAP leads to h(2)
+θ (ρ) =
+Tr[ρ⊗2SWAP] = Tr[ρ2] = 1.
+On the other hand, there are choices for O(θ) that can
+indeed characterize entanglement. For instance,
+O(θ) = 2(1 −SWAP(j ) ⊗1(j ))
+(34)
+with 1(j ) the identity on all qubits but the j th ones lead
+to h(2)
+θ (ρ) = 2(1 −Tr[ρ2
+j ]), which is the impurity of ρj =
+Trj [ρ], i.e., the impurity of the reduced state on the j th
+qubit, and a bipartite entanglement measure across the j th
+030341-12
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+and the rest. Averaging over each of the n qubits, i.e.,
+O(θ) = 2
+n
+n
+	
+j =1
+(1 −SWAP(j ) ⊗1(j )),
+(35)
+recovers
+the
+multipartite
+entanglement
+measures
+of
+Refs. [37,38].
+Notably, the result in Eq. (34) can be further generalized
+as follows. First, let us deﬁne S = {1, 2, . . . , n} as the set of
+integers indexing each qubit, and let P(S) be its power set
+[i.e., the set of subsets of S, with cardinality |P(S)| = 2n].
+Deﬁning the operator
+O(θ) = 2
+
+1 −
+
+j ∈Q
+SWAP(j ) ⊗1(j )
+
+(36)
+for any Q ∈P(S)\{∅} leads to the generalized version of
+the concurrence measure for multipartite pure states in
+Refs. [39,40]. Even more generally, for any choice of Q,
+the operator
+O(θ) = 1 −
+1
+2|Q|
+
+j ∈Q
+(1(j )
+4 + SWAP(j )) ⊗1Q,
+(37)
+where Q = S\Q, leads to the concentratable entanglement
+family of multipartite entanglement measures introduced
+in Ref. [36] (see Proposition 3 of Ref. [36]), where the spe-
+cial case Q = S also leads to the measure of Ref. [41]. On
+the other hand,
+O(θ) = 1 −1
+2n
+n
+
+j =1
+(1(j )
+4 −SWAP(j ))
+(38)
+leads to the n-tangle measure [42] (see Proposition 5 of
+Ref. [36]).
+Since several of the previous choices for O(θ) lead
+to entanglement monotones, the model's output will be
+diﬀerent for data in diﬀerent classes. Hence, one can per-
+fectly classify the data in the multipartite entanglement
+dataset.
+■
+The results in Theorem 7 showcase how Propositions
+1-4 can lead to extremely powerful and nontrivial results.
+By simply imposing the G-invariance condition on the
+model one is able to naturally ﬁnd an exponentially large
+manifold of solutions capable of classifying the states in
+the multipartite entanglement dataset. The latter leads to
+the intriguing possibility that C(2)(G) contains solutions
+leading to new entanglement measures.
+Going further, one could also investigate the potential of
+models acting on more than k = 2 copies, a prospect that
+has been largely unexplored. Here we know from Propo-
+sition 1 that if O(θ) is a kth-order symmetry then the
+model h(k)
+θ
+is G-invariant under the action of 
+n
+j =1 U(2).
+Combining Eq. (13) and the commutation theorem leads to
+C(k)(G) = span
+
+n
+
+j =1
+Sj
+k
+
+,
+(39)
+where Sj
+k denotes the symmetric group acting on the k
+copies of the j th qubit. Since the dimension of C(k)(G)
+scales as (k!)n, i.e., exponentially with k, the manifold of
+G-invariant models is likely to lead to a rich variety of
+entanglement measures.
+V. DISCRETE GROUP-INVARIANT MODELS
+In the previous section we focused solely on situations
+where the symmetry group associated with the dataset was
+a unitary representation of some compact Lie group. Still,
+our formalism can be equally applied in the case of rep-
+resentations of discrete groups. Discrete groups are the
+relevant mathematical structure, for instance, when the
+quantum data are invariant under a ﬁnite set of permu-
+tations. This covers cases involving spatial invariance of
+condensed matter states on a lattice, or structural invari-
+ances in states of molecular systems. To illustrate such
+potential applications, we now address the task of classi-
+fying states belonging to a dataset with symmetry group
+G = Sn, i.e., the symmetric group consisting of all the n!
+permutations over a set of n indices.
+A. Graph isomorphism dataset
+In this section, we consider a dataset related to the so-
+called graph isomorphism problem, where the goal is to
+determine if two graphs are isomorphic. This classiﬁcation
+task has a rich history in computational sciences [86], and
+is known to be in the nondeterministic polynomial time
+(NP) complexity class (although it has not been shown to
+be NP complete). To solve this problem, several classical
+algorithms (with quasipolynomial complexity in the graph
+size [87]) and also quantum heuristics [43-46] have been
+proposed. When using a quantum model for graph clas-
+siﬁcation purposes, the ﬁrst step is to encode graphs onto
+quantum states. Here we take such encoding to be ﬁxed and
+start by detailing how it is performed and how the "graph
+isomorphism" dataset is generated.
+Recall that a graph is speciﬁed as G = (V, E), where
+V is a collection of n nodes and E is a collection of
+edges. Two graphs G and G′ are said to be isomorphic
+(and denoted as G ∼= G′) if there exists a bijection between
+the sets of edges belonging to G and G′. To build the
+dataset, we ﬁx two reference nonisomorphic graphs G0
+and G1 (G0 ̸∼= G1), and generate graphs Gi that are iso-
+morphic to either G0 or G1. To each of these graphs we
+assign labels yi = 0 or yi = 1, if it is isomorphic to G0 or
+G1, respectively.
+030341-13
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+Next, we encode these graphs {Gi} into quantum states
+{ρi}. This is achieved by evolving an initial Sn-invariant
+ﬁduciary state ρin (e.g., ρin = |+⟩⟨+|⊗n) as
+ρi = W(Gi)ρinW†(Gi),
+(40)
+where W(Gi) = e−itH(Gi). Here, t > 0 is a ﬁxed evolution
+time chosen such that the actions of W(G0) and W(G1) over
+ρin are diﬀerent, and H(Gi) is an Hamiltonian whose topol-
+ogy is that of the graph Gi. Speciﬁcally, we take it to be
+deﬁned as
+H(Gi) =
+	
+(j ,j ′)∈Ei
+Zj Zj ′ +
+	
+j ∈Vi
+Xj
+(41)
+with Zj and Xj denoting the Pauli-Z and Pauli-X operators
+acting on qubit j , respectively. We note that there exists
+more general ways to encode and process graph informa-
+tion in quantum states. In particular, the quantum graph
+convolutional neural network introduced in Ref. [32] gen-
+eralizes the unitary W(Gi) used here and is speciﬁcally
+tailored to represent quantum systems that have a graph
+structure (see Appendix G for a detailed description).
+Taken together, the graph generation and the encoding in
+Eq. (40) allow us to deﬁne the graph isomorphism dataset
+as a collection S = {(ρi, yi)}N
+i=1 of states ρi with labels
+yi =
+
+1
+if Gi ∼= G1,
+0
+if Gi ∼= G0.
+(42)
+As shown in Fig. 9, the states ρi can be thought of as
+representing an n-qubit quantum system whose interac-
+tion topology follows that of a graph Gi. The symmetry
+group G associated with both classes in the dataset is
+the symmetric group Sn, as one can map states within
+the same class via the action of elements in Sn (see
+FIG. 9.
+Permutation invariance in the graph isomorphism
+dataset. Consider the state ρ representing a quantum system of n
+spins interacting under some Hamiltonian that follows the topol-
+ogy of an underlying graph G. By conjugating the state with an
+element P ∈Sn, one obtains a new quantum state PρP whose
+interaction graph G′ is isomorphic to G. That is, ρ and PρP have
+the same label in the dataset.
+Fig. 9). Explicitly, let P be an operator in Sn, and deﬁne
+the state ρ′
+i = PρiP, which can be expressed as ρ′
+i =
+PW(Gi)ρinW†(Gi)†P. Using the fact that Pe−itH(Gi)P =
+e−itH(G′
+i) [for a Hamiltonian H(G′
+i) = PH(Gi)P with G′
+i ∼=
+Gi], we have ρ′
+i = W(G′
+i)PρinPW†(G′
+i). Since ρin is Sn-
+invariant, then PρinP = ρin, and given that G′
+i ∼= Gi, we
+conclude that the state ρ′
+i = W(G′
+i)ρinW†(G′
+i) shares the
+same label as ρi.
+Having deﬁned the dataset of interest, we proceed to
+show that models in conventional experiments suﬃce to
+classify the data.
+Theorem 8. Let h(1)
+θ
+∈H1 be a model in Hypothesis Class
+1, computable in a conventional experiment. There always
+exist quantum neural networks U(θ) and operators O,
+resulting in O(θ) ∈span(A⊗n) with A in U(2), such that
+h(1)
+θ
+is invariant under the action of Sn.
+Proof. From Proposition 1 we know that h(1)
+θ
+will be
+invariant under the action of Sn if O(θ) is a linear symmetry
+of Sn. Using the Schur-Weyl duality leads to [88]
+C(Sn) = span({A⊗n | for all A ∈U(2)}),
+(43)
+meaning that the operator O(θ) has to be a Hermitian lin-
+ear combination of n-fold tensor products of single-qubit
+unitaries. Notably, the dimension of this solution manifold
+grows polynomially with n as the dimension of C(Sn) can
+be shown to follow the tetrahedral numbers.
+■
+Finally, it remains to identify an adequate O(θ) among
+the space of operators that was just deﬁned. This choice
+should be taken such that the model predictions are (maxi-
+mally) distinct for states belonging to diﬀerent classes, that
+is, h(1)
+θ (ρi) ̸= h(1)
+θ (ρi′) if yi ̸= yi′. For an adequate param-
+eterization of O(θ), this search could be turned into an
+optimization task. Given that, by construction, the model
+predicts the same value for any states ρi belonging to the
+same class, this optimization would only require a single
+representative state for each class. Otherwise, one could
+employ heuristically deﬁned or physically motivated oper-
+ators. In particular, we highlight that the operators stud-
+ied in Refs. [43-46] to distinguish nonisomorphic graphs
+belong to the family of O(θ) yielded by Theorem 8.
+Overall, Theorem 8 exempliﬁes how our present frame-
+work can be readily applied to datasets with discrete sym-
+metries. While studied here for the case of G = Sn, this
+can be specialized to subgroups of Sn, such as the group
+of reﬂections, translations, or more subtle discrete symme-
+tries that naturally arise in condensed-matter models and
+quantum chemistry problems.
+030341-14
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+VI. EQUIVARIANT QUANTUM NEURAL
+NETWORKS
+While the framework laid here provides the ultimate
+form that a G-invariant model hθ should adopt, it nei-
+ther prescribes how to actually parameterize the quantum
+neural networks U(θ) nor tells us how to choose the mea-
+surement operator O that realizes O(θ) = U†(θ)OU(θ)
+such that it complies with our theorems.
+For this purpose, it is convenient to consider the action
+of the quantum neural network and the measurement
+process separately, and note that these can generally be
+thought of as concatenated maps. More generally, a con-
+structive way to achieve G-invariance of general QML
+models starts by decomposing the model as
+hθ = E(M)
+θ(M) ◦· · · ◦E(1)
+θ(1),
+(44)
+i.e., as a composition of M maps E(m)
+θ(m), with integer labels
+m = 1, . . . , M, each parameterized by a subset of parame-
+ters θ(m) ⊂θ. For instance, one such map could represent
+the action of a QNN (or of its individual constituents, i.e.,
+its layers), the ﬁnal measurement operation, steps of post-
+processing, or even the process of encoding classical data
+into quantum states in the ﬁrst place.
+Although imposing invariance at the map level eﬀec-
+tively results in global invariance of the model, this is
+quite restrictive. A more relaxed approach towards the con-
+struction of group-invariant models involves the concept of
+equivariance [7-9,89] that is now deﬁned.
+Deﬁnition 7: (G-equivariance). Given a group G with an
+action on spaces A and B, a function E : A →B is called
+G-equivariant if it commutes with the action of the group
+E(V · x) = V · E(x)
+(45)
+for all elements V ∈G and inputs x ∈A.
+That is, a function is G-equivariant if group shift-
+ing the input (x →V · x) produces a group-shifted out-
+put [E(x) →V · E(x)]. It can be veriﬁed that (i) G-
+equivariance of the intermediary maps (m < M) along
+with (ii) G-invariance of the ﬁnal map (m = M) is suf-
+ﬁcient to ensure G-invariance of the composed model.
+Intuitively, equivariance permits the propagation of the
+action of elements of G up to the ﬁnal map, so that the
+symmetries get preserved.
+Accordingly, a model hθ belonging to Hypothesis
+Class 1 could be split in terms of the transformation
+of the input state and the ﬁnal measurement. That is,
+hθ(ρ) = E(2) ◦E(1)
+θ (ρ) with E(1)
+θ (ρ) = U(θ)ρ⊗kU†(θ) and
+E(2)(ρ) = Tr[Oρ⊗k]. Thus, the model hθ will be G-
+invariant if E(2) is invariant and E(1)
+θ
+is equivariant. As
+before, invariance of E(2) can be achieved by choosing the
+measurement operator O to be a Hermitian operator satis-
+fying either Proposition 1, 2, 3, or 4. On the other hand,
+equivariance of E(1)
+θ
+can be achieved in a way very close in
+essence to Proposition 1. Specializing Deﬁnition 7 to the
+case of unitary maps acting on k copies of ρ, we see that
+equivariance of such a QNN (or of its layers) is equivalent
+to requiring that
+[U(θ), V⊗k] = 0
+for all V ∈G.
+(46)
+That is, a unitary U(θ) is G-equivariant if U(θ) ∈C(k)(G)
+(it belongs to the kth commutant of G). For instance, for
+graph classiﬁcation, the quantum graph convolutional neu-
+ral network, presented in Appendix G, can be veriﬁed to be
+equivariant under the action of Sn.
+Overall, approaching G-invariance through the decom-
+position in Eq. (44) has the advantage of modular-
+ity—equivariant maps could be more easily identiﬁed and
+reused across diﬀerent models—and also allows for the
+study of more general models than those in Hypothesis
+Class 1. For instance, additional steps of postprocessing,
+or of encoding of classical data into quantum states, can be
+described as additional maps to be composed, and read-
+ily ﬁt into such a framework. Finally, although in this
+manuscript we have exclusively focused on classiﬁca-
+tion tasks, i.e., where the model outputs scalars, one can
+consider the more general setting of a model producing
+operator-valued outputs (i.e., in the case of quantum gen-
+erative modeling [33,90,91]). In such a case, one would be
+interested in global equivariance of the model, rather than
+invariance.
+VII. CONCLUSIONS
+In this work, we presented a theoretical framework to
+design QML models that, by construction, respect the sym-
+metries of a group G associated with the dataset. This
+approach has several beneﬁts [7]: it is more data eﬃ-
+cient, it reduces the model's search space (less parameters),
+it often leads to better generalization, and the classiﬁca-
+tion accuracy is robust under perturbations drawn from
+the symmetry group. Our main contributions are as fol-
+lows. First, in Propositions 1-4 we leveraged properties
+from representation theory to determine the conditions that
+lead to G-invariance. These results constitute guidelines
+for designing group-invariant models and were used to
+show how models such as those in Hypothesis Class 1 can
+be made G-invariant and accurately solve certain super-
+vised learning tasks. We then showcased the power of our
+framework for several QML tasks, where we found how
+embedding symmetry information into the model allows
+us to recover in an elegant and formal way several algo-
+rithms from the literature that were heuristically obtained,
+or that were obtained through trial and error.
+As a ﬁrst application, we addressed the task of classi-
+fying pure states from mixed states in conventional and
+quantum-enhanced experiments (i.e., experiments with
+030341-15
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+and without access to a quantum memory). For this case,
+the symmetry group is the unitary group, since applying a
+unitary to a quantum state preserves its spectral properties.
+Theorem 1 showed that there exist no conventional experi-
+ments that are G-invariant and that can classify the data in
+the purity dataset. However, by allowing the QML model
+to coherently act on two copies of each state in the dataset
+we showed in Theorem 2 that there exist models that are
+G-invariant and can classify the data. These are based on
+taking the expectation value of the SWAP operator, which
+naturally appeared through the Schur-Weyl duality as an
+element of the symmetric group.
+The second task we considered was that of classifying
+time-reversal symmetric states from Haar random states.
+In Theorems 3 and 4 we showed that models in both con-
+ventional and quantum-enhanced experiments can be used
+to distinguish such states. Surprisingly, we recovered the
+well-known Bell basis measurement scheme for detect-
+ing time reversal, where the Bell measurement operator
+appeared naturally as an element of the basis of the Brauer
+algebra. Moreover, by the seemingly innocuous change of
+allowing the model to access the unitaries that prepare the
+states in the dataset (rather than the states themselves),
+we obtained in Theorem 5 the model used in Ref. [49] to
+show that quantum-enhanced experiments can classify the
+data with exponentially less experiments than conventional
+experiments. This connects our work with recent research
+showing that QML models are capable of exponential
+advantages in some tasks of data classiﬁcation.
+We then applied our framework to a dataset composed of
+pure states with diﬀerent amounts of multipartite entangle-
+ment. Here, the symmetry group preserving entanglement
+is the n-fold direct product of the local unitary group. This
+example proved the power of our framework as we showed
+that all the entanglement measures of Refs. [36-42] are
+special cases of the family of G-invariant models deﬁned
+in Theorem 7. Moreover, we conjectured that allowing the
+QML model to access more than two copies of each quan-
+tum state and measuring the expectation value of local
+permutation operators can lead to new entanglement mea-
+sures. Interestingly, we recently became aware of the work
+in Ref. [92] where it was shown that such expectation
+values can indeed detect the presence of entanglement.
+Additionally, we showed how our results extend beyond
+continuous Lie groups, by studying a problem of classiﬁca-
+tion in a quantum graph isomorphism dataset. That is, we
+addressed the task of determining if a given graph-encoded
+quantum state belongs to one isomorphism class or the
+other. In this case, the symmetry group associated with the
+dataset is the symmetric group. In Theorem 8, we identi-
+ﬁed G-invariant models capable of classifying the data in
+such a graph-isomorphism dataset.
+Our results take one of the ﬁrst steps towards a general
+theory of QML models with sharp geometric priors based
+on the dataset symmetries. Since our work is inspired by
+the theory and success of geometric deep learning, we
+envision that soon enough the ﬁeld of geometric quantum
+machine learning will be a thriving and exciting ﬁeld.
+VIII. OUTLOOK
+Here we overview some questions left unanswered by
+our results, and propose diﬀerent paths forward.
+A. Equivariance
+As detailed in Sec. VI, the concept of equivariance in
+quantum neural networks may play a central role when
+building models that respect the symmetries of a given
+dataset. While a few examples of equivariant quantum neu-
+ral networks have been proposed, such as the quantum
+convolutional neural network [21] that respects transla-
+tional symmetry, the quantum convolutional graph neural
+network [32] that respects Sn-symmetry in graphs, the
+U(d)-equivariant ansatz of Ref. [93], or the graph automor-
+phism group-invariant ansatz in Ref. [94], it is worth not-
+ing that these are the exception to the rule. Most quantum
+neural networks in the literature are not equivariant, and
+do not use information about symmetries in their design.
+Hence, much work remains to be done in the path towards
+general equivariant architectures, especially to guarantee
+that they have circuit depth and connectivity requirements
+compatible with near-term quantum hardware.
+B. Trainability: expressibility and gradient
+magnitudes
+Arguably, one of the main threats to the trainability of
+QNNs are barren plateaus (BPs), a phenomenon by which
+gradients along the parameter landscape become exponen-
+tially concentrated around zero as the system size grows
+[15-20]. In the presence of BPs, an exponential number of
+measurement shots is required to correctly identify a mini-
+mizing direction on the landscape. Given such limitations,
+understanding the conditions that lead to their presence has
+been the subject of extensive work [17,22,23,25,95].
+Naively, one would be tempted to choose QNNs to be
+highly expressive so that good approximations of the rele-
+vant unitary transformation can be achieved. Nevertheless,
+Holmes et al. [15] unveiled a connection between the
+expressibility of an ansatz and the magnitudes of the gra-
+dients: highly expressive ansatzes were shown to exhibit
+BPs, suggesting that expressibility should be limited to
+give room for trainability. Later on, Larocca et al. [25]
+pointed towards the Lie closure of the gate generators
+of an ansatz as a measure of its ultimate expressibility.
+Most importantly, when the dimension of such Lie closure
+grows exponentially with the system size (as is the case
+for problem-agnostic architectures such as the hardware-
+eﬃcient ansatz [16,17,96]), there exists some critical num-
+ber of layers beyond which barren plateaus are known to
+030341-16
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+dominate the parameter landscapes. Finally, we note that
+the size of the Lie closure has also been related to the num-
+ber of parameters needed to overparameterize a QNN [26].
+Therefore, given a ﬁxed number of parameters, we expect,
+in general, less expressive ansatzes to have more favor-
+able landscapes. Overall, all these results point towards the
+importance of reducing as much as possible (in a sensible
+way) the expressivity of QNNs.
+In this context, building models with strong geomet-
+ric priors such as equivariant QNNs constitute a sensible
+choice. By constraining the expressibility of the ansatz to
+the relevant region only, these symmetry-based propos-
+als emerge as goldilocks candidates for trainability-aware
+ansatz design. While the exact improvement in trainability
+will certainly be problem dependent, there is already evi-
+dence that equivariant QNNs do indeed lead to better per-
+formance and trainability in several archetypal near-term
+algorithms [94].
+C. Generalization
+Complementary to its trainability, the ability of a model
+to generalize to unseen data is key to its applicability in
+realistic scenarios. While errors evaluated on a training
+dataset are the main metric when training a model, its prac-
+tical success should be gauged when applied to new testing
+data. The generalization error quantiﬁes the gap between
+training and testing errors. In the realm of QML, recent
+results [24] have shown that such a generalization error
+is upper bounded by a quantity scaling as √T/N, where
+T denotes the number of parameters and N the number
+of training data. As such, given a ﬁxed training dataset,
+reducing the expressibility of a model (by means of equiv-
+ariant QNNs with appropriate geometric priors), and thus
+the number of free parameters, is expected to yield better
+model generalization.
+D. Quantum advantage
+The gold standard for quantum machine learning mod-
+els, and for quantum algorithms in general, is being able
+to solve a given task faster that any classical method. As
+exempliﬁed by our main results (see Sec. IV B), the con-
+cept of G-invariance is not tied to that of computational
+advantage, as there exists G-invariant models capable, but
+also incapable, of achieving a quantum advantage. Hence,
+it will be fundamental to determine the key features that
+lead to models with favorable scalings.
+E. More general models and learning scenarios
+In this work we considered QML models of the form
+in Hypothesis Class 1. However, these are not the most
+general models one can have. For instance, the ability
+to perform nontrivial postprocessing on the measurement
+outcomes [61] or employing randomized measurement
+techniques [97] can greatly increase the model's power and
+performance [13]. We expect that the principles exposed
+here can be applied to more general settings, opening up
+the possibility of obtaining G-invariance with methods
+beyond those described in Propositions 1-4. Moreover,
+while the concepts of kth-order symmetries and orthogo-
+nal complements played a key role in our derivation of
+G-invariant models, we expect that other properties will
+be needed to understand group invariance in more general
+settings.
+Finally, we highlight that we have mainly focused on
+supervised tasks of binary classiﬁcation. Nevertheless, the
+ideas of G-invariance should also be applied to more gen-
+eral supervised learning scenarios (including regression
+problems), or to unsupervised learning scenarios.
+ACKNOWLEDGMENTS
+We thank Robert Zeier for helpful and insightful dis-
+cussions. M.L. and P.J.C. are supported by the U.S.
+Department of Energy (DOE), Oﬃce of Science, Oﬃce
+of Advanced Scientiﬁc Computing Research, under the
+Accelerated Research in Quantum Computing (ARQC)
+program. M.L. is also supported by the Center for Non-
+linear Studies at LANL. P.J.C. and M.C. were also ini-
+tially supported by the LANL ASC Beyond Moore's
+Law project. F.S. is supported by the Laboratory Directed
+Research and Development (LDRD) program of Los
+Alamos National Laboratory (LANL) under Grant No.
+20220745ER. M.C. is supported by the LDRD program
+of LANL under Grant No. 20210116DR. This work is
+also supported by the Quantum Science Center (QSC),
+a National Quantum Information Science Research Cen-
+ter of the U.S. Department of Energy (DOE). X, formerly
+known as Google[x], is part of the Alphabet family of com-
+panies, which includes Google, Verily, Waymo, and others
+(see Ref. [98]).
+APPENDIX A: HERMITIAN PART OF THE
+COMMUTANT
+Let us ﬁrst show that the following lemma holds
+Lemma 1. Let C(k)(G) denote the kth-order symmetries
+of G ⊆U(d). Then, for any matrix A in C(k)(G), its
+Hermitian conjugate A† is also in C(k)(G).
+Proof. Let A be a matrix in C(k)(G). From Deﬁnition 5 we
+know that A is such that
+[A, V⊗k] = 0
+for all V ∈G.
+(A1)
+The previous equation can be explicitly written as AV⊗k =
+V⊗kA or, equivalently, as
+A = V⊗kA(V†)⊗k
+for all V ∈G.
+(A2)
+030341-17
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+Taking the conjugate transpose on each side leads to
+A† = V⊗kA†(V†)⊗k
+for all V ∈G,
+(A3)
+which, by Deﬁnition 5, implies that A† is also in C(k)(G).
+■
+As a consequence of Lemma 1, one can always associate
+a Hermitian operator with any matrix in C(k)(G). Namely,
+if A ∈C(k)(G) is Hermitian then nothing needs to be done.
+But if A is not Hermitian, one can create the operators
+A + A† and i(A −A†), which are Hermitian and which also
+belong to C(k)(G).
+APPENDIX B: PROOF OF PROPOSITION 2
+Here we prove Proposition 2 of the main text, which we
+recall for convenience.
+Proposition 5. Let h(k)
+θ
+∈H1 be a model in Hypothesis
+Class 1. Then, let G be the symmetry Lie group associated
+with the dataset, and let g ⊆u(d) be its Lie algebra with
+i1 ∈g. The model will be G-invariant when ρ ∈ig and
+O(θ) ∈span({Aj ⊗Aj }j ). Here, Aj ∈ig⊥is a Hermitian
+operator acting on the j th copy of ρ and Aj is an operator
+acting on all copies of ρ but the j th one.
+Proof. Let us ﬁrst consider the case when i1 ∈g and
+O(θ) = Aj ⊗Aj for a given j . If ρ ∈ig then
+ρ =
+	
+μ
+rμhμ
+with hμ ∈ig and rμ ∈R.
+(B1)
+Similarly, if Aj ∈ig⊥, we can write
+Aj =
+	
+μ′
+aμ′gμ′
+with gμ′ ∈ig⊥and aμ ∈R.
+(B2)
+It then follows from Deﬁnition 6 that
+Tr[ρAj ] =
+	
+μ,μ′
+rμaμ′Tr[hμgμ′] = 0,
+(B3)
+since each term Tr[hμgμ′] = 0.
+From Eq. (B3) we know that the expectation value of
+O(θ) over ρ⊗k is
+h(k)
+θ (ρ) = Tr[ρ⊗kO(θ)] = Tr[ρAj ]Trj [ρ⊗(k−1)Aj ] = 0,
+(B4)
+where Trj is the trace over all qubits except those in the j th
+copy of ρ. Equation (B3) shows that h(k)
+θ
+= 0 for all states
+ρ having support exclusively on ig. Since a Lie algebra is
+closed under the action of its Lie group, then it follows that
+VρV† ∈ig for all V ∈G. Thus, with a similar argument,
+we have
+h(k)
+θ (VρV†) = Tr[VρV†Aj ]Trj [(VρV†)⊗(k−1)Aj ] = 0
+(B5)
+for all V ∈G, where we have again used Deﬁnition 6. The
+latter shows that h(k)
+θ
+is G-invariant.
+Finally, we can generalize the previous results to the
+case when O(θ) ∈span({Aj ⊗Aj }j ). Now we can expand
+O(θ) =
+	
+j
+oj Aj ⊗Aj .
+(B6)
+If Aj ∈ig⊥for all j , we ﬁnally ﬁnd that
+h(k)
+θ (VρV†) = Tr[(VρV†)⊗kO(θ)]
+=
+	
+j
+oj Tr[VρV†Aj ]Trj [(VρV†)⊗(k−1)Aj ] = 0,
+(B7)
+which completes the proof.
+■
+Here we ﬁnally note that if i1 ∈g⊥then we can obtain
+G-invariance when ρ ∈ig⊥and Aj ∈ig. The proof fol-
+lows similarly to that previously presented. Now we have
+h(k)
+θ (VρV†) = Tr[(VρV†)⊗kO(θ)]
+=
+	
+j
+oj Tr[ρV†Aj V]Trj [(VρV†)⊗(k−1)Aj ] = 0.
+(B8)
+Here we need to use the fact that Tr[ρV†Aj V] ∈ig for all
+V ∈G (a Lie algebra is closed under the action of its asso-
+ciated Lie group). Moreover, we have used Deﬁnition 6 to
+show that Tr[ρV†Aj V] = 0.
+APPENDIX C: PROOFS OF PROPOSITIONS 3
+AND 4
+Here we prove Propositions 3 and 4. Since their proofs
+follow from those of Propositions 1 and 2, respectively,
+we simply mention the main diﬀerences. First, we recall
+that in Propositions 3 and 4 we consider the case when the
+data with diﬀerent labels have diﬀerent symmetry groups,
+denoted as G0 and G1. Moreover, each symmetry group
+will have their own kth-order symmetries, and for the case
+of Lie groups, their associated Lie algebra and orthogonal
+complements.
+From Proposition 1 we know that a model will be G-
+invariant if O(θ) belongs to C(k)(G). Since here there are
+two symmetry groups, we know that the models will be
+G0-invariant if O(θ) belongs to C(k)(G0). Evidently, the
+030341-18
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+model will also be G1-invariant if O(θ) is also in C(k)(G1).
+Thus, to guarantee G0-invariance, but not necessarily G1-
+invariance, one needs O(θ) to belong to G0, but not to G1.
+This constitutes the proof of Proposition 3.
+The proof of Proposition 4 follows similarly from
+that of Proposition 3. Here, the model will be G0-
+and G1-invariant if O(θ) ∈span({Aj ⊗Aj }j ), ρ ∈ig0, ig1,
+and Aj ∈ig⊥
+0 , ig⊥
+1 . In addition, the model will be G0(1)-
+invariant but not necessarily G1(0)-invariant when ρ ∈
+ig0, igi and Aj ∈ig⊥
+0 but Aj ̸∈ig⊥
+1 .
+APPENDIX D: ANCILLA-BASED MODELS FOR
+THE PURITY DATASET
+In the main text we considered the task of classifying
+the data in the purity dataset with models in Hypoth-
+esis Class 1, i.e., with models of the form hθ(ρ) =
+Tr[U(θ)ρ⊗kU†(θ)O]. As we saw in Theorem 1 of the main
+text, there are no such models with k = 1 that allow for
+classiﬁcation. On the other hand, Theorem 2 shows that
+models with k = 2 can indeed classify the data according
+to their purity. In this case, O(θ) has to be the SWAP opera-
+tor (up to some additive and multiplicative constants).
+The previous raises the issue of how to eﬃciently eval-
+uate the expectation value of the SWAP operator. Taking
+inspiration from the Hadamard test, which computes the
+expectation value of a unitary by controlling its action with
+an ancillary qubit, we envision a new family of ancilla-
+based hypotheses. Here, one appends to the QNN an extra
+qubit that is used along the two copies of ρ, so that the
+2n + 1 qubit state (|0⟩⟨0| ⊗ρ ⊗ρ) is fed into a quan-
+tum neural network that acts globally on all qubits, and
+only measures the ancilla qubit. This deﬁnes the following
+hypothesis class.
+Hypothesis Class 3. We deﬁne hypothesis class H3, com-
+putable in a quantum-enhanced experiment, as composed
+of functions of the form
+hθ(ρ) = Tr[U(θ)(|0⟩⟨0| ⊗ρ ⊗ρ)U†(θ)OA],
+(D1)
+where U(θ) is a quantum neural network acting on 2n + 1
+qubits, and OA = (O ⊗1 ⊗1) with O a one-qubit Hermi-
+tian operator acting on the ancilla qubit.
+The models in hypothesis class H3 should now be
+invariant under the action of 1 ⊗V ⊗V for any V in
+U(d). In the spirit of Proposition 1 and deﬁning OA(θ) =
+U†(θ)OAU(θ), we know that this can be readily achieved
+when [OA(θ), 1 ⊗V ⊗V] = 0 for all V ∈U(d), that is,
+when OA ∈iu(2) ⊗C(2)(G). This results in the following
+theorem.
+Theorem 9. Let hθ ∈H3 be a model in Hypothesis Class
+3, computable in a quantum-enhanced experiment. There
+always exist quantum neural networks U(θ) and opera-
+tors OA, resulting in OA(θ) = A ⊗S, where A |0⟩= |0⟩
+and S ∈span({1 ⊗1, SWAP}) with nonzero component in
+SWAP, such that hθ is invariant under the action of U(d)
+and can perfectly classify the data in the purity dataset.
+The special choice of OA(θ) = Z ⊗SWAP corresponds to
+the operator measured in the SWAP test [34] and in the
+ancilla-based algorithm of Ref. [61].
+Proof. We ﬁrst recall that the models in H3 will be G-
+invariant if hθ(VρV†) = hθ(ρ) for all V ∈U(d), i.e., when
+Tr[(1 ⊗V ⊗V)(|0⟩⟨0| ⊗ρ ⊗ρ)(1 ⊗V† ⊗V†)OA(θ)]
+= Tr[(|0⟩⟨0| ⊗ρ ⊗ρ)OA(θ)].
+(D2)
+This holds when
+[OA(θ), (1 ⊗V ⊗V)] = 0.
+(D3)
+Equation (D3) is satisﬁed for the choice of OA(θ) = A ⊗
+S with A an operator acting on the ancillary qubit and
+S an operator in C(2)[U(d)] = span(S2) with S2 = {1 ⊗
+1, SWAP} a representation of the symmetric group of two
+elements. Then, replacing OA(θ) by A ⊗S in the left-hand
+side of Eq. (D2) leads to
+Tr[(1 ⊗V ⊗V)(|0⟩⟨0| ⊗ρ ⊗ρ)(1 ⊗V† ⊗V†)OA(θ)]
+= Tr[(1 ⊗V ⊗V)(|0⟩⟨0| ⊗ρ ⊗ρ)
+× (1 ⊗V† ⊗V†)A ⊗S)]
+= Tr[(|0⟩⟨0| ⊗ρ ⊗ρ)(A ⊗S)]
+= Tr[|0⟩⟨0| A]Tr[ρ ⊗ρS].
+In the second inequality we have used the fact that S com-
+mutes with V ⊗V, while in the ﬁnal line we have simply
+separated the trace over the diﬀerent subsystems. Since
+replacing OA(θ) by A ⊗S in the left-hand side of Eq. (D2)
+leads to Tr[|0⟩⟨0|]Tr[ρ ⊗ρS], we can see that the model
+will be G-invariant if and only if A |0⟩= |0⟩, i.e., if A has
+|0⟩as an eigenvector with eigenvalue equal to one.
+Finally, we remark that a direct calculation with the cir-
+cuits in Fig. 10 veriﬁes that both circuits satisfy U1†(Z ⊗
+1 ⊗1)U1 = U2†(Z ⊗1 ⊗1)U2 = Z ⊗SWAP. Hence, we
+recover the operator measured in the SWAP test [34] and in
+the ancilla-based algorithm of Ref. [61].
+■
+Let us analyze here the remarkable fact that the special
+choice A = Z leads to the exact operator measured in two
+distinct ancilla-based circuits computing the purity: in the
+SWAP test [34] and in the algorithm discovered in Ref. [61].
+For completeness, these two circuits are shown in Fig. 10
+for the case when ρ is a single-qubit state. While both
+circuits end up computing the purity of ρ, they do so by
+030341-19
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+(a)
+(b)
+FIG. 10.
+Ancilla-based circuits for computing the purity. (a) The circuit U1 corresponds to the canonical SWAP test that was com-
+piled into gates native to the IBM's superconducting qubit devices [99]. Here H and T denote the Hadamard and π/8-phase gates,
+respectively. At the end of the circuit one measures the expectation value of the Pauli-Z operator on the ancilla qubit. (b) The circuit
+for U2 corresponds to the ancilla-based algorithm for computing purity discovered in Ref. [61] through a machine learning subrou-
+tine designed to minimize the number of controlled-NOT gates required. (see also [100]). Here W = T†H. At the end of the circuit
+one measures the expectation value of the Pauli-Z operator on the ancilla qubit. Both circuits satisfy the conditions in Theorem 2 as
+U1†(Z ⊗1 ⊗1)U1 = U2†(Z ⊗1 ⊗1)U2 = Z ⊗SWAP.
+implementing distinct unitaries. This can be seen by eval-
+uating the Schmidt rank across the ancilla and data qubits
+cut of the two circuits. This Schmidt rank is found to be
+2 for the unitary U1 displayed in Fig. 10(a), and 3 for the
+unitary U2 displayed in Fig. 10(b). This indicates that both
+circuits are fundamentally diﬀerent in the sense that there
+is no local operations that map one to the other [61]. Still,
+one can verify that
+U1
+†(Z ⊗1 ⊗1)U1 = U2
+†(Z ⊗1 ⊗1)U2 = A ⊗SWAP,
+(D4)
+where A = Z. Hence, our results shed new light on the
+connection between these two circuits.
+APPENDIX E: CLASSIFYING WITH EQ. (18)
+In the main text we argued that, when the classiﬁcation
+task has two symmetry groups, associated with the two dif-
+ferent classes, then one can classify the data if there exists
+a G1-invariant model h(k)
+θ
+∈H1 in Hypothesis Class 1 such
+that
+h(k)
+θ (ρi) = c
+if yi = 1,
+h(k)
+θ (ρi) ∈[b1, b2]
+if yi = 0.
+(E1)
+When c ̸∈[b1, b2], one can readily use this model for
+unambiguous classiﬁcation: when the model returns a
+value of c (diﬀerent from c), one would assign a label
+of y = 1 (y = 0) that corresponds to the true label of the
+state to be classiﬁed. However, when c ∈[b1, b2], we can
+still perform classiﬁcation, but at the cost of misclassify-
+ing some of the states. Indeed, there will now be cases
+where one measures a value of h(k)
+θ (ρi) = c despite the fact
+that the underlying state has true label yi = 0, but assign it
+a label y = 1. The probability of such a misclassiﬁcation
+event is quantiﬁed in the following.
+Lemma 2. Let P(0|c) be the probability of misclassiﬁca-
+tion that happens when the true label of a state ρi is yi = 0
+given a model value h(k)
+θ (ρi) = c. Accordingly, let P(c|0)
+be the probability that the model takes a value of c when
+the data have label yi = 0. Assuming that the probability
+of sampling a state from either class is equal, we have
+P(0|c) =
+P(c|0)
+1 + P(c|0).
+(E2)
+Lemma 2 shows that the probability of misclassiﬁcation
+will remain small as long as the probability that h(k)
+θ (ρi) =
+c given yi = 0 is small. Let us now provide a proof for
+Lemma 2.
+Proof. We know from Bayes theorem that
+P(0|c) = P(0)P(c|0)
+P(c)
+.
+(E3)
+According to the law of total probability we have P(c) =
+P(c|1)P(1) + P(c|0)P(0), where P(0) and P(1) denote the
+probabilities of sampling a state ρi with labels yi = 0 and
+yi = 1, respectively. Assuming the same representation for
+each label in the dataset, i.e., P(0) = P(1) = 1/2, we can
+rewrite Eq. (E3) as
+P(0|c) =
+P(c|0)/2
+[P(c|1) + P(c|0)]/2 =
+P(c|0)
+P(c|1) + P(c|0). (E4)
+Finally, recalling that, when yi = 1, the model outcome
+is always c, we have P(c|1) = 1 such that we recover
+Eq. (E2).
+■
+Going further, we can bound this probability of misclas-
+siﬁcation if we know the expectation value and variance
+of h(k)
+θ (ρi) for states with label yi = 0. First, note that
+P(c|0) ⩾0, such that, according to Eq. (E2), P(0|c) ⩽
+P(c|0). Next, let us deﬁne X to be the random variable
+corresponding to the QML model output, i.e., X = h(k)
+θ (ρi)
+for a random state ρi. We denote as ⟨X ⟩0 = Eyi=0[h(k)
+θ (ρi)]
+the expectation value of this variable conditioned on the
+sampled states to have label yi = 0. Assuming that this
+expectation value is greater than c (without loss of general-
+ity) and deﬁning δ = ⟨X ⟩0 −c > 0, we ﬁnd via Cantelli's
+030341-20
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+inequality that
+P(X −⟨X ⟩⩾δ) ⩽
+Var0[X ]
+Var0[X ] + δ2 ,
+(E5)
+where Var0[X ] = ⟨X 2⟩0 −⟨X ⟩2
+0 is the variance of X when
+sampling states with label yi = 0. It follows that
+P(0|c) ⩽P(c|0) ⩽P(X −⟨X ⟩⩾δ) ⩽
+Var0[X ]
+Var0[X ] + δ2 ,
+(E6)
+showing that, for large separation δ relative to the vari-
+ance Var0[X ], the misclassiﬁcation error will be small.
+Finally, note that, when taking into account additive errors
+ϵ when estimating the output of the model, one would
+assign a label 1 for model values estimated in a range
+C = [c −ϵ, c + ϵ]. In this case misclassiﬁcation would
+arise when the model value is estimated in C despite the
+true label of the state being 0, and Eqs. (E2) and (E6) could
+readily be extended to this scenario.
+APPENDIX F: CONCENTRATION RESULTS FOR
+TIME-REVERSAL DATASETS
+In the previous section we showed that one can clas-
+sify the states in the dataset via Eq. (E1) and that, for
+well-separated expectation values for the two classes, the
+misclassiﬁcation probability can be small. In other cases,
+however, it can happen that ⟨X ⟩0 = Eyi=0[h(k)
+θ (ρi)] ∼c and
+that one would need a large number of experiment repeti-
+tions to guarantee an accurate classiﬁcation. Here we see
+that, for some of the models considered in the main text,
+such issue arises.
+1. Conventional experiments
+We recall from Theorem 3 that if O is a purely complex
+operator then
+h(1)
+θ (ρi) = 0
+for all ρi such that yi = 1.
+(F1)
+We now show that values of h(1)
+θ (ρi) for yi = 0 exponen-
+tially concentrate around c = 0, such that an exponen-
+tial number of shots would be needed for classiﬁcation
+[49,50,63].
+First, let us recall that the Haar random states ρi with
+yi = 0 are obtained by evolving a ﬁduciary real-valued
+initial state ρin according to a Haar random unitary Wi:
+ρi = WiρinWi
+†.
+(F2)
+Thus, we can evaluate the expectation value ⟨X ⟩0 =
+Eyi=0[h(k)
+θ (ρi)] by averaging the model predictions over the
+unitary group. That is, ⟨X ⟩0 = EHaar[h(1)
+θ (WiρiWi†)]. This
+can be analytically derived via symbolical integration with
+respect to the Haar measure on a unitary group [57]. For
+any W ∈U(d), the following expressions are valid for the
+ﬁrst two moments of the distribution:
+
+W(d)
+dμ(U)wi1j1w∗
+i2j2 = δi1i2δj1j2
+d
+,
+(F3a)
+
+W(d)
+dμ(U)wi1j1wi2j2w∗
+i′
+1j′
+1w∗
+i′
+2j′
+2
+=
+δi1i′
+1δi2i′
+2δj1j′
+1δj2j′
+2 + δi1i′
+2δi2i′
+1δj1j′
+2δj2j′
+1
+d2 −1
+−
+δi1i′
+1δi2i′
+2δj1j′
+2δj2j′
+1 + δi1i′
+2δi2i′
+1δj1j′
+1δj2j′
+2
+d(d2 −1)
+,
+(F3b)
+with wij the matrix elements of W. Assuming that d = 2n,
+we use the notation i = (i1, . . . , in) to denote a bitstring of
+length n such that i1, i2, . . . , in ∈{0, 1}.
+A straightforward calculation leads to
+⟨X ⟩0 = Tr[O]
+d
+= 0.
+(F4)
+Here we have used the fact that O is Hermitian and
+purely imaginary, and hence has no support on the identity
+operator. Moreover, we can also ﬁnd that
+Var0[X ] = ⟨X 2⟩0 = Tr[O2]Tr[ρ2
+in]
+d2 −1
+−
+Tr[O2]
+d(d2 −1)
+= dTr[ρ2
+in]
+d2 −1 −
+1
+d(d2 −1),
+(F5)
+where in the last equality we have further assumed that
+Tr[O2] = 1 (as this is the case when O is a tensor prod-
+uct of an odd number of Pauli-Y operators). Hence, we
+can see that Var0[X ] ∈O(1/2n) and thus that the values
+of the QML model (when sampling Haar random states)
+concentrate exponentially around its mean of zero.
+2. Quantum-enhanced experiments
+We start by recalling that, when classifying the states in
+the time-reversal dataset, we found that
+h(2)
+θ (ρi) = |⟨+|0⟩⊗2n|2 = 1
+d2
+(F6)
+for all ρi such that yi = 1, and that
+h(2)
+θ (ρi) = |⟨+|(Ui ⊗Ui)|0⟩⊗2n|2
+(F7)
+for all ρi such that yi = 0, where Ui is the Haar random uni-
+tary that generates the state ρi. Here we have assumed that
+030341-21
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+ρin = |0⟩⟨0|⊗n. An explicit calculation of the expectation
+value leads to
+⟨X ⟩0 =
+2
+d(d + 1),
+(F8)
+which shows that, for large number of qubits, ⟨X ⟩0 ∼
+c ∈O(1/2n). Moreover, explicit calculation of the vari-
+ance shows, as before, that Var0[X ] ∈O(1/22n). Hence,
+the values of the QML model (for Haar random states)
+concentrate in a range exponentially close to zero.
+APPENDIX G: QUANTUM GRAPH
+CONVOLUTIONAL NEURAL NETWORKS
+In this section we present additional details for the quan-
+tum graph neural network (QGNN) and quantum graph
+convolutional neural network architectures introduced in
+Ref. [32]. We start by introducing the general form of
+a QGNN, and then show how it can be specialized to
+particular permutation-invariant datasets.
+1. General QGNN ansatz
+The most general QGNN ansatz is deﬁned as
+ˆUQGNN(η, θ) =
+P
+
+p=1
+ Q
+
+q=1
+e−iηpq ˆHq(θ)
+
+,
+(G1)
+which consists of a sequence of evolutions under Q diﬀer-
+ent Hamiltonians, repeated P times, with η and θ the vari-
+ational parameters. The Hamiltonians ˆHq(θ) can be taken
+to be any parameterized Hamiltonians with interaction
+topology corresponding to the graph G = {V, E}:
+ˆHq(θ)≡
+	
+{j ,k}∈E
+	
+r∈Ijk
+Wqrjk ˆO(qr)
+j
+⊗ˆP(qr)
+k
++
+	
+v∈V
+	
+r∈Jv
+Bqrv ˆR(qvr)
+v
+.
+(G2)
+Note that here Wqrjk and Bqrv are tensors of real-
+valued parameters, which are collected as one vector θ ≡
+
+q,j ,k,r{Wqrjk} 
+q,v,r{Bqrv}. The operators ˆR(qvr)
+j
+, ˆO(qr)
+j
+, ˆP(qr)
+j
+are Hermitian and act on the Hilbert space of the j th node
+of the graph, while the sets Ijk and Jv are index sets for
+the terms corresponding to the edges and nodes of graph
+G, respectively.
+2. Quantum graph convolutional network
+In order to ensure permutation invariance of the over-
+all ansatz, we can enforce the generators of the QGNN
+to all be permutation invariant. This is achieved by tying
+some θ parameters across vertex indices of the graph; we
+can then drop such indices, and the coeﬃcients become
+Wqrjk →Wqr and Bqrv →Bqr, resulting in
+ˆHq(θ)≡
+	
+{j ,k}∈E
+	
+r∈I
+Wqr ˆO(qr)
+j
+⊗ˆO(qr)
+k
++
+	
+v∈V
+	
+r∈J
+Bqr ˆR(qr)
+v
+,
+(G3)
+where I and J are index sets that are edge and node
+independent. These Hamiltonian generators of our QGNN
+layers are invariant under any permutation of the node
+indices that preserve the edge structure, as both sums'
+indices can be relabeled. We call QGNNs of form (G1)
+with generators of form (G3) quantum graph convolutional
+neural networks and note that they are general forms of the
+so-called quantum alternating operator ansatz [101], and of
+the quantum approximate optimization algorithm [102].
+[1] M. Gell-Mann, Beauty, truth and . . . physics? (2007).
+[2] I. Newton, The Principia: Mathematical Principles of
+Natural Philosophy (Univ of California Press, London,
+1999).
+[3] J. C. Maxwell, VIII. a dynamical theory of the electromag-
+netic ﬁeld, Philos. Trans. R. Soc. London, 4591865.
+[4] A. Einstein, in The Meaning of Relativity (Springer, 1922),
+p. 54.
+[5] D. J. Gross, The role of symmetry in fundamental physics,
+Proc. Nat. Acad. Sci. 93, 14256 (1996).
+[6] E. Noether, Invariante variationsprobleme, math-phys,
+Klasse, p. 235, (1918).
+[7] M. M. Bronstein, J. Bruna, T. Cohen, and P. Veliˇckovi´c,
+Geometric deep learning: Grids, groups, graphs, geodesics,
+and gauges, (2021), arXiv preprint ArXiv:2104.13478.
+[8] T. Cohen and M. Welling, in International conference on
+machine learning (PMLR, 2016), p. 2990.
+[9] R. Kondor and S. Trivedi, in International Conference on
+Machine Learning (PMLR, 2018), p. 2747.
+[10] A. Bogatskiy, S. Ganguly, T. Kipf, R. Kondor, D. W.
+Miller, D. Murnane, J. T. Oﬀermann, M. Pettee, P. Shana-
+han, and C. Shimmin, et al., Symmetry group equiv-
+ariant architectures for physics, (2022), arXiv preprint
+ArXiv:2203.06153.
+[11] J. Biamonte, P. Wittek, N. Pancotti, P. Rebentrost, N.
+Wiebe, and S. Lloyd, Quantum machine learning, Nature
+549, 195 (2017).
+[12] M. Cerezo, A. Arrasmith, R. Babbush, S. C. Benjamin, S.
+Endo, K. Fujii, J. R. McClean, K. Mitarai, X. Yuan, L.
+Cincio, and P. J. Coles, Variational quantum algorithms,
+Nat. Rev. Phys. 3, 625 (2021).
+[13] H.-Y. Huang, R. Kueng, G. Torlai, V. V. Albert,
+and J. Preskill, Provably eﬃcient machine learning for
+quantum many-body problems, (2021), arXiv preprint
+ArXiv:2106.12627.
+[14] A. Yuvaraj, This is also known as the choice and param-
+eterization of prior, in the language of Bayesian theory
+[103].
+[15] Z. Holmes, K. Sharma, M. Cerezo, and P. J. Coles, Con-
+necting Ansatz Expressibility to Gradient Magnitudes and
+Barren Plateaus, PRX Quantum 3, 010313 (2022).
+030341-22
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+[16] J. R. McClean, S. Boixo, V. N. Smelyanskiy, R. Babbush,
+and H. Neven, Barren plateaus in quantum neural network
+training landscapes, Nat. Commun. 9, 1 (2018).
+[17] M. Cerezo, A. Sone, T. Volkoﬀ, L. Cincio, and P. J.
+Coles, Cost function dependent barren plateaus in shal-
+low parametrized quantum circuits, Nat. Commun. 12, 1
+(2021).
+[18] K. Sharma, M. Cerezo, L. Cincio, and P. J. Coles, Train-
+ability of Dissipative Perceptron-Based Quantum Neural
+Networks, Phys. Rev. Lett. 128, 180505 (2022).
+[19] S. Thanasilp, S. Wang, N. A. Nghiem, P. J. Coles,
+and M. Cerezo, Subtleties in the trainability of quan-
+tum machine learning models, (2021), arXiv preprint
+ArXiv:2110.14753.
+[20] A. Arrasmith, Z. Holmes, M. Cerezo, and P. J. Coles,
+Equivalence of quantum barren plateaus to cost con-
+centration and narrow gorges, (2021), arXiv preprint
+ArXiv:2104.05868.
+[21] I. Cong, S. Choi, and M. D. Lukin, Quantum convolutional
+neural networks, Nat. Phys. 15, 1273 (2019).
+[22] A. Pesah, M. Cerezo, S. Wang, T. Volkoﬀ, A. T. Sorn-
+borger, and P. J. Coles, Absence of Barren Plateaus in
+Quantum Convolutional Neural Networks, Phys. Rev. X
+11, 041011 (2021).
+[23] T. Volkoﬀand P. J. Coles, Large gradients via correlation
+in random parameterized quantum circuits, Quantum Sci.
+Technol. 6, 025008 (2021).
+[24] M. C. Caro, H.-Y. Huang, M. Cerezo, K. Sharma, A.
+Sornborger, L. Cincio, and P. J. Coles, Generalization in
+quantum machine learning from few training data, (2021),
+arXiv preprint ArXiv:2111.05292.
+[25] M. Larocca, P. Czarnik, K. Sharma, G. Muraleedharan,
+P. J. Coles, and M. Cerezo, Diagnosing barren plateaus
+with tools from quantum optimal control, (2021), arXiv
+preprint ArXiv:2105.14377.
+[26] M. Larocca, N. Ju, D. García-Martín, P. J. Coles, and M.
+Cerezo, Theory of overparametrization in quantum neural
+networks, (2021), arXiv preprint ArXiv:2109.11676.
+[27] D. Wecker, M. B. Hastings, and M. Troyer, Progress
+towards practical quantum variational algorithms, Phys.
+Rev. A 92, 042303 (2015).
+[28] B. T. Gard, L. Zhu, G. S. Barron, N. J. Mayhall, S. E.
+Economou, and E. Barnes, Eﬃcient symmetry-preserving
+state preparation circuits for the variational quantum
+eigensolver algorithm, npj Quantum Inf. 6, 1 (2020).
+[29] J. Lee, A. B. Magann, H. A. Rabitz, and C. Arenz,
+Progress toward favorable landscapes in quantum combi-
+natorial optimization, Phys. Rev. A 104, 032401 (2021).
+[30] H. L. Tang, V. Shkolnikov, G. S. Barron, H. R. Grimsley,
+N. J. Mayhall, E. Barnes, and S. E. Economou, Qubit-
+ADAPT-VQE: An Adaptive Algorithm for Construct-
+ing Hardware-Eﬃcient Ansätze on a Quantum Processor,
+PRX Quantum 2, 020310 (2021).
+[31] J. R. Glick, T. P. Gujarati, A. D. Corcoles, Y. Kim, A.
+Kandala, J. M. Gambetta, and K. Temme, Covariant quan-
+tum kernels for data with group structure, (2021), arXiv
+preprint ArXiv:2105.03406.
+[32] G. Verdon, T. McCourt, E. Luzhnica, V. Singh, S.
+Leichenauer, and J. Hidary, Quantum graph neural net-
+works, (2019), arXiv preprint ArXiv:1909.12264.
+[33] G. Verdon, J. Marks, S. Nanda, S. Leichenauer, and
+J. Hidary, Quantum Hamiltonian-based models and the
+variational quantum thermalizer algorithm, (2019), arXiv
+preprint ArXiv:1910.02071.
+[34] H. Buhrman, R. Cleve, J. Watrous, and R. De Wolf,
+Quantum Fingerprinting, Phys. Rev. Lett. 87, 167902
+(2001).
+[35] J. Cotler, H.-Y. Huang, and J. R. McClean, Revisiting
+dequantization and quantum advantage in learning tasks,
+(2021), arXiv preprint ArXiv:2112.00811.
+[36] J. L. Beckey, N. Gigena, P. J. Coles, and M. Cerezo,
+Computable and Operationally Meaningful Multipartite
+Entanglement Measures, Phys. Rev. Lett. 127, 140501
+(2021).
+[37] G. K. Brennen, An observable measure of entanglement
+for pure states of multi-qubit systems, (2003), arXiv
+preprint ArXiv:quant-ph/0305094.
+[38] D. A. Meyer and N. R. Wallach, Global entanglement in
+multiparticle systems, J. Math. Phys. 43, 4273 (2002).
+[39] P. Rungta, V. Bužek, C. M. Caves, M. Hillery, and
+G. J. Milburn, Universal state inversion and concur-
+rence in arbitrary dimensions, Phys. Rev. A 64, 042315
+(2001).
+[40] V. S. Bhaskara and P. K. Panigrahi, Generalized con-
+currence measure for faithful quantiﬁcation of multi-
+particle pure state entanglement using Lagrange's iden-
+tity and wedge product, Quantum Inf. Process. 16, 1
+(2017).
+[41] A. R. R. Carvalho, F. Mintert, and A. Buchleitner, Deco-
+herence and Multipartite Entanglement, Phys. Rev. Lett.
+93, 230501 (2004).
+[42] A. Wong and N. Christensen, Potential multiparticle
+entanglement measure, Phys. Rev. A 63, 044301 (2001).
+[43] I. Hen and A. Young, Solving the graph-isomorphism
+problem with a quantum annealer, Phys. Rev. A 86,
+042310 (2012).
+[44] F. Gaitan and L. Clark, Graph isomorphism and adiabatic
+quantum computing, Phys. Rev. A 89, 022342 (2014).
+[45] K. M. Zick, O. Shehab, and M. French, Experimen-
+tal quantum annealing: Case study involving the graph
+isomorphism problem, Sci. Rep. 5, 1 (2015).
+[46] Z. G. Izquierdo, R. Zhou, K. Markström, and I. Hen, Dis-
+criminating nonisomorphic graphs with an experimental
+quantum annealer, Phys. Rev. A 102, 032622 (2020).
+[47] Here we make two important remarks. First, G must form
+a group as composing two symmetries leads to a new sym-
+metry. Similarly, symmetric transformations are always
+invertible and their inverse is a symmetry itself. Second,
+in more precise terms, G is a unitary representation of a
+group.
+[48] E. J. Bekkers, M. W. Lafarge, M. Veta, K. A. Eppen-
+hof, J. P. Pluim, and R. Duits, in International confer-
+ence on medical image computing and computer-assisted
+intervention (Springer, 2018), p. 440.
+[49] H.-Y. Huang, M. Broughton, J. Cotler, S. Chen, J. Li, M.
+Mohseni, H. Neven, R. Babbush, R. Kueng, J. Preskill,
+and J. R. McClean, Quantum advantage in learning from
+experiments, Science 376, 1182 (2022).
+[50] D. Aharonov, J. Cotler, and X.-L. Qi, Quantum algorith-
+mic measurement, Nat. Commun. 13, 1 (2022).
+030341-23
+
+MARTÍN LAROCCA et al.
+PRX QUANTUM 3, 030341 (2022)
+[51] M. Cerezo, K. Sharma, A. Arrasmith, and P. J. Coles, Vari-
+ational quantum state eigensolver, (2020), arXiv preprint
+ArXiv:2004.01372.
+[52] A. Kirillov Jr, An introduction to Lie groups and Lie
+algebras, 113 (Cambridge University Press, 2008).
+[53] R. Zeier and T. Schulte-Herbrüggen, Symmetry principles
+in quantum systems theory, J. Math. Phys. 52, 113510
+(2011).
+[54] Z. Zimborás, R. Zeier, T. Schulte-Herbrüggen, and D.
+Burgarth, Symmetry criteria for quantum simulability of
+eﬀective interactions, Phys. Rev. A 92, 042309 (2015).
+[55] A representation is irreducible if it cannot be further
+decomposed into a direct sum of representations.
+[56] B. Collins and P. ´Sniady, Integration with respect to
+the Haar measure on unitary, orthogonal and symplectic
+group, Commun. Math. Phys. 264, 773 (2006).
+[57] Z. Puchala and J. A. Miszczak, Symbolic integration with
+respect to the Haar measure on the unitary groups, Bull.
+Pol. Acad. Sci. Tech. Sci. 65, 21 (2017).
+[58] N. Cristianini and J. Shawe-Taylor, et al., An Introduc-
+tion to Support Vector Machines and Other Kernel-Based
+Learning Methods (Cambridge university press, Cam-
+bridge, 2000).
+[59] R. Goodman and N. R. Wallach, Symmetry, Represen-
+tations, and Invariants Vol. 255 (Springer, New York,
+2009).
+[60] We refer the reader to Refs. [53,54] for an in-depth
+discussion on the quadratic symmetries of U(d).
+[61] L. Cincio, Y. Suba¸sı, A. T. Sornborger, and P. J. Coles,
+Learning the quantum algorithm for state overlap, New J.
+Phys. 20, 113022 (2018).
+[62] R. G. Sachs, The Physics of Time Reversal (University of
+Chicago Press, Chicago, 1987).
+[63] S. Chen, J. Cotler, H.-Y. Huang, and J. Li, in 2021 IEEE
+62nd Annual Symposium on Foundations of Computer
+Science (FOCS) (IEEE, 2022), p. 574.
+[64] W. Brown, An algebra related to the orthogonal group,
+Michigan Math. J. 3, 1 (1955).
+[65] R. Horodecki, P. Horodecki, M. Horodecki, and K.
+Horodecki, Quantum entanglement, Rev. Mod. Phys. 81,
+865 (2009).
+[66] N. Gigena, M. Di Tullio, and R. Rossignoli, One-body
+entanglement as a quantum resource in fermionic systems,
+Phys. Rev. A 102, 042410 (2020).
+[67] J. Barrett, Nonsequential positive-operator-valued mea-
+surements on entangled mixed states do not always violate
+a Bell inequality, Phys. Rev. A 65, 042302 (2002).
+[68] N. Gigena and R. Rossignoli, Bipartite entanglement in
+fermion systems, Phys. Rev. A 95, 062320 (2017).
+[69] A. K. Ekert, Quantum Cryptography Based on Bell's
+Theorem, Phys. Rev. Lett. 67, 661 (1991).
+[70] N. Gisin, G. Ribordy, W. Tittel, and H. Zbinden, Quantum
+cryptography, Rev. Mod. Phys. 74, 145 (2002).
+[71] A. Ekert and R. Jozsa, Quantum algorithms: Entangle-
+ment-enhanced information processing, Philos. Trans. R.
+Soc. London Ser. A: Math., Phys. Eng. Sci. 356, 1769
+(1998).
+[72] A. Datta, S. T. Flammia, and C. M. Caves, Entanglement
+and the power of one qubit, Phys. Rev. A 72, 042316
+(2005).
+[73] T. Chalopin, C. Bouazza, A. Evrard, V. Makhalov, D.
+Dreon, J. Dalibard, L. A. Sidorenkov, and S. Nascim-
+bene, Quantum-enhanced sensing using non-classical spin
+states of a highly magnetic atom, Nat. Commun. 9, 1
+(2018).
+[74] J. L. Beckey, M. Cerezo, A. Sone, and P. J. Coles,
+Variational quantum algorithm for estimating the quan-
+tum Fisher information, Phys. Rev. Res. 4, 013083
+(2022).
+[75] M. Cerezo, A. Sone, J. L. Beckey, and P. J. Coles, Sub-
+quantum Fisher information, Quantum Sci. Tech. (2021).
+[76] M. A. Nielsen and I. L. Chuang, Quantum Computation
+and Quantum Information (Cambridge University Press,
+Cambridge, 2000).
+[77] B. M. Terhal and K. G. H. Vollbrecht, Entanglement of
+Formation for Isotropic States, Phys. Rev. Lett. 85, 2625
+(2000).
+[78] K. G. H. Vollbrecht and R. F. Werner, Entanglement mea-
+sures under symmetry, Phys. Rev. A 64, 062307 (2001).
+[79] M. Walter, D. Gross, and J. Eisert, Multipartite entan-
+glement, Quantum Inf.: From Found. Quantum Technol.
+Appl., 293 (2016).
+[80] L. Schatzki, A. Arrasmith, P. J. Coles, and M. Cerezo,
+Entangled datasets for quantum machine learning, (2021),
+arXiv preprint ArXiv:2109.03400.
+[81] M. Walter, B. Doran, D. Gross, and M. Christandl,
+Entanglement polytopes: Multiparticle entanglement from
+single-particle information, Science 340, 1205 (2013).
+[82] O. Prove, S. Foulds, and V. Kendon, Extending the con-
+trolled swap test to higher dimensions, (2021), arXiv
+preprint ArXiv:2112.04333.
+[83] S. Foulds, V. Kendon, and T. P. Spiller, The controlled
+swap test for determining quantum entanglement, Quan-
+tum Science and Technology (2021).
+[84] M. A. Rieﬀel and A. Van Daele, The commutation
+theorem for tensor products of von Neumann algebras,
+Bull. London Math. Soc. 7, 257 (1975).
+[85] C. B. Mendl and M. M. Wolf, Unital quantum chan-
+nels-convex structure and revivals of Birkhoﬀ's theorem,
+Commun. Math. Phys. 289, 1057 (2009).
+[86] J. Kobler, U. Schöning, and J. Torán, The Graph Iso-
+morphism Problem its Structural Complexity (Springer
+Science & Business Media, Boston, 2012).
+[87] L. Babai, in Proceedings of the forty-eighth annual ACM
+symposium on Theory of Computing (2016), p. 684.
+[88] R. Goodman and N. R. Wallach, Representations and
+Invariants of the Classical Groups (Cambridge University
+Press, Cambridge, 2000).
+[89] G. Castelazo, Q. T. Nguyen, G. De Palma, D. Englund,
+S. Lloyd, and B. T. Kiani, Quantum algorithms for group
+convolution, cross-correlation, and equivariant transfor-
+mations, (2021), arXiv preprint ArXiv:2109.11330.
+[90] J. Romero, J. P. Olson, and A. Aspuru-Guzik, Quantum
+autoencoders for eﬃcient compression of quantum data,
+Quantum Sci. Technol. 2, 045001 (2017).
+[91] D. Zhu, N. M. Linke, M. Benedetti, K. A. Landsman, N.
+H. Nguyen, C. H. Alderete, A. Perdomo-Ortiz, N. Korda,
+A. Garfoot, and C. Brecque, et al., Training of quan-
+tum circuits on a hybrid quantum computer, Sci. Adv. 5,
+eaaw9918 (2019).
+030341-24
+
+GROUP-INVARIANT QUANTUM MACHINE LEARNING
+PRX QUANTUM 3, 030341 (2022)
+[92] Z. Liu, Y. Tang, H. Dai, P. Liu, S. Chen, and X.
+Ma, Detecting entanglement in quantum many-body
+systems via permutation moments, (2022), arXiv preprint
+ArXiv:2203.08391.
+[93] H. Zheng, Z. Li, J. Liu, S. Strelchuk, and R. Kon-
+dor, Speeding up learning quantum states through group
+equivariant convolutional quantum ansatze, (2021), arXiv
+preprint ArXiv:2112.07611.
+[94] F. Sauvage, M. Larocca, P. J. Coles, and M. Cerezo,
+Building spatial symmetries into parameterized quan-
+tum circuits for faster training, (2022), arXiv preprint
+ArXiv:2207.14413.
+[95] E. Grant, L. Wossnig, M. Ostaszewski, and M. Benedetti,
+An initialization strategy for addressing barren plateaus in
+parametrized quantum circuits, Quantum 3, 214 (2019).
+[96] A. Kandala, A. Mezzacapo, K. Temme, M. Takita, M.
+Brink, J. M. Chow, and J. M. Gambetta, Hardware-
+eﬃcient
+variational
+quantum
+eigensolver
+for
+small
+molecules and quantum magnets, Nature 549, 242
+(2017).
+[97] A. Elben, S. T. Flammia, H.-Y. Huang, R. Kueng, J.
+Preskill, B. Vermersch, and P. Zoller, The randomized
+measurement toolbox, (2022), arXiv preprint ArXiv:2203.
+11374.
+[98] https://www.x.company/.
+[99] J. A. Smolin and D. P. DiVincenzo, Five two-bit quan-
+tum gates are suﬃcient to implement the quantum Fredkin
+gate, Phys. Rev. A 53, 2855 (1996).
+[100] M. Bilkis, M. Cerezo, G. Verdon, P. J. Coles, and L.
+Cincio, A semi-agnostic ansatz with variable structure
+for quantum machine learning, (2021), arXiv preprint
+ArXiv:2103.06712.
+[101] S. Hadﬁeld, Z. Wang, B. O'Gorman, E. G. Rieﬀel, D.
+Venturelli, and R. Biswas, From the quantum approximate
+optimization algorithm to a quantum alternating operator
+ansatz, Algorithms 12, 34 (2019).
+[102] E. Farhi, J. Goldstone, and S. Gutmann, A quan-
+tum approximate optimization algorithm, (2014), arXiv
+preprint ArXiv:1411.4028.
+[103] P. W. Battaglia, J. B. Hamrick, V. Bapst, A. Sanchez-
+Gonzalez, V. Zambaldi, M. Malinowski, A. Tacchetti,
+D. Raposo, A. Santoro, and R. Faulkner, et al., Rela-
+tional inductive biases, deep learning, and graph networks,
+(2018), arXiv preprint ArXiv:1806.01261.
+030341-25
+

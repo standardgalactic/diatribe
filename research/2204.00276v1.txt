@@ -1,0 +1,1537 @@
+arXiv:2204.00276v1  [quant-ph]  1 Apr 2022
+Ising machines: Hardware solvers for combinatorial
+optimization problems
+Naeimeh Mohseni1,2,3, Peter L. McMahon4,*, and Tim Byrnes5,1,6,7,8,†
+1State Key Laboratory of Precision Spectroscopy, School of Physical and Material Sciences, East China Normal
+University, Shanghai 200062, China
+2Max-Planck-Institut f¨ur die Physik des Lichts, Staudtstrasse 2, 91058 Erlangen, Germany
+3Department of Physics, University of Erlangen-Nuremberg, Staudtstr. 5, 91058 Erlangen, Germany
+4School of Applied and Engineering Physics, Cornell University, Ithaca, NY 14853, USA
+5New York University Shanghai, 1555 Century Ave, Pudong, Shanghai 200122, China
+6NYU-ECNU Institute of Physics at NYU Shanghai, Shanghai 200062, China
+7National Institute of Information and Communications Technology, Tokyo 184-8795, Japan
+8Department of Physics, New York University, New York, NY 10003, USA
+*pmcmahon@cornell.edu
+†tim.byrnes@nyu.edu
+ABSTRACT
+Ising machines are hardware solvers which aim to ﬁnd the absolute or approximate ground states of the Ising model. The
+Ising model is of fundamental computational interest because it is possible to formulate any problem in the complexity class
+NP as an Ising problem with only polynomial overhead. A scalable Ising machine that outperforms existing standard digital
+computers could have a huge impact for practical applications for a wide variety of optimization problems. In this review,
+we survey the current status of various approaches to constructing Ising machines and explain their underlying operational
+principles. The types of Ising machines considered here include classical thermal annealers based on technologies such as
+spintronics, optics, memristors, and digital hardware accelerators; dynamical-systems solvers implemented with optics and
+electronics; and superconducting-circuit quantum annealers. We compare and contrast their performance using standard
+metrics such as the ground-state success probability and time-to-solution, give their scaling relations with problem size, and
+discuss their strengths and weaknesses.
+Key points
+• Dedicated hardware solvers for the Ising model are of great interest due to the many potential practical applications and
+the end of Moore's law which motivate alternative computational approaches.
+• Three main computing methods that Ising machines employ are classical annealing, quantum annealing, and dynamical
+system evolution. A single machine can operate based on multiple computing approaches.
+• Today, Ising hardware based on classical digital technologies are the best performing for common benchmark problems.
+However, the performance is problem dependent and alternative methods can perform well for particular classes of
+problems.
+• For particular crafted problem instances, quantum approaches have been observed to have a superior performance over
+classical algorithms, motivating quantum hardware approaches and quantum-inspired classical algorithms.
+• Hybrid quantum-classical and digital-analog algorithms are promising for future development; they may harness the
+complementary advantages of both.
+Introduction
+Computers have had an enormous impact on society, inﬁltrating almost every aspect of our daily lives. One type of problem
+that conventional computers have particular difﬁculty in solving are hard combinatorial optimization problems. Such problems
+typically involve ﬁnding an optimal conﬁguration, deﬁned by a cost function, among a very large number of potential candidate
+conﬁgurations. Examples of such problems include the travelling salesman problem, Boolean satisﬁability problems (i.e. SAT
+problems), MaxCut, to name a few. In a practical setting, such combinatorial optimization problems are of relevance to a wide
+
+A
+B
+a
+b
+Jij=1
+Energy
+Minimum gain
+d
+Attractors
+thermal
+tunneling
+Figure 1. The Ising model, combinatorial problems, and its energy landscape. (a) An example of an 8 spin Ising model.
+On each node is a two valued spin (arrows). Edges correspond to assigning an energy Jij = 1. (b) Examples of combinatorial
+optimization problems: the travelling salesman problem (top) and MaxCut (bottom). In the travelling salesman problem, the
+aim is to ﬁnd the shortest possible route that visits each city exactly once and returns to the origin city. For MaxCut, the
+graph is equivalent to the Ising model in (a) and the the optimal division is indicated by the dashed line. The travelling
+salesman problem can be mapped onto the Ising model by encoding the information of the city and its route ordering as a
+spin variable. The total number of spins required is the square of the number of cities. (c) Schematic energy landscape of the
+Ising model and various mechanisms used in Ising machines to overcome local minima. Shown are thermal excitations using
+in classical thermal annealing, quantum tunneling in quantum annealing, the minimum gain principle in coherent Ising
+machines, and attractors in dynamical system evolution.
+variety of applications such as planning, logistics, manufacturing, ﬁnancial portfolio management, computer vision, artiﬁcial
+intelligence, machine learning, bioinformatics, drug design, and a variety of chemical and physical materials problems1-4. In
+many cases, such combinatorial optimization problems are instances of NP-complete problems, which represent the hardest
+problems within the NP class. A well-known result states that it is possible to map any problem in NP to a NP-complete
+problem in polynomial time5,6. In this sense, if there were a way of solving any combinatorial optimization problem in the
+NP-complete class with an improvement over conventional computing methods, then this would have an enormous impact to
+a large number of practical applications.
+To give an example of such an NP-complete problem, consider MaxCut (Fig. 1b). Here, one starts with a graph, where
+some of the vertices are connected via edges. The aim then is to group the vertices into two types such that the number of
+edges (i.e. links between the two groups) is as large as possible. MaxCut is of direct relevance to problems such as circuit
+design7,8, machine learning9, and computer vision10,11, and therefore even without any mapping is an important problem in
+its own right. In a brute force solution of this problem, one requires checking every one of the exponential ways the vertices
+can be grouped, and ﬁnding the largest number of edges. The MaxCut problem can be recast in a physics language as a spin
+glass problem (Fig. 1a). To do this, put a binary valued spin on each vertex σi ∈±1, and assign a positive interaction constant
+Jij = 1 between the connected vertices and 0 otherwise. The value of spin then encodes which group a vertex is in, and lowers
+the overall energy for connected spins if they are in different groups σiσj = −1. This can be written as an Ising Hamiltonian
+HP =
+N
+∑
+i,j=1
+Jijσiσj +
+N
+∑
+i=1
+hiσi,
+(1)
+where N is the number of vertices or spins. We have also included a linear hi term for generality, although for MaxCut it is
+not required. Finding the minimum energy of (1) is then equivalent to solving MaxCut. We note that the Ising Hamiltonian
+(1) can be related to a Quadratic Unconstrained Binary Optimization (QUBO) problem under a simple change of variables
+σi = 1 −2xi, xi ∈{0,1}, and hence they can be regarded as equivalent problems.
+The most common way that such optimization problems are solved are on large-scale high performance classical comput-
+ers, using variants of Monte Carlo methods. With the demise of Moore's law it is of interest whether alternative methods —
+perhaps based on unconventional methods of computing — could be used to solve such optimization problems. Alternatives
+to Turing's concept of a deterministic digital computing machine12 have a long history of investigation, in particular, the
+analog computers used for physical simulators to investigate complex problems13. In an analog computer, the computation is
+performed using coupled physical systems which evolve continuously according to their physical dynamics, implemented by
+analog electronics or mechanical systems, for example. These were used predominantly in the ﬁrst half of 20th century when
+2/23
+
+digital computing speeds were insufﬁcient, and continued to be used for several decades after for specialized applications such
+as ﬂight simulation, although even these applications have been now rendered obsolete.
+The recent interest in the ﬁeld of quantum simulation14-16 in many ways mirrors this development of classical analog
+computers, and led to a resurgence of interest in realizing analog Ising model simulators. Quantum simulation was in fact one
+of the early motivations for realizing a quantum computer, based on Feynman's conjecture that a quantum computer should
+be able to simulate quantum systems more efﬁciently than classical computers14 — proven true later by Lloyd17. However,
+a large-scale, fault-tolerant quantum computer is still a challenging goal, technologically. On the other hand, advances in
+the manipulations of many-body quantum systems using cold atoms, ions, or artiﬁcial qubits potentially allow for a way
+of simulating complex quantum systems without requiring the full controllability of a quantum computer15,16,18-22. This
+led to the idea that Ising models might be realizable using a quantum simulation approach23,24, where alternative models of
+computation could be utilized in order to ﬁnd the ground state more efﬁciently. The ﬁrst large-scale physical implementation
+of the quantum approach was produced by D-wave Systems, where a 128 qubit quantum annealer was realized, followed by
+larger scale systems25,26. Today, there are numerous approaches, incorporating a variety of different techniques (both classical
+and quantum), which will be described and compared in this review.
+In the classical realm, one of the main drawbacks of analog computers in comparison to digital computers is that they
+are more susceptible to error, due to the analog storage of the information. Nevertheless, analog computers can have several
+advantages over digital computers. First, the operation of the analog computer is typically highly parallelized. For a system
+consisting of many coupled systems which encode the information, each of the systems evolves in parallel, in contrast to digital
+computers where parallelization is performed across multiple processors. Second, there is no additional overhead due to the
+implementation of digital logic. In many cases the time evolution of a physical system is continuous, but is discretized and
+evolved in a step-wise sequence, which requires additional resources not required in analog simulation.
+Analog computing
+is in many ways analogous to the way that the brain operates: there is no predeﬁned algorithm, and its operation is inherently
+massively parallel and asynchronous. This "natural computing" approach has intrigued researchers for decades, from both of
+the point of view of improvements over current computing, as well as understanding the way that biological systems compute.
+In this review, we survey various hardware devices that have been developed with the aim of solving the Ising model; here
+we call such devices "Ising machines". An important caveat is what exactly we mean by solve the Ising model. In many
+applications suboptimal but still good solutions are acceptable in practice, hence we shall consider primarily heuristic and
+approximate solvers. We focus on discussing their underlying operating principles27, and introduce the types of technologies
+that have been used to implement them. This includes variations of classical thermal annealers, quantum annealers, as well
+as dynamical system-based solvers including the coherent Ising machine, which have attracted interest recently. Other types
+of novel computing devices such as those based on hybrid quantum-classical systems are also described. We discuss the
+performance of the investigated devices, focusing on the scaling with regard to the size of the Ising problem.
+Operating Principles of Ising Machines
+Classical thermal annealing
+One of the fundamental concepts that is encountered in connection to solving the Ising model — and optimization problems
+in general — is annealing. Inspired by concepts in statistical mechanics, the conﬁgurations corresponding to the lowest values
+of a cost function (i.e. energy) are found by gradually lowering the effective temperature of a system. The basic observation
+is that at thermal equilibrium, a classical physical system follows statistics according to a Boltzmann (or Gibbs) distribution
+pn =
+exp(−En
+kBT )
+Z
+,
+(2)
+where Z = ∑n exp(−En
+kBT ), kB is the Boltzmann constant, T is thermodynamic temperature, and En is the energy of each spin
+conﬁguration of the Ising model (1) that we have labeled by n = {σ1,...,σN}. There are 2N different energy conﬁgurations
+labeled by n. The lowest energy states appear with higher probability, and the probability of obtaining the ground state, i.e. the
+desired solution of the Ising model, increases as the temperature is lowered. To produce such a state at thermal equilibrium,
+the system evolves according to a master equation typically of the form
+dpn
+dt = −wnmpn + wmnpm,
+(3)
+where rates wnm are the rates for transition from the nth to the mth energy state. The rates are taken such that in the limit
+of t →∞the probability distribution follows (2). If (3) is evolved long enough, one is guaranteed to obtain the low energy
+solutions for a sufﬁciently low temperature. The main problem is that particular energy landscapes require extremely long
+times before thermal equilibrium is reached, due to the possibility of getting trapped in a local minima (Fig. 1c). The solution
+3/23
+
+c
+a
+b
+d
+e
+f
+g
+Memsistor
+Boltzmann Machine
+CMOS
+Stochastic magnetic tunnel junctions
+Coupled electrical oscillators
+Photonic annealer
+Coherent Ising machine
+Figure 2. Example technologies used to realize various types of Ising machines. (a) Stochastic magnetic tunnel junction
+showing difference between conventional MRAM and the probabilistic bit from Ref.29. P is the parallel and AP is the
+antiparallel orientations of the magnetic layers. (b) Memristor crossbar array to perform matrix-vector multiplication from
+Ref.30. (c) Metal insulator VO2 system to realize coupled electrical oscillators from Ref.31. (d) 28 nm CMOS chip to realize
+a 1 million spin Boltzmann machine from Ref.32. (e) Co atoms on surface of black phosphorus interacting with a scanning
+tunneling microscope to realize a Boltzmann machine from Ref.33. (f) Spatial light modulator based photonic annealer from
+Ref.34. (g) Coherent Ising machine measurement-feedback loop from Ref.35.
+to this problem is to gradually lower the temperature, or anneal the system such that at each temperature the system has a
+chance to equilibrate. Geman and Geman showed that by reducing the temperature with an inverse logarithmic dependence
+with time, one is guaranteed to obtain the ground state28.
+As a classical computer algorithm, simulated annealing (SA) remains one of the most popular algorithms that can be
+applied to optimization problems. Run on a classical digital computer, it is preferable to perform an equivalent stochastic
+sampling approach, rather than run (3) directly, due to the exponential resources required. As such, typically one uses various
+Monte Carlo algorithms employing the Metropolis-Hastings algorithm36,37, such that the desired Boltzmann distribution is
+obtained. More sophisticated classical algorithms are known to provide substantial improvement over SA such as parallel
+tempering38,39, population annealing40, and isoenergetic cluster moves41 to mention a few. For both parallel tempering and
+population annealing, multiple copies of the system are prepared in random initial states. For parallel tempering, each copy
+has a different temperature parameter. The temperature is increased for the copies that perform poorly and is decreased for the
+ones perform successfully. In population annealing, poorly performing copies are probabilistically removed and those which
+perform successfully are replicated, while reducing the temperature42,43.
+Simulated annealing is most commonly implemented algorithmically in conventional programmable digital classical com-
+puters, but has also been implemented in dedicated hardware using digital hardware accelerators and analog natural computing
+approaches. When implemented on dedicated hardware, this provides the chance to exploit the parallelization of digital hard-
+ware accelerators and analog computing. For the analog computation approach, numerous physical implementations of Ising
+and related models have been realized or proposed, including magnetic devices29,44-51, optics34,52,53, memristors30,54, spin-
+switches55, quantum dots56, single atoms33, microdroplets57, and Bose-Einstein condensates24,58 (see Fig. 2). For example,
+Camsari, Datta and co-workers have demonstrated that stochastic magnet tunnel junctions can act as probabilistic bits, ﬂuc-
+tuating due to thermal energy between either parallel or antiparallel mutual orientations of magnetic domains44-46 (Fig.2a).
+These are mutually coupled to realize an arbitrary Ising interaction by measuring the orientation of the bits and adjusting
+the barrier energy between the two orientations. This was used to factor integers via an adiabatic procedure29. In another
+approach, Strachan and co-workers used memristors to perform an analog matrix multiplication of the Ising matrix to evalu-
+ate the energy; utilizing the intrinsic hardware noise, they performed a highly parallelized implementation of a Ising model
+annealer30 (Fig.2b). For optical systems, the Ising model was realized by encoding the spins using the phase of the light, and
+a recurrent feedback network was used to produce the Ising couplings34,52,53 (Fig.2f). This was shown to converge towards
+the Boltzmann distribution (2), with the primary advantage being the fast parallelized spin updates.
+For digital-electronic approaches, hardware accelerators using CMOS application-speciﬁc integrated circuits (ASICs)59-63
+and ﬁeld-programmable gate arrays (FPGAs)64-68 have been investigated to solve the Ising model as a type of domain-speciﬁc
+computing. For example, Yamamoka and co-workers at Hitachi used CMOS circuits to implement 2×104 Ising spins, where
+each spin interacts with up to 5 local spins59. Here, random thermal effects were introduced by either introducing random
+spin-ﬂips during calculation of spin values, or applying a low supply voltage to the memory cells, which also introduces ran-
+4/23
+
+domness at the level of the hardware. Matsubara and colleagues at Fujitsu developed a 8192-spin Ising machine with full con-
+nectivity that is based on a digital-CMOS-chip implementation of SA, where spin updates are performed in parallel60,61,64,65.
+The parallelization allows for a large speedup in comparison to a serial implementation of SA. We note that in the context
+of machine-learning accelerators69, hardware implementations of Boltzmann machines have been investigated with CMOS
+ASICs32,70,71 (Fig. 2d), FPGAs72-77, and GPUs78,79. The similarity of the underlying energy model of Boltzmann-machine
+hardware accelerators suggests that such technologies could be adapted to act as Ising solvers. Recently, Patel, Salahuddin and
+co-workers demonstrated an FPGA implementation of the restricted Boltzmann machine's stochastic sampling algorithm to
+solve the Ising problem67. Here the problem is mapped to a bipartite version and each group of spins is updated applying par-
+allel SA63,80. The inherent parallelism of this architecture allows parallel sampling which provides substantial improvement
+over SA.
+Dynamical system solvers
+In a thermal annealer, at any given point of time during the evolution, the system is ideally in a state that is at thermal
+equilibrium, following the Boltzmann distribution. Likewise, as we shall see in the next section, in a quantum annealer the
+system ideally remains in the ground state of the instantaneous Hamiltonian. To ensure these conditions, annealing must
+proceed sufﬁciently slowly such as to maximize the probability that the minimum energy state of the Ising model is obtained.
+In contrast to such annealing-based approaches, alternative strategies where the system evolution is much faster than thermal
+equilibriation and adiabatic timescales also exist. In such dynamical system approaches, the state of the system is driven
+towards the lowest energy state of the Ising model. An early example of such a dynamical solver was proposed by Hopﬁeld
+and collaborators81,82 where electronic circuits were used to realize (1). In this section, we explain three types of dynamical
+system solvers: coupled oscillators, coherent Ising machines, and chaotic systems.
+Oscillator-based computing
+In the 1950s, von Neumann and Goto pioneered a type of analog computer based on coupled oscillators called the "parametron"
+computer83-85. Here the state information, such as the conﬁguration of an Ising spin, is represented by the phase of an oscillator.
+In the presence of a non-linearity, an oscillator with resonant frequency ω0 can be phase locked with a pump frequency 2ω0
+with two possible stable phases, 0 or π that represent the digital information. In its original conception, information processing
+in the parametron computer occurs as a sequence of logical gates. However, it was also shown that a computation can be
+performed in a more parallel, natural computing approach (see Refs.86,87 for a review). Such coupled oscillators can be used
+for solving combinatorial optimization problems, such as the Ising model. The basic idea of oscillator based computing can
+be captured by the Kuramoto model. This describes a system of oscillators mutually coupled by an interaction88-90. Consider
+N oscillators, labelled by the index i that oscillate with frequency ω0. Denote the phase of the ith oscillator by φi. Mutually
+coupling the oscillators, the dynamical system can be described by
+dφi
+dt = ω0 + K∑
+j
+Jij sin(φi −φj)+ Khisin(φi −ω0t),
+(4)
+where K is a coupling parameter which controls the overall contribution of the Ising dynamics. In the rotating frame, the
+sin(φi −φj) factor has two steady-state solutions dφi
+dt = 0, where the phases are either in or out of phase. The sin(φi −ω0t)
+term is also stable when φi −ω0t = 0,π.
+This means that the dynamical set of equations will converge to a particular
+conﬁguration of phases, from which a spin readout can be performed. For the constant Jij and hi = 0 case the Kuramoto
+model can be analytically solved to show a dynamical phase transition between unsynchronized oscillators to an synchronized
+one for particular interaction strengths. This type of dynamics has been applied to numerous types of applications in artiﬁcial
+intelligence problems, such as image processing, pattern recognition and generation86,87.
+Wu, Chua and co-workers proposed using such oscillators to solve the graph coloring problem using a system of coupled
+LC circuits91,92. Here the aim is to color the vertices of a graph with k colors such that no adjacent vertices have the same
+color. For k ≥3 this is a NP-complete problem; in Ref.91 it was found that for k = 2 the scheme is able to correctly ﬁnd
+solutions, but for the more difﬁcult k = 3 case the scheme only succeeded for a subset of problem instances. This approach
+was theoretically further developed, including explicitly extending to the case of solving Ising problems and analyzing various
+possible physical implementations93-98. Oscillator networks have been experimentally demonstrated with various systems
+such as bulk analog electronic95,99-101, VO2 insulator-to-metal transition31,102,103 (Fig. 2c), spin104,105 and integrated CMOS
+electronic106-108 oscillators to solve problems such as graph coloring, maximum independent set, and the Ising model. In
+several of these studies, by adding noise and turning on the interactions smoothly, it was found that this enabled the network
+to ﬁnd low-energy solutions of the Ising model.
+A related approach called memcomputing uses networks of Boolean logic gates as a dynamical system solver. These
+have conceptual similarities with oscillator-based Ising machines even if they are not explicitly constructed from networks of
+oscillators109,110. Such approaches have been applied successfully to frustrated-loop Ising model instances111,112.
+5/23
+
+Coherent Ising Machine
+Yamamoto and colleagues have investigated a particular class of oscillator-based Ising machines, dubbed "coherent Ising
+machines" (CIMs), that are naturally suited to being implemented with optical oscillators35,113-121 (Fig. 2g). Each Ising
+spin σi in a CIM is encoded in the phase φi of light in an optical mode. To enforce binary spin values φi = 0,π, CIMs use
+degenerate optical parametric oscillators (DOPOs), which are a form of parametric oscillator in which phase-sensitive gain
+yields oscillations either in-phase or out-of-phase with respect to the oscillator's pump light114,122. Each DOPO represents
+a single spin and is part of a network of DOPOs that are coupled together such that the coupling between a pair of DOPOs
+is proportional to the Ising spin-spin coupling Jij. Several ways to realize couplings have been proposed24,35,114-116, but for
+the experimental demonstrations performed thus far, the details of the coupling scheme are not crucial for understanding the
+Ising-solving capability of each CIM implementation. If one models DOPOs as classical oscillators, then the time evolution
+of a CIM can be modeled by the following system of coupled differential equations in the rotating frame:114,117
+dai
+dt = −γai + ra∗
+i −κ|ai|2ai −g∑
+j
+Jija j −ghi + ni,
+(5)
+where each ai is a complex number representing the optical ﬁeld in the ith mode, γ is the decay rate of the photons from each
+mode, r is the ampliﬁcation provided by OPO gain, κ is the coefﬁcient of nonlinear loss due to OPO gain saturation, g is a
+coupling constant determining the strength of the Ising interactions, and ni are Langevin noise operators associated with the
+photon decay and nonlinear gain. The effect of the Ising terms −g∑j Jija j −ghi can be thought of as additional loss terms
+that act on the ith mode.
+The key new elements in these equations of motion relative to those for Kuramoto oscillators (4) are that the oscillator
+amplitudes are also explicitly considered, in addition to their phases, and there are now loss and gain terms; it is these
+terms that are responsible for DOPOs having an oscillation threshold. If one considers a single DOPO, the loss and gain
+terms result in the DOPO being bistable: above threshold, a DOPO will oscillate either exactly in-phase or exactly out-of-
+phase. Since the Ising terms can be interpreted as spin-conﬁguration-dependent loss, one can interpret the DOPO network
+as having a collective-oscillation threshold that is lowest when the Ising terms are smallest, and hence when the represented
+spin conﬁguration has minimum energy. If the CIM is operated in a way where the gain r is slowly increased from 0 (when
+the DOPO network is below threshold) to ever-higher values (i.e., r is not a constant, but rather a monotonically increasing
+function of time t), then, in the absence of noise ni, the DOPO conﬁguration with the lowest loss should oscillate ﬁrst (see the
+minimum gain principle illustrated in Fig. 1c) and the solution to the Ising problem can be read out by measuring the phases
+of the light from each DOPO. An important point to note is how slowly r can be increased and have the CIM still oscillate
+in the ground state for a length of time sufﬁcient to allow measurement: even in the complete absence of noise (which is
+not experimentally realistic, but can be programmed in a computer simulation), the CIM does not ﬁnd the exact solution to
+arbitrary Ising problems in polynomial time. An important technicality that arises in the CIM model (5), as well as in other
+oscillator-based Ising machines where the oscillators have both amplitude and phase degrees of freedom (as opposed to just
+phase), is that if the amplitudes |ai| of the oscillators are not equal, then the system will tend to minimize the energy of an
+Ising instance with a different Jij matrix than the desired one. This phenomenon is sometimes referred to as a broken mapping
+due to amplitude heterogeneity. An intuitive ﬁx is to add a feedback mechanism that forces the amplitudes |ai| to be equal;
+this has been studied for XY machines123 and Ising machines118.
+The classical description of a CIM (5) is sufﬁcient to explain the results obtained in the experimental demonstrations35,115,116,119,124-126
+to date, since these experiments have used DOPOs with fairly large roundtrip (photon) loss. However, with sufﬁciently low
+loss, each DOPO can generate an appreciable amount of quadrature squeezing, and in this regime the CIM's dynamics are
+more faithfully modeled quantum mechanically117. An interpretation for CIM operation that arises in the quantum-mechanical
+formulation is that each DOPO begins in a squeezed state that is approximable by a coherent superposition of in-phase and
+out-of-phase coherent states |α⟩+ | −α⟩, so the below-threshold state of the CIM is one in which every spin conﬁguration
+is represented in superposition, and when the CIM goes through threshold, one of the conﬁgurations is selected. It is an
+open question to what extent quantumness of the DOPO network may improve (or impair) the computational performance
+of a CIM120. A quantum model for a machine conceptually quite similar to a quantum-regime CIM, in which superpositions
+|α⟩+|−α⟩are also formed, has been studied by Goto127; Goto found that the machine acts as an adiabatic quantum computer
+when the pump rate (the equivalent of r in the CIM model above) is increased from 0 sufﬁciently slowly. This theoretical con-
+nection suggests that insights into the solution mechanisms of quantum annealers might be helpful for understanding CIMs,
+especially CIMs in which the coupling between OPOs is conservative rather than dissipative, and vice versa.
+Besides the CIM, there have been proposals and demonstrations of several different types of optical and optoelectronic
+Ising and Ising-like machines in addition to the ones already cited in the subsection on thermal annealers: systems based on
+coupled lasers128-130, optoelectronics131, exciton-polaritons94,132-135, and electromechanical systems136,137.
+6/23
+
+Chaos in dynamical-system solvers
+In an ergodic system, the dynamics are such that the system visits all parts of conﬁguration space. This is an attractive
+idea in the context of solving the Ising model, since in many approaches getting trapping in local minima is the cause of
+the exponential slowdown. Numerical studies studying thermal relaxation have showed that the process is strongly non-
+ergodic, and do not visit all parts of conﬁgurational space138. Several studies have suggested by modifying the dynamics
+to include chaos, this can lead to an improvement in performance118,139-141. Ercsey-Ravasz and Toroczkai proposed and
+studied139 a limit-cycle-free dynamical system whose ﬁxed-point attractors are the solutions of a given optimization problem.
+The particular optimization problem they designed their system for was k-SAT, which is—like the Ising problem—an NP-
+complete decision problem with an NP-hard optimization version. The formulation of the dynamical system involved both
+state variables si corresponding to the variables in the k-SAT problem (analogous to spin variables for an Ising problem) and
+auxiliary variables ai. The theoretical property of the dynamical system that it avoids becoming stuck in local minima of the
+k-SAT cost function is very appealing. However, this comes at a price: the auxiliary variables ai grow exponentially in time.
+Two interpretations or implications of this are as follows: an analog hardware implementation of the dynamical system will
+require an exponentially growing amount of energy to operate (a prototype CMOS demonstration142 for problems with up to
+50 variables artiﬁcially capped the signals representing the auxiliary variables at 1 V), and a digital hardware implementation
+that integrates the differential equations will need to use exponentially small timesteps because the differential equations
+become stiff (observed in Refs.139,140).
+It was found empirically in Ref.139, through numerical simulations, that the dynamical system undergoes a transient period
+of chaos while solving difﬁcult instances of the k-SAT problem, but not when solving easy instances. It was suggested in this
+work that chaos might be unavoidable in approaches to solving hard optimization problems. A discrete-map optimization
+algorithm143 applied to solving both k-SAT and Ising problems was also found to exhibit chaotic dynamics. The general
+approach in Ref.139 for designing a limit-cycle-free dynamical system that avoids being trapped in k-SAT local minima
+through the use of auxiliary variables has been adopted for Ising solving118, and has been implemented and benchmarked with
+an FPGA141.
+Quantum approaches
+Quantum annealing
+Quantum annealing (QA)4,144,145 is a heuristic algorithm based on the quantum adiabatic theorem and was ﬁrst proposed by
+Apolloni et al.146 and studied in the context of the Ising model by Kadowaki and Nishimori147. In this algorithm, the system
+is initially prepared in the ground state of a Hamiltonian H0 where its ground state is known. A common choice for this initial
+Hamiltonian is
+H0 = −
+N
+∑
+i=1
+σx
+i ,
+(6)
+where N denotes the number of qubits, and the ground state is the uniform superposition of all possible conﬁgurations |+⟩⊗N,
+where |+⟩= (|0⟩+ |1⟩)/
+√
+2. The Hamiltonian is gradually reweighted to the desired problem Hamiltonian HP according to
+H = (1 −λ(t))H0 + λ(t)HP,
+(7)
+where λ(t) ∈[0,1] is the annealing schedule. The annealing process can be viewed as H0 introducing quantum ﬂuctuations
+originating from the non-commutability of HP and H0. These ﬂuctuations are gradually reduced to reach the low-energy
+conﬁguration of the classical energy function HP. Based on the quantum adiabatic theorem, if one performs the sweep
+sufﬁciently slowly, the system remains in its instantaneous ground state throughout the evolution144,148. The sweep time for
+which the adiabaticity can be achieved is proportional to a negative power of the minimum energy gap between two lowest
+energy levels during the sweep149-152. The use of quantum ﬂuctuations in QA has been hypothesized as a potential resource
+for a speedup over classical methods. Quantum tunneling allows the system to pass through energy barriers which have a
+higher energy than available in the state (see Fig. 1c). However, despite several decades of investigation, the computational
+role of coherent tunneling in providing speedup still is not completely understood144,153,154. Part of the reason for this is
+the difﬁculty of simulating QA on classical computers due to the large computational overhead. The only quantum hardware
+that has been able to directly test QA with a large number of qubits to date is that developed by D-Wave Systems. While
+this technology still suffers from limitations such as the presence of decoherence, control errors, and limited connectivity,
+several studies have shown that quantum effects do play a role in the D-Wave machine155-157. For problem instances that
+possess tunneling barriers, QA and quantum-inspired classical algorithms that mimic tunneling155 have been shown to have
+an advantage over SA.
+7/23
+
+Hybrid Quantum-Classical Algorithms
+The aim of variational quantum algorithms158 is to solve classical and quantum optimization problems by combining a
+parametrized quantum circuit with a classical optimizer to obtain the variational parameters. The parametrized quantum
+circuit can be thought of as preparing a variational quantum state, which is optimized to give the lowest energy state of a given
+Hamiltonian. These algorithms are believed to be strong candidates to achieve a practical quantum advantage on noisy inter-
+mediate scale quantum (NISQ) devices159. In the context of combinatorial optimization problems, the quantum approximate
+optimization algorithm (QAOA)160 has particularly attracted a lot of interest, partially as a result of the existence of theoretical
+guarantees on the approximation ratio that it can achieve for certain classes of optimization problems160,161.
+The QAOA algorithm can be viewed as a Trotterized version of QA with a parametrized annealing pathway162. The system
+is initially prepared in |+⟩⊗N, the ground state of the Hamiltonian (6). The parameterized quantum circuit transfers the initial
+state to the ground state of the target problem Hamiltonian (in the ideal case) by alternately applying the unitary operator
+corresponding to the problem Hamiltonian e−iγjHP and the unitary operator e−iβjH0. This sequence generates the following
+quantum variational state
+|ψ(βββ,γγγ)⟩= e−iβpH0e−iγpHP ···e−iβ1H0e−iγ1HP|+⟩⊗N,
+(8)
+where γγγ = (γ1,γ2,··· ,γp) ∈[0,2π]p and βββ = (β1,β2,··· ,βp) ∈[0,π]p are 2p variational parameters and p determines the
+circuit depth. Next, a classical optimizer is applied to ﬁnd the optimal βββ,γγγ that optimizes the energy expectation E(βββ,γγγ) =
+⟨ψ(βββ,γγγ)|HP|ψ(βββ,γγγ)⟩by updating the variational parameters iteratively. Various approaches have been applied for this
+classical optimization step such as brute force grid search160, gradient descent methods163, and machine learning models164.
+A key feature of QAOA is that the computational power increases with p162,165 in contrast with QA where the performance
+does not always improve with annealing time160. It is has been found that under reasonable complexity-theoretic assumptions,
+QAOA with p = 1 can not be efﬁciently simulated with classical computers166, or it implies that P=NP. This has led to
+speculations that QAOA may be able to demonstrate a quantum computational advantage in the context of an optimization
+problems on near term quantum computers166. However, the class of problems that can be solved efﬁciently with shallow
+circuits may not be representative for problems of practical interest. For example, for all-to-all connected Ising models and
+MaxCut, it has been shown that deep circuits may be required167. Therefore, to benchmark computational advantages of
+QAOA against classical algorithms one needs to go far beyond problems that can be solved with a shallow circuit and explore
+power of QAOA at intermediate depths. However, at current technological levels such circuits are prone to decoherence and
+gate errors167.
+QAOA has been demonstrated at the small-scale on platforms such as superconducting qubits167, photonics168 to trapped
+ions165. To date, no large-scale (i.e., N > 50) demonstrations of QAOA have been experimentally performed. We note that
+classical simulations showing expectation results for single-layer (p = 1) QAOA on problems with up to N = 105 spins have
+been performed169, but as is the case with quantum annealers, it is expected that large-scale quantum hardware will be needed
+to properly evaluate the performance of QAOA in general.
+Other quantum algorithms
+Several other quantum algorithms have been proposed to solve combinatorial optimization problems (see Ref.170 for a re-
+view). These include using amplitude ampliﬁcation based approaches, and quantum simulated annealing (not to be confused
+by simulated quantum annealing below), where the aim is to prepare the quantum Gibbs state, a superposition state with
+Boltzmann probabilities (2) as the amplitudes. Attaining the quantum Gibbs state is done by performing a quantum walk,
+such that after many iterations the desired coherent Gibbs state is obtained171-173. Then in a similar way to thermal annealing,
+the temperature is gradually lowered in order to obtain a low-energy state.
+Other classical algorithms
+Quantum-inspired classical algorithms
+Novel types of classical algorithms have been proposed which are inspired by quantum algorithms. Such quantum-inspired
+algorithms are run on conventional computing hardware or on digital hardware accelerators, hence are classical approaches,
+but use concepts that originate from quantum mechanics in the algorithm. We brieﬂy summarize several approaches in this
+direction as below.
+In simulated quantum annealing (SQA), quantum Monte Carlo is applied to estimate the low-energy states of the QA
+Hamiltonian174-176. To perform the quantum Monte Carlo, a stoquastic QA Hamiltonian is mapped to a classical Hamiltonian
+by introducing an extra spatial dimension, corresponding to imaginary time. A stoquastic Hamiltonian is characterized by
+having only nonpositive off-diagonalelements in the computational basis. The new Hamiltonian has the equivalent equilibrium
+properties with the original QA Hamiltonian177. The mapping can be implemented both in discrete time by applying the
+Trotter-Suzuki decomposition, or in continuous time by applying a path integral177. Quantum Monte Carlo in the continuous
+8/23
+
+time limit samples the equilibrium thermal state of a quantum system (as opposed to directly simulating its unitary time
+evolution) and can generate Boltzmann distributed states (2). At sufﬁciently low temperatures, SQA can mimic tunneling
+effects. SQA can also generate entangled ground states that occur during the adiabatic evolution. It can thus faithfully predict
+the performance of QA for stoquastic Hamiltonians.
+Several other quantum-inspired classical algorithms based on dynamical system evolution have been proposed which we
+brieﬂy describe. The simulated coherent Ising machine simulates the CIM on a classical computer and has shown a speedup in
+comparison to a physical implementation of a CIM applying FPGA178 and GPU179. The key observation here is that simulating
+such behavior is described by a set of coupled equations of the form (4) or (5) only scale with the number of spin variables N,
+rather than the conﬁgurational space 2N. This makes a simulation of the coupled oscillator system efﬁcient.
+Another approach is simulated bifurcation (SB), which is based on simulating adiabatic evolutions of classical nonlinear
+Hamiltonian dynamical systems. This algorithm is the classical counterpart of bifurcation-based adiabatic quantum computa-
+tion127. Two branches of the bifurcation in each non-linear oscillator represents two states of each Ising spin. In 2019, Toshiba
+developed an FPGA and GPU-based SB machine showing excellent performance due in part to its high parallelizability180,181.
+The operational mechanism of SB algorithm is based on an adiabatic and ergodic search. Later, two other variants of SB
+were introduced, called the ballistic simulated bifurcation algorithm (bSB) and the discrete simulated bifurcation algorithm
+(dSB)182 that far outperform the original SB in terms of both speed and solution accuracy. These new algorithms apply new
+approaches, such as a quasi-quantum tunneling effect. Recently, a multi-chip architecture using a partitioned version of the
+SB algorithm was implemented with FPGAs, showing that large scale Ising problems can be handled using the method183.
+Both CIM simulations and the SB algorithm are highly amenable to parallelization, by simultaneously updating at each time
+step N coupled-oscillator variables. This is in contrast to SA, which canonically involves sequential updates of spins, with
+simultaneous updates allowed only for isolated spins.
+Yet another quantum-inspired algorithm involves tensor networks which are a powerful framework that provides represen-
+tations of complex quantum states based on their entanglement structure184. Tensor networks have been applied as an ansatz
+to solve optimization problems184,185. Such an approach was used in the context of dynamic portfolio optimization, which
+can be encoded as an Ising problem186.
+Machine learning approaches
+Machine learning algorithms can be applied to either boost the performance of traditional classical solvers and quantum algo-
+rithms187 or can work as a stand-alone solver. For example, some machine learning algorithms have been applied to accelerate
+Monte Carlo simulations188,189. It also has been applied as a stand-alone solver and found to have excellent performance in the
+context of portfolio optimization185. The emergence of the methods that are more sample-efﬁcient make them more scalable
+to large-scale problems. Deep learning based methods applying reinforcement learning190,191, graph neural networks192-194,
+and neural attention mechanism195 also have been investigated as solvers for combinatorial optimization problems.
+Computational complexity
+One may ask how the various computing approaches discussed in this review relate to computational complexity, and what
+the prospects are to devise an Ising machine that can solve Ising problems efﬁciently (i.e., in polynomial time). While the
+P ?= NP question remains an open problem, it is widely conjectured that P ̸= NP, i.e., that certain problems in NP, including
+the Ising problem, are fundamentally more difﬁcult to solve than those in P. Indeed, decades of computer science, physics,
+mathematics, and operations research has failed to ﬁnd a polynomial-time algorithm that solves any NP-complete problem.
+The explosion of interest in quantum computing since the 1990s was kicked off by the discovery that integer factorization
+could be performed in polynomial time on a quantum computer196. It is thus conjectured that the BQP complexity class—
+decision problems a quantum computer can solve in polynomial time with an error probability of at most 1/3—is a larger class
+than P, i.e., P ⊆BQP. The associated class for a probabilistic Turing machine, the BPP class, is meanwhile conjectured to be
+equivalent to P, i.e., P = BPP, which in general remains unproven but is true if a suitable pseudorandom number generator is
+available197. Although there is no proof that quantum or probabilistic computers cannot solve NP-complete problems such as
+the Ising problem in polynomial time, it is considered unlikely198.
+The complexity-class arguments above concern solving the Ising problem in the sense of being able to ﬁnd the exact
+ground state for all possible problem instances (all possible Jij,hi in (1)). However, as mentioned in the introduction, an
+approximate solution with an energy close to the true ground state is often acceptable for practical applications. We may
+distinguish three approaches for solving combinatorial optimization problems such as the Ising problem: exact algorithms,
+approximation algorithms, and heuristic algorithms. Exact algorithms are ones designed to ﬁnd exact solutions in a way that
+guarantees that the returned solutions are exactly optimal. Approximation algorithms return solutions that are not necessarily
+optimal but provide a guarantee on how far a returned solution is from being optimal. Heuristic algorithms return solutions
+without any guarantee on the quality of them; because of this lack of theoretical guarantee, the primary basis for trusting an
+9/23
+
+heuristic algorithm is from prior empirical (benchmarking) results. Both approximation and heuristic algorithms tend to be
+practical to run on large problems.
+For approximation algorithms, we may ask what solution quality (formally, approximation ratio) one could hope to guar-
+antee with any algorithm. The MaxCut problem, and hence the Ising model, is APX-hard (i.e. approximable-hard). The main
+consequence of this is that, assuming P ̸= NP, there exists no polynomial-time approximation algorithm for the Ising problem
+that will guarantee a solution arbitrarily close to the exact solution199. However, there does exist a polynomimal-time approx-
+imation algorithm for MaxCut that will ﬁnd solutions a ﬁxed distance from the optimal solution: the Goemans-Williamson
+algorithm is guaranteed to ﬁnd solutions within ≈12% of the optimal value200. It is also known that it is NP-hard to approxi-
+mate MaxCut with solutions guaranteed to be closer than ≈6% to the optimal201, so it is expected (assuming P ̸= NP) that no
+polynomial-time approximation algorithm achieving this approximation closeness will be possible. In many practical settings
+it is desirable to ﬁnd solutions to MaxCut problems having distance from the optimal solutions that is better than ≈12% or
+even ≈6%, and this motivates the use of heuristic algorithms to solve MaxCut in practice.
+Most Ising machines are heuristic solvers—that is, they can be thought of as physical machines realizing heuristic opti-
+mization algorithms. As such, they typically do not provide any approximation-ratio guarantees. The potential advantages of
+Ising machines largely lie outside the realm of complexity theory: there is the possibility that Ising machines have a polynomi-
+ally improved scaling or constant-prefactor advantage in comparison to existing heuristic algorithms running on conventional
+processors. i.e., it is generally expected that Ising machines, regardless of their underlying algorithm or practical hardware
+implementation, will still have runtimes scaling exponentially in order to achieve near-optimal solutions, but that the exponent
+may be smaller than for a conventional solver, or that the constant factor in front of the exponent may be smaller. A small
+difference in the exponent can make a large difference in runtimes for large problem sizes, and the fast clock speeds of various
+physical implementations, which give rise to constant-factor improvements, could lead to signiﬁcant practical speedups versus
+conventional state-of-the-art solvers.
+Computation performance comparisons
+Since the utility of any Ising machine is in its ability to solve a given Ising problem both quickly and accurately, an important
+task is to benchmark the performance and compare between competing methods. Here we will direct our attention particularly
+to various Ising solvers that have been experimentally tested for relatively large systems N ≥50. We consider only large
+systems as it is rather difﬁcult to extract any scaling relation for smaller systems, and by choosing experimentally realized
+systems this will tend to focus on technologies that are relatively near to maturity. For the ﬁgures of merit, we focus upon two
+of the most commonly employed quantiﬁers: the success probability and the time-to-solution. We ﬁrst deﬁne each of these.
+For the success probability, this is deﬁned as the probability that the exact ground state of the Ising model is obtained for
+a single run of the Ising machine. The success probability is a quantity that depends inherently on algorithmic parameters.
+For example, for annealing methods under ideal conditions, longer annealing times generally result in higher success proba-
+bilities. In this sense, the success probability can also be made arbitrarily close to 1 in the ideal case. However, other factors
+typically prohibit approaching unit success probability, due to practical considerations. For example, in quantum annealers
+the annealing time must be within the coherence time in order to maintain a quantum superposition. In this sense, the success
+probability still has a meaning, since it often involves a trade-off with practical considerations. For our comparison of success
+probabilities, we generally quote the best performing value available in the literature.
+One of the limitations of the success probability as a ﬁgure of merit is that it does not take into account of how much time
+it takes for a single run of the Ising machine. An Ising machine will typically perform multiple runs when attempting to solve
+a problem and Ising machines are often optimally operated for a choice of run parameters where the success probability for
+a single run is not maximized, but where each run takes only a short amount of time. The time-to-solution is another ﬁgure
+of merit that takes into account of the time taken to perform a single run on a given Ising machine, as well as the success
+probability. Suppose that r runs of a particular scheme are performed, which each have a success probability psuc of obtaining
+the ground state . Then the collective probability of getting at least one successful run, in which the ground state is found, is
+1−(1−psuc)r. Now let us demand this collective probability to be a desired value, say 99%, and each run takes a time τ. The
+time-to-solution is then related to the success probability as
+Tsol = τ
+ln0.01
+ln(1 −psuc).
+(9)
+This measure takes into account of differences in clock speed of various approaches, and also allows for various approaches
+to choose their optimal parameters such that the best performance of the machine can be extracted.
+In Fig. 3, we show the performance of various Ising machines, quantiﬁed by the success probability for random instances
+of Sherrington-Kirkpatrick (SK) problems and dense MaxCut problem instances. We note that while the same types of models
+are used for the comparison in Fig. 3 and 4, the same problem instances were not necessarily used, as we have compiled results
+10/23
+
+a
+DWAV
+RBM
+CIM3*
+success probability
+CIM1
+CIM2
+success probability
+SK
+MaxCut
+CIM1
+CIM2
+DWAV
+RBM
+CIM3*
+MRT*
+0
+20
+40
+60
+80
+100
+120
+140
+0.01
+0.05
+0.10
+0.50
+1
+N
+0
+50
+100
+150
+200
+0.01
+0.05
+0.10
+0.50
+1
+N
+b
+Figure 3. Success probability comparison of various Ising machines. The probability of obtaining the ground state is
+shown for (a) Sherrington-Kirkpatrick (SK) and (b) dense MaxCut problems. For the SK problem, Jij is chosen from ±1
+with equal probability. The MaxCut problem is mapped onto the Ising model by setting Jij to 0 and 1 with equal probability.
+In both cases hi = 0. The labels for each line and their references are given in Table 1. Error bars on original data where
+present have been omitted for clarity. Here, CIM1, CIM2, CIM3, DWAV and RBM are benchmarked on the same problem
+instances. Data reported for theoretical predictions, rather than being directly measured from an hardware implementation,
+are labeled with *.
+from different studies. While this does not make our comparisons perfect, we hope that this nevertheless gives a sense of state
+of the art of various approaches. In numerous works, the general scaling behavior is observed to follow the relation
+psuc ∝e−bN,
+(10)
+where b is a ﬁtting parameter. Keeping in mind the interpretational caveat mentioned above about how the success probability
+can for some Ising-machine approaches been made high at the expense of very long runtimes in a way that is ultimately
+not useful, Fig. 3 gives evidence suggestive that at current technological levels, SA-based approaches, such as the restricted
+Boltzmann machines (RBM), implemented on digital hardware give the best scaling with N. One of the reasons for the
+high success probability of RBM is the inherent parallelism of this architecture which allows parallel SA updating. We do
+however note that this ﬁgure does not include results from state-of-the-art dynamical-systems algorithms such as the CIM
+with amplitude-heterogeneity correction118,141 and SB182, and based on these algorithms' excellent performance on the G-set
+MaxCut instances, one may anticipate that they would be competitive with RBM-based solvers. It is notable that the quantum
+annealer has a particularly poor performance in comparison to other methods. This can be understood119 as a consequence
+of the benchmarked D-Wave machine having qubit connectivity given by a low-degree (Chimera) graph that cannot natively
+implement either the dense MaxCut or SK models (see Table 1). An embedding procedure that requires ∝N2 physical qubits
+is used to realize the equivalent graph, and this puts the D-Wave annealer at a disadvantage in comparison to the other listed
+approaches featuring all-to-all spin connections. It is for this reason that the success probability has a relation which more
+resembles psuc ∝e−bN2.
+Figure 4a and 4b shows the time-to-solution metric for the MaxCut and SK models. The best performing methods for the
+SK model employ classical digital hardware, where RBM and TBM show the lowest time to solution. For MaxCut problem,
+the lowest time-to-solution achieved for a physically implemented machine is RBM. We note that the MRT, PRIS, and CIM3
+curves involve theoretical prediction of the time-to-solution, rather than a direct measurement of the time. The scaling relation
+for most of the curves follows the phenomenological relation
+Tsol ∝ec
+√
+N.
+(11)
+For the cases with a relatively small range of available data the square root behavior may not yet be visible. The D-wave
+results are better approximated by an exponential relation Tsol ∝ecN which requires ∝N2 physical qubits due to the limited
+chimera connectivities of the qubits. One should note that this is a hardware implementation limitation that gives a different
+scaling and not the computational mechanism itself, and may be improved in the future204-207. For problem instances with
+11/23
+
+b
+time to solution (s)
+SK
+MaxCut
+Logical-Planted/deceptive
+N
+DWAV4
+1000
+time to solution (s)
+10
+10
+10
+10
+1
+-1
+-3
+-5
+2000
+0
+SQA1
+DWAV3
+d
+0
+200
+400
+600
+800
+1000
+10 5
+0.01
+10
+N
+time to solution (s)
+a
+CIM1
+CIM2
+DWAV1
+CIM3*
+RBMPT1
+PT2
+PT3
+SA1
+SA2
+FDA1
+CAC
+BLS
+TBM1
+0
+50
+100
+150
+200
+10 7
+10 5
+0.001
+0.100
+N
+CIM1
+CIM2
+DWAV1
+PT1
+CIM3*
+RBM
+PRIS*
+MRT*
+10
+10
+10
+10
+1
+4
+2
+-2
+-4
+c
+DWAV2
+FDA2
+TBM2
+MEM
+PT4
+SAT
+300
+0
+time to solution (s)
+N
+3R3X  
+HFS
+600
+PT+ICM
+SA3
+Figure 4. Time-to-solution (TTS) comparison of various Ising machines. The time to obtain a 99% success probability
+of obtaining the ground state is shown for the (a) SK; (b) dense MaxCut problems; (c) 3R3X problems (reproduced from
+Ref.202); (d) logical-planted (dashed lines, from Ref.155) and deceptive cluster loops (solid lines, from Ref.203) instance
+classes. For the SK and MaxCut cases, the Ising model deﬁnitions are as in Fig. 3. The 3R3X, logical planted, and crafted
+problem deﬁnitions can be found in Refs.202,155,203 respectively. The labels for each line and their references are given in
+Table 1. Error bars on original data where present have been omitted for clarity. For both SK and MaxCut, CIM1, CIM2,
+CIM3, DWAV and RBM are benchmarked on the same problem instances. We note that for each reference, the best time to
+solution quoted are taken for each N. For results showing multiple annealing times, we have taken results optimized over
+annealing times. Data reported for theoretical predictions, rather than being directly measured from an hardware
+implementation, are labeled with *.
+sparse connectivity D-wave was observed to have a more favorable scaling119. These results show that the connectivity is an
+important factor that determines the performance of an Ising machine — in Table. 1, the hardware connectivity of the different
+Ising machines are given.
+In Fig. 4c, we show results from Ref.202, which compare various Ising machines for 3R3X problems, which have a golf-
+course energy landscape structure with known exact solutions. The best performing approach in this case is the SATonGPU
+approach, which is a highly parallelized version of a SAT algorithm implemented on a GPU. The Fujitsu Digital annealer and
+Toshiba bifurcation machine achieves almost similar scaling although has a larger prefactor than the SATonGPU approach. The
+memcomputing results are based on classical simulation of a proposed system, hence with dedicated hardware to implement
+it, some performance improvement might result202. Although there are fewer studies performed for this problem class, these
+results again suggest that the best performing solvers today are based on digital computing hardware.
+To show the potential of quantum approaches, we also discuss additional problem classes where it is expected that QA
+has advantages over a class of classical methods155-157 despite the mentioned limitations of D-wave. In Fig. 4d, the optimum
+time-to-solution for the class of logical-planted (LP) problems that are constructed such that they promote the presence of
+tunneling barriers is compared (dashed lines). For these problems it is expected that barriers can be traversed more effectively
+by quantum, rather than thermal ﬂuctuations. Here D-Wave and SQA shows a scaling advantage over SA155. The superior per-
+formance of SQA implies that tunneling through barriers may not be considered the exclusive advantage of quantum hardware.
+However, one should note that that SQA can not be applied for non-stoquastic Hamiltonians where there is a sign problem,
+and as such the power of QA for non-stoquastic Hamiltonians require further exploration. Non-stoquastic Hamiltonians are
+12/23
+
+Ising machine/Algorithm
+Acronym
+Operating principle
+Hardware
+Hardware
+Parallelization
+Benchmark
+Reference
+connectivity
+problem
+Breakout local search
+BLS
+Local search & simulated annealing algorithm
+CPU
+All-to-all
+No
+SK
+Fig. 3a141
+Chaotic amplitude control
+CAC
+Dynamical chaotic algorithm
+FPGA
+All-to-all
+Yes
+SK
+Fig. 3a141
+Coherent Ising machine (NTT)
+CIM1
+Dynamical oscillator
+Hybrid (Optical/FPGA)
+All-to-all
+Yes
+MaxCut, SK
+Fig. S6119
+Coherent Ising machine (Stanford)
+CIM2
+Dynamical oscillator
+Hybrid (Optical/FPGA)
+All-to-all
+Yes
+MaxCut, SK
+Fig. S6119
+Coherent Ising machine
+CIM3
+Dynamical oscillator algorithm
+*Predicted
+All-to-all
+Yes
+MaxCut, SK
+Fig. S10119
+D-Wave quantum annealer 2Q
+DWAV1
+Quantum annealer
+Superconducting qubits
+Chimera
+Yes
+MaxCut, SK
+Fig. 3b, 4c119
+D-Wave quantum annealer Advantage1.1
+DWAV2
+Quantum annealer
+Superconducting qubits
+Chimera
+Yes
+3R3X
+Fig. 2202
+D-Wave quantum annealer 2KQ
+DWAV3
+Quantum annealer
+Superconducting qubits
+Chimera
+Yes
+LP
+Fig. 2155
+D-Wave quantum annealer 2KQ
+DWAV4
+Quantum annealer
+Superconducting qubits
+Chimera
+Yes
+Deceptive
+Fig. 1203
+Fujitsu digital annealer
+FDA1
+Simulated annealing algorithm
+ASIC
+All-to-all
+Yes
+SK
+Fig. 7a61
+Fujitsu digital annealer
+FDA2
+Simulated annealing algorithm
+ASIC
+All-to-all
+Yes
+3R3X
+Fig. 2202
+Hamze-de-Freitas-Selb
+HFS
+Tree sampling
+CPU
+All-to-all
+No
+Deceptive
+Fig. 1203
+Memcomputing
+MEM
+Dynamical logic gate algorithm
+CPU
+All-to-all
+Yes
+3R3X
+Fig. 2202
+Memristor annealing
+MRT
+Simulated annealing algorithm
+*Predicted
+All-to-all
+Yes
+MaxCut
+Fig. 6a, 6b30
+Photonic recurrent Ising sampler
+PRIS
+Oscillator based annealer
+*Predicted
+All-to-all
+Yes
+MaxCut
+Fig. 2b53
+Parallel tempering
+PT1
+Simulated annealing algorithm
+CPU
+All-to-all
+No
+MaxCut, SK
+Fig. S12119
+Parallel tempering
+PT2
+Simulated annealing algorithm
+CPU
+All-to-all
+No
+SK
+Fig. 7a61
+Parallel tempering
+PT3
+Simulated annealing algorithm
+CPU
+All-to-all
+No
+SK
+Fig. 3a141
+Parallel tempering
+PT4
+Simulated annealing algorithm
+CPU
+All-to-all
+No
+3R3X
+Fig. 2202
+Isoenergetic cluster moves+ parallel tempering
+PT+ICM
+Monte Carlo algorithm
+Digital- CPU
+All-to-all
+Yes
+Deceptive
+Fig. 1203
+Restricted Boltzmann machine
+RBM
+Simulated annealing algorithm
+FPGA
+All-to-all
+Yes
+MaxCut,SK
+Fig. 3, 467
+Simulated annealing
+SA1
+Simulated annealing algorithm
+CPU
+All-to-all
+Yes
+SK
+Fig. 3a141
+Simulated annealing
+SA2
+Simulated annealing algorithm
+CPU
+All-to-all
+No
+SK
+Fig. 7a61
+Simulated annealing
+SA3
+Simulated annealing algorithm
+GPU
+All-to-all
+Yes
+LP
+Fig. 2155
+SATonGPU
+SAT
+SAT algorithm
+GPU
+All-to-all
+Yes
+3R3X
+Fig. 2202
+Simulated quantum annealing
+SQA1
+Quantum Monte Carlo algorithm
+GPU
+All-to-all
+Yes
+LP
+Fig. 2155
+Toshiba bifurcation machine
+TBM1
+Discrete simulated bifurcation algorithm
+FPGA
+All-to-all
+Yes
+SK
+Fig. 3c182
+Toshiba bifurcation machine
+TBM2
+Discrete simulated bifurcation algorithm
+GPU
+All-to-all
+Yes
+3R3X
+Fig. 2202
+Table 1. Types of Ising machine examined in Figs. 3 and 4. For each type of Ising machine, the operating principle,
+hardware type, hardware connectivity, and the parallelization are shown. We note that if the results of Fig. 3 and 4 are for
+theoretical predictions, rather than being directly measured from an hardware implementation, the hardware type is quoted as
+being "*Predicted". In the Parallelization column we indicate approaches where simultaneous updates of Ising spins are
+performed. The Reference for publication source of the plotted data is given.
+important from a computational complexity perspective as adiabatic quantum computation with non-stoquastic Hamiltonians
+is equivalent to the circuit model of quantum computing208. Therefore, they can simulate other universal models with at most
+a polynomial resource overhead. The fact that D-Wave outperforms SA conﬁrms the presence and advantage of quantumness
+but the superior performance of SQA suggests that current QA hardware is still dominated by classical dynamics and needs
+to be improved. We note that for the LP problem class, there are classical algorithms that outperform or have comparable
+performance with D-Wave155. In Fig. 4d (solid lines), we show results from a separate study203 that compares D-wave with
+classical heuristic algorithms for another class of specially crafted problem, called the deceptive cluster loop problem. For this
+problem class, D-wave outperforms the best known heuristics algorithms such as parallel tempering Monte Carlo with isoener-
+getic cluster moves (PT+ICM) and Hamze-de Freitas-Selby (HFS) with approximately two orders of magnitude shorter TTS.
+However, no scaling improvement is evident.
+Numerous other benchmarking studies of Ising machines have been performed in the literature (see for e.g. Refs. 30,61,
+67, 119, 141, 167, 178, 180, 182, 209). For example, in Ref.209, the performance of the D-Wave hybrid solver, TBM, FDA,
+and SA was benchmarked for three different classes of problem instances including SK. The results highlight the fact that the
+performance of machines is problem dependent. In particular for SK model, TBM showed the best performance. In Ref.167,
+the performance of QAOA was benchmarked on SK and MaxCut problems for problems up to 23 qubits.
+Discussion and Outlook
+We have surveyed various approaches to Ising machines and their computational performance. We identify three dominant
+operating-principle strategies that Ising machines employ: classical annealing, quantum annealing, and dynamical system
+evolution. All three approaches are all in principle compatible with the natural-computing approach, where information is
+encoded in an analog and parallelized way such that the underlying physics drives the system towards the ground state.
+In the dynamical-system approach, the evolution drives the state of the system far from equilibrium, in contrast to annealing
+approaches where the aim is to avoid occupying high-energy states. In classical and quantum annealing, adding thermal or
+quantum noise is an important component of the procedure to escape local minima in the energy landscape. On the other hand,
+in dynamical approaches, the system is designed to be attracted to particular conﬁgurations that correspond to low-energy
+conﬁgurations of a given Ising instance. Comparing the performance of Ising machines, interestingly, most approaches tend
+to have similar scalings in terms of the error probability and the time-to-solution metrics as a function of the number of
+spins, despite extremely different approaches and technologies used to realize them. The complexity of all approaches scale
+13/23
+
+exponentially with the system size, with the difference being the power within the exponent and the prefactors. This is
+expected given the NP-complete complexity of the Ising problem—the battle between competing approaches is with respect
+to the exponents that are achievable, where a small difference in the exponent makes a large difference in time-to-solution for
+large system sizes.
+While Fig. 3 and 4 suggest that classical digital methods are still the best-performing approaches at the time of writing;
+analog and quantum computing technologies are rapidly developing and the landscape may completely change in a short
+amount of time. Some of the best-performing approaches are based on classical digital technology which have had the
+beneﬁt of decades of development, and in many cases can be highly parallelized. In comparison, QA approaches have only
+been recently developed to a scale where it can be tested, either theoretically or experimentally, and often have hardware
+limitations such as limited connectivity and the presence of decoherence. The speciﬁc form of the Ising instance being solved
+(e.g., the structure of the J matrix) can affect the performance dramatically. It may be that in the future, much like various
+numerical algorithms are chosen based on the compatibility of a particular problem, that different Ising machines will be
+utilized according to their suitability for the given problem. For example, while problem instances with small spectral gaps
+are known to be hard for QA, they may not limit the performance of QAOA162. One step further would be to explore hybrid
+quantum-classical and digital-analog algorithms to gain the complementary advantage of each210.
+One point of active debate has been the role that quantum mechanics plays in coherent Ising machines and in D-Wave's
+quantum annealers. In the context of coherent Ising machines, there exist models of their operation that treat CIMs quantum
+mechanically114,117, including, for example, a description of the initial state as being in a coherent superposition of all logical
+states117. However, experimental realizations of CIMs thus far35,115,116,121,125 have been in regimes of high photon loss,
+where purely classical models can accurately describe the pertinent dynamics of the systems. The clearest indication of
+this is that similar performance to demonstrated coherent Ising machines may be achieved by simulating the mean-ﬁeld
+dynamics119,178,179,211. With sufﬁciently high nonlinearity to loss in their constituent OPOs, CIMs can be ﬁrmly in the
+quantum regime212 and have a strong connection with quantum annealers127. Exploring how to construct experimental CIMs
+where quantum effects play a crucial role, and designing them so that quantum effects improve the performance of the machine,
+are two topics of active investigation120.
+For QA, the computational advantage of incoherent tunneling over certain classical methods (typically SA42 and the
+Hamze-de Freitas-Selby algorithm213,214) for certain classes of problems has been shown144,154-157,203. However, for any
+real-world problem of interest, no evidence of an unqualiﬁed quantum speedup (as deﬁned in Ref.215) has been found. Perhaps
+the most compelling results with the D-Wave QA so far are for a specially crafted problem class, deceptive cluster loops, for
+which the QA was found to outperform in terms of time-to-solution for all classical heuristics that were tested, including
+parallel tempering41. The speedup was of an approximately constant-factor nature, with no strong evidence of a scaling
+advantage203. Another disadvantage of quantum annealing is that they cannot sample uniformly all low-lying states in contrast
+to other heuristic algorithms such as SA-based algorithms216,217. In SA, after many repetitions and starting from different
+initial states one can record all the conﬁgurations that minimize the problem Hamiltonian. For an optimization machine, such
+an ability to sample fairly is beneﬁcial as having different solutions for a problem is often useful. Furthermore, it is not yet
+well-understood what the role of entanglement in QA is and whether it contributes to a quantum speedup218. While various
+aspects of quantumness, including entanglement, might or might not aid the performance of CIMs or QAs, this uncertainty
+has inspired the proposal of interesting quantum-inspired classical algorithms related to CIMs and QAs, which is a fruitful
+development in its own right.
+Looking to the future, there is much room for development for Ising machines. In the same way that the scaling of the
+time-to-solution and other metrics for classical algorithms are known to several decimal places, the scaling of Ising machines
+require more precise quantiﬁcation such that competing methods can be compared. Figs. 3 and 4 are extremely preliminary
+in this regard. With improved quantiﬁcation and investigation for different classes of problems, a better understanding of
+the suitability of various approaches for a particular problem can be known in advance. Another interesting direction is to
+compare the performance of the different Ising machines for ﬁnding an approximate solution with different levels of accuracy,
+since for many applications ﬁnding a high-quality solution, rather than the exact solution, is sufﬁcient. Several forms of Ising
+machine whose operation either relies on or can be enhanced by quantum-mechanical mechanisms have been proposed and
+demonstrated. However, constructing large-scale quantum machines with high connectivity and low decoherence remains
+an outstanding challenge for the ﬁeld of quantum information processing in general, and further progress in this direction is
+needed for experimental exploration of the beneﬁts quantum-mechanical methods may bring to solving Ising problems. This
+is in contrast with classical approaches, especially digital ones, which often have little difﬁculty in supporting full connectivity.
+Given the demand for faster methods of solving optimization problems in society, and the maturity of conventional algorithms
+and processors, it seems likely that the development of specialized Ising machines will continue well into the future, featuring
+an exciting interplay between hardware engineering, computer science, statistical physics, and quantum mechanics.
+14/23
+
+References
+1. Lucas, A. Ising formulations of many NP problems. Front. Phys. 2, 5 (2014).
+2. Tanahashi, K., Takayanagi, S., Motohashi, T. & Tanaka, S. Application of Ising machines and a software development
+for Ising machines. J. Phys. Soc. Jpn. 88, 061010 (2019).
+3. Smelyanskiy, V. N. et al. A near-term quantum computing approach for hard computational problems in space explo-
+ration. arXiv preprint arXiv:1204.2821 (2012).
+4. Hauke, P., Katzgraber, H. G., Lechner, W., Nishimori, H. & Oliver, W. D. Perspectives of quantum annealing: Methods
+and implementations. Reports on Prog. Phys. 83, 054401 (2020).
+5. Karp, R. M. Reducibility among combinatorial problems. In Complexity of computer computations, 85-103 (Springer,
+1972).
+6. Mézard, M., Parisi, G. & Virasoro, M. A. Spin glass theory and beyond: An Introduction to the Replica Method and Its
+Applications, vol. 9 (World Scientiﬁc Publishing Company, 1987).
+7. Barahona, F., Grötschel, M., Jünger, M. & Reinelt, G. An application of combinatorial optimization to statistical physics
+and circuit layout design. Oper. Res. 36, 493-513 (1988).
+8. Chang, K. & Du, D.-C. Efﬁcient algorithms for layer assignment problem. IEEE Transactions on Comput. Des. Integr.
+Circuits Syst. 6, 67-78 (1987).
+9. Wang, J., Jebara, T. & Chang, S.-F. Semi-supervised learning using greedy Max-cut. The J. Mach. Learn. Res. 14,
+771-800 (2013).
+10. Collins, T. Graph cut matching in computer vision. Univ. Edinb. (2004).
+11. Arora, C., Banerjee, S., Kalra, P. & Maheshwari, S. An efﬁcient graph cut algorithm for computer vision problems. In
+European conference on computer vision, 552-565 (Springer, 2010).
+12. Turing, A. M. On computable numbers, with an application to the entscheidungsproblem. Proc. Lond. mathematical
+society 2, 230-265 (1937).
+13. Bournez, O. & Pouly, A. A survey on analog models of computation. In Brattka, V. & Hertling, P. (eds.) Handbook of
+Computability and Complexity in Analysis, 2018 (Springer in cooperation with the Association Computability in Europe,
+2018).
+14. Feynman, R. P. Simulating physics with computers. Int. J. Theor. Phys 21 (1982).
+15. Buluta, I. & Nori, F. Quantum simulators. Science 326, 108-111 (2009).
+16. Georgescu, I. M., Ashhab, S. & Nori, F. Quantum simulation. Rev. Mod. Phys. 86, 153 (2014).
+17. Lloyd, S. Universal quantum simulators. Science 1073-1078 (1996).
+18. Greiner, M., Mandel, O., Esslinger, T., Hänsch, T. W. & Bloch, I. Quantum phase transition from a superﬂuid to a Mott
+insulator in a gas of ultracold atoms. nature 415, 39-44 (2002).
+19. Labuhn, H. et al. Tunable two-dimensional arrays of single Rydberg atoms for realizing quantum Ising models. Nature
+534, 667-670 (2016).
+20. Bernien, H. et al. Probing many-body dynamics on a 51-atom quantum simulator. Nature 551, 579-584 (2017).
+21. Keesling, A. et al. Quantum Kibble-Zurek mechanism and critical dynamics on a programmable Rydberg simulator.
+Nature 568, 207-211 (2019).
+22. Scholl, P. et al. Quantum simulation of 2D antiferromagnets with hundreds of Rydberg atoms. Nature 595, 233-238
+(2021).
+23. Farhi, E. et al. A quantum adiabatic evolution algorithm applied to random instances of an NP-complete problem.
+Science 292, 472-475 (2001).
+24. Byrnes, T., Yan, K. & Yamamoto, Y. Accelerated optimization problem search using Bose-Einstein condensation. New
+J. Phys. 13, 113025 (2011).
+25. King, A. D. et al. Observation of topological phenomena in a programmable lattice of 1,800 qubits. Nature 560, 456-460
+(2018).
+26. Harris, R. et al. Phase transitions in a programmable quantum spin glass simulator. Science 361, 162-165 (2018).
+15/23
+
+27. Vadlamani, S. K., Xiao, T. P. & Yablonovitch, E. Physics successfully implements Lagrange multiplier optimization.
+Proc. Natl. Acad. Sci. 117, 26639-26650 (2020).
+28. Geman, S. & Geman, D. Stochastic relaxation, Gibbs distributions, and the Bayesian restoration of images. IEEE
+Transactions on pattern analysis machine intelligence 721-741 (1984).
+29. Borders, W. A. et al. Integer factorization using stochastic magnetic tunnel junctions. Nature 573, 390-393 (2019).
+30. Cai, F. et al. Power-efﬁcient combinatorial optimization using intrinsic noise in memristor hopﬁeld neural networks.
+Nat. Electron. 3, 409-418 (2020).
+31. Shukla, N. et al. Synchronized charge oscillations in correlated electron systems. Sci. reports 4, 1-6 (2014).
+32. Merolla, P. A. et al. A million spiking-neuron integrated circuit with a scalable communication network and interface.
+Science 345, 668-673 (2014).
+33. Kiraly, B., Knol, E. J., van Weerdenburg, W. M., Kappen, H. J. & Khajetoorians, A. A. An atomic Boltzmann machine
+capable of self-adaption. Nat. Nanotechnol. 1-7 (2021).
+34. Pierangeli, D., Marcucci, G. & Conti, C. Large-scale photonic Ising machine by spatial light modulation. Phys. Rev.
+Lett. 122, 213902 (2019).
+35. McMahon, P. L. et al. A fully programmable 100-spin coherent Ising machine with all-to-all connections. Science 354,
+614-617 (2016).
+36. Metropolis, N., Rosenbluth, A. W., Rosenbluth, M. N., Teller, A. H. & Teller, E. Equation of state calculations by fast
+computing machines. The J. Chem. Phys. 21, 1087-1092 (1953).
+37. Hastings, W. K. Monte Carlo sampling methods using markov chains and their applications. Biometrika 57, 97-109
+(1970).
+38. Swendsen, R. H. & Wang, J.-S. Replica Monte Carlo simulation of spin-glasses. Phys. Rev. Lett. 57, 2607-2609 (1986).
+39. Earl, D. J. & Deem, M. W. Parallel tempering: Theory, applications, and new perspectives. Phys. Chem. Chem. Phys. 7,
+3910-3916 (2005).
+40. Wang, W., Machta, J. & Katzgraber, H. G. Population annealing: Theory and application in spin glasses. Phys. Rev. E
+92, 063307 (2015).
+41. Zhu, Z., Ochoa, A. J. & Katzgraber, H. G. Efﬁcient cluster algorithm for spin glasses in any space dimension. Phys. Rev.
+Lett. 115, 077201 (2015).
+42. Kirkpatrick, S., Gelatt, C. D. & Vecchi, M. P. Optimization by simulated annealing. Science 220, 671-680 (1983).
+43. ˇCern`y, V. Thermodynamical approach to the traveling salesman problem: An efﬁcient simulation algorithm. J. optimiza-
+tion theory applications 45, 41-51 (1985).
+44. Camsari, K. Y., Faria, R., Sutton, B. M. & Datta, S. Stochastic p-bits for invertible logic. Phys. Rev. X 7, 031014 (2017).
+45. Camsari, K. Y., Sutton, B. M. & Datta, S. p-bits for probabilistic spin logic. Appl. Phys. Rev. 6, 011305 (2019).
+46. Sutton, B., Camsari, K. Y., Behin-Aein, B. & Datta, S. Intrinsic optimization using stochastic nanomagnets. Sci. reports
+7, 1-9 (2017).
+47. Shim, Y., Jaiswal, A. & Roy, K. Ising computation based combinatorial optimization using spin-Hall effect induced
+stochastic magnetization reversal. J. Appl. Phys. 121, 193902 (2017).
+48. Arnalds, U. B. et al. A new look on the two-dimensional Ising model: thermal artiﬁcial spins. New J. Phys. 18, 023008
+(2016).
+49. Bhanja, S., Karunaratne, D., Panchumarthy, R., Rajaram, S. & Sarkar, S. Non-Boolean computing with nanomagnets
+for computer vision applications. Nat. nanotechnology 11, 177-183 (2016).
+50. Lee, A. et al. A thermodynamic core using voltage-controlled spin-orbit-torque magnetic tunnel junctions. Nanotech-
+nology (2021).
+51. Mizushima, K., Goto, H. & Sato, R. Large-scale Ising-machines composed of magnetic neurons. Appl. Phys. Lett. 111,
+172406 (2017).
+52. Pierangeli, D., Marcucci, G. & Conti, C. Adiabatic evolution on a spatial-photonic Ising machine. Optica 7, 1535-1543
+(2020).
+16/23
+
+53. Roques-Carmes, C. et al. Heuristic recurrent algorithms for photonic Ising machines. Nat. communications 11, 1-8
+(2020).
+54. Bojnordi, M. N. & Ipek, E. Memristive boltzmann machine: A hardware accelerator for combinatorial optimization
+and deep learning. In 2016 IEEE International Symposium on High Performance Computer Architecture (HPCA), 1-13
+(IEEE, 2016).
+55. Behin-Aein, B., Diep, V. & Datta, S. A building block for hardware belief networks. Sci. reports 6, 1-10 (2016).
+56. Sarkar, S. & Bhanja, S. Synthesizing energy minimizing quantum-dot cellular automata circuits for vision computing.
+In 5th IEEE Conference on Nanotechnology, 2005., 541-544 (IEEE, 2005).
+57. Guo, S. Y. et al. A molecular computing approach to solving optimization problems via programmable microdroplet
+arrays. Matter 4, 1107-1124 (2021).
+58. Byrnes, T., Koyama, S., Yan, K. & Yamamoto, Y. Neural networks using two-component Bose-Einstein condensates.
+Sci. reports 3, 1-7 (2013).
+59. Yamaoka, M. et al. A 20k-spin Ising chip to solve combinatorial optimization problems with CMOS annealing. IEEE J.
+Solid-State Circuits 51, 303-309 (2015).
+60. Matsubara, S. et al. Digital annealer for high-speed solving of combinatorial optimization problems and its applications.
+In 2020 25th Asia and South Paciﬁc Design Automation Conference (ASP-DAC), 667-672 (IEEE, 2020).
+61. Aramon, M. et al. Physics-inspired optimization for quadratic unconstrained problems using a digital annealer. Front.
+Phys. 7, 48 (2019).
+62. Su, Y., Kim, H. & Kim, B. Cim-spin: A 0.5-to-1.2 V scalable annealing processor using digital compute-in-memory
+spin operators and register-based spins for combinatorial optimization problems. In 2020 IEEE International Solid-State
+Circuits Conference (ISSCC), 480-482 (IEEE, 2020).
+63. Yamamoto, K. et al. Statica: A 512-spin 0.25 m-weight full-digital annealing processor with a near-memory all-spin-
+updates-at-once architecture for combinatorial optimization with complete spin-spin interactions. In 2020 IEEE Interna-
+tional Solid-State Circuits Conference (ISSCC), 138-140 (IEEE, 2020).
+64. Tsukamoto, S., Takatsu, M., Matsubara, S. & Tamura, H. An accelerator architecture for combinatorial optimization
+problems. Fujitsu Sci. Tech. J 53, 8-13 (2017).
+65. Matsubara, S. et al. Ising-model optimizer with parallel-trial bit-sieve engine. In Conference on Complex, Intelligent,
+and Software Intensive Systems, 432-438 (Springer, 2017).
+66. Yamamoto, K. et al. A time-division multiplexing Ising machine on FPGAs. In Proceedings of the 8th International
+Symposium on Highly Efﬁcient Accelerators and Reconﬁgurable Technologies, 1-6 (2017).
+67. Patel, S., Chen, L., Canoza, P. & Salahuddin, S. Ising model optimization problems on a FPGA accelerated restricted
+Boltzmann machine. arXiv preprint arXiv:2008.04436 (2020).
+68. Aadit, N. A. et al. Massively parallel probabilistic computing with sparse Ising machines. arXiv:2110.02481 (2021).
+69. Reuther, A. et al. Survey and benchmarking of machine learning accelerators. In 2019 IEEE high performance extreme
+computing conference (HPEC), 1-9 (IEEE, 2019).
+70. Arima, Y. et al. A 336-neuron, 28 K-synapse, self-learning neural network chip with branch-neuron-unit architecture.
+IEEE journal solid-state circuits 26, 1637-1644 (1991).
+71. Alspector, J., Allen, R. B., Jayakumar, A., Zeppenfeld, T. & Meir, R. Relaxation networks for large supervised learning
+problems. In Advances in Neural Information Processing Systems, 1015-1021 (Citeseer, 1991).
+72. Skubiszewski, M. An exact hardware implementation of the Boltzmann machine. In SPDP, 107-111 (Citeseer, 1992).
+73. Zhu, J. & Sutton, P. FPGA implementations of neural networks-a survey of a decade of progress. In International
+Conference on Field Programmable Logic and Applications, 1062-1066 (Springer, 2003).
+74. Kim, S. K., McAfee, L. C., McMahon, P. L. & Olukotun, K. A highly scalable restricted Boltzmann machine FPGA
+implementation. In 2009 International Conference on Field Programmable Logic and Applications, 367-372 (IEEE,
+2009).
+75. Kim, S. K., McMahon, P. L. & Olukotun, K. A large-scale architecture for restricted Boltzmann machines. In 2010 18th
+IEEE Annual International Symposium on Field-Programmable Custom Computing Machines, 201-208 (IEEE, 2010).
+17/23
+
+76. Le Ly, D. & Chow, P. High-performance reconﬁgurable hardware architecture for restricted Boltzmann machines. IEEE
+Transactions on Neural Networks 21, 1780-1792 (2010).
+77. Kim, L.-W., Asaad, S. & Linsker, R. A fully pipelined FPGA architecture of a factored restricted boltzmann machine
+artiﬁcial neural network. ACM Transactions on Reconﬁgurable Technol. Syst. (TRETS) 7, 1-23 (2014).
+78. Ly, D. L., Paprotski, V. & Yen, D.
+Neural networks on GPUs:
+Restricted boltzmann machines.
+see
+http://www.eecg.toronto.edu/moshovos/CUDA08/doku.php (2008).
+79. Zhu, Y., Zhang, Y. & Pan, Y. Large-scale restricted Boltzmann machines on single GPU. In 2013 IEEE International
+Conference on Big Data, 169-174 (IEEE, 2013).
+80. Okuyama, T., Sonobe, T., Kawarabayashi, K.-i. & Yamaoka, M. Binary optimization by momentum annealing. Phys.
+Rev. E 100, 012111 (2019).
+81. Hopﬁeld, J. J. Neural networks and physical systems with emergent collective computational abilities. Proc. national
+academy sciences 79, 2554-2558 (1982).
+82. Hopﬁeld, J. J. & Tank, D. W. "neural" computation of decisions in optimization problems. Biol. cybernetics 52, 141-152
+(1985).
+83. Von Neumann, J. Non-linear capacitance or inductance switching, amplifying, and memory organs (1957). US Patent
+2,815,488.
+84. Wigington, R. A new concept in computing. Proc. IRE 47, 516-523 (1959).
+85. Goto, E. The parametron, a digital computing element which utilizes parametric oscillation. Proc. IRE 47, 1304-1316
+(1959).
+86. Csaba, G. & Porod, W. Coupled oscillators for computing: A review and perspective. Appl. Phys. Rev. 7, 011302 (2020).
+87. Raychowdhury, A. et al. Computing with networks of oscillatory dynamical systems. Proc. IEEE 107, 73-89 (2018).
+88. Kuramoto, Y. International symposium on mathematical problems in theoretical physics. Lect. notes Phys. 30, 420
+(1975).
+89. Acebrón, J. A., Bonilla, L. L., Vicente, C. J. P., Ritort, F. & Spigler, R. The Kuramoto model: A simple paradigm for
+synchronization phenomena. Rev. Mod. Phys. 77, 137 (2005).
+90. Breakspear, M., Heitmann, S. & Daffertshofer, A. Generative models of cortical oscillations: neurobiological implica-
+tions of the Kuramoto model. Front. human neuroscience 4, 190 (2010).
+91. Wu, C. W. & Chua, L. O. Application of graph theory to the synchronization in an array of coupled nonlinear oscillators.
+IEEE Transactions on Circuits Syst. I: Fundamental theory applications 42, 494-497 (1995).
+92. Wu, C. W. Graph coloring via synchronization of coupled oscillators. IEEE Transactions on Circuits Syst. I: Fundamen-
+tal Theory Appl. 45, 974-978 (1998).
+93. Wu, J., Jiao, L., Li, R. & Chen, W. Clustering dynamics of nonlinear oscillator network: Application to graph coloring
+problem. Phys. D: Nonlinear Phenom. 240, 1972-1978 (2011).
+94. Kalinin, K. P. & Berloff, N. G. Global optimization of spin Hamiltonians with gain-dissipative systems. Sci. Reports 8,
+1-9 (2018).
+95. Wang, T. & Roychowdhury, J. Oim: Oscillator-based Ising machines for solving combinatorial optimisation problems.
+In International Conference on Unconventional Computation and Natural Computation, 232-256 (Springer, 2019).
+96. Afoakwa, R., Zhang, Y., Vengalam, U. K. R., Ignjatovic, Z. & Huang, M. Brim: Bistable resistively-coupled Ising ma-
+chine. In 2021 IEEE International Symposium on High-Performance Computer Architecture (HPCA), 749-760 (IEEE,
+2021).
+97. McGoldrick, B. C., Sun, J. Z. & Liu, L. Ising machine based on electrically coupled spin Hall nano-oscillators. arXiv
+preprint arXiv:2110.08885 (2021).
+98. Albertsson, D. I. et al. Ultrafast Ising machines using spin torque nano-oscillators. Appl. Phys. Lett. 118, 112404 (2021).
+99. Chou, J., Bramhavar, S., Ghosh, S. & Herzog, W. Analog coupled oscillator based weighted Ising machine. Sci. Reports
+9, 1-10 (2019).
+100. Xiao, T. P. Optoelectronics for refrigeration and analog circuits for combinatorial optimization. Ph.D. thesis, UC
+Berkeley (2019).
+18/23
+
+101. Saito, K., Aono, M. & Kasai, S. Amoeba-inspired analog electronic computing system integrating resistance crossbar
+for solving the travelling salesman problem. Sci. reports 10, 1-9 (2020).
+102. Parihar, A., Shukla, N., Jerry, M., Datta, S. & Raychowdhury, A. Vertex coloring of graphs via phase dynamics of
+coupled oscillatory networks. Sci. reports 7, 1-11 (2017).
+103. Dutta, S. et al. An Ising Hamiltonian solver using stochastic phase-transition nano-oscillators. arXiv:2007.12331 (2020).
+104. Zahedinejad, M. et al.
+Two-dimensional mutually synchronized spin Hall nano-oscillator arrays for neuromorphic
+computing. Nat. nanotechnology 15, 47-52 (2020).
+105. Houshang, A. et al. A spin Hall Ising machine. arXiv:2006.02236 (2020).
+106. Mallick, A. et al. Using synchronized oscillators to compute the maximum independent set. Nat. Commun. 11, 1-7
+(2020).
+107. Bashar, M. K. et al. Experimental demonstration of a reconﬁgurable coupled oscillator platform to solve the Max-Cut
+problem. IEEE J. on Explor. Solid-State Comput. Devices Circuits 6, 116-121 (2020).
+108. Ahmed, I., Chiu, P.-W., Moy, W. & Kim, C. H. A probabilistic compute fabric based on coupled ring oscillators for
+solving combinatorial optimization problems. IEEE J. Solid-State Circuits (2021).
+109. Traversa, F. L. & Di Ventra, M. Universal memcomputing machines. IEEE transactions on neural networks learning
+systems 26, 2702-2715 (2015).
+110. Di Ventra, M. & Traversa, F. L. Perspective: Memcomputing: Leveraging memory and physics to compute efﬁciently.
+J. Appl. Phys. 123, 180901 (2018).
+111. Sheldon, F., Traversa, F. L. & Di Ventra, M. Taming a nonconvex landscape with dynamical long-range order: Mem-
+computing Ising benchmarks. Phys. Rev. E 100, 053311 (2019).
+112. Aiken, J. & Traversa, F. L. Memcomputing for accelerated optimization. arXiv preprint arXiv:2003.10644 (2020).
+113. Utsunomiya, S., Takata, K. & Yamamoto, Y. Mapping of Ising models onto injection-locked laser systems. Opt. express
+19, 18091-18108 (2011).
+114. Wang, Z., Marandi, A., Wen, K., Byer, R. L. & Yamamoto, Y. Coherent Ising machine based on degenerate optical
+parametric oscillators. Phys. Rev. A 88, 063853 (2013).
+115. Marandi, A., Wang, Z., Takata, K., Byer, R. L. & Yamamoto, Y. Network of time-multiplexed optical parametric
+oscillators as a coherent Ising machine. Nat. Photonics 8, 937-942 (2014).
+116. Inagaki, T. et al. A coherent Ising machine for 2000-node optimization problems. Science 354, 603-606 (2016).
+117. Yamamoto, Y. et al. Coherent Ising machines—optical neural networks operating at the quantum limit. npj Quantum
+Inf. 3, 1-15 (2017).
+118. Leleu, T., Yamamoto, Y., McMahon, P. L. & Aihara, K. Destabilization of local minima in analog spin systems by
+correction of amplitude heterogeneity. Phys. Rev. Lett. 122, 040607 (2019).
+119. Hamerly, R. et al. Experimental investigation of performance differences between coherent Ising machines and a quan-
+tum annealer. Sci. advances 5, eaau0823 (2019).
+120. Yamamoto, Y., Leleu, T., Ganguli, S. & Mabuchi, H. Coherent Ising machines—quantum optics and neural network
+perspectives. Appl. Phys. Lett. 117, 160501 (2020).
+121. Honjo, T. et al. 100,000-spin coherent Ising machine. Sci. Adv. 7, eabh0952 (2021).
+122. Marandi, A., Leindecker, N. C., Vodopyanov, K. L. & Byer, R. L. All-optical quantum random bit generation from
+intrinsically binary phase of parametric oscillators. Opt. express 20, 19322-19330 (2012).
+123. Kalinin, K. P. & Berloff, N. G. Networks of non-equilibrium condensates for global optimization. New J. Phys. 20,
+113023 (2018).
+124. Takata, K. et al. A 16-bit coherent Ising machine for one-dimensional ring and cubic graph problems. Sci. Reports 6,
+1-7 (2016).
+125. Inagaki, T. et al. Large-scale Ising spin network based on degenerate optical parametric oscillators. Nat. Photonics 10,
+415-419 (2016).
+126. Okawachi, Y. et al.
+Demonstration of chip-based coupled degenerate optical parametric oscillators for realizing a
+nanophotonic spin-glass. Nat. communications 11, 1-7 (2020).
+19/23
+
+127. Goto, H. Bifurcation-based adiabatic quantum computation with a nonlinear oscillator network. Sci. Reports 6, 1-8
+(2016).
+128. Tamate, S., Yamamoto, Y., Marandi, A., McMahon, P. & Utsunomiya, S. Simulating the classical XY model with a laser
+network. arXiv:1608.00358 (2016).
+129. Babaeian, M. et al. A single shot coherent Ising machine based on a network of injection-locked multicore ﬁber lasers.
+Nat. communications 10, 1-11 (2019).
+130. Parto, M., Hayenga, W., Marandi, A., Christodoulides, D. N. & Khajavikhan, M.
+Realizing spin Hamiltonians in
+nanoscale active photonic lattices. Nat. materials 19, 725-731 (2020).
+131. Böhm, F., Verschaffelt, G. & Van der Sande, G. A poor man's coherent Ising machine based on opto-electronic feedback
+systems for solving optimization problems. Nat. communications 10, 1-9 (2019).
+132. Lagoudakis, P. G. & Berloff, N. G. A polariton graph simulator. New J. Phys. 19, 125008 (2017).
+133. Berloff, N. G. et al. Realizing the classical XY Hamiltonian in polariton simulators. Nat. materials 16, 1120-1126
+(2017).
+134. Kalinin, K. P. & Berloff, N. G. Simulating Ising and n-state planar Potts models and external ﬁelds with nonequilibrium
+condensates. Phys. Rev. Lett. 121, 235302 (2018).
+135. Kyriienko, O., Sigurdsson, H. & Liew, T. C. H. Probabilistic solving of NP-hard problems with bistable nonlinear optical
+networks. Phys. Rev. B 99, 195301 (2019).
+136. Mahboob, I., Okamoto, H. & Yamaguchi, H. An electromechanical Ising Hamiltonian. Sci. advances 2, e1600236
+(2016).
+137. Tezak, N. et al. Integrated coherent Ising machines based on self-phase modulation in microring resonators. IEEE J. Sel.
+Top. Quantum Electron. 26, 1-15 (2019).
+138. Bernaschi, M., Billoire, A., Maiorano, A., Parisi, G. & Ricci-Tersenghi, F. Strong ergodicity breaking in aging of
+mean-ﬁeld spin glasses. Proc. Natl. Acad. Sci. 117, 17522-17527 (2020).
+139. Ercsey-Ravasz, M. & Toroczkai, Z. Optimization hardness as transient chaos in an analog approach to constraint satis-
+faction. Nat. physics 7, 966-970 (2011).
+140. Molnár, B., Molnár, F., Varga, M., Toroczkai, Z. & Ercsey-Ravasz, M. A continuous-time MaxSAT solver with high
+analog performance. Nat. communications 9, 1-12 (2018).
+141. Leleu, T. et al. Chaotic amplitude control for neuromorphic Ising machine in silico. arXiv: 2009.04084 (2020).
+142. Yin, X. et al. Efﬁcient analog circuits for Boolean satisﬁability. IEEE Transactions on Very Large Scale Integration
+(VLSI) Syst. 26, 155-167 (2017).
+143. Elser, V., Rankenburg, I. & Thibault, P. Searching with iterated maps. Proc. Natl. Acad. Sci. 104, 418-423 (2007).
+144. Albash, T. & Lidar, D. A. Adiabatic quantum computation. Rev. Mod. Phys. 90, 015002 (2018).
+145. Das, A. & Chakrabarti, B. K. Colloquium: Quantum annealing and analog quantum computation. Rev. Mod. Phys. 80,
+1061-1081 (2008).
+146. Apolloni, B., Carvalho, C. & De Falco, D. Quantum stochastic optimization. Stoch. Process. their Appl. 33, 233-244
+(1989).
+147. Kadowaki, T. & Nishimori, H. Quantum annealing in the transverse Ising model. Phys. Rev. E 58, 5355-5363 (1998).
+148. Farhi, E., Goldstone, J., Gutmann, S. & Sipser, M. Quantum computation by adiabatic evolution. arXiv preprint quant-
+ph/0001106 (2000).
+149. Roland, J. & Cerf, N. J. Quantum search by local adiabatic evolution. Phys. Rev. A 65, 042308 (2002).
+150. Amin, M. Effect of local minima on adiabatic quantum optimization. Phys. Rev. Lett. 100, 130503 (2008).
+151. Schaller, G., Mostame, S. & Schützhold, R. General error estimate for adiabatic quantum computing. Phys. Rev. A 73,
+062307 (2006).
+152. Lidar, D. A., Rezakhani, A. T. & Hamma, A. Adiabatic approximation with exponential accuracy for many-body systems
+and quantum computation. J. Math. Phys. 50, 102106 (2009).
+153. Katzgraber, H. G., Hamze, F., Zhu, Z., Ochoa, A. J. & Munoz-Bauza, H. Seeking quantum speedup through spin glasses:
+The good, the bad, and the ugly. Phys. Rev. X 5, 031026 (2015).
+20/23
+
+154. Muthukrishnan, S., Albash, T. & Lidar, D. A.
+Tunneling and speedup in quantum optimization for permutation-
+symmetric problems. Phys. Rev. X 6, 031010 (2016).
+155. Albash, T. & Lidar, D. A. Demonstration of a scaling advantage for a quantum annealer over simulated annealing. Phys.
+Rev. X 8, 031016 (2018).
+156. Denchev, V. S. et al. What is the computational value of ﬁnite-range tunneling? Phys. Rev. X 6, 031015 (2016).
+157. Boixo, S. et al. Computational multiqubit tunnelling in programmable quantum annealers. Nat. communications 7, 1-7
+(2016).
+158. Cerezo, M. et al. Variational quantum algorithms. Nat. Rev. Phys. 1-20 (2021).
+159. Preskill, J. Quantum computing in the NISQ era and beyond. Quantum 2, 79 (2018).
+160. Farhi, E., Goldstone, J. & Gutmann, S. A quantum approximate optimization algorithm. arXiv preprint arXiv:1411.4028
+(2014).
+161. Farhi, E., Goldstone, J. & Gutmann, S. A quantum approximate optimization algorithm applied to a bounded occurrence
+constraint problem. arXiv:1412.6062 (2014).
+162. Zhou, L., Wang, S.-T., Choi, S., Pichler, H. & Lukin, M. D. Quantum approximate optimization algorithm: Performance,
+mechanism, and implementation on near-term devices. Phys. Rev. X 10, 021067 (2020).
+163. Guerreschi, G. G. & Smelyanskiy, M. Practical optimization for hybrid quantum-classical algorithms. arXiv preprint
+arXiv:1701.01450 (2017).
+164. Khairy, S., Shaydulin, R., Cincio, L., Alexeev, Y. & Balaprakash, P. Learning to optimize variational quantum circuits
+to solve combinatorial problems. In Proceedings of the AAAI Conference on Artiﬁcial Intelligence, vol. 34, 2367-2375
+(2020).
+165. Pagano, G. et al. Quantum approximate optimization of the long-range Ising model with a trapped-ion quantum simulator.
+Proc. Natl. Acad. Sci. 117, 25396-25401 (2020).
+166. Farhi, E. & Harrow, A. W. Quantum supremacy through the quantum approximate optimization algorithm. arXiv
+preprint arXiv:1602.07674 (2016).
+167. Harrigan, M. P. et al. Quantum approximate optimization of non-planar graph problems on a planar superconducting
+processor. Nat. physics 1-5 (2021).
+168. Qiang, X. et al. Large-scale silicon quantum photonics implementing arbitrary two-qubit processing. Nat. photonics 12,
+534-539 (2018).
+169. Ozaeta, A., van Dam, W. & McMahon, P. L. Expectation values from the single-layer quantum approximate optimization
+algorithm on Ising problems. arXiv:2012.03421 (2020).
+170. Sanders, Y. R. et al. Compilation of fault-tolerant quantum heuristics for combinatorial optimization. PRX Quantum 1,
+020312 (2020).
+171. Somma, R. D., Boixo, S., Barnum, H. & Knill, E. Quantum simulations of classical annealing processes. Phys. Rev.
+Lett. 101, 130504 (2008).
+172. Boixo, S., Ortiz, G. & Somma, R. Fast quantum methods for optimization. The Eur. Phys. J. Special Top. 224, 35-49
+(2015).
+173. Lemieux, J., Heim, B., Poulin, D., Svore, K. & Troyer, M. Efﬁcient quantum walk circuits for Metropolis-Hastings
+algorithm. Quantum 4, 287 (2020).
+174. Bapst, V. & Semerjian, G. Thermal, quantum and simulated quantum annealing: Analytical comparisons for simple
+models. In Journal of Physics: Conference Series, vol. 473, 012011 (IOP Publishing, 2013).
+175. Das, A. & Chakrabarti, B. K. Quantum annealing and related optimization methods, vol. 679 (Springer Science &
+Business Media, 2005).
+176. Crosson, E. & Harrow, A. W. Simulated quantum annealing can be exponentially faster than classical simulated anneal-
+ing. In 2016 IEEE 57th Annual Symposium on Foundations of Computer Science (FOCS), 714-723 (IEEE, 2016).
+177. Andriyash, E. & Amin, M. H. Can quantum Monte Carlo simulate quantum annealing? arXiv preprint arXiv:1703.09277
+(2017).
+178. King, A. D., Bernoudy, W., King, J., Berkley, A. J. & Lanting, T. Emulating the coherent Ising machine with a mean-ﬁeld
+algorithm. arXiv preprint arXiv:1806.08422 (2018).
+21/23
+
+179. Tiunov, E. S., Ulanov, A. E. & Lvovsky, A. Annealing by simulating the coherent Ising machine. Opt. express 27,
+10288-10295 (2019).
+180. Goto, H., Tatsumura, K. & Dixon, A. R. Combinatorial optimization by simulating adiabatic bifurcations in nonlinear
+Hamiltonian systems. Sci. advances 5, eaav2372 (2019).
+181. Tatsumura, K., Dixon, A. R. & Goto, H. FPGA-based simulated bifurcation machine. In 2019 29th International
+Conference on Field Programmable Logic and Applications (FPL), 59-66 (IEEE, 2019).
+182. Goto, H. et al. High-performance combinatorial optimization based on classical mechanics. Sci. Adv. 7, eabe7953
+(2021).
+183. Tatsumura, K., Yamasaki, M. & Goto, H. Scaling out Ising machines using a multi-chip architecture for simulated
+bifurcation. Nat. Electron. 4, 208-217 (2021).
+184. Orús, R. Tensor networks for complex quantum systems. Nat. Rev. Phys. 1, 538-550 (2019).
+185. Alcazar, J. & Perdomo-Ortiz, A. Enhancing combinatorial optimization with quantum generative models. arXiv preprint
+arXiv:2101.06250 (2021).
+186. Mugel, S. et al. Dynamic portfolio optimization with real datasets using quantum processors and quantum-inspired
+tensor networks. arXiv preprint arXiv:2007.00017 (2020).
+187. Mohseni, N., Navarrete-Benlloch, C., Byrnes, T. & Marquardt, F. Deep recurrent networks predicting the gap evolution
+in adiabatic quantum computing. arXiv preprint arXiv:2109.08492 (2021).
+188. Bojesen, T. A. Policy-guided Monte Carlo: Reinforcement-learning Markov chain dynamics. Phys. Rev. E 98, 063303
+(2018).
+189. Huang, L. & Wang, L. Accelerated Monte Carlo simulations with restricted Boltzmann machines. Phys. Rev. B 95,
+035105 (2017).
+190. Bello, I., Pham, H., Le, Q. V., Norouzi, M. & Bengio, S. Neural combinatorial optimization with reinforcement learning.
+arXiv preprint arXiv:1611.09940 (2016).
+191. Dai, H., Khalil, E. B., Zhang, Y., Dilkina, B. & Song, L. Learning combinatorial optimization algorithms over graphs.
+arXiv preprint arXiv:1704.01665 (2017).
+192. Zhou, J. et al. Graph neural networks: A review of methods and applications. AI Open 1, 57-81 (2020).
+193. Dwivedi, V. P., Joshi, C. K., Laurent, T., Bengio, Y. & Bresson, X. Benchmarking graph neural networks. arXiv preprint
+arXiv:2003.00982 (2020).
+194. Schuetz, M. J., Brubaker, J. K. & Katzgraber, H. G. Combinatorial optimization with physics-inspired graph neural
+networks. arXiv preprint arXiv:2107.01188 (2021).
+195. Vinyals, O., Fortunato, M. & Jaitly, N. Pointer networks. arXiv preprint arXiv:1506.03134 (2015).
+196. Shor, P. W. Polynomial-time algorithms for prime factorization and discrete logarithms on a quantum computer. SIAM
+review 41, 303-332 (1999).
+197. Arora, S. & Barak, B. Computational complexity: a modern approach (Cambridge University Press, 2009).
+198. Aaronson, S. BQP and the polynomial hierarchy. In Proceedings of the forty-second ACM symposium on Theory of
+computing, 141-150 (2010).
+199. Papadimitriou, C. H. & Yannakakis, M. Optimization, approximation, and complexity classes. J. computer system
+sciences 43, 425-440 (1991).
+200. Goemans, M. X. & Williamson, D. P. Improved approximation algorithms for maximum cut and satisﬁability problems
+using semideﬁnite programming. J. ACM (JACM) 42, 1115-1145 (1995).
+201. Håstad, J. Some optimal inapproximability results. J. ACM (JACM) 48, 798-859 (2001).
+202. Kowalsky, M., Albash, T., Hen, I. & Lidar, D. A. 3-regular 3-XORSAT planted solutions benchmark of classical and
+quantum heuristic optimizers. arXiv preprint arXiv:2103.08464 (2021).
+203. Mandra, S. & Katzgraber, H. G. A deceptive step towards quantum speedup detection. Quantum Sci. Technol. 3, 04LT01
+(2018).
+204. Mukai, H., Tomonaga, A. & Tsai, J.-S. Superconducting quantum annealing architecture with LC resonators. J. Phys.
+Soc. Jpn. 88, 061011 (2019).
+22/23
+
+205. Onodera, T., Ng, E. & McMahon, P. L. A quantum annealer with fully programmable all-to-all coupling via Floquet
+engineering. npj Quantum Inf. 6, 1-10 (2020).
+206. Lechner, W., Hauke, P. & Zoller, P. A quantum annealing architecture with all-to-all connectivity from local interactions.
+Sci. advances 1, e1500838 (2015).
+207. Puri, S., Andersen, C. K., Grimsmo, A. L. & Blais, A. Quantum annealing with all-to-all connected nonlinear oscillators.
+Nat. communications 8, 1-9 (2017).
+208. Aharonov, D. et al. Adiabatic quantum computation is equivalent to standard quantum computation. SIAM review 50,
+755-787 (2008).
+209. Oshiyama, H. & Ohzeki, M.
+Benchmark of quantum-inspired heuristic solvers for quadratic unconstrained binary
+optimization. arXiv preprint arXiv:2104.14096 (2021).
+210. Chancellor, N. Modernizing quantum annealing using local searches. New J. Phys. 19, 023024 (2017).
+211. Bilbro, G. et al. Optimization by mean ﬁeld annealing. In Advances in neural information processing systems, 91-98
+(1989).
+212. Onodera, T. et al. Nonlinear quantum behavior of ultrashort-pulse optical parametric oscillators. arXiv:1811.10583
+(2018).
+213. Hamze, F. & de Freitas, N. From ﬁelds to trees. arXiv preprint arXiv:1207.4149 (2012).
+214. Selby, A. Efﬁcient subgraph-based sampling of Ising-type models with frustration. arXiv preprint arXiv:1409.3934
+(2014).
+215. Job, J. & Lidar, D. Test-driving 1000 qubits. Quantum Sci. Technol. 3, 030501 (2018).
+216. Mandra, S., Zhu, Z. & Katzgraber, H. G. Exponentially biased ground-state sampling of quantum annealing machines
+with transverse-ﬁeld driving Hamiltonians. Phys. Rev. Lett. 118, 070502 (2017).
+217. Zhu, Z., Ochoa, A. J. & Katzgraber, H. G. Fair sampling of ground-state conﬁgurations of binary optimization problems.
+Phys. Rev. E 99, 063314 (2019).
+218. Albash, T. & Lidar, D. A. Adiabatic quantum computation. Rev. Mod. Phys. 90, 015002 (2018).
+Acknowledgements
+We thank Scott Aaronson, Tameem Albash, Helmut Katzgraber, Timothée Leleu, Sam King, Marek Narozniak, Srikrishna
+Vadlamani and Thomas van Vaerenbergh for helpful discussions and comments on the manuscript. T.B. is supported by the Na-
+tional Natural Science Foundation of China (62071301); NYU-ECNU Institute of Physics at NYU Shanghai; the Joint Physics
+Research Institute Challenge Grant; the Science and Technology Commission of Shanghai Municipality (19XD1423000,22ZR1444600);
+the NYU Shanghai Boost Fund; the China Foreign Experts Program (G2021013002L); the NYU Shanghai Major-Grants Seed
+Fund. P.L.M. thanks all his collaborators on the topic of Ising machines—especially Surya Ganguli, Ryan Hamerly, Tim-
+othée Leleu, Hideo Mabuchi, Alireza Marandi, Edwin Ng, Tatsuhiro Onodera, and Yoshihisa Yamamoto—for enlightening
+discussions that have shaped his understanding over the years. P.L.M. acknowledges funding from NSF award CCF-1918549,
+and NTT Research for their ﬁnancial and technical support. P.L.M. also acknowledges membership in the CIFAR Quantum
+Information Science Program as an Azrieli Global Scholar.
+Author contributions
+All authors contributed in compiling the results and preparing the manuscript.
+Competing interests
+P.L.M. declares an interest in QC Ware Corp., a company producing software for quantum computers, to which he is an
+advisor. T.B. and N.M. declare no competing interests.
+Author's note
+This is a preprint of a review paper that is scheduled to appear in Nature Reviews Physics. This version does not include
+changes made during the editing and production process at the journal.
+23/23
+

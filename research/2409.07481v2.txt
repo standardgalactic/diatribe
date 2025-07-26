@@ -1,0 +1,5513 @@
+Dynamical phase transitions in the nonreciprocal Ising model
+Yael Avni,1 Michel Fruchart,2 David Martin,3 Daniel Seara,1 and Vincenzo Vitelli1, 4
+1University of Chicago, James Franck Institute, 929 E 57th Street, Chicago, IL 60637
+2Gulliver, ESPCI Paris, Université PSL, CNRS, 75005 Paris, France
+3University of Chicago, Kadanoff Center for Theoretical Physics and Enrico Fermi Institute, 933 E 56th St, Chicago, IL 60637
+4University of Chicago, Kadanoff Center for Theoretical Physics, 933 E 56th St, Chicago, IL 60637
+Nonreciprocal interactions in many-body systems lead to time-dependent states, commonly ob-
+served in biological, chemical, and ecological systems. The stability of these states in the thermo-
+dynamic limit and the critical behavior of the phase transition from static to time-dependent states
+are not yet fully understood. To address these questions, we study a minimalistic system endowed
+with nonreciprocal interactions: an Ising model with two spin species having opposing goals. The
+mean-field equation predicts three stable phases: disorder, static order, and a time-dependent swap
+phase. Large scale numerical simulations support the following: (i) in 2D, the swap phase is desta-
+bilized by defects; (ii) in 3D, the swap phase is stable, and has the properties of a time crystal;
+(iii) the transition from disorder to swap in 3D is characterized by the critical exponents of the 3D
+XY model, and corresponds to the breaking of a continuous symmetry, time translation invariance;
+(iv) when the two species have fully anti-symmetric couplings, the static-order phase is unstable
+in any finite dimension due to droplet growth; (v) in the general case of asymmetric couplings,
+static order can be restored by a droplet-capture mechanism preventing the droplets from growing
+indefinitely. We provide details on the full phase diagram which includes first- and second-order-like
+phase transitions and study how the system coarsens into swap and static-order states.
+I.
+INTRODUCTION
+Many-body systems with nonreciprocal interactions
+emerge in contexts ranging from neuroscience [1-3] and
+social networks [4-6] to ecology [7-10] and open quantum
+systems [11-13].
+These systems exhibit rich collective
+behavior including time-dependent states that can arise
+because the dynamics does not follow from the minimiza-
+tion of a single potential function [14-21]. However, it re-
+mains unknown whether these time-dependent states can
+be thought of as proper non-equilibrium phases of matter,
+in the sense of the term used in statistical physics; and
+if so, whether they exhibit well-defined phase transitions
+and critical behavior. In particular, we are interested in
+the fate of these time-dependent states in systems made
+of locally coupled units subject to thermal noise in finite
+spatial dimensions when they are taken to the thermo-
+dynamic limit.
+In order to address this question, we consider a nonre-
+ciprocal version of the Ising model, in which two species
+of spins have incompatible goals: spins of species A tend
+to align with spins of species B, while spins B tend to
+anti-align with spins A. This leads to a cyclic dynamics
+where spins of each species tend to flip in turn. We study
+this system through analytical arguments and extensive
+Monte-Carlo simulations. A short account of our results
+is presented in Letter form in Ref. [22]; we summarize
+here the most salient points.
+First, numerical simula-
+tions indicate that in our model, a time-dependent phase
+with long-range spatial and temporal order indeed exists
+in three spatial dimensions. In this phase, the magneti-
+zation oscillates for arbitrarily long times. The system
+acts as a perfect clock in the thermodynamic limit, in
+the sense that the coherence time of the oscillations di-
+verges with the size of the system. Second, a continu-
+ous phase transition between this oscillatory phase and
+a disordered (i.e. paramagnetic) phase, corresponding to
+a Hopf bifurcation in mean-field, is observed. Numerical
+evidence shows that it is associated with scale invari-
+ance, and the corresponding static critical exponents are
+compatible with the 3D XY universality class.
+Third,
+we found that a static ordered phase (similar to a fer-
+romagnetic phase) can exist when nonreciprocal interac-
+tions are present, but only if there is some symmetric
+coupling between the species. However, we found no evi-
+dence of a direct transition between the oscillatory phase
+and the static-order phase, in contrast with mean-field
+predictions.
+II.
+BACKGROUND
+The following section provides background and con-
+text on different aspects related to our work, as well as
+relations to existing literature. It can be skipped on first
+reading.
+A.
+Nonreciprocal interactions between groups
+There is a rich literature on nonequilibrium lattice
+models, including variants of the Ising model with asym-
+metric couplings exhibiting a variety of complex phenom-
+ena [23-27]. A distinguishing feature of the nonrecipro-
+cal Ising model introduced in this paper is the presence
+of macroscopic nonreciprocal interactions between two
+groups of spins of comparable sizes.
+This is a rather
+generic feature that arises in a variety of physical con-
+texts, some of which can be captured by Ising or Ising-like
+minimal models. Examples include:
+arXiv:2409.07481v2  [cond-mat.stat-mech]  6 Feb 2025
+
+2
+• Nonlinear parametric resonators, that can be mapped
+to Ising spins. Networks of coupled parametric oscillators
+have been used as platforms to realize (reciprocal) "Ising
+machines" that solve combinatorial optimization prob-
+lems [28-34]. This is essentially because a single of these
+resonators implements a double-well potential, and a lin-
+ear coupling effectively produces a (reciprocal) Ising-like
+coupling. Reference [35] shows experimentally and ana-
+lytically that driven non-identical parametric resonators
+can be mapped into nonreciprocally coupled Ising spins.
+A network of such resonators could directly realize the
+nonreciprocal Ising model discussed in the present work,
+as well as implement models of learning with nonrecipro-
+cal couplings between the artifical neurons [2, 3, 36-40].
+• Models of collective opinion dynamics, such as in the
+voter model [23, 41], where the values of the spins repre-
+sent different opinions. Different communities may have
+asymmetric interactions: for instance, this is the case
+of conformists and contrarians (or alternatively trend-
+setters) [41-49]. Similarly, spin models have been used
+to model game theory and decision making of economic
+agents [6].
+• Models of the collective response of transmembrane re-
+ceptors, that have been put forward for the high sensitiv-
+ity of cells to external chemicals in chemotaxis [50-54].
+It has been argued that nonreciprocal couplings between
+the receptors and the kinases that serve as an output
+signal is required to account for experimental observa-
+tions [55-57].
+• Models of neurons based on networks of spins, such
+as the Hopfield model [58, 59], can contain asymmetric
+interactions [1-3, 36, 60-63], that account not only for
+existence of asymmetric neural connections but also for
+the presence of different groups of neurons called excita-
+tory and inhibitory, which correspond to different signs
+of the couplings [36, 64]. This approach has also been
+extended to larger brain structures like different brain re-
+gions: active/non-active regions are represented by spin
+variables while their interaction is mimicked by the spin
+alignment interaction [65].
+• Models of spinor Bose-Einstein condensates based on
+two populations of Ising spins in a cavity (a Dicke model)
+that effectively interact nonreciprocally have been consid-
+ered [11, 66, 67] to account for non-stationary dynamics
+observed in experiments [68].
+• Model inference in which symmetric and asymmet-
+ric Ising models have also been used as a variational
+ansatz [37, 69-72].
+In several of these classes of systems, it has been con-
+jectured that criticality may play a nontrivial role [73-
+79].
+Our nonreciprocal Ising model can be seen as a
+stripped down version of these situations.
+In realistic
+cases, (i) there may be more than two populations (ii) the
+spins may take more than two possible states and (iii) the
+network topology may be more complex than Zd (see e.g.
+Refs. [80, 81]). While these differences are likely to induce
+additional complexities and phenomena, we expect that
+the basic features of the nonreciprocal Ising model will
+persist for systems in the same universality class [23, 74].
+In particular, we expect that locally-coupled many-body
+systems undergoing a Hopf bifurcation in mean-field will
+enter this universality class even if they are not originally
+composed of coupled spin-like degrees of freedom.
+B.
+Phase transitions to time-dependent states
+An underlying motivation for this work is to con-
+struct a bridge between bifurcations in non-variational
+systems and phase transitions out of equilibrium.
+In
+the equilibrium Ising model, for instance, the ferromag-
+net/paramagnet transition corresponds to a pitchfork bi-
+furcation in mean-field. This means that the scalar order
+parameter ϕ (e.g. the magnetization) follows the dynam-
+ics (d/dt)ϕ = αϕ−ϕ3 in which α ∝T −Tc is proportional
+to the distance from the critical temperature. Conversely,
+the thermal field theory corresponding to locally-coupled
+pitchfork bifurcations where
+∂tϕ = αϕ −ϕ3 + D∆ϕ + η(t, r),
+(1)
+in which η is a thermal noise, leads upon renormaliza-
+tion to the Ising critical point [27]. This dynamics can
+be seen as the model A dynamics (in the formalism of Ho-
+henberg and Halperin [82]) associated to a ϕ4 free energy
+F, namely
+Γ∂tϕ = −δF
+δϕ
+(2)
+where Γ is a kinetic coefficient.
+In nonreciprocal and other non-equilibrium systems,
+the dynamics of the (not necessarily scalar) order pa-
+rameter ⃗ϕ is typically non-variational,
+Γ∂t⃗ϕ = ⃗f[⃗ϕ] ̸= −δF
+δ⃗ϕ
+(3)
+so bifurcations with no analogue at equilibrium can oc-
+cur, in particular those leading to limit cycles. The sim-
+plest instance is the Hopf bifurcation, which describes
+the appearance of a limit cycle from a fixed point, see
+Refs. [83, 84]. Unless otherwise specified, "fixed points"
+in this paper refer to fixed points of the physical dy-
+namics, not fixed points of a renormalization group (RG)
+flow. The Hopf bifurcation describes a variety of spatially
+extended systems [85] ranging from oscillatory chemical
+reactions and extended lasers [86] to models of mam-
+malian hearing [87, 88]. This bifurcation is described by
+the equation
+˙z = (α + iω)z −|z|2z
+(4)
+for the complex numbers z and takes place at α = 0.
+When z is replaced by a complex field ψ with appro-
+priate diffusive couplings, the corresponding equation is
+known as the complex Ginzburg-Landau equation [86].
+
+3
+The fate of this bifurcation has been analyzed using per-
+turbative RG in Refs. [89, 90], and later reproduced and
+generalized in Refs. [91, 92].
+In these works, a phase
+transition generalizing the Hopf bifurcation is predicted
+based on a d = 4 −ϵ expansion and formally related
+to the RG fixed point of model A dynamics with O(2)
+symmetry (i.e., to the XY universality class). Using this
+analogy Refs. [89, 90] predict that this phase transition,
+which leads to an oscillating phase with long-range order,
+should exist for space dimension d > 2, while no coherent
+oscillations are expected in d < 2, and quasi-long-range
+order in conjectured in d = 2 [93]. To the best of our
+knowledge, these predictions have only been tested qual-
+itatively, in Refs. [94, 95], where numerical simulations of
+coupled three-state oscillators were performed for lattices
+of size Ld going up to L = 80 in d = 3. A comparison of
+the rescaled finite-size scaling data of Refs. [94, 95] with
+Ising and XY exponents suggested a better collapse with
+XY exponents. The results of our large-scale simulations
+with lattices of sizes up to L = 320 in d = 3 are in agree-
+ment with the predictions of Refs. [89, 90] and with the
+qualitative observations of Refs. [94, 95]. In particular,
+we obtain values of the critical exponents that are in very
+good agreement with XY exponents but not with Ising
+exponents.
+The Hopf bifurcation is not the only way to produce a
+limit cycle. Another relevant bifurcation is the infinite-
+period bifurcation (or SNIC bifurcation) that describes
+the creation of a limit cycle by a saddle-node bifurca-
+tion that connects heteroclinic orbits together [83]. Here,
+multiple SNIC bifurcations (related by symmetry) arise
+at the same time in the mean-field transition from a static
+ordered (symmetry-breaking) state to a limit cycle. To
+the best of our knowledge, the field-theoretical version
+of this class of bifurcations has not been studied. It has
+been conjectured that it does not exist in spatially ex-
+tended systems of arbitrary dimension in Ref. [96] based
+on the instability of the static ordered state in the three-
+state oscillator model of Refs. [94, 95]. Our simulations
+suggest that a static ordered state can exist despite the
+presence of nonreciprocal coupling (provided that they
+are not fully anti-symmetric, at least in our model), but
+even in this case we did not find evidence of any di-
+rect transition between the static-order and oscillating
+phases.
+C.
+Stability of spatially coherent oscillations
+Our work is also directly related to the question of the
+stability and spatial coherence of time-periodic phases in
+noisy locally-coupled classical many-body systems. By
+considering the nucleation and growth of droplets from
+fluctuations, Ref. [97-100] argued that spatially coher-
+ent oscillations are unstable in the thermodynamic limit
+if they arise from the spontaneous breaking of a dis-
+crete time-translation invariance (in particular when the
+period of oscillation is commensurate with the discrete
+time unit characterizing the evolution) [101].
+This is
+not the case in our model, where the oscillating phase
+arises from the spontaneous breaking of a continuous
+time-translation invariance (and the period is generically
+incommensurate with the discrete time unit). The case
+of spontaneously broken continuous time-translation in-
+variance is considered in Refs. [99, 100, 102] using a map-
+ping between the desynchronization of local oscillators
+and the roughening of surfaces described by the Kardar-
+Parisi-Zhang (KPZ) equation [103]. In the KPZ univer-
+sality class, surfaces are always rough in d ≤2, while
+two phases (rough or smooth) are possible for d > 2, see
+e.g. § 5.7.4 of Ref. [104]. Based on this mapping, it is
+argued that temporal order can exist in d > 2 but not
+in d ≤2 in isotropic systems. Note that in the mapping
+to the KPZ equation, the angular nature of phase vari-
+ables (defined on a compact space) is neglected, which
+amounts to ignoring topological defects, expected not to
+affect the large-scale physics [102]. A compact version
+of the KPZ equation has been studied in Refs. [105-
+108], but not in isotropic systems in d = 3. Similarly,
+Refs. [91, 109] suggested an analogy with the Mermin-
+Wagner theorem [82, 110] in the time domain, according
+to which the fluctuations of the Goldstone modes associ-
+ated with broken time-translation invariance destroy or-
+der in d ≤2.
+References [111-118] performed numerical simulations
+of cellular automata and coupled map lattices (see
+Ref. [112] for an introduction) in various space dimen-
+sions, from which it emerged that periodic oscillations are
+possible for d ≥3 within this class of sytems [113, 119,
+120]. Similar behaviors were reported in simulations of
+predator-prey models on lattice [23, 27, 121-126]. These
+results are in agreement with the theoretical arguments
+reviewed above, and are are also consistent with our nu-
+merical observations. Similar questions arise in the study
+of the synchronization of locally coupled oscillators with
+randomly distributed frequencies (like in the Kuramoto
+model), see § IV.A of Ref. [127] and references therein,
+but the physics is different because of the random fre-
+quencies.
+D.
+Classical continuous time crystals
+The works reviewed in the previous paragraphs are pri-
+marily concerned with the spatial coherence of the oscil-
+lations.
+In a nutshell, they ask whether there can be
+macroscopic quantities averaged over the entire system
+(such as the magnetization; we call these order param-
+eters) that oscillate forever. When this is the case, we
+can ask another question: is the oscillation of the macro-
+scopic order parameter temporally coherent?
+In other
+words, is it acting as a good clock? Addressing this ques-
+tion is another of the key motivations of our work. To
+illustrate the difference, let us consider a simple noisy
+phase oscillator
+˙ϕ = ω +
+p
+2Dϕη(t)
+(5)
+
+4
+where η(t) is a white noise with ⟨η⟩= 0 and ⟨η(t)η(t′)⟩=
+δ(t −t′).
+Here, ϕ can be seen as the argument of
+a complex number z(t) = Aeiϕ(t) whose amplitude A
+is very quickly relaxing to its steady-state value.
+In
+this simple system, we observe that the average value
+⟨ϕ⟩always oscillates (averaging the equation of motion
+leads to ⟨ϕ(t)⟩= ϕ(0) + ωt).
+However, this oscillator
+only keeps track of time (i.e.
+of its initial phase) for
+so long. To see that, consider the correlation function
+C(t) = ⟨ei[ϕ(t)−ϕ(0)]⟩which describes the average phase
+that an assembly of independent clocks would have at
+time t, provided that they were synchronized at time
+t = 0. Here, it behaves as [128]
+C(t) ∝cos(ωt)e−t/τ
+(6)
+where τ = 1/Dϕ, meaning that the oscillator loses track
+of its original phase after Q = ωτ oscillations (Q is known
+as the quality factor of the noisy oscillator). In fact, any
+noisy oscillator behaves in this way at long times [129].
+Thermodynamic bounds on the number Q of coherent
+oscillations have been considered [130-133], and suggest
+that an infinite amount of energy (more precisely of en-
+tropy production) is needed to obtain infinite coherence.
+It is however not excluded that a macroscopic system in
+the thermodynamic limit can have an infinite coherence
+time with a finite cost per unit volume. Our numerical
+results suggest that this indeed happens in our model: we
+evaluate the coherence time of oscillations, which scales
+as τ(L) ∼L3 (in d = 3). This points to the existence
+of perfectly coherent oscillations in the thermodynamic
+limit. Additionally, we measure the entropy production
+rate per unit volume and find that it converges to a fi-
+nite value, independent of system size. In this sense, our
+model can be seen as a classical continuous time crys-
+tal [134-147]. We conjecture that this property may ex-
+tend to other systems with locally coupled oscillators that
+spontaneously break a continuous time-translation sym-
+metry.
+III.
+OUTLINE AND SUMMARY
+The outline of the paper is as follows: we present the
+nonreciprocal Ising model with general asymmetric cou-
+pling between the two species and derive its mean-field
+equation in Sec. IV. In Secs. V and VII-XI we restrict
+ourselves to the fully anti-symmetric case in which the
+system exhibits C4 symmetry. In Sec. IV we show that
+the mean-field equation predicts three distinct phases:
+disorder, time-dependent order that we dub "swap", and
+static order, and analyze the bifurcations that separate
+the phases. Details on the Monte-Carlo simulations are
+given in Sec. VI. Our numerical simulations in 2D are
+presented in Sec. VII, suggesting that the swap phase is
+unstable in 2D due to spiral defects. In Sec. VIII we show
+that the swap phase is stable in 3D, and calculate the
+static critical exponents of the phase transition from dis-
+order to swap. These critical exponents are in excellent
+agreement with the equilibrium XY critical exponents,
+which is compatible with renormalization-group studies
+and with the breaking of a continuous time-translation
+symmetry. We calculate the coherence time of the mag-
+netization and show that it grows with system size, sug-
+gesting a time-crystal behavior in the thermodynamic
+limit.
+In Sec. IX, we provide numerical evidence and
+theoretical arguments that suggest that the static-order
+phase is destroyed in any finite dimension due to droplet
+growth. In Sec. X we discuss how the system coarsens
+into swap and static-order states. The phase diagram of
+the fully anti-symmetric case is summarized in Sec. XI. In
+Sec. XII we allow the presence of inter-species reciprocal
+couplings, which reduces the symmetry to Z2, and ac-
+counts for a general asymmetric interaction. We present
+mean-field analysis and 2D and 3D simulation results.
+These results reveal that the swap phase stability is un-
+changed with respect to the fully anti-symmetric case
+(i.e. it is stable in 3D but not in 2D). However, static
+order can be restored by an intriguing droplet-capture
+mechanism. Contrary to the mean-field prediction, we
+find no evidence of a direct transition between the swap
+and the static-order phase. We summarize our results
+and conclusions in Sec. XIII.
+IV.
+THE MODEL
+In the equilibrium Ising model, adjacent on-lattice
+spins (σ = ±1) stochastically align with one another
+through an energy function.
+Its dynamics is given by
+kinetic Ising models which, while lacking uniqueness, al-
+ways operate by minimizing the global free energy. In
+what follows, we generalize these kinetic Ising models to
+the case of nonreciprocal interactions where such global
+potential function does not exist. To this aim, we define
+a Glauber dynamics [148] where each spin tends to min-
+imize its own selfish energy. Similar formulations were
+used among the physical sciences [6, 20, 35, 52, 65, 149-
+154].
+A.
+The nonreciprocal (NR) Ising model
+We consider two spin species, labeled by Greek indices
+α = A, B, located on a d-dimensional cubic lattice of
+linear size L. Each site i ∈{1, ..., Ld} contains one A-
+spin and one B-spin (Fig. 1, left). The state of the system
+is described by a vector
+⃗σ = {σA
+1 , ..., σA
+Ld, σB
+1 , ..., σB
+Ld}
+(7)
+in which each spin σα
+i = ±1.
+We consider transition rates given by the general-
+ized Glauber dynamics [148] in which the transition rate
+w(⃗σ|⃗σ′) from configuration ⃗σ to ⃗σ′ is given by
+w(F α
+i ⃗σ|⃗σ) = 1
+2τ
+
+1 −tanh
+ ∆Eα
+i
+2kBT
+
+(8)
+
+5
+Inter-species 
+interaction
+Intra-species 
+interaction
+Fig. 1.
+Nonreciprocal (NR) Ising model. The model
+includes two species per site with two interaction types: (i)
+reciprocal nearest-neighbors interaction of strength J between
+same-species spins and (ii) nonreciprocal same-site interaction
+of strength K+ + K−for species A (blue) and K+ −K−for
+species B (red), between spins of different species.
+where T is the temperature, kB the Boltzmann constant,
+and τ is a characteristic time for single spin flips.
+In
+addition,
+∆Eα
+i = Eα
+i (F α
+i ⃗σ) −Eα
+i (⃗σ)
+(9)
+is the difference in selfish energy between the states. Here
+F α
+i is a single-spin-flipping operator, i.e., when acting on
+⃗σ it flips the α-species spin on site i from σα
+i to −σα
+i while
+keeping all the other spins unchanged. For instance,
+F A
+i {σA
+1 , ..., σA
+i , ..., σA
+Ld, σB
+1 , ..., σB
+Ld}
+= {σA
+1 , ..., −σA
+i ..., σA
+Ld, σB
+1 , ..., σB
+Ld}
+(10)
+For the selfish energy, we choose
+Eα
+i = −J
+X
+j nn of i
+σα
+i σα
+j −Kαβσα
+i σβ
+i ,
+(11)
+where
+Kαβ =
+
+0
+K+ + K−
+K+ −K−
+0
+
+(12)
+and J, K+, K−> 0. The sum in Eq. (11) runs over near-
+est neighbors of i and summation over spin indices β is
+implied. The selfish energy indicates that spins of the
+same species tend to align with their neighbors, while
+spins of different species interact nonreciprocally (see
+Fig. 1, right): spins A tend to align with spins B, whereas
+spins B either tend to align with spins B but to a lesser
+extent (if K+ > K−), or tend to anti-align with spins A
+(if K+ < K−). The latter case will be the main focus
+of this paper as it leads to a rich phenomenology related
+to limit cycles. Note that in our model, inter-species in-
+teractions only occur between spins located on the same
+site.
+In the continuous-time limit, the probability P(⃗σ, t)
+to observe a specific configuration of spins ⃗σ at time t
+evolves according to the master equation
+∂tP(⃗σ, t) = −
+X
+i,α
+w(F α
+i ⃗σ|⃗σ)P(⃗σ, t)
+(13)
++
+X
+i,α
+w(⃗σ|F α
+i ⃗σ)P(F α
+i ⃗σ, t).
+As detailed in Sec. VI, we perform Monte-Carlo simula-
+tions that sample trajectories obtained from a discrete-
+time version of Eq. (13).
+We note that the Glauber dynamics of the nonrecip-
+rocal Ising model can be written in terms of a new vari-
+able θi (instead of σα
+i ), which is defined as the angle on
+the
+ σA
+i , σB
+i
+
+plane. This angle θi can take one of the
+four values respectively corresponding to the four possi-
+ble states per site: π/4 (↑↑), 3π/4 (↓↑), 5π/4 (↓↓), and
+7π/4 (↑↓) (see Fig. 2 and an explicit mapping for the fully
+anti-symmetric case in Sec. V A). The color code given
+in Fig. 2 is used throughout the paper.
+cycle 
+direction 
+Fig. 2.
+Mapping between the state of two spins lo-
+cated on the same site (σA and σB) and their corre-
+sponding angle variable θ. The color associated to each
+quadrant is used throughout the paper to indicate the corre-
+sponding spin state. The direction of the cycle is determined
+by the sign of K−(throughout the paper K−> 0 which im-
+plies clockwise direction).
+B.
+Broken detailed balance
+We now show that the nonreciprocal Ising model de-
+scribed in the previous section is out of equilibrium, in
+the sense that it breaks detailed balance.
+A Markov chain with rates w satisfies detailed balance
+if it has a stationary distribution P ss such that
+w(⃗σ →⃗σ′)
+w(⃗σ′ →⃗σ) = P ss(⃗σ′)
+P ss(⃗σ) .
+(14)
+Let us assume that our kinetic model possesses an (un-
+known) stationary distribution P ss(⃗σ).
+Considering a
+loop ⃗σ1 →⃗σ2 →· · · →⃗σn in state space, as well as
+the same loop travelled in opposite direction, detailed
+balance implies [155]
+w(⃗σ1 →⃗σ2)
+w(⃗σ1 →⃗σn) ·
+w(⃗σ2 →⃗σ3)
+w(⃗σn →⃗σn−1) · · · w(⃗σn →⃗σ1)
+w(⃗σ2 →⃗σ1) = 1. (15)
+
+6
+If we find a cycle such that this ratio is not unity, then
+detailed balance cannot be satisfied. This is known as
+the Kolmogorov criterion. Here, a relevant cycle to con-
+sider consists in flipping the spins (σA
+i , σB
+i ) of a fixed site
+i according to ↑↑→↑↓→↓↓→↓↑→↑↑, while keeping all the
+other spins unchanged. Using Eqs. (8), (11) and assum-
+ing all the neighboring spins are up, we obtain
+w (↑↑→↑↓) = f( ˜J + ˜K+ −˜K−)
+w (↑↓→↓↓) = f( ˜J −˜K+ −˜K−)
+w (↓↓→↓↑) = f(−˜J + ˜K+ −˜K−)
+w (↓↑→↑↑) = f(−˜J −˜K+ −˜K−)
+w (↑↑→↓↑) = f( ˜J + ˜K+ + ˜K−)
+w (↓↑→↓↓) = f( ˜J −˜K+ + ˜K−)
+w (↓↓→↑↓) = f(−˜J + ˜K+ + ˜K−)
+w (↑↓→↑↑) = f(−˜J −˜K+ + ˜K−)
+(16)
+where f(x) ≡(1 −tanh(x)) /(2τ) and we defined the nor-
+malized coupling coefficients ˜K−= K−/(kBT), ˜K+ =
+K+/(kBT) and ˜J ≡2dJ/(kBT).
+Using the identity
+(1+tanh(x))/(1−tanh(x)) = e2x we find that the forward
+and reverse cycles satisfy
+w (↑↑→↑↓) w (↑↓→↓↓) w (↓↓→↓↑) w (↓↑→↑↑)
+w (↑↑→↓↑) w (↓↑→↓↓) w (↓↓→↑↓) w (↑↓→↑↑) = e8 ˜
+K−
+(17)
+which means that detailed balance is broken in our model
+whenever ˜K−̸= 0.
+The breaking of detailed balance
+implies the system is driven away from equilibrium. Un-
+der certain assumptions on the physical realization of the
+model that go by the name of local detailed balance [156-
+158], the cycle produces entropy ∆S/kB = 8 ˜K−(see Ap-
+pendix A for details).
+We refer to Refs. [159-163] for
+discussions about irreversibility and entropy production
+in nonequilibrium phase transitions.
+C.
+The mean-field (MF) equation
+We now derive mean-field (MF) equations of motion for
+the magnetizations of each species from the master equa-
+tion (13) (see Refs. [164-166]). The mean-field equations
+are a useful guide, but it is not expected that they accu-
+rately describe the behavior of the system in any finite
+dimension.
+The average magnetization of a single spin at time t is
+⟨σα
+i (t)⟩=
+X
+⃗σ
+σα
+i P(⃗σ, t).
+(18)
+Using Eq. (13) and changing summation variables, we get
+d
+dt⟨σα
+i ⟩= −2⟨σα
+i w(F α
+i ⃗σ|⃗σ)⟩.
+(19)
+Substituting the rates (Eq. (8)) and the selfish energy
+(Eq. (11)) we obtain
+τ d
+dt⟨σα
+i ⟩= −⟨σα
+i ⟩
++
+*
+tanh
+
+J
+kBT
+X
+j nn of i
+σα
+j + Kαβ
+kBT σβ
+i
+
+
++
+(20)
+where we have used the identity x tanh xb = tanh b for
+x
+=
+±1.
+Applying the mean-field approximation,
+⟨g(⃗σ)⟩= g(⟨⃗σ⟩) and defining the average magnetization
+as ⟨σα
+i ⟩≡mα
+i yields
+dmα
+i
+dt
+= −mα
+i
+τ
++ 1
+τ tanh
+ 
+J P
+j nn of i mα
+j + Kαβmβ
+i
+kBT
+!
+.
+(21)
+We now assume that the average magnetization changes
+over length scales much larger than the lattice spacing
+and write it as a continuum variable mα
+i = mα(⃗r, t). We
+thus get
+∂tmα = −mα
+τ +1
+τ tanh
+2dJmα + Kαβmβ + Ja2∇2mα
+kBT
+
+,
+(22)
+where a is the lattice spacing. Finally, upon rescaling
+time by τ and space by a we obtain
+∂tmα = −mα + tanh
+h
+˜Jmα + ˜Kαβmβ + D∇2mα
+i
+(23)
+where D ≡J/(kBT) and ˜Kαβ ≡Kαβ/(kBT).
+Equa-
+tion (23) is the mean-field equation of the general nonre-
+ciprocal Ising model. Note that it is invariant under the
+diagonal up-down Z2 symmetry
+S1 : (mA, mB) 7→(−mA, −mB).
+(24)
+V.
+THE FULLY ANTI-SYMMETRIC CASE
+In this section as well as in Secs. VII-XI, we will study
+the fully anti-symmetric case, in which K+ = 0.
+To
+simplify the notations, we write K−≡K (and ˜K−≡˜K).
+In this case, the mean-field equation reads
+∂tmα = −mα+tanh
+h
+˜Jmα + ˜Kεαβmβ + D∇2mα
+i
+(25)
+where εαβ is the Levi-Civita symbol. Equation (25) has
+the symmetry
+S2 : (mA, mB) 7→(−mB, mA)
+(26)
+in addition to that in Eq. (24), so overall it is invariant
+under the cyclic group C4.
+
+7
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+(a)
+(b)
+(c)
+Stable
+Unstable
+Saddle
+Swap
+Disorder
+Static order
+Fig. 3.
+Mean-field (MF) flow in (mA, mB) space. Arrows correspond to the vector ⃗v = (∂tmA, ∂tmB) calculated from
+the spatially homogeneous full mean-field equation, Eq. (25). Fixed points are represented by dots. The limit cycle in the
+swap phase is highlighted by a semi-transparent blue line. Nonreciprocal inter-species coupling is ˜K = 0.4, and reciprocal
+coupling between same-species nearest neighbors is (a) ˜J = 0.8 , (b), ˜J = 1.3, and (c) ˜J = 1.8, showing the disorder, swap, and
+static-order phases, respectively.
+A.
+Connection with locally-coupled oscillators
+In the fully anti-symmetric case, the dynamics of θi is
+described by the forward and backward moves,
+θi →θi + π
+2
+with rate w+
+(27a)
+θi →θi −π
+2
+with rate w−
+(27b)
+where the rates are
+w± = 1
+2τ
+"
+1 −tanh
+ 
+∆E(⃗θ)
+2KBT ± ˜K
+!#
+(28)
+and
+E(⃗θ) = −2J
+X
+⟨i,j⟩
+cos (θi −θj) .
+(29)
+with the sum running over nearest-neighbor pairs. Equa-
+tions (27-29) can be viewed as describing locally-coupled
+oscillators with internal frequency and discrete states. In
+this sense, they share similarities with the Wood et al.
+cyclic model [94-96] although oscillators are restricted to
+forward moves (backward moves are prohibited) in these
+references. For K = 0, our model reaches an equilibrium
+state that is equivalent to the clock model (vector Potts
+model) for q = 4 [167, 168].
+B.
+Analysis of the bifurcations
+In the mα ≪1 limit and for small gradients, the mean-
+field equation in the fully anti-symmetric case (Eq. (25))
+can be approximated by
+∂tmα = −(1 −˜J)mα + ˜Kεαβmβ + D∇2mα
+−1
+3
+
+˜Jmα + ˜Kεαβmβ
+3
+.
+(30)
+For ˜K = 0, Eq. (30) reduces to two uncoupled mean-field
+equations that derive from a ϕ4 Ginzburg-Landau poten-
+tial. For any ˜K ̸= 0, Eq. (30) does not derive from a
+potential, and describes a non-equilibrium system. Note
+that due to the lack of rotational symmetry in the cu-
+bic term, Eq. (30) differs from the Complex Ginzburg-
+Landau (CGL) equation [86, 169], which is given by
+∂tψ = aψ + b∇2ψ + c|ψ|2ψ
+(31)
+where ψ(⃗r, t) is a complex field and a, b and c are complex
+numbers. However, Eq. (30) becomes CGL-like in limits
+discussed below.
+Here, we restrict our analysis to spatially homoge-
+neous solutions, mα(⃗r, t) ≡mα(t). The linear stability
+of such solutions to Eq. (30) is unaffected by the Lapla-
+cian term, and we therefore analyze the spatially homo-
+geneous mean-field equation given by
+∂tmα = −(1 −˜J)mα + ˜Kεαβmβ
+−1
+3
+
+˜Jmα + ˜Kεαβmβ
+3
+.
+(32)
+Figure 3 shows the phase-space velocity field ⃗v =
+(∂tmA, ∂tmB) from the spatially homogeneous full mean-
+field equation, Eq. (25) along with the fixed points which
+are obtained by numerically solving the ∂tmA = ∂tmB =
+0 equations. The stability of the fixed points (shown in
+the figure as orange, pink, and brown for stable, saddle,
+and unstable, respectively) is determined by analyzing
+the eigenvalues of the Jacobian matrix J of the linearized
+equation ∂tδ⃗m = J δ⃗m where linearization is performed
+around each fixed point.
+Three distinct phases are found: a disordered phase
+in which mA = mB = 0 is the only stable fixed point
+(Fig. 3a), a limit-cycle phase that we dub "swap phase"
+as both species repeatedly flip their magnetizations
+(Fig. 3b), and a static-order (ferromagnetic) phase in
+which, depending on initial conditions, the system ends
+
+8
+up in one out of four stable fixed points with non-zero
+mA and mB (Fig. 3c).
+The mean-field phase diagram obtained from the spa-
+tially homogeneous full mean-field equation is shown in
+Fig. 4, as a function of the couplings ˜J and ˜K.
+The
+phases are determined by the fixed points and their sta-
+bility as described above. When nonreciprocal interac-
+tions are turned off ( ˜K = 0), a pitchfork bifurcation at
+˜J = 1 (red point in Fig. 4) separates the disordered phase
+(in blue) from the static-order phase (in green), as in the
+usual Ising model. When nonreciprocal interactions are
+present ( ˜K ̸= 0), the swap phase arises (in pink) and is
+separated from the disordered state by a Hopf bifurcation
+at ˜J = 1 (green line), and from the static-order phase by
+another bifurcation known as a (C4-symmetric) saddle-
+node on an invariant circle (SNIC) bifurcation [64, 83]
+(blue line). We analyze each of these bifurcations below
+using Eq. (32).
+0.8
+2
+1
+0
+0.4
+Static order
+Swap
+Mean Field
+Hopf
+SNIC
+Disorder
+Fig. 4.
+Mean-field phase diagram. The three phases
+shown on the diagram are (i) disorder, (ii) swap and (iii) static
+order. The lines separating the phases are Hopf bifurcation
+(thin green) and SNIC bifurcation (thick blue). Red dot is
+the Pitchfork bifurcation. Obtained from numerical analysis
+of the spatially homogeneous Eq. (25).
+1.
+Pitchfork bifurcation
+For ˜K = 0, Eq. (32) leads to the standard pitchfork
+bifurcation at ˜J = 1. The mA = mB = 0 point becomes
+unstable and four stable fixed points
+mA = ±mB = ±
+s
+3( ˜J −1)
+˜J3
+(33)
+emerge, corresponding to the ordered phase.
+2.
+Hopf bifurcation
+For ˜K ̸= 0, the eigenvalues of J at mA = mB = 0 are
+complex,
+λ1,2 = −1 + ˜J ± i ˜K.
+(34)
+This means that there is a Hopf bifurcation at ˜J = 1:
+the mA = mB = 0 point become unstable for ˜J > 1 and
+a stable limit cycle emerges, corresponding to the swap
+phase.
+The limit cycle is more easily analyzed in polar coor-
+dinates, mA = r cos θ and mB = r sin θ where Eq. (32)
+becomes
+∂tr = ( ˜J −1) r −1
+4
+˜J3
+
+1 + κ2
++
+1
+3 −κ2
+
+cos(4θ) +
+
+κ −1
+3κ3
+
+sin(4θ)
+
+r3
+(35)
+∂tθ = −˜K + 1
+4
+˜J3
+
+κ + κ3
+−
+
+κ −κ3
+3
+
+cos(4θ) +
+1
+3 −κ2
+
+sin(4θ)
+
+r2 , (36)
+with κ ≡˜K/ ˜J.
+The limit cycle describes anharmonic oscillations,
+where both r and ˙θ vary with θ.
+Its shape has a ro-
+tational symmetry of order 4 due to the C4 symmetry of
+the mean-field equation. However, very close to the bi-
+furcation, i.e. ˜J −1 ≪1 and any fixed ˜K, the oscillations
+are harmonic [85]. This can be seen as follows.
+The equation for θ in the ˜J −1 ≪1 limit is
+∂tθ = −˜K + O( ˜J −1) ,
+(37)
+where we used the fact that r2 ∼˜J −1.
+The angle θ
+then has the solution θ = θ0 −˜Kt, and the equation for
+r becomes
+∂tr = ( ˜J −1) r −1
+4
+
+1 + ˜K2 +
+1
+3 −˜K2
+
+cos(4 ˜Kt)
+(38)
+−
+
+˜K −1
+3
+˜K3
+
+sin(4 ˜Kt)
+
+r3 + O
+
+( ˜J −1)5/2
+where we have set θ0 to zero. Equation (38) can be solved
+analytically. In steady state (t →∞limit), its solution
+reads
+r (t) = 2
+s
+˜J −1
+1 + ˜K2 ×
+1
+q
+1 −( ˜J −1)f( ˜J, ˜K, t)
+(39)
+
+9
+with
+f( ˜J, ˜K, t) = 1 −˜J + 3( ˜J −3) ˜K2 + 2 ˜K4
+3(1 + ˜K2)
+h
+( ˜J −1)2 + 4 ˜K2
+i cos(4 ˜Kt)
+(40)
+−
+˜K
+
+5 −3 ˜J + ( ˜J −7) ˜K2
+3(1 + ˜K2)
+h
+( ˜J −1)2 + 4 ˜K2
+i sin(4 ˜Kt)
+Taking the limit ˜J −1 ≪1 once more ( ˜J −1)f( ˜J, ˜K, t)
+goes to zero and we arrive at
+r (t) = 2
+s
+˜J −1
+1 + ˜K2
+(41)
+which is a circular motion of constant angular velocity in
+phase space. This harmonic solution can be rationalized
+by looking at the two times scales corresponding respec-
+tively to the angular and radial motion near the bifurca-
+tion (described by Eqs. (37) and (38), respectively). The
+angular motion time scale is Tθ ∼˜K−1 while the radial
+motion time scale is determined by the relaxation time of
+r(t) to its new minimum when θ changes, which scales as
+Tr ∼( ˜J −1)−1. The two time scales Tθ and Tr can be in-
+terpreted as "oscillation time-scale" and "alignment time-
+scale", respectively. Since Tr ≫Tθ, the angular motion
+occurs much more rapidly, leaving insufficient time for r
+to reach a new minimum when θ changes. Thus, only
+the θ-averaged value of the right-hand side of Eq. (35)
+matters. This is supported by Fig. 5 which shows typical
+phase-space trajectories in the swap phase: as ˜J −1 in-
+creases, the motion indeed loses its rotational symmetry
+and become more "square-like".
+The above result is a consequence of a more gen-
+eral theorem. A reaction-diffusion equation that under-
+goes a Hopf bifurcation such as the mean-field evolu-
+tion Eq. (30) can be reduced, close to the bifurcation, to
+the CGL equation (i.e., the CGL equation is its normal
+form). The transformation to the CGL equation guaran-
+tees that the steady-state solution of the non-transformed
+set of equations is an elliptical limit cycle (or in special
+cases like here, circular) [85]. Because of this reduction,
+we expect the disorder-to-swap phase transition in our
+model to be in the same universality class as the Hopf
+bifurcation in the CGL equation, which has been studied
+in Refs. [89, 90].
+3.
+Infinite-period (SNIC) bifurcation
+Let us now start from the limit-cycle swap phase.
+Upon increasing ˜J or decreasing
+˜K, the system goes
+through a (C4-symmetric) saddle-node on an invariant
+circle (SNIC) bifurcation, where four pairs of stable and
+saddle fixed points emerge from the limit cycle (pink and
+orange points in Fig. 3c). The SNIC bifurcation is also
+known under several other names: infinite-period bifur-
+cation (because the period of oscillation diverges at the
+bifurcation point), saddle-node on a limit cycle (SNLC),
+saddle-node infinite-period (SNIPER), etc. As the dy-
+namics is invariant under the action of the group C4 (see
+Sec. V), four copies of the SNIC bifurcation happen at
+the same time. Bifurcations in such a dynamical system
+with symmetries are known as equivariant bifurcations,
+see Refs. [170-172] for an introduction. Once the stable
+fixed points emerge, the system is in a static-order phase.
+Noticing that the SNIC bifurcation occurs when ˜K and
+˜J −1 are comparable (see Fig. 4), we now take the limit
+ϵ →0 with ˜J −1 ∼ϵ and ˜K ∼ϵ. At first order in ϵ,
+Eqs. (35-36) become
+∂tr = ( ˜J −1) r −1
+4
+
+1 + 1
+3 cos(4θ)
+
+r3 ,
+(42a)
+∂tθ = −˜K + 1
+12 sin(4θ)r2.
+(42b)
+In a static-order state, ∂tr = ∂tθ = 0, with r given by
+r = 2
+s
+˜J −1
+1 + 1
+3 cos(4θ) .
+(43)
+The equation for θ then becomes
+∂tθ = −˜K +
+sin(4θ)
+3 + cos(4θ)( ˜J −1).
+(44)
+Since sin(4θ)/(3+cos(4θ)) is bounded between −1/(2
+√
+2)
+and 1/(2
+√
+2), a stationary state (with ∂tθ = 0) can only
+exist if ˜K < ( ˜J −1)/(2
+√
+2). Therefore, in the ˜J −1 ≪1
+regime, the SNIC bifurcation line corresponds to
+˜K =
+˜J −1
+2
+√
+2 .
+(45)
+Note that, in Fig. 4, the thick blue line corresponding to
+the SNIC bifurcation was obtained numerically for the
+full mean-field dynamics Eq. (25). Equation (45) only
+predicts the tangent of this thick blue line close to the
+pitchfork bifurcation point ( ˜J = 1, ˜K = 0).
+Finally, the fixed points emerging at the SNIC bifur-
+cation are obtained from the θ values that maximize
+sin(4θ)/(3 + cos(4θ)), which are
+θn =
+h
+−tan−1 
+2
+√
+2
+
++ π (2n + 1)
+i
+/4
+(46)
+with n = 0, 1, 2, 3. Together with their corresponding r
+values derived from Eq. (43) we obtain
+(mA, mB) = 3
+s
+˜J −1
+2
+(cos(θn), sin(θn)) .
+(47)
+Approaching the SNIC bifurcation from the side of the
+limit cycle (swap phase), ∂tθ approaches zero when the
+system passes at θ = θn. As a result, the oscillation pe-
+riod diverges at the bifurcation (see Fig. 5d-f, where the
+period increases as we approach the bifurcation). This
+stands in contrast with the Hopf bifurcation in which the
+oscillation period remains finite.
+
+10
+(a)
+(b)
+(c)
+(d)
+(e)
+(f)
+-0.1
+0.1
+0
+-0.1
+0.1
+0
+-0.1
+0.1
+0
+5×104
+105
+-0.1
+0.1
+0
+5×104
+105
+-0.1
+0.1
+0
+5×104
+105
+-0.1
+0.1
+0
+Fig. 5.
+Mean-field swap phase at different distances from the Hopf and SNIC bifurcations. Numerical solutions
+of the spatially homogeneous mean-field dynamics, Eq. (32). (a-c) mB vs. mA. (d-f) mA vs. t. From left to right: ˜J = 1.0002,
+1.001, and 1.0028. In all plots ˜K = 0.001. Red dot is the initial state and dashed black line is the steady state predicted from
+Eq. (41), valid near the Hopf bifurcation.
+VI.
+MONTE-CARLO SIMULATIONS
+To go beyond the mean-field description, we perform
+large-scale Monte-Carlo simulations of the nonreciprocal
+Ising model in both two and three dimensions (results in
+one dimension are summarized in Appendix B).
+In our 2D discrete-time Monte-Carlo (MC) simula-
+tions, we use the standard Glauber algorithm: at each
+MC step a spin σα
+i is chosen at random and then flipped
+with probability
+pα
+i = τw(F α
+i ⃗σ|⃗σ)
+(48)
+(with w defined in Eq. (8)).
+Since three-dimensional simulations are much more
+costly, in 3D we update spins using a checkerboard algo-
+rithm to implement Eq. (48) instead of random picking.
+In the checkerboard algorithm non-interacting spins are
+flipped in parallel [173]. To generalize the checkerboard
+approach to the two-species case, we defined the quantity
+P = x1+x2+x3+α where xn is the integer position in the
+n-th dimension of the cubic lattice, and α = 0, 1 labels
+the two species. Spins with the same parity of P (even
+or odd) are then updated simultaneously.
+This allows
+us both to parallelize the simulation and avoid random
+number generation in choosing the spins. We did not ob-
+serve qualitative changes when changing the update rules
+from random picking to paralleled checkerboard, as well
+as when using other update rules, see Appendix C.
+Unless mentioned otherwise, we initialize the system
+in an ordered state where all spins of the same species
+are either up or down, and let the system evolve until a
+steady state is reached. Averages are then calculated in
+the steady state, excluding the initial transient. Time is
+measured in simulation sweeps, where a single sweep is
+defined as 2 × Ld (the number of spins) MC steps (indi-
+vidual attempted flips). To best visualize phenomena of
+interest, simulation snapshots are presented either with
+the spin variables σA and σB, or with the angle variable
+θ.
+Transitions from disorder to time-dependent order and
+from time-dependent order to stationary order can be
+quantified by two order parameters. First, the synchro-
+nization order parameter
+R ≡⟨s⟩t,Ω
+with s ≡
+r
+M 2
+A + M 2
+B
+2
+(49)
+quantifies how much spins are aligned with each other
+within each species. Here, Mα = P
+i σα
+i /Ld are the total
+magnetizations and the average ⟨...⟩t,Ωis over time (t)
+and realizations (Ω). Note that s can also be written as
+s = 1
+Ld
+
+X
+j
+eiθj
+,
+(50)
+similarly to the order parameter quantifying the synchro-
+nization of oscillations in, for example, the Kuramoto
+model [127]. Second, the phase-space angular momen-
+tum
+L ≡⟨ℓ⟩t,Ωwith ℓ≡MB∂tMA −MA∂tMB
+= MB,tMA,t+1 −MA,tMB,t+1
+(51)
+quantifies
+the
+macroscopic
+time-reversal
+symmetry
+breaking. It is related to the entropy production [174],
+see Appendix A for details.
+
+11
+Mean-field behavior of the order parameters
+In mean-field and for a spatially uniform state, the
+synchronization order parameter defined in Eq. (49) is
+RMF = ⟨r⟩t
+√
+2
+(52)
+and the phase-space angular momentum defined in
+Eq. (51) is
+LMF = −⟨r2 ˙θ⟩t.
+(53)
+The sign is chosen so that L is positive when K is posi-
+tive. In Fig. 6, RMF and LMF, calculated from a numer-
+ical steady-state solution of the spatially homogeneous
+Eq. (25), are plotted as a function of ˜J for a fixed value of
+˜K. It is shown that RMF goes from zero to non-zero val-
+ues when crossing the Hopf bifurcation at ˜J = 1. When
+crossing the SNIC bifurcation, RMF remains finite, but
+there is a sharp change in the slope: the slope increases
+when approaching the bifurcation and decreases in the
+static order regime. Conversely, LMF is identically zero
+in both the disordered and static-order phases, but devi-
+ates from zero in the swap phase. Both RMF and LMF
+are continuous at the bifurcation points, as in a second-
+order phase transition. In the swap phase and near the
+Hopf bifurcation, we can use Eq. (37) and Eq. (41) to
+obtain
+RMF =
+s
+2( ˜J −1)
+1 + ˜K2
+and
+LMF = 4 ˜K( ˜J −1)
+1 + ˜K2
+.
+(54)
+In the swap phase and near the SNIC bifurcation, LMF
+scales with µ1/2 where µ is the distance from the bifur-
+cation line (because the period scales as T ∼µ−1/2 while
+r remains finite at the bifurcation [83]). We now analyze
+how these mean-field results hold in finite-dimensional
+systems using the Monte-Carlo simulations.
+VII.
+DESTRUCTION OF THE SWAP PHASE IN
+2D BY SPIRAL DEFECTS
+In small 2D systems, simulations show states in which
+MA and MB oscillate in time (like in the mean-field swap
+phase). These oscillations are irregular, and typically oc-
+cur through nucleation of droplets of opposite magneti-
+zation by the "unsatisfied" species, in alternating order
+(see Movie 1).
+However, as L increases these oscillations become a
+transient that quickly destabilizes (see Fig. 7) due to the
+formation and proliferation of spiral defects. Figure 8 and
+Movie 1 show the emergence of defects after an oscilla-
+tory transient. The defects are manifest in the θ variable
+and appear to have four distinct arms, ordered according
+to the cycle ↑↑→↑↓→↓↓→↓↑that can be followed either
+clockwise (+ defects) or anti-clockwise (−defects). The
+4-fold rotational symmetry in the spiral shape stems from
+1
+1.2
+1.4
+0
+0.5
+1
+1
+1.2
+1.4
+0.01
+0.03
+Hopf
+SNIC
+Hopf
+SNIC
+(a)
+(b)
+Fig. 6.
+Mean-field order parameters. (a) The synchro-
+nization order parameter RMF (Eq. (52)) and (b) the phase-
+space angular momentum LMF (Eq. (53)), shown as a func-
+tion of ˜J and for fixed ˜K = 0.1. Black lines are obtained from
+numerical solutions of the spatially homogeneous Eq. (25) in
+steady state. Dashed green lines are approximate solutions
+that are valid near the Hopf bifurcation, given by Eq. (54).
+°1
+0
+1
+MÆ
+°1
+0
+1
+°1
+0
+1
+0
+5000
+10000
+t
+°1
+0
+1
+Fig. 7.
+Swap phase in finite 2D systems.
+The
+magnetizations MA (blue) and MB (red) as a function of
+time, for increasing system sizes (from top to bottom: L =
+20, 50, 150, 200). Obtained from MC simulations with the pa-
+rameters: ˜J = 2.8, ˜K = 0.3.
+the C4 symmetry of the model in the fully anti-symmetric
+case, and is even more visible in the mean-field equation,
+see Fig. 8c displaying a snapshot of a spiral obtained from
+integrating numerically Eq. (30) with a boundary condi-
+tion that imposes a winding number.
+In terms of the
+complex order parameter ψ = mA + imB, the C4 sym-
+metry of the mean-field equation translates into defects
+satisfying e−iθ ψ(Rθ⃗r, t) = ψ(⃗r, t) for θ = 0, π/2, π, 3π/2,
+where Rθ is the rotation matrix with angle θ.
+Despite having 4-fold rather than full rotational sym-
+metric shape, the spiral waves observed in the nonrecip-
+rocal Ising model appear to behave similarly to those
+emerging in the CGL equation [86, 102, 106, 107, 177-
+
+12
+0.0
+0.5
+1.0
+°º
+0
+º
+(c)
+5000
+10000
+°1
+0
+1
+MÆ
+0
+5000
+10000
+t
+0
+5
+N+
+N°
+(a)
+i droplet-induced 
+swap
+ii first defect pair 
+emerges
+iii disorder due 
+to spiral defects
+æA
+æB
+µ
+(b)
+i
+ii
+iii
+Fig. 8.
+Destruction of the swap phase by spiral defects in 2D. (a) Top: the magnetizations MA (blue) and MB
+(red) as a function of time (the same as in Fig. 7, third row). Bottom: the number of + and - defects N+ and N−averaged
+over 100 time steps, as a function of time. We identify defects as adjacent 2 by 2 sites with a cycle of ↑↑→↑↓→↓↓→↓↑, either
+clockwise (+ defects) or anti-clockwise (−defects).
+(b) Snapshots of σA, σB, and θ (i) before, (ii) during, and (iii) after
+the proliferation of spiral defects. Black and white are up and down spins, respectively, and the θ color code corresponds to
+Fig. 2. See Movie 1 for the full evolution. (c) Snapshot of a spiral in the mean-field equation, showing r (left) and θ (right).
+Note the 4-fold rotational symmetry. Panels a-b are produced from the same MC simulation, with the parameters: ˜J = 2.8,
+˜K = 0.3, and L = 150. Panel c is obtained by solving numerically Eq. (30) on a disk of radius Rsim with boundary conditions
+ψ(r = Rsim, θ) = ψ0eiθ (r and θ are polar coordinates) that enforce the existence of a topological defect. We have set ˜J = 2,
+˜K = 0.6, D = 0.5, Rsim = 10. Equation (30) is integrated using the pseudospectral solver Dedalus [175] on a disk domain
+discretized with Nϕ = 201 azimuthal modes and Nr = 200 radial modes using a 1st-order 1-stage diagonally implicit-explicit
+Runge-Kutta scheme (RK111 in Dedalus) [176] with a fixed time step dt = 1 × 10−2 for 20 simulation time units.
+185]. Defects are created and annihilated in pairs and
+opposite topological charges (+ and −defects) lead to
+opposite angular velocities (see Movie 1).
+Finally we
+note that in mean-field, a homogeneously oscillating sys-
+tem is stable, but given sufficiently strong added noise
+spirals emerge, as in our Monte-Carlo simulations (see
+Appendix D).
+Quantitatively, the absence of a swap phase in the
+thermodynamic limit can be seen from the behavior of
+the order parameters R and L (Eq. (49) and (51), re-
+spectively) as system size increases. In Fig. 9a-d color
+maps of R and L are shown as a function of ˜J and ˜K
+for small (L = 20) and large (L = 80) systems. For the
+L = 20 system, there is a region in which both R and L
+are non-zero, compatible with the swap phase. However,
+for the L = 80 system, both R and L diminish in this
+region, indicating instead a disorder phase. Figures 9e
+and 9f show the order parameters as function of ˜J for
+fixed ˜K, at different system sizes. The intermediate re-
+gion (1.5 ≲˜J ≲3) corresponds to the finite-system swap
+state, but both R and L approach zero as L increases.
+In addition, the putative critical ˜J marking the transi-
+tion from disorder to swap depends on the system size,
+signifying the absence of a well-defined phase transition
+in the thermodynamic limit.
+To conclude, our numerical simulations indicate that
+the mean-field swap phase is destroyed by spiral defects
+in 2D where it is replaced by a disordered state.
+VIII.
+EXISTENCE OF A STABLE SWAP PHASE
+IN 3D
+In 3D, numerical simulations suggest that a stable
+swap phase does exist. Its behavior is demonstrated in
+Fig. 10 where we show a kymograph of the θ-field of a
+single 1D row in the 3D lattice as well as a plot of the
+total magnetizations and s (Eq. (49)) as a function of
+time. A full visualization of this phase is shown in Movie
+2. Unlike the 2D droplet-induced swap persisting at fi-
+nite systems (Movie 1), here the oscillations are noisy and
+spatially homogeneous, without any apparent structures.
+Moreover, MA(t) and MB(t) display coherent oscillations
+with a fixed period and phase shift between the species.
+Simulations with varying system sizes indicate there
+is a well-defined phase transition between a disordered
+phase with R = L = 0 to a swap phase with non-zero
+R and L.
+Figure 11 shows color maps of R and L in
+
+13
+1
+2
+3
+4
+˜J
+0.0
+0.5
+1.0
+R
+L
+20
+40
+80
+160
+1
+2
+3
+4
+˜J
+0.00
+0.04
+L
+(e)
+(f)
+2
+4
+˜J
+0
+1
+˜K
+2
+4
+˜J
+0
+1
+˜K
+2
+4
+˜J
+0
+1
+˜K
+2
+4
+˜J
+0
+1
+˜K
+0
+1
+0.0
+0.1
+(a)
+(b)
+(c)
+(d)
+Fig. 9. Instability of the swap phase in 2D as seen
+by the order parameters. Color map of the (a) synchro-
+nization order parameter R and (b) phase-space angular mo-
+mentum L, as a function of ˜J and ˜K, for a 2D system with
+L = 20. (c-d) The same with L = 80. (e) R and (f) L, shown
+as a function of ˜J for ˜K = 0.3, for different linear system
+size L. Dashed red line shows upper bound for R and L for
+points that did not converge during simulation running time.
+Obtained from MC simulations.
+x
+400
+600
+800
+t
+0
+°1
+1
+MA
+MB
+s
+(a)
+(b)
+Fig. 10.
+Time evolution of a stable swap state in 3D.
+(a) Kymograph of θ for a single 1D row in the 3D system.
+(b) MA, MB and s =
+p
+(M 2
+A + M 2
+B) /2 as a function of time.
+Obtained from MC simulation with parameters:
+˜J = 1.5,
+˜K = 0.1 and L = 160.
+the ( ˜K, ˜J) space, for linear system size L = 320, while
+Fig. 12a-b shows a cut of the color maps for ˜K = 0.3 with
+different L values. The inset of Fig. 12a shows two differ-
+ent behaviors depending on whether ˜J is above or below
+a critical value ˜Jc, unlike in 2D (Fig. 9). Below ˜Jc, R ap-
+proaches zero with R ∼L−d/2 scaling as L increases: this
+corresponds to the disordered phase. Above ˜Jc, R con-
+verges to a finite non-zero value as L increases: this corre-
+sponds to an ordered phase, here the swap phase. More-
+over, the phase transition appears to be second-order in
+the sense that R and L change continuously.
+The critical ˜Jc separating disorder from swap is ˜K de-
+pendent (see Fig. 11), in contrast with the mean-field
+prediction (Fig. 4). In the ˜K →∞limit, and for any ˜J,
+the swap phase is unstable and both R and L are zero.
+This stems from the fact that when ˜K ≫˜J, each spin
+responds to the local force imposed by the other species
+and disregards alignment with its neighbors. As a result,
+each site performs rapid cycles (↑↑→↑↓→↓↓→↓↑→↑↑),
+but neighboring sites are not synchronized. A phase tran-
+sition similar to the one in Fig. 12a-b (continuous in R
+and L) is observed for a fixed ˜J cut (see Fig. 12c in which
+˜J = 1.5). Both R and L are zero at large ˜K and become
+finite below some critical ˜Kc ( ˜K ≈0.5 in Fig. 12c).
+Note that the second-order phase transition between
+disorder and swap is limited to small ˜J and ˜K values.
+At high values of ˜J and ˜K, the transition appears to be
+discontinuous. This is discussed further in Sec. VIII C.
+
+14
+1
+2.5
+0
+0.5
+1
+˜K
+1
+2.5
+˜J
+0
+0.5
+1
+˜K
+0
+0.5
+1
+R
+0.0
+0.2
+0.4
+L
+(a)
+(b)
+Fig. 11. Order parameters in a large 3D system. Color
+map of (a) R and (b) L as a function of ˜J and ˜K for a 3D
+system with L = 320.
+In (a), red dot marks the 3D Ising
+phase-transition point ( ˜Jc ≈1.33 and ˜K = 0), arrows corre-
+sponds to fixed ˜K and fixed ˜J cuts analyzed in Figs. 12, 14
+and 18 and stars depict points analyzed in Fig. 13. Obtained
+from MC simulations.
+A.
+Critical exponents
+Having numerically confirmed the existence of a con-
+tinuous phase transition from disorder to swap in 3D, we
+move on to determine the related critical exponents, fo-
+cusing on the order parameter R = ⟨s⟩(averages here
+and in the following discussion are with respect to time
+and realizations but for brevity, we remove the t and Ω
+subscripts). Note that L is not expected to yield novel
+critical exponents because at the Hopf bifurcation the
+angular velocity in phase space is finite (see Eq. (37) for
+mean-field and Fig. 24 for simulation evidence), and so
+the phase-space angular momentum scales with ⟨s2⟩.
+As predicted by the mean-field analysis, the phase-
+space trajectories become circular when approaching the
+transition line (Fig. 13), supporting a CGL-like behavior
+as explained in Sec. V B 2.
+Moreover, renormalization
+group studies based on the ϵ-expansion suggest that the
+synchronization transition of the CGL equation with ad-
+ditive noise belongs to the same universality class as the
+(a)
+˜J
+0.0
+0.5
+1.0
+R
+L
+20
+40
+80
+160
+320
+1.0
+1.5
+2.0
+2.5
+˜J
+0.0
+0.1
+0.2
+L
+10°2
+L°1
+10°2
+10°1
+R
+R ª L°3/2
+(a)
+(b)
+0.0
+0.2
+0.4
+0.6
+˜K
+0
+0.5
+1
+R
+L
+20
+40
+80
+160
+0.0
+0.5
+˜K
+0
+0.1
+L
+(c)
+Fig. 12.
+Phase transition from disorder to swap in
+3D. (a) R as a function of ˜J for ˜K = 0.3 shown for different
+linear system size L.
+Inset: R vs.
+L−1 for ˜K = 0.3 and
+˜J = 1.38, 1.40, 1.42, 1.43, 1.45 from bottom to top on a log-log
+scale. (b) L as a function of ˜J with the same parameters as
+panel a. (c) R vs. ˜K for ˜J = 1.5 for different L. Phase-space
+angular momentum is shown in the inset. Obtained from MC
+simulations.
+
+15
+far from 
+transition
+near 
+transition
+0
+°1
+1
+MA
+0
+°1
+1
+MB
+Fig. 13. Phase-space trajectories close to and far from
+the transition from disorder to swap in 3D. MB as a
+function of MA in steady state for ˜J = 1.35 (cyan) and ˜J = 1.5
+(magenta), with ˜K = 0.1 and L = 320 (see points marked by
+stars in Fig. 11). Obtained from MC simulations.
+phase transition from disorder to long-range order in the
+XY model [89, 90]. Thus, in what follows we will compare
+our results to the 3D XY critical exponents and to the
+3D Ising critical exponents corresponding to the ˜K = 0
+case.
+According to the theory of finite-size scaling [186, 187],
+in a finite system the order parameter R, the susceptibil-
+ity χ, defined as
+χ = Ld  ⟨s2⟩−⟨s⟩2
+,
+(55)
+and the Binder cumulant [188] defined as
+U = 1 −
+⟨s4⟩
+3⟨s2⟩2 ,
+(56)
+satisfy the following relations in the vicinity of the critical
+point ˜Jc (assuming fixed ˜K) and for large system size:
+R = L−β/ν ˆR(L1/ν( ˜J −˜Jc))
+χ = Lγ/ν ˆχ(L1/ν( ˜J −˜Jc))
+U = ˆU(L1/ν( ˜J −˜Jc)).
+(57)
+Here, ˆχ(x), ˆR(x), and ˆU(x) are called the scaling func-
+tions, and ν, γ and β are the critical exponents ξ ∼| ˜J −
+˜Jc|−ν where ξ is the correlation length, χ ∼| ˜J −˜Jc|−γ,
+and R ∼| ˜J −˜Jc|β (for ˜J > ˜Jc). The scaling functions
+are independent of L and converge to a finite value at the
+critical point (i.e.
+ˆR(0), ˆχ(0) and ˆU(0) are constants).
+In what follows we assume that the finite-size scaling the-
+ory holds out of equilibrium, as is often done [189]. We
+set ˜K = 0.1 where numerical evidence shows that the
+transition is continuous (like a second-order transition).
+The critical point ˜Jc is found using the Binder cumu-
+lant. Away from the critical point, the value of U depends
+on system size, approaching 1/3 in the disordered and 2/3
+in the ordered regime as L →∞[190, 191]. However, at
+the critical point U approaches a fixed value U( ˜Jc) = U ∗
+independent of L. Hence, the critical point is found from
+the intersection point of all the U vs. ˜J curves plotted for
+different system sizes. Figure 14a shows that indeed all
+the curves cross at a single point ( ˜Jc = 1.34614±0.00001
+for ˜K = 0.1).
+In addition to U, we plot χ and R as a func-
+tion
+of
+˜J,
+see
+Fig.
+14a-c.
+The
+data
+points
+are interpolated using a cubic spline method with
+'not-a-knot' boundary conditions as implemented in
+scipy.interpolate.CubicSpline [192].
+For each lin-
+ear system size L, we find the slope of U at the critical
+point, dU/d ˜J| ˜
+J= ˜
+Jc(L), the maximum of χ, χmax(L), and
+the value of R at the critical point, R( ˜J = ˜Jc, L). We
+then use the finite-size scaling relations (which can be
+derived from Eq. (57) [186, 187])
+dU
+d ˜J
+| ˜
+J= ˜
+Jc(L) = aL1/ν
+χmax(L) = bLγ/ν
+R( ˜J = ˜Jc, L) = cL−β/ν
+(58)
+and perform linear fits by taking the logarithm of both
+sides of the equations (Fig. 14(d-f)). The procedure out-
+lined here yields the critical exponents. To ensure good
+accuracy, all averages are taken using 106 samples. To
+make the samples approximately independent, they are
+separated by two correlation times of s (the correlation
+times were computed at ˜J = 1.346). Simulation runs are
+initialized in a fully disordered state. The error is esti-
+mated using the bootstrap method [186, 193]: the same
+procedure is repeated for multiple samples where each
+sample is constructed by drawing 106 measurements of s
+randomly from our data while allowing duplicates. The
+standard deviation of the critical exponents is estimated
+by the standard deviation calculated from 105 bootstrap
+resamplings of the data (Fig. 14(g-i)).
+This estimated
+error is due to finite sampling but does not include other
+systematic errors (e.g. finite-size corrections to Eqs. (57-
+58) [187]). Our results are
+ν = 0.675 ± 0.005
+γ = 1.328 ± 0.009
+β = 0.347 ± 0.002 ,
+(59)
+which are all in good agreement with 3D XY criti-
+cal exponents νXY
+= 0.672, γXY
+= 1.318, βXY
+=
+0.349 [194, 195], more so than with 3D Ising critical ex-
+ponents νI = 0.630, γI = 1.237, βI = 0.326 [194], see
+graphical comparison in Fig. 15. Further evidence that
+the disorder-to-swap phase transition belongs to the same
+universality class as the disorder-to-order XY phase tran-
+sition is given by the value of the Binder cumulant as the
+critical point, U( ˜Jc) = U ∗, which is also universal [188].
+We find
+U ∗= 0.5877 ± 0.0002 ,
+(60)
+consistent with studies on the 3D XY model reporting
+U ∗≈0.586 [196]. In contrast, the 3D Ising model yields
+U ∗≈0.467 [197].
+
+16
+1.335
+1.340
+1.345
+1.350
+˜J
+0.4
+0.5
+0.6
+U
+1.335
+1.340
+1.345
+1.350
+˜J
+0
+100
+200
+¬
+1.335
+1.340
+1.345
+1.350
+˜J
+0.1
+0.3
+R
+20
+24
+28
+32
+36
+40 44 48
+L
+1
+10
+dU/d ˜J| ˜J= ˜Jc
+0.06L1.481
+20
+24
+28
+32
+36
+40 44 48
+L
+10
+100
+¬max
+0.11L1.967
+20
+24
+28
+32
+36
+40 44 48
+L
+0.1
+1
+R( ˜Jc)
+1.12L°0.514
+0
+5000
+10000
+N
+0.004
+0.006
+±∫
+0
+5000
+10000
+N
+0.005
+0.010
+±∞
+0
+5000
+10000
+N
+0.001
+0.003
+±Ø
+(a)
+(b)
+(c)
+(d)
+(e)
+(f)
+(g)
+(h)
+(i)
+L=20
+L=24
+L=28
+L=32
+L=36
+L=40
+L=44
+L=48
+Fig. 14. Calculation of the critical exponents of the 3D NR Ising model. We set ˜K = 0.1. (a-c) The Binder cumulant
+U, the susceptibility χ, and the order parameter R as a function of ˜J for linear system sizes L = 20, 24, 28, 32, 36, 40, 44, 48.
+The vertical dashed grey line indicates the critical point, ˜Jc = 1.34614 while the horizontal dotted black line indicates that
+value of the Binder cumulant at the critical point, U ∗= 0.5877. Each point is calculated by averaging over 106 samples of
+s. (d-f) dU/d ˜J| ˜
+J= ˜
+Jc, χmax and R( ˜Jc) as a function of L on a log-log scale. Dots are extracted from analyzing panels a-c and
+full lines indicate best linear fits. (g-i) Standard error of ν, γ, and β as a function of the number of bootstrap samples (105
+bootstrap resamplings are performed in total).
+0.6
+0.8
+Ising
+XY
+NR Ising
+∫
+1.1
+1.5
+Ising
+XY
+NR Ising
+∞
+0.3
+0.4
+Ising
+XY
+NR Ising
+Ø
+0.4
+0.7
+Ising
+XY
+NR Ising
+U§
+Fig. 15. Compatibility with XY universality class. The
+critical exponents and the Binder cumulant at the critical
+point of the 3D nonreciprocal Ising model (red) for ˜K = 0.1
+extracted from finite-size scaling analysis along with their
+standard deviation represented by a semi-transparent red
+rectangle, and compared with the 3D Ising model (blue) and
+the 3D XY model (green).
+B.
+Time-crystal behavior
+On top of being globally ordered and time-dependent,
+the 3D swap phase possesses another notable prop-
+erty: its coherence time diverges because of its many-
+body nature, making it a time crystal [134, 135, 140-
+144, 146, 147].
+To understand this feature, consider a single limit cy-
+cle oscillator subject to noise. This can be represented
+by the zero-dimensional mean-field equation of the non-
+reciprocal Ising model with added noise, defined as
+dmα
+dt
+= −mα + tanh( ˜Jmα + ˜Kεαβmβ) + ηα ,
+(61)
+where ηα is white noise satisfying ⟨ηα(t)⟩= 0 and
+⟨ηα (t) ηβ (t′)⟩= ζδαβδ (t −t′) with ζ determining the
+noise amplitude. Figure 16 shows a numerical solution of
+Eq. (61) (panel a) along with the auto-correlation func-
+tion of mA (panel d). Such auto-correlation of an observ-
+able x is defined here as
+Cx (τ) = ⟨x (t) x (t + τ)⟩t
+⟨x (t)2⟩t
+.
+(62)
+Note that ⟨x⟩t = 0. If this was not the case, one should
+replace x(t) with x(t) −⟨x⟩t in Eq. (62).
+As seen in
+Figure 16, even though the magnetization performs quite
+regular oscillations, its auto-correlation function decays,
+thereby indicating that this oscillator eventually forgets
+its initial phase [129, 130, 198-207].
+
+17
+In many-body systems, however, interactions can over-
+come noise, producing coherent oscillations over arbitrar-
+ily long periods [94, 95, 97-100, 102, 111-117, 127, 208-
+212]. Figure 16 shows that in the 3D nonreciprocal Ising
+model, for large system size, temporal correlations of in-
+dividual spins σA
+i (panel e) and of the total magnetization
+MA (panel f) persist and do not decay over large times,
+making it a robust clock. This robust clock is an emer-
+gent feature of our model which does not rely on any
+periodic drive externally imposing a phase.
+The different behaviors of the time correlations in the
+noisy clock Eq. (61) and in the 3D NR Ising can be re-
+spectively compared to spatial density correlations in a
+liquid (which decay with distance) and a solid (which is
+maintained over arbitrarily large distances). Such com-
+parison makes Eq. (61) a "time liquid" and the 3D NR
+Ising a "time crystal" which has infinite coherence time.
+To substantiate our claim, we find the coherence time
+of the swap phase in the 3D NR Ising model by de-
+termining the decay rate of the auto-correlation's enve-
+lope, ˜CMA(τ). We construct ˜CMA(τ) by interpolating the
+peaks of |CMA(τ)|. We then identify the coherence time
+τc as the time for which
+˜CMA (τc) = exp(−1).
+(63)
+Figure 17 shows that τc increases with system size as
+τc(L) ∼L3 ,
+(64)
+i.e. linearly with the number of spins, thereby proving
+the perfect time-crystal behavior of the 3D NR Ising
+in the thermodynamic limit.
+A similar scaling for τc
+has been observed in a periodically driven 2D system
+in Ref. [213].
+This result suggests the existence of perfectly coher-
+ent oscillations in the thermodynamic limit L →∞,
+which can be seen as a breaking of ergodicity [214-
+216]. Even at arbitrarily long times, the probability dis-
+tribution function P(t) ≡U(t)P0 does not necessarily
+converge to a constant stationary distribution P ss such
+that U(t)P ss = P ss.
+Here, U(t) is the evolution op-
+erator acting on probability distributions, e.g. defined
+by the master equation (13).
+Instead, we expect that
+the system evolves towards a limit-cycle PLC satisfying
+PLC(t) = PLC(t + Tosc) where Tosc is the oscillation pe-
+riod [217]. As a consequence, the distance between the
+distributions obtained from evolving two initial condi-
+tions P1 and P2 does not necessarily go to zero at long
+times, i.e. one can have
+lim
+t→∞∥U(t)P1 −U(t)P2∦= 0
+(65)
+because the many-body oscillator remembers its phase
+(i.e. its position on the limit cycle), which is encoded in
+the probability distribution.
+We can combine Eq. (64) with the conjecture of
+Ref. [131] to obtain a bound on the minimum rate of
+entropy production required to maintain the oscillations.
+This conjecture bounds the average entropy per oscil-
+lation ∆S by the number of coherent oscillations N ≡
+τc/Tosc through the inequality ∆S ≥4π2N. As a conse-
+quence, the rate of entropy production per unit volume
+˙s ≡
+∆S
+LdTosc
+(66)
+must satisfy
+˙s ≥4π2
+T 2osc
+τc(L)
+Ld .
+(67)
+In the stable swap phase Tosc does not depend on L
+(it converges to a constant as L →∞, see Fig. 24a in
+Sec. IX A). As τc(L) ∼Ld, this bound converges to a
+finite value when L →∞, meaning that there is a finite
+minimal cost per oscillator to maintain the time-crystal
+state. The fit in the inset of Fig. 17b provides τc/Ld for
+the example considered in the plot. In Appendix A we
+calculate the entropy production explicitly from simula-
+tions under the assumption of local detailed balance, and
+show that ˙s converges to a finite value and that this value
+indeed exceeds the lower bound provided by Eq. (67).
+Note that ordered oscillations and infinite coherence
+time are not decoupled properties. It is plausible that
+a locally coupled system can maintain spatially ordered
+oscillations over arbitrarily large distances only if all its
+parts adhere to the same prescribed phase determined by
+the initial conditions.
+C.
+The phase transition from disorder to swap in
+the high ( ˜J, ˜K) regime
+At high ˜J and ˜K values, the transition from disorder to
+swap is different than for small ˜J and ˜K values. This is
+seen in Fig. 11 where the change in R and L at the phase
+transition appears to become more abrupt in the upper
+right region, compared to the lower left region. We fur-
+ther analyze this transition in Fig. 18. Figure 18a shows
+the order parameters as a function of ˜K, for fixed ˜J = 2,
+and various system sizes. The plots of R and L vs. ˜K do
+not seem to converge to a second-order phase transition
+in which the order parameters are continuous. Instead,
+an abrupt change in R and L emerges at high system
+sizes, suggesting a discontinuity as in first-order phase
+transitions.
+A clear critical point cannot be identified
+since convergence is not reached at L = 320, the largest
+linear system size in our simulations (see 0.8 ≲˜K ≲1.1
+region in Fig. 18a).
+The sharp decrease in synchronization is caused by the
+emergence of highly noisy scroll waves that destructs the
+order. This is seen in Fig. 18b showing a 2D-slice snap-
+shot of θ taken from the 3D simulation.
+Scroll waves
+are the 3D analog of spiral waves, having line defects
+that are typically closed into rings instead of point de-
+fects [86, 142, 218, 219] (see also Movie 3 and Fig. 27 in
+Sec. X in which the scroll waves are more visible). They
+
+18
+0
+200
+400
+t
+-1
+1
+mA(t)
+0
+200
+400
+t
+-1
+1
+æA
+i (t)
+0
+200
+400
+t
+-1
+1
+MA(t)
+0
+1000
+2000
+ø
+-1
+0
+1
+CmA(ø)
+0
+1000
+2000
+ø
+-1
+0
+1
+CæA
+i (ø)
+0
+1000
+2000
+ø
+-1
+0
+1
+CMA(ø)
+(a)
+(d)
+(b)
+(e)
+(c)
+(f)
+three-dimensional simulations
+mean-field with noise
+Fig. 16.
+Time correlations in the swap phase of the NR Ising model. (a) Time evolution of mA in the zero-dimensional
+mean-field equation with added noise. (b) Time evolution of a single spin σA
+i in the 3D NR Ising model. (c) Time evolution
+of the total magnetization of A-spins, MA, in the 3D NR Ising model. (d-f) Auto-correlation function of mA, σA
+i , and MA,
+respectively (defined in Eq. (62)). Panels a and d are obtained from numerical integration of Eq. (61) with the parameters:
+˜J = 1.2, ˜K = 0.12, ζ = 0.0009, dt = 0.01. Panels b-c and e-f are obtained from MC simulation with the parameters: ˜J = 1.6,
+˜K = 0.1, L = 80.
+also have spiral cross sections, which is seen in the 2D-cut
+θ snapshot in Fig. 18b and in its coarse-grained version,
+Fig. 18c (the latter figure makes the defects more appar-
+ent by averaging out the noise). We discuss scroll waves
+in more detail in Sec. X.
+The destruction of the swap phase by scroll waves is
+slightly reminiscent of the destruction of order in 2D due
+to spiral defects (compare Fig. 9e-f with Fig. 18a), except
+that here, it appears that the destruction only occurs for
+a limited range of high ˜J and ˜K values.
+Due to the
+size limitation of our simulations we cannot determine
+what portion of the 3D swap phase is destructed by the
+scroll waves or what kind of phase transition is associated
+with this destruction, although it appears to be first-
+order-like (in the sense that the order parameters are
+discontinuous).
+D.
+Why is the swap phase stable in 3D?
+Our numerical evidence points to the existence of a sta-
+ble swap phase. This relates to a longstanding question:
+can time-periodic states of noisy many-body systems
+with short-range interactions be stable in the thermo-
+dynamic limit [97-100, 102, 111-117, 127, 208-212]. Ref-
+erences [99, 100, 102] distinguished two cases, depending
+on whether the spontaneously broken time-translation in-
+variance is discrete or continuous (Fig. 19a). In systems
+that evolve in discrete time as our Monte-Carlo simula-
+tion, this depends on the type of oscillations: commen-
+surate vs.
+incommensurate.
+When the period of the
+oscillations is commensurate, i.e., a multiple of the dis-
+crete time-unite (a case referred to as "periodic k-cycle"),
+a discrete time-translation symmetry is broken. In that
+case, it was argued in [99] that the growth of out-of-
+phase droplets [220] destabilizes long-range ordered os-
+cillations.
+That is because flat domain walls are ex-
+pected to have a non-vanishing velocity, unlike in equi-
+librium [221], suggesting that a fluctuation producing a
+large enough droplet, can expand rather than shrink. A
+similar destabilization mechanism has been observed in
+discrete-symmetry flocks [222].
+In the incommensurate case, i.e.
+when the oscilla-
+tion period is not a multiple of the discrete time-unite
+(e.g. the time step of the Monte-Carlo simulation), the
+discrete-time system is equivalent to continuous-time one
+(the discreteness is irrelevant). The oscillatory state then
+breaks a continuous time-translation symmetry, which
+can be seen by the fact that the oscillation's phase at
+a given time can take any value between 0 and 2π. In
+continuous symmetry breaking, domain walls smear out
+(as in the XY model) and thus the destabilization-by-
+droplets argument does not apply [100, 102, 223].
+In the nonreciprocal Ising model studied here, the os-
+cillation period is incommensurate with the Monte-Carlo
+time step. This is seen both in Fig. 19b where a contin-
+uous limit cycle is formed in the infinite-time limit, and
+in Fig. 19c where the period of the oscillation, measured
+as twice the average time between two subsequent sign
+flips of MA, is shown to change continuously with the
+interaction parameters (a continuously changing number
+is in general incommensurate with 1). This means that,
+while stable oscillations are not guaranteed, they are not
+ruled out by the droplet argument in Ref. [99], see also
+Ref. [212]. Figure 19d further exemplifies this: it shows
+an analysis of 3D simulations of both the Ising model and
+the nonreciprocal Ising model with a flat domain wall in-
+troduced at location y = 0 at time t = 0 (the domain
+wall separates oppositely magnetizaed states for Ising,
+and two swap states at different phases for nonreciprocal
+
+19
+0
+5000
+10000
+15000
+ø
+0
+e°1
+1
+˜CMA(ø)
+10
+20
+30
+L
+103
+104
+øc
+0.32L3.01±0.03
+0
+1000
+2000
+3000
+ø
+°1
+0
+1
+CMA(ø)
+(a)
+(b)
+Fig. 17. Diverging coherence time of the swap phase
+in the 3D NR Ising model.
+(a) The correlation func-
+tion CMA(τ) of the total magnetization of A-spins, for dif-
+ferent system sizes.
+Correlations persist over longer times
+as system size increases.
+(b) The envelope of the auto-
+correlation function, ˜CMA(τ), shown for linear system sizes
+L = 12, 16, 20, 24, 28, 32 (from bottom to top). The coher-
+ence time τc (Eq. (63)) is calculated from the intersection of
+˜CMA(τ) with e−1 (dashed black line). Inset: τc as a function
+of L on a log-log scale. The dots are calculated from the data
+in the main panel and the line is the best linear fit, which
+has a slope of 3.01 with a standard error of 0.03. The co-
+herence time is proportional to Ld, supporting a time-crystal
+behavior. Obtained from MC simulations with the coupling
+parameters ˜J = 1.6 and ˜K = 0.1.
+Ising). As time evolves, the domain wall in the nonrecip-
+rocal Ising system is shown to widen and dissipate (on
+top of slightly moving in the +ˆy direction), unlike the do-
+main wall in the Ising system which remain steady. This
+suggests that there are no stable domain wall between
+oscillating states in the swap phase of the nonreciprocal
+Ising model.
+The existence of a broken continuous symmetry (time-
+translation invariance) suggests a parallel with the
+Mermin-Wagner theorem [82, 110] in the time do-
+main [91, 109]:
+continuous changes in the oscillation
+phase over space may behave as generalized Goldstone
+modes and their fluctuations preclude order in 2D yet al-
+low for order in 3D and beyond. Note that this discussion
+disregards any potential phase transition to quasi-long
+range order in 2D that would resemble the Berezinskii-
+Kosterlitz-Thouless (BKT) transition in the XY model.
+While we have not proven the absence of such a phase
+transition in the nonreciprocal Ising model, we do not ex-
+pect it to be present. The similarity with the XY model
+blurs when we depart from the Hopf bifurcation towards
+the high ˜J regime (where one might have hoped to ob-
+serve a phase transition to quasi-long range order), since
+the discrete symmetry of the spins causes a SNIC bifurca-
+tion in mean-field and droplet nucleation in simulations
+(Sec. IX). Even the CGL equation with additive noise,
+which is rotationally symmetric and hence more related
+to the XY model than the NR Ising model, was suggested
+to not have a BKT transition [106, 107, 177].
+An analogy between (de)synchronization and surface
+roughening provides further reasons to expect the swap
+phase to be stable in 3D and not in 2D. If we add random
+noise to the mean-field equation (30), it takes the form
+of a noisy reaction-diffusion system
+∂⃗X
+∂t = F( ⃗X) + D∇2 ⃗X + noise,
+(68)
+where ⃗X = x1, .., xn and D can be a matrix. Now assume
+that the noiseless and diffusion-less version of Eq. (68)
+has a limit cycle in steady state. To test whether the ad-
+dition of diffusion and noise allows for synchronized oscil-
+lations, we assume that we are deep within the synchro-
+nized regime, where fluctuations from the global limit cy-
+cle are small and can be treated perturbatively. In this
+case, we can focus on the phase variable that describes
+the position of the system on the limit cycle, while ne-
+glecting other degrees of freedom. This is known as a
+phase reduction, see Refs. [85, 224-227]. Under certain
+approximations, Eq. (68) can then be mapped to the Kar-
+dar-Parisi-Zhang (KPZ) equation [103]
+∂Ψ
+∂t = α∇2Ψ + β (∇Ψ)2 + noise
+(69)
+where the deviation Ψ of the local phase with respect to
+the phase of the deterministic limit cycle plays the role
+of the surface height in the KPZ equation (Fig. 20), see
+Refs. [85, 102, 106, 107, 228]. The KPZ equation predicts
+that interfaces are always rough in 2D, but that there is
+a phase transition between rough and smooth interfaces
+in 3D [229]. This suggests, by analogy, that a spatially
+coherent oscillating phase can exist in 3D, but not in 2D.
+Note, however, that the variable Ψ in Eq. (69) is an angle
+(defined on a compact space, the circle S1), so the results
+on the usual KPZ equation cannot be directly applied.
+In particular, the fact that the phase Ψ is compact allows
+for the existence of topological defects, that may change
+the physics. We refer to Refs. [102, 106, 107, 230-232]
+for further details on the compact KPZ equation. In 3D,
+defect rings are expected to be small (at least for certain
+range of ˜J and ˜K) and hence not to completely destroy
+long-range order [102].
+
+20
+µ
+µ
+0.0
+0.5
+1.0
+1.5
+˜K
+0.0
+0.5
+R
+L
+20
+40
+80
+160
+320
+0
+1
+˜K
+0.00
+0.25
+L
+(b)
+(c)
+(a)
+Fig. 18. Destruction of the second-order phase transition due to scroll waves in the high ˜K and high ˜J regime.
+(a) R vs. ˜K for ˜J = 2. Phase-space angular momentum is shown in the inset. (b) θ snapshot of a 2D slice from a 3D simulation
+with the parameters ˜J = 2, ˜K = 0.9, L = 320, corresponding to the point marked by a black hollow circle on panel a. (c) The
+same snapshot coarse-grained over 10×10 lattice sites. The snapshots show the destruction of order by scroll waves (appearing
+as spiral defects in the 2D cut). Obtained from MC simulations.
+IX.
+DESTRUCTION OF THE STATIC-ORDER
+PHASE VIA DROPLETS
+In finite systems, a ferromagnetic-like state with static
+order is observed both in 2D and 3D. As system size in-
+creases, however, our numerical simulations indicate that
+this static state is destabilized.
+This is supported by
+Figs. 9e-f and 12a-b (right parts) showing R and L as
+a function of ˜J (for a fixed ˜K). The ˜J-transition-point
+between static order and oscillations in finite systems (in-
+dicated by a sharp change in the slope of R and L becom-
+ing zero) increases with system size in a way that does
+not seem to converge to a finite ˜J. Figures 12c and 18a
+showing R and L as a function of ˜K (for a fixed ˜J) have
+a very small region of static order (when ˜K is close to
+zero) and it is hard to see what is its fate in the ther-
+modynamic limit. However, this region seems to shrink
+when L increases in Fig 18a, suggesting a destabilization
+of the static-order phase.
+The static-order phase is destabilized by nucleation
+of droplets that grow and flip the magnetization, in al-
+ternating order of A- and B-spins. This mechanism is
+demonstrated in Fig. 21, where snapshots of the spins
+at different times are shown for increasing system sizes,
+in a 2D system. The full evolution is shown in Movie
+4. For L = 10 (Fig. 21a), both species do not flip their
+magnetization. There are attempts of B-spins to nucle-
+ate droplets, but those shrink and disappear. For L = 40
+(Fig. 21b), the system is no longer static: a handful of B-
+spins droplets (one clearly observed in the figure) surpass
+a certain critical droplet size, grow and flip the magne-
+tization.
+Then, the same occurs for the A-spins, and
+so on, leading to an oscillatory behavior of MA(t) and
+MB(t), but with intermediate periods in which MA(t)
+and MB(t) are constants.
+When L = 200 (Fig. 21c),
+multiple droplets (≫1) drive the magnetization flipping
+of each species, making the MA(t) and MB(t) curves
+smooth at all times, i.e, there is no finite period of time
+in which the magnetization is constant and the system
+could be called static. We note that the figure shows a
+2D system but a similar behavior is observed in 3D.
+To see why nonreciprocity allows droplets to grow, in
+contrast with the equilibrium Ising model where they
+tend to shrink, assume first that the system is in the
+static-order phase, so most spins in both lattices are up
+(Fig. 22a) [96]. We further assume K is very small, which
+is when static order is most likely to be stable. As long
+as the system is static, it can be mapped into two equi-
+librium Ising models with opposite magnetic fields, with
+energy
+E = −J
+X
+⟨i,j⟩
+σiσj −H
+X
+i
+σi
+(70)
+where H ≈K for A-spins and H ≈−K for B-spins (see
+Eq. (11) and Fig. 22b). While sub-system A is in a global
+free energy minimum in the effective equilibrium system,
+sub-system B is in a metastable state, as it prefers a state
+with opposite magnetization. Provided that the system
+size is large enough, sub-system B then transitions to its
+global minimum by nucleating droplets larger than a crit-
+ical size ρc above which the effective magnetic field, which
+acts on the volume of the droplet, overcomes the near-
+est neighbor attraction, imposing surface tension, which
+makes the droplet grow [96, 99, 233, 234] (Fig. 22c). After
+a droplet has expanded beyond ρc, the stable sub-system
+becomes metastable and nucleates droplets, and so on
+(Fig. 22d). Crucially, due to the symmetry between A
+and B spins, both droplet types expand with the same
+speed. Therefore, a nested droplet remains much smaller
+than its "mother-droplet" until the latter reaches the sys-
+tem size or collides with other droplets (see Sec. XII in
+which this symmetry is absent). A simplified view of this
+
+21
+spin 
+rotation
+Ising
+NR Ising
+discrete symmetry
+time 
+translation
+Ising
+continuous symmetry
+incommensurate
+oscillations
+k-periodic
+cycle
+evolution of the domain wall
+t = 0
+t = tf
+XY
+(a)
+(b)
+(d)
+(c)
+Fig. 19.
+Continuous symmetry breaking of the swap phase. (a) Comparison of discrete and continuous symmetry
+breaking in equilibrium and out-of-equilibrium models. (b) MB vs. MA for ˜K = 0.5, ˜J = 2, and L = 80. i,ii, and iii show
+increasing numbers of MC sweeps. Each point is colored according to the sweep it corresponds to. Since the oscillation period
+is incommensurate, a continuous limit cycle is sampled in the infinite time limit. Hence, a continuous symmetry is broken.
+(c) Oscillation period of the magnetizations, Tosc, in the 3D system as a function of ˜J for ˜K = 0.3 and L = 80.
+Tosc is
+measured as twice the average time between two subsequent sign flips of MA.
+The continuous dependence of Tosc on the
+coupling parameter indicates incommensurate oscillations. (d) comparison between domain walls in 3D the Ising model (first
+row) and in the 3D NR Ising model (second row). At t = 0, the two systems were in steady state and then perturbed by a
+domain wall. The domain wall is created by flipping the magnetization (Ising) and shifting the oscillation phase (NR Ising) for
+all spins located at y > L/2. System parameters are: ˜J = 1.4 (Ising) and ˜J = 1.5, ˜K = 0.1 (NR Ising), and L = 320. i and
+iii are Snapshots of σ (Ising) and θ (NR Ising, see color code in Fig. 2) in a 2D slice taken from a 3D simulation at t = 0 and
+t = 1157, respectively. ii Kymograph of |d ¯m/dy| (Ising) and |d¯θ/dy| (NR Ising), defined by the discrete symmetric derivative
+df/dy ≡|(fy+5 −fy−5) /10|, where ¯m is the magnetization and ¯θ is the phase, both averaged over the xz plane. The smearing
+out of the dark pink region indicates the dissipation of the domain wall. Panels b-d are obtained from MC simulations.
+mechanism can be found in defining a "selfish free en-
+ergy" for the zero-dimensional mean-field equation, see
+Appendix E.
+The argument sketched above relies on ρc being finite,
+which is the case in any finite dimension (and finite cou-
+plings ˜J and ˜K) because the volume term ultimately
+dominates at sufficiently large droplet sizes. Hence, we
+conjecture that in the fully anti-symmetric nonrecipro-
+
+22
+desynchronization of coupled oscillators
+surface roughening
+Fig. 20.
+Mapping between surface roughening and
+desynchronisation. Schematic drawing of the mapping be-
+tween coupled limit cycle oscillators (top) and surface rough-
+ening described by the KPZ equation (bottom). The phase
+φi of the oscillator at position i is mapped to a height hi.
+cal Ising model, the static-order phase is unstable in the
+thermodynamic limit in any finite dimension.
+A.
+Between static order and swap: the droplet
+regime
+The droplet mechanism explained above means that
+as system size increases, a regime of droplet-induced
+swap develops instead of the static-order phase. In 2D,
+this regime separates static-order from disorder, while in
+3D, it separates static-order from the noisy homogeneous
+swap regime.
+In the droplet-induced swap regime, the critical droplet
+size increases as ˜J increases (and as ˜K decreases). As a
+result, the droplets become more sparse and the distance
+they travel before colliding with each other increases.
+Eventually, ˜J becomes large enough (or ˜K small enough)
+that the critical droplet size becomes larger than the sys-
+tem size. In that case, the magnetization can flip when
+fluctuations are of the order of the system size, in the
+same way as in the usual equilibrium Ising model.
+This is demonstrated in Fig. 23 where 2D-slice snap-
+shots of the θ field, as well as the magnetizations of the
+two species as a function of time, are shown for a 3D
+system with linear size L = 80 at increasing values of
+˜J (and decreasing values of ˜K). For small ˜J (high ˜K),
+the 3D system is in a noisy homogeneous swap phase.
+There are no apparent droplets but rather noisy patterns
+without a well-defined shape (Fig. 23a,e).
+Put differ-
+ently, independent fluctuations do not have time to ex-
+pand significantly before colliding. For larger ˜J (smaller
+˜K) values we observe droplets that drive the magnetiza-
+tion flips (Fig. 23b-c,f-g). For an even larger ˜J (smaller
+˜K), no droplets are observed and the magnetizations do
+not change over a long period of time (Fig. 23d,h).
+The droplet regime is characterized by a distinct be-
+havior of the oscillation period, Tosc, as a function of
+system size. In Fig. 24a, the oscillation period in 3D is
+shown as a function of ˜J with a fixed ˜K, for increasing
+L values. In the non-droplet regime, i.e. small ˜J, Tosc
+is independent of system size (note that the period is
+finite at the critical point ˜Jc, supporting a Hopf-like be-
+havior), while in the droplet-induced swap regime (large
+˜J) Tosc decreases with system size at intermediate L but
+converges in the L →∞limit to a finite value, inde-
+pendent of L (see overlap of orange and green lines in
+Fig. 24a up to ˜J ≈2.3). At larger ˜J values, in a finite
+system, droplets are so rare that each magnetization flip
+is driven by a single droplet (here we assume that ˜J is
+not too large, such that the critical droplet size is still
+smaller than the system size). In this regime, the single
+droplet can emerge in any lattice position at a given time
+step, thus Tosc scales with L−3 [96, 233], see Fig. 24b.
+The different oscillation regimes share similarities with
+the relaxation of the magnetization in an Ising model
+from an initial state magnetized opposite to the applied
+field H. Reference [233] identifies four regimes, depend-
+ing on the field strength and system size. The "strong-
+field" regime in which "the droplet picture is inappro-
+priate", and three other regimes which are classified us-
+ing droplet theory by the relation between three length
+scales: the critical droplet radius ρc, the mean droplet
+separation ρ0, and the linear system size L. These are
+the multi-droplet regime L ≫ρ0 ≫ρc, the single-droplet
+regime ρ0 ≫L ≫ρc, and the "coexistence region"
+ρ0 ≫ρc ≫L where the system behaves as if there is
+no applied field. The average metastable lifetime calcu-
+lated in Ref. [233] is shown to be independent of system
+size in strong field and multi-droplet regime yet highly
+dependent on system size in the single-droplet and coex-
+istence regime, in a way reminiscent of Fig. 24a. We note
+that the analogy drawn here is not perfect because non-
+reciprocal interactions are different from an externally
+applied field in that they change once the magnetization
+flips.
+B.
+The fate of the droplet regime
+We now discuss the fate of the droplet-induced swap
+regime in the thermodynamic limit. In 2D, this regime
+is destabilized by spiral defects making it disordered, as
+was shown in Sec. VII.
+In 3D, the scenario is more complex. While droplets
+persist at large system size, distant regions become less
+synchronized and the system loses its global order. This
+is illustrated in Fig. 25 which shows snapshots of the θ
+field, taken from simulations in the droplet-induced swap
+regime, with different system sizes. In Fig. 25, we see that
+at system sizes L = (80, 160, 320) there are regions with
+n = (2, 3, 4) distinct θ-valued (i.e. n different colors in
+the plot), respectively. This decreases the synchroniza-
+
+23
+t = 50
+æA
+æB
+t = 150
+t = 250
+t = 350
+0
+200
+400
+600
+t
+°1
+0
+1
+MA
+MB
+L = 10
+æA
+æB
+0
+200
+400
+600
+t
+°1
+0
+1
+L = 200
+æA
+æB
+0
+200
+400
+600
+t
+°1
+0
+1
+L = 40
+(a)
+(b)
+(c)
+Fig. 21.
+Instability of the static-order phase in the thermodynamic limit due to droplet nucleation. Top four
+rows: Snapshots of σA and σB in a 2D system with linear system size (a) L = 10, (b) L = 40, (c) L = 200. Time evolves
+from top to bottom. See Movie 4 for the full evolution. Fifth row: the corresponding total magnetizations, MA and MB, as a
+function of time. Obtained from MC simulations with parameters ˜J = 2.8 and ˜K = 0.3, and with initialization at t = 0 with
+all spins up.
+tion. Indeed, the synchronization order parameter, R, is
+shown to decrease with L, in the right part of Fig. 12a,
+corresponding to the droplet-induced swap region. While
+R decreases with system size, it does not converge. Thus,
+it is unclear to what extent order is lost in the thermody-
+namic limit, and whether it remains finite or is ultimately
+deemed disordered (R = 0). If the latter is correct, it
+remains an open question what is the type of phase tran-
+sition that occurs and where lies the critical line between
+swap and disorder in this droplet regime.
+The decrease in order in the droplet-induced-swap
+regime causes an intriguing behavior, observed only for
+large system size, (L ≥160): synchronization is non-
+monotonic as a function of ˜J (or ˜K). See L = 320 line
+in Fig. 12a, where R increases monotonically with ˜J be-
+yond the Hopf bifurcation until ˜J ∼2.05, and then starts
+decreasing. It then reaches a local minimum at ˜J ∼2.25
+and increases again until saturation at ˜J ∼2.55. A sim-
+ilar behavior is observed in the left part Fig. 18a, for
+L = 320, where R is non-monotonic as a function of ˜K.
+In both cases the anomalous decrease starts when the
+swap phase transitions from noisy homogeneous swap to
+droplet-induced swap.
+The mechanism under which global synchronization
+decreases with increased
+˜J (or decreased
+˜K) in the
+droplet regime is shown in Fig. 26, which compares two
+simulations with the same ˜K = 0.3 value: one at the
+onset of droplet-induced swap ( ˜J = 2.04), and the other
+well within the droplet-induced swap ( ˜J = 2.24). Simula-
+tion snapshots (Figure 26a) reveal that while the system
+is more correlated over short distances at larger ˜J values,
+it loses global order due to large regions that are out-of-
+phase with the rest of the system. This can be quantified
+by a size-dependent synchronization parameter,
+R(l) ≡⟨s(l)⟩
+with s(l) ≡1
+ld
+
+X
+j
+eiθj
+
+(71)
+where the sum is over all sites inside a box of linear size
+l ≤L, and the average is taken with respect to differ-
+ent boxes and time. The size dependent synchronization
+parameter is shown in Fig. 26b, for squares instead of
+cubes to match with the 2D snapshots. For small l, R(l)
+is larger for the system with the higher ˜J, whereas for
+
+24
+(a)
+(b)
+(c)
+(d)
+H
+H
+time
+up spin
+down spin
+Fig. 22.
+Droplet argument for the instability of the
+static-order phase. (a) A system in the static-order phase
+can be reduced into (b) two equilibrium Ising models subject
+to magnetic fields, where one system is in a stable equilibrium
+while the other in a metastable state. (c) The metastable sys-
+tem nucleates droplets that expand and flip the magnetiza-
+tion. (d) The stable system becomes metastable and nucleates
+droplets that expand with the same velocity, and so on.
+large l, R(l) is larger for the system with the lower ˜J.
+Moreover, while R(l) at low ˜J decays exponentially with
+l, in the high ˜J regime it does not and the second deriva-
+tive of R(l) changes signs. This means that within the
+droplet-induced swap regime, the system cannot be de-
+scribed by a single correlation length, and instead has
+multiple length scales related to the droplet parameters
+such as the critical droplet size, the typical distance be-
+tween droplets, and the correlation length inside a single
+droplet.
+X.
+COARSENING DYNAMICS: SCROLL
+WAVES AND PLANAR WAVES
+We now qualitatively discuss the way in which the sys-
+tem coarsens into an ordered state in 3D. In the sim-
+ulations used to calculate the order parameters R and
+L (Figs. 11, 12 and 18), the spins were initialized in an
+ordered initial condition (all spins up), making the tran-
+sition to steady state in the swap and static-order phases
+relatively fast. When fully disordered initial conditions
+are used (each spin is set to +1 or −1 randomly), how-
+ever, the system can coarsen into long-lived metastable
+states, before reaching steady state. To show this, we
+present in Fig. 27a the same plot as Fig. 12a (R vs.
+˜J
+in 3D) but with random initial conditions, and average
+taken over a single simulation running for a very long
+time. In both the swap phase (1.4 ≲˜J ≲2.3) and static-
+order phase ( ˜J ≳2.3) we see that for some of the realiza-
+tions the system reaches the same steady state as with
+ordered initialization (shown in semi-transparent lines).
+However, sometimes the measured R is much lower than
+the one obtained with ordered initialization, suggesting
+that the system got trapped in a metastable state.
+The states in which the system gets trapped in are
+scroll waves and planar waves, shown in Fig. 27b-d and
+Movie 3 in both 3D snapshots and 2D-slice snapshots.
+Here the scroll waves are much less noisy than those dis-
+cussed in Sec. VIII C.
+The planar waves in the nonreciprocal Ising model
+are analogous to what happens in the equilibrium Ising
+model, in which the system often reaches stripes or min-
+imal surfaces in the final stages of the coarsening dy-
+namics [234, 235].
+Here, however, the stripes move in
+a particular direction that guarantees, for each site, the
+↑↑→↑↓→↓↓→↓↑→↑↑cycle on average.
+A planar wave
+state breaks both time translation symmetry and space
+translation symmetry (in one direction).
+The coarsening dynamics is most easily understood
+by following the defect filaments of the scroll waves
+(Fig. 27e).
+The defects are found using the size-
+dependent synchronization parameter, s(l), defined in
+Eq. (71). Note that s(l) is 1 if all the sites in the box
+are identical, and it is close to zero if the box has a mix-
+ture of sites in all four possible states. Thus, we classify
+defects as sites on the coarse-grained grid in which s(l)
+is smaller than a threshold smax.
+The box size l and
+the s-threshold are fine-tuned to detect the defect fila-
+ments while filtering out noise (l = 3 and smax = 0.2 in
+Fig. 27e).
+In the example shown in Fig. 27e, the system coarsens
+into a complex mixture of defect lines shortly after initial-
+ization with disordered initial conditions. After a while,
+only two defect lines survive. The lines are connected
+onto themselves by virtue of the periodic boundary con-
+ditions, having the topology of rings on a 3-dimensional
+torus with opposite winding numbers (1 and −1). Thus,
+they cannot shrink by themselves to a point.
+Finally,
+the two filaments collide, forming a new ring with zero
+winding number that shrinks and disappears. The sys-
+tem then stays in a planar waves state for a very long
+time.
+Movie 3 shows another example of the filament
+dynamics that ends in a defect-free swap phase.
+The occurrences in which the system escapes scroll-
+waves state into swap or static order, without any ob-
+servation of transitions from the swap or static-order
+phase into scroll waves, suggest that these are metastable
+states. This is not the case, however, in the high ˜K limit,
+where the scroll waves appear to be stable, as explained
+in Sec. VIII C.
+
+25
+(a)
+(b)
+(c)
+(d)
+static order
+droplet-induced swap
+noisy homogeneous 
+swap
+0
+200
+400
+t
+°1
+0
+1
+0
+200
+400
+t
+°1
+0
+1
+0
+200
+400
+t
+°1
+0
+1
+0
+200
+400
+t
+°1
+0
+1
+MA
+MB
+(e)
+(f)
+(g)
+(h)
+Fig. 23.
+Transition from swap to static order in a finite 3D system, as a function of ˜J and
+˜K.
+(a-d) Top:
+2D-slice snapshots of the θ field, obtained from MC simulations with increasing values of ˜J. Bottom: The corresponding total
+magnetizations MA (blue) and MB (red) as a function of time measured in simulation sweeps. (a) ˜J = 1.6. (b) ˜J = 2.2.
+(c) ˜J = 2.3. (d) ˜J = 2.5, all with ˜K = 0.3 and L = 80. As ˜J increases, a noisy homogeneous swap phase is replaced by
+droplet-induced swap and then becomes static and ordered. (e-f) The same as panels a-d (top) but with ˜J = 1.6 and decreasing
+values of ˜K. (e) ˜K = 0.3. (f) ˜K = 0.08. (g) ˜K = 0.05. (h) ˜K = 0.02.
+XI.
+SCHEMATIC PHASE DIAGRAM IN THE
+FULLY ANTI-SYMMETRIC CASE
+The results from Secs. VII, VIII, and IX enable us to
+construct a schematic phase diagram in both 2D and 3D
+for the fully anti-symmetric case.
+In 2D, our numerical results suggest that both the swap
+phase and the static-order phase are unstable, as long as
+K ̸= 0. This leads to the conclusion that there is a single
+stable phase in the thermodynamic limit: disorder (see
+Fig. 28a). The same conclusion applies to the 1D case,
+as is shown in Appendix B.
+In 3D (see Fig. 28b), our numerical results suggest that
+static order is unstable but that the swap phase is stable,
+with a second-order-like phase transition from disorder to
+swap featuring 3D XY critical exponents. Regions with
+high ˜J or ˜K have not been revealed in full: in the large
+˜J limit, synchronization decreases, possibly to zero, due
+to the difficulty of droplet-induced swap to synchronize.
+In the high ˜K regime, scroll waves completely destabi-
+lize the long-range order. Both mechanisms are capable
+of destroying a large portion of the stable swap phase
+regime, and there is also a possibility that they would
+meet in the high ˜J and high ˜K regime, leading to a com-
+pact swap phase in ( ˜J, ˜K) space rather than an infinite
+one. Due to the limitations of our simulations, these in-
+teresting possibilities lie beyond the scope of this work,
+which has focused mostly on the low ˜J and ˜K regime,
+where the swap phase appears to be stable and critical
+exponents can be calculated.
+XII.
+GENERAL ASYMMETRIC COUPLINGS
+In the previous sections, we have focused on the fully
+anti-symmetric case where K+ = 0 in Eq. (12), for which
+our model has a C4 symmetry. In this section, we test
+whether our results rely on this additional symmetry by
+considering K+ ̸= 0, for which the symmetry is reduced
+to the diagonal Z2 described in Eq. (24).
+
+26
+1.4
+1.6
+1.8
+2.0
+2.2
+102
+103
+104
+105
+Tosc
+droplet-
+induced
+swap
+noisy homogeneous
+swap
+L
+10
+20
+40
+80
+˜Jc
+1.5
+1.75
+2
+2.25
+˜J
+104
+106
+108
+L3Tosc
+Tosc ª L°3
+(a)
+(b)
+Fig. 24. Behavior of the oscillation period in the 3D
+swap phase. (a) The oscillation period of the total magne-
+tizations Tosc, on a logarithmic scale, as a function of ˜J for
+fixed ˜K = 0.3 and different system sizes. (b) The same with a
+rescaled oscillation period, L3Tosc. Dashed grey line in panel
+a separates a regime in which the oscillations are driven by
+well-defined droplets (right) from a regime in which they do
+not (left). ˜Jc marked on the x-axis is the critical point for the
+disorder-to-swap phase transition. The period is finite at ˜Jc,
+supporting a Hopf-like behavior. Obtained from MC simula-
+tions.
+A.
+Mean-field analysis
+Expanding Eq. (23) as was done for the fully anti-
+symmetric case (Sec. V B), we obtain,
+∂tmα = −(1 −˜J)mα + ˜Kαβmβ + D∇2mα
+(72)
+−1
+3
+
+˜Jmα + ˜Kαβmβ
+3
+where ˜Kαβ ≡Kαβ/(kBT) and Kαβ is given by Eq. (12).
+Assuming a spatially homogeneous state, the eigenvalues
+λ1 and λ2 of the Jacobian matrix J at mA = mB = 0
+are
+λ1,2 = −1 + ˜J ±
+q
+˜K2
++ −˜K2
+−.
+(73)
+Thus, upon changing ˜J, the possible phases and bifurca-
+tions depend on the value of ˜K2
++ −˜K2
+−. This is demon-
+strated in Fig. 29, which shows phase portraits of the
+Fig. 25.
+Loss of synchronization in the droplet regime
+with increased system size. Snapshots of the θ field (color
+code in Fig. 2) in 2D slices taken from a 3D MC simulation
+with L = 80, 160, and 320.
+Other system parameters are
+˜K = 0.3 and ˜J = 2.25. We see n = (2, 3, 4) distinct θ-valued
+regions for L = (80, 160, 320), respectively.
+spatially homogeneous full mean-field equation, Eq. (23),
+for different ˜K2
++ −˜K2
+−values.
+For ˜K2
++ −˜K2
+−< 0 (which is equivalent to ˜K+ < ˜K−
+when both ˜K+ and ˜K−are assumed to be positive),
+Fig. 29a, the system is disordered when ˜J < 1, and un-
+dergoes a Hopf bifurcation at ˜J = 1, transitioning from
+disorder to a limit cycle. Unlike the K+ = 0 case studied
+throughout most of the paper, here the limit cycle is not
+rotationally-symmetric even in the ˜J −1 ≪1 limit. This
+is seen when writing the spatially homogeneous mean-
+field equation in polar coordinates,
+∂tr = −
+
+1 −˜J −˜K+ sin(2θ)
+
+r + O
+ r3
+∂tθ = −˜K−+ ˜K+ cos(2θ) + O
+ r2
+.
+(74)
+The leading order term in r is θ-dependent, and does not
+simply scale with ˜J −1. Hence, a separation between the
+time scales of r and θ cannot be invoked as in Sec. V B.
+Instead, the limit cycle is elliptical near the Hopf bifur-
+cation [85].
+Increasing ˜J leads to additional bifurcations. First, a
+(Z2-symmetric) SNIC bifurcation where the limit cycle
+is destroyed by the emergence of two (rather than four
+for the K+ = 0 case) pairs of stable and saddle points.
+The stable points that emerge lie in the first and third
+quadrants of the (mA, mB) plane, corresponding to states
+where the two species are aligned. Then, for even larger
+values of ˜J, a saddle-node bifurcation occurs where two
+additional pairs of stable and saddle points emerge, yet
+static order is maintained.
+The new stable points lie
+in the second and fourth quadrants, representing anti-
+aligned states.
+This behavior is observed for ˜K+ and
+˜K−much smaller than 1 (0.1 and 0.2 respectively in the
+Fig. 29). For larger values, a saddle-node bifurcation can
+occur such that the ferromagnetic phase coexists with the
+limit cycle (this scenario is explored in Ref. [151]).
+For 0 ≤˜K2
++ −˜K2
+−< 1 (Fig. 29b), the system is disor-
+dered when ˜J < 1 −
+q
+˜K2
++ −˜K2
+−and undergoes a pitch-
+fork bifurcation at ˜J = 1 −
+q
+˜K2
++ −˜K2
+−transitioning
+from disorder to static order with two stable fixed points
+
+27
+100
+101
+102
+l
+0.7
+0.9
+R(l)
+˜J = 2.04
+˜J = 2.24
+first cycle after
+initialization
+steady state
+(a)
+ increases
+˜J
+(b)
+Fig. 26. Decrease in global order in the droplet regime
+as a function of ˜J. (a) Snapshots of 2D slices taken from
+a 3D simulation with ˜K = 0.3 and L = 400, comparing two
+different ˜J values, ˜J = 2.04 (left) and ˜J = 2.24 (right). The
+top snapshots are taken shortly after initialization while the
+bottom snapshots are taken after 10000 MC sweeps. (b) The
+synchronization parameter R(l) defined in Eq. (71), measured
+in steady state as a function of l, for the two ˜J values in
+panel a. Averages are taken over (L/l)2 squares and 1000 MC
+sweeps.
+of aligned states.
+In that case, there is no oscillatory
+phase. When ˜J = 1 +
+q
+˜K2
++ −˜K2
+−, an additional pitch-
+fork bifurcation occurs where two saddle points emerge
+from the origin (0, 0), which transitions from a saddle
+to an unstable point. As ˜J increases further, a saddle-
+node bifurcation occurs where two pairs of anti-aligned
+stable and saddle points appear. These two additional
+bifurcations maintain the system in a static-order phase.
+In the ˜K2
++ −˜K2
+−> 1 case (Fig. 29c), the bifurcations
+are the same as in the 0 ≤˜K2
++ −˜K2
+−< 1 case, except
+that there are already two stable fixed points at ˜J = 0.
+As a result, the system remains in the static-order phase
+for any value of ˜J (although ˜J must greater than zero for
+coarse-graining to take place). The absence of oscillations
+for ˜K+ > ˜K−arises because, despite having nonrecipro-
+cal interactions, the two species "agree" on whether they
+prefer to align or anti-align. This makes a magnetization
+flip unfavorable for either species.
+Figure 30 shows a slice through the three-dimensional
+phase diagram (which depends on ˜J, ˜K+, and , ˜K−), with
+˜K+ fixed at 0.3. The main difference between this phase
+diagram and the one in Fig. 4 (which shows the ˜K+ =
+0 case) is the pitchfork bifurcation line separating the
+paramagnetic and ferromagnetic phases in the ˜K−≤˜K+
+region, which is just a point in Fig. 4.
+B.
+Swap phase
+We perform Monte-Carlo simulations in both 2D and
+3D for the general asymmetric case, i.e.
+with the in-
+clusion of reciprocal inter-species interactions. In 2D, we
+find that the swap phase is unstable, as in the case of fully
+anti-symmetric interactions (Sec. VII). This is shown in
+Fig. 31 in which R and L are plotted as a function of
+˜J with fixed ˜K+ and ˜K−(a-b) and as a function of ˜K+
+with fixed ˜J and ˜K−(c-d). In the region in which L ̸= 0
+(indicating the swap phase), both R and L decrease with
+system size. Furthermore, in appendix F we show color
+maps of R and L as a function of ˜J and ˜K−with a fixed
+non-zero value of ˜K+. These color maps show that, sim-
+ilarly to the ˜K+ = 0 case shown in Fig. 9a-d, R and L
+diminish as system size increases in the swap regime.
+The destabilized phase is shown to be contaminated
+with defects (inset in Fig 31), but it does not seem to
+support spiral waves. This seems to result from the lack
+of symmetry between the four two-spin states, which is
+required for the stability of a spiral waves: since A-spins
+want to align with B-spins more than B-spins wish to
+anti-align with A spins, ↑↑and ↓↓states are more fa-
+vorable than ↑↓and ↓↑, and thus the four "arms" sur-
+rounding a defect move at different velocities, destroying
+the potential spiral configuration. Instead of spirals we
+observe a complex behavior in which large homogeneous
+regions of either ↑↑or ↓↓state continuously move and de-
+form, while defects are rapidly created and annihilated at
+the boundaries between them.
+In 3D, Monte-Carlo simulations suggest that a stable
+swap phase still exists, even when reciprocal interactions
+are added. Figure 32 shows color maps of R and L for
+a fixed ˜K+ and L = 80. A region with non-zero R and
+L, corresponding to a swap phase, is observed. Figure 33
+then analyzes a line cut through the color maps for a
+fixed value of ˜K−. As ˜J is varied, a continuous phase
+transition from disorder to swap is observed (at ˜J ≈1.45)
+and becomes more sharp as L increases. The swap phase
+is stable for ˜J ≲1.7 but destabilizes at higher values, as
+is discussed next.
+To conclude, the instability of the swap phase in 2D
+and its stability in 3D are not limited to the case of fully
+anti-symmetric interactions in which ˜K+ = 0, but ex-
+tends to the general asymmetric case.
+
+28
+(b)
+(c)
+(e)
+1.5
+2.0
+2.5
+˜J
+0.0
+0.5
+1.0
+R
+L
+20
+40
+80
+t = 1000
+æA
+æB
+µ
+t = 20000
+depth in y axis
+depth in y axis
+(a)
+(d)
+Fig. 27.
+Random initial conditions lead to long-lived scroll waves and planar waves in 3D. (a) R as a function
+of ˜J shown for different linear system size L, and for ˜K = 0.3. Scattered symbols are measured by averaging over the last
+105 MC sweeps in a single 106 sweeps long simulation, with random initial conditions for the spins. Semi-transparent lines
+are the results from Fig. 12a in which ordered initial conditions were used and an average was taken over many simulations.
+(b-e) Analysis of a simulation with random initial conditions and system parameters:
+˜J = 2.28, ˜K = 0.3 and L = 80, with
+an update scheme in which spins are chosen at random. (b-c) 3D images at different times in the evolution, showing scroll
+waves and planar wave, respectively. Sites in ↑↑state are marked in blue while the rest of the sites are not shown. (d) 2D-slice
+snapshots of the magnetization of A- and B-spins, and of θ, at two different times, showing 2D cuts of the scroll waves (top)
+and the planar wave (bottom). Black arrows indicate the direction in which the stripes and spiral patterns move over time.
+(e) Evolution of the defect filaments. As time evolves, the filaments merge, forming rings that shrink and disappear. Note the
+periodic boundary conditions. Defects are found using the condition s(l) < smax (Eq. (71)) with l = 3 and smax = 0.2.
+C.
+Stability of the static-order phase: a
+droplet-capture mechanism
+While the fate of the swap phase is robust to the addi-
+tion of reciprocal inter-species interactions, our Monte-
+Carlo simulations suggest this is not the case for the
+static-order phase.
+First, let us examine the right part of each panel of
+Fig. 31, showing the transition to static order (R ̸= 0
+and L ≈0) for a finite-size system in 2D. Figure 31a-b
+shows that the ˜J-transition-point between the unstable
+swap regime and static order increases with system size
+and it is hard to conclude whether static order is stable
+in the thermodynamic limit. In Fig. 31c-d, where ˜K+
+is varied, R seems to converge to finite non-zero values
+(while L approaches zero) for ˜K+ ≳0.24, which might
+indicate a stable phase transition from disorder to static
+order.
+Surprisingly, the supposed phase transition oc-
+curs even though ˜K+ is lower than ˜K−( ˜K−= 0.3),
+which is the case where one species favors alignment while
+the other favors anti-alignment. In 3D, Fig. 33 gives an
+even stronger indication that there is a well-defined phase
+transition from disorder to static order: for linear system
+sizes L = 40, 80, 160, there is an abrupt transition from a
+region in which R and L approach zero (see 1.8 ≲˜J ≲2.2
+in Fig. 33) to a regime in which R is finite and L →0
+( ˜J ≳2.2 in Fig. 33), and the transition seems to converge
+at ˜J ≈2.2. Again, the transition occurs when ˜K+ < ˜K−
+( ˜K+ = 0.1 while ˜K−= 0.3).
+These indications raise
+the question: does the droplet destabilization argument
+sketched in Sec. IX for the fully anti-symmetric case ap-
+ply here?
+Let us assume again a static-order scenario in which
+both spin species are up on average. The species favoring
+anti-alignment (B) prefers a state in which all of its spins
+are flipped. As a result, it will nucleate droplets with
+opposite magnetization. As in the fully anti-symmetric
+case, we expect that once these droplets will surpass a
+critical size, they will expand instead of shrinking. After
+certain amount of time, the same event will repeat itself
+for the A species: a critical droplet will nucleate and
+expand.
+However, because of the asymmetry between the two
+species imposed by K+, the critical droplet size ρc and
+
+29
+(a)
+(b)
+Static order
+Static order
+2D
+Disorder
+3D
+Swap
+Disorder
+?
+Fig. 28. Schematic phase diagram of the fully anti-
+symmetric case. (a) Schematic 2D phase diagram and (b)
+schematic 3D phase diagram. To be compared with the mean-
+field prediction, Fig. 4. The green line is the second-order-like
+phase transition with critical exponents compatible with those
+of the 3D XY model. Grey dashed lines are phase transitions
+that have not been revealed in full and are possibly first-
+order-like. In the striped area, it is not clear from numerical
+simulations whether the system is in the swap or disordered
+phase.
+more importantly the velocity in which droplets expand
+v(ρ), is different for A-droplets and B-droplets.
+Here,
+A-spins interact more strongly with B-spins than the
+other way around, leading to smaller ρc and larger v(ρ)
+for A-droplets [233].
+As a result, a nested A-droplet
+inside a B-droplet will expand more quickly and may
+eventually reach the boundaries of the B-droplet. Once
+this happens, our simulations show that the B-droplet
+can disintegrate, and the magnetization flip it prevented.
+Movie 5 shows a 2D simulation in which this mechanism
+takes place. Snapshots from the simulation are shown in
+Fig. 34. Note that the simulation parameters were cho-
+sen to enhance the visibility of the mechanism, allowing
+the B-droplet to persist for an extended period, but the
+mechanism is expected to be more efficient in suppress-
+ing droplet growth as the asymmetry between the species
+increases (larger K+).
+To summarize, when inter-species interactions have
+opposite signs (the ˜K+ < ˜K−case) but are not fully
+anti-symmetric, there is a competing mechanism that
+prevents droplets from growing.
+This suggests a re-
+stabilization of the static-order phase in the general
+asymmetric case, for d ≥2.
+D.
+Absence of infinite-period phase transition
+In the fully anti-symmetric case (K+ = 0), there is an
+oscillating (swap) phase in 3D, but there is no static-order
+phase. As a consequence, there is no infinite-period phase
+transition that would correspond to the SNIC bifurcation
+observed in the mean-field dynamics. A similar situation
+has been described in Ref. [96].
+In the general asym-
+metric case, however, both the swap phase and static-
+order phase exist in 3D. Nevertheless, we did not observe
+any direct phase transition between the two. Figures 32
+and 33 show that the transition between them, when ˜K+
+is fixed and ˜J and ˜K are varied, is mediated by an inter-
+mediate disordered region. Unlike the 3D droplet regime
+with fully anti-symmetric interactions whose fate is left
+undetermined (Sec. IX B), here the intermediate regime
+shows convergence to a state with R = 0, i.e., disorder. A
+snapshot of θ of a 2D slice in the intermediate disordered
+regime is shown in the inset in Fig. 33a. Large regions of
+aligned spins, either in ↑↑or ↓↓state, coexist with some
+defects on the boundaries between them, similar to the
+2D disorder discussed in Sec. XII B. In Appendix G, the
+order parameters on additional cuts through the phase
+diagram are shown (one with a fixed value of ˜J and an-
+other with a fixed value of ˜K−). These cuts support the
+same conclusion: the transition between swap to static
+order we observed is mediated by disorder.
+E.
+Schematic phase diagram in the general
+asymmetric case
+A schematic drawing of the 2D and 3D phase diagram
+with a fixed non-zero ˜K+ is shown in Fig. 35. In 2D,
+our numerical results suggest that there are stable dis-
+order and static-order phases (but no swap), while in
+3D, our numerical results suggest that all the phases
+predicted by mean-field: disorder, swap, and static or-
+der, are stable. We expect the disorder-to-swap phase
+transition to be characterized by the same critical expo-
+nents as in Sec. VIII A (compatible with 3D XY), at least
+throughout a portion of the phase transition line. Other
+portions may be described by first-order-like phase tran-
+sitions. Similarly, we hypothesize that the phase transi-
+tion from disorder to static order in both 2D and 3D has
+Ising critical exponents in the regime where K+ > K−,
+but might be first-order-like in the opposite K+ < K−
+regime (see Fig. 32a in which the K+ < K−phase tran-
+sition seems more abrupt than the K+ > K−phase tran-
+sition). Finally, we cannot exclude that the three phases
+in 3D meet at a tricritical point (or line in the three-
+dimensional phase diagram).
+XIII.
+CONCLUSIONS
+We introduced a nonreciprocal Ising model as a min-
+imal model for nonreciprocal many-body dynamics, and
+studied the stability of its static and time-dependent
+phases along with the transitions between them.
+Our
+main result is the stability of a time-dependent (swap)
+phase in 3D, which behaves as a time-crystal with in-
+finite coherence time in the thermodynamic limit. The
+phase transition from disorder to swap is characterized
+by critical exponents compatible with the 3D XY model,
+which can be rationalized by the breaking of a continu-
+
+30
+(a)
+(b)
+(c)
+Stable
+Unstable
+Saddle
+Hopf
+SNIC
+SN
+PF
+PF
+SN
+PF
+SN
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+-0.5
+0.5
+Fig. 29. Bifurcations in the general asymmetric case. Flow in (mA, mB) space calculated from the spatially homogeneous
+full mean-field equation, Eq. (23), for ˜K−= 0.2, and (a) ˜K+ = 0.1, (b) ˜K+ = 0.3, and (c) ˜K+ = 1.1. In each panel, ˜J is
+increased from left to right to capture the different phase portraits. In (a) ˜J = 0.4, 1.2, 1.5, 1.7, in (b) ˜J = 0.4, 0.9, 1.4, 2 and
+in (c) ˜J = 0.1, 2.3, 3.1. The arrows mark the bifurcations that connect every two configurations: Hopf, saddle-node on an
+invariant circle (SNIC), saddle-node (SN) or pitchfork (PF).
+ous symmetry (time translation) in the swap phase. The
+existence of a swap phase in 3D is robust and holds for
+fully anti-symmetric interactions between the species as
+well as the more general asymmetric interactions case.
+Based on simulations and theoretical arguments, we
+predict that the static-order (ferromagnetic) phase is un-
+stable in any finite dimension for fully anti-symmetric
+interactions. The instability is caused by the expansion
+of droplets of opposite magnetization occurring in the
+metastable species. When the inter-species interaction
+is not fully anti-symmetric, a competing mechanism of
+droplet-capture by the other species can re-stabilize the
+static-order phase. A direct phase transition between a
+time-dependent phase and a static-ordered phase, how-
+ever, was not observed.
+Code availability — The code used for performing the
+Monte-Carlo simulations, computing the critical expo-
+nents, and plotting the mean-field phase portrait is avail-
+able under the 2-clause BSD license at https://doi.
+org/10.5281/zenodo.14816551
+ACKNOWLEDGMENTS
+We thank G. Biroli, S. Diehl, O. Granek, M. Han, T.
+Khain, P. Littlewood, R. Mandal, D. Mukamel, S. Sethi,
+S. Sondhi, G. A. Weiderpass, C. Weiss, and T. Witten
+for helpful discussions.
+Y.A., D.S. and M.F. acknowl-
+edge support from a MRSEC-funded Kadanoff-Rice fel-
+lowship and the University of Chicago Materials Research
+Science and Engineering Center, which is funded by the
+National Science Foundation under award no.
+DMR-
+2011854.
+Y.A. acknowledges support from the Zuck-
+erman STEM Leadership Program.
+D.M., M.F., and
+V.V acknowledge support from the France Chicago cen-
+ter through a FACCTS grant. M.F. acknowledges sup-
+port from the National Science Foundation under grant
+no. DMR-2118415 and the Simons Foundation. V.V. ac-
+knowledges partial support from the Army Research Of-
+fice under grant nos. W911NF-22-2-0109 and W911NF-
+23-1-0212 and the Theory in Biology program of the
+Chan Zuckerberg Initiative.
+This research was partly
+
+31
+Hopf
+SNIC
+Static order
+Disorder
+Swap
+Mean Field, ˜K + ≠0
+Pitchfork
+1
+2
+0
+0.4
+0.8
+Fig. 30.
+Mean-field phase diagram of the general
+asymmetric case. The diagram is shown as a function of ˜J
+and ˜K−, with the reciprocal inter-species interaction coupling
+set to ˜K+ = 0.3. The saddle-node bifurcations illustrated in
+Fig. 29 are not drawn in this plot. Obtained from numerical
+analysis of the spatially homogeneous Eq. (23).
+supported by the National Science Foundation through
+the Center for Living Systems (grant no. 2317138) and
+the National Institute for Theory and Mathematics in
+Biology (NITMB). All the authors acknowledge the sup-
+port of the UChicago Research Computing Center which
+provided the computing resources for this work.
+Appendix A: Measurements of time-reversal
+symmetry breaking
+As shown in Sec. IV B, nonreciprocal coupling breaks
+detailed balance, and therefore time-reversal symmetry.
+This is a statement about the dynamics of our system.
+The dynamics can be related to thermodynamic observ-
+ables - such as heat, work, and entropy - under the lo-
+cal detailed balance condition [156-158, 236-238]. As we
+don't explicitly model the environment of our system, the
+local detailed balance condition is a hypothesis. Specifi-
+cally, local detailed balance relates the entropy produced
+by a state transition (here, a spin flip) to the transition
+rates w(F α
+i ⃗σ|⃗σ) via
+∆Ssingle flip = ln w (F α
+i ⃗σ|⃗σ)
+w (⃗σ|F α
+i ⃗σ).
+(A1)
+Here entropy is given in units of kB. By summing over a
+series of transitions in a specified trajectory, the above ex-
+pression gives the total entropy produced by that trajec-
+tory. For example, Eq. (17) gives the entropy produced
+by a specific cycle of spin states.
+To characterize the steady states of the system, it is
+more convenient to measure the average entropy produc-
+tion rate. This is given by (see §6.2.2 of [156] for deriva-
+1
+2
+3
+4
+˜J
+0.0
+0.5
+1.0
+R
+20
+40
+80
+160
+1
+2
+3
+4
+˜J
+0.00
+0.01
+0.02
+L
+˜K+
+0.0
+0.5
+1.0
+R
+20
+40
+80
+160
+0.0
+0.1
+0.2
+0.3
+0.4
+˜K+
+0.00
+0.02
+0.05
+L
+(a)
+(c)
+(b)
+(d)
+Fig. 31. No stable swap phase in 2D in the general
+asymmetric case. (a) R and (b) L as a function of ˜J for
+˜K+ = 0.1 and ˜K−= 0.3 shown for different linear system size
+L. Inset: Snapshot of the θ field (taken after steady state is
+reached) in a simulation with ˜J = 2.5 and L = 80, and the
+same ˜K+ and ˜K−as the main plots. The snapshot reveals
+defects with blue and brown regions (↑↑and ↓↓, respectively),
+being more abundant than yellow and purple regions (↓↑and
+↑↓, respectively). (c) R and (d) L as a function of ˜K+ for
+˜J = 2 and ˜K−= 0.3 and for different system sizes. Obtained
+from MC simulations.
+tion)
+˙S =
+X
+i,α
+
+w (F α
+i ⃗σ|⃗σ) ln w (F α
+i ⃗σ|⃗σ)
+w (⃗σ|F α
+i ⃗σ)
+
+t,Ω
+,
+(A2)
+where ⟨. . .⟩t,Ωis an average over time and realizations.
+Using the Glauber transition rate, Eq. (8), we obtain
+
+32
+1.0
+1.5
+2.0
+2.5
+˜J
+0
+0.3
+1
+˜K°
+1.0
+1.5
+2.0
+2.5
+˜J
+0
+0.3
+1
+˜K°
+0.0
+0.5
+1.0
+R
+0.0
+0.1
+0.2
+0.3
+L
+(a)
+(b)
+Fig. 32. Order parameters in 3D in the general asym-
+metric case. (a) R and (b) L color map as a function of
+˜J and ˜K−with ˜K+ = 0.1 and L = 80. Dashed grey lines
+show the fixed ˜K−cut analyzed in Fig. 33. Obtained from
+MC simulations.
+that the entropy production rate per spin is
+˙s = −1
+Ld
+X
+i,α
+
+1 −tanh
+ ∆Eα
+i
+2kBT
+ ∆Eα
+i
+2kBT
+
+t,Ω
+.
+(A3)
+where τ was taken as 1 in simulation time.
+The entropy production rate in Eq. (A3) is a micro-
+scopic measurement of time-reversal symmetry breaking.
+By contrast, the phase space angular momentum L =
+⟨MB∂tMA −MA∂tMB⟩t,Ωintroduced in Eq. (51) of the
+main text is a macroscopic measurement of time-reversal
+symmetry breaking.
+Coarse-graining from micro- to
+macroscopic variables is known to give a lower bound
+to the true entropy production rate [156], below we will
+show that L is proportional to the coarse-grained (meso-
+scopic) entropy production rate, denoted by ˙S, only for
+cases where the fluctuations in magnetization are negligi-
+ble compared with the average magnetization and if one
+considers the dynamics of the mean-field equation with
+added noise in the mα ≪1 limit.
+To see this, we work with the mean-field equation of
+the fully anti-symmetric case expanded around mα ≪1,
+Eq. (30), as a stochastic PDE with white noise,
+∂tmα = −(1 −˜J)mα + ˜Kεαβmβ + D∇2mα
+−1
+3
+
+˜Jmα + ˜Kεαβmβ
+3
++ ηα.
+(A4)
+where the white noise field satisfies ⟨ηα(⃗r, t)⟩= 0 and
+⟨ηα(⃗r, t)ηβ(⃗r ′, t′)⟩= ζδαβδ(⃗r −⃗r ′)δ(t −t′). This can be
+rewritten as
+∂tmα = −δF
+δmα
++ Aα + ηα,
+(A5)
+where −δF/δma are conservative forces derived by the
+variation of a free energy
+F =
+Z
+d⃗r
+(1 −˜J)
+2
+ m2
+A + m2
+B
+
++
+˜J3
+12
+ m4
+A + m4
+B
+
++ 1
+2
+˜J ˜K2m2
+Am2
+B + D
+2
+
+|∇mA|2 + |∇mB|2 
+,
+˜J
+0
+0.5
+1
+R
+1.0
+1.5
+2.0
+˜J
+0
+0.05
+0.1
+L
+L
+20
+40
+80
+160
+(a)
+(b)
+Fig. 33. Phase transition from disorder to swap in 3D
+in the general asymmetric case. (a) R and (b) L as a
+function ˜J with ˜K+ = 0.1 and ˜K−= 0.3, for different system
+sizes. The inset in panel a shows a snapshot of θ in a 2D slice
+of the 3D system (taken after steady state is reached), with
+˜J = 2, L = 80, and the same ˜K+ and ˜K−values as in the
+main panel. Obtained from MC simulations.
+and Aa are the non-conservative forces on the right-hand
+side of Eq. (A4),
+Aα =
+X
+β
+εαβaαβ
+(A6)
+aαβ = ˜Kmβ −˜J2 ˜Km2
+αmβ −1
+3
+˜K3m3
+β .
+(A7)
+Finally, we introduce the path probability functional of
+observing a trajectory m(⃗r, t) as
+P[m(⃗r, t)] = exp (−A[m(⃗r, t)])
+Z
+,
+(A8)
+where m ≡(mA, mB), Z is a normalization constant,
+and A[m(⃗r, t)] is the action, which can be found using
+path-integral techniques [229, 239-242] to be
+A[m(⃗r, t)] = 1
+ζ
+Z
+d⃗rdt
+X
+α
+
+∂tmα + δF
+δmα
+−Aα
+2
+.
+(A9)
+
+33
+æA
+æB
+µ
+time
+Fig. 34.
+Droplet capture mechanism.
+MC simulation
+snapshots of a 2D system with ˜J = 3.3, ˜K+ = 0.1, ˜K−= 0.3,
+and L = 150. See Movie 5 for the full evolution. Each row
+displays a distinct time step, with time ascending from top to
+bottom. Species B nucleates a droplet, but before it reaches
+system size, a nested droplet of A-spins nucleates and expands
+at faster speed, eventually catching up with the boundaries of
+the B-droplet, making it shrink and disappear. This mecha-
+nism can stabilize the static-order phase when ˜K+ < ˜K−.
+The average entropy production rate for a trajectory
+is written in terms of P and of the probability eP of ob-
+serving the trajectory under time-reversal as [243]
+˙S = lim
+T →∞
+1
+T
+
+ln P
+eP
+
+Ω
+= lim
+T →∞
+⟨e
+A −A⟩Ω
+T
+(A10)
+where T here is the trajectory duration and the average is
+over noise realizations [244]. As we do not have magnetic
+forces, finding e
+A amounts to taking t →−t, which only
+affects the time derivative terms in Eq. (A9), giving
+e
+A[m(⃗r, t)] = 1
+ζ
+Z
+d⃗rdt
+X
+α
+
+−∂tmα + δF
+δmα
+−Aα
+2
+.
+(A11)
+Disorder
+Disorder
+Static order
+?
+Static order
+(a)
+(b)
+Swap
+Fig. 35.
+Schematic phase diagram of the general
+asymmetric case in (a) 2D and (b) 3D, shown as a func-
+tion of ˜J and ˜K−, with fixed (non-zero) ˜K+. The nature of
+the phase transition lines are left unspecified, see discussion
+in Sec. XII E. The question mark represents the uncertainty
+regarding whether the swap and static-order phases meet at
+a point or are strictly separated by disorder.
+Plugging Eqs. (A9) and (A11) into Eq. (A10), we find
+˙S = lim
+T →∞
+4
+ζT
+*Z
+d⃗rdt
+X
+α
+
+Aα −δF
+δmα
+
+∂tmα
++
+Ω
+= lim
+T →∞
+4
+ζT
+*Z
+d⃗rdt
+X
+α
+(Aα∂tmα) −∆F
++
+Ω
+= lim
+T →∞
+4
+ζT
+*Z
+d⃗rdt
+X
+α
+Aα∂tmα
++
+Ω
+= lim
+t→∞
+4
+ζT
+Z
+d⃗rdt (aAB∂tmA −aBA∂tmB)
+
+Ω
+= 4
+ζ
+Z
+d⃗r ⟨aAB∂tmA −aBA∂tmB⟩t,Ω.
+(A12)
+To go from the first to second line, we identified the
+total time derivative of the free energy, dF/dt
+=
+R
+d⃗r P
+α ∂tmα (δF/δmα). To go from the second to the
+third line, we used the fact that the ∆F is a constant,
+which will contribute zero to ˙S when the limit T →∞
+is taken. In the last equality we replaced
+1
+T
+R
+dt ... with
+a time average ⟨...⟩t. For small mα, non-linear terms can
+be dropped and aαβ ≃˜Kmβ, leading to
+˙S = 4 ˜K
+ζ
+Z
+d⃗r⟨mB∂tmA −mA∂tmB⟩t,Ω.
+(A13)
+Finally, we assume small fluctuations around the mean
+magnetization, i.e. mα(⃗r) = Mα + δmα(⃗r), δmα(⃗r) ≪
+Mα, and obtain to leading order,
+˙S = 4 ˜KLd
+ζ
+⟨MB∂tMA −MA∂tMB⟩t,Ω= 4 ˜KLd
+ζ
+L.
+(A14)
+In conclusion, L ∝
+˙S for a mesoscale system obeying
+Eq. (A4) if (i) |mα| ≪1 and (ii) δmα(⃗r) ≪Mα. Un-
+der these two approximations, and in the vicinity of the
+
+34
+Hopf bifurcation, Eq. (A4) can be reduced into the noisy
+Stuart-Landau equation [85]
+dM
+dt
+= (a −b|M|2)M + H
+(A15)
+where M = MA + iMB, H = ηA + iηB, and a and
+b are complex coefficients.
+Writing the Stuart-Landau
+equation in polar coordinates and eliminating the ra-
+dial equation yields a drift-diffusion equation that sat-
+urates the bound on the entropy production per oscilla-
+tion ∆S ≥4π2N of Ref. [131] mentioned in Sec. VIII B
+(here, N ≡τc/Tosc where τc is the coherence time and
+Tosc is the period of oscillation). Indeed, it is shown in
+Ref. [245, SM § III] that in this case, the rate of en-
+tropy production is ˙S = f 2τc in which f = 2π/Tosc, and
+∆S = Tosc ˙S saturates the bound. We refer to Ref. [245]
+for more details.
+While L can be measured in any state, in general one
+will have L ̸= ˙S, and no conclusion about entropy pro-
+duction in terms of phase space angular momentum can
+be made.
+We calculate the entropy production rate per spin in
+the 3D NR Ising model using MC simulations. Figure 36
+shows ˙s for L = 40 and L = 80, as a function of the
+coupling ˜J. The curves overlap, which shows that ˙s is
+independent of system size for large systems. ˙s decreases
+monotonically with ˜J, as stronger nearest-neighbor cou-
+pling slows down the cycle rate of individual spin-pairs.
+By contrast, L is non-zero only in the swap phase. For
+˜J = 1.6 and
+˜K = 0.1, we compare ˙s to the lower-
+bound given by the temporal autocorrelation function
+in Eq. (67), where Tosc is found by measuring the aver-
+age oscillation time and τc is given by the fit in Fig. 17.
+Indeed, ˙s exceeds the lower bound by a factor of about
+10.
+Appendix B: 1D NR Ising model
+We simulate the one-dimensional NR Ising model, with
+fully anti-symmetric interactions, using random picking
+Glauber dynamics as in the 2D simulations (see Sec. VI).
+The order parameters R and L as a function of ˜J and for
+fixed ˜K are shown in Fig. 37a and Fig. 37b, respectively,
+while kymographs of θ with different ˜J and ˜K values are
+shown in Fig. 37c.
+The 1D NR Ising model does not have a phase tran-
+sition to an ordered state (either static or time depen-
+dent), as is evident from the decrease of R and L as sys-
+tem size increases. Similarly to the 1D Ising model, as
+L increases, domains of opposite magnetization emerge
+and the system becomes disordered.
+However, unlike
+the Ising model, the boundaries between the domains do
+not diffuse but move with non-zero velocity (see Fig. 37c
+where the kymograph slope indicates the velocity). Do-
+mains expand in a way that can be viewed as the 1D
+version of droplet growth discussed in Sec. IX.
+1.5
+2
+˜J
+0
+0.025
+0.05
+˙s, L
+˙s for L = 40
+˙s for L = 80
+L for L = 80
+lower bound ˙s∗
+Fig. 36.
+Measurements of time-reversal symmetry
+breaking in the 3D NR Ising model. Entropy produc-
+tion rate per spin, ˙s (blue and orange squares, calculated from
+Eq. (A3)), and phase space angular momentum, L (green
+dots), as a function of ˜J for fixed ˜K = 0.1. Theoretical lower
+bound for ˙s, ˙s∗=
+4π2
+T 2
+osc
+τc(L)
+Ld
+(Eq. (67)), at ˜J = 1.6, is shown
+as a red star, where Tosc was measured to be Tosc = 120 and
+τc/L3 was taken as 0.32 in accordance with the fit in Fig. 17.
+˙s∗= 9 × 10−4 while ˙s = 0.01 at ˜J = 1.6.
+Appendix C: The effect of different update rules
+Out of equilibrium, different update rules may change
+the steady state of the system. To study this effect in the
+NR Ising model, we performed simulations with random
+sequential updates, checkerboard updates [173], and syn-
+chronous updates (in which all the spins are updated at
+the same time) [246]. Additionally, we used the Metropo-
+lis algorithm [186] and compared it to the Glauber which
+was used throughout the paper.
+For fixed coupling parameters ( ˜J and ˜K), the differ-
+ent update rules changed the dynamics in steady state.
+However, they did not lead to qualitative changes in the
+phase diagram. That way, the critical point ˜Jc, for some
+fixed ˜K, is altered, but not the existence / destabiliza-
+tion of a phase transition. As an example, we show in
+Fig. 38 that the phase transition from disorder to swap in
+3D, as characterized by the variation of the order param-
+eter R as a function of ˜J, is qualitatively the same when
+using random sequential updates (standard Glauber al-
+gorithm), as it is with the checkerboard algorithm, which
+was used to produced Fig. 12a.
+We did not find any qualitative difference related to
+phase transitions.
+The only notable difference is that
+with synchronous updates, fluctuations were consider-
+ably larger due to "checkerboard patterns" (small re-
+gions in which each spin is anti-aligned with its same-
+species neighbors) that frequently appeared and then dis-
+appeared.
+
+35
+0
+0.5
+1
+R
+L
+20
+40
+80
+160
+1
+3
+5
+˜J
+0
+0.02
+0.04
+L
+x
+x
+0
+500
+1000
+t
+x
+0
+500
+1000
+t
+(a)
+(b)
+(c)
+1D NR Ising
+Fig. 37.
+1D NR Ising model.
+(a) R and (b) L as a
+function of ˜J for ˜K = 0.3 and different linear system size
+L. (c) Kymographs of θ for ˜J = 3 (left) and ˜J = 4 (right),
+comparing the Ising model ( ˜K = 0, top) with the NR Ising
+model ( ˜K = 0.2, middle and ˜K = 0.5, bottom). System size
+is L = 500. Obtained from MC simulations.
+Appendix D: Simulations of the mean-field equation
+in 2D
+We simulate the full mean-field equation on a grid
+(Eq. (21)) in 2D in the fully anti-symmetric case and
+in the regime corresponding to a stable swap phase (see
+Fig. 4). Results are shown in Fig. 39. Depending on ini-
+tial conditions, the system can end up in different states.
+An initially ordered state leads to a stable swap phase
+1.5
+2.0
+2.5
+˜J
+0.0
+0.5
+1.0
+R
+L
+20
+40
+80
+160
+Fig. 38. Qualitative agreement between two Monte-
+Carlo update rules. R as a function of ˜J for ˜K = 0.3 and
+different linear system size L, calculated from MC simulations
+with random spin update rule instead of the checkerboard
+update which is used in Fig. 12a. Red semi-transparent line
+shows the checkerboard update results for L = 160. Results
+are qualitatively the same as in Fig. 12a although exact ˜Jc
+value varies.
+Averages are taken over a smaller number of
+realizations than in Fig. 12a, making the high ˜J data noisy.
+where the θ field changes periodically and homogeneously
+(Fig. 39, first row), while an initially fully disordered
+state (mA and mB are chosen randomly at each point to
+be either +0.1 or −0.1) reaches a stable state with spi-
+ral defects, whose cores barely move over time (Fig. 39,
+second row).
+We test the effect of adding noise to the mean-field
+equation by writing,
+dmα
+i
+dt
+= −mα
+i
+τ +1
+τ tanh
+ 
+J P
+j nn of i mα
+j + Kεαβmβ
+i
+kBT
+!
++ηα
+i .
+(D1)
+where ηα
+i
+is white noise satisfying ⟨ηα
+i ⟩
+=
+0 and
+⟨ηα
+i (t) ηβ
+j (t′)⟩= ζδαβδijδ (t −t′).
+Above some critical
+ζ, and for fixed system size, we observed that even when
+the system is initialized in an ordered state, spiral de-
+fects eventually form over time. (see Fig. 39, third row).
+Moreover, they are qualitatively similar to those ob-
+served when random initial conditions are implemented
+(Fig. 39, fourth row). In that sense, the mean-field equa-
+tion with noise exhibits the same qualitative behavior as
+the Monte-Carlo simulations, where the swap phase is
+unstable in 2D.
+Appendix E: Selfish free energy
+The dynamics of non-conserved fields mα(⃗r, t) with
+α = 1, ..., N (model A) in equilibrium can be written
+
+36
+x
+x
+x
+t
+x
+MF
+Ordered initial 
+conditions
+MF
+Disordered initial 
+conditions
+MF + noise
+Ordered initial 
+conditions
+MF + noise
+Disordered initial 
+conditions
+kymograph
+steady-state snapshots
+Fig. 39.
+The effect of added noise on the mean-field equation in 2D. Simulations of Eq. (D1) in 2D comparing
+the cases of no added noise with added noise and ordered vs. disordered initial conditions. First column is kymographs of
+the θ field for a single row on the 2D system. Second, third, and forth columns are snapshots of the mA, mB, and θ fields,
+respectively, taken after the system has reached steady state. Without added noise, the steady state is a homogeneous swap
+phase for ordered initial conditions and an inhomogeneous spiral phase for disordered initial conditions. With enough added
+noise, the swap phase is unstable even with ordered initial conditions and spiral defects are formed for both initialization
+types. Simulations were performed using the Euler-Maruyama method with a time step ∆t = 0.05. Noise amplitude for the
+case of added noise is ζ = 0.36, and other system parameters are:
+˜J = 2, ˜K = 0.8, L = 200, and τ = 1. At t = 0, we set
+mA, mB = 1 ± 0.1 for ordered initial conditions and mA, mB = ±0.1 for disordered initial conditions, where the plus/minus
+sign is chosen at random for each spin. Kymographs show evolution between t = 9900 and t = 10000.
+as [27, 223, 247]
+∂tmα(⃗r, t) = −µδF[m1, ..., mN]
+δmα(⃗r, t)
++ ηα(⃗r, t)
+(E1)
+where F is the effective free energy functional, µ is a gen-
+eralized mobility, and ηα is a white noise field satisfying
+⟨ηα(⃗r, t)⟩= 0 and ⟨ηα(⃗r, t)ηβ(⃗r ′, t′)⟩= ζδαβδ(⃗r−⃗r ′)δ(t−
+t′) where ζ = 2µkBT.
+For nonreciprocal systems, there is no global F gener-
+ating the dynamics. However, we extend the notion of a
+free energy by writing the dynamics of the two magneti-
+zation fields mA and mB as
+∂tmα(⃗r, t) = −µδFα[mA, mB]
+δmα(⃗r, t)
++ ηα(⃗r, t)
+(E2)
+where Fα is the selfish free energy of the α-species. We
+set µ = 1 and use Eq. (30) (interpreted as the mean-field
+version of Eq. (E2)) to obtain the selfish free energies of
+the nonreciprocal Ising model in the fully anti-symmetric
+
+37
+Disorder
+Static order
+Swap
+(a)
+(b)
+(c)
+-1
+0
+1
+0
+0.05
+0.1
+-1
+0
+1
+-0.1
+0
+0.1
+-1
+0
+1
+0
+0.05
+0.1
+-1
+0
+1
+0
+0.05
+0.1
+-1
+0
+1
+0
+0.05
+0.1
+-1
+0
+1
+0
+0.05
+0.1
+A-species
+B-species
+Fig. 40. Selfish free-energy landscape. FA as a function of mA (blue) and FB as a function of mB (red) in zero-dimension
+NR Ising model. Obtained by solving numerically the spatially homogeneous Eq. (30) in steady state, and substituting mA(t)
+and mB(t) into FA and FB defined in Eq. (E4), respectively. Actual mA and mB values are shown as disks. (a) Disorder,
+˜J = 0.9, (b) swap, ˜J = 1.11, and (c) static order, ˜J = 1.3; in all plots ˜K = 0.1. In panel a, A and B lines as well as disks are
+identical and therefore only B is shown.
+case,
+FA =
+Z
+d⃗r
+1
+2(1 −˜J) m2
+A −˜KmAmB + D
+2 |∇mA|2
++
+1
+12 ˜J
+
+˜JmA + ˜KmB
+4 
+(E3)
+FB =
+Z
+d⃗r
+1
+2(1 −˜J) m2
+B + ˜KmAmB + D
+2 |∇mB|2
++
+1
+12 ˜J
+
+˜JmB −˜KmA
+4 
+.
+Equation (E3) can be viewed as the free-energy landscape
+that each species "sees", where the free-energy landscape
+of A changes with mB and vice versa.
+We now restrict ourselves to the zero-dimensional case,
+where the selfish free energies become the functions
+FA = 1
+2(1 −˜J) m2
+A −˜KmAmB +
+1
+12 ˜J
+
+˜JmA + ˜KmB
+4
+(E4)
+FB = 1
+2(1 −˜J)m2
+B + ˜KmAmB +
+1
+12 ˜J
+
+˜JmB −˜KmA
+4
+.
+In order to visualize the free-energy landscape of each
+species at a given state, we solve the spatially homoge-
+neous mean-field equation (Eq. (30)) and substitute the
+mB(t) solution into FA and the mA(t) solution into FB.
+Snapshots of the steady-state free-energy landscape are
+shown in Fig. 40, for the disordered, swap, and static-
+order phases. The actual values of mA and mB in steady
+state are shown as disks moving on the free-energy land-
+scape.
+In the disordered phase (Fig. 40a), both mA and mB
+are in the global minimum of their respective free en-
+ergies.
+In the swap phase (Fig. 40b), the free-energy
+landscape of each species changes continuously. While
+one species is momentarily in a global minimum, the
+other species is descending along the free-energy land-
+scape which changes the free-energy landscape of the first
+species and so on. In the static-order phase (Fig. 40c),
+one of the species is at its global minimum while the sec-
+ond is in a local minimum, that is not the global one.
+This configuration is stable in mean-field, but once noise
+is introduced, it becomes metastable: the second species
+will "jump" over the barrier and reach global minimum,
+making the first species metastable and the cycle repeats
+itself. In a spatially extended system, this transition hap-
+pens via droplet nucleation and growth as depicted in
+Sec. IX.
+Appendix F: Color maps of the order parameters in
+2D in the general asymmetric case
+Figure 41 shows color maps of R and L as a function
+of ˜J and ˜K−with a fixed non-zero value of ˜K+, for a
+2D system with L = 20 (panels a-b) and L = 80 (panels
+c-d). For L = 20 the phase diagram resembles the mean-
+field prediction (Fig. 30), which includes a swap phase.
+However, for L = 80 both R and L diminish and there
+is no apparent swap phase, supporting the conclusions of
+Sec. XII B.
+Appendix G: Color maps of the order parameters in
+3D in the general asymmetric case
+In the general asymmetric case, the phase diagram is
+three-dimensional as it depends on ˜J, ˜K+, and ˜K−. In
+the main text the order parameters of the 3D system
+
+38
+2
+4
+˜J
+0
+1
+˜K°
+2
+4
+˜J
+0
+1
+˜K°
+2
+4
+˜J
+0
+1
+˜K°
+2
+4
+˜J
+0
+1
+˜K°
+0
+1
+0.0
+0.1
+(a)
+(b)
+(c)
+(d)
+Fig. 41. Color maps of the order parameters in 2D
+in the general asymmetric case with fixed (non-zero)
+˜K+. (a) R and (b) L color maps as a function of ˜J and ˜K−,
+with ˜K+ = 0.1 and L = 20. (c-d) The same with L = 80.
+Obtained from MC simulations.
+were calculated from MC simulations as a function of ˜J
+and ˜K−for a fixed value of ˜K+ (Fig. 32).
+Figure 42
+shows the order parameters on additional cuts through
+the three-dimensional phase diagram, both for a fixed
+value of ˜J and for a fixed value of ˜K−, for a 3D system
+of linear size L = 80. In both cuts, the three phases of
+disorder (R = 0 and L = 0), swap (R ̸= 0 and L ̸= 0)
+and static-order (R ̸= 0 and L = 0) are visible. However,
+the transition between the swap phase and the static-
+order phase is mediated by a disordered phase, as was
+also pointed out in Sec. XII D. The only region where a
+direct transition appears to occur is in the ˜K+ →0 limit,
+see the bottom-left part of Fig. 42a-b and the upper-left
+part of Fig. 42c-d. However, in this case, the static-order
+phase is predicted to be unstable due to droplet growth as
+discussed in Sec. IX, and therefore this direct transition
+is only observed in finite systems.
+Appendix H: Supplementary movies
+Movie 1: Evolution in 2D from droplet-induced oscilla-
+tions to disorder caused by spiral defects. Obtained from
+MC simulations with parameters: L = 150, ˜J = 2.8, and
+˜K = 0.3.
+Movie 2: 3D stable swap phase in steady state. Ob-
+tained from MC simulations with parameters: L = 80,
+˜J = 1.5, and ˜K = 0.1.
+Movie 3: 3D system coarsening from a fully disordered
+state to scroll waves, and finally to global oscillations.
+Obtained from MC simulations with parameters: L =
+80, ˜J = 2.1, and ˜K = 0.3. Line defects of scroll waves
+are found by coarse-graining the microscopic system as
+explained in Sec. X with l = 3 and smax = 0.2.
+Movie 4: Destruction of the static-order phase in 2D
+by droplet growth, shown as a function of system size.
+Obtained from MC simulations with parameters: ˜J = 2.8
+and ˜K = 0.3.
+Movie 5:
+Droplet-capture mechanism in a 2D sys-
+tem when inter-species interactions are not fully anti-
+symmetric. Obtained from MC simulations with param-
+eters: L = 150, ˜J = 3.3, ˜K+ = 0.1, and ˜K−= 0.3.
+[1] H. Sompolinsky and I. Kanter, Temporal association in
+asymmetric neural networks, Physical review letters 57,
+2861 (1986).
+[2] B. Derrida, E. Gardner, and A. Zippelius, An exactly
+solvable asymmetric neural network model, Europhysics
+Letters (EPL) 4, 167-173 (1987).
+[3] G. Parisi, Journal of Physics A: Mathematical and Gen-
+eral 19, L675-L680 (1986).
+[4] H. Hong and S. H. Strogatz, Kuramoto model of coupled
+oscillators with positive and negative coupling parame-
+ters: An example of conformist and contrarian oscilla-
+tors, Physical Review Letters 106, 054102 (2011).
+[5] H. Hong and S. H. Strogatz, Conformists and contrari-
+ans in a kuramoto model with identical natural frequen-
+cies, Physical Review E 84, 046202 (2011).
+[6] J. Garnier-Brun, M. Benzaquen, and J.-P. Bouchaud,
+Unlearnable games and "satisficing" decisions: A sim-
+ple model for a complex world, Physical Review X 14,
+021039 (2024).
+[7] V. Ros, F. Roy, G. Biroli, G. Bunin, and A. M. Turner,
+Generalized lotka-volterra equations with random, non-
+reciprocal interactions: The typical number of equilib-
+ria, Physical Review Letters 130, 257401 (2023).
+[8] J. Bascompte, P. Jordano, and J. M. Olesen, Asymmet-
+ric coevolutionary networks facilitate biodiversity main-
+tenance, Science 312, 431-433 (2006).
+[9] M. Loreau and C. de Mazancourt, Biodiversity and
+ecosystem stability: a synthesis of underlying mecha-
+nisms, Ecology Letters 16, 106-115 (2013).
+[10] R. May and A. McLean, Theoretical Ecology: Principles
+and Applications, Theoretical Ecology: Principles and
+Applications (OUP Oxford, 2007).
+[11] E. I. R. Chiacchio, A. Nunnenkamp, and M. Brunelli,
+Nonreciprocal dicke model, Physical Review Letters
+131, 113602 (2023).
+[12] A. Metelmann and A. A. Clerk, Nonreciprocal photon
+transmission and amplification via reservoir engineer-
+ing, Physical Review X 5, 021025 (2015).
+[13] A.
+Clerk,
+Introduction
+to
+quantum
+non-reciprocal
+interactions:
+from
+non-hermitian
+hamiltonians
+to
+
+39
+0.0
+0.1
+0.2
+˜K+
+0.0
+0.2
+0.4
+0.6
+˜K°
+˜J = 1.5
+0.0
+0.2
+0.1
+0.2
+˜K+
+0.0
+0.2
+0.4
+0.6
+˜K°
+˜J = 1.5
+0.0
+0.1
+0.2
+˜K+
+1.0
+1.5
+2.0
+2.5
+˜J
+˜K° = 0.3
+0.0
+0.1
+0.2
+˜K+
+1.0
+1.5
+2.0
+2.5
+˜J
+˜K° = 0.3
+0.0
+0.5
+1.0
+R
+0.0
+0.1
+0.2
+L
+0.0
+0.5
+1.0
+R
+0.0
+0.1
+0.2
+L
+(a)
+(b)
+(c)
+(d)
+Fig. 42. Color maps of the order parameters in 3D in the general asymmetric case for a fixed value of ˜J and
+for a fixed value of ˜K−. (a) R and (b) L color maps as a function of ˜K+ and ˜K−with ˜J = 1.5 and L = 80. (c) R and (d)
+L color maps as a function ˜K+ and ˜J with ˜K−= 0.3 and L = 80. Obtained from MC simulations.
+quantum master equations and quantum feedforward
+schemes, SciPost Physics Lecture Notes 10.21468/sci-
+postphyslectnotes.44 (2022).
+[14] S. Saha, J. Agudo-Canalejo, and R. Golestanian, Scalar
+active mixtures: The nonreciprocal cahn-hilliard model,
+Physical Review X 10, 041009 (2020).
+[15] Z. You, A. Baskaran, and M. C. Marchetti, Nonreciproc-
+ity as a generic route to traveling states, Proceedings of
+the National Academy of Sciences 117, 19767 (2020).
+[16] M. Fruchart, R. Hanai, P. B. Littlewood, and V. Vitelli,
+Non-reciprocal phase transitions, Nature 592, 363
+(2021).
+[17] T. Frohoff-Hülsmann and U. Thiele, Nonreciprocal
+cahn-hilliard model emerges as a universal amplitude
+equation, Physical Review Letters 131, 107201 (2023).
+[18] N. Rana and R. Golestanian, Defect solutions of the
+nonreciprocal cahn-hilliard model: Spirals and targets,
+Physical Review Letters 133, 078301 (2024).
+[19] F. Brauns and M. C. Marchetti, Nonreciprocal pattern
+formation of conserved fields, Physical Review X 14,
+021014 (2024).
+[20] M. Liu, Z. Hou, H. Kitahata, L. He, and S. Komura,
+Non-reciprocal phase separations with non-conserved
+order parameters, Journal of the Physical Society of
+Japan 92, 093001 (2023).
+[21] K. L. Kreienkamp and S. H. L. Klapp, Clustering and
+flocking of repulsive chiral active particles with non-
+reciprocal couplings, New Journal of Physics 24, 123009
+(2022).
+[22] Y. Avni,
+M. Fruchart,
+D. Martin,
+D. Seara, and
+V. Vitelli, (to be published).
+[23] G. Ódor, Universality classes in nonequilibrium lattice
+systems, Reviews of modern physics 76, 663 (2004).
+[24] D. Mukamel, Phase transitions in nonequilibrium sys-
+tems, Soft and fragile matter , 237 (2000).
+[25] M. Henkel, Non-equilibrium phase transitions (Springer,
+2008).
+[26] C. Godrèche and A. J. Bray, Nonequilibrium stationary
+states and phase transitions in directed ising models,
+Journal of Statistical Mechanics: Theory and Experi-
+ment 2009, P12016 (2009).
+[27] U. C. Täuber, Critical dynamics:
+a field theory ap-
+proach to equilibrium and non-equilibrium scaling behav-
+ior (Cambridge University Press, 2014).
+[28] T. Honjo, T. Sonobe, K. Inaba, T. Inagaki, T. Ikuta,
+Y. Yamada,
+T. Kazama,
+K. Enbutsu,
+T. Umeki,
+R. Kasahara, K.-i. Kawarabayashi, and H. Takesue,
+100,000-spin coherent ising machine, Science Advances
+7, 10.1126/sciadv.abh0952 (2021).
+[29] N. Mohseni, P. L. McMahon, and T. Byrnes, Ising ma-
+chines as hardware solvers of combinatorial optimization
+problems, Nature Reviews Physics 4, 363-379 (2022).
+[30] H. Goto, K. Tatsumura, and A. R. Dixon, Combina-
+torial optimization by simulating adiabatic bifurcations
+in nonlinear hamiltonian systems, Science Advances 5,
+10.1126/sciadv.aav2372 (2019).
+[31] T. Inagaki, Y. Haribara, K. Igarashi, T. Sonobe, S. Ta-
+mate, T. Honjo, A. Marandi, P. L. McMahon, T. Umeki,
+K. Enbutsu, O. Tadanaga, H. Takenouchi, K. Aihara,
+K.-i. Kawarabayashi, K. Inoue, S. Utsunomiya, and
+H. Takesue, A coherent ising machine for 2000-node op-
+timization problems, Science 354, 603-606 (2016).
+[32] A. Lucas, Ising formulations of many np problems, Fron-
+tiers in Physics 2, 10.3389/fphy.2014.00005 (2014).
+[33] H. Goto, Bifurcation-based adiabatic quantum compu-
+tation with a nonlinear oscillator network, Scientific Re-
+ports 6, 10.1038/srep21686 (2016).
+[34] P. Álvarez, D. Pittilini, F. Miserocchi, S. Raamamurthy,
+G. Margiani, O. Ameye, J. del Pino, O. Zilberberg, and
+A. Eichler, Biased ising model using two coupled kerr
+parametric oscillators with external force, Physical Re-
+view Letters 132, 207401 (2024).
+[35] C. Han, M. Wang, B. Zhang, M. I. Dykman, and H. B.
+Chan, Coupled parametric oscillators: From disorder-
+induced current to asymmetric ising model, Physical
+Review Research 6, 023162 (2024).
+[36] D. Amit and D. Amit, Modeling Brain Function: The
+World of Attractor Neural Networks (Cambridge Uni-
+versity Press, 1989).
+[37] M. Mézard and J. Sakellariou, Exact mean-field infer-
+ence in asymmetric kinetic ising systems, Journal of
+Statistical Mechanics: Theory and Experiment 2011,
+L07001 (2011).
+[38] M. Aguilera, S. A. Moosavi, and H. Shimazaki, A uni-
+fying framework for mean-field theories of asymmet-
+ric kinetic ising systems, Nature Communications 12,
+10.1038/s41467-021-20890-5 (2021).
+[39] O. Pourret, P. Na¿m, and B. Marcot, Bayesian Net-
+works: A Practical Guide to Applications, Statistics in
+Practice (Wiley, 2008).
+[40] R. Engelken, F. Wolf, and L. F. Abbott, Lyapunov spec-
+tra of chaotic recurrent neural networks, Physical Re-
+view Research 5, 043044 (2023).
+[41] J. Fernández-Gracia,
+K. Suchecki,
+J. J. Ramasco,
+
+40
+M. San Miguel, and V. M. Eguíluz, Is the voter model a
+model for voters?, Physical Review Letters 112, 158701
+(2014).
+[42] C. Castellano, S. Fortunato, and V. Loreto, Statistical
+physics of social dynamics, Reviews of modern physics
+81, 591 (2009).
+[43] M. Jusup, P. Holme, K. Kanazawa, M. Takayasu,
+I. Romić, Z. Wang, S. Geček, T. Lipić, B. Podobnik,
+L. Wang, W. Luo, T. Klanjšček, J. Fan, S. Boccaletti,
+and M. Perc, Social physics, Physics Reports 948, 1-148
+(2022).
+[44] N. Masuda, Voter models with contrarian agents, Phys-
+ical Review E—Statistical, Nonlinear, and Soft Matter
+Physics 88, 052803 (2013).
+[45] J.
+D.
+Touboul,
+The
+hipster
+effect:
+When
+anti-
+conformists all look the same, Discrete and Continuous
+Dynamical Systems - B 24, 4379-4415 (2019).
+[46] S. D. Yi, S. K. Baek, C.-P. Zhu, and B. J. Kim, Phase
+transition in a coevolving network of conformist and
+contrarian voters, Physical Review E 87, 012806 (2013).
+[47] H. Hong and S. H. Strogatz, Kuramoto model of coupled
+oscillators with positive and negative coupling parame-
+ters: An example of conformist and contrarian oscilla-
+tors, Physical Review Letters 106, 054102 (2011).
+[48] F. Bagnoli and R. Rechtman, Bifurcations in models
+of a society of reasonable contrarians and conformists,
+Physical Review E 92, 042913 (2015).
+[49] J. P. Caulkins, R. F. Hartl, P. M. Kort, and G. Fe-
+ichtinger, Explaining fashion cycles: Imitators chasing
+innovators in product space, Journal of Economic Dy-
+namics and Control 31, 1535-1556 (2007).
+[50] Y. Shi and T. Duke, Cooperative model of bacterial
+sensing, Physical Review E 58, 6399-6406 (1998).
+[51] T. A. J. Duke and D. Bray, Heightened sensitivity of a
+lattice of membrane receptors, Proceedings of the Na-
+tional Academy of Sciences 96, 10104-10108 (1999).
+[52] B. A. Mello and Y. Tu, Quantitative modeling of sen-
+sitivity in bacterial chemotaxis: The role of coupling
+among different chemoreceptor species, Proceedings of
+the National Academy of Sciences 100, 8223-8228
+(2003).
+[53] B. Hu, W. Chen, W.-J. Rappel, and H. Levine, Physical
+limits on cellular sensing of spatial gradients, Physical
+Review Letters 105, 048104 (2010).
+[54] Y. Tu, Quantitative modeling of bacterial chemotaxis:
+Signal amplification and accurate adaptation, Annual
+Review of Biophysics 42, 337-359 (2013).
+[55] D. Hathcock, Q. Yu, and Y. Tu, Time-reversal symme-
+try breaking in the chemosensory array reveals a general
+mechanism for dissipation-enhanced cooperative sens-
+ing, Nature Communications 15, 8892 (2024).
+[56] D. Hathcock,
+Q. Yu,
+B. A. Mello,
+D. N. Amin,
+G. L. Hazelbauer, and Y. Tu, A nonequilibrium al-
+losteric model for receptor-kinase complexes: The role
+of energy dissipation in chemotaxis signaling, Pro-
+ceedings of the National Academy of Sciences 120,
+10.1073/pnas.2303115120 (2023).
+[57] D. M. Sherry, I. R. Graf, S. J. Bryant, T. Emonet, and
+B. B. Machta, Lattice ultrasensitivity produces large
+gain ine. colichemosensing (2024).
+[58] J. J. Hopfield, Neural networks and physical systems
+with emergent collective computational abilities., Pro-
+ceedings of the National Academy of Sciences 79,
+2554-2558 (1982).
+[59] D. Krotov and J. J. Hopfield, Unsupervised learning
+by competing hidden units, Proceedings of the National
+Academy of Sciences 116, 7723-7731 (2019).
+[60] Z.-B. Xu, G.-Q. Hu, and C.-P. Kwong, Asymmetric
+hopfield-type networks: Theory and applications, Neu-
+ral Networks 9, 483-501 (1996).
+[61] H. Sompolinsky, The theory of neural networks: The
+hebb rule and beyond, in Heidelberg Colloquium on
+Glassy Dynamics (Springer Berlin Heidelberg, 1987) p.
+485-527.
+[62] A. Crisanti and H. Sompolinsky, Dynamics of spin sys-
+tems with randomly asymmetric bonds: Langevin dy-
+namics and a spherical model, Physical Review A 36,
+4922-4939 (1987).
+[63] T. Chen and S. Amari, Stability of asymmetric hopfield
+networks, IEEE Transactions on Neural Networks 12,
+159-163 (2001).
+[64] E. M. Izhikevich, Dynamical Systems In Neuroscience
+(MIT Press, 2007).
+[65] C. W. Lynn, E. J. Cornblath, L. Papadopoulos, M. A.
+Bertolero, and D. S. Bassett, Broken detailed bal-
+ance and entropy production in the human brain, Pro-
+ceedings of the National Academy of Sciences 118,
+e2109889118 (2021).
+[66] B. Buča and D. Jaksch, Dissipation induced nonstation-
+arity in a quantum gas, Physical Review Letters 123,
+260401 (2019).
+[67] E. I. R. Chiacchio and A. Nunnenkamp, Dissipation-
+induced instabilities of a spinor bose-einstein condensate
+inside an optical cavity, Physical Review Letters 122,
+193605 (2019).
+[68] N. Dogra, M. Landini, K. Kroeger, L. Hruby, T. Donner,
+and T. Esslinger, Dissipation-induced structural insta-
+bility and chiral dynamics in a quantum gas, Science
+366, 1496-1499 (2019).
+[69] H. C. Nguyen, R. Zecchina, and J. Berg, Inverse statis-
+tical problems: from the inverse ising problem to data
+science, Advances in Physics 66, 197-261 (2017).
+[70] L. Zdeborová and F. Krzakala, Statistical physics of in-
+ference: thresholds and algorithms, Advances in Physics
+65, 453-552 (2016).
+[71] S. L. Dettmer, H. C. Nguyen, and J. Berg, Network
+inference in the nonequilibrium steady state, Physical
+Review E 94, 052116 (2016).
+[72] S. Cocco, S. Leibler, and R. Monasson, Neuronal cou-
+plings between retinal ganglion cells inferred by efficient
+inverse statistical physics methods, Proceedings of the
+National Academy of Sciences 106, 14058-14062 (2009).
+[73] T. Mora and W. Bialek, Are biological systems poised at
+criticality?, Journal of Statistical Physics 144, 268-302
+(2011).
+[74] M. A. Muñoz, Colloquium: Criticality and dynamical
+scaling in living systems, Reviews of Modern Physics
+90, 031001 (2018).
+[75] J. M. Beggs and N. Timme, Being critical of crit-
+icality
+in
+the
+brain,
+Frontiers
+in
+Physiology
+3,
+10.3389/fphys.2012.00163 (2012).
+[76] M. A. Buice and J. D. Cowan, Field-theoretic approach
+to fluctuation effects in neural networks, Physical Re-
+view E 75, 051919 (2007).
+[77] J. D. Cowan, J. Neuman, B. Kiewiet, and W. van Dron-
+gelen, Self-organized criticality in a network of interact-
+ing neurons, Journal of Statistical Mechanics: Theory
+and Experiment 2013, P04030 (2013).
+
+41
+[78] J.
+D.
+Cowan,
+J.
+Neuman,
+and
+W.
+van
+Dronge-
+len, Wilson-cowan equations for neocortical dynam-
+ics, The Journal of Mathematical Neuroscience 6,
+10.1186/s13408-015-0034-5 (2016).
+[79] C. Borile, A. Maritan, and M. A. Muñoz, The effect of
+quenched disorder in neutral theories, Journal of Statis-
+tical Mechanics: Theory and Experiment 2013, P04032
+(2013).
+[80] D. J. Watts and S. H. Strogatz, Collective dynamics of
+'small-world' networks, Nature 393, 440-442 (1998).
+[81] M. Barthélemy, Spatial networks, Physics Reports 499,
+1-101 (2011).
+[82] P. C. Hohenberg, Existence of long-range order in one
+and two dimensions, Physical Review 158, 383-386
+(1967).
+[83] S. H. Strogatz, Nonlinear Dynamics and Chaos (CRC
+Press, 2018) p. 532.
+[84] Y. A. Kuznetsov, Elements of Applied Bifurcation The-
+ory (Springer International Publishing, 2023).
+[85] Y. Kuramoto, Chemical Oscillations, Waves, and Tur-
+bulence (Springer, 1984).
+[86] I. S. Aranson and L. Kramer, The world of the complex
+ginzburg-landau equation, Reviews of modern physics
+74, 99 (2002).
+[87] S. Camalet, T. Duke, F. Jülicher, and J. Prost, Auditory
+sensitivity provided by self-tuned critical oscillations of
+hair cells, Proceedings of the national academy of sci-
+ences 97, 3183 (2000).
+[88] A. Hudspeth, F. Jülicher, and P. Martin, A critique of
+the critical cochlea: Hopf—a bifurcation—is better than
+none, Journal of neurophysiology 104, 1219 (2010).
+[89] T. Risler, J. Prost, and F. Jülicher, Universal critical
+behavior of noisy coupled oscillators, Physical review
+letters 93, 175702 (2004).
+[90] T. Risler, J. Prost, and F. Jülicher, Universal critical
+behavior of noisy coupled oscillators: A renormalization
+group study, Physical Review E 72, 016130 (2005).
+[91] R. Daviet, C. P. Zelle, A. Rosch, and S. Diehl, Nonequi-
+librium criticality at the onset of time-crystalline order,
+Physical Review Letters 132, 167102 (2024).
+[92] C. P. Zelle, R. Daviet, A. Rosch, and S. Diehl, Uni-
+versal Phenomenology at Critical Exceptional Points of
+Nonequilibrium O(N) Models, Physical Review X 14,
+021052 (2024).
+[93] References [89, 90] conjecture that quasi-long-range may
+be present at d = 2, but more recent studies based on a
+mapping to a version of the Kardar-Parisi-Zhang (KPZ)
+equation with compact variables suggest that the phase
+with algebraic order does not persist in the limit of large
+systems (nor an equivalent of the Berezinskii-Kosterlitz-
+Thouless (BKT) transition) but are replaced with a
+stretched exponential decay of correlations correspond-
+ing to the rough phase of the KPZ equation [106, 107].
+In addition, Refs. [177] argue that the modified effective
+interaction between spiral defects (compared to that be-
+tween XY vortices) allows for a finite density of defects
+at any temperature, potentially suppressing the alge-
+braic order.
+[94] K. Wood, C. Van den Broeck, R. Kawai, and K. Linden-
+berg, Critical behavior and synchronization of discrete
+stochastic phase-coupled oscillators, Physical Review E
+74, 031113 (2006).
+[95] K. Wood, C. Van den Broeck, R. Kawai, and K. Lin-
+denberg, Universality of synchrony: critical behavior in
+a discrete model of stochastic phase-coupled oscillators,
+Physical review letters 96, 145701 (2006).
+[96] V. R. Assis, M. Copelli, and R. Dickman, An infinite-
+period phase transition versus nucleation in a stochas-
+tic model of collective oscillations, Journal of Statisti-
+cal Mechanics: Theory and Experiment 2011, P09023
+(2011).
+[97] T. Bohr, G. Grinstein, Y. He, and C. Jayaprakash, Co-
+herence, chaos, and broken symmetry in classical, many-
+body dynamical systems, Physical Review Letters 58,
+2155-2158 (1987).
+[98] G. Grinstein, Stability of nonstationary states of classi-
+cal, many-body dynamical systems, Journal of Statisti-
+cal Physics 51, 803-815 (1988).
+[99] C. H. Bennett, G. Grinstein, Y. He, C. Jayaprakash,
+and D. Mukamel, Stability of temporally periodic states
+of classical many-body systems, Physical Review A 41,
+1932 (1990).
+[100] G. Grinstein, C. Jayaprakash, and C. H. Bennett, Com-
+ment on "second-order dynamics in the collective tem-
+poral evolution of complex systems", Physical Review
+Letters 73, 3038-3038 (1994).
+[101] Note that these arguments require that the system is
+isotropic and that the noise is unbounded so that it can
+create arbitrarily large droplets [99, 100].
+[102] G. Grinstein, D. Mukamel, R. Seidin, and C. H. Ben-
+nett, Temporally periodic phases and kinetic roughen-
+ing, Physical review letters 70, 3607 (1993).
+[103] M. Kardar, G. Parisi, and Y.-C. Zhang, Dynamic scal-
+ing of growing interfaces, Physical Review Letters 56,
+889-892 (1986).
+[104] R. Livi and P. Politi, Nonequilibrium Statistical Physics:
+A Modern Perspective (Cambridge University Press,
+2017).
+[105] L. Chen and J. Toner, Universality for moving stripes: A
+hydrodynamic theory of polar active smectics, Physical
+Review Letters 111, 088701 (2013).
+[106] E. Altman, L. M. Sieberer, L. Chen, S. Diehl, and
+J. Toner, Two-dimensional superfluidity of exciton po-
+laritons requires strong anisotropy, Physical Review X
+5, 011017 (2015).
+[107] G. Wachtel, L. Sieberer, S. Diehl, and E. Altman, Elec-
+trodynamic duality and vortex unbinding in driven-
+dissipative condensates, Physical Review B 94, 104520
+(2016).
+[108] I. S. Aranson, S. Scheidl, and V. M. Vinokur, Nonequi-
+librium dislocation dynamics and instability of driven
+vortex lattices in two dimensions, Physical Review B
+58, 14541-14547 (1998).
+[109] C.-K. Chan, T. E. Lee, and S. Gopalakrishnan, Limit-
+cycle phase in driven-dissipative spin systems, Physical
+Review A 91, 051601 (2015).
+[110] N. D. Mermin and H. Wagner, Absence of ferro-
+magnetism or antiferromagnetism in one- or two-
+dimensional isotropic heisenberg models, Physical Re-
+view Letters 17, 1133-1136 (1966).
+[111] H. Chaté and P. Manneville, Evidence of collective
+behaviour in cellular automata, Europhysics Letters
+(EPL) 14, 409-413 (1991).
+[112] H. Chaté and P. Manneville, Collective behaviors in spa-
+tially extended systems with local interactions and syn-
+chronous updating, Progress of Theoretical Physics 87,
+1-60 (1992).
+[113] H. Chaté, G. Grinstein, and L.-H. Tang, Long-range cor-
+
+42
+relations in systems with coherent (quasi)periodic oscil-
+lations, Physical Review Letters 74, 912-915 (1995).
+[114] H. Chaté and J. Losson, Non-trivial collective behav-
+ior in coupled map lattices: A transfer operator per-
+spective, Physica D: Nonlinear Phenomena 103, 51-72
+(1997).
+[115] J. Gallas, P. Grassberger, H. Herrmann, and P. Ueber-
+holz, Noisy collective behaviour in deterministic cellular
+automata, Physica A: Statistical Mechanics and its Ap-
+plications 180, 19-41 (1992).
+[116] P.-M. Binder and V. Privman, Second-order dynamics
+in the collective temporal evolution of complex systems,
+Physical Review Letters 68, 3830-3833 (1992).
+[117] J. Hemmingsson and H. J. Herrmann, On oscillations in
+cellular automata, Europhysics Letters (EPL) 23, 15-19
+(1993).
+[118] J. Losson and M. C. Mackey, Evolution of probability
+densities in stochastic coupled map lattices, Physical
+Review E 52, 1403-1417 (1995).
+[119] Y. Pomeau, Periodic behavior of cellular automata,
+Journal of Statistical Physics 70, 1379-1382 (1993).
+[120] H. Chaté, A. Lemaître, P. Marcq, and P. Manneville,
+Non-trivial collective behavior in extensively-chaotic dy-
+namical systems: an update, Physica A: Statistical Me-
+chanics and its Applications 224, 447-457 (1996).
+[121] A. Lipowski, Oscillatory behavior in a lattice prey-
+predator system, Physical Review E 60, 5179-5184
+(1999).
+[122] A. Lipowski and D. Lipowska, Nonequilibrium phase
+transition in a lattice prey-predator system, Physica A:
+Statistical Mechanics and its Applications 276, 456-464
+(2000).
+[123] M. Mobilia, I. T. Georgiev, and U. C. Täuber, Phase
+transitions and spatio-temporal fluctuations in stochas-
+tic lattice lotka-volterra models, Journal of Statistical
+Physics 128, 447-483 (2006).
+[124] T. Antal, M. Droz, A. Lipowski, and G. Ódor, Criti-
+cal behavior of a lattice prey-predator model, Physical
+Review E 64, 036118 (2001).
+[125] T. Antal and M. Droz, Phase transitions and oscillations
+in a lattice prey-predator model, Physical Review E 63,
+056119 (2001).
+[126] U. C. Täuber, Stochastic spatial lotka-volterra predator-
+prey models (2024), arXiv:2405.05006.
+[127] J. A. Acebrón, L. L. Bonilla, C. J. P. Vicente, F. Ri-
+tort, and R. Spigler, The kuramoto model: A simple
+paradigm for synchronization phenomena, Reviews of
+modern physics 77, 137 (2005).
+[128] This can be seen by integrating dϕt = ωdt +
+p
+2DϕdWt
+where Wt is a standard Wiener process, leading to ϕ(t)−
+ϕ(0) = ωt +
+p
+2DϕWt. We find C(t) = eiωt⟨ei√
+2DϕWt⟩.
+As Wt follows a normal distribution N(µ = 0, σ2 = t),
+its moment generating function is MWt(x) ≡E(exWt) =
+eµx+σ2x2/2 from which the result is found.
+[129] P. Gaspard, The correlation time of mesoscopic chemical
+clocks, The Journal of Chemical Physics 117, 8905-8916
+(2002).
+[130] Y. Cao, H. Wang, Q. Ouyang, and Y. Tu, The free-
+energy cost of accurate biochemical oscillations, Nature
+Physics 11, 772-778 (2015).
+[131] L. Oberreiter, U. Seifert, and A. C. Barato, Universal
+minimal cost of coherent biochemical oscillations, Phys-
+ical Review E 106, 014106 (2022).
+[132] N. Shiraishi, Entropy production limits all fluctuation
+oscillations, Physical Review E 108, l042103 (2023).
+[133] N. Ohga, S. Ito, and A. Kolchinsky, Thermodynamic
+bound on the asymmetry of cross-correlations, Physical
+Review Letters 131, 077101 (2023).
+[134] V. Khemani, R. Moessner, and S. L. Sondhi, A brief
+history of time crystals (2019), arXiv:1910.10745.
+[135] K. Sacha and J. Zakrzewski, Time crystals: a review,
+Reports on Progress in Physics 81, 016401 (2017).
+[136] F. Iemini, A. Russomanno, J. Keeling, M. Schirò,
+M. Dalmonte, and R. Fazio, Boundary time crystals,
+Physical Review Letters 121, 035301 (2018).
+[137] B. Buča, J. Tindall, and D. Jaksch, Non-stationary co-
+herent quantum many-body dynamics through dissipa-
+tion, Nature Communications 10, 10.1038/s41467-019-
+09757-y (2019).
+[138] H. Keßler, J. G. Cosme, M. Hemmerling, L. Mathey, and
+A. Hemmerich, Emergent limit cycles and time crystal
+dynamics in an atom-cavity system, Physical Review A
+99, 053605 (2019).
+[139] P. Kongkhambut, J. Skulte, L. Mathey, J. G. Cosme,
+A. Hemmerich, and H. Keßler, Observation of a contin-
+uous time crystal, Science 377, 670-673 (2022).
+[140] N. Y. Yao, C. Nayak, L. Balents, and M. P. Zaletel, Clas-
+sical discrete time crystals, Nature Physics 16, 438-447
+(2020).
+[141] M. P. Zaletel,
+M. Lukin,
+C. Monroe,
+C. Nayak,
+F. Wilczek, and N. Y. Yao, Colloquium :
+Quantum
+and classical discrete time crystals, Reviews of Modern
+Physics 95, 031001 (2023).
+[142] A. T. Winfree, The geometry of biological time, Vol. 2
+(Springer, 1980).
+[143] F. Wilczek, Quantum time crystals, Physical Review
+Letters 109, 160401 (2012).
+[144] A. Shapere and F. Wilczek, Classical time crystals,
+Physical Review Letters 109, 160402 (2012).
+[145] N. Y. Yao and C. Nayak, Time crystals in periodically
+driven systems, Physics Today 71, 40-47 (2018).
+[146] P. Kongkhambut, J. Skulte, L. Mathey, J. G. Cosme,
+A. Hemmerich, and H. Keßler, Observation of a contin-
+uous time crystal, Science 377, 670 (2022).
+[147] X. Wu, Z. Wang, F. Yang, R. Gao, C. Liang, M. K. Tey,
+X. Li, T. Pohl, and L. You, Dissipative time crystal in
+a strongly interacting rydberg gas, Nature Physics 20,
+1389 (2024).
+[148] R. J. Glauber, Time-dependent statistics of the ising
+model, Journal of mathematical physics 4, 294 (1963).
+[149] S. A. M. Loos, S. H. L. Klapp, and T. Martynec, Long-
+range order and directional defect propagation in the
+nonreciprocal xy model with vision cone interactions,
+Physical Review Letters 130, 198301 (2023).
+[150] L. Guislain and E. Bertin, Nonequilibrium phase transi-
+tion to temporal oscillations in mean-field spin models,
+Physical Review Letters 130, 207102 (2023).
+[151] L. Guislain and E. Bertin, Discontinuous phase tran-
+sition from ferromagnetic to oscillating states in a
+nonequilibrium mean-field spin model, Physical Review
+E 109, 034131 (2024).
+[152] F. Lima and D. Stauffer, Ising model simulation in di-
+rected lattices and networks, Physica A: Statistical Me-
+chanics and its Applications 359, 423 (2006).
+[153] A. Sánchez, J. López, and M. Rodríguez, Nonequilib-
+rium phase transitions in directed small-world networks,
+Physical Review Letters 88, 048701 (2002).
+
+43
+[154] A.
+Lipowski,
+A.
+L.
+Ferreira,
+D.
+Lipowska,
+and
+K. Gontarek, Phase transitions in ising models on di-
+rected networks, Physical Review E 92, 052811 (2015).
+[155] S. L. Kalpazidou, Cycle representations of Markov pro-
+cesses, Vol. 28 (Springer Science & Business Media,
+2007).
+[156] U. Seifert, Stochastic thermodynamics, fluctuation the-
+orems and molecular machines, Reports on Progress in
+Physics 75, 126001 (2012).
+[157] J. M. Horowitz and T. R. Gingrich, Thermodynamic
+uncertainty relations constrain non-equilibrium fluctua-
+tions, Nature Physics 16, 15 (2019).
+[158] C. Maes, Local detailed balance, SciPost Physics Lec-
+ture Notes 10.21468/scipostphyslectnotes.32 (2021).
+[159] T. Martynec, S. H. L. Klapp, and S. A. M. Loos, En-
+tropy production at criticality in a nonequilibrium potts
+model, New Journal of Physics 22, 093069 (2020).
+[160] H. Alston, L. Cocconi, and T. Bertrand, Irreversibil-
+ity across a nonreciprocal pt-symmetry-breaking phase
+transition, Physical Review Letters 131, 258301 (2023).
+[161] T. Suchanek, K. Kroy, and S. A. M. Loos, Time-reversal
+and parity-time symmetry breaking in non-hermitian
+field theories, Physical Review E 108, 064123 (2023).
+[162] C. Nardini, É. Fodor, E. Tjhung, F. van Wijland,
+J. Tailleur, and M. E. Cates, Entropy production in
+field theories without time-reversal symmetry: Quan-
+tifying the non-equilibrium character of active matter,
+Physical Review X 7, 021007 (2017).
+[163] D. S. Seara, B. B. Machta, and M. P. Murrell, Ir-
+reversibility in dynamical phases and transitions, Na-
+ture Communications 12, 10.1038/s41467-020-20281-2
+(2021).
+[164] M. Suzuki and R. Kubo, Dynamics of the ising model
+near the critical point. i, Journal of the Physical Society
+of Japan 24, 51-60 (1968).
+[165] G. Forgacs, D. Mukamel, and R. A. Pelcovits, Glauber
+dynamics for one-dimensional spin models with random
+fields, Physical Review B 30, 205-208 (1984).
+[166] K.-t. Leung, Heuristic derivation of continuum kinetic
+equations from microscopic dynamics, Physical Review
+E 63, 016102 (2000).
+[167] M. Suzuki, Solution of potts model for phase transition,
+Progress of Theoretical Physics 37, 770 (1967).
+[168] J. Tobochnik, Properties of the q-state clock model for
+q= 4, 5, and 6, Physical Review B 26, 6201 (1982).
+[169] V. García-Morales and K. Krischer, The complex
+ginzburg-landau equation: an introduction, Contempo-
+rary Physics 53, 79 (2012).
+[170] J. D. Crawford and E. Knobloch, Symmetry and
+symmetry-breaking bifurcations in fluid dynamics, An-
+nual Review of Fluid Mechanics 23, 341-387 (1991).
+[171] M. Golubitsky, I. Stewart, and D. G. Schaeffer, Sin-
+gularities and Groups in Bifurcation Theory, Vol. II
+(Springer New York, 1988).
+[172] P. Chossat and R. Lauterbach, Methods in Equivariant
+Bifurcations and Dynamical Systems (World Scientific,
+2000).
+[173] K. Yang, Y.-F. Chen, G. Roumpos, C. Colby, and J. An-
+derson, High performance monte carlo simulation of
+ising model on tpu clusters, in Proceedings of the Inter-
+national Conference for High Performance Computing,
+Networking, Storage and Analysis (2019) pp. 1-15.
+[174] D. S. Seara, B. B. Machta, and M. P. Murrell, Irre-
+versibility in dynamical phases and transitions, Nature
+communications 12, 392 (2021).
+[175] K. J. Burns, G. M. Vasil, J. S. Oishi, D. Lecoanet, and
+B. P. Brown, Dedalus: A flexible framework for numeri-
+cal simulations with spectral methods, Physical Review
+Research 2, 023068 (2020).
+[176] U. M. Ascher, S. J. Ruuth, and R. J. Spiteri, Implicit-
+explicit runge-kutta methods for time-dependent partial
+differential equations, Applied Numerical Mathematics
+25, 151-167 (1997).
+[177] I. S. Aranson, H. Chaté, and L.-H. Tang, Spiral motion
+in a noisy complex ginzburg-landau equation, Physical
+review letters 80, 2646 (1998).
+[178] I. S. Aranson, L. Kramer, and A. Weber, Theory of in-
+teraction and bound states of spiral waves in oscillatory
+media, Physical Review E 47, 3231-3241 (1993).
+[179] H. Chaté and P. Manneville, Phase diagram of the two-
+dimensional complex ginzburg-landau equation, Physica
+A: Statistical Mechanics and its Applications 224, 348
+(1996).
+[180] T. H. Tan, J. Liu, P. W. Miller, M. Tekant, J. Dunkel,
+and N. Fakhri, Topological turbulence in the membrane
+of a living cell, Nature Physics 16, 657 (2020).
+[181] J. Liu, J. F. Totz, P. W. Miller, A. D. Hastewell, Y.-C.
+Chao, J. Dunkel, and N. Fakhri, Topological braiding
+and virtual particles on the cell membrane, Proceedings
+of the National Academy of Sciences 118, e2104191118
+(2021).
+[182] A. Michaud, M. Leda, Z. T. Swider, S. Kim, J. He,
+J. Landino, J. R. Valley, J. Huisken, A. B. Gory-
+achev, G. von Dassow, and W. M. Bement, A ver-
+satile cortical pattern-forming circuit based on rho, f-
+actin, ect2, and rga-3/4, Journal of Cell Biology 221,
+10.1083/jcb.202203017 (2022).
+[183] F. Brauns, G. Pawlik, J. Halatek, J. Kerssemakers,
+E. Frey, and C. Dekker, Bulk-surface coupling iden-
+tifies the mechanistic connection between min-protein
+patterns in vivo and in vitro, Nature Communications
+12, 10.1038/s41467-021-23412-5 (2021).
+[184] Y. Zhang and É. Fodor, Pulsating active matter, Phys-
+ical Review Letters 131, 238302 (2023).
+[185] A. Manacorda and É. Fodor, Pulsating with discrete
+symmetry, arXiv preprint arXiv:2310.14370 (2023).
+[186] M. E. Newman and G. T. Barkema, Monte Carlo meth-
+ods in statistical physics (Clarendon Press, 1999).
+[187] K. Binder, Monte carlo simulation in statistical physics
+(1992).
+[188] K. Binder, Finite size scaling analysis of ising model
+block distribution functions, Zeitschrift für Physik B
+Condensed Matter 43, 119 (1981).
+[189] H. Hong, H. Chaté, L.-H. Tang, and H. Park, Finite-size
+scaling, dynamic fluctuations, and hyperscaling relation
+in the kuramoto model, Physical Review E 92, 022122
+(2015).
+[190] H. Hong, Finite-size scaling in the system of coupled os-
+cillators with heterogeneity in coupling strength, Phys-
+ical Review E 96, 012213 (2017).
+[191] M. Sarkar, Synchronization transition in the two-
+dimensional kuramoto model with dichotomous noise,
+Chaos: An Interdisciplinary Journal of Nonlinear Sci-
+ence 31 (2021).
+[192] P. Virtanen, R. Gommers, T. E. Oliphant, M. Haber-
+land, T. Reddy, D. Cournapeau, E. Burovski, P. Pe-
+terson, W. Weckesser, J. Bright, S. J. van der Walt,
+M. Brett, J. Wilson, K. J. Millman, N. Mayorov, A. R. J.
+
+44
+Nelson, E. Jones, R. Kern, E. Larson, C. J. Carey, İ. Po-
+lat, Y. Feng, E. W. Moore, J. VanderPlas, D. Laxalde,
+J. Perktold, R. Cimrman, I. Henriksen, E. A. Quintero,
+C. R. Harris, A. M. Archibald, A. H. Ribeiro, F. Pe-
+dregosa, P. van Mulbregt, and SciPy 1.0 Contributors,
+SciPy 1.0: Fundamental Algorithms for Scientific Com-
+puting in Python, Nature Methods 17, 261 (2020).
+[193] D. S. Moore and S. Kirkland, The basic practice of
+statistics, Vol. 2 (WH Freeman New York, 2007).
+[194] A. Pelissetto and E. Vicari, Critical phenomena and
+renormalization-group theory, Physics Reports 368, 549
+(2002).
+[195] M. Campostrini, M. Hasenbusch, A. Pelissetto, P. Rossi,
+and E. Vicari, Critical behavior of the three-dimensional
+xy universality class, Physical Review B 63, 214503
+(2001).
+[196] M. Hasenbusch and T. Török, High-precision monte
+carlo study of the 3d xy-universality class, Journal of
+Physics A: Mathematical and General 32, 6361 (1999).
+[197] K.
+Binder
+and
+E.
+Luijten,
+Monte
+carlo
+tests
+of
+renormalization-group predictions for critical phenom-
+ena in ising models, Physics Reports 344, 179 (2001).
+[198] P. Gaspard, Journal of Statistical Physics 106, 57-96
+(2002).
+[199] L. G. Morelli and F. Jülicher, Precision of genetic oscil-
+lators and clocks, Physical Review Letters 98, 228101
+(2007).
+[200] S. Bagheri, Effects of weak noise on oscillating flows:
+Linking quality factor, floquet modes, and koopman
+spectrum, Physics of Fluids 26, 10.1063/1.4895898
+(2014).
+[201] C. del Junco and S. Vaikuntanathan, Robust oscil-
+lations in multi-cyclic markov state models of bio-
+chemical clocks, The Journal of Chemical Physics 152,
+10.1063/1.5143259 (2020).
+[202] C. del Junco and S. Vaikuntanathan, High chemical
+affinity increases the robustness of biochemical oscilla-
+tions, Physical Review E 101, 012410 (2020).
+[203] A. C. Barato and U. Seifert, Coherence of biochemi-
+cal oscillations is bounded by driving force and network
+topology, Physical Review E 95, 062409 (2017).
+[204] C. Fei, Y. Cao, Q. Ouyang, and Y. Tu, Design principles
+for enhancing phase sensitivity and suppressing phase
+fluctuations simultaneously in biochemical oscillatory
+systems, Nature Communications 9, 10.1038/s41467-
+018-03826-4 (2018).
+[205] H. Wierenga, P. R. ten Wolde, and N. B. Becker, Quan-
+tifying fluctuations in reversible enzymatic cycles and
+clocks, Physical Review E 97, 042404 (2018).
+[206] B. Nguyen,
+U. Seifert, and A. C. Barato, Phase
+transition in thermodynamically consistent biochemi-
+cal oscillators, The Journal of Chemical Physics 149,
+10.1063/1.5032104 (2018).
+[207] R. Marsland, W. Cui, and J. M. Horowitz, The ther-
+modynamic uncertainty relation in biochemical oscil-
+lations, Journal of The Royal Society Interface 16,
+20190098 (2019).
+[208] L. Brunnet, H. Chaté, and P. Manneville, Long-range
+order with local chaos in lattices of diffusively coupled
+odes, Physica D: Nonlinear Phenomena 78, 141-154
+(1994).
+[209] A. Lemaître, H. Chaté, and P. Manneville, Cluster ex-
+pansion for collective behavior in discrete-space dy-
+namical systems, Physical Review Letters 77, 486-489
+(1996).
+[210] J. Losson and M. C. Mackey, Statistical cycling in
+coupled map lattices, Physical Review E 50, 843-856
+(1994).
+[211] J. Wendykier, A. Lipowski, and A. L. Ferreira, Coex-
+istence and critical behavior in a lattice model of com-
+peting species, Physical Review E 83, 031904 (2011).
+[212] P.-M. Binder and J. F. Jaramillo, Stabilization of coher-
+ent oscillations in spatially extended dynamical systems,
+Physical Review E 56, 2276-2278 (1997).
+[213] L. Oberreiter, U. Seifert, and A. C. Barato, Stochastic
+discrete time crystals: Entropy production and subhar-
+monic synchronization, Physical Review Letters 126,
+020603 (2021).
+[214] M.-F. Chen, Eigenvalues,
+inequalities,
+and ergodic
+theory, 2005th ed., Probability and Its Applications
+(Springer, 2004).
+[215] T. Liggett, Interacting Particle Systems, Grundlehren
+der mathematischen Wissenschaften (Springer New
+York, 2012).
+[216] F. Martinelli, Lectures on glauber dynamics for dis-
+crete spin models, in Lectures on Probability Theory and
+Statistics (Springer Berlin Heidelberg, 1999) p. 93-191.
+[217] F. Carollo and I. Lesanovsky, Exact solution of a bound-
+ary time-crystal phase transition:
+Time-translation
+symmetry breaking and non-markovian dynamics of cor-
+relations, Physical Review A 105, l040202 (2022).
+[218] F. Siegert and C. J. Weijer, Three-dimensional scroll
+waves organize dictyostelium slugs., Proceedings of the
+National Academy of Sciences 89, 6433 (1992).
+[219] M. Gabbay, E. Ott, and P. N. Guzdar, Motion of scroll
+wave filaments in the complex ginzburg-landau equa-
+tion, Physical review letters 78, 2012 (1997).
+[220] Note that these potential droplets are not the droplets
+that destabilize the static-order phase (as in Fig. 21).
+Instead, these are droplets of a homogeneously oscillat-
+ing state, immersed in an oscillatory background with a
+different phase.
+[221] P. Coullet, J. Lega, B. Houchmandzadeh, and J. La-
+jzerowicz, Breaking chirality in nonequilibrium systems,
+Physical review letters 65, 1352 (1990).
+[222] B. Benvegnen, O. Granek, S. Ro, R. Yaacoby, H. Chaté,
+Y. Kafri, D. Mukamel, A. Solon, and J. Tailleur,
+Metastability of discrete-symmetry flocks, Physical re-
+view letters 131, 218301 (2023).
+[223] M. Kardar, Statistical physics of fields (Cambridge Uni-
+versity Press, 2007).
+[224] J.-n. Teramae,
+H. Nakao, and G. B. Ermentrout,
+Stochastic phase reduction for a general class of noisy
+limit cycle oscillators, Physical Review Letters 102,
+194102 (2009).
+[225] Y. Kuramoto and H. Nakao, On the concept of dynami-
+cal reduction: the case of coupled oscillators, Philosoph-
+ical Transactions of the Royal Society A: Mathemati-
+cal, Physical and Engineering Sciences 377, 20190041
+(2019).
+[226] H. Nakao, Phase reduction approach to synchronisa-
+tion of nonlinear oscillators, Contemporary Physics 57,
+188-214 (2015).
+[227] B. Pietras and A. Daffertshofer, Network dynamics
+of coupled oscillators and phase reduction techniques,
+Physics Reports 819, 1-105 (2019).
+[228] R. Gutiérrez and R. Cuerno, Nonequilibrium criticality
+driven by kardar-parisi-zhang fluctuations in the syn-
+
+45
+chronization of oscillator lattices, Physical Review Re-
+search 5, 023047 (2023).
+[229] A. Kamenev, Field theory of non-equilibrium systems
+(Cambridge University Press, 2023).
+[230] L. M. Sieberer, G. Wachtel, E. Altman, and S. Diehl,
+Lattice duality for the compact kardar-parisi-zhang
+equation, Physical Review B 94, 104521 (2016).
+[231] A. Zamora, L. M. Sieberer, K. Dunnett, S. Diehl, and
+M. H. Szymańska, Tuning across universalities with a
+driven open condensate, Physical Review X 7, 041006
+(2017).
+[232] L. M. Sieberer and E. Altman, Topological defects in
+anisotropic driven open systems, Physical Review Let-
+ters 121, 085704 (2018).
+[233] P. A. Rikvold, H. Tomita, S. Miyashita, and S. W. Sides,
+Metastable lifetimes in a kinetic ising model: depen-
+dence on field and system size, Physical Review E 49,
+5080 (1994).
+[234] P. L. Krapivsky, S. Redner, and E. Ben-Naim, A kinetic
+view of statistical physics (Cambridge University Press,
+2010).
+[235] J. Olejarz, P. L. Krapivsky, and S. Redner, Fate of
+2d kinetic ferromagnets and critical percolation cross-
+ing probabilities, Physical review letters 109, 195702
+(2012).
+[236] C. Van den Broeck and M. Esposito, Ensemble and tra-
+jectory thermodynamics: A brief introduction, Phys-
+ica A: Statistical Mechanics and its Applications 418, 6
+(2015).
+[237] K. Sekimoto, Stochastic Energetics, Lecture Notes in
+Physics (Springer Berlin Heidelberg, 2010).
+[238] J. A. Pachter, Y.-J. Yang, and K. A. Dill, Entropy, irre-
+versibility and inference at the foundations of statistical
+physics, Nature Reviews Physics 6, 382-393 (2024).
+[239] L. Onsager and S. Machlup, Fluctuations and irre-
+versible processes, Physical Review 91, 1505 (1953).
+[240] P. C. Martin, E. D. Siggia, and H. A. Rose, Statistical
+dynamics of classical systems, Physical Review A 8, 423
+(1973).
+[241] C. De Dominicis, A lagrangian version of halperin-
+hohenberg-ma models for the dynamics of critical phe-
+nomena, Lettere al Nuovo Cimento 12, 567 (1975).
+[242] H.-K. Janssen, On a lagrangean for classical field dy-
+namics and renormalization group calculations of dy-
+namical critical properties, Zeitschrift für Physik B Con-
+densed Matter and Quanta 23, 377 (1976).
+[243] R. Kawai, J. M. R. Parrondo, and C. V. den Broeck,
+Dissipation: The phase-space perspective, Physical Re-
+view Letters 98, 080602 (2007).
+[244] C. Nardini, É. Fodor, E. Tjhung, F. Van Wijland,
+J. Tailleur, and M. E. Cates, Entropy production in field
+theories without time-reversal symmetry: quantifying
+the non-equilibrium character of active matter, Physi-
+cal Review X 7, 021007 (2017).
+[245] S. Chen, D. S. Seara, A. Michaud, S. Kim, W. M. Be-
+ment, and M. P. Murrell, Energy partitioning in the cell
+cortex, Nature Physics 20, 1824-1832 (2024).
+[246] B. Schönfisch and A. de Roos, Synchronous and asyn-
+chronous updating in cellular automata, BioSystems 51,
+123 (1999).
+[247] M.
+E.
+Cates,
+Active
+field
+theories
+(2019),
+arXiv:1904.01330.
+

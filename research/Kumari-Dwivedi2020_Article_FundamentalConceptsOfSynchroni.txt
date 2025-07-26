@@ -1,0 +1,1223 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/341922640
+Fundamental Concepts of Synchronization: An Introduction: From Classical to
+Modern
+Article  in  Resonance · April 2020
+DOI: 10.1007/s12045-020-0969-z
+CITATIONS
+3
+READS
+797
+2 authors, including:
+Shubhangi Dwivedi
+Vellore Institute of Technology University
+8 PUBLICATIONS   23 CITATIONS   
+SEE PROFILE
+All content following this page was uploaded by Shubhangi Dwivedi on 05 November 2023.
+The user has requested enhancement of the downloaded file.
+
+GENERAL ARTICLE
+Fundamental Concepts of Synchronization∗
+An Introduction: From Classical to Modern
+Nitu Kumari and Shubhangi Dwivedi
+Nitu Kumari is Associate
+Professor at School of Basic
+Sciences, Indian Institute of
+Technology Mandi. She holds
+a PhD in Applied
+Mathematics from the Indian
+School of Mines, Dhanbad.
+She studies non-linear
+dynamical behaviour in
+systems designed for various
+real world problems.
+Shubhangi Dwivedi is a PhD
+Scholar at School of Basic
+Sciences, Indian Institute of
+Technology Mandi. She
+studies synchronous
+behaviour of species in
+ecological networks.
+Objects with rhythms naturally synchronize. Synchroniza-
+tion is the coordination of events in order to run the system
+uniformly. Yet the phenomenon went entirely undocumented
+until 1665. Since the pioneering description of synchroniza-
+tion by Huygens, the phenomenon has been studied by var-
+ious researchers in an interdisciplinary manner. Many re-
+searchers have contributed to the development of synchro-
+nization theory proving that synchronization occurs in cou-
+pled non-linear dissipative oscillators. Such oscillators range
+from mechanical clocks and population dynamics to human
+heart and neural networks. This article aims to explain the
+basic principles of synchronization theory. The history and
+applications of synchronization are discussed in real-world
+scenarios. We address diﬀerent types of synchronization with
+a detailed discussion on the simplest type of synchronization.
+The phenomenon of synchronization applies to oscillations of
+diﬀerent forms—periodic, noisy, and chaotic in nature. Here,
+we speciﬁcally discuss the oscillators which can hold synchro-
+nization. In particular, we provide an overview of self-sustained
+periodic and chaotic oscillators with a detailed description of
+diﬀerent forms of these oscillators in phase space. Further, a
+summary of further research challenges has also been given
+for the future development of advanced applications based on
+natural synchronization phenomenon.
+Keywords
+Synchronization,
+oscillators,
+chaos, periodic motion, coupling,
+phase locking, frequency locking.
+∗Vol.25, No.4, DOI: https://doi.org/10.1007/s12045-020-0969-z
+RESONANCE | April 2020
+539
+
+GENERAL ARTICLE
+Figure 1. Christiaan Huy-
+gens (1629-1695).
+(Image Source: Wikipedia)
+1. History of Synchronization
+One of the ﬁrst recorded perceptions of synchronization is by the
+Dutch researcher Christiaan Huygens (1629-1695, Figure 1). In
+a time when science depended vigorously on perception, experi-
+mentation, and reﬂection, Huygens made a fortunate disclosure.
+He made exact pendulum clocks. In 1665, it
+In 1665, Christiaan
+Huygens reported that
+two identical clocks
+hung on a beam
+synchronized with each
+other after about thirty
+minutes.
+was reported by
+him that two identical clocks hung on a beam synchronized with
+each other after about thirty minutes. He observed that two iden-
+tical pendulum clocks, weakly coupled through a heavy beam (a
+wooden bar supported by two chairs), soon synchronized with the
+same period and amplitude but the two pendulums swang in oppo-
+site directions. Since disturbances did not aﬀect the synchronous
+motion, Huygens believed that synchronization was caused by
+airﬂow. However, after further experimentation, he concluded
+that the weak coupling of the two clocks through the beam was
+the reason for this state of anti-phase synchronization. This im-
+pact which Huygens called 'odd kind of sympathy' is nowadays
+known as synchronization. Figure 2 shows the original drawing
+made by Huygens.
+354 years ago, in a letter to the Royal Society of London, Christi-
+aan Huygens described "an odd kind of sympathy" between two
+pendulums mounted side by side on a wooden beam. This in-
+spired the modern studies on synchronization in coupled non-
+540
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+Figure 2.
+(a) Shows an
+original drawing of Huy-
+gens.
+Reprinted from [1].
+(b)
+Huygens
+experiments
+with pendulum clocks.
+linear oscillators [1]. He reported on his observation of synchro-
+nization of two pendulum clocks which he had invented shortly
+before:
+"...It is quite worth noting that when we suspended two clocks
+so constructed from two hooks embedded in the same wooden
+beam, the motions of each pendulum in diﬀerent swings were so
+much in agreement that they never receded the least bit from each
+other, and the sound of each was always heard simultaneously.
+Further, if this agreement was disturbed by some interference, it
+re-established itself in a short time. For a long time I was amazed
+at this unexpected result, but after a careful examination ﬁnally
+found that the cause of this is due to the motion of the beam, even
+though this is hardly perceptible."
+Watch an experiment online here: https://youtube/Aaxw4zbULMs.
+The interesting phenomenon ﬁrst discovered in 1665 by Christi-
+aan Huygens has been explained in this episode. One
+One can see that ﬁve
+pendulum clocks placed
+in a room together will
+mysteriously
+synchronize with each
+other.
+can see that
+ﬁve pendulum clocks placed in a room together will mysteriously
+synchronize with each other. How can mechanical objects trans-
+mit an inﬂuence when they are not touching? What is the cause
+of this 'odd kind of sympathy'? Watch the video to ﬁnd out!
+The Huygens' set-up was not precisely like the set-up as shown
+in the video above, because the clocks are attached to a ﬁxed ob-
+ject. Still, these clocks will eventually synchronize. The funda-
+mental idea is that although the clocks are connected to a solid
+object, there is still a transfer of energy taking place. To keep the
+pendulum clocks in time, the winding mechanism must deliver a
+RESONANCE | April 2020
+541
+
+GENERAL ARTICLE
+small amount of kinetic energy to the pendulum to compensate
+for friction losses. This transfer of power is called a 'kick'. If
+there are two such clocks, then the punch of one clock transfers a
+small amount of energy to the other via the wall. Few examples
+of diﬀerential equations with regular solutions have been used
+in the analysis of dynamical systems. Huygens did not have the
+right mathematical tools at that time to explain his observations
+as diﬀerential calculus was not invented then. Even then, he man-
+aged to ﬁnd the mechanism responsible for the sympathy in his
+clocks. Lacking the requisite mathematics at the time, Huygens
+contended that the eﬀect was being caused by tiny vibrations in
+the wooden structure on which the clocks were hanging. Never-
+theless, now, with the help of mathematical tools, we can show
+the possibility of two synchronous states by solving the resulting
+system of diﬀerential equations. Among these two possible syn-
+chronous states, the clocks are in exact synchronization in one,
+and the phase is in exact opposition in the other. The latter state
+is stable, conﬁrming Huygens' observations. Similar experiments
+have been done on metronomes. A metronome is a tool that usu-
+ally beats per minute, creates a noticeable click or other signals
+at a regular interval that can be controlled by the operator. Mu-
+sicians use the system to perform with a steady rhythm. It
+It is found that two
+coupled metronomes can
+exhibit typical in-phase
+and anti-phase locking
+phenomena if their
+frequencies almost
+coincide with each other
+or are rationally related
+to each other.
+is
+found that two coupled metronomes can exhibit typical in-phase
+and anti-phase locking phenomena if their frequencies almost co-
+incide with each other or are rationally related to each other. The
+synchronization of two coupled metronomes can be applied to
+verify Huygens' famous experiment of pendulum clocks. To un-
+derstand this renowned experiment via the application of mathe-
+matical tools, we recommend the article 'Anti-phase synchroniza-
+tion of two coupled mechanical metronomes' [2].
+2. Evolution of Synchronization
+For some reason, the sympathetic motion of pendulum clocks
+discovered by Huygens, currently known as 'Huygens' synchro-
+nization', did not attract the attention of the scientiﬁc commu-
+nity at that time. After Huygens, another Dutchman, Engelbert
+542
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+Kaempfer, travelled to Thailand in 1690 and witnessed the lo-
+cal ﬁreﬂies ﬂickering at the same time "with great regularity and
+precision" [3]. Two hundred years later, the English physicist
+John William Strutt (better known as Lord Rayleigh) found that
+standing two organ pipes side by side might cause the pipes to
+sound in complete unison, despite the inevitable signiﬁcant dif-
+ference [4], [5]. In the 1920s, radio engineers discovered that ca-
+bled electrical generators with diﬀerent frequencies caused them
+to vibrate at a similar frequency (the idea behind radio commu-
+nication systems) [6]. Following this, in 1967, the vibration
+The vibration of crickets
+inspired the American
+biologist Art Winfree to
+suggest a mathematical
+model of
+synchronization.
+of
+crickets inspired the American biologist Art Winfree to suggest a
+mathematical model of synchronization. Winfree's equation was
+very diﬃcult to solve, but in 1974, a Japanese physicist named
+Yoshiki Kuramoto discussed a technique to simplify the mathe-
+matical complexity involved [7]. Yoshiki Kuramoto proposed a
+mathematical model to describe synchronization for the behavior
+of a large set of coupled oscillators such as chemical and biolog-
+ical oscillators. This model has found widespread applications in
+neuroscience, ﬁreﬂies, pacemaker cells, ﬂight starlings, chemical
+reactants, oscillating ﬂame dynamics, and countless other com-
+munities of coupling oscillators. After the groundbreaking re-
+search of Pecora and Caroll in 1990, the area of chaotic synchro-
+nization has grown signiﬁcantly [8]. Also in the last few years,
+Huygens' synchronization has become a relevant topic among
+scientists and researchers. Many researchers have revisited Huy-
+gens' work since then, explaining devices and demonstrations de-
+rived from his historical experiments and providing a foundation
+for our understanding of physical concepts [9], [10].
+Why Study Synchronization?
+Before getting into the depth of this topic, it is important to know
+why we should be interested in this topic at all. This question can
+be answered with the help of the following observations:
+• Everything in nature oscillates.
+• Everything in nature is connected.
+RESONANCE | April 2020
+543
+
+GENERAL ARTICLE
+• Nature is fond of optimizing resources or achieving goals in the
+most productive and distributed way.
+Through nature's synchrony, the principles of nature can be ex-
+perienced. Advanced
+Advanced concepts of
+synchronization may
+help us to understand the
+collective behaviour of
+complex systems such as
+human body, heart cells
+beating together, or ﬁsh
+schools moving as one.
+concepts of synchronization may help us to
+understand the collective behaviour of complex systems such as
+human body, heart cells beating together, or ﬁsh schools moving
+as one. The human behaviour, too, is a treasure house of synchro-
+nization phenomenon. For instance, humans perform an amazing
+array of tasks of varying degrees of diﬃculty, and they do so at
+a wide range of levels of activity. Even at the most leisure day
+of a week, we usually prepare and eat meals, participate in physi-
+cal exercise, schedule events, socialize with friends and acquain-
+tances, adapt our actions to meet the demands of casual and for-
+mal social situations, and think about our personal qualities and
+weakness. While on holidays, we may create music, write es-
+says, compose poems, establish theories, try to resolve disputes,
+work as teams, and play games. Usually, these behaviours and
+modes of activity are analysed in terms of their local dynamics,
+and a proven approach to understanding that has created a highly
+compartmentalized psychology discipline. The preservation of
+internal stability is a crucial part of human physiological systems.
+Human beings may coordinate their gestures with each other—
+synchronous ritualistic practices belonging to diﬀerent cultures,
+marching in line, dancing, singing, and playing music in unison
+are a few of the synchronized activities that can be easily noticed.
+The core idea is that all organizational stages of human activity,
+ranging from brain function to group dynamics, reﬂect the cre-
+ation of functional groups which arises from the ability to gain
+coordination and to work in cooperation in order to achieve a cer-
+tain task.
+As illustrated by the above examples, research of synchroniza-
+tion phenomenon can help us to gain a better understanding of
+the human body and the world around us. Therefore, it is cru-
+cial that researchers— physicists and biologists— investigate the
+phenomenon of synchronization with great interest.
+544
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+Synchronization in Nature
+The second question that readers might pose is, "Where can we
+see synchronization?". Synchronization is ubiquitous in Nature.
+Following is a list of examples of synchronization phenomenon
+from our everyday life.
+• Laser arrays.
+• Electric circuits.
+• Pedestrians on a bridge.
+• Pacemaker cells in the heart.
+• Oscillating chemical reactions.
+• Synchronous ﬁrings of male ﬁreﬂies.
+• Metronomes placed on a moving surface.
+• The spin of the moon synchronises with its orbit.
+• Applause at concert halls merges to produce a harmonised sound
+in time. When people start clapping their hands, they tend to
+adjust their pace of clapping to the clapping of nearby people.
+• Cellular clocks in the brain. Oscillations in the brain lead to indi-
+vidual electrical waves, for example, the α-waves. Some diseases
+like epilepsy are thought to be related to 'over-synchronization'
+of the brain. Hence synchronization is not always beneﬁcial.
+In 2004, Strogatz wrote a book titled as Sync: The Emerging Sci-
+ence of Spontaneous Order on Synchronization [11]. This won-
+derful book provides a successful account of many of the ideas
+related to synchronization and is easily accessible.
+Synchronization cannot
+be seen without
+oscillations.
+It should be mentioned here that synchronization cannot be seen
+without oscillations. The next query that comes in our mind is
+whether we can see synchronization in all oscillators? The answer
+is no. We discuss this in detail in the next section.
+3. Study of Synchronizing Oscillators
+As we mentioned earlier, synchronization is not possible without
+oscillations. However, not all oscillators can be synchronized.
+RESONANCE | April 2020
+545
+
+GENERAL ARTICLE
+Here, we discuss in detail those oscillators in which synchroniza-
+tion can be seen. If we expect two or more physical objects to
+get synchronized over time, what are the fundamental properties
+those physical objects should hold? To answer this question, let
+us understand this phenomenon in a little bit more detail. The
+word synchronization comes from the Greek letters:
+Syn = Common
+and
+Chronos = Time.
+The word synchronization means sharing the standard time. How-
+ever, when we talk about synchronization in the context of the
+theory of dynamical system, then the current time is shared by
+oscillations. Oscillation is chosen to some degree of repetitions.
+Deﬁnition of Oscillator
+An
+An oscillator is a
+mechanical or electronic
+device which works on
+basic rules of swinging
+back and forth.
+oscillator is a mechanical or electronic device which works
+on basic rules of swinging back and forth, i.e., a periodic ﬂuc-
+tuation between two objects based on changes in energy. Some
+typical applications of oscillators include: audio and video sys-
+tems, alarms and buzzes, metal detectors, stun guns, inverters, ul-
+trasonic devices, radio, television, and other communication de-
+vices.
+The oscillating objects in Huygens' case are two pendulum clocks
+and are weakly coupled through the translation of the beam. Here
+it should be mentioned that not all types of oscillators can be syn-
+chronized. The only oscillators that can synchronize are charac-
+terised as self-sustained oscillators. Such oscillators can be main-
+tained only in non-linear systems, and the concept of their oscilla-
+tions is essential for an adequate description of synchronization.
+Here we provide a detailed explanation of self-oscillators.
+Example of Self-sustained Periodic Oscillator
+A
+A famous paradigm of a
+self-oscillator is a
+mechanical pendulum
+clock.
+famous paradigm of a self-oscillator is a mechanical pendulum
+clock (Figure 3). Not so long ago, virtually every clock and watch
+made a tick-tock noise because it was utterly mechanical rather
+than electrical. Instead of the clock being powered by a battery,
+546
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+Figure 3.
+Old-fashioned
+mechanical pendulum wall
+clock.
+(Image
+Source:
+explainthatstuﬀ.com/how-
+pendulum-clocks-
+work.html)
+Figure 4.
+A simple pen-
+dulum consists of a mass
+m hanging from a string of
+length L and ﬁxed at a pivot
+point.
+When displaced to
+an initial angle of θ0 and re-
+leased, the pendulum swings
+back and forth with the pe-
+riodic motion. By applying
+Newton's second law for ro-
+tational systems, the equa-
+tion of motion for the pen-
+dulum may be obtained.
+it was wound up with a key, and there was a long swinging rod
+inside, called the pendulum that made sure that the whirring gears
+kept good time. So, how can those old-fashioned pendulums be
+modelled? Let us have a look.
+To build the model, we deﬁne the following variables:
+θ = Angle of pendulum,
+L = length of rod,
+T = tension in rod,
+m = mass of pendulum,
+g = gravitational constant.
+We will derive the equation of motion for the pendulum using the
+RESONANCE | April 2020
+547
+
+GENERAL ARTICLE
+rotational analogue of Newton's second law of motion about a
+ﬁxed axis, which is:
+τ = Iα ,
+where
+τ = net torque,
+I = rotational inertia,
+α = θ′′ = angular acceleration.
+The rotational inertia about the pivot is I = mL2. Torque can be
+calculated as the vector cross product of the position vector and
+the force. The magnitude of the torque due to gravity comes out
+to be
+τ = −mgL sin (θ).
+So we have
+−mgL sin (θ) = mL2α,
+which simpliﬁes to
+θ′′ = −g
+L sin (θ).
+The above equation gives the motion for the simple pendulum.
+If the amplitude of angular displacement is small enough then
+the small-angle approximation (sin (θ) ≃θ ) holds. Hence, the
+equation of motion reduces to the comparison of simple harmonic
+motion.
+θ′′ = g
+Lθ.
+For the initial conditions θ(0) = θ0 and ˙θ = ˙θ0, the solution of
+second-order non-linear ordinary diﬀerential becomes
+θ(t) = θ0 cos (
+
+g
+l t + ˙θ0).
+For numerical simulation, we use the fourth-order Runge-Kutta
+method. The set of parameter values have been chosen as g =
+9.81 meter/sec2, L = 1 meter. We plot solutions for four diﬀer-
+ent initial conditions. The initial conditions θ(0) = (θ0, ˙θ0) are
+taken as ( π
+4, 0), (π
+2, 0), (π, 0) and (2π
+3 , 0) for Figures 5(a) and 5(b)
+548
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+Figure 5. (a) Time series
+plot of angular displacement
+for four diﬀerent initial con-
+ditions. (b) The phase por-
+trait of the system for four
+diﬀerent initial conditions.
+respectively. These ﬁgures show the time plot and phase portrait
+for these four diﬀerent initial conditions of the system. The pe-
+riodic oscillations are represented by a closed curve in the phase
+space of the system. In Figure 5(a), it should be observed that the
+solution of the system is in periodic motion and in Figure 5(b),
+phase portrait of the system has come out as closed curve for all
+four diﬀerent initial conditions. This easy phase space of the sys-
+tem does not change its qualitative behaviour for diﬀerent initial
+conditions. From here, we can immediately determine a unique
+feature of the self-sustained periodic oscillator, i.e. if we push
+oﬀthe phase point from the attractor ('closed curve'), then phase
+point will return back to the attractor due to the absence of sensi-
+tive dependence on the initial condition.
+The periodic oscillations
+are represented by a
+closed curve in the phase
+space of the system.
+Here this 'closed curve'
+of the system is called as the 'limit cycle'.
+We conclude that the self-sustained oscillations can be charac-
+terized by their image in phase space, i.e. by limit cycle. The
+limit cycle is the simplest attractor, in contrast to the notion of a
+'strange attractor'. For a detailed explanation on the attractors of
+dynamical systems, readers should see [12]. The main features of
+self-sustained periodic oscillators are described as follows.
+RESONANCE | April 2020
+549
+
+GENERAL ARTICLE
+Main Features of Self-sustained Oscillators
+• Its oscillations do not decay in time.
+• Due to friction, it loses energy while oscillating, which means
+that self-sustained periodic oscillators possess dissipation.
+Explanation: For instance, in systems such as the clock shown
+above, energy is lost due to mechanical friction, and in electrical
+devices, dissipation is due to heat loss.
+• It consumes energy (power) from outside. It means despite en-
+ergy loss, in order to sustain oscillations, self oscillators need to
+feed on a source of energy.
+Explanation: In case of the pendulum clock, power is provided
+through lifting the load. When the load gradually comes down, it
+releases potential energy. This potential energy of the load trans-
+fers into the energy of oscillations.
+• Power in-ﬂux can be constant in time.
+Explanation: Power can arise in a non-oscillatory manner. For
+example, in the case of a clock, these self oscillators choose the
+amplitude and time-scale for their oscillations of initial condi-
+tions. After some time, the system settles down to the same pat-
+tern of oscillations automatically.
+• It is persistent.
+Explanation: After perturbation, the swings spontaneously re-
+sume identically.
+Not every oscillator is self-sustained or an auto oscillator. Physi-
+cists
+Physicists are
+well-acquainted with
+forced and parametric
+rhythms, but typically
+not with self-oscillation,
+a property of speciﬁc
+dynamic systems that
+gives rise to a wide range
+of useful and destructive
+vibrations.
+are well-acquainted with forced and parametric rhythms, but
+typically not with self-oscillation, a property of speciﬁc dynamic
+systems that gives rise to a wide range of useful and destructive
+vibrations. In a self-sustained oscillator, the oscillation is itself
+regulated so that it acts in phase and causes negative damping
+which feeds the vibration energy; no external rate needs to be
+adjusted to the resonant frequency.
+A detailed theoretical de-
+scription of self-oscillations can be seen in [13]. We compare
+self-sustained oscillators with other existing oscillators and list a
+few distinctions and similarities between self-sustained oscilla-
+tors and other oscillators in Table 1.
+550
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+Table 1. Self-sustained os-
+cillators vs. oscillators.
+Sr. No.
+Similarities between all oscillators
+Diﬀerences between oscillators
+and self-sustained oscillators
+1.
+All oscillators have
+The oscillators, which are not self-sustained,
+do not
+oscillations or rhythms.
+consume energy from outside i.e. such
+oscillators
+do not have power inﬂux at all.
+2.
+Due to friction, all kind of oscillators
+The oscillations of non self-sustained
+lose energy while oscillating.
+oscillator decay in time and eventually stop.
+3.
+Since all oscillations of non self-sustained
+oscillators stop eventually, we cannot speak
+of shape, time scale and amplitude
+of any oscillations of non self-sustained
+oscillator.
+From the above discussion, it is clear that self-oscillation is a pro-
+cess where an entity preserves periodic motion on a non-periodic
+signal. It often occurs naturally, few examples being, heartbeat,
+sea waves, and leaves ﬂuttering. We can verify that the oscillator
+is self-sustaining if we remove it from the environment and test
+whether it still oscillates. One can, therefore, separate a ﬁreﬂy
+from other insects, place it at a constant temperature, light, etc.,
+and note that even if it is isolated, it nevertheless creates rhythmic
+ﬂashes. An insect, a plant, or a human volunteer can be separated
+from others but is likely to still show patterns of daily activity.
+Hence, these oscillators can be classiﬁed as self-sustained oscil-
+lators. Signal-responsive materials allow the creation of artiﬁcial
+self-oscillators driven by diﬀerent forms of energy, such as heat,
+light, and chemicals. Artiﬁcial self-oscillators show high poten-
+tial for power generation and can be used in autonomous mass
+transport, and self-propelled micro-robotics applications [14]. In
+Table 2, we provide a list of some common examples of natural
+and man-made self-sustained oscillators.
+RESONANCE | April 2020
+551
+
+GENERAL ARTICLE
+Table 2.
+Natural vs. Ar-
+tiﬁcial self-sustained oscilla-
+tors
+Sr. No.
+Naturally occurring self-sustained
+Man-made self-sustained oscillators
+oscillators
+1.
+Ocean waves
+Turbines
+2.
+Calcium oscillations inside a cell
+Pendulum clock
+3.
+The ﬁring of neurons
+Lasers sources
+4.
+Predator-prey relationships
+Quartz watches
+5.
+The pulsation of variable stars
+Many musical instruments (including
+the human voice)
+6.
+Isolated frog's heart
+Electronic generator
+(named after Vander-Pol)
+4. Basic Deﬁnition of Synchronization
+Till now, we have seen that only self-oscillators can be synchro-
+nized. The three important parameters of self-sustained oscilla-
+tors are:
+1. Shape.
+2. Amplitude.
+3. Time-scale.
+Out of these three parameters, only time scale is relevant to syn-
+chronization. Synchronization
+Synchronization occurs
+only when the time scale
+becomes either equal or
+rationally related.
+occurs only when the time scale
+becomes either equal or rationally related. When we analyse syn-
+chronization, we usually ignore the shape and amplitude of the
+oscillations and pay attention only to the time scale which is a
+parameter that characterises how fast the quantity being observed
+roughly repeats a certain pattern. Synchronization is classically
+deﬁned as:
+"Synchronization is an adjustment of time scales of self-oscillations
+due to interactions."
+i.e., synchronization refers to the rhythmic adjustment of self-
+sustained periodic oscillators due to their weak interaction. This
+adjustment can be referred to as phase locking and frequency en-
+trainment. In most cases, before the systems start to interact, they
+oscillate on diﬀerent time scales. But as a result of some coupling
+552
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+between two or more systems,
+In most cases, before the
+systems start to interact,
+they oscillate on
+diﬀerent time scales. But
+as a result of some
+coupling between two or
+more systems, when
+systems start interacting,
+then their time scales
+start changing.
+when systems start interacting,
+then their time scales start changing.
+Description of Synchronization in Dynamical Systems
+To summarise, we can describe self-sustained oscillators as au-
+tonomous dynamical systems and their non-damped oscillations
+as self-sustained oscillations.
+A dynamical system can be de-
+ﬁned as a system of one or more variables (self-oscillators) which
+evolve in time according to a given rule. In general, there are two
+types of dynamical systems.
+• Diﬀerential Equations: Time is continuous (called ﬂow)
+dx
+dt = f(x), x ∈Rn.
+• Diﬀerence Equations (iterated maps): Time is discrete (called
+cascade)
+xn+1 = xn, n ∈{0} ∪N.
+In the phase space, the self-sustained oscillators show bounded
+steady state behaviour. More precisely, we can say that the bounded
+region of the phase space corresponds to one of the two types
+of behaviour: a stable equilibrium point or a periodic or quasi-
+periodic oscillation. Many deterministic non-linear systems ex-
+hibit more complex invariant sets which act as attractors for their
+dynamics despite ﬁxed-point solutions and limit cycles.
+Self-
+sustained chaotic oscillators produce such dynamics in phase space.
+Self-sustained chaotic oscillators are also described by autonomous
+equations.
+Therefore, all instants of time are equivalent (that
+means self-sustained oscillators are time-independent). If we de-
+scribe the oscillations of dissipative, self-sustained chaotic sys-
+tems in the phase space, then we ﬁnd that it does not correspond
+to such simple geometrical objects like a limit cycle any more, but
+rather to complex structures that are called 'strange attractors'.
+The pictures of the limit cycle (periodic), a torus(quasi-periodic),
+and strange attractor (chaotic) have been displayed in Figure 6.
+RESONANCE | April 2020
+553
+
+GENERAL ARTICLE
+Figure 6.
+Image of self
+oscillators that can synchro-
+nize: (a) The point attrac-
+tor, (b) The limit cycle, (c)
+The strange attractor, and
+(d) The torus.
+(Figures a-c are reprinted
+from [15] and d is adapted
+from [16].)
+We have shown the dynamics of a tri-trophic food chain model
+subjected with Refugia and Allee eﬀect in prey species for sub-
+ﬁgures (a), (b), and (c) of Figure (6) [15]. We refer the same
+set of parameters for stable focus, limit cycle and chaotic attrac-
+tor which are mentioned in Figure (3) of the article [15]. For
+torus, we refer the model (1) of article [16] with initial condition
+(0.4999, 0.01, 0.234). Among these dynamics, the synchroniza-
+tion of periodic and chaotic oscillators have been widely stud-
+ied. However, the synchronization of quasi-periodic oscillators
+has not been widely studied.
+The diﬀerent oscillatory moves are characterised by diﬀerent at-
+tractors in the phase space of the system. Now, from the above
+discussion, it is clear that we can describe synchronization in dy-
+namical systems with this transition between attractors which oc-
+cur through bifurcations. Attractors and bifurcation can be de-
+tected by analysing the phase portraits. Thus when the parameters
+of the system change and the transition occurs from no synchro-
+nization to synchronization through a precise mechanism, then
+the behaviour of time scales can be explained through the bifur-
+cation taking place in the joint phase space of the interacting sys-
+tem.
+554
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+5. Types of Synchronization
+In the previous section, we saw that synchronization has been
+seen only in self-sustained oscillators, and these oscillators can
+be periodic or chaotic. Various synchronization schemes have
+been discovered on the basis of the type of oscillators. Here we
+name a few of them.
+1) Periodic Self-sustained Oscillator
+Based
+Based on external
+forcing and coupling,
+there are mainly three
+types of synchronization
+mechanisms.
+on external forcing and coupling (unidirectional coupling
+or bi-directional coupling in coupled oscillators), there are mainly
+three types of synchronization mechanisms. The three mecha-
+nisms are as listed below:
+(a) Phase or frequency locking: For two self oscillators with
+phases φ1 and φ2, the phenomenon of phase-locking can be de-
+ﬁned in terms of coincidences of phases. In mathematical nota-
+tion, it can be described as
+nφ1 −mφ2 = constant,
+where (n, m) is a pair of integers and designates the ratio of os-
+cillation periods. A weaker notion for synchronization is given
+by
+|nφ1 −mφ2| ≤constant.
+This deﬁnition allows systems with bounded variation in phase
+to be deﬁned as synchronized.
+We refer to this as 'frequency
+locking' since relative phase may vary.
+The biological mechanisms through which oscillators are coupled
+and can become synchronized diﬀer from situation to situation.
+Based on the phase diﬀerence, the phase synchronization can be
+of many types such as:
+• Hybrid synchronization
+• Anti-synchronization
+• Identical synchronization
+RESONANCE | April 2020
+555
+
+GENERAL ARTICLE
+Figure 7. (a) Synchronized
+pendulums
+with
+phase
+diﬀerence zero (b) Anti-
+synchronized
+pendulums
+with phase diﬀerence 180.
+In
+In some cases, the
+oscillators are in
+anti-phase with one
+another, i,e., their phases
+diﬀer by 180 degrees. If
+phases of the oscillators
+diﬀer by zero-degree,
+then we say that
+oscillators are
+completely
+synchronized.
+some cases, the oscillators are in anti-phase with one another,
+i,e., their phases diﬀer by 180 degrees. If phases of the oscillators
+diﬀer by zero-degree, then we say that oscillators are completely
+synchronized. Figure (7) shows the image of two synchronized
+and anti-synchronized oscillators.
+Based on weak or strong forcing and unidirectional or bi-directional
+coupling, forced synchronization falls into three categories and
+these categories are listed as
+1. Phase approximation for weak forcing
+2. Higher order phase locking or frequency locking
+3. Moderate and strong forcing
+(b) Suppression of natural dynamics.
+(b) Homo-clinic mechanism.
+In the case of periodic self-sustained oscillators, we provide the
+mathematical deﬁnition of phase and frequency locking and sug-
+gest the book Synchronization: A Universal Concept in Non-
+linear Sciences [17] for interested readers.
+2) Chaotic Self-sustained Oscillator
+Before discussing the theory of synchronization of chaos, we will
+look at the basic deﬁnition and proprieties of chaos. One of the
+most important achievements of non-linear dynamics within the
+last few decades was the discovery of complex, chaotic motion
+rather than a simple oscillator. It can be deﬁned as follows:
+'Chaos is a long-term aperiodic behaviour of a deterministic sys-
+tem that exhibits SDIC.'
+556
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+In the above deﬁnition of chaos, SDIC stands for sensitive depen-
+dence on the initial condition. Because of this property, chaos
+Chaos is also referred to
+as the 'butterﬂy eﬀect'.
+It signiﬁes that a small
+change in the initial
+conditions (butterﬂy
+wings up vs. down)
+could lead to entirely
+diﬀerent trajectories.
+is
+also referred to as the 'butterﬂy eﬀect'. It signiﬁes that a small
+change in the initial conditions (butterﬂy wings up vs. down)
+could lead to entirely diﬀerent trajectories. Lorentz chaotic sys-
+tem is the ﬁrst chaotic system observed by a meteorologist. In
+1963, Ed Lorentz published his famous work, where a strange at-
+tractor was found in numerical experiments in the context of stud-
+ies of turbulent convection [18]. This publication led to a boom in
+the ﬁeld of non-linear science. Since then, many chaotic systems
+have been discovered and studied by researchers. Famous exam-
+ples among them are the Lorentz System, Rossler System, and
+Chua System. The book The First Course in Chaotic Dynamical
+Systems: Theory and Experiment, can be followed by the read-
+ers for a better understanding of chaotic dynamical systems [19].
+Chaotic dynamical systems and chaos control is a theme that has
+been widely developed in the last few years. The study of sys-
+tems with this kind of behaviour is well-documented. In 1998,
+Pecora and Caroll explained the phenomenon of synchronization
+of chaos [8]. The ﬁeld of synchronization of coupled chaotic sys-
+tems gained popularity and momentum after the work of Pecora
+and Carrol. In the present day, scientists realise that chaotic be-
+haviour can be observed in experiments and in computer mod-
+els of response from all ﬁelds of science. Although chaotic sys-
+tems have SDIC (sensitive dependence on initial conditions), they
+are susceptible to synchronization. Chaotic
+Synchronization of
+chaos can be achieved by
+adjusting a given
+property of chaotic
+systems to collective
+behaviour.
+synchronization deals
+with the possibility of two or more chaotic systems oscillating in a
+synchronized way, or it can be said that synchronization of chaos
+refers to the tendency of two or more chaotic systems which are
+coupled together to undergo closely related motion.
+• Synchronization of chaos can be achieved by adjusting a given
+property of chaotic systems to collective behaviour.
+• Synchronization of chaos can be achieved by introducing a cou-
+pling term between the two chaotic systems and providing a con-
+trolling feedback in one that will eventually cause its trajectory
+to converge to that of the other, and then remain synchronized
+RESONANCE | April 2020
+557
+
+GENERAL ARTICLE
+with it.
+There are mainly four types of chaos synchronization as listed
+below:
+1. Complete synchronization (strong coupling)
+2. Generalised synchronization
+3. Phase synchronization (weak coupling)
+4. Lag synchronization
+Because of its potential applications in various areas, this ﬁeld
+has invited tremendous research attention. In the literature, vari-
+ous synchronization schemes, such as variable structure control,
+parameters adaptive control, O G Y method, observer-based con-
+trol, time-delay feedback approach, backstepping design tech-
+nique and so on, have been successfully applied to achieve chaos
+synchronization.
+The above mentioned four types of synchronization of chaos have
+their sub-types. From this broad category of synchronization, we
+opt for the most straightforward kind of synchronization of chaos.
+Further, we will discuss complete synchronization for chaotic
+self-sustained oscillators. Details about other types of synchro-
+nization of chaos can be learnt from the article 'Tutorial and re-
+view on the synchronization of chaotic dynamical systems' [20].
+Here, we only discuss the most common types of synchronization
+of periodic and chaotic oscillators. In the next section, the math-
+ematics behind forced synchronization of periodic oscillators and
+complete synchronization of coupled oscillators have been dis-
+cussed in detail.
+6. Study of Most Common Types of Synchronization
+Forced Synchronization in Periodic Self-sustained Oscillators
+It is the simplest case of synchronization. This type of synchro-
+nization occurs when external force has been applied through
+coupling. Coupling can be done by applying force to single or
+558
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+more than one self-sustained oscillators of a dynamical system,
+two dynamical systems or more than two dynamical systems. The
+coupling in coupled dynamical systems can be unidirectional or
+bi-directional.
+Let us understand it in a two-dimensional continuous dynamical
+system. Suppose force is applied to one direction only. Note that
+a single self oscillator is an autonomous dynamical system and
+can be deﬁned in mathematical notation as:
+dx
+dt = f(x).
+A forced dynamical system becomes a non-autonomous dynami-
+cal system and can be deﬁned in mathematical notation as:
+dx
+dt = g(x, v(t)).
+Here v(t) is periodic force such that g(x, 0) = f(x). Let us have
+a look at a problem on synchronization of periodically forced
+Vander-Pol oscillator.
+Periodically Forced Vander-Pol Oscillator: We consider the
+two-dimensional Vander-Pol oscillator with parameter μ.
+The
+Vander-Pol oscillator is a self-sustained oscillator which has a
+limit cycle if the setting μ > 0. To model the simplest case, we
+apply an external force into the second equation with coupling
+strength B. We opt for external force in the form of cosine with
+amplitude 1 and frequency ω.
+˙x1
+= x2,
+˙x2
+= μ(1 −x12)x2 −ν2x1 + B cos ωt.
+(1)
+We plot the phase portrait of the Vander-Pol oscillator in MAT-
+LAB using Runge-Kutta fourth order technique. We choose ini-
+tial condition (x1, x2) as (1.1, 1.41) and values of parameter are
+taken as μ = 2, ν = 10, B = 0, ω = 9.790 and μ = 100, ν =
+10, B = 890, ω = 9.790 for non-forced and forced systems re-
+spectively.
+RESONANCE | April 2020
+559
+
+GENERAL ARTICLE
+Figure 8.
+Phase portraits
+of Vander-Pol system for (a)
+non-forced oscillators, (b)
+forced oscillators.
+From Figure (8), we can see that the system has a limit cycle
+for no coupling B = 0. But as a result of forcing, the limit cycle
+which existed in the original unforced order no longer exists at the
+same location and in identical form in phase space. It means the
+original system and forced system have diﬀerent rhythms. If for
+the right choice of coupling strength B, well-timed beats produce
+another limit cycle for a frequency equal to or rationally equal to
+the forcing frequency, then only forced synchronization can be
+achieved. To understand this, the readers are suggested to read
+'Forced synchronization
+Unlike periodic
+oscillations, it is not
+essential to distinguish
+between self-sustained
+and forced systems for
+phase synchronization of
+chaos.
+of coupled oscillators' [21].
+Complete Synchronization in Chaotic Self-sustained Oscilla-
+tors
+Unlike periodic oscillations, it is not essential to distinguish be-
+tween self-sustained and forced systems for phase synchroniza-
+tion of chaos. Contrary to phase synchronization of chaos, com-
+plete synchronization can be observed in any chaotic systems; not
+necessarily autonomous. The phenomenon of complete synchro-
+nization is not close to classical synchronization of periodic oscil-
+lations. Complete synchronization means the suppression of dif-
+ferences in coupled identical systems. Therefore, this eﬀect can-
+560
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+not be described as entrainment or locking; it is closer to the onset
+of symmetry. To understand the synchronization of a chaotic sys-
+tem, we consider two dynamical systems - master and slave. The
+master system is the original system, and the slave system is the
+controlled system which we want to synchronize with the master
+system.
+Consider the master system as:
+˙x = F(x),
+x ∈Rn
+(2)
+F(x) = (F1(x(t)), F2(x(t)), . . . , Fn(x(t))) ∈Rn, and F(0) = 0.
+The corresponding slave system will be:
+˙y = F(y) + u,
+y ∈Rn,
+(3)
+u is the controller to be designed. Let the synchronization error
+state be deﬁned as:
+e = y −x,
+e ∈Rn.
+(4)
+So that the error dynamics is given as follows
+˙e = F(y) −F(x) + u,
+e ∈Rn.
+(5)
+The synchronized coupled chaotic system means that the trajec-
+tory of one of the systems will converge at the same values as the
+other. The master system (2) synchronizes the slave system (3),
+if and only if, the following condition is satisﬁed, i.e.
+lim
+t→∞||e(t)|| = 0.
+Based on the error between the variables of master and slave sys-
+tems, there are generally three forms of synchronizations as fol-
+lows:
+1. Exact synchronization : y(t) = x(t).
+2. Asymptotic synchronization : limt→∞||y(t) −x(t)|| = 0.
+3. Approximate synchronization : limt→∞||y(t) −x(t)|| ≤ϵ0.
+RESONANCE | April 2020
+561
+
+GENERAL ARTICLE
+7. Applications of Synchronization in Various Fields
+Now that we have learnt the mechanism behind synchronization
+phenomenon, let us discuss some applications. Objects or enti-
+ties that are not individually very powerful may work together to
+create a signiﬁcant amount of power. This property can apply to
+diﬀerent types of scenarios if skilfully implemented. For exam-
+ple, in a circuit that connects several Josephson junctions (each
+of which generates a small amount of current based on quantum-
+mechanical principles), if the junctions are linked in a manner
+conducive to synchronization, a large current can be allowed to
+ﬂow. Synchronization
+Synchronization or
+phase-locking, appear in
+a large variety of
+systems such as neural
+networks, lasers, charge
+density waves,
+Josephson junction
+arrays, heart/breathing
+systems, and population
+of ﬂashing ﬁreﬂies.
+or phase-locking, appear in a large variety
+of systems such as neural networks, lasers, charge density waves,
+Josephson junction arrays, heart/breathing systems, and popula-
+tion of ﬂashing ﬁreﬂies. The phenomenon is expected to be ex-
+ploited for the treatment of Parkinson's disease, signal processing
+or optomechanical systems.
+Some of the applications of synchronization in diverse scientiﬁc
+ﬁelds such as biology, neuroscience, engineering, computer sci-
+ence, economics and social sciences are as follows:
+1. Biological Systems and Neuroscience
+Examples: Disease dynamics, Population dynamics, Genetic net-
+works, Circadian rhythms, Cortical networks, Neuronal networks.
+2. Physical Systems
+Examples: Clocks, Dynamics of coherent structures in spatially
+extended systems.
+3. Defence Applications
+Examples: Secure communications, New tunable radiation sources.
+4. Computer Science and Engineering
+Examples: Data mining, Parallel/Distributed computation, Con-
+sensus problems, Wireless communication networks, Power-grids.
+5. Social Science and Economy
+Examples: Opinion formation, Finance, World Trade Web.
+562
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+For a more detailed explanation of these applications of synchro-
+nization in complex networks, see [22].
+8. Conclusion
+Through the present review, we have highlighted the basic princi-
+ples of synchronization. Since traditionally, synchronization has
+been based upon periodic signals, in a classical context, it can
+The intrinsic rhythms
+exhibited by dynamical
+systems have attracted
+interest in a wide range
+of ﬁelds. However, till
+now, there is no single
+uniﬁed concept that
+clearly covers all the
+well-known examples of
+synchronization
+phenomenon together.
+be
+deﬁned as the mechanism by which a group of individuals go-
+ing through periodic motion begins moving through same parts
+of their cycles at the same time. The synchronization of non-
+linear and/or spatially extended processes have been extensively
+studied over the past decades and scientists from diﬀerent ﬁelds
+have assigned it various names. These names are inﬂuenced by
+the classical deﬁnition of synchronization. It has been referred
+to as phase locking, phase trapping, frequency pulling, frequency
+locking, etc. The intrinsic rhythms exhibited by dynamical sys-
+tems have attracted interest in a wide range of ﬁelds. However, till
+now, there is no single uniﬁed concept that clearly covers all the
+well-known examples of synchronization phenomenon together.
+Since this phenomenon occurs widely in Nature, one may ask,
+how can we potentially grasp them together? We can ﬁnd its
+solution by discovering new mathematical tools.
+There is no
+denying that the strength of mathematics lies in its universality.
+Whether we are thinking about cells or circuits, it is possible to
+study each subject in the same way as long as the basic mathemat-
+ical framework is the same. Although the work in mathematics
+is advancing quite slowly, when a speciﬁc problem is solved, the
+eﬀect of the solution on neighbouring ﬁelds is unmistakable. A
+lot of researchers have shown their curiosity in this area since the
+groundbreaking work of Kuramoto, Pecora, and Caroll. In the last
+two decades, it has been realised that chaotic signals can also be
+used for synchronization. Though the phenomenon is quite recent
+in the theory of non-linear dynamical systems and has not been
+completely explored yet. We expect this article to raise interest
+in the scientiﬁc and engineering communities. We believe that
+RESONANCE | April 2020
+563
+
+GENERAL ARTICLE
+the exploration of new mathematical tools, capable of combining
+the information provided by speciﬁc dynamics with the whole
+process towards synchronization, should be the focus of inten-
+sive research if we aim to provide a general theory of synchro-
+nization processes in complex networks. As the ﬁeld of dynamic
+systems with many degrees of freedom is still evolving, the inclu-
+sion of new powerful mathematical tools are eagerly awaited by
+researchers in physics, biology, ecology, engineering, and other
+ﬁelds.
+Suggested Reading
+[1] C Huygens, Oeuvres complétes de Christiaan Huygens, Vol.8, (M. Nijho), 1899.
+[2] Y Wu, N Wang, L Li and J Xiao, Anti-phase synchronization of two coupled
+mechanical metronomes, Chaos: An Interdisciplinary Journal of Nonlinear Sci-
+ence, Vol.22, p.023146, 2012.
+[3] E Kaempfer, The History of Japan: Together with a Description of the Kingdom
+of Siam 1690-1692, (Psychology Press), 1993.
+[4] R B Lindsay, Men of Physics Lord Rayleigh - The Man and His Work: The Com-
+monwealth and International Library: Selected Readings in Physics, (Elsevier).
+[5] J H Ku, Jw strutt, Third Baron Rayleigh: The Theory of Sound, (1877-1878),
+Landmark Writings in Western Mathematics 1640-1940, (Elsevier), pp.588-599,
+2005.
+[6] D G Tucker, The early history of amplitude modulation, sidebands and
+frequency-division-multiplex, Radio and Electronic Engineer, Vol.41, pp.43-47,
+1971.
+[7] Y Kuramoto, Diﬀusion-induced chaos in reaction systems, Progress of Theoret-
+ical Physics Supplement, Vol.64, pp.346-367, 1978.
+[8] L M Pecora, T L Carroll, G A Johnson, D J Mar and J F Heagy, Fundamentals
+of synchronization in chaotic systems, concepts, and applications, Chaos: An
+Interdisciplinary Journal of Nonlinear Science, Vol.7, pp.520-543, 1997.
+[9] J Yang, Y Wang, Y Yu, J Xiao and X Wang, Huygens' synchronization exper-
+iment revisited: luck or skill?, European Journal of Physics, Vol.39, p.055004,
+2018.
+[10] K Czolczynski, P Perlikowski, A Stefanski and T Kapitaniak, Huygens' odd
+sympathy experiment revisited, International Journal of Bifurcation and Chaos,
+Vol.21, pp.2047-2056. 2011.
+[11] S Strogatz and N Goldenfeld, Sync: The emerging science of spontaneous or-
+der, Physics Today, Vol.57, pp.59-60, 2004.
+[12] V S Anishchenko and G Strelkova, Attractors of dynamical systems, 1st Inter-
+national Conference, Control of Oscillations and Chaos Proceedings, (Cat. No.
+97TH8329) (IEEE), pp.498-503, 1997.
+[13] A Jenkins, Self-oscillation, Physics Reports, Vol.525, pp.167-222, 2013.
+564
+RESONANCE | April 2020
+
+GENERAL ARTICLE
+[14] H Zeng, M Lahikainen, L Liu, Z Ahmed, O M Wani, M Wang, H Yang and
+A Priimagi, Light-fuelled freestyle self-oscillators, Nature Communications,
+Vol.10, pp.1-9, 2019.
+[15] B Nath, N Kumari, V Kumar and K P Das, Refugia and allee eﬀect in prey
+species stabilize chaos in a tri-trophic food chain model, Diﬀerential Equations
+and Dynamical Systems, pp.1-27, 2019.
+[16] J Sprott, A dynamical system with a strange attractor and invariant tori,
+Physics Letters A, Vol.378, pp.1361-1363. 2014.
+[17] A Pikovsky, J Kurths, M Rosenblum, and J Kurths, Synchronization: A Uni-
+versal Concept Non-linear Sciences, Vol.12, Cambridge university press, 2003.
+Address for Correspondence
+Nitu Kumari1
+Shubhangi Dwivedi2
+School of Basic Sciences
+Kamand, Indian Institute of
+Techology, Mandi
+Himachal Pradesh 1750 05,
+India.
+Email:
+1 nitu@iitmandi.ac.in
+2 shubhangi.dwivedi176@
+gmail.com
+[18] E N Lorenz, Deterministic nonperiodic ﬂow, Journal of the Atmospheric Sci-
+ences, Vol.20, pp.130-141, 1963.
+[19] R L Devaney, A First Course in Chaotic Dynamical Systems: Theory and Exper-
+iment, (CRC Press), 2018.
+[20] P P Singh and H Handa, Tutorial and review on the synchronization of chaotic
+dynamical systems, International Journal of Advances in Engineering Science
+and Technology, (IJAEST), ISSN: pp.2319-1120), Vol.1, pp.28-34, 2012.
+[21] H Kitajima, Y Noumi, T Kousaka and H Kawakami, Forced synchronization of
+coupled oscillators, IEICE TRANSACTIONS on Fundamentals of Electronics,
+Communications and Computer Sciences, Vol.82, pp.700-703, 1999.
+[22] A Arenas, A Daz-Guilera, J Kurths, Y Moreno and C Zhou, Synchronization
+in Complex Networks, Physics reports, Vol.469, pp.93-153, 2008.
+RESONANCE | April 2020
+565
+View publication stats
+

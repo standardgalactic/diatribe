@@ -1,0 +1,2153 @@
+Nature  |  www.nature.com  |  1
+Article
+Hippocampal representations drift in stable 
+multisensory environments
+Jason R. Climer1,2,3, Heydar Davoudi1,3, Jun Young Oh1,3 & Daniel A. Dombeck1 ✉
+Experiments that track hippocampal place cells in mice navigating the same real 
+environment have found significant changes in neural representations over a period 
+of days1,2. However, whether such 'representational drift' serves an intrinsic function, 
+such as distinguishing similar experiences that occur at different times3,4, or is instead 
+observed due to subtle differences in the sensory environment or behaviour5-7, remains 
+unresolved. Here we used the experimental control offered by a multisensory virtual 
+reality system to determine that differences in sensory environment or behaviour do 
+not detectably change drift rate. We also found that the excitability of individual place 
+cells was most predictive of their representational drift over subsequent days, with 
+more excitable cells exhibiting less drift. These findings establish that representational 
+drift occurs in mice even with highly reproducible environments and behaviour and 
+highlight neuronal excitability as a key factor of long-term representational stability.
+Place cell ensembles in the hippocampus had long been thought of as 
+the stable substrate for spatial long-term memories8. Yet, experiments 
+that tracked place cells in mice navigating the same environment over 
+days challenged this idea with evidence of significant changes in the 
+representations, a phenomenon called representational drift1,2,9-12. 
+Hippocampal representational drift could serve as a mechanism to 
+distinguish between similar experiences that occur at different times3,4, 
+provide computational benefits such as continual learning3, generaliza-
+tion13,14 and allowing for redundancy15, or be a side effect of computa-
+tions that have these benefits13,15. Conversely, drift could simply be a 
+readout of subtle differences in behaviour, such as running speed5,16-18, 
+or the sensory environment, such as olfactory cues19-21, that are difficult 
+to measure and control, yet highly notable and perceptible to the ani-
+mal. This latter hypothesis that drift occurs owing to subtle sensory or 
+behavioural variabilities has gained some support from experimental 
+observations13 and analyses6. For example, in the hippocampus CA1 
+of Egyptian fruit bats, little representational drift was observed over 
+days when the behaviour (flight path) was highly stereotyped7. Nota-
+bly, however, few experiments that control for subtle behavioural and 
+environmental variabilities have been performed, making it unclear 
+whether such variabilities could provide a general explanation for 
+representational drift. Therefore, we used the precise sensory con-
+trol afforded by a multisensory (visual and olfactory) virtual reality 
+system22,23 and the behavioural control achieved by head-fixed mice 
+running through the environment using a linear treadmill to determine 
+whether subtle behavioural and sensory variabilities have an effect on 
+the rate of representational drift in hippocampal CA1 of mice24.
+Drift in familiar environments
+Representational drift in mouse CA1 place cells has been observed in 
+real1,2,4,11,12,25,26 and virtual9,10,27 environments with different environ-
+ment sizes and shapes, treadmill types (for instance, spherical with 
+motion constrained to one dimension9 or cylindrical27), sensory cues 
+and reward conditions. Therefore, we first sought to confirm that hip-
+pocampal CA1 drift occurs in our apparatus, which consists of a virtual 
+linear track and a one-dimensional cylindrical treadmill28,29 (Fig. 1a,b), 
+and to quantify the drift rate with previously used metrics2,9,10,25,26.
+To reduce behavioural variables from outside the recording ses-
+sion that may affect hippocampal drift30,31, we singly housed mice in 
+identical, unenriched cages (no exercise wheels), transported them in 
+enclosed dark carts, and maintained them in darkness with high-volume 
+white noise in the experiment room to minimize external stimuli. The 
+water-restricted mice received water rewards 2.25 m down a 3-m visual 
+virtual track, a track length resembling those in other physical and 
+virtual track place cell studies9-11,28,29,32. Mice were trained until they 
+reached a behavioural task engagement level based on anticipatory 
+slowing behaviour before the reward (mean ± s.d.: 20 ± 3.6 training 
+days, 77.5 ± 2.5 traversal laps per session; Fig. 1d,e, Extended Data 
+Fig. 1a-c and Methods) comparable with those in other studies33,34. 
+Once this criterion was reached, we used two-photon microscopy to 
+image calcium transients in populations of dorsal CA1 neurons using 
+GCaMP8m (Fig. 1c).
+We imaged the same populations of neurons for five consecutive 
+days. As previous reports have suggested that technical difficulties in 
+identifying and recording from the same neurons over days could explain 
+previous observations of representational drift35,36, we developed a 
+quantitative method based on volumetric plane registration to precisely 
+identify the same imaging fields across days (Fig. 1f and Methods). Our 
+plane registration precision was around 2 µm—that is, 15% of the diameter 
+of an average mouse CA1 pyramidal cell37 (approximately 13.2 µm). This 
+robust registration methodology resulted in tight cross-correlations 
+of the spatial footprints (Fig. 1g) and high correlations of cellular mor-
+phologies across days (median Pearson's correlation of spatial footprints 
+(r) = 0.92, n = 8,883 region of interest (ROI) pairs from 1,353 cells that 
+were active on multiple days; Fig. 1h). We further confirmed visually 
+https://doi.org/10.1038/s41586-025-09245-y
+Received: 10 June 2024
+Accepted: 5 June 2025
+Published online: xx xx xxxx
+ Check for updates
+1Department of Neurobiology, Northwestern University, Evanston, IL, USA. 2Present address: Department of Molecular and Integrative Physiology, University of Illinois, Champaign, IL, USA. 
+3These authors contributed equally: Jason R. Climer, Heydar Davoudi, Jun Young Oh. ✉e-mail: d-dombeck@northwestern.edu
+
+2  |  Nature  |  www.nature.com
+Article
+that individual neurons were reliably identified on the basis of their 
+subcellular morphologies and were able to clearly identify the same 
+processes across days (Fig. 1i,j, Extended Data Fig. 1f,g and Methods).
+A total of 1,678 CA1 pyramidal cells in 6 mice were recorded (280 ± 9.2 
+cells per mouse; Fig. 1i,j). On the first day, we identified 391 place 
+cells on the basis of spatial information38 (65.2 ± 18.8 place cells per 
+VR display
+2P
+microscope
+2P
+microscope
+d
+-5
+-1   +1
+0
+0.6
+1.0
++5
+Day:
+Training
+Imaging
+Cell 1
+Cell 2
+Speed correlation
+e
+Day: -5
+-4
+-3
+-2
+-1
+1
+2
+3
+4
+5
+n
+0
+0.90
+0.45
+TC correlation
+1
+2
+3
+4
+5
+Day
+l
+0
+1.0
+Recurrence probability
+0.5
+1
+g
+Normalized pair 
+count
+ROI footprint
+correlation
+0
+1
+0
+1
+0
+1
+2
+3
+4
+5
+Day
+1
+2
+3
+4
+5
+Day
+m
+0
+0.8
+0.4
+-0.1
+PV correlation
+h
+Footprint
+x-correlation
+50 μm 
+n = 6 mice
+Mouse 1
+Mouse 1
+Volumetric plane registration
+10 μm 
+j
+k
+Cell no. (sorted)
+ΔF/F
+0
+1
+Normalized ΔF/F
+391
+1
+0
+0.4
+0
+0.44
+0
+0.12
+3
+0
+Position (m)
+Day 2
+Day 3
+Day 4
+Day 5
+Day 1
+b
+c
+a
+Window
+jGCaMP8m
+jGCaMP8m
+0
+3
+Position (m)
+Reward
+Plane 
+cross-correlation
+(a.u.)
+Laps 11 to 30 for each day
+1
+2
+3
+Day 2
+Day 3
+Day 4
+Day 5
+i
+2 μm
+Day 2
+z-stack
+Day 1
+reference image
+Identiﬁed plane
+f
+Day 1
+0
+1
+Speed (m s-1)
+Training days
+Imaging days
+Reference
+Ref.
+Cell 3
+Fig. 1 | Hippocampal representational drift occurs in a familiar virtual 
+environment. a-c, Experiment set-up. a, A head-fixed mouse runs on a cylindrical 
+treadmill in front of a virtual reality (VR) display and receives water rewards 
+during two-photon (2P) imaging. b, The mouse navigating a 3-m one-dimensional 
+virtual track. c, Imaging of dorsal CA1 neurons using GCaMP8m through 
+hippocampal window. d, Speed profile of a trained exemplar mouse performing 
+a task in a familiar environment over five training and imaging days. Each column 
+shows a single-track traversal lap. The horizontal dashed line and blue droplet 
+indicate the water reward location, and vertical white lines separate days. e, Speed 
+correlation of laps 11-30 on each day to the mean of laps 11-30 on the reference 
+day (Ref, cyan). The horizontal dashed line indicates correlation threshold 
+(n = 20 laps from 1 mouse, error bars indicate s.e.m.). f-i, Across-day volumetric 
+plane registration method. f, z-Stack images (15 slices, 2 µm apart) were obtained 
+around the day 1 imaging plane. Maximum cross-correlation values for the 15 
+z-planes to the day 1 imaging plane were calculated and the peak was selected as 
+the matching plane (red dot and outline). a.u., arbitrary units. g, Cross-correlation 
+of spatial footprints for all ROI pairs aligned across days. Scale bar, 10 µm.  
+h, Histogram of spatial footprint correlations for all ROI pairs aligned across days. 
+Cross-cell shuffles are shown in grey. i, Selected imaging planes in an example 
+mouse across five days. Cell ROIs were identified using Suite2p and aligned 
+across days using CellReg. Three example ROIs identified on all five days are 
+highlighted in cyan. Scale bar, 50 µm j, Three example place cells from i, showing 
+heterogeneous place TCs across days. Mean ΔF/F versus track position is shown 
+for each cell for days 1-5. The first place cell is stable over this period, the second 
+place cell field emerges on day 3 and the third place cell field shifts location 
+across days. Insets show the cell morphologies (scale bar, 10 µm). The shaded 
+region shows the lap-by-lap s.e.m. k, Sorted and cross-validated population 
+heat maps of 391 cells (6 mice) identified as place cells on day 1. Each horizontal 
+row shows mean ΔF/F of each neuron versus track position. Day 1: rows are 
+sorted on the basis of place field locations on odd laps; even lap mean ΔF/F is 
+plotted. Days 2-5: the same 391 cells are sorted according to their order on day 
+1, and mean ΔF/F for even laps on each indicated day is plotted. l-n, Population 
+representational drift measured by recurrence probability (l), PV correlation (m) 
+and TC correlation (n). Thin black lines represent individual mice; thick black 
+lines show the mean across mice; grey lines show random shuffles.
+
+Nature  |  www.nature.com  |  3
+imaging field), and similar to previous reports1,2,4,9-11,25,26, observed a 
+range of spatial tuning stability over the days of imaging, with some 
+place cells expressing stable tuning and others exhibiting unstable 
+tuning (Fig. 1j and Extended Data Fig. 1f,g). Whereas the overall quality 
+of the spatial code within days was preserved (Extended Data Fig. 1h, 
+n = 6 mice, two-way ANOVA across mice and days; total active neurons 
+F(4,20) = 0.18, P = 0.95; fraction of place cells, F = 0.33, P = 0.85; spa-
+tial information of place cells, F = 0.72, P = 0.59), we observed quali-
+tative differences in the population spatial tuning over the five days 
+when we inspected sorted and cross-validated heat maps of the same 
+cells (Fig. 1k). We then quantified representational drift with multi-
+ple statistical measures and found statistically significant drift over 
+the five recording days in all eight measures (Fig. 1l-n and Extended 
+Data Fig. 1i,j; two-way ANOVA across mice and day, day effect; recur-
+rence probability, F(4,20) = 24.5, P ≈ 0; population vector (PV) cor-
+relation, F = 22.3, P = 3.9 × 10−7; tuning curve (TC) correlation, F = 4.8, 
+P = 0.0072; place field peak shift, F = 5.9, P = 0.0027; Bayesian decod-
+ing error, F = 6.0, P = 0.0024; Frobenius norm, F = 37.2, P = 5.3 × 10−9; 
+representational similarity, F = 13.9, P = 1.4 × 10−5; representational 
+drift index, F = 21.9, P ≈ 0; Methods; see Supplementary Table 1 for all 
+ANOVA statistics). Our recurrence probability analysis revealed that 
+only 164 out of the 391 place cells (41.9%) identified on day 1 had the 
+same place fields on day 5. Therefore, significant representational 
+drift occurs in the hippocampus of mice running on a linear treadmill 
+in a familiar virtual environment, consistent with previous studies in 
+virtual and real-world experimental settings2,9-11.
+Drift persists with reproducible behaviour
+Hippocampal place coding in mice shows dependencies on different 
+behavioural factors, such as running speed and head direction5,16-18. 
+Therefore, we explored whether differences in mouse behaviour across 
+days could explain drift in our experimental set-up. We focused on the 
+speed versus track position profiles for each traversal lap, because this 
+was one of the most salient behavioural differences across laps in our 
+one-dimensional navigation task. For each mouse, from the dozens 
+of laps per day, we sub-selected two different sets of laps. First, we 
+sub-selected and found 20 laps that were both highly similar within each 
+day and highly similar between days ('similar' set; Fig. 2a,c, Extended 
+Data Fig. 2a-c and Methods). Second, we sub-selected and found 20 
+laps that were highly similar within each day but were highly dissimilar 
+between days ('dissimilar' set; Fig. 2b,d and Extended Data Fig. 2a-c). 
+The within-day behavioural correlation was indistinguishable between 
+the two sets (Fig. 2e; three-way ANOVA across all laps, similar and dis-
+similar sets, mice and days; set effect: F(2,78) = 21.5, P = 3.7 × 10−8; 
+Tukey-Kramer post hoc test P = 0.61), whereas the across-day behav-
+ioural difference was significantly larger in the dissimilar sets (Fig. 2f; 
+ANOVA across all days, similar and dissimilar sets and mice; similar 
+and dissimilar set effect: F(2,10) = 190.1, P = 1.1 × 10−8; Tukey-Kramer 
+post hoc tests P < 0.05).
+As running speed was related to representational drift in mouse 
+V16, and flight path differences was related to drift in bat CA17, we 
+expected less drift when examining similar sets compared to dissimi-
+lar sets. However, when we examined the cross-validated place cell 
+population heat maps restricted to the two different traversal sets, 
+we observed no qualitative differences (Fig. 2g,h). Similarly, when we 
+quantified representational drift using the multiple statistical measures 
+described above, we found no statistical difference between the two 
+sets (Fig. 2i-k and Extended Data Fig. 2d; three-way ANOVA across simi-
+lar and dissimilar sets, mice and days, sets effect: recurrence probability 
+F(1,49) = 0.077, P = 0.78; PV correlation, F = 1.6, P = 0.22; TC correlation, 
+F = 0.097, P = 0.76; place field peak shift, F = 0.32, P = 0.57; Bayesian 
+decoding error, F = 2.0, P = 0.16; Frobenius norm, F = 0.83, P = 0.37; 
+representational similarity, F = 0.72, P = 0.40; representational drift 
+index, F = 0.088, P = 0.77). Therefore, the CA1 representational drift rate 
+in mice is not detectably changed by differences in running behaviour, 
+with significant drift still occurring even when laps with highly similar 
+behaviour were selected across days.
+Cognitive factors such as attention—which is often inferred from 
+task engagement—could influence the rate of representational drift34. 
+Previous studies have used pre-reward licking as evidence that mice 
+have learned the location of a reward, and once learned, pre-lick serves 
+as a measure of task engagement9,33,34. Similar to these studies, our 
+mice consistently and robustly exhibited pre-reward licking, indicat-
+ing strong task engagement (Extended Data Figs. 1d,e and 3a-f). To 
+investigate whether subtle differences in task engagement affect the 
+rate of representational drift, we divided laps from each session into 
+higher and lower pre-reward lick selectivity sets and found little to no 
+significant difference in drift rates (Extended Data Fig. 4; three-way 
+ANOVA across days, mice and set; set effect: recurrence probability, 
+F(1,40) = 5.7, P = 0.022; PV correlation, F = 0.87, P = 0.36; TC correla-
+tion, F = 5.5, P = 0.024; place field peak shift, F = 1.2, P = 0.27; Bayesian 
+decoding error, F = 7.2, P = 0.011; Frobenius norm, F = 2.3, P = 0.14; rep-
+resentational similarity, F = 5.0, P = 0.031; representational drift index, 
+F = 2.1, P = 0.15; Methods). Furthermore, across all mice, we detected no 
+significant correlations between average lick selectivity and drift rate 
+in six of the drift metrics, weak correlation in one (Frobenius norm) and 
+some correlation in one (representational similarity; Extended Data 
+Fig. 5a). Therefore, the CA1 representational drift rate in mice shows 
+little or no change due to subtle differences in task engagement, with 
+significant drift still occurring even in laps and mice with the highest 
+lick selectivity.
+Drift persists in reproducible environments
+Next, we hypothesized that subtle changes in the sensory environment 
+over days might be the source of CA1 representational drift. Our visual 
+virtual environment was the same each day and any auditory cues were 
+masked with a white noise sound generator. By contrast, olfactory cues 
+were not controlled in our set-up (Fig. 1) or in previous mouse experi-
+ments in which significant hippocampal drift was obser­ved1,2,4,9-11,25,26. 
+Mice are highly olfactory mice, with the ability to detect extremely 
+small variations in olfactory stimuli19-21. For example, mice display 
+sensitivity and behavioural responses to odour concentrations39 below 
+1 × 10−10 M. Moreover, changes in the odour of an environment can 
+induce changes in spatial tuning in hippocampal place cells22,23,40-42. 
+Therefore, even small changes in olfactory cues from day to day could 
+be perceptible to mice and could lead to differences in spatial repre-
+sentations over days.
+To test the hypothesis that subtle odour variabilities may affect 
+representational drift, we precisely controlled both the visual and 
+the olfactory sensory cues that were available to the mice using our 
+recently developed visual-olfactory multisensory virtual reality sys-
+tem22,23 (Fig. 3a). We began with the 'flat odour' task, in which mice 
+(n = 5) were provided with a fixed concentration of α-pinene odorant 
+via an airstream through a nose cone that enveloped their nose (Fig. 3b). 
+During all training and imaging days, mice consistently experienced 
+this odour identity and concentration. The visual virtual reality environ-
+ment was the same as used in Fig. 1 and, importantly, the within-day and 
+across-day similarity between speed versus track position profiles for 
+the flat odour group was indistinguishable from those of the 'uncon-
+trolled odour' group (Fig. 3e,f and Extended Data Figs. 1b-e and 3a,b; 
+repeated-measures ANOVA on within-day correlation, task-by-day 
+interaction; F(4,36) = 0.49, P = 0.74; across-day behavioural difference 
+rank-sum P = 0.66). When we examined the spatial code of CA1 place 
+cells in the uncontrolled odour and flat odour tasks, we found no differ-
+ence in the fraction of place cells recorded (Fig. 3g, 34.0% versus 36.2% 
+in the uncontrolled odour versus flat odour task, χ2 = 0.70, P = 0.40), 
+but, notably, there was a significant increase in the spatial information 
+in place cells in the flat odour task (Fig. 3h, rank-sum P = 4.5 × 10−6).
+
+4  |  Nature  |  www.nature.com
+Article
+Based on the previous odour-sensitive place cell studies22,23,40,41, we 
+expected less drift in the flat odour group compared with the uncon-
+trolled odour group. However, when we looked at the cross-validated 
+place cell population heat maps, we observed no qualitative differences 
+between these two groups (Figs. 1k and 3i). Similarly, when we quantified 
+representational drift using the multiple statistical measures described 
+above, we found no significant differences (Fig. 3l-n and Extended Data 
+Fig. 3h; repeated-measures ANOVA, task-by-day interaction; recurrence 
+probability, F(4,36) = 0.49, P = 0.75; PV correlation, F = 0.45, P = 0.77; 
+TC correlation, F = 0.91, P = 0.47; peak shift, F = 1.56, P = 0.21; Bayesian 
+decoding error, F = 0.42, P = 0.79; Frobenius norm, F = 0.28, P = 0.89; 
+representational similarity, F = 0.88, P = 0.49; representational drift 
+*
+*
+*
+Imaging days
+1
+2
+3
+4
+5
+Imaging days
+1
+2
+3
+4
+5
+0
+3
+Position (m)
+0
+3
+Position (m)
+20 laps selected each day
+Similar laps
+Across-day
+speed difference
+Similar
+Shufﬂe
+Dissimilar
+Dissimilar laps
+0
+1
+Speed (m s-1)
+Similar set place ﬁelds
+Dissimilar set place ﬁelds
+Cell no. (sorted)
+Cell no. (sorted)
+391
+1
+391
+1
+3
+0
+Postition (m)
+0
+Within-day
+speed correlation
+1.0
+0.5
+0
+8
+4
+1
+2
+3
+4
+5
+Day
+a
+b
+e
+f
+c
+d
+Similar set laps
+PC1
+PC2
+PC3
+PC1
+PC2
+PC3
+Dissimilar set laps
+Day
+1
+2
+3
+4
+5
+k
+1
+2
+3
+4
+5
+Day
+0
+0.6
+NS
+-0.05
+PV correlation
+All
+Similar
+Dissimilar
+j
+NS
+0
+0.8
+0.4
+TC correlation
+1
+2
+3
+4
+5
+Day
+i
+g
+h
+0
+1.0
+Recurrence probability
+0.5
+NS
+NS
+1
+2
+3
+4
+5
+Day
+Mouse 4
+n = 6 mice
+n = 6 mice
+Similar
+Dissimilar
+0
+1
+Normalized ΔF/F
+Fig. 2 | Hippocampal representational drift persists even with highly 
+reproducible behaviour. a,b, Speed profile of traversal laps of example mouse 
+across days, selected on the basis of 'similar' (a) or 'dissimilar' (b) lap sets. Twenty 
+laps were selected for each subset and imaging day. c,d, Principal component 
+analysis (PCA) space representation of laps (position binned speed vectors)  
+of the example mouse in a,b for similar (c) and dissimilar (d) lap sets. Each dot 
+represents the speed vector for a single lap, and colours show different days. 
+e,f, Within-day speed vector correlations for each of the five days (e; n = 6 mice, 
+three-way ANOVA across all laps, similar and dissimilar sets, mice and days; set: 
+F(2,78) = 21.5, P = 3.7 × 10−8; Tukey-Kramer post hoc test, P = 0.61; lines show the 
+mean across mice and shaded regions represent s.e.m.) and across-day PCA 
+space distance (f; n = 6 mice, two-way ANOVA across all days, similar and 
+dissimilar sets and mice; similar and dissimilar sets: F(2,10) = 190.1, P = 1.1 × 10−8; 
+Tukey-Kramer post hoc tests: shuffle laps versus similar laps, P = 2.1 × 10−6; 
+shuffle laps versus dissimilar laps, P = 1.6 × 10−5; similar laps versus dissimilar 
+laps, P = 6.9 × 10−9). g,h, Cross-validated heat maps of 391 cells (6 mice) identified 
+as place cells on day 1, plotted on similar and dissimilar laps. Day 1, mean of ΔF/F 
+for similar (g) or dissimilar (h) sets; rows sorted on the basis of place field 
+locations across all laps. Days 2-5, mean of ΔF/F for similar (g) or dissimilar (h) 
+sets; same 391 cells as for day 1, in the same order. i-k, Representational drift 
+measured according to recurrence probability (i), PV correlation (j) and TC 
+correlation (k). Three-way ANOVA, sets effect. The shaded region represents 
+s.e.m. *P < 0.05; NS, not significant (P > 0.05).
+
+Nature  |  www.nature.com  |  5
+index, F = 1.13, P = 0.36). Therefore, the CA1 representational drift rate 
+in mice is not significantly changed when the sensory environment is 
+precisely reproduced and controlled.
+Although drastic changes to the visual environment are known to 
+cause partial and global remapping43,44, the effect of more subtle envi-
+ronment variability on representational drift rate across days is poorly 
+understood. To further test the effect of odour environment variability 
+on representational drift rate, we developed a 'variable odour' task in 
+which we used our multisensory virtual reality system to systematically 
+introduce different odours (α-pinene, methyl valerate or mix) and 
+concentrations across laps and days (Fig. 3c, Extended Data Fig. 3g 
+and Methods). Again, the visual virtual reality environment was the 
+1
+2
+3
+4
+5
+Day
+0
+-0.1
+1.0
+0.5
+TC correlation
+n
+1
+2
+3
+4
+5
+Day
+Recurrence probability
+0
+1.0
+0.5
+l
+1
+2
+3
+4
+5
+Day
+0
+0.8
+0.4
+-0.05
+PV correlation
+m
+NS
+NS
+NS
+Spatial odour (n = 6 mice)
+k
+Cell no. (sorted)
+504
+1
+3
+0
+Postition (m)
+0
+1
+Normalized ΔF/F
+Flat odour (n = 5 mice)
+i
+Cell no. (sorted)
+300
+1
+Variable odour (n = 6 mice)
+j
+Cell no. (sorted)
+600
+1
+a
+f
+g
+Olfactometer
+1
+30%
+100%
+75%
+15
+2
+3
+4
+5
+b
+c
+0
+100
+0
+30
+50
+80
+Odorant (%)
+Odorant (%)
+Flat odour
+Variable odour
+100
+30
+50
+80
+Lap
+0
+3
+Position (m)
+Day 1
+2
+3
+4
+5
+1
+α-Pinine
+d
+Spatial odour
+Odorant (%)
+All laps 
+All days
+0
+1
+2
+Spatial information (bits AP
+-1)
+4
+Cumulative fraction of
+place cells
+0
+1
+Uncontrolled
+Flat
+Variable
+Spatial
+Uncontrolled
+Flat
+Variable
+Spatial
+Across-day
+behavioural difference
+0
+8
+Fraction of place cells (%)
+0
+100
+NS
+e
+Uncontrolled odour
+Flat odour
+Variable odour
+Spatial odour
+Uncontrolled odour
+Flat odour
+Variable odour
+Spatial odour
+0
+Within-day
+behavioural correlation
+1
+1
+2
+3
+4
+5
+Day
+NS
+h
+Methyl
+valarate
+Mixed
+*
+*
+NS
+3
+Imaging days
+Fig. 3 | Hippocampal representational drift persists even in a highly 
+reproducible sensory environment. a, Experimental set-up. Visual-olfactory 
+multisensory virtual reality provides controlled odorant through a nose chamber 
+as the mouse navigates a virtual environment. b-d, Schematics of odour 
+presentation protocols. b, Flat odour task; 50% α-pinene was presented on 
+each lap. c, Variable odour task; different concentrations and mixtures of 
+α-pinene and methyl valerate odorants were presented on each day. d, Spatial 
+odour task; α-pinene was presented with a fixed gradient profile across laps 
+and days. e, Within-day speed vector correlations for each of the five days in 
+different tasks (n = 6 mice (uncontrolled odour), n = 5 mice (flat odour), n = 6 
+mice (variable odour), n = 6 mice (spatial odour)). Lines show mean across mice 
+and shaded regions represent s.e.m. Non-directional repeated-measures 
+ANOVA. f, Across-day PCA space distance in different tasks (n = 6 mice 
+(uncontrolled odour), n = 5 mice (flat odour), n = 6 mice (variable odour), n = 6 
+mice (spatial odour)). Non-directional repeated-measures ANOVA. g,h, Fraction 
+of place cells (g; n = 6 mice (uncontrolled odour), n = 5 mice (flat odour), n = 6 
+mice (variable odour), n = 6 mice (spatial odour); lines show mean across mice 
+and dots represent individual mice; two-tailed chi-squared test) and spatial 
+information (h; n = 391 cells from 6 mice (uncontrolled odour), n = 300 cells 
+from 5 mice (flat odour), n = 600 cells from 6 mice (variable odour), n = 504 cells 
+from 6 mice (spatial odour); two-sided Wilcoxon rank-sum test) across different 
+tasks. AP, action potential. i-k, Cross-validated heat maps of flat odour (i), 
+variable odour (j) and spatial odour (k) tasks. l-n, Population representational 
+drift in different odour tasks measured by recurrence probability (l), PV 
+correlation (m) and TC correlation (n). Non-directional repeated-measures 
+ANOVA, task-by-day interaction. Shaded region represents s.e.m.
+
+6  |  Nature  |  www.nature.com
+Article
+same as used in Fig. 1, and the within-day similarity between speed 
+profiles along the track for this variable odour group (n = 6) was indis-
+tinguishable from those of the uncontrolled and flat odour groups 
+(Fig. 3e,f and Extended Data Fig. 3c,d; repeated-measures ANOVA on 
+within-day similarity, task-by-day interaction effect: F(8,56) = 0.43, 
+P = 0.90; ANOVA on across-day behavioural difference: F(2,14) = 0.95, 
+P = 0.41). Interestingly, the presence of the variable odour enhanced 
+the CA1 spatial code, with a higher fraction of place cells in this task 
+(Fig. 3g; 59.0%, a 1.7-fold increase compared with the uncontrolled task, 
+χ2 = 144, P ≈ 0). Moreover, the place cells had higher spatial information 
+than those in the uncontrolled odour task (rank-sum P = 1.6 × 10−6) 
+and were similar to those in the flat odour task (P = 0.58). When we 
+examined the heat maps (Fig. 3j) and quantified representational 
+drift rate using the multiple statistical measures, we found little to 
+no difference between the three tasks (Fig. 3l-n and Extended Data 
+Fig. 3h; repeated-measures ANOVA, task-by-day interaction; recurrence 
+probability, F(8,56) = 2.0, P = 0.068; PV correlation, F = 2.1, P = 0.046; 
+TC correlation, F = 1.1, P = 0.41; place field peak shift, F = 1.4, P = 0.23; 
+Bayesian decoding error, F = 2.6, P = 0.018; Frobenius norm, F = 1.7, 
+P = 0.11; representational similarity, F = 1.3, P = 0.25; representational 
+drift index, F = 0.87, P = 0.55).
+In addition, based on studies that show multisensory spatial infor-
+mation increases attention1,9,45, we hypothesized that enrichment of 
+multisensory spatial information could change drift rate. Therefore, 
+we designed a multisensory task in which both the visual and olfactory 
+cues were spatially tuned and provided information about reward loca-
+tion ('spatial odour' task; Fig. 3d, Extended Data Fig. 3e,f and Methods). 
+The odour gradient peaked at the reward location and subsequently 
+tapered off, providing mice enriched multisensory information to 
+integrate while navigating to the reward. The hippocampal drift rate of 
+mice in this task was not different from the other three tasks (Fig. 3k and 
+Extended Data Fig. 3h; repeated-measures ANOVA, task-by-day inter-
+action: recurrence probability, F(12,76) = 1.6, P = 0.11; PV correlation, 
+F = 1.8, P = 0.062; TC correlation, F = 1.6, P = 0.11; place field peak shift, 
+F = 1.4, P = 0.19; Bayesian decoding error, F = 2.2, P = 0.019; Frobenius 
+norm, F = 1.6, P = 0.10; representational similarity, F = 1.9, P = 0.049; 
+representational drift index, F = 1.62, P = 0.10).
+Finally, we explored whether similar variability as the variable odour 
+task in the visual sensory modality could change the representational drift 
+rate across days. We therefore designed a 'variable visual' task in which 
+the brightness of the virtual environment varied lap-by-lap at different 
+levels within and across days (Extended Data Fig. 6a,b and Methods).  
+We altered the overall brightness of the entire environment, as such 
+brightness changes also occur in natural habitats of mice, where vari-
+ations in daylight (such as morning, noon and evening) and weather 
+conditions (such as sunny or cloudy weather) create fluctuations in 
+visual sensory input within and across days. The mice detected these 
+brightness differences, indicated by their pupil size changes, with 
+behaviour resembling the non-variable visual task (Extended Data 
+Fig. 6c-f, within-day behavioural correlation, task-by-day interaction 
+F(4,44) = 0.19, P = 0.94; across-days behavioural difference rank-sum, 
+P = 0.95). Notably, hippocampal drift rates under this visual variabil-
+ity task showed no statistical difference from the non-variable visual 
+task (Extended Data Fig. 6g,h, repeated-measures ANOVA task-by-day 
+interaction: recurrence probability F(4,44) = 0.50, P = 0.73; PV corre-
+lation, F = 0.38, P = 0.82; TC correlation, F = 0.49, P = 0.74; peak shift, 
+F = 0.74, P = 0.57; Bayesian decoding error, F = 0.049, P = 0.99; Frobenius 
+norm, F = 0.34, P = 0.85; representational similarity, F = 0.77 P = 0.55; 
+representational drift index, F = 1.12, P = 0.36). Therefore, overall, the 
+CA1 representational drift rate in mice is not detectably changed by 
+differences in sensory environment variability across days, with similar 
+significant drift still occurring when the sensory environment is either 
+precisely controlled or more varied.
+Our analysis so far has focused on place cells encoding track posi­
+tion, but it is possible that other variables are also significantly encoded, 
+or influence the spatial coding, during our tasks46. To examine these 
+possibilities, we first constructed 'internal tuning curves'47 solely on the 
+basis of population activity, independent of the mouse's track position. 
+For neurons with internal TCs, we (separately) applied our original 
+spatial position analysis and compared the internal and spatial TCs 
+across the population within each session. We found that the two TCs 
+were highly similar, with the overall population structure being highly 
+similar between the two forms of analysis (Extended Data Fig. 5b-d). 
+Second, based on a recent study that showed that hippocampal repre-
+sentations can be influenced by the sensory input associated with each 
+human experimenter's identity48, we sought to determine whether the 
+experimenters could influence drift rates. We ensured that a single 
+experimenter handled each mouse in all five imaging days across our 
+experiments. We then examined whether different experimenter identi-
+ties were associated with different rates of representational drift, but 
+found no significant effect of experimenter identity (n = 2 experiment-
+ers) on the drift rate (repeated-measures ANOVA, experimenter-by-day 
+interaction: recurrence probability, F(4,108) = 0.83, P = 0.51; TC cor-
+relation, F = 1.14, P = 0.34; PV correlation, F = 1.07, P = 0.38; place field 
+peak shift, F = 1.6, P = 0.17; Bayesian decoding error, F = 0.37, P = 0.82; 
+Frobenius norm, F = 1.63, P = 0.17; representational similarity, F = 1.00, 
+P = 0.41; representational drift index, F = 1.55, P = 0.19). Thus, consist-
+ent with previous work47, we conclude that space (track position) is 
+the dominant feature of the hippocampal representation during our 
+tasks and experimenter identity did not significantly change drift rate.
+Neuronal excitability predicts stability
+We have established that neither behavioural nor sensory variabilities in 
+our tasks explain hippocampal CA1 representational drift in mice across 
+days, suggesting that drift is not externally driven and may instead 
+be determined by intrinsic cellular or circuit mechanisms. Although 
+some functional properties of place cells have previously been associ-
+ated with stability over days (little drift on the single-cell level), such as 
+lap-by-lap variability and place field distance to reward34,49, a systematic 
+analysis of such properties as well as properties related to the recording 
+signal quality that could affect cell detection over days has not been 
+performed. Therefore, we divided place cells from the 30 mice across 
+our 5 tasks into stable place cells (recurred for 4 or more days based 
+on recurrence probability; 9.0%, 724 out of all 8,014 neurons; 16.8% of 
+place cells per mouse; Methods) and unstable place cells (recurred for 
+two or fewer days based on recurrence probability; 18.4%, 1,471 out of 
+all 8,014 neurons; 35.6% of place cells per mouse; Fig. 4a-e, Extended 
+Data Figs. 7a,b and 8a and Methods). The remaining 45.9% of place 
+cells (23.3%, 1,865 out of all 8,014 neurons) were excluded from the 
+following analysis, as they could not be clearly categorized as either 
+stable or unstable. As expected from these definitions, heat maps of 
+stable cells were highly similar over days and heat maps of unstable 
+cells were highly dissimilar. These observations were quantified using 
+various measures of representational drift (Fig. 4f-h and Extended Data 
+Fig. 8b, n = 30 mice, Wilcoxon signed-rank tests between stable and 
+unstable cells on emerge day + 2, recurrence probability, P = 2.6 × 10−6; 
+PV correlation, P = 2.6 × 10−6; TC correlation, P = 2.6 × 10−6; place field 
+peak shift, P = 2.6 × 10−6; Frobenius norm, P = 6 × 10−5; representational 
+similarity, P = 2.6 × 10−6).
+As CA1 drift does not appear to be externally driven, we examined 
+whether any functional properties of place cells on the 'emerge' day 
+were correlated to stability over subsequent days. We found that sev-
+eral cellular features related to neuronal excitability of the stable cell 
+groups were significantly greater with larger effect sizes, compared 
+with those of the unstable cell groups on the emerge day (Fig. 4i and 
+Extended Data Fig. 8c,d; Wilcoxon signed rank tests and Cohen's D; aver-
+age ΔF/F, P = 1.7 × 10−6, D = 2.1; transient integral, P = 3.5 × 10−6, D = 1.4; 
+per cent active laps, P = 4.7 × 10−6, D = 1.4; per cent significant transients, 
+P = 1.7 × 10−6, D = 2.1; TC peak, P = 1.7 × 10−6, D = 1.6) and subsequent 
+
+Nature  |  www.nature.com  |  7
+days (Fig. 4l and Extended Data Fig. 8g). By contrast, we found some 
+significant differences, but with only small effect sizes, between stable 
+versus unstable cell groups in their spatial tuning properties on the 
+emerge day (Fig. 4j and Extended Data Fig. 8e,h; spatial information, 
+P = 6.3 × 10−5, D = 0.90; place field distance to reward, P = 0.17, D = 0.21; 
+place cell firing imprecision, P = 0.016, D = 0.48). Finally, as a control 
+for properties related to our imaging quality, we examined signal qual-
+ity measures such as baseline noise and baseline fluorescence on the 
+emerge day (Fig. 4k and Extended Data Fig. 8f) and across days (Fig. 4m 
+and Extended Data Fig. 8i) and only observed weak statistical differ-
+ences with small effect sizes between stable versus unstable place cell 
+groups (baseline noise, P = 0.0018, D = 0.64; baseline fluorescence, 
+P = 0.0050, D = 0.59). These signal quality features also showed weak, 
+if any, correlations with excitability and spatial measures of place cells 
+(Extended Data Fig. 9). Finally, when we extended the same analysis 
+to all active cells (not just place cells) we found highly similar results 
+(Extended Data Fig. 10 and Methods). Therefore, greater neuronal 
+excitability, rather than spatial tuning properties or experimental 
+o
+Stable cell
+Emerge day
+Emerge day +1
+Emerge day +2
+Unstable cell
+a
+b
+c
+ΔF/F
+Postition (m)
+0
+0
+3 0
+3
+0.75
+2 ΔF/F
+1 ΔF/F
+30 s
+Postition (m)
+g
+PV correlation
+0
+1
+Emerge
++1
++2
+Stable
+Unstable
+Day
+h
+Emerge
+0
+1
++1
++2
+TC correlation
+Day
+f
+Emerge
+0
+1
++1
++2
+Recurrence probability
+Day
+l
+Emerge
++1
++2
+Average ΔF/F
+0.1
+0
+Day
+m
+Emerge
++1
++2
+0.12
+0
+Baseline noise (ΔF/F)
+d
+e
+Emerge day
++1
++2
+3
+0
+Postition (m)
+Stable cells
+Cell no. (sorted)
+729
+1
+Unstable cells
+Cell no. (sorted)
+1,463
+1
+0
+3
+Average ΔF/F
+Leave-out accuracy (%)
+Spatial
+None
+Excitability
+Signal
+0
+80
+50
+i
+Signal
+quality
+k
+Normalized baseline ﬂuorescence
+Baseline noise (ΔF/F)
+Unstable
+Stable
+0
+0
+0.15
+0.15
+P = 0.0018
+D = 0.64
+Unstable
+0
+0
+3.5
+3.5
+P = 0.0050
+D = 0.59
+Excitability
+properties
+n = 30 mice
+Unstable
+Unstable
+Unstable
+Average ΔF/F
+Stable
+0
+0
+0.08
+0.08
+P = 1.7 × 10
+-6
+D = 2.1
+Transient integral (ΔF/F × s)
+0
+0
+1.6
+1.6
+P = 3.5 × 10
+-6
+D = 1.4
+P = 4.7 × 10
+-6
+D = 1.4
+0
+90
+0
+90
+Active laps (%)
+j
+Spatial
+properties
+Unstable
+Unstable
+Unstable
+Information (bits AP
+-1)
+Stable
+0
+0
+2.2
+2.2
+P = 6.3 × 10
+-5
+D = 0.9
+Distance to reward (m)
+0
+0
+1.5
+1.5
+P = 0.17 (NS)
+D = 0.21
+P = 0.016
+D = 0.48
+0
+100
+0
+100
+Imprecision (cm)
+n
+True
+Stable
+Unstable
+15.8
+15.6
+34.2
+34.4
+Predicted
+Unstable
+Stable
+68.6% accuracy
+Logistic regression
+Odour uncontrolled
+Flat odour
+Variable odour
+Spatial odour
+Variable visual
+NS
+*
+NS
+1.7 × 10
+-6   1.7 × 10
+-6 3.9 × 10
+-6
+0.0030
+2.6 × 10
+-6 2.6 × 10
+-6
+0.00052
+2.6 × 10
+-6 2.6 × 10
+-6
+0.00010
+2.6 × 10
+-6 2.6 × 10
+-6
+0.002
+0.9
+0.02
+Fig. 4 | Higher neuronal excitability correlates with and is predictive of 
+more stable representation in hippocampal CA1 place cells. a-c, Example 
+stable and unstable place cells. Lap-by-lap ΔF/F versus position (a) and mean 
+TCs (b) from the 'emerge day' to two days later and the corresponding ΔF/F versus 
+time traces (c). d,e, Cross-validated heat maps for all stable (d) and unstable (e) 
+place cells from the emerge day and the next two days. f-h, Representational 
+drift of stable and unstable cell populations over time (each point represents a 
+mouse; n = 30 mice) measured by recurrence probability (f), PV correlation (g) 
+and TC correlation (h). Two-sided Wilcoxon signed-rank test; P values are shown. 
+i-k, Excitability properties (i), spatial properties (j) and signal quality (k) for 
+stable versus unstable place cells. Each point represents the mean for one mouse 
+on the emerge day (n = 30 mice, two-sided Wilcoxon signed-rank tests and 
+Cohen's D). l,m, Mean ΔF/F (l) and baseline noise (m) from emerge day and the 
+next two days for stable and unstable cell populations (n = 30 mice). Two-sided 
+Wilcoxon signed-rank test; P values are shown. n, Logistic regression classification 
+of stable versus unstable place cells. The confusion matrix of the fitted regression 
+model predicted whether a place cell becomes a stable or unstable place cell 
+from the properties on the emerge day (n = 50 repeats of logistic regression tests 
+with different training and test set combinations; 100 stable and 100 unstable 
+neurons; the matrix shows the mean; stable cell true positive s.d. = 2.7%, stable 
+cell false positive s.d. = 2.5%, unstable cell true positive s.d. = 2.5%, unstable cell 
+false positive s.d. = 2.7%). o, Accuracy of logistic regression prediction when 
+each group of properties is left out. n = 50 repeats of leave-out logistic regression 
+tests with different training and test set combinations; middle values are 
+medians, and vertical bars extend to 25th and 75th percentiles. None versus 
+excitability: two-sided Wilcoxon rank-sum test, P = 4.1 × 10−17; none versus 
+spatial: P = 0.74; none versus signal quality: P = 0.67.
+
+8  |  Nature  |  www.nature.com
+Article
+recording differences, were most correlated to place field stability 
+over the following days.
+Based on these results, we then explored how well the excitability 
+features on the emerge day could predict the destiny of place cells (that 
+is, binary classification of stable versus unstable place cells) over days 
+using elastic net logistic regression analysis (Fig. 4n,o and Methods). 
+Our regression model, trained with multiple excitability, spatial and 
+signal quality properties, was able to predict and classify place cells 
+with 69% accuracy on a 200-neuron counter-balanced test data set 
+(Fig. 4n). When excitability, spatial, or signal quality features were left 
+out of the model training steps, only leaving out excitability proper-
+ties had a significant effect on the prediction accuracy of place cell 
+stability over days (Fig. 4o; excitability properties, P = 4.1 × 10−17; spatial 
+properties, P = 0.74; signal quality, P = 0.67). Therefore, not only does 
+neuronal excitability correlate with place field stability over days, but 
+this intrinsic property also has significant power to predict which place 
+fields are more likely to persist or drift.
+Discussion
+Here we have been motivated by the question of whether behavioural 
+and sensory variabilities could provide a general explanation for rep-
+resentational drift in the hippocampus. To answer this, we utilized our 
+recently designed multisensory virtual reality system and developed 
+an online volumetric plane registration method that allowed us to 
+precisely and robustly identify the same cells across days with approxi-
+mately 2-μm error in xyz planes. This registration method represents a 
+marked improvement over the across-day imaging plane identification 
+methods used in previous representational drift research.
+We first compared drift rates using laps with similar and dissimilar 
+running speed profiles across days and found no detectable difference 
+in the rates (Fig. 2). Our result supports the idea that hippocampal 
+drift in mice is not caused by overt behavioural variability across days, 
+although we cannot rule out the possibility that some more subtle 
+behavioural variables that we did not consider here might have var-
+ied across days and led to the observed drift. Our result differs from 
+studies that describe the modulation of V1 representations by running 
+behaviour over days6, which suggest that the stability of the primary 
+sensory region may be more heavily influenced by behavioural changes 
+than higher association areas, such as the hippocampus. However, 
+a hippocampal place cell study in bats7 found little or no drift when 
+considering constrained flight paths with highly stereotyped speed 
+patterns, which brings species differences into the mix of factors that 
+might possibly influence representational drift35. More research is 
+required to determine how behavioural influences on representational 
+drift vary across brain regions and animal species.
+Mouse behaviour can be strongly affected by even small changes in 
+the sensory environment. As olfactory cues are known to be involved 
+in driving place firing in CA11,22,23,40,41,50,51, we reasoned that the olfactory 
+environment—particularly surface odours, which are difficult to clean, 
+could change over days and be detected by the mice—was a significant 
+uncontrolled sensory feature in previous mouse CA1 representational 
+drift studies2,9,10,26. However, we found that the CA1 representational 
+drift rate was comparable between controlled (flat odour) and uncon-
+trolled odour tasks. Further, even when we introduced variable odour 
+(Fig. 3) and variable visual tasks within and across days (Extended Data 
+Fig. 6), the drift rate was similar and did not increase. Our results sup-
+port the idea that hippocampal drift in mice is not caused by overt olfac-
+tory or visual variability across days. Although at first glance our result 
+may seem surprising, we recently showed that only sensory modalities 
+with behavioural relevance have a strong influence on the cognitive 
+map23. This prior research did not examine such influences on the stabil-
+ity of the cognitive map over days, but when combined with our results 
+here, we can speculate that representational drift is also not influenced 
+by variable sensory modalities that have little behavioural relevance.
+Although it is unclear what role CA1 representational drift has in 
+memory and cognition, our results support the idea that drift is an 
+internally generated phenomenon, rather than externally driven. We 
+were able to determine several cellular features that predicted place cell 
+stability (Fig. 4), which may help to illuminate the neural mechanisms of 
+drift and lead to a deeper understanding of the cognitive role of drift in 
+the future. Our finding that excitability features of cells are predictors 
+of their long-term stability (that is, little drift) is particularly interest-
+ing in the context of previous research that has found a link between 
+excitability and the likelihood that a CA1 neuron is recruited to encode 
+a new experience29,52,53. Indeed, in computational research, simulated 
+Hebbian networks with fluctuating excitability over time could gener-
+ate representational drift54. Further, excitability is a key parameter in 
+memory linking, with more excitable cells being more likely to link 
+memories across contexts55 and, notably, a reduction in the excitability 
+of hippocampal neurons occurs during ageing56. Thus, our finding may 
+imply that the hippocampal representational drift rate increases during 
+ageing, leading to a prediction that could be tested in future research.
+Although our results support the idea that drift is an internally gener-
+ated phenomenon largely related to cellular excitability, this does not 
+mean that external factors do not (or cannot) affect the rate of represen-
+tational change. For example, as more and more sensory features of an 
+environment are changed, smaller changes to the representation (such 
+as rate remapping) are observed, and eventually, large changes occur 
+(such as global remapping)43,44. Therefore, external factors certainly 
+have a role in determining how consistent a representation is over 
+days. Our study instead explores the other end of the spectrum—such 
+as the stability of the hippocampal representation when external fac-
+tors are highly stable or varied in a systematic way. Our finding that 
+representational drift still persists when external factors are clamped 
+or controlled (as much as currently possible) and even when external 
+factors are subtly changed indicates that, in such scenarios, the drift 
+rate is driven largely by intrinsic factors for which intrinsic cellular 
+excitability is the strongest determining factor that we identified.
+We controlled for behavioural and sensory environment variability 
+at comparable levels to the recent bat CA1 research, but still found 
+CA1 representational drift. Therefore, our results might alternatively 
+suggest that the CA1 regions of bats and mice are fundamentally dif-
+ferent in terms of representational stability. This idea is further sup-
+ported by previous research, which has found significant differences 
+between these two species regarding hippocampal place cell properties 
+and oscillations57 and cellular-level electrophysiological properties58. 
+Notably, it is currently unknown whether bats have overall more excit-
+able CA1 neurons compared with mice and whether such potential 
+differences in excitability between mice and bats lead to the observed 
+differences in representational drift.
+Representational drift has been observed across many brain regions, 
+tasks and species, with rates of drift that vary considerably. For exam-
+ple, neural representations are relatively stable in motor areas35,59 but 
+not in the primary olfactory cortex60 or the posterior parietal cortex61. It 
+is possible that differences in neuronal excitability may underlie many 
+of these previously observed differences in drift rate. However, these 
+previous studies also used vastly different behaviours, which may also 
+explain differences in drift rate. For example, the highly stereotyped 
+motor patterns exhibited by lever pressing rats62, flying bats7 and sing-
+ing songbirds35 may be fundamentally different types of behavioural 
+stereotypy compared with the behavioural similarity considered here 
+(laps with more similar speed or pre-lick profiles). Moreover, because 
+our experiments were performed in highly controlled virtual reality 
+conditions, they do not fully reflect the complexity of natural environ-
+ments. Thus, it remains uncertain how well our findings will translate to 
+more naturalistic settings, where animals experience a broader range 
+of sensory input variability and complex behaviours. Furthermore, 
+although we took extensive measures to minimize animals' experiences 
+outside the experiments (such as single housing, no cage changes, no 
+
+Nature  |  www.nature.com  |  9
+running wheel and enclosed transport), we did not systematically moni-
+tor or control variables such as activity levels, sleep, grooming or forag-
+ing behaviours in the home cage or other factors such as hippocampal 
+replay that occurred outside of experimental sessions. More research 
+is needed to determine how these and all the factors considered here 
+fit into a general explanation for the drift phenomenon across brain 
+regions and species.
+Online content
+Any methods, additional references, Nature Portfolio reporting summa-
+ries, source data, extended data, supplementary information, acknowl-
+edgements, peer review information; details of author contributions 
+and competing interests; and statements of data and code availability 
+are available at https://doi.org/10.1038/s41586-025-09245-y.
+1.	
+Kentros, C. G., Agnihotri, N. T., Streater, S., Hawkins, R. D. & Kandel, E. R. Increased attention 
+to spatial context increases both place field stability and spatial memory. Neuron 42, 
+283-295 (2004).
+2.	
+Ziv, Y. et al. Long-term dynamics of CA1 hippocampal place codes. Nat. Neurosci. 16, 
+264-266 (2013).
+3.	
+Driscoll, L. N., Duncker, L. & Harvey, C. D. Representational drift: emerging theories for 
+continual learning and experimental future directions. Curr. Opin. Neurobiol. 76, 102609 
+(2022).
+4.	
+Rubin, A., Geva, N., Sheintuch, L. & Ziv, Y. Hippocampal ensemble dynamics timestamp 
+events in long-term memory. eLife 4, e12247 (2015).
+5.	
+Dupret, D., O'Neill, J., Pleydell-Bouverie, B. & Csicsvari, J. The reorganization and reactivation 
+of hippocampal maps predict spatial memory performance. Nat. Neurosci. 13, 995-1002 
+(2010).
+6.	
+Sadeh, S. & Clopath, C. Contribution of behavioural variability to representational drift. 
+eLife 11, e77907 (2022).
+7.	
+Liberti, W. A., Schmid, T. A., Forli, A., Snyder, M. & Yartsev, M. M. A stable hippocampal 
+code in freely flying bats. Nature 604, 98-103 (2022).
+8.	
+Thompson, L. T. & Best, P. J. Long-term stability of the place-field activity of single units 
+recorded from the dorsal hippocampus of freely behaving rats. Brain Res. 509, 299-308 
+(1990).
+9.	
+Hainmueller, T. & Bartos, M. Parallel emergence of stable and dynamic memory engrams 
+in the hippocampus. Nature 558, 292-296 (2018).
+10.	
+Dong, C., Madar, A. D. & Sheffield, M. E. J. Distinct place cell dynamics in CA1 and CA3 
+encode experience in new environments. Nat. Commun. 12, 2977 (2021).
+11.	
+Sheintuch, L., Geva, N., Deitch, D., Rubin, A. & Ziv, Y. Organization of hippocampal CA3 
+into correlated cell assemblies supports a stable spatial code. Cell Rep. 42, 112119 (2023).
+12.	
+Geva, N., Deitch, D., Rubin, A. & Ziv, Y. Time and experience differentially affect distinct 
+aspects of hippocampal representational drift. Neuron 111, 2357-2366.e5 (2023).
+13.	
+Rule, M. E. et al. Stable task information from an unstable neural population. eLife 9, e51121 
+(2020).
+14.	
+Aitken, F. & Kok, P. Hippocampal representations switch from errors to predictions during 
+acquisition of predictive associations. Nat. Commun. 13, 3294 (2022).
+15.	
+Masset, P., Qin, S. & Zavatone-Veth, J. A. Drifting neuronal representations: bug or feature? 
+Biol. Cybern. 116, 253-266 (2022).
+16.	
+Mallory, C. S., Hardcastle, K., Bant, J. S. & Giocomo, L. M. Grid scale drives the scale and 
+long-term stability of place maps. Nat. Neurosci. 21, 270-282 (2018).
+17.	
+McNaughton, B. L., Barnes, C. A. & O'Keefe, J. The contributions of position, direction, and 
+velocity to single unit activity in the hippocampus of freely-moving rats. Exp. Brain Res. 
+52, 41-49 (1983).
+18.	
+Tchernichovski, O., Benjamini, Y. & Golani, I. The dynamics of long-term exploration in  
+the rat: Part I. A phase-plane analysis of the relationship between location and velocity. 
+Biol. Cybern. 78, 423-432 (1998).
+19.	
+Moreno, M. M. et al. Olfactory perceptual learning requires adult neurogenesis. Proc. Natl 
+Acad. Sci. USA 106, 17980-17985 (2009).
+20.	 Trinh, K. & Storm, D. R. Vomeronasal organ detects odorants in absence of signaling 
+through main olfactory epithelium. Nat. Neurosci. 6, 519-525 (2003).
+21.	
+Zou, J. et al. Targeted deletion of ERK5 MAP kinase in the developing nervous system 
+impairs development of GABAergic interneurons in the main olfactory bulb and behavioral 
+discrimination between structurally similar odorants. J. Neurosci. 32, 4118-4132 (2012).
+22.	 Radvansky, B. A. & Dombeck, D. A. An olfactory virtual reality system for mice. Nat. 
+Commun. 9, 839 (2018).
+23.	 Radvansky, B. A., Oh, J. Y., Climer, J. R. & Dombeck, D. A. Behavior determines the 
+hippocampal spatial mapping of a multisensory environment. Cell Rep. 36, 109444 
+(2021).
+24.	 Ryan, T. J. & Frankland, P. W. Forgetting as a form of adaptive engram cell plasticity.  
+Nat. Rev. Neurosci. 23, 173-186 (2022).
+25.	 Keinath, A. T., Mosser, C.-A. & Brandon, M. P. The representation of context in mouse 
+hippocampus is preserved despite neural drift. Nat. Commun. 13, 2415 (2022).
+26.	 Khatib, D. et al. Active experience, not time, determines within-day representational drift 
+in dorsal CA1. Neuron 111, 2348-2356.e5 (2023).
+27.	
+Krishnan, S. & Sheffield, M. E. J. Reward expectation reduces representational drift in the 
+hippocampus. Preprint at bioRxiv https://doi.org/10.1101/2023.12.21.572809 (2023).
+28.	 Dombeck, D. A., Harvey, C. D., Tian, L., Looger, L. L. & Tank, D. W. Functional imaging of 
+hippocampal place cells at cellular resolution during virtual navigation. Nat. Neurosci. 13, 
+1433-1440 (2010).
+29.	 Sheffield, M. E. J., Adoff, M. D. & Dombeck, D. A. Increased prevalence of calcium transients 
+across the dendritic arbor during place field formation. Neuron 96, 490-504.e5 
+(2017).
+30.	 Rechavi, Y., Rubin, A., Yizhar, O. & Ziv, Y. Exercise increases information content and 
+affects long-term stability of hippocampal place codes. Cell Rep. 41, 111695 (2022).
+31.	
+de Snoo, M. L., Miller, A. M. P., Ramsaran, A. I., Josselyn, S. A. & Frankland, P. W. Exercise 
+accelerates place cell representational drift. Curr. Biol. 33, R96-R97 (2023).
+32.	 Priestley, J. B., Bowler, J. C., Rolotti, S. V., Fusi, S. & Losonczy, A. Signatures of rapid 
+plasticity in hippocampal CA1 representations during novel experiences. Neuron 110, 
+1978-1992.e6 (2022).
+33.	 Gauthier, J. L. & Tank, D. W. A dedicated population for reward coding in the hippocampus. 
+Neuron 99, 179-193.e7 (2018).
+34.	 Pettit, N. L., Yuan, X. C. & Harvey, C. D. Hippocampal place codes are gated by behavioral 
+engagement. Nat. Neurosci. 25, 561-566 (2022).
+35.	 Katlowitz, K. A., Picardo, M. A. & Long, M. A. Stable sequential activity underlying the 
+maintenance of a precisely executed skilled behavior. Neuron 98, 1133-1140.e3 
+(2018).
+36.	 Liberti, W. A. et al. Unstable neurons underlie a stable learned behavior. Nat. Neurosci. 19, 
+1665-1671 (2016).
+37.	
+Benavides-Piccione, R. et al. Differential structure of hippocampal CA1 pyramidal neurons 
+in the human and mouse. Cereb. Cortex 30, 730-752 (2020).
+38.	 Climer, J. R. & Dombeck, D. A. Information theoretic approaches to deciphering the neural 
+code with functional fluorescence imaging. eNeuro https://doi.org/10.1523/ENEURO. 
+0266-21.2021 (2021).
+39.	 Dewan, A. et al. Single olfactory receptors set odor detection thresholds. Nat. Commun. 
+9, 2887 (2018).
+40.	 Anderson, M. I. & Jeffery, K. J. Heterogeneous modulation of place cell firing by changes 
+in context. J. Neurosci. 23, 8827-8835 (2003).
+41.	
+Zhang, S. & Manahan-Vaughan, D. Spatial olfactory learning contributes to place field 
+formation in the hippocampus. Cereb. Cortex 25, 423-432 (2015).
+42.	 Save, E., Nerad, L. & Poucet, B. Contribution of multiple sensory information to place field 
+stability in hippocampal place cells. Hippocampus 10, 64-76 (2000).
+43.	 Muller, R. U. & Kubie, J. L. The effects of changes in the environment on the spatial firing 
+of hippocampal complex-spike cells. J. Neurosci. 7, 1951-1968 (1987).
+44.	 Bostock, E., Muller, R. U. & Kubie, J. L. Experience-dependent modifications of hippocampal 
+place cell firing. Hippocampus 1, 193-205 (1991).
+45.	 Dozio, N., Maggioni, E., Pittera, D., Gallace, A. & Obrist, M. May I smell your attention: 
+exploration of smell and sound for visuospatial attention in virtual reality. Front. Psychol. 
+12, 671470 (2021).
+46.	 Stefanini, F. et al. A distributed neural code in the dentate gyrus and in CA1. Neuron 107, 
+703-716.e4 (2020).
+47.	
+Rubin, A. et al. Revealing neural correlates of behavior without behavioral measurements. 
+Nat. Commun. 10, 4745 (2019).
+48.	 Snyder, M. C., Qi, K. K. & Yartsev, M. M. Neural representation of human experimenters in 
+the bat hippocampus. Nat. Neurosci. 27, 1675-1679 (2024).
+49.	 Chiu, Y., Dong, C., Krishnan, S. & Sheffield, M. E. J. The precision of place fields governs 
+their fate across epochs of experience. eNeuro https://doi.org/10.1523/ENEURO.0261-23. 
+2023 (2023).
+50.	 Aikath, D., Weible, A. P., Rowland, D. C. & Kentros, C. G. Role of self-generated odor cues 
+in contextual representation. Hippocampus 24, 1039-1051 (2014).
+51.	
+Wood, E. R., Dudchenko, P. A. & Eichenbaum, H. The global record of memory in 
+hippocampal neuronal activity. Nature 397, 613-616 (1999).
+52.	 Epsztein, J., Brecht, M. & Lee, A. K. Intracellular determinants of hippocampal CA1 place 
+and silent cell activity in a novel environment. Neuron 70, 109-120 (2011).
+53.	 Bittner, K. C. et al. Conjunctive input processing drives feature selectivity in hippocampal 
+CA1 neurons. Nat. Neurosci. 18, 1133-1142 (2015).
+54.	 Delamare, G., Zaki, Y., Cai, D. J. & Clopath, C. Drift of neural ensembles driven by slow 
+fluctuations of intrinsic excitability. eLife 12, RP88053 (2024).
+55.	 Cai, D. J. et al. A shared neural ensemble links distinct contextual memories encoded 
+close in time. Nature 534, 115-118 (2016).
+56.	 Oh, M. M., Oliveira, F. A. & Disterhoft, J. F. Learning and aging related changes in intrinsic 
+neuronal excitability. Front. Ageing Neurosci. https://doi.org/10.3389/neuro.24.002.2010 
+(2010).
+57.	
+Las, L. & Ulanovsky, N. in Space, Time and Memory in the Hippocampal Formation  
+(eds Derdikman, D. & Knierim, J. J.) 431-461 (2014).
+58.	 Heys, J. G., MacLeod, K. M., Moss, C. F. & Hasselmo, M. E. Bat and rat neurons differ in 
+theta-frequency resonance despite similar coding of space. Science 340, 363-367 
+(2013).
+59.	 Jensen, K., Harpaz, N., Dhawale, A., Wolff, S. & Ölveczky, B. Long-term stability of single 
+neuron activity in the motor system. Nat. Neurosci. 25, 1664-1674 (2022).
+60.	 Schoonover, C. E., Ohashi, S. N., Axel, R. & Fink, A. J. P. Representational drift in primary 
+olfactory cortex. Nature 594, 541-546 (2021).
+61.	 Driscoll, L. N., Pettit, N. L., Minderer, M., Chettih, S. N. & Harvey, C. D. Dynamic 
+reorganization of neuronal activity patterns in parietal cortex. Cell 170, 986-999.e16 
+(2017).
+62.	 Dhawale, A. K., Wolff, S. B. E., Ko, R. & Ölveczky, B. P. The basal ganglia control the detailed 
+kinematics of learned motor skills. Nat. Neurosci. 24, 1256-1269 (2021).
+Publisher's note Springer Nature remains neutral with regard to jurisdictional claims in 
+published maps and institutional affiliations.
+Springer Nature or its licensor (e.g. a society or other partner) holds exclusive rights to this 
+article under a publishing agreement with the author(s) or other rightsholder(s); author self-
+archiving of the accepted manuscript version of this article is solely governed by the terms of 
+such publishing agreement and applicable law.
+© The Author(s), under exclusive licence to Springer Nature Limited 2025
+
+Article
+Methods
+Surgery
+All mouse procedures were approved by the Northwestern University 
+Institutional Animal Care and Use Committee. Mice were singly housed 
+in identical, unenriched cages (for example, no exercise wheels) and 
+kept on a reverse light-dark cycle (experiments during mouse night-
+dark cycle) at 20-24 °C and 30%-70% humidity. Male C57BL/6 mice 
+around 10 weeks of age were anaesthetized using 1%-2% isoflurane. To 
+induce the expression of GCaMP8m63 in the hippocampus CA1, a volume 
+of 90−125 nl of an adeno-associated virus vector (AAV1.syn.GCaMP8m.
+WPRE.SV40) with a titre of 2.5 × 1013 genome copies per ml was admin-
+istered via a bevelled glass micropipette. A 1-mm diameter craniotomy 
+was performed on the right hippocampus, at a location precisely 1.8 mm 
+lateral and 2.3 mm caudal from bregma. The micropipette containing 
+the virus was carefully inserted to a depth of 1.3 mm beneath the dura 
+surface and the virus was injected. The mice then underwent water 
+restriction, receiving 0.8-1 ml per day, for the duration of the study. Fol-
+lowing 2-7 days post-injection, hippocampal window implantation was 
+performed, wherein a stainless-steel cannula featuring a glass coverslip 
+affixed on one side was placed over the hippocampus. Additionally, a 
+titanium head plate and light-blocking ring were securely cemented 
+to the skull as described in previous protocols28.
+Multisensory visual and olfactory virtual reality apparatus
+Mice were transported to the experiment room in enclosed dark carts, 
+and maintained in darkness with high-volume white noise in the exper-
+iment room to minimize external stimuli. Mice were head-fixed on 
+a cylindrical treadmill surrounded by a five-monitor virtual reality 
+display with visual cues constructed in MATLAB using the ViRMEn 
+virtual reality engine64. Additionally, an olfactometer system22,23 was 
+utilized for precise odour control throughout the behaviour for the 
+odour-controlled mouse groups. Throughout the training and experi-
+ments, we controlled for auditory cues by providing a loud white noise 
+background and were careful to place the nose cone and lick tube in the 
+same location each day to reduce any tactile variability.
+In brief, the outlet tubing of the odorant stream led to a 40-ml amber 
+glass vial with a rubber membrane cap (Thermo Fisher) containing 
+12 ml of odorant solution filled nearly to the top with glass beads. The 
+inlet tubing was submerged in the solution. The outlet tubing in the 
+head space led to a passive mixing chamber where it met a carrier 
+stream of air. The odorant-air mixture flowed through tubing to a 
+final nose chamber covering the mouse's snout to create an odour 
+micro-environment of 0.07 cm3. Odorant concentration was controlled 
+by varying the stream flow rate, with a mass flow controller (MFC), 
+between 0.001-0.100 l min−1 to achieve relative odorant concentrations 
+between 1% and 100%. Odorant solutions included α-pinene (1:37.5 in 
+mineral oil, Sigma-Aldrich) and methyl valerate (1:125 in mineral oil, 
+Sigma-Aldrich) or a mix of both (1:18.74 of α-pinene, 1:62.5 of methyl 
+valerate in mineral oil, Sigma-Aldrich). A waterspout was placed within 
+reach of the mouse's tongue, and a capacitive circuit (Sparkfun) was 
+used to register licking and was read through a data acquisition card 
+(National Instruments PCI-6229) into MATLAB. All visual cues, MFC 
+flow rates, and water rewards were controlled using the ViRMEn virtual 
+reality engine in MATLAB. Mice received 4 μl water reward 2/3 (2.25 m) 
+of the way along the 3-m virtual track.
+Multisensory virtual reality tasks
+Uncontrolled odour task. For the uncontrolled odour task, no odour 
+and nose chamber were involved in training and experiment days.
+Variable visual task. In the variable visual task, brightness was 100% 
+on day 1. On day 2, levels of 86%, 93% or 100% were randomly selected 
+for each lap. On day 3, levels of 60%, 67% or 74% were used at random, 
+and on day 4, 73%, 80% or 87%. On day 5, brightness was fixed at 80%.
+Flat odour task. For the flat odour task, α-pinene odorant with 50% of 
+its maximum flow rate was delivered to mice through the nose chamber 
+during all training and experiment days.
+Variable odour task. For the variable odour task, the odorant type and 
+concentration was different for each day (Fig. 3c). On day 1, similar to 
+the flat odour mice, α-pinene odorant with 50% of its maximum flow 
+rate was applied. However, for day 2, the odorant concentration was 
+varied on each lap and a randomly chosen 20%, 30% or 40% of α-pinene 
+odorant was delivered. On day 3, methyl valerate with random 40%, 50% 
+or 60% concentrations on each lap was delivered. On day 4, α-pinene 
+with random 70%, 80% or 90% concentrations was delivered. On day 5, 
+a mix of α-pinene and methyl valerate with random 40%, 50% and 60% 
+concentrations was delivered.
+Spatial odour task. For the spatial odour task, the odour concentra-
+tion started at 30% at beginning of the track and peaked at the reward 
+location (100%) and tapered off afterward reaching to 76% at end of 
+the track, allowing mice to integrate enriched sensory information 
+and use it to navigate to the reward. This odorant profile was consist-
+ent across different laps and days during both training and experiment  
+days.
+Training criterion
+To train mice and determine when to start the five-day imaging experi-
+ments, we monitored the speed profile of the mice each day. Mice ini-
+tially learned to slow down and lick before the water reward; however, 
+we relied on the speed profile of the mice for analysis of behavioural 
+stability. There was more behavioural variability when mice were first 
+placed on the track and when they became satiated toward the end of 
+the sessions, so we focused on the 11th to 30th laps. We constructed 
+a reference lap for a particular day by taking the mean speed of the 
+mouse in 60 spatial bins across the track. We then used two measures of 
+behavioural stability. First, we correlated this reference lap to laps 11-30 
+on that day and each preceding day. We identified a mouse as trained 
+if the correlation exceeded 0.6 on that day and for at least two of the 
+four preceding days. Once these behavioural criteria during training 
+were met, we started the imaging experiments for the subsequent five 
+days. Mice in five experimental tasks experienced their unique task 
+protocols during the training and experiment days.
+Two-photon imaging
+A custom movable-objective microscope from Sutter Instruments was 
+utilized for imaging the hippocampal CA1 through a 40×/0.6 NA air 
+objective (LUCPLFLN40x, Olympus) with ScanImage 5.1 software, as 
+previously described23,29. Time series movies of 50,000 frames (unidi-
+rectional scanning, 31.25 Hz, 512 × 256 pixels movie size) were captured 
+during an approximately 27-min behavioural session. A Digidata1440A 
+system (Molecular Devices) via Clampex 10.3 software facilitated data 
+acquisition, recording, and synchronizing factors such as track posi-
+tion, speed, MFC flow rates, licking, reward delivery, and time stamps 
+of each two-photon image frame at 1 kHz.
+Volumetric plane registration of the same imaging field across 
+days
+We developed a novel within-session, online pre-experimental, quanti-
+tative technique for the longitudinal identification of the same imaging 
+plane across days. On the first imaging day, we acquired 1,000 frames 
+of the chosen imaging field with 920 nm and isosbestic 800 nm laser 
+wavelength, motion-correcting these short videos to obtain average 
+images to use as reference templates on subsequent days. In subse-
+quent imaging days, we first identified the putative first day imaging 
+field qualitatively by visual inspection using previously noted local 
+landmarks. Afterward, we identified the precise imaging field quanti-
+tatively using the following methods.
+
+For quantitative identification of the same imaging field in the 
+following days, we captured 15 z-stack slices (200 frames each) 
+with a spacing of 2 μm around the putative field. Each z-stack slice 
+was motion-corrected, and the average z-stack slice images were 
+obtained. Each average z-stack slice image was then cross-correlated 
+(using x and y position offsets) with the first day's template image. 
+For cross-correlation, the pixel values of both z-stack slice images 
+and the first day's template image were standardized to normalized 
+z-scores (centre 0, s.d. 1). To determine the best matching xyz plane, we 
+identified the z-stack slice and the associated x,y offsets that resulted 
+in the highest peak cross-correlation value. These values therefore 
+reported the positional difference in xyz coordinates (in μm) between 
+the putative field and the first day's template image. These values 
+were then used to finely adjust the objective for imaging of the same 
+field as on day 1. With this technique, we quantitatively and robustly 
+found the same imaging plane across five imaging days with xyz error 
+of around 2 μm.
+ROI detection and fluorescence trace extraction
+Registration, ROI selection and raw fluorescence trace extraction were 
+performed using Suite2p65. Once fluorescence traces were extracted, 
+they were converted to ΔF/F traces using the 8th percentile method66 
+with a sliding window of 32 s (1,000 frames). Significant transients 
+were detected using the ratio of positive- to negative-going transients 
+described previously66. After the automatic identification of the 
+ROIs, the ROIs were aligned across days using CellReg67. Three authors 
+independently evaluated the cellular and subcellular morphologies 
+of every individual cell ROI to validate its correct registration across 
+days. Only cells that were verified by all three authors were included.
+Place cell spatial properties
+Fluorescence tuning maps were made by binning the position across 
+the track into 80 bins and identifying the mean fluorescence where the 
+mouse was moving at a speed of at least 0.1 cm s−1. To test if a cell is a 
+place cell, we computed the spatial information (I) in bits per action 
+potential for the fluorescence tuning map28,67.
+∑
+I
+f
+f P x
+f
+f
+= 1
+( )log
+i
+N
+i
+X
+i
+i
+=1
+2
+
+
+
+
+
+
+Where f  is the mean change in fluorescence, N is the number of  
+bins, fi is the mean fluorescence change in the ith spatial bin, and Px(xi) 
+is the probability that the mouse is in the ith spatial bin.
+To build a null distribution of information, we circularly shuffled the 
+fluorescence trace with a minimum shift of 15 s and recalculated the 
+tuning map 1,000 times. A cell was a significant place cell if it had higher 
+information than 99% of these shuffle epochs, had an information of 
+at least 0.5 bits per action potential, and had at least one significant 
+transient during running on at least 1/3 of the laps.
+Place cell 'imprecision' was measured as the s.d. of the peak ΔF/F 
+location on active laps. Place field distance to reward was defined as 
+the mean of distances of place field peaks to the reward location on 
+the virtual track.
+We defined stable cells as place cells that recurred on 4-5 consecu-
+tive days and unstable cells as place cells that recurred for 2 or fewer 
+consecutive days and did not recur on the first or the last day.
+Quantification of representational drift
+To ensure that mice were engaged with the task while we measured 
+neural activity, we only used laps where mice slowed before the reward. 
+To do this, we compared the speed in 2 different 30-cm zones, one 
+just before the reward and the other 70-100 cm from the start of the 
+track, where the mice are typically running full speed. We restricted 
+our analyses to laps where the mouse was running in the reward zone 
+at <50% the speed from the zone earlier on the track. This resulted in 
+64.1 ± 2.83 laps used per session out of 77.5 ± 2.46 total laps per session 
+(82.3 ± 2.25% of laps included per session).
+For within day 1 comparisons, odd and even laps were used. For 
+between day comparisons, all (included) laps were used. We used eight 
+quantitative measures of representational drift:
+(1) Recurrence probability (either place cells only or all active cells).
+A cell was considered recurrent between two days if it was active on 
+≥1/3 of laps on both days and had a TC correlation >0.4 for place cells. 
+This threshold was set via logistic regression, comparing within- 
+day TC correlations of place cells to 1,000 randomly paired cells  
+(Extended Data Fig. 1i). For stable or unstable place cell classifica-
+tion across days (Fig. 4), this measure was used.
+For the analysis comparing stable versus unstable cells within the ac-
+tive cell population (all cells active for at least 1/3 of laps on both days; 
+Extended Data Fig. 10), the TC threshold was determined to be 0.25 
+using logistic regression following the same procedure (Extended 
+Data Fig. 10a).
+(2) PV correlation (all cells).
+This measure quantifies how similarly a neuronal population is 
+activated by taking the median PV correlation across the track.
+(3) TC correlation (place cells only).
+This measure correlates each neuron's mean ∆F/F versus position 
+(that is, TC) across days. Only cells active on all five days and with 
+non-zero variance were included. We further restricted this analysis 
+to cells that met the place cell criterion on day 1.
+(4) Place field peak shift (place cells only).
+For cells active on all five days, the shift in the peak of their TCs 
+across days was calculated.
+(5) Bayesian decoding error (all cells).
+Following a previously described method68, Bayesian decoding was 
+performed on the likelihood that a significant transient occurred in 
+a 0.1-s bin (Δt). The conditional likelihood that a mouse is in position 
+xi given the number of active frames during a time window (n) is:
+
+
+
+
+
+
+∏
+∑
+p x n
+p
+x
+g
+g
+(
+) =
+( )
+e
+i
+X
+i
+j
+M
+n
+i j
+Δt
+j
+m
+i j
+=1
+,
+−
+−1
+,
+j
+Where gi,j is the average rate of significant frames by the jth neuron 
+in the ith spatial bin, nj is the number of significant frames observed 
+during the time window in neuron j, and M is the total number of 
+neurons. The Bayesian decoder was trained on day 1 (or day 1 odd laps 
+for day 1 analysis) and tested using the same neurons on the day of 
+interest (days 2-5; or day 1 even laps for day 1 analysis). The decoded 
+position was selected as the one with the maximum conditional 
+likelihood. Because the number of neurons significantly impacts the 
+quality of decoding, the position was chosen as the average position 
+decoded through 100 random samples of 150 neurons: if a mouse 
+had fewer than 150 neurons, it was excluded from this analysis. The 
+error was determined as the mean absolute error across the session.
+(6) Frobenius norm (all cells).
+The Frobenius norm of the peak-normalized spatial maps was cal-
+culated, then normalized by the square root of the number of cells.
+(7) Representational similarity (all cells).
+Calculated as the Pearson's correlation coefficient between  
+linearized spatial maps, as reported previously6.
+(8) Representational drift index (all cells).
+The representational drift index6 (RDI) was computed as:
+RDI = CC
+−CC
+CC
++ CC
+ws
+bs
+ws
+bs
+Where CCws and CCbs are the average correlation coefficient of the 
+linearized spatial maps for all laps within a session and across sessions 
+respectively.
+
+Article
+Separation of similar and dissimilar running behaviours
+Similar running set. To find laps with similar speed profiles across days, 
+we first created a speed vector for each lap that passed the slowdown 
+criterion using 60 spatial bins (1 bin = 5 cm). To find the laps that were 
+maximally similar across days, we used a particle swarm and cluster-
+ing technique. The particle swarm was initialized with all the laps that 
+passed the slowdown criterion. For a given particle, we found the 20 
+laps on each day that minimized the Euclidean distance of the speed 
+vector to that particle. We then computed the mean Euclidean distance 
+of these laps to the particle. The swarm was optimized to minimize 
+this distance, identifying laps that were similar to each other across 
+the five days.
+Dissimilar running set. To identify laps that were dissimilar across days 
+we maximized the amount of variance explained by the day using the 
+particle swarm optimizer. Reference laps were chosen for all 5 days, and 
+the 20 laps closest by Euclidean distance within day were identified. We 
+then ran a three-way ANOVA across day, position, and their interaction, 
+treating each spatial bin as an independent observation. The fraction 
+of variance explained by the day (Rday) was taken as:
+R
+=
+SS
++ SS
+SS
+−SS
+day
+day
+pos×day
+tot
+pos
+Where SSday is the variance explained by the day, SSpos × day is the vari-
+ance explained by the position-by-day interaction, SStot is the total 
+variance, and SSpos is the variance explained by position. The particle 
+swarm optimizer was used to maximize this fraction. The optimizer 
+was seeded with 250 pseudo-randomly selected lap sets from each day.
+We then validated that the laps identified by this swarm analysis were 
+indeed similar or dissimilar by using two ways to quantify the amount 
+of behavioural variability. First, to examine how stable the selected 
+behavioural laps were within a day, we found the mean correlation of 
+the position binned speed vectors on selected laps to the average on 
+each day. Second, we used PCA to reduce the speed vector space to three 
+dimensions, which contained 63.9 ± 3.5% of the variance. We then took 
+the normalized distance between the centre of the laps chosen each day.
+D
+μ
+μ Σ
+μ
+μ
+=
+(
+−
+)
+(
+−
+)′
+a
+b
+a
+b
+−1
+Where μa, μb are the centres of the laps chosen on days a and b and Σ 
+is the covariance matrix for all laps. The difference score was taken as 
+the mean pairwise normalized distance for all combinations of days. 
+To generate a shuffle for this distance, 1,000 random pairs of laps were 
+chosen, and the normalized pairwise distance was calculated.
+Most selective and non-selective pre-lick behaviours
+We quantified the degree of pre-licking per lap using a pre-lick index34, 
+calculated as the difference between the average lick rate in the 30 cm 
+before the reward site and the average lick rate on the rest of the track, 
+divided by their sum. For the most selective pre-lick set, we used the 
+20 laps with the highest scores above 0. For the non-selective set, we 
+used up to 20 laps with scores below 0. Mice were included only if they 
+had at least 10 non-selective pre-lick laps on day 1 (to allow even-odd 
+comparisons) and 5 on subsequent days.
+Internal TCs
+To compare internal structure to spatial tuning we created internal 
+TCs. First, significant transient traces were binarized and then were 
+mapped onto the first four dimensions using the non-linear dimen-
+sionality reduction algorithm Laplacian eigenmaps69 as described47. 
+These data were clustered into ten states using k-means clustering. No 
+sub-clustering was performed. The order of states was defined using 
+a transition matrix algorithm described47, with the exception that the 
+'first' state was determined as the state with median timestamp closets 
+to the start of trial, and that the direction of movement through the 
+states was determined as the direction which maximized the correlation 
+between state and time since start of trial. Significant state cells were 
+identified as having significant state information (see 'Place cell spatial 
+properties') although no minimum threshold of information was used. 
+Significant cells were sorted according to their state peak during epochs 
+that corresponded to odd trials, and TC maps were made for the even 
+trials. These were visually compared with spatial maps made from the 
+full running epochs with the same cell selection and sorting criterion.
+Imaging signal quality measures
+Baseline noise was estimated using the standard deviation of the ΔF/F 
+trace outside of significant transients. Baseline fluorescence was cal-
+culated as the average extracted fluorescence in the first 10 s of the 
+recording outside of significant transients, normalized by the median 
+intensity of the mean imaging field.
+Logistic regression
+We computed several potential predictors of place cell stability (Supple-
+mentary Table 2). Because some of the predictors followed lognormal 
+distributions70, they were first transformed into log space. Moreover, 
+before training the model all data were standardized. To identify the 
+best predictors of place cell stability, we used an elastic net logistic 
+regression approach71. First, we randomly chose 100 stable and 100 
+unstable cells to be held out of training. We used class weights to coun-
+terbalance the number of observations in each class in the training 
+data set. We used a grid search of 200 λ values between 10−6 and 106 on 
+a logistic scale and 100 α values between 0 and 1, selecting the values 
+with the lowest deviance under fivefold cross-validation in the training 
+set. To test model performance, we used predicted values above 0.5 as 
+stable and measured the accuracy of the predictions on the held-out 
+data in a balanced test set (number of correct predictions per number 
+of held-out data points). We then completed this whole procedure 50 
+times, with random seeds each time, in order to generate multiple trials.
+Quantification and statistical analysis
+The data were analysed using custom MATLAB codes, and imaging 
+files were viewed in ImageJ 1.53k. Sample sizes were not predetermined 
+statistically, and the experimenter was aware of the experimental tasks. 
+Inclusion criteria were based on the behavioural metrics detailed in 
+the Methods section. Non-parametric and parametric statistical tests 
+were used as indicated in the main text and methods. We have reported 
+statistical parameters, such as the precise value and interpretation 
+of n, precision indicators (represented as mean or median ± s.d. or 
+s.e.m.), and the establishment of statistical significance, in both the 
+main text and accompanying figure legends. The significance threshold 
+was set at P < 0.05. No statistical methods were used to pre-determine 
+sample sizes, but sample sizes are similar to those reported in previous 
+publications.
+Where appropriate, data was cross-validated by comparing results 
+from odd and even trials (Figs. 1k, 2g,h, 3i-k and 4d,e,n,o and Extended 
+Data Figs. 4e,f, 5b-d, 6g and 10b,c). All experiments were replicated in 
+multiple individual mice, with the number of mouse replicates listed 
+throughout the manuscript for each experiment. Further, data were 
+grouped and compared either by session or by mouse (across sessions) 
+to ensure that they were representative across sessions and across mice.
+The same experiments and measures were made for each behaviour 
+group studied with imaging experiments. We did not attempt to rand-
+omize these allocations, as experiments targeting each group were per-
+formed in batches and all mice across groups were trained to the same 
+behaviour criteria; however, in some cases we allocated littermates 
+to different behaviour groups (for example, flat odour and variable 
+odour) and trained and imaged them in parallel and at least qualitatively 
+observed results that were consistent with our larger cohort.
+
+Data collection and analysis were not performed blind to the con-
+ditions of the experiments. This was not possible to do for odour- 
+controlled versus uncontrolled groups because one required use of 
+the olfactory virtual reality system (and all the procedures related to 
+that system) and the other did not, so there was no practical way to 
+blind the experimenter.
+Reporting summary
+Further information on research design is available in the Nature Port-
+folio Reporting Summary linked to this article.
+Data availability
+Data from this research are available at https://doi.org/10.5281/
+zenodo.15537618 (ref. 72). Additionally, data collected in this project 
+can be obtained upon request. Source data are provided with this paper.
+Code availability
+Matlab code to reproduce the analysis presented here is available at 
+https://doi.org/10.5281/zenodo.15537618 (ref. 72). Additionally, all 
+Matlab codes used in this project can be obtained upon request.
+ 
+63.	 Zhang, Y. et al. Fast and sensitive GCaMP calcium indicators for imaging neural populations. 
+Nature 615, 884-891 (2023).
+64.	 Aronov, D. & Tank, D. W. Engagement of neural circuits underlying 2D spatial navigation in 
+a rodent virtual reality system. Neuron 84, 442-456 (2014).
+65.	 Pachitariu M. et al. Suite2p: beyond 10,000 neurons with standard two-photon 
+microscopy. Preprint at bioRxiv https://doi.org/10.1101/061507 (2017).
+66.	 Dombeck, D. A., Khabbaz, A. N., Collman, F., Adelman, T. L. & Tank, D. W. Imaging large- 
+scale neural activity with cellular resolution in awake, mobile mice. Neuron 56, 43-57 (2007).
+67.	
+Sheintuch, L. et al. Tracking the same neurons across multiple days in Ca2+ imaging data. 
+Cell Rep. 21, 1102-1115 (2017).
+68.	 Zhang, K., Ginzburg, I., McNaughton, B. L. & Sejnowski, T. J. Interpreting neuronal 
+population activity by reconstruction: unified framework with application to hippocampal 
+place cells. J. Neurophysiol. 79, 1017-1044 (1998).
+69.	 Belkin, M. & Niyogi, P. Laplacian Eigenmaps for dimensionality reduction and data 
+representation. Neural Comput. 15, 1373-1396 (2003).
+70.	 Buzsáki, G. & Mizuseki, K. The log-dynamic brain: how skewed distributions affect network 
+operations. Nat. Rev. Neurosci. 15, 264-278 (2014).
+71.	
+Zou, H. & Hastie, T. Regularization and variable selection via the elastic net. J. R. Stat. Soc. 
+B 67, 301-320 (2005).
+72.	 Climer, J., Davoudi, H., Oh, J. & Dombeck, D. Hippocampal representations drift in stable 
+multisensory environments (1.0) [Data set]. Zenodo https://doi.org/10.5281/zenodo. 
+15537618 (2025).
+Acknowledgements The authors thank A. Fink and members of the Dombeck laboratory for 
+helpful comments, guidance and discussions about the manuscript and C. Davidson for help 
+with virus injection in mice. This work was supported by NIH grants R01MH101297, T32AG020506 
+and 1F32NS116023. The funders had no role in study design, data collection and analysis, 
+decision to publish or preparation of the manuscript.
+Author contributions J.R.C., H.D. and J.Y.O. are ordered alphabetically in the author list. H.D., 
+J.Y.O. and D.A.D. planned and designed the experiments with input from J.R.C. H.D. and J.Y.O. 
+performed experiments. J.Y.O. developed the volumetric plane registration method. J.R.C. 
+analysed the data with help from H.D., J.Y.O. and D.A.D. H.D., J.Y.O. and D.A.D. wrote the paper 
+with inputs and edits from J.R.C. D.A.D. supervised all aspects of the project.
+Competing interests The authors declare no competing interests.
+Additional information
+Supplementary information The online version contains supplementary material available at 
+https://doi.org/10.1038/s41586-025-09245-y.
+Correspondence and requests for materials should be addressed to Daniel A. Dombeck.
+Peer review information Nature thanks the anonymous reviewer(s) for their contribution to the 
+peer review of this work.
+Reprints and permissions information is available at http://www.nature.com/reprints.
+
+Article
+Extended Data Fig. 1 | See next page for caption.
+
+Extended Data Fig. 1 | Running behavior of individual mice during training 
+and imaging days, and cell type examples and additional representational 
+drift measurements. a) Left: The speed profile (m/s) of five mice performing 
+the task in a familiar environment over five training and five imaging days. Each 
+column shows a single-track traversal lap. The horizontal dash line indicates 
+the water reward location, and the vertical white lines separate each day. Right: 
+The speed correlation of laps 11-30 on each day to the mean lap from laps 11-30 
+on the reference day (cyan, n = 20 laps per n = 5 mice, error bars indicate SEM). 
+Horizontal dashed line indicates the correlation threshold. b-c) The average 
+speed profile of each mouse versus track position across days (b) and their 
+mean (n = 6 mice) (c). d-e) The average lick profile of each mouse versus track 
+position across days (d) and their mean (n = 6 mice) (e). f,g) Example cells 
+showing stable (f) and unstable (g) spatial tunings across days. Scale bar=10 um.  
+The confidence intervals are the lap-by-lap SEM. h) Quantification of total 
+number of active neurons (left), fraction of active neurons that are place cells 
+(middle), and spatial information of place cells (right), two-way ANOVA across 
+animals and days. The thick black line shows the average. i) Tuning curve (TC) 
+correlations for place cells within day. Odd versus even laps (black) are separated 
+from 10,000 randomly chosen pairs of place cells (gray) at 0.4 threshold 
+(dashed line). j) Representational drift measured by place field peak shift, 
+Bayesian decoding error, Frobenius norm, representational similarity, and 
+representational drift index, two-way ANOVA across animals and days. The 
+grey lines indicate the random shuffle mean, and the confidence interval of the 
+shuffle indicates standard deviation (std).
+
+Article
+Extended Data Fig. 2 | See next page for caption.
+
+Extended Data Fig. 2 | Running behavior and representational drift 
+measurements for similar and dissimilar sets. a) The speed profile of mice 
+across days; laps selected based on similar or dissimilar running sets. b-c) The 
+average speed profile of the similar and dissimilar running laps of each mouse 
+versus track position across days (b) and their mean (n = 6 mice) (c). The 
+confidence intervals indicate animal-by-animal SEM. d) Representational  
+drift of similar (blue) and dissimilar (red) running sets measured by various 
+measurements (three-way ANOVA across animal, day and set; lap set effect,  
+n.s. p > 0.05) The shaded region shows SEM.
+
+Article
+Extended Data Fig. 3 | See next page for caption.
+
+Extended Data Fig. 3 | Running behavior and representational drift 
+measurements for flat, variable, and spatial odor tasks, and odor 
+concentration measurements for variable odor task. a-f) The average speed 
+and lick profiles of each mouse versus track position across days in flat odor (a), 
+variable odor (c), and spatial odor (e) tasks and their mean (b, d, and f).  
+g) Photoionization detector (PID) measurements acquired from the olfactometer 
+nose cone for the five-day protocol of the variable odor task described in Fig. 3c. 
+Day 1 of the variable odor protocol is the same as the flat odor protocol in Fig. 3b. 
+The measurements were performed while a mouse was running on a treadmill 
+in a virtual environment. In the inter-trial-interval, after the mouse completed 
+one lap and before the start of the next, the odor concentration was set to 0.  
+h) Representational drift of various odor mouse groups measured by various 
+measurements. The shaded region shows SEM. The three groups have little or 
+no statistical difference by non-directional multiple repeated measures ANOVA 
+comparisons (see Supplementary Information Table 1 for all comparisons).
+
+Article
+Extended Data Fig. 4 | Licking behavior and representational drift 
+measurements for most selective and non-selective pre-lick sets. a-d) The 
+lick profile of mice across days for most selective (a-b) and non-selective (c-d) 
+pre-lick laps. The thick black curve shows the average lick rate of all mice, and 
+the red dashed line indicates reward location (b and d). e-f) Cross-validated 
+heatmaps of 397 cells (6 mice) identified as place cells on Day 1, calculated based 
+on most selective (e) and non-selective (f) pre-lick sets. g) Representational 
+drift of most selective (blue) and non-selective (red) pre-lick sets measured by 
+various measurements, three-way ANOVA across days, animals, and set (lap set 
+effect). The shaded region shows SEM.
+
+Extended Data Fig. 5 | Representational drift measurements vs pre-lick 
+index across all mice, and examples of hippocampal internal states and 
+spatial tunings. a) Plots of representational drift measurements vs pre-lick 
+index across all mice (n = 30 mice) for five different tasks. The x-axes are the 
+average prelick index across all days and the y-axes are the difference between 
+the first and last day values for each drift measurement. Pearson correlation ρ 
+and p-values from two-tailed Pearson correlation test are listed above each panel. 
+b-d) Internal and spatial tuning curves of hippocampal neuronal activities for 
+example mice from uncontrolled odor (b), flat odor (c), and variable odor (d) 
+tasks. Top: Internal and spatial tuning of hippocampal population activity in 
+PCA space. Bottom: Cross-validated heatmaps of cells calculated based on 
+internal state and position.
+
+Article
+Extended Data Fig. 6 | See next page for caption.
+
+Extended Data Fig. 6 | Subtle visual sensory variability does not detectably 
+affect hippocampal representational drift in mice. a-b) In variable visual 
+task, VR brightness varies lap-by-lap at different levels within and across days). 
+c-d) Running and licking behavior of individual mice (c) used in the task and 
+their averages (n = 7 mice) (d). e-f) Within-day speed vector correlations for 
+each of the five days (e, non-directional repeated-measures ANOVA, task by  
+day interaction, F(4,44) = 0.19. p = 0.94) and across-day PCA space distance  
+(f, two-sided Wilcoxon rank-sum test, p = 0.95) (n = 7 mice, n.s., p > 0.05). g) Cross- 
+validated heatmaps of 344 cells (7 mice) identified as place cells on Day 1.  
+h) Representational drift of variable visual (pink) and non-variable visual (black) 
+mouse groups measured by various measurements (n = 7 mice, n.s., p > 0.05. 
+Non-directional repeated measures ANOVA task by day interaction. The shaded 
+region shows SEM).
+
+Article
+Extended Data Fig. 7 | Examples of stable and unstable hippocampal place 
+cells over days. Stable (a) and unstable (b) place cell examples. Top: normalized 
+DF/F trace for the first 10 laps on the emerge day (black) and the two following 
+days (dark and light gray, respectively). Each row is a lap. Middle: mean DF/F vs 
+position (tuning curves) over the three days. Bottom: DF/F time series of each 
+example neuron.
+
+Extended Data Fig. 8 | See next page for caption.
+
+Article
+Extended Data Fig. 8 | Properties of stable and unstable place cells within 
+and across days. a) Fractions of total pooled neurons by type (n = 8014 cells). 
+Unclassified place cells were those that were not categorized into stable or 
+unstable cell categories. b) Additional measures of representational drift for 
+stable and unstable place cells across days. c) Additional excitability properties 
+of stable and unstable neurons. d-f) Cumulative distributions of cell-by-cell 
+excitability properties (d), spatial properties (e), and signal quality (f) for stable 
+and unstable place cells. g-i) Excitability properties (g), spatial properties (h), 
+and signal quality (i) for stable and unstable place cells across days. Two-sided 
+Wilcoxon signed-rank p values (panels b-i) and Cohen's d (panel c-f) are listed 
+for each feature.
+
+Extended Data Fig. 9 | Multicollinearity among various hippocampal 
+neuronal properties of place cells. Pairwise comparisons of each neuronal 
+property with other neuronal properties used in the logistic regression model. 
+Each data point is a single neuron. Pearson's correlation values from two-tailed 
+Pearson correlation test for each pair of properties are shown above the panels.
+
+Article
+Extended Data Fig. 10 | Higher neuronal excitability correlates with and is 
+predictive of more stable representation in hippocampal CA1 across all 
+active cells. a) Tuning curve (TC) correlations for all active cells within day.  
+Odd versus even laps (black) are separated from 10,000 randomly chosen pairs 
+of all active cells (gray) at 0.25 threshold (dashed line). This threshold is used 
+for classification of cells as recurring and therefore, stable (same analysis as the 
+Fig. 4 and Extended Data Fig. 1i, but using all active cells instead of only place cells). 
+b-c) Cross-validated heatmaps for all stable and unstable cells from the emerge 
+day and two following days. d-f) Representational drift of stable and unstable 
+cell populations across days (each point represents a mouse, n = 30 mice) 
+measured by recurrence probability (d), PV correlation (e), and TC correlation 
+(f) (d-f, two-sided Wilcoxon signed-rank test). g-i) Stable vs. unstable cell 
+excitability properties (g), spatial properties (h), and signal quality (i). Each point 
+is the emerge day average for each mouse (n = 30 mice, two-sided Wilcoxon 
+signed-rank tests and Cohen's d). J-k) Average dF/F (j) and baseline noise (k) 
+from the emerge day and two following days for stable and unstable cell 
+populations (n = 30 mice, two-sided Wilcoxon signed-rank test). l) Logistic 
+regression classification of stable vs. unstable cells. Confusion matrix of fitted 
+regression model predicted whether an active cell becomes a stable or unstable 
+cell from emerge day properties (n = 50 repeats of logistic regression tests with 
+different training and test set combinations; 100 stable, 100 unstable neurons; 
+mean shown on matrix, stable cell true positive std=2.4%, stable cell false positive 
+std =2.1%, unstable cell true positive std=2.1%, unstable cell false positive  
+std =2.4%). m) Accuracy of logistic regression prediction when each group of 
+properties left out (n = 50 repeats of leave-out logistic regression tests with 
+different training and test set combinations; middle values are medians, and 
+vertical bars are 25th and 75th percentiles. None vs. excitability: two-sided 
+Wilcoxon rank-sum test, p = 6.8e−18. None vs. spatial: p = 0.98. None vs. signal 
+quality: p = 0.41. * p-value < 0.05).
+
+
+
+

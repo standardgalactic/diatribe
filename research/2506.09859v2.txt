@@ -1,0 +1,2007 @@
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+1
+Hierarchical Learning-Enhanced MPC for Safe Crowd Navigation
+with Heterogeneous Constraints
+Liu Huajian†, Feng Yixuan†, Dong Wei Senior Member, IEEE, Fan Kunpeng, Wang Chao and Gao
+Yongzhuo∗Member, IEEE
+Abstract—In this paper, we propose a novel hierarchical
+framework for robot navigation in dynamic environments with
+heterogeneous constraints. Our approach leverages a graph
+neural network trained via reinforcement learning (RL) to
+efficiently estimate the robot's cost-to-go, formulated as local
+goal recommendations. A spatio-temporal path-searching mod-
+ule, which accounts for kinematic constraints, is then employed to
+generate a reference trajectory to facilitate solving the non-convex
+optimization problem used for explicit constraint enforcement.
+More importantly, we introduce an incremental action-masking
+mechanism and a privileged learning strategy, enabling end-
+to-end training of the proposed planner. Both simulation and
+real-world experiments demonstrate that the proposed method
+effectively addresses local planning in complex dynamic envi-
+ronments, achieving state-of-the-art (SOTA) performance. Com-
+pared with existing learning-optimization hybrid methods, our
+approach eliminates the dependency on high-fidelity simulation
+environments, offering significant advantages in computational
+efficiency and training scalability. The code will be released as
+open-source upon acceptance of the paper.
+Index Terms—Crowd navigation, autonomous robot, reinforce-
+ment learning, motion planning.
+I. INTRODUCTION
+D
+YNAMIC scenarios with heterogeneous constraints rep-
+resent typical operational environments for autonomous
+mobile robots, including but not limited to airport logistics,
+hotel delivery, and autonomous driving. Due to the presence
+of dynamic obstacles, it is challenging for robots to plan
+an optimal global trajectory even when kinematic constraints
+are disregarded, as existing planning methods suffer from
+significant inaccuracies in estimating the cost-to-go, which
+significantly impacts the autonomous navigation performance
+of robots in such scenarios.
+Most early works did not explicitly distinguish dynamic
+obstacles, instead relying on high-frequency replanning for
+obstacle avoidance. However, these approximately greedy lo-
+cal strategies significantly constrain the optimality of the final
+global trajectory and are highly susceptible to the Freezing
+Robot Problem due to non-reciprocal interactions with other
+agents. To more accurately estimate the cost-to-go, researchers
+have adopted various methods to explicitly predict the future
+states of dynamic agents, then utilizing approaches such as
+spatio-temporal joint search to compute the optimal route.
+†: Equal contribution.
+All the authors are with State Key Laboratory of Robotic and System,
+Harbin Institute of Technology, China (∗: Corresponding author).
+This paper was produced by the IEEE Publication Technology Group. They
+are in Piscataway, NJ.
+Manuscript received April 19, 2021; revised August 16, 2021.
+Nevertheless, the computational complexity of these methods
+is excessively high, rendering them applicable only in road
+scenarios with a very limited number of agents.
+Learning-based methods are capable of implicitly estimating
+the future cost-to-go, thereby achieving enhanced navigation
+performance in dynamic scenarios. However, these methods
+lack explicit constraint guarantees, making it challenging to
+ensure safety when encountering corner cases. Recent studies
+have attempted to combine learning with optimization to
+balance performance with interpretable safety. Still, they face
+significant challenges such as high training costs and sim-
+to-real transfer issues. Some methods rely on sparse sensors
+like single-line LiDAR to reduce training costs, but these are
+generally insufficient for handling complex dynamic scenarios.
+To address the aforementioned key challenges in au-
+tonomous navigation, this paper proposes a novel hybrid
+framework based on agent-level features. A graph neural
+network (GNN)-based frontend is designed to aggregate het-
+erogeneous environmental information and generate step-wise
+local goals to guide robot navigation, thereby enabling an
+indirect estimation of the cost-to-go. Meanwhile, explicit
+dynamic obstacle trajectory prediction and spatio-temporal
+joint search are incorporated to refine the neural network
+output, which then serves as a well-initialized input for the
+model predictive control (MPC)-based backend. As a result,
+the proposed method achieves superior autonomous navigation
+performance in dynamic environments.
+More importantly, we propose an incremental action mask-
+ing mechanism and a privileged learning approach to address
+the issue of infeasible solutions in the backend, which arises
+when exploring unreachable candidate local goals during early
+training stages. This issue results in a large number of timeout
+episodes, exacerbating the problem of sparse rewards. Lever-
+aging these enhancements, we enable low-cost and highly
+efficient end-to-end reinforcement learning-based training of
+the entire planner in a low-fidelity simulation environment.
+The contributions of this paper can be summarized as follows:
+1) We proposed a novel robot navigation framework in-
+tegrating DRL with MPC for dynamic heterogeneous con-
+straint environments, which effectively combines the implicit
+reasoning capability of learning-based methods for dynamic
+scene variations with the explicit constraint guarantees of
+optimization-based approaches.
+2) We design a path search algorithm that incorporates
+explicit trajectory prediction and spatio-temporal joint graph
+search, enabling effective dimensionality lifting of the local
+goals generated by the neural network frontend to yield high-
+arXiv:2506.09859v2  [cs.RO]  23 Jul 2025
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+2
+quality initializations for backend optimization.
+3) We develop a privileged learning method that utilizes
+conditional explicit multi-stage simulation of dynamic agents
+during training, enabling trajectory-level reward evaluation.
+This method mitigates the modal inconsistency in replanning
+caused by the lack of temporal regularization.
+4) We proposed an incremental action masking mechanism
+to address the infeasibility issues arising from the exploration
+of unreachable candidate goals in the early stages. This
+effectively mitigates the sparse reward problem and enables
+end-to-end training of the entire planner.
+II. RELATED WORKS
+A. Local Planning in Dynamic Environment
+Limited by the perception capabilities, early planning ap-
+proaches, represented by A*, RRT, DWA [1] and their variants,
+primarily focused on static environments. These methods
+take occupancy grid maps as inputs and can be extended to
+low-dynamic environments to a limited extent through high-
+frequency replanning. However, they remain ineffective in
+handling higher-speed obstacles or environments with more
+complex interactions. With the improvement in perception
+technology, various approaches [2]-[4] have been developed to
+detect and extract dynamic objects within a scene. This enables
+modeling dynamic obstacles at the agent level rather than the
+occupancy level. Based on this, model-based methods such
+as social force models [5] , velocity obstacles (VO) [6], and
+the intelligent driver model [7] have been applied to robotic
+systems. These methods simplify the complex interaction
+mechanisms between dynamic agents and adopt a single-step
+reactive policy to facilitate navigation in dense crowds. The
+key challenge for these models is that they heavily rely on
+hand-crafted functions and cannot generalize well to various
+scenarios. In addition, due to their locally greedy nature, the
+resulting global trajectories often deviate significantly from
+the optimal path, potentially leading to the Freezing Robot
+Problem when assumptions such as the reciprocity rule no
+longer hold [8].
+Optimization-based methods have become the mainstream
+in the industry due to their ability to explicitly enforce
+nonlinear constraints. encompassing not only obstacle avoid-
+ance but also the robot's own kinematics. LMPCC [9] is a
+representative hard-constrained method for dynamic environ-
+ments, which estimates and predicts pedestrian states using a
+Kalman filter and optimizes the robot's local trajectory within
+a model predictive contouring control framework. Gradient-
+based methods [10]-[12] incorporate penalties for dynamic
+obstacles into polynomial trajectory optimization, improving
+computational efficiency at the cost of relaxing constraint
+guarantees. DPMPC-Planner [11] adopts chance-constrained
+MPC to handle measurement and obstacle uncertainties. [13]
+introduces dynamic control barrier functions to enable safety-
+critical dynamic obstacle avoidance. By leveraging the differ-
+ential flatness property of car-like robots, [14] achieves ob-
+stacle avoidance with full-dimensional polygonal constraints,
+generating less conservative trajectories with safety guaran-
+tees. Compared to model-based methods, optimization-based
+approaches can achieve optimality within a local time domain
+rather than a single step. However, they remain constrained by
+computational power and perception range, preventing direct
+coverage of long-term navigation goals. Consequently, these
+methods rely on high-level planners to provide reference paths,
+which, due to the computational complexity, cannot fully
+incorporate the costs of dynamic obstacles, severely limiting
+the optimality of global trajectories.
+B. Learning-based Crowd Navigation
+Benefits from the implicit modeling capabilities of data-
+driven approaches, deep neural networks have been utilized
+to model the complex interactions among agents. Building on
+this foundation, DRL has emerged as a mainstream solution
+for crowd navigation problems and can be categorized into
+sensor-based and agent-based approaches based on the inputs.
+The former [15]-[17] directly processes raw sensor data, such
+as images from cameras, while the latter relies on an external
+perception module to extract features such as agent positions
+and velocities. Given the relevance to our work, we focus
+exclusively on agent-based methods which offer significantly
+lower training costs and robust sim-to-real transfer adaptabil-
+ity, compared to sensor-based counterparts.
+Early agent-based methods [18], [19] employ Long Short-
+Term Memory to aggregate a variable number of agents,
+addressing the inherent randomness in dynamic scenarios. LM-
+SARL [20] utilizes a coarse-grained local map to encode
+interactions between pedestrians. RGL [21] adopts a pairwise
+similarity function to infer correlations between agent features
+and leverages graph convolutional networks to extract scene
+features from the resulting graph. [22], [23] employ a spatio-
+temporal interaction graph to model interactions between the
+robot and surrounding agents, introducing explicit temporal
+information to reduce the reliance on external velocity estima-
+tion of the dynamic agents. However, all these methods adhere
+to an unrealistic assumption: an infinitely large workspace
+with homogeneous agents only. To address structured con-
+straints, DRL-VO [24] maps VO-based agent features onto
+a feature map, which is combined with multi-frame LiDAR
+maps to construct an image-based unified input representation.
+HEIGHT [25] generalizes [23] to highly constrained environ-
+ments by incorporating independent LiDAR features.
+To provide a consistent representation of agents and struc-
+tured obstacles without relying on raw LiDAR measurements,
+[26] models dynamic scenes using heterogeneous graphs,
+while [27] extends VO to unify the node features of heteroge-
+neous entities. Building upon this, [28] employs graph atten-
+tion networks to extract features from heterogeneous graphs,
+constructing end-to-end policy networks for autonomous nav-
+igation in dynamic environments. Compared to LiDAR-fusion
+methods, heterogeneous-graph-based approaches do not re-
+quire high-fidelity simulation environments, offering a signif-
+icant advantage in terms of training costs. Moreover, with
+the support of semantic-level perception methods such as
+BEVFormer [29], these planners have become practically
+viable. However, despite their theoretical advantages, these
+end-to-end methods lack explicit constraint guarantees, and
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+3
+their inherent opacity makes them less reliable when handling
+corner cases, compromising robustness and safety.
+C. Combining Optimization with Learning
+The integration of optimization and learning has been
+extensively explored in autonomous robotics research, as
+comprehensively reviewed in [30]. Intuitively, many existing
+works leverage the implicit modeling capabilities of neural
+networks to address inherent limitations in optimization-based
+methods, such as inaccurate modeling, sensitivity to initial
+conditions, and the reliance on manually tuned objective
+functions. Conversely, optimization techniques have also been
+employed to accelerate neural network training and to serve as
+safety filters for learning-based methods [31]. Within the scope
+of this paper, we specifically focus on methods where the
+optimization-based planner serves as the final output carrier.
+GO-MPC [32] proposes a hybrid method based on local
+goal recommendation to help the robot in making progress
+towards its goal and accounts for the expected interaction with
+other agents. Similarly, [33] determines the terminal state and
+confidence of the trajectory using DRL for road scenarios and
+subsequently plans a QP trajectory based on them. By placing
+a differentiable MPC [34] as the last layer of the actor network,
+AC-MPC [35] effectively manages both short-term decisions
+through the MPC-based controller and long-term predictions
+via the critic network. Notably, iPlanner [36], [37] proposes
+imperative learning, a novel approach to obtain the gradients
+for network training while simultaneously optimizing output
+trajectories. This method leverages a differentiable cost map to
+provide implicit supervision, eliminating the need for demon-
+strations or labeled trajectories. NeuPAN [38] employs an
+interpretable deep unfolding network to directly obtain latent
+distance features from raw LiDAR clouds, thereby replacing
+obstacle avoidance constraints with a computationally effi-
+cient regularization term in the loss function. However, these
+methods do not effectively handle both complex multi-agent
+interactions and environmental structural constraints simulta-
+neously. Moreover, most existing methods do not explicitly
+account for the robot's kinematic constraints.
+The works most closely related to this paper are GO-
+MPC [32] and AC-MPC [35]. Specifically, both the proposed
+method and GO-MPC utilize local goals as an intermediary
+between the front-end network and the back-end optimization
+to estimate the cost-to-go. However, GO-MPC is only applica-
+ble in environments without structural constraints and does not
+account for the robot's kinematic constraints. Conversely, AC-
+MPC focuses solely on environmental constraints and external
+disturbances but lacks the ability to handle dynamic obstacles.
+Combining the advantages of both, the proposed method
+integrates structural constraints, dynamic obstacle avoidance,
+and the robot's kinematic constraints while supporting end-to-
+end training in low-fidelity simulation environments.
+III. METHODOLOGY
+A. Preliminaries and Problem Formulation
+1) Problem formulation: Consider an episodic environment
+in a 2D manifold W ∈R2, where an autonomous mobile robot
+must navigate from an initial state x0 to a goal g. During
+this process, the robot needs to interact with pedestrians and
+heterogeneous static obstacles. Motion planning of the robot
+can be formulated as an optimal control problem:
+J∗(x(0)) =
+min
+{u(τ)}
+tf
+0
+
+cf(x(tf), tf)
++
+Z tf
+0
+c(x(τ), u(τ), τ) dτ
+,
+(1)
+where x(0) is the initial state and x(tf) is the terminal state.
+The solution of (1) can be described in the form of an optimal
+trajectory T ∗:= x∗(τ) : [0, tf]. However, since the cost
+function c(x(t), u(t), t) is not explicitly accessible in dynamic
+environments, global optimal policy π∗
+G(x(t), t) for robot nav-
+igation cannot be easily obtained by solving (1). Fortunately,
+based on the principle of optimality, for any point x∗(t′) on the
+optimal trajectory T ∗within the neighborhood of the robot,
+the truncated trajectory x∗(τ) : [t′, tf] is also a minimum
+cost trajectory whose cost-to-go can be denoted as J∗(x(t′)).
+Benefiting from this, the primal motion planning problem can
+be decomposed into the following two subproblems:
+Problem 1: Find the local waypoint pref
+t
+with the minimal
+cost-to-go J∗(pref
+t ) in the robot's perceptual range.
+Problem 2: Formulate and solve an optimization problem
+with pref
+t
+as the terminal state, considering obstacle avoidance
+and kinematic constraints, to obtain the locally optimal control
+policy π∗
+L(St, pref
+t ), where St represents the joint observable
+state at time t.
+Since problem 1 is still directly intractable, we utilize a
+learnable policy neural network to estimate J∗(pref
+t ) based
+on St, then Problem 1 can be reformulated as: to learn a
+policy πθ to recommend local goal pref
+t
+for the robot that
+maximizes the expected return, while ensuring collision-free
+and dynamic-feasible. We formally described the discrete form
+of the reformulated problem as follows:
+π∗
+θ = arg max
+θ
+E
+" T
+X
+t=0
+γtR (St, π∗
+L(St, πθ(St)))
+#
+s.t.
+xt+1 = fd(xt, ut)
+∥pT −g∥≤ϵ
+Ot(xt) ∩Ot
+i = ∅
+ut ∈U, St ∈S, xt ∈X,
+∀t ∈[0, T], ∀i ∈{1, . . . , n},
+(2)
+where γ ∈(0, 1] is a discount factor and also serves as
+a tunable hyper-parameter, Ot and Oi
+t represent the time-
+varying spatial occupancy of the robot and obstacles in W,
+respectively.
+2) Robot kinematics: Unlike simplified RL formulations
+that assume idealized omnidirectional kinematic models, prac-
+tical planners must account for the inherent kinematic con-
+straints of physical hardware and discretization errors intro-
+duced during implementation. To address this gap, we adopt
+the industry-standard differential-drive robot as a representa-
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+4
+tive platform and model its dynamics through a differential
+equation ˙x = f(x, u), given by:
+˙x = vr + vl
+2
+cos ψ
+˙vr = ar
+˙y = vr + vl
+2
+sin ψ
+˙vl = al
+˙ψ = vr −vl
+2ρ
+,
+(3)
+where x and y are the robot's position coordinates and ψ is
+the heading angle in a global frame of W. vl and vr represent
+the velocities of the wheels on the left and right side of the
+robot respectively, while al and ar correspondingly denote the
+accelerations. Furthermore, we denote the hardware constraints
+on the velocity and acceleration of each wheel as [−vmax, vmax]
+and [−amax, amax], respectively. Based on these definitions and
+analysis, the control vector can be denoted as u = (al, ar),
+while the set of admissible control states U is defined as
+([−amax, amax], [−amax, amax]).
+B. Scenario to Markov Decision Process
+Navigating a robot toward the goal g by generating optimal
+local goals pref
+t
+in dynamic environments can be regarded as a
+sequential decision-making problem. We model this problem
+as a Markov Decision Process (MDP) M and describe it using
+a tuple ⟨S, A, P, R, γ⟩. Here, S and A represent the observable
+state space and action space, respectively. P : S × A →S
+denotes the unknown state transition function. γ is the discount
+factor for balancing short-term and long-term rewards.
+Based on our previous work, SAGE [39], we classify the
+instances in the scene into four classes: ego-robot, pedestrian,
+static circular obstacle, and line obstacle (large polygon obsta-
+cles can be decomposed into a set of line obstacles). Utilizing
+the velocity obstacle (VO) vector [27], we define the feature
+vectors for each class as follows:
+h =
+
+
+
+
+
+
+
+
+
+[dg, v, vm, ψ] ∈R5,
+(robot)
+[v, vl, vr, p, ˜ρ, µ, ζ] ∈R11,
+(pedestrian)
+[vl, vr, p, ˜ρ, µ, ζ] ∈R9,
+(circular obstacle)
+[vl, vr, ps, pe, ρ, µ, ζ] ∈R10,
+(line obstacle)
+,
+(4)
+where dg is the Euclidean distance between the robot's po-
+sition and its goal, the unsubscripted v denotes the velocity
+vector of a movable entity, vm is the robot's maximum linear
+velocity, µ is the minimum distance between the entity and the
+robot, ˜ρ is the radius of the pedestrian or static circular obstacle
+enlarged by the robot's radius ρ, and (ps, pe) represent the
+start and end positions of the line obstacle, respectively.
+In addition to the aforementioned conventional state vari-
+ables, vector [vi, vli, vri] ∈R6 defines a VO cone between
+the robot and the i-th obstacle, as shown in Fig. 1, while
+ζ = 1/(ξ + 0.5) is an artificial state variable quantifying
+collision risk, where ξ denotes the expected collision time
+computed based on the VO cone. Using the observable features
+described in (4), we model the scene as a heterogeneous graph,
+which serves as the state input S ∈S in M. Each node in the
+graph corresponds to an entity in the scene, while the edges
+represent implicit interactions between connected nodes.
+service 
+robot
+࣡(ࣰ, ℰ)
+robot
+pedestrian
+circular obs.
+line obs.
+(A)
+(B)
+ܞ௟௜
+ܞ௥௜
+ܞ௣= ܞ௜
+ܞ−ܞ௜
+ܘ௜
+ܞ௜
+ܞ௟௜
+ܞ௥௜
+ܘ௘௜
+ܘ௦௜
+ܘ  (ܞ௣= ૙)
+ߩ
+ߩ௜
+ܘ
+ܞ
+ܞ
+ܸܱ௜(૙)
+ܸܱ௜(ܞ௜)
+Fig. 1. (a) Transformation from a crowd scenario to a heterogeneous graph;
+(b) Illustration of the velocity obstacle for pedestrians and static line obstacles,
+symbols without subscripts represent the state variables of the ego-robot
+(Reprinted from our previous work [39], with permission from IEEE.).
+As described in Section III-A1, we define the local goals
+as the action a ∈A in M. The reward function R(S, a) :
+S × A →R is designed roughly following [39]. To en-
+sure safety and task completion, two sparse reward terms,
+rc and rg, are defined. The former penalizes any collision
+involving the ego-robot, while the latter is awarded when the
+robot successfully reaches the goal. To enhance navigation
+efficiency, a step-dependent reward term, rt, is introduced to
+penalize excessive navigation time. At any given training step,
+the robot receives exactly one of these rewards, denoted as
+Rs ∈{rc, rg, rt}. Drawing inspiration from recent works [27],
+rψ is incorporated to guide the robot's orientation towards
+the goal under nonholonomic constraints, and rv is used to
+account for potential collisions under the current configuration.
+Furthermore, a dense social-aware reward, rs, discourages the
+robot from approaching pedestrians too closely, improving
+social compliance. Then, R(S, a) is defined as the sum of
+the following components:
+Rs =
+
+
+
+
+
+κ1,
+if dg < ϵ
+κ2,
+if collision happens
+κ3,
+otherwise
+rψ = κ4(cos(ψg) −1)/(dg + dψ)
+rv =
+X
+ξi<ξc
+(κ5 + κ6ζi)
+rs = κ7
+X
+type(i) is ped.
+min{0, µi −µs}
+,
+(5)
+where ϵ is a small convergence tolerance for determining if
+the goal has been reached. µs is a user-defined safety margin,
+ψg is the angle between the robot's orientation and the vector
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+5
+pointing from its current position to the goal, and dψ is a
+hyper-parameter adopted for smoothing and bounding rψ. ξc is
+a specific threshold designed to distinguish whether a collision
+risk exists. The hyper-parameters κ in the reward function
+represent tunable weight coefficients.
+C. Neural Network Architecture
+Building upon the classical actor-critic architecture, we
+design the policy and value networks using graph neural
+network layers as the feature extractors, as illustrated in Fig.
+2. Based on empirical results, we do not employ a shared
+feature extraction layer as similar works do. The output of each
+GNN is concatenated with the robot's node feature to form
+the integrated fixed-length observation H. Both the policy
+network πθ and the value network V consist of two hidden
+fully connected layers (FCLs) with 256 rectified linear units.
+GNN
+Layer
+GNN
+Layer
+256
+256
+64
+64
++
+concat
+256
+256
++
+concat
+feature extractor
+observation
+FCL
+ReLU
+FCL
+ReLU
+FCL
+ReLU
+FCL
+ReLU
+FCL
+ReLU
+FCL
+ReLU
+FCL
+FCL
+actor/critic
+V(S)
+V
+Softmax
+Mask 
+Update
+logits z 
+mask(⸱)
+Unreachable OR
+OCP Infeasible
+Mask
+Fig. 2. An illustration of the architecture of the proposed GNN-based policy
+network with invalid action masking mechanism.
+The key difference from related works is that we adopt
+a discrete action space instead of a continuous counterpart.
+Specifically, we discretize the robot's neighborhood into D
+candidate points and employ a static bijective function to map
+these candidates to the one-dimensional categorical output of
+the network, a ∈A := [1, D]. Based on this formulation, we
+use a fully connected layer with D units as the final output
+layer of the policy network, producing unnormalized scores
+(logits) z ∈RD. Finally, a softmax function is applied to
+transform the logits into an action probability distribution:
+πθ(a|S) =
+eza
+PD
+d=1 ezd ,
+(6)
+where πθ(a|S) represents the probability of the policy network
+selecting the local goal corresponding to action a given state
+S, where θ denotes the learnable parameters of the network.
+The motivation behind this architecture is that the cho-
+sen local goal pref may render the optimization problem
+πL(S, pref) infeasible, which could destabilize training within
+the RL framework. Inspired by [40], we design a simple yet
+effective incremental invalid action mask to prevent repeatedly
+sampling invalid actions in relatively large discrete action
+spaces. Specifically, we define the following two types of local
+goals as invalid actions: 1) spatially unreachable (e.g. located
+inside a static obstacle); 2) spatially reachable but rendering
+πL(S, pref) infeasible. We mask out invalid candidate local
+goals by replacing the corresponding logits z with a large
+negative number (e.g. −1 × 108). Then the updated policy,
+denoted as π′
+θ, can be obtained by recalculating (6). The
+resulting probability of an invalid candidate point, denoted as
+ϵm, should be a negligibly small value close to zero.
+The masking process, denoted as mask(·) : R →R,
+can be viewed as a state-dependent function differentiable
+to its parameters θ. Consequently, the gradient produced by
+mask(·) is a valid policy gradient of π′
+θ. In addition, mask(·)
+ensures that the gradient corresponding to the logits of invalid
+candidate points is set to zero, thereby introducing a form
+of supervised learning. Notably, the feasibility of πL cannot
+be determined through predefined conditions. Therefore, we
+adopt an incremental approach, where infeasible candidate
+points are progressively added to the set of invalid candidates
+˜P, and mask(·) is updated accordingly to recalculate π′
+θ.
+This process can be parallelized with negligible computational
+overhead to enhance inference efficiency.
+D. Spatio-Temporal Path Search
+The robot trajectory optimization problem πL with obstacle
+avoidance constraints is typically non-convex, and its efficient
+solution relies on the proper selection of an initial trajectory
+Tinit. To address this, we propose a spatio-temporal (S-T) path
+searching module based on explicit predictions of dynamic
+obstacle trajectories, denoted as Pref = G(pref), to increase
+the dimension of the output of the high-level RL policy π′
+θ(S).
+This design effectively reduces the action space A of the RL
+policy, significantly lowering the convergence difficulty and
+training cost compared to approaches that directly output the
+entire reference trajectory [41]. Meanwhile, the introduction
+of local goals substantially reduces the search space of G(·),
+ensuring feasibility for real-time online computation.
+As a direct extension of traditional graph search-based
+methods, the 2D spatial plane W is augmented with an
+orthogonal time axis t ∈R≥0, allowing the time-varying
+spatial occupation of dynamic obstacles to be accurately
+represented. Specifically, based on our previous work on multi-
+agent trajectory prediction [42], we can predict the future
+trajectory ˆY of an agent using its historical path. Then the
+Minkowski sum of ˆY and the agent's spatial geometric shape
+can be directly projected to the occupancy grid in the S-T
+map. Due to the positivity of ˙t, the graph constructed from
+this occupancy grid will be a directed acyclic graph (DAG).
+For robots with nonholonomic constraints as described in (3),
+the transition cost between grids is directly influenced by the
+orientation angle ψ. Therefore, we use hst := [x, y, ψ, t, g, h]
+as the node features in the resulting S-T graph GST.
+In S-T graph-based search, node expansion is often based
+on motion primitives to account for kinematic constraints.
+However, for small discretization intervals δt, the primitives
+lack sufficient distinguishability within the discrete grid, lead-
+ing to a large number of redundant candidate edges, which
+severely degrades search efficiency. Inspired by Pulse Width
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+6
+Modulation, we address this issue by selecting only the
+maximum velocity or zero velocity and a fixed δt when
+generating primitives. This results in seven motion primitives,
+including an in-place waiting action, while primitives for other
+configurations can be approximated through combinations of
+these seven. We denote the set formed by them as Mp.
+By computing the projection of the terminal state of each
+primitive onto the S-T grid map, we can obtain adjacent nodes
+and update the node's orientation ψ. Building on this, we
+define the cost function for any node nst in the S-T graph
+according to the navigation task requirements as: J(nst) =
+g(nst)+h(nst), where g(nst) represents the accumulated cost
+from the starting point x(0) to the current node, and h(nst) is
+a heuristic function estimating the cost to reach the destination
+pref. They are defined respectively as follows:
+
+
+
+
+
+g(nst) =
+t
+X
+0
+(d(x, y) + gr(∆x, ∆y, ψ) + gψ(∆ψ))
+h(nst) = E(x, y) + κcC(x, y, t) + ht(t)
+,
+(7)
+where d(x, y) represents the Euclidean distance change, whose
+accumulation approximates the historical path length. Both gr
+and gψ are piecewise constant functions to penalize revers-
+ing and turning, respectively. E(x, y) denotes the Euclidean
+distance between nst and pref. C(x, y, t) represents the angle
+between the vector from nst to pref and the vector from x(0)
+to pref in the S-T space, with κc as the corresponding tunable
+coefficient. This component encourages node expansion along
+a straight trajectory at a constant velocity. h(t) is a time-based
+reward function that prioritizes nodes with larger t values,
+ensuring real-time performance.
+We employ the A-Star algorithm to solve the resulting graph
+search problem and apply velocity pruning to restrict node
+expansion, which prevents the exploration of regions in S-
+T space that violate kinematic constraints, improving search
+efficiency. After obtaining the optimal path P⋆in GST, we
+select the corresponding key points from P⋆based on the
+time interval ∆t of the optimization problem to form Pref. The
+complete spatio-temporal path search algorithm is summarized
+in Algorithm 1.
+E. Optimization-based Trajectory Refinement
+Using the reference path Pref obtained from evaluating
+G(pref), we design a trajectory refinement module within the
+MPC framework to generate a collision-free locally optimal
+trajectory Topt that satisfies the robot's kinematic constraints.
+Since model training is performed offline, we trade off some
+computational efficiency for minimal conservatism.
+We adopt a hierarchical approach to enforce obstacle avoid-
+ance (OA) constraints. Specifically, for dynamic obstacles, we
+reuse the predicted trajectory ˆY from Section III-D. The OA
+constraints for pedestrians and static circular obstacles can
+then be defined in terms of the Euclidean distance between
+the robot and the obstacles at each prediction step k. For con-
+vex polygonal obstacles derived from decomposed structured
+obstacles, their spatial distance to the robot can be quantified
+using signed distance [43]. Leveraging the strong duality
+property, we reformulate the signed distance into a smooth
+Algorithm 1 Spatio-Temporal joint path search.
+Require: S-T graph GST, Mp, pref, ∆t
+Ensure: Reference path for the trajectory optimization Pref
+1: O ←{Node(x(0), g : 0, h : h(x(0)), p : None)}
+▷Initialize open list (priority queue sorted by J)
+2: C ←∅
+▷Initialize set of closed nodes
+3: while |O|> 0 do
+4:
+nst ←PriorityQueuePop(O)
+▷Pop node with lowest
+J-value
+5:
+if ∥nst.(x, y) −pref∥≤ϵ then
+6:
+P⋆←TraceBack(nst)
+7:
+return KeyPointSelection(P⋆, ∆t)
+8:
+end if
+9:
+for all m ∈Mp do
+▷Iterate over all seven primitives
+10:
+x′
+f ←Transform(m, nst)
+▷Next state (x, y, ψ, t)
+11:
+if not isValid(GST, x′
+f) or isClosed(C, x′
+f) then
+12:
+continue
+13:
+end if
+14:
+(g′, h′) ←CostFunction(nst, x′
+f)
+▷(7)
+15:
+n ←OpenListQuery(O, x′
+f)
+16:
+if isNull(n) then
+17:
+n′
+st ←Node(x′
+f, g : g′, h : h′, p : nst)
+18:
+PriorityQueueInsert(O, n′
+st)
+19:
+else if g′ < n.g then
+20:
+UpdateNode(n, {g : g′, p : nst})
+▷Update the
+node based on a more optimal incoming path
+21:
+end if
+22:
+end for
+23:
+Insert nst in C
+24: end while
+25: return Infeasible
+▷Update invalid action mask
+and differentiable hyperplane separation constraint. Combining
+OA constraints with the robot's kinematic constraints (3), we
+formulate the following non-convex optimization problem for
+trajectory refinement:
+J∗= arg min
+N−1
+X
+k=0
+J(xk, uk, ∆uk, pref
+k ) + J(xN, pref
+N )
+s.t.
+xk+1 = fRK4(xk, uk),
+∥pk −ˆpi
+k∥≥˜ρi,
+(Ampk −bm)T λ(m)
+k
++ s(m)
+k
+> ρ,
+∥AT
+mλ(m)
+k
+∥∗= 1,
+s(m)
+k
+∈R+, λ(m)
+k
+⪰K∗0,
+uk ∈U, xk ∈X,
+∀k ∈{0, . . . , N},
+∀i ∈{1, . . . , n}, ∀m ∈{1, . . . , M}.
+, (8)
+where fRK4 represents the discrete dynamics equations derived
+using the fourth-order Runge-Kutta method. uk denotes the
+control input of the robot, which consists of linear acceleration
+alin
+k and angular acceleration αk for a differential drive robot.
+pref
+k
+∈Pref is the reference path point corresponding to the
+current stage. The tuple (Am, bm) denotes the half-plane
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+7
+representation of the m-th polygon obstacle Pm, λ(m) is the
+dual variable and s(m) is the slack variable associated with
+Pm. The operator ∥· ∥∗is the dual norm and ⪰K∗is the
+generalized inequality defined by a dual cone K∗. Details of
+the derivation and proof can be found in [43], [44].
+RL-Policy
+(S)
++
+OCP-based
+Refinement
+(
+)
+Planner
+Environment
+(Z)
+(
+, )
+Ego Robot
+Dynamic Agents
+Static Obstacles
+raw obs. 
+Tracking Controller
+(100 Hz)
+action mask
+Fig. 3. Illustration of the proposed hierarchical planner, where O(·) represents
+the observation function.
+F. Privileged Reinforcement Learning
+The output of the planner transforms into an optimal trajec-
+tory Topt after refinement. However, from the perspective of
+the neural network being trained, its output is still the local
+goal pref, while the entire backend is considered part of the
+environment. This inconsistency creates an adaptability issue
+for traditional reinforcement learning algorithms for the pro-
+posed planner. Specifically, conventional methods optimize the
+network based on data tuples ⟨St, St+1, at, r⟩, which causes
+the value network to focus only on the changes between two
+adjacent observation states St and St+1, and the corresponding
+reward r, while ignoring the subsequent optimal trajectory that
+has not yet been executed. As a result, the selection of local
+goals loses temporal consistency, leading to significant inter-
+frame jitter in the planned trajectory.
+To address this issue, we revisit the relationship between the
+planner and the environment, considering Topt as part of the
+state S, specifically as the current trajectory being executed,
+denoted as ˜S. With this modification, the state value function
+V (˜S) can more accurately evaluate the real situation. Due to
+the focus of the proposed method on low-fidelity simulation
+environments, we develop a privileged training approach to
+jointly train the planner for overall value evaluation of Topt
+instead of S. Specifically, at each rollout step during the
+training process, we simulate the environment forward by M
+steps, with M ≤N under the condition of the fixed robot
+trajectory Topt. Following (5), we evaluate and record the
+safety-related rewards Rk
+s = rk
+c + rk
+s + rk
+v, k ∈[1, M] at each
+step and simultaneously backtrack the environment to the state
+at k = 1. Finally, the overall reward function for this rollout
+is defined as follows:
+R(˜S) = rg + rθ + rt +
+M
+X
+k=1
+λk−1
+p
+Rk
+s
+(9)
+where λp ∈[0, 1] is a tunable hyperparameter representing
+the discount factor for the influence of future rewards on the
+current decision. Particularly, collisions occurring at k > 1 do
+not prematurely terminate the current training episode as real
+collisions do. Most importantly, in contrast to the privileged
+value network that has access to perfect knowledge of the
+environmental evolution, the policy network as student can
+only access the observable state at the current time step, St.
+This design eliminates data leakage and ensures that the policy
+network generalizes effectively to unseen scenarios.
+Since the proposed method is agnostic to the RL algo-
+rithm, based on the privileged reward function, it can be
+trained with any RL algorithm that adapts to continuous state
+spaces and discrete action spaces with minimal modification.
+We summarize the entire privileged reinforcement learning
+algorithm in Algorithm 2. Considering that the navigation
+task is challenging for RL without supervision, we follow
+the paradigm of curriculum learning and divide the training
+process into multiple phases to gradually increase the number
+of agents in the training environments. The specific details will
+be presented in Section IV-A1.
+IV. SIMULATION EXPERIMENTS
+A. Experiment Setup
+1) Simulation environment: Benefits from the agent-level
+feature representation in the proposed method, high-fidelity
+simulation environments are not required for network training.
+To ensure fairness in the comparative experiments, we use the
+same simulation environment as existing works [28], [39], with
+a brief description provided here: This 2D environment simu-
+lates a dynamic scene with heterogeneous obstacle constraints,
+wherein the ego-robot navigates through a corridor constrained
+by walls on both sides with a separation of 10 m. Along the
+way, a large rectangle obstacle (H, W ∈[1.0, 3.0] m) and
+several smaller static circular obstacles (R ∈[0.1, 0.4] m) are
+placed, while a crowd of pedestrians traverse freely through
+the obstacles. The sampling interval of the environment ∆t
+is set to 0.25 s, and the timeout threshold T is set to 30 s,
+allowing a maximum of 120 interaction steps per episode.
+Crowd simulation: All pedestrians are controlled by a
+centralized ORCA-based planner, which can avoid collisions
+among pedestrians and static obstacles. The pedestrians' initial
+and goal positions are roughly symmetrically placed with
+respect to the origin of the world coordinate. To simulate
+a continuous human flow, a new goal will be immediately
+generated once a pedestrian arrives at its goal position.
+Robot kinematic: The kinematic model of the robot (3)
+is discretized using the explicit forward Euler method within
+the simulation environment. The maximum velocity vmax and
+acceleration amax are set to 1.0 m/s and 1.0 m/s2, respectively.
+We employ a hard-clipping policy to address violations of the
+kinematic constraints. In each training or validation episode,
+the initial position of the robot is fixed and its goal position
+is randomly sampled in W. In test episodes, both the initial
+position and navigation goal of the robot are fixed.
+Curriculum setup: The entire training process is divided
+into four phases. 1) The robot is given a random goal within
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+8
+Algorithm 2 Privileged Reinforcement Learning.
+Require: Initial policy parameters {θ0, ϕ0}, environment M
+Ensure: Optimal parameters θ∗of policy network πθ
+1: while episode < nepisode do
+2:
+for k = 0, . . . , nmini-batch do
+3:
+Topt ←∅, ˜P ←∅
+▷Initialize invalid action set
+4:
+ˆY ←TrajectoryPrediction(Z)
+▷Z denotes the raw
+vector-based observation
+5:
+S ←SceneToGraph(Z)
+6:
+while iter++ < niter do
+7:
+π′
+θ ←UpdateInvalidActionMask(πθ, Z, ˜P)
+8:
+pref ∼π′
+θ(S)
+▷Sample from the updated
+probability distribution
+9:
+Pref ←G(pref, ˆY)
+▷Via Algorithm 1
+10:
+if infeasible then
+11:
+˜P ←˜P ∪{pref}
+▷Update invalid action set
+12:
+continue
+13:
+end if
+14:
+Topt ←Solve (8) with {Pref, Z, ˆY}
+15:
+if not success then
+16:
+˜P ←˜P ∪{pref}
+17:
+continue
+18:
+end if
+19:
+break
+▷Local optimal trajectory obtained
+20:
+end while
+21:
+if |Topt|< N then
+22:
+u′ ←[0, 0]
+▷No solution found, braking
+23:
+{S, S′, pref, r, done} ←M.Step(u′)
+24:
+B ←B ∪{S, S′, pref, r, done}
+25:
+else
+26:
+rp = Evaluation (9) with {Topt, M}
+27:
+{S, S′, pref, , done} ←M.Step(Topt[0].u)
+28:
+B ←B ∪{S, S′, pref, rp, done}
+▷Privileged reward
+29:
+end if
+30:
+if done then
+31:
+episode += 1
+32:
+CurriculumUpdate(M, episode)
+33:
+end if
+34:
+end for
+35:
+Training {θ, ϕ} with RL algorithm using B, B ←∅
+36: end while
+37: return θ
+the corridor with only one randomly placed static circular
+obstacle and a pedestrian; 2) Another two static circular
+obstacles and the static large rectangle obstacle are added, the
+robot's goal is limited on the line of y = 4.0; 3) Another two
+pedestrians are added; 4) The pedestrian number is increased
+to 5 to reflect more complex interactions. The training process
+continues for 50k episodes in total, with 4k, 8k, 8k, and 30k
+episodes allocated to each phase, respectively.
+2) Evaluation metrics: We employ four key metrics to
+quantitatively evaluate the overall performance of the proposed
+method. Within environments characterized by dynamic inter-
+actions between humans and robots, safety is the foremost
+priority for autonomous navigation tasks. Accordingly, the
+primary objective of the planner is to minimize the percentage
+collision rate (CR). However, as task failures can also result
+from situations such as the robot getting stuck and timing out,
+we adopt its dual metric, success rate (SR), as the primary
+indicator to assess the planner's ability to safely complete
+navigation tasks. Average navigation time (NT) is another key
+metric that evaluates navigation efficiency. Besides assessing
+navigation performance using these three metrics, we use the
+number of intrusions into humans' social comfortable distance
+(DN) as a social metric. DN quantitatively measures the plan-
+ner's social compliance, which is the second most important
+criterion in crowd navigation. A high DN value indicates that
+the robot significantly disrupts pedestrian behavior, violating
+the fundamental principle that robots should serve rather than
+interfere with humans.
+3) Baseline methods: We select eight existing open-source
+methods as benchmarks for performance comparison, namely
+A*+DWA, NH-ORCA, TEB, MPC-D-CBF, SG-D3QN, RL-
+RVO, HGAT-DRL, and SAGE. Among them, A*+DWA is
+the most classic solution for robot navigation, and its perfor-
+mance metrics provide an intuitive and quantifiable measure of
+the navigation task's difficulty. NH-ORCA represents model-
+based methods, extending ORCA by incorporating nonholo-
+nomic constraints of robots. Both TEB and MPC-D-CBF are
+optimization-based methods. The former is a well-established
+traditional approach, while the latter is opted to represent
+recent non-learning methods.
+Among the remaining four recent agent-based DRL meth-
+ods, SG-D3QN, HGAT-DRL, and our previous work, SAGE,
+adopt graph-based feature extractors, similar to the proposed
+method. In contrast, RL-RVO utilizes a bidirectional gated
+recurrent unit (BiGRU) module for feature aggregation. From
+a pipeline perspective, SG-D3QN employs explicit online
+planning with a finite number of deduction steps, while
+the other learning-based methods generate motion commands
+end-to-end. The most notable distinction between the pro-
+posed method and these learning-based approaches is that our
+method outputs a local goal instead of direct robot control
+commands.
+4) Implementation details: We implemented the front-end
+neural network based on the Stable-Baselines3 framework and
+constructed the GNN using the Deep Graph Library (DGL).
+The backend was developed in C++ and communicates with
+the Python-based front-end via ROS. We employed CasADi
+for modeling the optimization problem (8) and used Ipopt
+to solve it during training. During testing, we fixed the
+hyperplanes based on the reference trajectory and used Forces
+Pro to solve the regularized problem iteratively, ensuring the
+real-time performance of the planner. The stage number of
+MPC was set to N = 10, with a timestep ∆t = 0.25 s, aligned
+with the sampling interval of the simulation environment. The
+proposed planner was end-to-end trained using the widely
+adopted Proximal Policy Optimization (PPO) algorithm with
+clipped gradients [45], and all learnable parameters were
+updated using the Adam optimizer. For a fair comparison, we
+tested all methods with 500 random unseen test cases, and
+each of the five learning-based methods was trained five times
+with different random seeds. All training and experiments were
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+9
+conducted on an Ubuntu PC equipped with an Intel Core
+i9 CPU, 32 GB RAM, and an NVIDIA RTX 3080 GPU.
+A summary of all hyperparameters is provided in Table I.
+All unspecified hyperparameters retain their default values in
+Stable-Baselines3.
+TABLE I
+THE HYPER-PARAMETERS OF THE TRAINING PROCESS
+Parameter
+Value
+Parameter
+Value
+Initial learning rate
+2.5e-4
+κ1
+25.0
+Rollout buffer size
+2048
+κ2
+-25.0
+Entropy coef.
+0.001
+κ3
+0.3
+Traj. evaluation step M
+4
+κ4
+1.0
+Traj. discount factor λp
+0.9
+κ5
+-3.0
+µs
+0.2 (m)
+κ6
+-1.5
+dψ
+5.0
+κ7
+50
+ξc
+3.0 (s)
+κc
+0.01
+B. Quantitative Results
+1) Comparison with baselines: We summarize the sta-
+tistical results of the comparative experiments in Table II.
+Since non-learning-based methods are deterministic, they are
+tested only once, and no standard deviation is reported. As
+expected, the proposed method achieves the highest success
+rate of 99.4% and the lowest collision rate of 0.5%. More
+importantly, the proposed method also achieves the lowest
+DN, indicating its ability to effectively reduce disturbances to
+pedestrians and enhance social awareness during navigation.
+In terms of average navigation time, the proposed method
+is approximately 3.24 seconds slower than the optimal value
+among the baselines (13.33 seconds from RL-RVO), resulting
+in an efficiency loss of around 20%.
+TABLE II
+STATISTICAL COMPARISON OF DIFFERENT METHODS (MEAN/SD)
+Method
+SR ↑
+CR ↓
+NT ↓
+DN ↓
+A*+DWA [1]
+0.35
+0.65
+11.25
+11.25
+11.25
+1741
+NH-ORCA [46]
+0.76
+0.18
+17.61
+499
+TEB [47]
+0.84
+0.13
+15.92
+500
+MPC-D-CBF [13]
+0.84
+0.16
+12.82
+761
+SG-D3QN [48]
+0.68/0.11
+0.22/0.04
+18.60/0.52
+216.00/32.79
+RL-RVO [27]
+0.86/0.02
+0.14/0.02
+13.33/0.35
+13.33/0.35
+13.33/0.35
+253.00/119.16
+HGAT-DRL [28]
+0.92/0.02
+0.08/0.02
+13.50/0.28
+243.40/64.55
+SAGE [39]
+0.98/0.01
+0.02/0.01
+14.14/0.14
+110.80/32.51
+Ours
+0.994/0.002
+0.994/0.002
+0.994/0.002
+0.005/0.002
+0.005/0.002
+0.005/0.002
+16.57/1.28
+23.00/5.78
+23.00/5.78
+23.00/5.78
+It is reasonable to attribute the lower success rate of
+RL-RVO to its inability to accurately evaluate the potential
+collision risks posed by non-reciprocal pedestrians, leading
+to an overly aggressive behavioral policy. This assertion is
+reinforced by the performance of A*+DWA, which does not
+explicitly consider dynamic obstacles and achieves the shortest
+navigation time of 11.25 seconds. Similarly, we contend that
+the proposed method outperforms HGAT-DRL due to similar
+reasons. Compared to our prior end-to-end learning-based
+approach, SAGE, the proposed method achieves comparable
+or slightly superior performance. However, as emphasized, the
+optimization-based backend is capable of explicitly enforcing
+constraints, ensuring the planner's safety even in out-of-
+distribution corner cases.
+2) Ablation study: To intuitively demonstrate the func-
+tionality of the components within the proposed method,
+targeted ablation experiments were conducted based on the
+primary contributions outlined in this paper. We summarize
+the statistical results of these experiments in Table IV. It
+is evident from the results that the incremental action mask
+has the most significant impact on the final performance,
+as it directly determines whether the learning process can
+successfully converge. Without this module, the sampled local
+goals during the exploration of RL may be located inside struc-
+tured obstacles, rendering the backend optimization problem
+infeasible. Moreover, this issue cannot be rectified by adding
+penalty terms in the reward function [49].
+The privileged learning also plays a crucial role by effec-
+tively improving the temporal consistency of the trajectory,
+thereby reducing trajectory oscillations between consecutive
+planning steps. In contrast, the contribution of spatio-temporal
+joint search to overall performance improvement is relatively
+minor. We attribute this observation to the fact that a well-
+trained network can effectively guide the robot away from
+densely interactive pedestrian regions, limiting the impact of
+this module to a few extreme scenarios.
+To validate this proposition, we designed an additional set
+of ablation experiments. The entire frontend network was
+removed, and the A* algorithm was utilized to generate a
+reference trajectory, considering only structured obstacles.
+Subsequently, the same MPC-based backend was employed for
+trajectory refinement, and the local goal was selected from the
+reference trajectory based on the length of the MPC prediction
+horizon and the robot's reference velocity. The experimental
+results, as summarized in Table IV, clearly show that without
+the guidance of the frontend network, the backend must
+handle complex interactions more frequently. The S-T joint
+search module significantly enhances the navigation success
+rate by 8% without sacrificing efficiency, demonstrating its
+effectiveness.
+Furthermore, we investigated the impact of the discretization
+resolution of the robot's neighborhood on overall performance,
+with the results presented in Table III. As the discretization
+resolution increases, the planner's performance improves cor-
+respondingly and stabilizes after exceeding 81 discrete points.
+Based on this observation, we set the action space dimension
+of the policy network to D = 81 for all other experiments.
+TABLE III
+COMPARISON OF DIFFERENT DISCRETIZATION RESOLUTIONS (MEAN)
+Action Dimension
+SR ↑
+CR ↓
+NT ↓
+DN ↓
+D = 25
+0.938
+0.010
+18.98
+51
+D = 49
+0.958
+0.034
+18.09
+117
+D = 81
+0.994
+0.994
+0.994
+0.005
+16.57
+16.57
+16.57
+23
+D = 121
+0.992
+0.000
+0.000
+0.000
+17.53
+11
+11
+11
+D = 169
+0.990
+0.008
+18.61
+48
+3) Generalization capability: To better demonstrate the in-
+herent adaptability of the graph-based representation to crowds
+of different sizes, we conducted a comparative analysis in-
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+10
+TABLE IV
+THE STATISTICAL RESULTS OF ABLATION EXPERIMENTS (MEAN±SD)
+Method
+Action Mask
+S-T Joint Search
+Privileged
+SR ↑
+CR ↓
+NT ↓
+DN ↓
+Ours hybrid
+✓
+✓
+✓
+0.994±0.002
+0.994±0.002
+0.994±0.002
+0.005±0.002
+0.005±0.002
+0.005±0.002
+16.57±1.28
+23.00±5.78
+23.00±5.78
+23.00±5.78
+✓
+✓
+0.979±0.005
+0.009±0.003
+16.61±1.30
+32.50±10.06
+✓
+✓
+0.966±0.005
+0.023±0.012
+14.70±0.62
+14.70±0.62
+14.70±0.62
+129.75±10.76
+✓
+0.958±0.013
+0.034±0.011
+14.91±0.66
+158.50±30.76
+✓
+✓
+-
+-
+-
+-
+MPC only
+✓
+0.830
+0.170
+11.35
+11.35
+11.35
+1169
+0.766
+0.234
+11.46
+1108
+volving the proposed method and four baseline methods: NH-
+ORCA, TEB, HGAT-DRL, and SAGE in scenarios featuring 2
+to 10 pedestrians or static circular obstacles. The experiment
+results, quantitatively evaluated using the most representative
+metric SR, are depicted in Fig. 4. It is evident from the
+data that the proposed method exhibits superior adaptability to
+variations in crowd size. Its performance advantage over the
+baselines expands as the scene complexity increases, whereas
+the performance of other methods degrades significantly with
+a growing number of agents. Furthermore, the success rate of
+two traditional methods decreases significantly faster than that
+of learning-based methods. This highlights the limitations of
+traditional approaches in handling highly interactive scenarios.
+2
+4
+6
+8
+10
+Pedestrian Number
+0.4
+0.6
+0.8
+1.0
+Success Rate
+Ours
+SAGE
+HGAT-DRL
+TEB
+NH-ORCA
+2
+4
+6
+8
+10
+Circular Obstacle Number
+0.4
+0.6
+0.8
+1.0
+Success Rate
+Ours
+SAGE
+HGAT-DRL
+TEB
+NH-ORCA
+Fig. 4.
+Comparative experimental results of the proposed method against
+three baseline methods with variations in crowd size. The number of static
+circular obstacles is fixed to 3 when altering the number of pedestrians and the
+number of humans is fixed to 5 when the number of static circular obstacles
+is changed.
+C. Qualitative Evaluation
+To intuitively demonstrate the characteristics of the pro-
+posed method, several representative simulation scenarios are
+selected to visualize the navigation processes of HALO and
+two baseline methods, SAGE and HGAT-DRL, as shown in
+Fig. 5. A qualitative analysis of the illustrated navigation
+processes reveals that, while all three methods exhibit a certain
+level of scene understanding and can select less interactive
+routes based on pedestrian motion trends, only the proposed
+method is capable of correctly guiding the robot to bypass
+obstacles from the right and successfully reach the goal with
+a smooth and highly consistent trajectory in the complex
+scenarios depicted.
+V. HARDWARE EXPERIMENTS
+A. Hardware and Software Components
+The proposed method was implemented in a custom four-
+wheel skid-steer robot to demonstrate its real-world feasibility.
+To ensure consistency and minimize perception-related distur-
+bances, LiDAR-based SLAM technology [50] was employed
+to construct an offline map containing only the static obstacles.
+During experiments, robot's kinematic states were obtained
+through relocalization on the map at an update of 400 Hz. For
+pedestrians, we leveraged an external monitoring system based
+on recent work LV-DOT [3], using a stereo camera (ZED2i)
+and a LiDAR (Livox Avia) to perform 3D dynamic object
+detection. This component served as a low-cost alternative
+to multi-camera BEV approaches. The perception system was
+deployed on a Jetson Orin AGX and communicated wirelessly
+with the robot via distributed ROS.
+To enhance tracking accuracy, we employed a Kalman filter
+to track detected agents in a top-down 2D space, enabling
+high-frequency interpolation and delay compensation. Ad-
+ditionally, we incorporated an unsupervised re-identification
+(ReID) module [51] to mitigate occlusion-related tracking
+inconsistency. For structured obstacles, we combined contour
+extraction with convex polygon decomposition [44], convert-
+ing raw point-clouds into 2D polygon obstacles. As discussed
+earlier, to maintain real-time performance, we solved the
+optimization problem (8) using the Forces Pro solver at a
+replanning frequency of 20 Hz. Once the planned trajectory
+was obtained, we employed a 100 Hz cascaded PID controller
+to execute closed-loop trajectory tracking, utilizing high-
+frequency state feedback from the SLAM module.
+B. Comparative Results
+With a relatively high degree of repeatability, we designed
+a corridor-like experimental scenario consisting of one large
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+11
+(A) HALO (ours)
+t = 2.50 s
+Success !
+Collision
+Collision
+(B) SAGE
+(C) HGAT-DRL
+t = 5.50 s
+t = 8.75 s
+t = 12.25 s
+t = 8.75 s
+t = 11.25 s
+t = 13.25 s
+t = 15.00 s
+t = 3.50 s
+t = 6.50 s
+t = 10.50 s
+t = 12.25 s
+Fig. 5. Qualitative comparison of the navigation process in representative simulation scenario. The ego-robot is depicted in black hollow circle with a red
+arrow indicates its heading direction and a red asterisk marks its goal. Pedestrians are depicted in blue hollow circles, static obstacles are depicted in gray
+solid circles and structured obstacles such as walls are plotted in black thin lines. Specifically for HALO, blue dots represent the local goals generated by
+the frontend network, red dots denote the invalid local goals masked out by the action mask, and red thin lines correspond to the locally optimal trajectories
+generated by the backend module.
+polygonal obstacle, five static circular obstacles, and three
+pedestrians. The distance between the initial and target po-
+sitions was set to 8 m, consistent with the simulation envi-
+ronment. The proposed method was evaluated against SAGE
+and HGAT-DRL, with each method tested 20 times. Statistical
+results are summarized in Table V. To better highlight the
+planner's capabilities, the experimental scenarios are inten-
+tionally designed to be more challenging than typical daily-
+life environments. Furthermore, the participating pedestrians
+are instructed to avoid actively yielding to the robot whenever
+possible. It is important to note that, due to the inherent non-
+reproducibility of pedestrian behaviors, these experimental
+results, while providing an intuitive reference, should not be
+considered strictly rigorous.
+The results of the real-world experiments were generally
+consistent with those observed in simulation. However, due
+to the increased spatial constraints of the experimental setup
+TABLE V
+EXPERIMENTAL COMPARISON OF DIFFERENT METHODS (MEAN/SD)
+Method
+SR ↑
+CR ↓
+NT ↓
+DN ↓
+HGAT-DRL [28]
+0.39
+0.59
+13.93/4.05
+586
+SAGE [39]
+0.72
+0.28
+12.26/3.74
+12.26/3.74
+12.26/3.74
+319
+Ours
+0.84
+0.84
+0.84
+0.16
+0.16
+0.16
+15.57/2.65
+277
+277
+277
+compared to the simulation environment, the DN values in-
+creased across all methods. We attribute the improvement of
+the proposed method over the baselines to the introduction of
+the optimization-based backend, which is capable of handling
+out-of-distribution scenarios, while the overall decline in per-
+formance across all methods, as compared to the simulation
+results, is likely due to limitations in the perception module.
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+12
+C. Quantitative Results
+To provide an intuitive illustration of the experimental
+results, several representative scenarios from the experiments
+were selected for visualization, as shown in Fig. 6. First, a
+simple corridor scenario is used to illustrate the planner's
+anticipatory decision-making capability in Fig. 6(a). Under
+identical initial and goal conditions, the planner is able to
+select different topological paths to bypass the obstacle from
+either side, based on the pedestrians' motion trends, thereby
+reducing interactions. In Fig. 6(b), a slow-moving pedestrian
+is walking in the same direction ahead of the robot, blocking
+its path. Additional obstacles further narrow the traversable
+area, limiting the robot's options for detour. In this scenario,
+the robot is able to follow the slow pedestrian at a similar
+speed and resume normal speed to reach the goal once the
+path is cleared.
+Fig. 6(c) presents five sequential snapshots from a typical
+episode in the comparative experiments. Initially, with pedes-
+trians present on both sides, the robot performs a backward
+motion to avoid interfering with the blue-marked pedestrian
+moving leftward and is guided to bypass the rectangular
+obstacle from the right side. Subsequently, when the right
+passage becomes occupied by a green-marked pedestrian, the
+robot proactively backs off to avoid collision, then handles
+interactions with two upcoming pedestrians by waiting. In the
+final snapshot, the robot performs another backward maneuver
+to avoid a pedestrian deliberately moving toward it and safely
+reaches the goal.
+In Fig. 6(d), three sequential snapshots depict another sce-
+nario. The planner first guides the robot to pass on the right
+to avoid interaction with the blue-marked pedestrian, based
+on the pedestrian's motion trend. As the robot approaches a
+bench, its feasible path is blocked by a red-marked pedestrian
+with no possible detour. The robot slows down to wait until
+the pedestrian passes and sits down, then detours to the left to
+reach the goal. A similar deceleration is executed in the final
+snapshot, ensuring safe arrival at the destination.
+VI. CONCLUSION AND DISCUSSION
+In this paper, we propose a novel local planning framework
+that integrates optimization and deep reinforcement learning
+for autonomous robot navigation in dynamic environments
+with structured constraints. By generating local goals, the S-T
+space is confined within the prediction horizon of MPC, en-
+abling spatio-temporal joint search in open spaces to function
+similarly to that in road-like scenarios. More importantly, we
+design an incremental action masking mechanism, allowing
+the hybrid planner to be trained end-to-end in a low-fidelity
+simulation environment, thereby significantly reducing training
+costs. The proposed method achieves a 99% success rate in a
+challenging simulation scenario, reaching SOTA performance.
+Real-world experiments on a physical robotic platform fur-
+ther demonstrate the deployment feasibility of the proposed
+method, as well as the sim-to-real generalization capability
+enabled by the GNN-based frontend.
+We attribute the improvement of the proposed method over
+traditional optimization-based approaches to the implicit capa-
+bility of the frontend network in estimating the future evolution
+of dynamic environments. Instead of relying on agile motion
+to maneuver through highly interactive crowds, the proposed
+planner proactively guides the robot away from potential
+dense interaction regions by local goal recommendation. On
+the other hand, we attribute its advantage over end-to-end
+learning-based methods to its robustness in out-of-distribution
+scenarios, particularly in bridging the sim-to-real gap. Under
+the situation where pedestrians can react to the robot, MPC
+ensures collision avoidance even if the robot fails to find
+a feasible trajectory. This further reinforces the navigation
+safety, as highlighted in the title.
+In real-world experiments, we also identified several limita-
+tions of the proposed method. First, the optimization-based
+backend does not explicitly account for the uncertainty of
+dynamic agents, which may lead the robot to adopt relatively
+extreme distances during unavoidable close-range interactions
+with pedestrians. This behavior can result in unexpected col-
+lisions under high perception noise. Second, we observed a
+certain degree of modal collapse, where the frontend network
+tends to favor one side of the corridor for routing while
+neglecting alternative optimal solutions. We attribute this phe-
+nomenon to the local optimum traps induced by the small
+rollout buffer in the PPO algorithm, which causes the learning
+process to reinforce a particular locally optimal modal while
+neglecting or forgetting other potential policies.
+Therefore, our future work includes incorporating the im-
+pact of dynamic uncertainty into the backend optimization and
+mitigating modal collapse by leveraging off-policy algorithms
+such as Discrete SAC [52]. Additionally, we plan to account
+for the robot's geometric shape in the planning framework,
+enabling the proposed method to be better suited for hardware
+platforms with larger aspect ratios, such as quadrupedal robots.
+ACKNOWLEDGMENTS
+The author(s) used ChatGPT for proofreading and manually
+reviewed the final manuscript.
+REFERENCES
+[1] D. Fox, W. Burgard, and S. Thrun, "The dynamic window approach to
+collision avoidance," IEEE Robotics & Automation Magazine, vol. 4,
+no. 1, pp. 23-33, 1997.
+[2] L. Schmid, O. Andersson, A. Sulser, P. Pfreundschuh, and R. Siegwart,
+"Dynablox: Real-time detection of diverse dynamic objects in complex
+environments," IEEE Robotics and Automation Letters, vol. 8, no. 10,
+pp. 6259-6266, 2023.
+[3] Z. Xu, H. Shen, X. Han, H. Jin, K. Ye, and K. Shimada, "Lv-dot:
+Lidar-visual dynamic obstacle detection and tracking for autonomous
+robot navigation," arXiv preprint arXiv:2502.20607, 2025.
+[4] S. Mao, M. Qin, W. Dong, H. Liu, and Y. Gao, "Ram-nas: Resource-
+aware multiobjective neural architecture search method for robot vision
+tasks," in 2024 IEEE/RSJ International Conference on Intelligent Robots
+and Systems (IROS).
+IEEE, 2024, pp. 2712-2719.
+[5] D. Helbing and P. Molnar, "Social force model for pedestrian dynamics,"
+Physical review E, vol. 51, no. 5, p. 4282, 1995.
+[6] J. Van Den Berg, S. J. Guy, M. Lin, and D. Manocha, "Reciprocal n-
+body collision avoidance," in Robotics Research: The 14th International
+Symposium ISRR.
+Springer, 2011, pp. 3-19.
+[7] M. Treiber, A. Hennecke, and D. Helbing, "Congested traffic states in
+empirical observations and microscopic simulations," Physical review E,
+vol. 62, no. 2, p. 1805, 2000.
+[8] A. J. Sathyamoorthy, U. Patel, T. Guan, and D. Manocha, "Frozone:
+Freezing-free, pedestrian-friendly navigation in human crowds," IEEE
+Robotics and Automation Letters, vol. 5, no. 3, pp. 4352-4359, 2020.
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+13
+(a)
+(b)
+(c)
+action mask & 
+local goal plotted in blue 
+static obstacles
+dynamic obstacles
+goal
+mpc trajectory
+(d)
+Fig. 6. Temporal visualizations of typical experimental scenarios, including synchronized perception and planning results. Thin lines with colors corresponding
+to the dynamic obstacles indicate their explicitly predicted future trajectories. More experimental results can be found in the video attachment.
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+14
+[9] B. Brito, B. Floor, L. Ferranti, and J. Alonso-Mora, "Model predictive
+contouring control for collision avoidance in unstructured dynamic
+environments," IEEE Robotics and Automation Letters, vol. 4, no. 4,
+pp. 4459-4466, 2019.
+[10] Y. Wang, J. Ji, Q. Wang, C. Xu, and F. Gao, "Autonomous flights
+in dynamic environments with onboard vision," in 2021 IEEE/RSJ
+International Conference on Intelligent Robots and Systems (IROS).
+IEEE, 2021, pp. 1966-1973.
+[11] Z. Xu, D. Deng, Y. Dong, and K. Shimada, "Dpmpc-planner: A real-
+time uav trajectory planning framework for complex static environments
+with dynamic obstacles," in 2022 International Conference on Robotics
+and Automation (ICRA).
+IEEE, 2022, pp. 250-256.
+[12] M. Lu, X. Fan, H. Chen, and P. Lu, "Fapp: Fast and adaptive percep-
+tion and planning for uavs in dynamic cluttered environments," IEEE
+Transactions on Robotics, 2024.
+[13] Z. Jian, Z. Yan, X. Lei, Z. Lu, B. Lan, X. Wang, and B. Liang, "Dynamic
+control barrier function-based model predictive control to safety-critical
+obstacle-avoidance of mobile robot," in 2023 IEEE International Confer-
+ence on Robotics and Automation (ICRA). IEEE, 2023, pp. 3679-3685.
+[14] Z. Han, Y. Wu, T. Li, L. Zhang, L. Pei, L. Xu, C. Li, C. Ma, C. Xu,
+S. Shen et al., "An efficient spatial-temporal trajectory planner for
+autonomous vehicles in unstructured environments," IEEE Transactions
+on Intelligent Transportation Systems, vol. 25, no. 2, pp. 1797-1814,
+2023.
+[15] T. Fan, P. Long, W. Liu, and J. Pan, "Distributed multi-robot collision
+avoidance via deep reinforcement learning for navigation in complex
+scenarios," The International Journal of Robotics Research, vol. 39,
+no. 7, pp. 856-892, 2020.
+[16] X. Huang, H. Deng, W. Zhang, R. Song, and Y. Li, "Towards multi-
+modal perception-based navigation: A deep reinforcement learning
+method," IEEE Robotics and Automation Letters, vol. 6, no. 3, pp. 4986-
+4993, 2021.
+[17] Y. Song, K. Shi, R. Penicka, and D. Scaramuzza, "Learning perception-
+aware agile flight in cluttered environments," in 2023 IEEE International
+Conference on Robotics and Automation (ICRA).
+IEEE, 2023, pp.
+1989-1995.
+[18] Y. F. Chen, M. Everett, M. Liu, and J. P. How, "Socially aware
+motion planning with deep reinforcement learning," in 2017 IEEE/RSJ
+International Conference on Intelligent Robots and Systems (IROS).
+IEEE, 2017, pp. 1343-1350.
+[19] M. Everett, Y. F. Chen, and J. P. How, "Motion planning among dynamic,
+decision-making agents with deep reinforcement learning," in 2018
+IEEE/RSJ International Conference on Intelligent Robots and Systems
+(IROS).
+IEEE, 2018, pp. 3052-3059.
+[20] C. Chen, Y. Liu, S. Kreiss, and A. Alahi, "Crowd-robot interaction:
+Crowd-aware robot navigation with attention-based deep reinforcement
+learning," in 2019 international conference on robotics and automation
+(ICRA).
+IEEE, 2019, pp. 6015-6022.
+[21] C. Chen, S. Hu, P. Nikdel, G. Mori, and M. Savva, "Relational
+graph learning for crowd navigation," in 2020 IEEE/RSJ International
+Conference on Intelligent Robots and Systems (IROS).
+IEEE, 2020, pp.
+10 007-10 013.
+[22] S. Liu, P. Chang, W. Liang, N. Chakraborty, and K. Driggs-Campbell,
+"Decentralized structural-rnn for robot crowd navigation with deep
+reinforcement learning," in 2021 IEEE international conference on
+robotics and automation (ICRA).
+IEEE, 2021, pp. 3517-3524.
+[23] S. Liu, P. Chang, Z. Huang, N. Chakraborty, K. Hong, W. Liang, D. L.
+McPherson, J. Geng, and K. Driggs-Campbell, "Intention aware robot
+crowd navigation with attention-based interaction graph," in 2023 IEEE
+international conference on robotics and automation (ICRA).
+IEEE,
+2023, pp. 12 015-12 021.
+[24] Z. Xie and P. Dames, "Drl-vo: Learning to navigate through crowded dy-
+namic scenes using velocity obstacles," IEEE Transactions on Robotics,
+vol. 39, no. 4, pp. 2700-2719, 2023.
+[25] S. Liu, H. Xia, F. C. Pouria, K. Hong, N. Chakraborty, and K. Driggs-
+Campbell, "Height: Heterogeneous interaction graph transformer for
+robot navigation in crowded and constrained environments," arXiv
+preprint arXiv:2411.12150, 2024.
+[26] P. Bachiller, D. Rodriguez-Criado, R. R. Jorvekar, P. Bustos, D. R. Faria,
+and L. J. Manso, "A graph neural network to model disruption in human-
+aware robot navigation," Multimedia tools and applications, vol. 81,
+no. 3, pp. 3277-3295, 2022.
+[27] R. Han, S. Chen, S. Wang, Z. Zhang, R. Gao, Q. Hao, and J. Pan,
+"Reinforcement learned distributed multi-robot navigation with recipro-
+cal velocity obstacle shaped rewards," IEEE Robotics and Automation
+Letters, vol. 7, no. 3, pp. 5896-5903, 2022.
+[28] Z. Zhou, Z. Zeng, L. Lang, W. Yao, H. Lu, Z. Zheng, and Z. Zhou,
+"Navigating robots in dynamic environment with deep reinforcement
+learning," IEEE Transactions on Intelligent Transportation Systems,
+vol. 23, no. 12, pp. 25 201-25 211, 2022.
+[29] Z. Li, W. Wang, H. Li, E. Xie, C. Sima, T. Lu, Q. Yu, and J. Dai,
+"Bevformer: learning bird's-eye-view representation from lidar-camera
+via spatiotemporal transformers," IEEE Transactions on Pattern Analysis
+and Machine Intelligence, 2024.
+[30] L. Hewing, K. P. Wabersich, M. Menner, and M. N. Zeilinger, "Learning-
+based model predictive control: Toward safe learning in control," Annual
+Review of Control, Robotics, and Autonomous Systems, vol. 3, no. 1, pp.
+269-296, 2020.
+[31] K. P. Wabersich and M. N. Zeilinger, "A predictive safety filter for
+learning-based control of constrained nonlinear dynamical systems,"
+Automatica, vol. 129, p. 109597, 2021.
+[32] B. Brito, M. Everett, J. P. How, and J. Alonso-Mora, "Where to go next:
+Learning a subgoal recommendation policy for navigation in dynamic
+environments," IEEE Robotics and Automation Letters, vol. 6, no. 3, pp.
+4616-4623, 2021.
+[33] J. Lim, K. Lee, J. Shin, and D. Kum, "Learning terminal state of the
+trajectory planner: Application for collision scenarios of autonomous
+vehicles," in 2024 IEEE International Conference on Robotics and
+Automation (ICRA).
+IEEE, 2024, pp. 7576-7582.
+[34] B. Amos, I. Jimenez, J. Sacks, B. Boots, and J. Z. Kolter, "Differen-
+tiable mpc for end-to-end planning and control," Advances in neural
+information processing systems, vol. 31, 2018.
+[35] A. Romero, Y. Song, and D. Scaramuzza, "Actor-critic model predictive
+control," in 2024 IEEE International Conference on Robotics and
+Automation (ICRA).
+IEEE, 2024, pp. 14 777-14 784.
+[36] F. Yang, C. Wang, C. Cadena, and M. Hutter, "iplanner: Imperative
+path planning," Proceedings of Robotics: Science and System XIX, p.
+064, 2023.
+[37] P. Roth, J. Nubert, F. Yang, M. Mittal, and M. Hutter, "Viplanner:
+Visual semantic imperative learning for local navigation," in 2024 IEEE
+International Conference on Robotics and Automation (ICRA).
+IEEE,
+2024, pp. 5243-5249.
+[38] R. Han, S. Wang, S. Wang, Z. Zhang, J. Chen, S. Lin, C. Li, C. Xu, Y. C.
+Eldar, Q. Hao et al., "Neupan: Direct point robot navigation with end-
+to-end model-based learning," IEEE Transactions on Robotics, 2025.
+[39] L. Huajian, D. Wei, M. Shouren, W. Chao, and G. Yongzhuo, "Sample-
+efficient learning-based dynamic environment navigation with transfer-
+ring experience from optimization-based planner," IEEE Robotics and
+Automation Letters, 2024.
+[40] O. Vinyals, T. Ewalds, S. Bartunov, P. Georgiev, A. S. Vezhnevets,
+M. Yeo, A. Makhzani, H. K¨uttler, J. Agapiou, J. Schrittwieser et al.,
+"Starcraft ii: A new challenge for reinforcement learning," arXiv preprint
+arXiv:1708.04782, 2017.
+[41] W. Yu, J. Peng, Q. Qiu, H. Wang, L. Zhang, and J. Ji, "Pathrl: An
+end-to-end path generation method for collision avoidance via deep
+reinforcement learning," in 2024 IEEE International Conference on
+Robotics and Automation (ICRA).
+IEEE, 2024, pp. 9278-9284.
+[42] H. Liu, W. Dong, K. Fan, C. Wang, and Y. Gao, "Pmm-net: Single-
+stage multi-agent trajectory prediction with patching-based embedding
+and explicit modal modulation," arXiv preprint arXiv:2410.19544, 2024.
+[43] S. P. Boyd and L. Vandenberghe, Convex optimization.
+Cambridge
+university press, 2004.
+[44] H. Liu, W. Dong, Z. Zhang, C. Wang, R. Li, and Y. Gao, "Optimization-
+based local planner for a nonholonomic autonomous mobile robot in
+semi-structured environments," Robotics and Autonomous Systems, vol.
+171, p. 104565, 2024.
+[45] J. Schulman, F. Wolski, P. Dhariwal, A. Radford, and O. Klimov, "Prox-
+imal policy optimization algorithms," arXiv preprint arXiv:1707.06347,
+2017.
+[46] J. Alonso-Mora, A. Breitenmoser, M. Rufli, P. Beardsley, and R. Sieg-
+wart,
+"Optimal
+reciprocal
+collision
+avoidance
+for
+multiple
+non-
+holonomic robots," in Distributed autonomous robotic systems: The 10th
+international symposium.
+Springer, 2013, pp. 203-216.
+[47] C. R¨osmann, F. Hoffmann, and T. Bertram, "Integrated online trajec-
+tory planning and optimization in distinctive topologies," Robotics and
+Autonomous Systems, vol. 88, pp. 142-153, 2017.
+[48] Z. Zhou, P. Zhu, Z. Zeng, J. Xiao, H. Lu, and Z. Zhou, "Robot
+navigation in a crowd by integrating deep reinforcement learning and
+online planning," Applied Intelligence, vol. 52, no. 13, pp. 15 600-
+15 616, 2022.
+[49] T.
+Grams,
+"Dynamic
+interval
+restrictions
+on
+action
+spaces
+in
+deep reinforcement learning for obstacle avoidance," arXiv preprint
+arXiv:2306.08008, 2023.
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+15
+[50] T. Shan, B. Englot, D. Meyers, W. Wang, C. Ratti, and D. Rus, "Lio-sam:
+Tightly-coupled lidar inertial odometry via smoothing and mapping,"
+in 2020 IEEE/RSJ international conference on intelligent robots and
+systems (IROS).
+IEEE, 2020, pp. 5135-5142.
+[51] D. Fu, D. Chen, J. Bao, H. Yang, L. Yuan, L. Zhang, H. Li, and
+D. Chen, "Unsupervised pre-training for person re-identification," in
+Proceedings of the IEEE/CVF Conference on Computer Vision and
+Pattern Recognition (CVPR), June 2021, pp. 14 750-14 759.
+[52] P. Christodoulou, "Soft actor-critic for discrete action settings," arXiv
+preprint arXiv:1910.07207, 2019.
+APPENDIX
+ADDITIONAL QUALITATIVE RESULTS
+To validate the feasibility of the proposed method in a
+realistic deployment setting using only onboard sensors and
+without any prior map, an additional qualitative long-range
+multi-goal navigation experiment is conducted. Unlike previ-
+ous experiments that employed external perception modules,
+this experiment utilizes an onboard Livox Mid-360 LiDAR
+in combination with an RGB camera for real-time percep-
+tion. Once pedestrians are detected, their corresponding point
+clouds are removed from the raw LiDAR data. The remaining
+point cloud is then projected onto a 2D plane to extract the
+occupancy map of static obstacles. Fig. 7 presents keyframe
+snapshots of the navigation process along with the correspond-
+ing perception and planning visualizations. Additionally, a
+synchronized accumulated point cloud map is shown below
+to illustrate the spatial relationships between the snapshots.
+As a supplement to the ablation study, representative scenar-
+ios are visualized to illustrate the impact of each sub-module
+of the proposed method on the navigation results, as shown in
+Fig. 8. Specifically, Fig. 8(a) and (b) intuitively demonstrate
+the benefits of joint spatio-temporal search, which provides
+more reasonable initializations for the backend optimization
+and significantly enhances the obstacle avoidance performance
+of the planner under dense interactions. The frontend decision
+network of HALO exhibits the ability to guide the robot away
+from densely interactive regions, as evidenced by the outer
+detours shown in Fig. 8(c) and (d). This behavior is consistent
+with the observations discussed in Section IV-B2. Further-
+more, a comparison between sub-figures (c) and (d) reveals
+that privileged learning improves the temporal consistency of
+the local goal points.
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+16
+（a）
+（b）
+（c）
+（d）
+a
+b
+c
+d
+decomposed polygon obstacle
+onboard cam view
+third person view
+target position
+initial position
+Fig. 7. Visualized results of long-distance multi-point navigation experiments. The lettered labels in the figure indicate representative frames.
+
+JOURNAL OF LATEX CLASS FILES, VOL. 14, NO. 8, AUGUST 2021
+17
+(A) A* + MPC
+t = 1.75 s
+Success !
+(B) Spatio-temporal search + MPC
+(C) HALO w/o privileged learning
+Collision
+Success !
+(D) HALO
+Success !
+t = 3.50 s
+t = 7.50 s
+t = 8.25 s
+t = 3.50 s
+t = 7.75 s
+t = 11.50 s
+t = 14.00 s
+t = 3.50 s
+t = 6.50 s
+t = 10.50 s
+t = 12.25 s
+t = 3.50 s
+t = 8.25 s
+t = 13.00 s
+t = 17.75 s
+Fig. 8.
+Qualitative comparison of the ablation models in representative simulation scenario. As an extension of the legend in Fig. 5, the blue solid lines
+represent reference paths generated by the A* algorithm, while the blue dashed lines connect the goal points generated at each planning step to highlight their
+variation.
+

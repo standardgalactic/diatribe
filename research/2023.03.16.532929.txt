@@ -1,0 +1,1395 @@
+On quantum computing and geometry
+1
+optimization
+2
+Ashar J. Malik1,* and Chandra S. Verma1,2,3
+3
+1Bioinformatics Institute (A*STAR), 30 Biopolis Street, 07-01 Matrix, Singapore
+4
+138671, Singapore.
+5
+2Department of Biological Sciences, National University of Singapore, 14 Science
+6
+Drive 4, Singapore 117543, Singapore.
+7
+3School of Biological Sciences, Nanyang Technological University, 60 Nanyang Drive,
+8
+Singapore 637551, Singapore.
+9
+*Correspondence to Ashar J. Malik: asharjm@bii.a-star.edu.sg
+10
+Abstract
+11
+Quantum computers have demonstrated advantage in tackling problems considered
+12
+hard for classical computers and hold promise for tackling complex problems in molec-
+13
+ular mechanics such as mapping the conformational landscapes of biomolecules. This
+14
+work attempts to explore a few ways in which classical data, relating to the Cartesian
+15
+space representation of biomolecules, can be encoded for interaction with empirical
+16
+quantum circuits not demonstrating quantum advantage. Using the quantum circuit
+17
+in a variational arrangement together with a classical optimizer, this work deals with
+18
+the optimization of spatial geometries with potential application to molecular assem-
+19
+blies. Additionally this work uses quantum machine learning for protein side-chain
+20
+rotamer classiﬁcation and uses an empirical quantum circuit for random state gener-
+21
+ation for Monte Carlo simulation for side-chain conformation sampling. Altogether,
+22
+this novel work suggests ways of bridging the gap between conventional problems in
+23
+life sciences and how potential solutions can be obtained using quantum computers.
+24
+It is hoped that this work will provide the necessary impetus for wide-scale adoption
+25
+of quantum computing in life sciences.
+26
+1
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+Introduction
+27
+Three-dimensional (3D) [1] protein structures, experimentally determined using bio-
+28
+physical techniques like nuclear magnetic resonance (NMR) and X-Ray crystallog-
+29
+raphy [2], enable in-silico characterization of protein function. Routine techniques,
+30
+like molecular dynamics (MD) simulations [3], Monte Carlo (MC) simulations [3] and
+31
+molecular docking [4], build on 3D protein structure data and allow for determination
+32
+of protein dynamics and substrate binding. This insight, achieved from in-silico meth-
+33
+ods [5, 6, 7], is crucial in setting the course of, what is usually expensive, biochemical
+34
+characterization carried out using laboratory assays.
+35
+Given that in-silico characterization is now an established aspect in translational
+36
+studies, going from molecular eﬀect prediction to laboratory-based veriﬁcation, it is all
+37
+the more important that algorithms utilize the existing hardware to the maximum and
+38
+evolve with the advancements in hardware. An example of this can be seen with the
+39
+adoption of artiﬁcial intelligence/machine learning (AI/ML) based methods in nearly
+40
+all computational areas, especially drug discovery; one of the primary drivers of which
+41
+is the advancements in graphics processing units (GPUs) [8]. Development of new
+42
+algorithms in non-AI/ML areas utilizing the parallel-compute capability of GPUs, has
+43
+allowed for advancements in other areas e.g, exponential speed-up of MD simulations
+44
+[9, 10, 11] which now allow for large molecular assemblies to be observed over longer
+45
+time-scales, oﬀering better insights into the dynamics of these biomolecules.
+46
+Based on the fundamental principles of quantum mechanics, quantum computing
+47
+is an emerging area which demonstrates potential to tackle hard problems, which are
+48
+beyond the current capabilities of classical computers [12, 13]. Current state-of-the-
+49
+art includes eﬀorts in the area of quantum chemistry simulations [14, 15], machine
+50
+learning [16, 17] and ﬁnance [18], with new algorithms, continuously being added to
+51
+extend current capabilities e.g., QPacker [19], tackling the protein design problem
+52
+and others [20, 21] for protein folding. Unlike scalability in the classical computing
+53
+ecosystem, where new technologies are easily integrated and algorithms easily scaled
+54
+to utilize the advance e.g., in the case of the use of GPUs with classical algorithms
+55
+in the area of molecular dynamics simulations and machine learning to name a few,
+56
+integration of existing algorithms with quantum computing is non-trivial.
+While
+57
+2
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+advancing at a signiﬁcant rate, requiring a radical rethink about how algorithms are
+58
+designed and deployed, quantum computing at present remains non-intuitive for the
+59
+classical programming fraternity.
+60
+Quantum algorithms aim to achieve quantum advantage, which simply put, is
+61
+the ability to solve problems that classical computers struggle with [22, 23, 24]. A
+62
+quantum algorithm can broadly be decomposed into three parts, a) the data encoding
+63
+step, b) the use of the quantum hardware to solve a particular problem of interest
+64
+and lastly, c) converting the results into a form which is readily understandable, with
+65
+steps "a" and "c" being inextricably linked. All aspects of quantum algorithms face
+66
+challenges due to the non-intuitive nature of the hardware executing these.
+67
+In this work the area of molecular geometry optimization is explored. The work
+68
+focuses on illustrating, without quantum advantage, encoding of classical molecular
+69
+data for use with quantum hardware. Problem areas where classical data can inter-
+70
+act with quantum hardware are demonstrated. In particular, this work demonstrates,
+71
+using an empirical quantum circuit, optimization of positions of atoms and distances
+72
+between them, a task frequently carried out in classical molecular mechanics, which
+73
+demonstrates all three parts of a quantum algorithm. Dihedral data is used with
+74
+a quantum support vector classiﬁer to introduce machine learning capabilities. Ad-
+75
+ditionally, empirical rotamer sampling is demonstrated using quantum Monte Carlo
+76
+simulations.
+77
+To the best of our knowledge, this work is a ﬁrst in presenting quantum mod-
+78
+els that work with data from the area of classical molecular mechanics. Although
+79
+achieving quantum advantage is beyond the scope of this work currently, it is ex-
+80
+pected that this work will act as a primer for new users. By introducing a method to
+81
+translate classical molecular data for use with quantum computers and giving exam-
+82
+ples of problem areas where classical data can interact with quantum hardware, it is
+83
+assumed that this work will help achieve solutions to classical problems beyond the
+84
+capabilities of classical computers.
+85
+3
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+Pc(x, y, z)
+Ps(r, θ, φ)
+O
+r
+y
+x
+z
+θ
+φ
+(a) Coordinate system
+φ
+θ
+ˆx
+ˆy
+ˆz = |0⟩
+−ˆz = |1⟩
+|ψ⟩
+(b) Bloch sphere
+Figure 1: Coordinate systems and the Bloch sphere. a) Any cartesian coordinate (x, y, z)
+can be uniquely expressed as a spherical coordinate (r, θ, φ) , where r is the length of the
+line segment, and θ and φ are angles measured from the z and x-axes respectively.b) The
+Bloch sphere showing the state of a qubit ψ given by Equation 1 and can be set by using
+the UGate gate in the Qiskit SDK by setting the respective angles (θ and phi).
+Method
+86
+This work makes use of the open-source software development kit (SDK), Qiskit
+87
+[25], using Python 3.7 through Anaconda. All work was carried out using quantum
+88
+simulators. VMD [26] and NAMD [27] are used for handling and analysis of protein
+89
+structure data.
+90
+In this work a number of models of quantum computation are presented. Brieﬂy,
+91
+these models demonstrate how classical molecular data can be encoded for use with
+92
+quantum computers and how certain problems can be explored. These models are
+93
+brieﬂy introduced below.
+94
+Model 1: Encoding classical molecular data and molecular mechanics
+95
+Cartesian coordinates are commonly used when recording the positions of atoms,
+96
+alone or constituting molecules. Three dimensional cartesian (x, y, z) coordinates can
+97
+be readily converted to their equivalent spherical (r, θ, φ) coordinate forms, see Figure
+98
+1(a), using empirical mathematical transformations.
+99
+A qubit state, represented by the Bloch sphere, see Figure 1 (b) is denoted by
+100
+4
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+|ψ⟩= α|0⟩+ β|1⟩
+(1)
+where α and β are probability amplitudes.
+101
+A qubit can be set to any arbitrary state, on the Bloch sphere using the generic
+102
+single-qubit rotation gate, UGate, which accepts three Euler angles (θ, φ, λ) as inputs.
+103
+Classical molecular mechanical algorithms optimize molecular geometries by intro-
+104
+ducing variations in the observed state such that interatomic relationships converge
+105
+to reference measures recorded, for the said atoms, in the force ﬁeld [28]. These quan-
+106
+tities comprise bonded terms, i.e., bonds, angles, dihedrals and non-bonded terms,
+107
+i.e., van der Waal and electrostatic. This optimization can be reduced to a simple
+108
+analogous problem where two vectors (a subject and a reference) are used to represent
+109
+two points and both the magnitude and direction of the subject vector are modiﬁed
+110
+to approach the magnitude and direction of the reference vector. For a multi-atom
+111
+system represented by vectors, the convergence of the magnitude (distance between
+112
+atoms) to a reference value alone (listed e.g., in the force ﬁeld) approximates the opti-
+113
+mization eﬀect from the bond term or other quantities that require an ideal separation
+114
+between atoms. Together with the vector direction, all interactions for three-atom or
+115
+larger systems can be optimized.
+116
+For the simple vector magnitude and direction convergence problem introduced,
+117
+this work makes use of the CSwapGate to calculate the dot product of two qubit states
+118
+[1, 29]. While diﬀerent circuit topologies are possible, this work uses a variational
+119
+circuit setup. Figure 2 shows the quantum circuit used.
+120
+The pre-processing step, which prepares the data, starts with computing the mag-
+121
+nitude and direction of the subject and reference vectors. The calculated magnitude
+122
+is normalized to the unit scale for encoding as an angle using the UGate. This work
+123
+arbitrarily chooses to normalize the magnitude using the scheme shown below
+124
+f = max(∥R∥, ∥S∥)
+(2)
+∥R∥norm = ∥R∥
+f
+(3)
+5
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+q0 :
+H
+•
+H
+q1 :
+U (Sθ, 0, 0)
+U (Sδθ, 0, 0)
+×
+q2 :
+U (Rθ, 0, 0)
+×
+c :
+/1
+0
+
+Figure 2: Quantum circuit using the CSwapGate. The circuit uses three qubits, where q0
+is the control line employing two Hadamard gates and from which measurement is made.
+The encoded data is loaded as angles onto Sθ and Rθ, where Sθ takes the subject value and
+Rθ takes the reference value. Sδθ acts as the variational parameter which is controlled by
+the optimizer.
+∥S∥norm = ∥S∥
+f
+(4)
+where ∥R∥, such that {R ∈R : R ̸= 0}, and ∥S∥, such that {S ∈R : S ̸= 0}, are
+125
+magnitudes of the reference and subject vectors and ∥R∥norm and ∥S∥norm are their
+126
+normalized counterparts which are then directly used, in radians, as angle inputs for
+127
+the UGate. In the case of direction, the angle quantity is directly used as input to
+128
+the UGate without normalization.
+129
+As the circuit is used in a variational form, the SPSA [30] optimizer available in
+130
+Qiskit is used to perturb the variational parameter with the minimizer acting on the
+131
+transformed dot product, see below. As introduced [1, 29], the equation to calculate
+132
+the dot product is given by
+133
+S = 1 −
+2 ∗b
+nShots
+(5)
+where "b" is the number of shots that result in the state "1" and nShots is the total
+134
+number of shots attempted. The quantity "S" will approach "1" when the qubits are
+135
+in the same state. This value is transformed by subtracting from one, see Equation
+136
+6, for use with the minimizer.
+137
+Sinv = 1 −S
+(6)
+6
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+Model 2: Vector alignment for planar molecular geometry optimization
+138
+The previously discussed method for magnitude optimization was used to reﬁne the
+139
+irregular sides of an arbitrary hexagon such that they become regular. To this end,
+140
+an irregular-hexagon was randomly generated, and an arbitrary reference value was
+141
+used to transform the shape into a regular hexagon.
+142
+Model 3: Vectors and protein structure alignment
+143
+The method based on direction convergence discussed previously is used to align two
+144
+structures of the protein ubiquitin (RCSB PDB ID: 1ubq), where one is the crystal
+145
+structure and the other has undergone an arbitrary rotation in three dimensional
+146
+space using VMD. Using the orient package in VMD, principal axes are calculated for
+147
+both the original and rotated protein structures. The principal axes provide three unit
+148
+vectors for each structure, the directions of which are systematically aligned across
+149
+both structures. After direction convergence, new vectors and required transforma-
+150
+tions are computed and applied to the rotated structure to map it to the original
+151
+structure. An all-atom root mean square deviation (RMSD) is reported to assess the
+152
+quality of the protein structure alignment.
+153
+Model 4: Using variational quantum classiﬁer for side chain rotamer clas-
+154
+siﬁcation
+155
+In order to test the variational quantum classiﬁer, the ubiquitin protein structure
+156
+(RCSB PDB ID: 6l0l) was used to create a dataset. For this, the sidechain of each
+157
+amino acid was rotated, using VMD, about the bond CA-CB bond axis, excluding
+158
+the amino acids glycine, alanine and proline. The rotations were carried out in 0.1
+159
+degree increments, creating 3,600 rotamer conformations (observations) per amino
+160
+acid which were then saved as PDB ﬁles, with the only diﬀerence between the crystal
+161
+structure and the new PDB structure being the single amino acid rotamer change.
+162
+For each new conformation, a reference atom from the sidechain of the rotated amino
+163
+acid was chosen, see supplementary Table 1 for a list of amino acids and their ref-
+164
+erence atoms. The number of atoms within certain select cutoﬀs (namely 5˚A, 4˚A,
+165
+3˚A, 2˚A) proximity were enumerated. These numbers act as features for the machine
+166
+7
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+learning models used in this work. For each of the 3,600 observations, per amino acid,
+167
+total potential energy of the system was calculated making use of the NAMDEnergy
+168
+plugin in NAMD with the charmm36 force ﬁeld. The requirement of potential energy
+169
+for this model required the protein structure to have hydrogens which were missing
+170
+in ubiquitin structure previously selected. A solution-NMR (nuclear magnetic reso-
+171
+nance) based structure which already had the hydrogens (PDB ID: 6l0l) was therefore
+172
+used.
+173
+For use with a classiﬁcation model, the energy values were divided into two classes,
+174
+stable and unstable, with energy values at or below "0" kcal/mol being stable and
+175
+those above "0" kcal/mol being unstable.
+The label for each class was "1" if a
+176
+particular rotamer conformed to that class or "0" otherwise. In all instances, both
+177
+labels were assigned. For model training, to ensure a balanced dataset, only amino
+178
+acids where 50 values for each class were available, were chosen and correspondingly
+179
+a 100-observation balanced dataset was generated.
+180
+The model used the ZZFeaturemap together with the EﬃcientSU2 ansatz with
+181
+the four features mentioned above making use of the "rx" and "y" gates with circular
+182
+entanglement, and employing the COBYLA optimizer. The 100-observation balanced
+183
+dataset was split with 70% data used for training and 30% for testing. The same
+184
+training and testing data was also used with a classical support vector classiﬁer and
+185
+the classiﬁcation accuracy was determined for both the variational quantum classiﬁer
+186
+and the classical support vector classiﬁer. As another performance measure the entire
+187
+dataset of 3,600 observations per amino acid was used for prediction and the accuracy
+188
+scores for both classical and quantum algorithms were computed.
+189
+To ascertain if the model training was robust, three trials each were carried out,
+190
+per amino acid, and the accuracy determined for both the quantum and classical
+191
+classiﬁers.
+192
+Model 5: Quantum Monte Carlo simulation for rotamer energy landscape
+193
+proﬁling
+194
+The Monte Carlo method was used to sample the rotamer energy landscape.
+A
+195
+six-qubit string was used to represent a total of 64 (26) states, each corresponding
+196
+to a rotamer conformation of an amino acid, with consecutive states representing a
+197
+8
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+diﬀerence of ∼5.6 deg. The rotamers for each amino acid of ubiquitin (RCSB PDB
+198
+ID 6l0l) were generated using the method stated earlier. The quantum circuit was
+199
+empirically driven using six Hadamard gates, for the random generation of each of
+200
+the six-qubits to represent a new state.
+201
+The transition of the states were accepted with a probability of "1" if the new
+202
+state was more stable, that is the change in energy (Newstate −Oldstate) is lesser
+203
+than or equal to "0" (δE ≤0), or using the rule:
+204
+R ≤exp−δE
+kT
+(7)
+where kT was set to "1" and R is a random number, in the event that the δE > 0.
+205
+The simulations were carried out for each amino acid for a total of 1000 Monte
+206
+Carlo moves. The states and their corresponding energies were recorded.
+207
+For illustration purposes energy values were transformed using
+208
+Etrans =
+
+
+
+
+
+log10(E)
+if E > 0
+−1 ∗log10(E)
+if E < 0
+0
+if E = 0
+(8)
+where "E" is the energy and "Etrans" is the transformed energy used for generating
+209
+plots.
+210
+Results
+211
+Model 1: Encoding classical molecular data and molecular mechanics
+212
+Vector magnitudes and directions were compared across two vectors, a subject and
+213
+a reference vector. Figure 3 shows a particular instance of this where the diﬀerence
+214
+(abs(|reference| −|subject|) = 13.29AU) between the magnitudes of the subject
+215
+(|subject| = 25.98AU) and reference (|reference| = 12.69AU) vectors minimized to
+216
+zero as the quantity (Sinv) in Equation 6 is minimized using the quantum circuit
+217
+illustrated in Figure 2.
+218
+Two angles (θ, φ) are required to uniquely represent the direction of a vector in
+219
+the spherical coordinate system. Figure 4 demonstrates results of using the same
+220
+9
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+0
+100
+200
+300
+400
+500
+600
+Iterations
+0.0
+2.5
+5.0
+7.5
+10.0
+12.5
+15.0
+17.5
+20.0
+Magnitude Difference (AU)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Sinv
+Magnitude difference
+Sinv
+Figure 3: Minimization of magnitude diﬀerence and Sinv. The diﬀerence in the magnitudes
+of the subject and reference vector approaches "0" as the minimizer reduces Sinv. From
+the quantum circuit in Figure 2, the minimizer alters Sδθ such that the state of the qubit
+carrying the magnitude of the subject vector approaches the state of the reference qubit,
+in turn resulting in magnitude of the support vector converging to the magnitude of the
+reference vector.
+0
+10
+20
+30
+40
+50
+60
+Iterations
+0.0
+0.5
+1.0
+1.5
+2.0
+Angle  difference (rad)
+Angle  difference
+Sinv
+0
+10
+20
+30
+40
+50
+60
+Iterations
+0.0
+0.5
+1.0
+1.5
+2.0
+Angle  difference (rad)
+Angle  difference
+Sinv
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+Sinv
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+Sinv
+Figure 4: Minimization of angle diﬀerence and Sinv. To uniquely represent a vector, two
+angles (θ, φ) are needed. Using the same quantum circuit as shown in Figure 2, the diﬀerence
+in the individual angles of the subject and reference vector are minimized as the minimizer
+reduces Sinv. For ease of illustration, only every 10th iteration is plotted.
+10
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+x
+11.010.510.09.5 9.0 8.5 8.0 7.5 7.0
+y
+9
+8
+7
+6
+5
+4
+3
+z
+5.2
+5.1
+5.0
+4.9
+4.8
+Figure 5: Optimization of the sides of a hexagon. The quantum model demonstrated above
+is used to optimize the sides of a hexagon. The blue ﬁgure represents a randomly generated
+hexagon, whose sides are modiﬁed to be regular (1.5AU) , using the magnitude diﬀerence
+minimization method detailed earlier.
+circuit as used for the magnitude to ensure directions align between the subject
+221
+(θ = 1.15rad, φ = 2.03rad) and the reference (θ = 0.73rad, φ = 0.98rad) vectors
+222
+by minimizing the diﬀerence between them.
+223
+While in this work only one case each for magnitude and direction is illustrated,
+224
+the method can readily be adapted to explore other cases.
+225
+Model 2: Vector magnitude for planar molecular geometry optimization
+226
+This model presents optimizing the sides of a hexagon as a use case for the quantum
+227
+circuit and the classical data encoding method discussed above. This problem bears
+228
+similarity with reﬁnement of bond length of planar molecules, e.g., benzene. In this
+229
+example, all sides are chosen to have an arbitrary length of 1.5AU. Figure 5 shows
+230
+the starting (Blue) and ﬁnal (Red) states of the system, and illustrates that the ﬁnal
+231
+state adopts a regular hexagonal topology.
+232
+11
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+Figure 6: Protein structure alignment. The crystal structure of ubiquitin from RCSB PDB
+(left; orange) was arbitrarily rotated about x, y and z-axes (middle), with the rotated
+structure shown in gray. Using the vector direction alignment model, the rotated structure
+was aligned with the original structure (right). The alignment resulted in an all-atom RMSD
+of 0.4 ˚A.
+Model 3: Vectors direction alignment and protein structure alignment
+233
+Protein structure alignment is presented as a use case of aligning vector directions.
+234
+Figure 6 shows the rigid transform of a protein structure, with the transform com-
+235
+prising 3D rotations about the axes (x = 45deg, y = 35deg, z = 25deg). To achieve
+236
+an alignment between the transformed and original structure, the direction alignment
+237
+model is used. Figure 6 shows the result of the alignment with an RMSD value of
+238
+∼0.4˚A.
+239
+As stated earlier, while only one case is demonstrated in the work, the method
+240
+can be used for rigid alignments between transformed structures.
+241
+Model 4: Using variational quantum classiﬁer for side chain rotamer clas-
+242
+siﬁcation
+243
+To generate the dataset for this model, the ubiquitin protein structure, comprising 82
+244
+amino acids was used and 3,600 sidechain rotamer conformations (observations) were
+245
+generated for all amino acids excluding the glycine, alanine and proline as listed in the
+246
+methods section. Subsequently only 45 amino acids were used as only these allowed
+247
+creation of balanced 100-observation datasets, of which 50-observations had the clas-
+248
+siﬁcation "stable" and the other 50-observations "unstable". Remaining amino acids
+249
+had less than 50 out of 3,600-observations in either "stable" or "unstable" classes.
+250
+12
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+0
+10
+20
+30
+40
+50
+60
+70
+80
+Amino acids
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+Classification accuracy
+Qtrain
+Strain
+Qpredict
+Spredict
+Figure 7: Comparison of classical and quantum classiﬁers. Overall the classical classiﬁer
+performs better (Strain, Spred) than the quantum classiﬁer (Qtrain, Qpred) both on the train-
+ing and prediction datasets. Three runs are carried out for training and prediction, with
+the quantum-based classiﬁcation showing a much higher spread of accuracy across trials
+both for training (red) and prediction (blue).
+Figure 7 shows the comparison of the classiﬁcation accuracy for the 45 amino acids
+251
+using both the quantum and the classical classiﬁers. Additionally the classiﬁcation
+252
+accuracy achieved during the model training stage is shown alongside the classiﬁcation
+253
+accuracy achieved after using the same trained model to classify all 3,600 rotamers
+254
+which included 100-observations from the training data and 3,500 observations which
+255
+were novel for the model.
+256
+For each dataset, both training and prediction, three trials were conducted to
+257
+gauge robustness of the classiﬁers compared.
+258
+Overall the classical classiﬁcation model outperformed the quantum classiﬁer.
+259
+With an average scoring accuracy of ∼60% across both training and prediction
+260
+datasets, the quantum classiﬁer shows a much higher spread of prediction accuracy.
+261
+13
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+0
+50
+100
+150
+200
+250
+300
+350
+Rotamer angle (deg)
+5
+0
+5
+10
+15
+20
+25
+Frequency
+Frequency
+0
+50
+100
+150
+200
+250
+300
+350
+Rotamer angle (deg)
+4
+2
+0
+2
+4
+6
+Etrans
+Energy
+(a) Amino acid # 66
+0
+50
+100
+150
+200
+250
+300
+350
+Rotamer angle (deg)
+5
+0
+5
+10
+15
+20
+25
+30
+Frequency
+Frequency
+0
+50
+100
+150
+200
+250
+300
+350
+Rotamer angle (deg)
+5.0
+2.5
+0.0
+2.5
+5.0
+7.5
+10.0
+12.5
+Etrans
+Energy
+(b) Amino acid # 72
+0
+50
+100
+150
+200
+250
+300
+350
+Rotamer angle (deg)
+5
+10
+15
+20
+25
+Frequency
+Frequency
+0
+50
+100
+150
+200
+250
+300
+350
+Rotamer angle (deg)
+2.6
+2.4
+2.2
+2.0
+1.8
+1.6
+Etrans
+Energy
+(c) Amino acid # 64
+Figure 8: Monte Carlo simulation for rotamer energy proﬁling. Results of the states sampled
+using Monte Carlo simulation are shown for three amino acids. Amino acids 66 and 72,
+show an inverse correlation between rotamer energy and the occupancy proﬁle as expected.
+For amino acid 64, given all rotamer states have Etrans < 0, (a) all states are uniformly
+visited.
+14
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+Model 5: Quantum Monte Carlo simulation for rotamer energy landscape
+262
+proﬁling
+263
+Using a 6-qubit string, 64 rotamer states were represented for each amino acid, with
+264
+each state ∼5.6 deg apart from its next subsequent state. The energy of each new
+265
+state was computed and the new state accepted or rejected using the rules listed in
+266
+the methods section. Figure 8(a,b) show the case of two amino acids (66 and 72), both
+267
+of which clearly show an inverse relationship between states visited (Figure 8: left
+268
+panel) and their corresponding energetic signatures (Figure 8: right panel). For the
+269
+1000 Monte Carlo step simulation carried out for each amino acid, high occupancy
+270
+(Frequency) is seen for low energy states and vice versa.
+Another case of amino
+271
+acid 64 is shown in Figure 8 (c), where all energy values (Etrans) sampled are below
+272
+"0", resulting in uniform occupancy for all rotamer states. The results for all amino
+273
+acids are included in the supplementary material which reproduces similar expected
+274
+behavior.
+275
+Discussion
+276
+This work, using empirical models, demonstrates how classical data can be used with
+277
+quantum computers. In classical molecular mechanics atomic coordinates are per-
+278
+turbed to achieve a desired state, representing some energy minimum. The reference
+279
+state is usually encoded in force ﬁelds. The ﬁrst use case, presented in this work,
+280
+demonstrates an analogous case where two points in 3D (x, y, z) coordinates are ex-
+281
+pressed using spherical coordinates (r, θ, φ). To ensure that the subject converges to
+282
+the reference state, the spherical coordinates (r, θ, φ) are directly loaded onto qubit
+283
+using the UGate. Together with the CSwapGate, the dot product is computed al-
+284
+lowing for the direct comparison of the two qubits and indirectly the same for the
+285
+encoded coordinates and any resulting diﬀerence then minimized.
+286
+This model and its variations used to compare both vector magnitudes and di-
+287
+rections has signiﬁcant implications in the area of molecular mechanics as it can be
+288
+tied together with various optimization routines to achieve desired states of molecular
+289
+systems. This work demonstrates, without quantum advantage, and using empirical
+290
+15
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+systems utility of this basic model to optimize geometries of molecules using a hybrid
+291
+classical-quantum computing workﬂow.
+292
+Apart from the above model, this work also shows the use of quantum machine
+293
+learning with biological data. Although the example does not demonstrate quantum
+294
+advantage, and the classical classiﬁer outperforms the quantum classiﬁer, the example
+295
+demonstrates the use of classical data from geometry optimization problem-space with
+296
+a quantum machine learning algorithm. In addition to the above, the same data is
+297
+used to carry out Monte Carlo simulations.
+298
+As stated earlier, encoding classical data for use with quantum algorithms presents
+299
+a signiﬁcant challenge in this area. This work presents some ideas for encoding data
+300
+that can further help with the development of quantum algorithms and eventually
+301
+achieving quantum advantage.
+302
+Conclusion
+303
+Using conventional examples of molecular geometry optimization, this work acts as a
+304
+primer to familiarize the wider community working in the area of molecular mechanics
+305
+with quantum computing. While quantum advantage is not demonstrated in this
+306
+work, it successfully demonstrates encoding of classical molecular data for use with
+307
+quantum computers. By presenting several models working in diﬀerent ways, this
+308
+work is expected to draw attention from the wider community and hopefully future
+309
+work will demonstrate quantum advantage which in turn will beneﬁt the area of
+310
+molecular mechanics and consequently drug discovery.
+311
+Data and Software Availability
+312
+Python notebooks and the data used in this work can be made available on request.
+313
+Declarations of interest
+314
+Declarations of interest: none
+315
+16
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+Acknowledgement
+316
+Funding
+317
+The work was funded by a grant under the Quantum Engineering Program (QEP-
+318
+SF4) by the National University of Singapore.
+319
+References
+320
+[1] Esma A¨ımeur, Gilles Brassard, and S´ebastien Gambs. Machine learning in a
+321
+quantum world. In Conference of the Canadian Society for Computational Stud-
+322
+ies of Intelligence, pages 431-442. Springer, 2006.
+323
+[2] Gerhard Klebe. Experimental Methods of Structure Determination, pages 265-
+324
+290. Springer Berlin Heidelberg, Berlin, Heidelberg, 2013.
+325
+[3] Daan Frenkel and Berend Smit. Understanding molecular simulation: from al-
+326
+gorithms to applications, volume 1. Elsevier, 2001.
+327
+[4] Garrett M. Morris and Marguerita Lim-Wilby. Molecular Docking, pages 365-
+328
+382. Humana Press, Totowa, NJ, 2008.
+329
+[5] Britta Nisius, Fan Sha, and Holger Gohlke. Structure-based computational anal-
+330
+ysis of protein binding sites for function and druggability prediction. Journal of
+331
+biotechnology, 159(3):123-134, 2012.
+332
+[6] Carlos Pintado-Grima, Oriol B´arcenas, Andrea Bartolom´e-Nafr´ıa, Marc Fornt-
+333
+Su˜n´e, Valent´ın Iglesias, Javier Garcia-Pardo, and Salvador Ventura. A review
+334
+of ﬁfteen years developing computational tools to study protein aggregation.
+335
+Biophysica, 3(1):1-20, 2023.
+336
+[7] Daniel A Polasky and Alexey I Nesvizhskii. Recent advances in computational
+337
+algorithms and software for large-scale glycoproteomics.
+Current Opinion in
+338
+Chemical Biology, 72:102238, 2023.
+339
+17
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+[8] Mohit Pandey, Michael Fernandez, Francesco Gentile, Olexandr Isayev, Alexan-
+340
+der Tropsha, Abraham C Stern, and Artem Cherkasov. The transformational
+341
+role of gpu computing and deep learning in drug discovery. Nature Machine
+342
+Intelligence, 4(3):211-221, 2022.
+343
+[9] John E Stone, David J Hardy, Ivan S Uﬁmtsev, and Klaus Schulten.
+Gpu-
+344
+accelerated molecular modeling coming of age. Journal of Molecular Graphics
+345
+and Modelling, 29(2):116-125, 2010.
+346
+[10] Mark James Abraham, Teemu Murtola, Roland Schulz, Szil´ard P´all, Jeremy C
+347
+Smith, Berk Hess, and Erik Lindahl. Gromacs: High performance molecular sim-
+348
+ulations through multi-level parallelism from laptops to supercomputers. Soft-
+349
+wareX, 1:19-25, 2015.
+350
+[11] Tai-Sung Lee, David S Cerutti, Dan Mermelstein, Charles Lin, Scott LeGrand,
+351
+Timothy J Giese, Adrian Roitberg, David A Case, Ross C Walker, and Darrin M
+352
+York. Gpu-accelerated molecular dynamics and free energy methods in amber18:
+353
+performance enhancements and new features. Journal of chemical information
+354
+and modeling, 58(10):2043-2050, 2018.
+355
+[12] Emanuel Knill. Quantum computing. Nature, 463(7280):441-443, 2010.
+356
+[13] John Preskill. Quantum computing in the nisq era and beyond. Quantum, 2:79,
+357
+2018.
+358
+[14] Alberto Peruzzo, Jarrod McClean, Peter Shadbolt, Man-Hong Yung, Xiao-Qi
+359
+Zhou, Peter J Love, Al´an Aspuru-Guzik, and Jeremy L O'brien. A variational
+360
+eigenvalue solver on a photonic quantum processor.
+Nature communications,
+361
+5(1):4213, 2014.
+362
+[15] Abhinav Kandala, Antonio Mezzacapo, Kristan Temme, Maika Takita, Markus
+363
+Brink, Jerry M Chow, and Jay M Gambetta.
+Hardware-eﬃcient variational
+364
+quantum eigensolver for small molecules and quantum magnets.
+nature,
+365
+549(7671):242-246, 2017.
+366
+18
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+[16] Jacob Biamonte, Peter Wittek, Nicola Pancotti, Patrick Rebentrost, Nathan
+367
+Wiebe, and Seth Lloyd. Quantum machine learning. Nature, 549(7671):195-202,
+368
+2017.
+369
+[17] M Cerezo, Guillaume Verdon, Hsin-Yuan Huang, Lukasz Cincio, and Patrick J
+370
+Coles. Challenges and opportunities in quantum machine learning. Nature Com-
+371
+putational Science, 2(9):567-576, 2022.
+372
+[18] Adam Bouland, Wim van Dam, Hamed Joorati, Iordanis Kerenidis, and Anu-
+373
+pam Prakash.
+Prospects and challenges of quantum ﬁnance.
+arXiv preprint
+374
+arXiv:2011.06492, 2020.
+375
+[19] Vikram Khipple Mulligan, Hans Melo, Haley Irene Merritt, Stewart Slocum,
+376
+Brian D. Weitzner, Andrew M. Watkins, P. Douglas Renfrew, Craig Pelissier,
+377
+Paramjit S. Arora, and Richard Bonneau. Designing peptides on a quantum
+378
+computer. bioRxiv, 2020.
+379
+[20] Anton Robert, Panagiotis Kl Barkoutsos, Stefan Woerner, and Ivano Tavernelli.
+380
+Resource-eﬃcient quantum algorithm for protein folding. npj Quantum Infor-
+381
+mation, 7(1):38, 2021.
+382
+[21] Renata Wong and Weng-Long Chang. Fast quantum algorithm for protein struc-
+383
+ture prediction in hydrophobic-hydrophilic model. Journal of Parallel and Dis-
+384
+tributed Computing, 164:178-190, 2022.
+385
+[22] Diego Riste, Marcus P Da Silva, Colm A Ryan, Andrew W Cross, Antonio D
+386
+C´orcoles, John A Smolin, Jay M Gambetta, Jerry M Chow, and Blake R John-
+387
+son. Demonstration of quantum advantage in machine learning. npj Quantum
+388
+Information, 3(1):16, 2017.
+389
+[23] Sergey Bravyi, David Gosset, and Robert K¨onig.
+Quantum advantage with
+390
+shallow circuits. Science, 362(6412):308-311, 2018.
+391
+[24] Andrew J Daley, Immanuel Bloch, Christian Kokail, Stuart Flannigan, Natalie
+392
+Pearson, Matthias Troyer, and Peter Zoller. Practical quantum advantage in
+393
+quantum simulation. Nature, 607(7920):667-676, 2022.
+394
+19
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+
+[25] H´ector Abraham et. al. Qiskit: An open-source framework for quantum com-
+395
+puting, 2021.
+396
+[26] William Humphrey, Andrew Dalke, and Klaus Schulten. VMD - Visual Molec-
+397
+ular Dynamics. Journal of Molecular Graphics, 14:33-38, 1996.
+398
+[27] James C Phillips, David J Hardy, Julio DC Maia, John E Stone, Jo˜ao V Ribeiro,
+399
+Rafael C Bernardi, Ronak Buch, Giacomo Fiorin, J´erˆome H´enin, Wei Jiang,
+400
+et al. Scalable molecular dynamics on cpu and gpu architectures with namd.
+401
+The Journal of chemical physics, 153(4):044130, 2020.
+402
+[28] Matteo Masetti and Walter Rocchia. Molecular mechanics and dynamics: numer-
+403
+ical tools to sample the conﬁguration space. Frontiers in Bioscience-Landmark,
+404
+19(4):578-604, 2014.
+405
+[29] Dawid Kopczyk. Quantum machine learning for data scientists. arXiv preprint
+406
+arXiv:1804.10068, 2018.
+407
+[30] James C Spall. An overview of the simultaneous perturbation method for eﬃcient
+408
+optimization. Johns Hopkins apl technical digest, 19(4):482-492, 1998.
+409
+20
+.
+CC-BY-NC 4.0 International license
+made available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is 
+The copyright holder for this preprint
+this version posted March 20, 2023. 
+; 
+https://doi.org/10.1101/2023.03.16.532929
+doi: 
+bioRxiv preprint 
+

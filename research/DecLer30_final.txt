@@ -1,0 +1,2481 @@
+Decimations for Two-dimensional Ising and Rotator
+Models I
+Matteo D'Achille ∗, Aernout C.D. van Enter †, Arnaud Le Ny ‡
+May 17, 2021
+Abstract: We extend proofs of non-Gibbsianness of decimated Gibbs measures at low
+temperatures to include long-range, as well as vector-spin interactions. Our main tools consist
+in a two-dimensional use of "Equivalence of boundary conditions" in the long-range case and
+an extension of Global speciﬁcations for two-dimensional vector spins.
+Contents
+1
+Introduction
+2
+1.1
+Questions on Preservation of Gibbsianness under Decimation;
+Background on related Issues and Strategy
+. . . . . . . . . . . . . . . . . . . .
+2
+1.2
+Summary of Results
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2
+General Framework and Global Speciﬁcations
+6
+2.1
+General Framework . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+2.2
+Global Speciﬁcation for Rotator Spins . . . . . . . . . . . . . . . . . . . . . . .
+15
+3
+Ising and Rotator models: Phase Transitions
+18
+3.1
+Ising Models on Z2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+19
+3.2
+Rotator Models on Z2
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+21
+4
+Decimation of 2d Long-Range Ising Models
+24
+4.1
+Decimation of the Bi-axial n.n./very Long-Range Cases α1 > 1 . . . . . . . . .
+25
+4.2
+Decimation of the Bi-axial (very) Long-Range Model α1, α2 > 1 . . . . . . . . .
+28
+4.3
+Decimation of the Classical Isotropic Long-range Models with α > 2 . . . . . .
+28
+∗LAMA UPEC & CNRS, Universit´e Paris-Est, 94010 Cr´eteil, France,
+email: matteo.dachille@u-pec.fr
+†Bernoulli institute, University of Groningen, 9747AG, Groningen, Netherlands,
+email: avanenter@gmail.com
+‡LAMA UPEC & CNRS, Universit´e Paris-Est, 94010 Cr´eteil, France,
+email: arnaud.le-ny@u-pec.fr
+1
+
+5
+Decimation of 2d Rotator Models
+29
+5.1
+Decimation of 2d n.n. Rotator Models with Spin Anisotropy . . . . . . . . . . .
+29
+5.2
+Decimation of Planar Long-Range Rotator Models . . . . . . . . . . . . . . . .
+31
+5.3
+Decimation of Rotator Models, Extensions to Diﬀerent Dimensions. . . . . . . .
+31
+6
+Comments and Perspectives
+32
+References
+32
+AMS 2000 subject classiﬁcation: Primary- 60K35 ; secondary- 82B20.
+Keywords and phrases: Long-range Ising models, Rotator models, Gibbs measures, Renormalized measures,
+Non-Gibbsianness, Global speciﬁcations.
+1
+Introduction
+1.1
+Questions on Preservation of Gibbsianness under Decimation;
+Background on related Issues and Strategy
+In this paper, we extend the study of Gibbsian and in particular non-Gibbsian properties
+of decimated measures.
+Decimation transformations form an example of Renormalisation
+Group transformations. Such Renormalisation Group transformations, widely considered in
+the physics literature, are supposed to be well-deﬁned on interactions or interaction param-
+eters.
+Although this well-deﬁnedness is fairly immediate for hierarchical models [12, 89],
+mathematically, on ordinary lattices for most of the transformations used in practice- for
+the study of critical behaviour- this existence issue is not obvious. Decimation transforma-
+tions form one of the cleanest examples to illustrate these points on.
+The issue was ﬁrst
+raised and analysed by Griﬃths and Pearce and by Israel, and later systematically studied,
+and interpreted as the possibility of transformed measures to be non-Gibbsian in [41]. The
+Griﬃths-Pearce peculiarities (pathologies) were ﬁrst presented in [78, 79], for Israel's analysis
+and example, see [87].
+As was shown there, at high temperature or in strong external ﬁelds the transformations are
+well-deﬁned; it turned out later that even in some cases around the critical points decimated
+Ising and rotator models tend to be Gibbsian. For those results see in particular [80, 90]. Only
+for Potts models, and similarly for very nonlinear rotator models, it is known or expected
+that non-Gibbsianness occurs for decimated measures around the transition temperature. See
+[42, 51].
+In this paper, however, we are mainly considering the low-temperature regimes. We note
+that analogous Gibbs-non-Gibbs questions have been considered for Gibbs measures which
+evolved under stochastic evolutions, like Glauber or interaction diﬀusion dynamics, or for
+coarse-graining maps; this included some results for vector spins. Also more recently, one-
+dimensional long-range Ising models were considered. For some of those results, see [48, 49,
+28, 44, 94, 45, 46, 91].
+Here we extend these results; we will consider decimation on even sublattices, acting on
+two-dimensional long-range models, for both Ising and vector spins, for which the strategy of
+the proofs for the Ising model can be straightforwardly generalised. In particular, the alternat-
+ing conﬁguration of decimated (visible) sites will be a point of discontinuity for the conditional
+probabilities of the decimated measure -a bad conﬁguration -, because conditioned on it, the
+2
+
+model on invisible sites is equal to the original model on a periodically dilute, or "decorated"
+lattice, and has a phase transition at low enough temperatures.
+As a tool to be used, we will extend to the rotator-spin context the concept of Global
+Speciﬁcations, which were shown to exist for Ising ferromagnets in [54]. In a forthcoming Part
+II, we will consider borderline cases, where the Mermin-Wagner theorem prevents symmetry-
+breaking in the original model, but nonetheless non-Gibbsian behaviour applies, more similarly
+to what happens in stochastically evolved measures [48, 49, 45].
+In those models, the alternating conﬁguration will not lead to a phase transition of the con-
+ditioned model, however, and the search for "bad" conﬁgurations is somewhat more involved.
+Also the conditioned models will have phase transitions of diﬀerent types (spin-ﬂop); this
+occurrence of diﬀerent types of transitions is also similar to what happens in the mean-ﬁeld
+context for stochastic evolutions of Curie-Weiss Ising model [93].
+Following the general approach of [41] (hereafter "the EFS approach"), one wants to
+show that the conditional expectation of some image microscopic variable (spin) at a ﬁxed
+site (which may be taken to be the origin) is essentially discontinuous as a function of the
+boundary condition. In the EFS approach one goes through the following steps:
+Step 0: One divides spins into "visible" ones (or renormalised, or evolved, or simply primed)
+and "invisible" ones (to be integrated out, initial, or non-primed). Then one considers
+the marginal measure on the visible spins (i.e. the renormalised, evolved, or primed
+measure). In this paper we shall consider the decimation transformation and consider
+the spins on a periodic sublattice. Non-Gibbsianness is thus obtained via a Conditioned
+Phase Transition; (invisible Long-Range Order shows up as a visible Nonlocality).
+Step 1: Conditioning events on inﬁnite subgraphs is not immediate, but it may be allowed either
+by the existence of a Global Speciﬁcation, or by the existence of a well-deﬁned condi-
+toning procedure which can be checked by hand. Global Speciﬁcations were originally
+introduced as part of the results of Fern´andez-Pﬁster for monotone attractive speciﬁca-
+tions for Ising spins (see [54], §3.1). In this paper we shall pursue this latter path and
+extend the approach of Fern´andez-Pﬁster to vector spins.
+Step 2: Phase transition.
+Conditioned on some "bad" visible conﬁguration there should be a phase transition
+(that is, diﬀerent coexisting Gibbs measures) for the invisible spins (phase transitions
+can be of diﬀerent types, original spin-ﬂip, spin-ﬂop, etc.), and this is model-dependent.
+Notably, such a transition can also happen when the original model has no transition. In
+this paper we shall consider various models with long-range interactions which extends
+ideas from analysis of earlier 1d long-range and 2d-n.n. models [41, 46]. In a part II
+companion paper we will analyse cases where the situation about the phase transition
+of the conditioned system will be diﬀerent compared to the unconditioned one, as also
+occurred in [48].
+Remark 2a: Positive results are available about Gibbsianness of transformed measures, via Absence
+of Phase Transitions. For example strong absence of phase transitions for all visible
+conﬁgurations implies Gibbsianness, see e.g. Kennedy et al. [80, 91], Olivieri et al. [10].
+More recently such derivations were extended, and Gibbsian properties were derived also
+under weaker conditions, by Berghout and Verbitskiy [8, 9].
+3
+
+Step 3: Selection.
+Visible-spin conﬁgurations in an annulus around the volume under consideration should
+be "good" and be able to select an invisible unique phase in the annulus, which then
+acts similarly to pure boundary conditions. Conditioned on such pure-phase-like visible
+spins everywhere we have inﬁnite-volume uniqueness of Gibbs measure on invisible spins.
+This is usually direct on lattices, but can be problematic e.g. on trees. (see e.g. [40]),
+or -as also will be a problem in the next item- when the visible and invisible spins are
+decoupled. Uniqueness can follow either from a Lee-Yang argument, or from a contour
+argument along the lines of Pirogov-Sinai theory.
+Step 3a: Extra step in long-range models, leading to a need for growing annuli:
+A wide annulus is needed for screening eﬀects.
+The annulus should be chosen wide enough, such that on the one hand the direct in-
+teraction between the volume inside and the region outside the annulus is (uniformly)
+small. This argument is similar to Equivalence of Boundary Conditions.
+On the other hand, the uniqueness of the invisible Gibbs state in the annulus shields
+the indirect inﬂuence which can be transmitted from the region outside the annulus to
+the volume inside via the invisible spins in the annulus.
+This second requirement may or may not require a wide annulus in short-range models.
+The ﬁrst requirement for a wide annulus is speciﬁc, and always needed, for long-range
+models.
+Step 4: Unﬁx the origin.
+Then the choice of the invisible phase, conditioned on all other visible spins inﬂuences
+expectation of visible spin at origin. Usually this poses no problem, but can be problem-
+atic, if, for example, visible (primed) and invisible (non-primed) spins are not coupled
+-independent-.
+1.2
+Summary of Results
+In this paper we give several non-Gibbs results at low temperatures, as follows (by increasing
+order of complexity/peculiarity) :
+• Decimation of the 2d long-range Ising model
+In this context, we extend the results of non-Gibbsianness at low temperatures, previ-
+ously known in 2d (and higher d) for n.n. models and in 1d for long-range models, to
+various long-range models. In addition to the standard procedure recalled in the intro-
+duction, this amounts to control the long-range eﬀects by energy estimates, adapted to
+each model, in order to also use an argument to control the direct inﬂuence from afar,
+similarly to the equivalence of boundary conditions concept coined by Bricmont et al.
+and then conclude as in the simpler 2d-n.n. case.
+The long-range Ising models for which we prove it here are the following:
+- Bi-axial n.n.-long-range Ising models (α1 > 1) :
+Bad conﬁguration : alternating ω′
+alt = (−1)i1+i2 for any site i = (i1, i2)
+Ferromagnetic couplings considered : (d = 2, α1 > 1) : J ≥0,
+Jn.n.,α1(i, j) := J · 1|i−j|=1 · 1|i1−j1|=0 + J · |i1 −j1|−α1 · 1|i2−j2|=0
+4
+
+We get non-Gibbsianness at low enough temperatures for all α1 > 1.
+- Axially long-range Ising models (possibly anisotropic α1 ̸= α2) :
+Bad conﬁguration : alternating ω′
+alt = (−1)i1+i2 for any site i = (i1, i2),
+Ferromagnetic couplings considered : (d = 2, α1, α2 > 1) : J ≥0,
+Jα1,α2(i, j) := J · |i2 −j2|−α2 · 1|i1−j1|=0 + J · |i1 −j1|−α1 · 1|i2−j2|=0
+We get non-Gibbsianness at low enough temperatures or all α1, α2 > 1
+- Isotropic long-range Ising models :
+Bad conﬁguration : alternating ω′
+alt = (−1)i1+i2 for any site i = (i1, i2)
+Ferromagnetic couplings considered : (d = 2, α > 2) : J ≥0,
+Jiso,α(i, j) := J · |i1 −j1|−α · 1|i2−j2|=0
+We get non-Gibbsianness at low enough temperatures for all α > 2.
+• Decimation of anisotropic/long-range rotator models with phase transitions
+Then we turn to the extension of non-Gibbsianness in the case of 2d rotator models.
+The crucial advantage of the fact that we consider two-dimensional vector spins in our
+ferromagnetic context is the stochastic ordering which occurs, which will allow a proper
+extension of the local speciﬁcation into a global one (see next section).
+- 2d-n.n. Anisotropic rotator models
+Here we know that a phase transition with only two extremal measures occurs, with
+some possible stochastic ordering, and this allows to extend the existing 2d-n.n. proof
+[41] using global speciﬁcations as in [102]. This original proof does not require energy
+estimates or equivalence of b.c., as the speciﬁcation is Markov.
+Bad conﬁguration : alternating ω′
+alt with angle θi = (−1)i1+i2 π
+2 for any site i = (i1, i2)
+Ferromagnetic Pair potential : ΦA = 0 unless A = {i, j}, |i −j| = 1, κ ∈(0, 1) and
+Φ{i,j}(⇀σ) = −J⟨⇀σi · ⇀σj⟩κ = −J
+ σi1σj1 + κ σi2σj2
+
+.
+We get non-Gibbsianness at low enough temperatures for any κ ∈(0, 1).
+- 2d planar long-range rotator models
+There, we use the spontaneous magnetization at low temperature derived by Kunz and
+Pﬁster [95] by comparison with a hierarchical model, `a la Dyson, coupled to the global
+speciﬁcation. For both ingredients, we emphasized again that the correlation inequalities
+for vector spins derived by Ginibre, and not valid at higher dimensions, are essential.
+Bad conﬁguration : alternating ω′
+alt with angle θ = (−1)i1+i2 π
+2 for any site i = (i1, i2)
+Ferromagnetic couplings : (α > d = 2) : J ≥0, i, j ∈Zd,
+Jiso,α(i, j) := J · |i −j|−α · ⟨⇀σi · ⇀σj⟩.
+We get non-Gibbsianness at low enough temperatures for all α ∈(2, 4).
+5
+
+2
+General Framework and Global Speciﬁcations
+2.1
+General Framework
+We will focus on Ising and vector spins on the d-dimensional lattice Zd, mostly concentrating
+on the planar case (d = 2). As usual in Mathematical Statistical Mechanics, we investigate
+inﬁnite-volume behaviors, and in particular consider the Dobrushin-Lanford-Ruelle (DLR)
+framework [31, 99], where at inﬁnite volume, Gibbs measures are deﬁned by means of the
+speciﬁcation of the regular versions of their conditional probabilities w.r.t. the outside of
+ﬁnite sets (on which boundary conditions are prescribed).
+Lattice Structure:
+We denote by S the set consisting of all ﬁnite subsets of the lattice Zd, and we will consider
+often sequences of cubes ΛL = ([−L, +L] ∩Z)d, L ∈N, to perform Thermodynamic Limits1.
+Lattice sites will be denoted by Latin letters i, j, k, with components ij = (i1, . . . , id) (mostly
+i = (i1, i2)). We denote by | · | the L2-norm on Zd . When |i −j| = 1, the two sites i, j ∈Zd
+are said to be nearest neighbors (brieﬂy written n.n.).
+Measurable Structure :
+We shall consider two diﬀerent single-site state spaces (E, E, ρ0), modelling two diﬀerent
+sort of microscopic values ("spins"):
+Ising spins : The state space is the simple alphabet E = {−1, +1}, equipped with the a
+priori counting measure ρ0 = 1
+2δ−1 + 1
+2δ+1 and E = P({−1, +1}).
+or
+Rotator vector -XY - spins : The state space is the unit circle E = S1, equipped with
+the Borel σ-algebra E and with the normalized Haar measure as a priori measure ρ0.
+In this vectorial case, we denote by (⇀
+e1, ⇀
+e2) the canonical basis of R2 and to pursue the
+analogy with the Ising case, we sometimes identify the sphere E with ] −π, +π]. In this case,
+for i ∈Z2, we shall identify a spin vector ⇀σi in E by its angle θi with the horizontal element
+of the basis,
+θi = θ(⇀σi) = (⇀σi, ⇀
+e1) ∈] −π, +π]
+where (·, ·) will denote the angle between vectors (not to be confused with scalar products
+⟨·, ·⟩used below in the interactions).
+To each site i of the lattice is attached a spin with values σi ∈E (resp. ⇀σi ∈E), giving rise
+to inﬁnite-volume conﬁgurations of the form σ = (σi)i∈Zd (resp. ⇀σ = (⇀σi)i∈Zd). Microscopic
+states will sit in the (inﬁnite-volume) conﬁguration space which will be the inﬁnite-product
+probability space equipped with the product measurable structure,
+(Ω, F, ρ) = (EZd, E⊗Zd, ρ⊗Zd).
+These conﬁgurations are denoted generically by Greek letters σ, ω, etc., or ⇀σ, ⇀ω, etc. in
+the rotator cases. They are inﬁnite families of random variables σ = (σi)i ∈{−1, +1}Zd
+in the Ising case or random vectors ⇀σ = (⇀σi)i ∈(S1)Zd in the rotator case. We also denote
+(ΩΛ, FΛ, ρΛ) = (EΛ, E⊗Λ, ρ⊗Λ) to be the restriction/projection of Ωon ΩΛ, for Λ ∈S. We also
+generically consider possibly inﬁnite subsets ∆⊂Zd, for which all the preceding notations
+deﬁned for ﬁnite Λ extend naturally (Ω∆, F∆, ρS, σ∆, etc.).
+1In this limiting procedure, one has to respect convergence to zero of the ratio surface/volume. Sometimes
+less stringent convergence along a net directed by inclusion can be enough, see [41].
+6
+
+On these single-spin state spaces E, we shall consider pair potentials with diﬀerent types
+of couplings J(i, j) (isotropic vs. anisotropic, or n.n. vs. long-range -polynomially decaying),
+but always in a ferromagnetic context (with some positive measurable functions J on Zd ×Zd,
+with J(i, j) ≥0 for any pair {i, j}, see next sections).
+We also denote by M+
+1 the set of probability measures on (Ω, F). We moreover consider
+some partial order ≤on Ω: σ ≤ω if and only if σi ≤ωi for all i ∈Z2. This order extends
+to functions: f is called increasing when σ ≤ω implies f(σ) ≤f(ω).
+It induces then a
+stochastic order on measures and we write µ ≤ν if and only if it is valid for expectations,
+with µ[f] ≤ν[f] for all f increasing2. The Gibbsian formalism we consider here, built within
+the DLR framework, has been fully rigorously described by Georgii [69]; macroscopic states are
+modelled by Gibbs measures inspired by a mix of measurable and topological considerations
+(see also [53]), with the important property of continuity for regular versions of ﬁnite-volume
+conditional probabilities as a function of the boundary condition, in the sense more precisely
+given below.
+Topological Structure :
+Our conﬁguration spaces will be endowed with the product topology of the canonical
+topology of the underlying single-spin state space E, i.e. the discrete topology in the Ising
+cases, and the Borel topology on the circle S1 in the the rotator cases.
+In this product topology of the discrete topology on E = {−1, +1} (resp. the Borel topol-
+ogy on E =]−π, +π]), conﬁgurations are close when they coincide (resp. when they are close)
+on large ﬁnite regions Λ and arbitrary outside. Of course, the larger the ﬁnite common region,
+the closer they are. We denote by C(Ω) the set of continuous functions on Ωequipped with
+these topologies.
+In the Ising context with ﬁnite state-space equipped with the discrete topology, conti-
+nuity is equivalent to uniform continuity and to so-called quasilocality, deﬁned as
+f ∈C(Ω) ⇐⇒lim
+Λ↑S
+sup
+σ,ω:σΛ=ωΛ
+| f(ω) −f(σ) |= 0.
+(2.1)
+Quasilocality itself is closely related to the concept of Gibbs measures, as we shall see.
+For a given conﬁguration ω ∈Ω, a neighbourhood basis is provided by the family
+ NΛ(ω)
+
+Λ∈S with, for any Λ ∈S,
+NΛ(ω) =
+n
+σ ∈Ω: σΛ = ωΛ, σΛc arbitrary
+o
+.
+We also consider in this case particular open subsets N +
+Λ,∆(ω), N −
+Λ,∆(ω) of the neighborhoods
+NΛ(ω) on which conﬁgurations also coincide with the maximal +-conﬁguration (resp. −-
+conﬁguration) on an annulus ∆\ Λ for ∆⊃Λ, deﬁned for all Λ ∈S, ω ∈Ωas
+N +
+Λ,∆(ω)
+=
+n
+σ ∈NΛ(ω) : σ∆\Λ = +∆\Λ, σ∆c arbitrary
+o
+,
+N −
+Λ,∆(ω)
+=
+n
+σ ∈NΛ(ω) : σ∆\Λ = −∆\Λ, σ∆c arbitrary
+o
+.
+In the rotator context for the Borel topology on the sphere S1 or on the interval
+] −π, +π], continuity is stronger than quasilocality, for which the deﬁnition (2.1) still holds.
+2We only need to consider real-valued functions here -even in the rotator case where we consider vertical
+magnetisations- but the extension to vector-valued functions is straightforward componentwise.
+7
+
+In both contexts, the set of measurable quasilocal functions, denoted Fqloc, is also the set
+of the possible uniform limits of local functions, the one that are FΛ-measurable for some
+Λ ∈S. Note that in the rotator context there exist local and quasilocal functions which are
+not continuous, such as characteristic functions of the spin at the origin being inside some
+interval, see [69, 41].
+For a given conﬁguration ⇀ω ∈Ω, to get "open subsets" with positive measure, one cannot
+ask anymore that angles are ﬁxed, so they are only constrained in small intervals around
+the conﬁguration. A basis of neighborhoods is then provided for a given parameter sequence
+ϵk > 0 by the family
+ NΛ,ϵk(⇀ω)
+
+Λ∈S with, for any Λ ∈S,
+NΛ,ϵk(⇀ω) =
+n
+⇀σ ∈Ω: (⇀σi, ⇀ωi) ≤ϵk, ∀i ∈Λ; ⇀σΛc arbitrary
+o
+.
+We also consider particular open subsets of neighborhoods NΛ,ϵ(⇀ω) for which, on the
+contrary to the Ising case, the angles are not ﬁxed on the annulus but rather conﬁned in small
+intervals of radius ϵ > 0 around the maximal and minimal values, that is conﬁgurations are
+also close to speciﬁc conﬁgurations of canonical angles ±π/2 on an annulus ∆\ Λ for ∆⊃Λ,
+deﬁned for all Λ ∈S, ω ∈Ωas
+N
++ π
+2
+Λ,∆,ϵ(⇀ω) :=
+n
+⇀σ ∈NΛ,ϵ(⇀ω) : (⇀σi, ⇀
+e1) ∈
+
++ π
+2 −ϵ, +π
+2 + ϵ
+
+for i ∈∆\ Λ, ⇀σ∆c arbitrary
+o
+,
+N
+−π
+2
+Λ,∆,ϵ(⇀ω) :=
+n
+⇀σ ∈NΛ,ϵ(⇀ω) : (⇀σi, ⇀
+e1) ∈
+
+−π
+2 −ϵ, −π
+2 + ϵ
+
+for i ∈∆\ Λ, ⇀σ∆c arbitrary
+o
+.
+We shall sometimes shortly denote N +
+Λ,∆,ϵ(⇀ω) := N
++ π
+2
+Λ,∆,ϵ(⇀ω) or N −
+Λ,∆,ϵ(⇀ω) := N
+−π
+2
+Λ,∆,ϵ(⇀ω).
+Macroscopic States :
+In Mathematical Statistical Mechanics, macroscopic states are thus represented by mea-
+sures in M+
+1 . To describe such measures on the inﬁnite-product probability space Ω, in view of
+a mathematical description of phase transitions and phase coexistence, one aims at describing
+it by prescribing versions of conditional probabilities w.r.t. boundary conditions outside ﬁnite
+sets. In this so-called DLR approach, independently introduced in the late 60's by Dobrushin
+[31] in the East, and Lanford/Ruelle [99] in the West, candidates to represent such a system
+of conditional probabilities are families of probability kernels, formally introduced by F¨ollmer
+[56] and Preston [118] in the mid 70's under the terminology (local) speciﬁcations :
+Deﬁnition 1 ((Local) Speciﬁcation) A speciﬁcation γ =
+ γΛ
+
+Λ∈S on (Ω, F) is a family
+of probability kernels γΛ : Ω× F −→[0, 1]; (ω, A) 7−→= γΛ(A | ω) s.t. for all Λ ∈S:
+1. For all ω ∈Ω, γΛ(·|ω) is a probability measure on (Ω, F).
+2. For all A ∈F, γΛ(A|·) is FΛc-measurable.
+3. (Properness) For all ω ∈Ω, γΛ(B|ω) = 1B(ω) when B ∈FΛc.
+4. (Consistency) For all Λ ⊂Λ′ ∈S, γΛ′γΛ = γΛ′, where
+∀A ∈F, ∀ω ∈Ω, (γΛ′γΛ)(A|ω) =
+Z
+Ω
+γΛ(A|ω′)γΛ′(dω′|ω).
+(2.2)
+8
+
+These kernels also acts on functions and on measures: for all f ∈C(Ω) or µ ∈M+
+1 ,
+γΛf(ω) :=
+Z
+Ω
+f(σ)γΛ(dσ|ω) = γΛ[f|ω] and µγΛ[f] :=
+Z
+Ω
+(γΛf)(ω)dµ(ω) =
+Z
+Ω
+γΛ[f|ω]µ(dω).
+Following Fern´andez-Pﬁster [54], a local speciﬁcation is said to be monotonicity-preserving
+or attractive3 if, for all Λ ∈S and f increasing, the function ω 7→γΛf(ω) is an increasing
+function of the boundary condition ω. It is straightforward that Gibbsian speciﬁcations for
+the ferromagnetic pair-potentials (i.e. with coupling functions J(i, j) ≥0) considered here are
+monotonicity-preserving.
+In order to extend local speciﬁcations to global ones in these contexts, and to be able
+to proﬁt from monotone convergence theorems, extending [54] beyond the Ising-spin case
+with ﬁnite alphabet, we shall need to identify an underlying partial order on conﬁgurations,
+especially in the rotator case (where it is not so obvious, and restricted to spin dimension
+two), see Theorem 2.
+In the Ising case one can take the canonical order ≤on E and says that ω ≤ω′ if and
+only if ωi ≤ω′
+i, for all i ∈Z2. The two "extremal" (i.e. minimal and maximal) conﬁgurations,
+denoted −and + and deﬁned as −i=-1 for all i ∈Z2 and +i = +1 for all i ∈Z2, will give rise
+to inﬁnite-volume limits µ−and µ+ that are extremal in two ways : ﬁrst, they are extremal
+Gibbs measures; and second, they are extremal with respect to this partial order as, for any
+other Gibbs measure (describe below) µ, it holds that µ−≤µ ≤µ+, i.e. for all f increasing,
+µ−[f] ≤µ[f] ≤µ+[f].
+For a proof that ferromagnetic Gibbs speciﬁcations are indeed monotonicity-preserving in
+this context see e.g. the original works of Ginibre [72] or Griﬃths [76].
+In the rotator case, with state-space S1, we need thus to cook up a partial order for
+which our particular homogeneous conﬁgurations −π
+2 and +π
+2 are the extremal ones with
+respect to this order. To do so, we choose the partial order ≤sin as follows :
+Let θ = θi ∈] −π, +π] be the canonical angle related to the conﬁguration ωi at site i, and
+let θ′
+i be the corresponding value for ω′
+i. Then we say that
+ω ≤sin ω′ if and only if sin θi ≤sin θ′
+i, for all i ∈Z2
+and similarly for measures,
+µ ≤sin µ′ if and only if for any f increasing, µ[f] ≤µ′[f].
+Note that we keep the expression ≤sin for the stochastic order (on measures), while it does
+not appear in the order on expectations. For the latter, it corresponds indeed to the standard
+order between real numbers, but we stress it has to be tested on functions which are increasing
+w.r.t. the speciﬁc ≤sin order.
+For such a partial order ≤sin, the XY -speciﬁcation with ferromagnetic couplings J =
+(J(i, j))i,j∈Z2, with J(i, j) ≥0 for any pair (i, j) ∈Z2, is monotonicity-preserving.
+This
+allows us to prove the existence as weak limits of our particular inﬁnite-volume measures µ−
+and µ+ obtained by taking respectively −π
+2 and +π
+2-boundary conditions. The limits are
+known to exist and to be extremal in the original (convex) sense since [77], see also [25].
+3See also the books by Preston [117, 118].
+9
+
+Moreover, these weak limits coincide with the minimal and maximal measures in the sense
+of the stochastic order : Any other Gibbs measure µ satisﬁes, for all f increasing in the sense
+of ≤sin,
+µ−[f] ≤µ[f] ≤µ+[f]
+so that the inequalities µ−≤sin µ ≤sin µ+ hold. Note again that this construction is only
+valid for two-component (rotator, or XY ) vector spins. For discussions on the extension of
+correlation inequalities to higher-dimensional-vector cases, see [14, 16, 17, 18, 19, 37, 38, 71,
+83, 95, 96, 97, 114, 116].
+For a given measure one can show that it is always possible to build a consistent speciﬁ-
+cation with a given probability measure [73, 119, 129]. Nevertheless, diﬀerent measures can
+then have their conditional probabilities described by the same speciﬁcation but on diﬀerent
+full measure sets, leaving the door open to a mathematical description of phase transitions,
+as we shall see below for our ferromagnetic Ising models and some of our rotator models on
+Z2.
+Deﬁnition 2 (DLR Measures) A probability measure µ on (Ω, F) is said to be consistent
+with a speciﬁcation γ (or speciﬁed by γ) when for all A ∈F and Λ ∈S
+µ[A|FΛc](ω) = γΛ(A|ω), µ−a.e. ω ∈Ω.
+(2.3)
+Equivalently, µ is consistent with γ if
+Z
+(γΛf)dµ =
+Z
+fdµ
+for all
+Λ ∈S
+and
+f ∈Floc,
+or if and only if µγΛ = µ, ∀Λ ∈S.
+We denote by G(γ) the set of measures consistent with γ. Describing this set is precisely
+the central task of Equilibrium Mathematical Statistical Mechanics. Indeed, in contrast to
+Kolmogorov's Extension Theorem based on marginals, the existence of a measure for a given
+speciﬁcation is not guaranteed nor is the uniqueness: in particular, one can also get more
+than one element, and in such a case we say that there is a Phase Transition. Central in
+statistical mechanics, this notion is also essential for many proofs to get non-Gibbsianness,
+when phase transitions occur in some hidden, constrained system, as we shall see in all the
+remaining sections.
+Due to this non-uniqueness phenomenon, the structure of G(γ) can be very rich, see e.g.
+Chapter 7 of [69]. In particular, G(γ) is a convex set whose extremal elements are the Gibbs
+measures that are trivial w.r.t. the asymptotic σ-algebra F∞= ∩Λ∈SFΛc, and interpreted as
+the eﬀective physical phases of the system. Note that we sometimes employ the terminology
+states for measures.
+Describing the set of such extremal states is a vibrant ﬁeld of research,
+as the set of all Gibbs measures for a given interaction can be very huge.
+As we shall brieﬂy describe below, the full convex structure for the 2d-n.n. Ising model
+can be obtained via the celebrated Aizenman-Higuchi theorem [1, 82]: G(γ) coincides with the
+interval [µ−, µ+], thus with "only" two extremal elements, that are translation-invariant, and
+no non-translation-invariant states (and thus there does not exist non-translation-invariant
+Gibbs measures).
+Next to the 2d-n.n. Ising model, also long-range polynomial Ising models in dimension
+one (sometimes called "Dyson" or "Dyson-Ising" models [46, 11]) share this property, but
+10
+
+this is not the case for higher-dimensional Ising or rotator models. Indeed, there do exist
+extremal non-translation invariant states for the three- and higher- dimensional n.n Ising
+models (including - in d = 3 probably exclusively - the so-called Dobrushin/interface states),
+and uncountably many extremal translation-invariant magnetized states for long-range or
+high-dimensional rotators at low temperature4. Short-range models in high-temperature or
+high-ﬁeld/low-density regions, or in d = 1, have generally uniqueness, so for those models
+also the sets of all Gibbs measures are known. One advantage of working with rotators (XY -
+models) over higher-dimensional vector models such as the classical Heisenberg model, is the
+existence of FKG ordering -or attractivity-, which does not hold in general vector models, see
+[95, 128]. See also [59] for a more complete picture.
+The concept of quasilocality naturally extends from the deﬁnition for functions, cf. (2.1),
+to speciﬁcations and measures, and provides a proper framework to insure existence of DLR-
+consistent measures, i.e. that G(γ) ̸= ∅. A speciﬁcation is said to be quasilocal when the set
+of quasilocal functions is conserved by its kernels. More formally, for all Λ ∈S, the image
+of any local function f via the kernel of γ is a quasilocal function5 (w.r.t. to the boundary
+condition):
+f ∈Floc =⇒γΛf ∈Fqloc.
+(2.4)
+A measure is said to be quasilocal iﬀit is speciﬁed by a quasilocal speciﬁcation.
+Gibbs measures are measures consistent with a Gibbs speciﬁcation deﬁned in terms of a
+uniformly absolutely convergent potential Φ, for which one can give sense to the Hamiltonian
+at volume Λ ∈S with boundary condition ω deﬁned, for all σ ∈Ω, as
+HΦ
+Λ(σ|ω) :=
+X
+A∩Λ̸=∅
+ΦA(σΛωΛc)(< ∞)
+(2.5)
+where σΛωΛc is the conﬁguration agreeing with σ on Λ and with ω on Λc. In this paper, we
+restrict ourselves to pair-potentials ΦJ with ferromagnetic coupling functions J : S×S −→R+
+and formal Hamiltonian
+HJ
+Λ(σ) = −
+X
+{i,j}
+J(i, j) ⟨σi · σj⟩
+where "⟨· ⟩" is either ordinary product of real numbers (for Ising spins) or an inner product
+(for vector spins), as we shall see. The Gibbs speciﬁcation at inverse temperature β > 0 is
+then given by γJ = γβΦ, deﬁned at ﬁnite volume Λ by
+γJ
+Λ(dσ | ω) =
+1
+ZβΦ
+Λ (ω)
+e−βHΦ
+Λ (σ|ω)(ρΛ ⊗δωΛc)(dσ)
+(2.6)
+where the normalization ZβΦ
+Λ (ω) -the partition function- is a normalizing constant (exponen-
+tially) related to a free energy. Such a speciﬁcation is non-null (i.e. when for all Λ ∈S and
+all A ∈FΛ, ρ(A) > 0 implies that γΛ(A|ω) > 0 for any ω ∈Ω) and has the property that it is
+quasilocal (see below). In fact, in the mid-seventies, Kozlov [92] and Sullivan [130] established
+that, for a measure µ, being Gibbs is in fact also equivalent to being non-null and
+quasilocal, so that one has the
+4Note it is not rigorously known whether there are states diﬀerent from the interface ones. For the usual
+n.n. rotator model those won't exist, but high-dimensional vortices might be thermally stable, [68].
+5 Thus γΛf ∈C(Ω) in the Ising case (but not necessarily in the vector case).
+11
+
+Deﬁnition 3 (Gibbs Measure) µ ∈M+
+1 is a Gibbs measure iﬀµ ∈G(γ), where γ is a
+non-null and quasilocal speciﬁcation.
+Non-nullness allows a proper exponential factor to alter the product structure of the measure -
+to get correlated random ﬁelds -, while quasilocality allows us to interpret Gibbs measures as
+natural extensions of the class of Markov ﬁelds. Sullivan used the term of Almost Markovian
+instead of quasilocal in [130] and provided an uniformly convergent potential from such a non-
+null speciﬁcation, while Kozlov [92] provided an uniformly absolutely convergent telescoping
+potential that is not in general translation-invariant, unless the speciﬁcation is more regular
+than continuous (see [53] for a complete description, or the recent re-visit of these conditions
+by Barbieri et al. [5]).
+In the next sections, we shall explicitly describe our Gibbs measures, focusing on pair po-
+tentials, in either an Ising-spin set-up (with values in the elementary alphabet E = {−1, +1}),
+or in O(N)- symmetric set-ups (where microscopic variables take values in the sphere N-
+dimensional unit sphere, E = SN−1), essentially in dimension two and for N = 2 (rotator
+models).
+We shall submit these Gibbs measures to the elementary renormalisation trans-
+formation, the decimation of spacing 2, and show that the transformed measures are not
+necessarily quasilocal. For these general descriptions, generic conﬁgurations will be written
+by Greek letters, whatever they concern scalar (Ising) or vector (rotator) spins. We shall
+indicate afterwards when they are scalar or vector, but not always.
+Essential discontinuity - Non-Gibbsianness:
+Assume that a given speciﬁcation µ ∈G(γ) is quasilocal, then for any f local and Λ ∈S,
+the conditional expectations of f w.r.t. the outside of Λ are µ-a.s. given by γΛf, by the DLR
+Equations (2.3), and it is itself a quasilocal function of the boundary condition. Thus, one
+should get for any ω ∈Ω,
+lim
+∆↑Z2
+sup
+ω1,ω2∈Ω
+µ
+
+f|FΛc
+(ω∆ω1
+∆c) −µ
+
+f|FΛc
+(ω∆ω2
+∆c)
+ = 0
+(2.7)
+which yields an (almost-sure) asymptotically weak dependence on the conditioning, which can
+be seen as an extended Markov property. In particular, for Gibbs measures the conditional
+probabilities always have continuous versions, or, equivalently, there is no point of essential
+discontinuity, in the following sense:
+Deﬁnition 4 (Essential discontinuity) A conﬁguration ω ∈Ωis said to be a point of
+essential discontinuity for a conditional probability of µ ∈M+
+1 if there exists Λ0 ∈S, f local,
+δ > 0, such that for all Λ with Λ0 ⊂Λ there exist N 1
+Λ(ω) and N 2
+Λ(ω), two open (or at least
+positive-measure) neighborhoods of ω, such that
+∀ω1 ∈N 1
+Λ(ω), ∀ω2 ∈N 2
+Λ(ω),
+µ
+
+f|FΛc
+(ω1) −µ
+
+f|FΛc
+(ω2)
+ > δ
+or equivalently
+lim
+∆↑Z
+sup
+ω1,ω2∈Ω
+µ
+
+f|FΛc
+(ω∆ω1
+∆c) −µ
+
+f|FΛc
+(ω∆ω2
+∆c)
+ > δ.
+(2.8)
+In the generalized Gibbsian framework, one also says that such a conﬁguration is a bad con-
+ﬁguration for the considered measure, see e.g. [101]. In virtue of the Kozlov-Sullivan charac-
+terization of Gibbs measures, the existence of such bad conﬁgurations is characteristic of a
+non-Gibbsianness of the associated measures.
+12
+
+In this paper, we pursue the detection side of the Dobrushin Program of restoration of
+Gibbsianness, and extend previous non-Gibbs results obtained in the context of Decimations,
+the simplest RG transformations so far.
+We extend the Israel-van Enter-Fernandez-Sokal
+original approach (which was worked out in most detail for the 2d-n.n. Ising model) in two di-
+rections : to higher-dimensional long-range Ising models, and to, possibly anisotropic, rotator
+models.
+Decimated Measures :
+Denote by µ+ a particular Gibbs measure, for the Ising or rotator models described below.
+We shall consider some plus phase, obtained as the weak limit (3.24) with plus boundary
+conditions, but there is no need to be more precise for the moment (see next Section). We
+shall thus submit these Gibbs measures to the decimation transformation :
+T : (Ω, F) −→(Ω′, F′) = (Ω, F); ω
+7−→ω′ = (ω′
+i)i∈Z2, with ω′
+i = ω2i
+(2.9)
+Denote by ν+ := Tµ+ the decimated measure, formally deﬁned as an image measure via
+∀A′ ∈F′, ν+(A′) = µ+(T −1A′) = µ+(A) where A = T −1A′ =
+
+ω : ω′ = T(ω) ∈A′	
+.
+We distinguish between original and image sets using primed notation, although by rescaling
+the conﬁguration spaces Ω(original) and Ω′ (image) are identical.
+For Ising spins, the original measure µ+ we consider will be the standard plus phase
+obtained by taking the homogeneous all plus b.c. +, deﬁned by +i = +1 for all i ∈Z2.
+To investigate potential points of essential discontinuity for the image measure, we will
+choose, inspired by the magnetization being the order parameter, the local function f(σ′) =
+σ′
+(0,0), and will need to be able to evaluate
+ν+[σ′
+(0,0)|F{(0,0)}c](ω′) = µ+[σ(0,0)|FSc](ω), ν+ −a.s.,
+(2.10)
+where Sc = (2Z2) ∩{(0, 0)}c = (2Z2)c ∪{(0, 0)} is not ﬁnite: the conditioning is not on the
+complement of a ﬁnite set; so that DLR Equations (2.3) do not hold directly for such set
+Λ = S.
+In this Ising-spin ferromagnetic context, one can extend the formalism and use the Global
+Speciﬁcations derived for them in [54], to get a family Γ+ of conditional probabilities such
+that µ+ ∈G(Γ+), built in the following Theorem 1, where S = (2Z2)c ∪{(0, 0)} consisting of
+the odd integers plus the origin.
+Theorem 1 [54, 46, 102] Consider any of our ferromagnetic Ising models on Z2 at inverse
+temperature β > 0 with speciﬁcation γJ with couplings J(i, j) ≥0 deﬁned for any pair {i, j} ∈
+Z2. In particular consider its extremal Gibbs measures µ+ and µ−obtained by the weak limits
+(3.26).
+Deﬁne Γ+ = (Γ+
+S )S⊂Z2 to be the family of probability kernels on (Ω, F) as follows:
+• For S = Λ ﬁnite, for all ω ∈Ω, Γ+
+Λ(dσ|ω) := γJ
+Λ(dσ|ω).
+• For S inﬁnite, for all ω ∈Ω, Γ+
+S (dσ|ω) := µ+,ω
+S
+⊗δωSc(dσ) where the constrained measure
+µ+,ω
+S
+is the weak limit obtained by freezing in +SωSc on Λc:
+µ+,ω
+S
+(dσS) := lim
+∆↑S γJ
+∆(dσ | +SωSc).
+13
+
+Then Γ+ is a global speciﬁcation such that µ+ ∈G(Γ+).
+It is moreover monotonicity-
+preserving and right-continuous, but not quasilocal when β > ˜βc > 0. Similarly, one deﬁnes a
+monotonicity-preserving and left-continuous global speciﬁcation Γ−such that µ−∈G(Γ−).
+Now, for any special conﬁguration6 ω′
+alt, (2.10) reduces for ν+-a.e. ω′ ∈NΛ′(ω′
+alt) to
+ν+[σ′
+(0,0)|F{(0,0)}c](ω′) = Γ+
+S [σ(0,0)|ω] µ+−a.e.(ω)
+(2.11)
+with S = (2Z2)c ∪{(0, 0)} and ω ∈T −1{ω′} is deﬁned to coincide with the alternating
+conﬁguration on the even lattice 2Z2. The expression of the latter is provided in terms of the
+constrained measure µ+,ω
+(2Z2)c∪{0}, with ω ∈T −1{ω′} so that we get for any ω′ ∈NΛ′(ω′
+alt),
+ν+[σ′
+(0,0)|F{(0,0)}c](ω) = µ+,ω
+(2Z2)c∪{(0,0)} ⊗δω2Z2∩{(0,0)}c[σ(0,0)].
+By monotonicity-preservation, it is explicitly built as the weak limit obtained by plus boundary
+conditions ﬁxed after a freezing of ω on the even sites : ∀ω′ ∈NΛ′(ω′
+alt), ∀ω ∈T −1{ω′},
+µ+,ω
+(2Z2)c∪{(0,0)}(·) =
+lim
+∆∈S,∆↑(2Z2)c∪{(0,0)} γJ
+∆(· | +(2Z2)c∪{(0,0)})ω2Z2∩{(0,0)}c).
+(2.12)
+Note that it is enough to consider this limit on a sequence of cubes ∆N = ([−N, +N] ∩Z)2
+in the original space.
+In the case of rotator spins, the original measure µ+ we consider will be the Gibbs
+measure obtained by taking the homogeneous b.c. ⇀σ+ with vertical angle θ = θi = +π
+2 for
+any i ∈Z2 where the latter denotes the angle between the vectorial conﬁguration at site i with
+the horizontal axis, (⇀σ+
+i , ⇀
+e1) = +π
+2 . The conﬁguration itself is sometimes written shortly θ or
++π
+2 (in boldface). The limit for such homogeneous b.c. is known to exist from [116] (while
+one can learn in [68] that all the extremal Gibbs measures are obtained in that manner, with
+an homogeneous b.c. θ, with θ ∈] −π, +π]).
+Moreover, in this context with continuous symmetry, in two dimensions, the magneti-
+zation is always zero for short-range models by the famous Mermin-Wagner "ban".
+The
+Mermin-Wagner theorem claims that in short-range models in dimensions 1 and 2, continuous
+symmetries cannot be spontaneously broken. Nevertheless, in the case of long-range slowly
+decaying potentials, ﬁrst investigated by Kunz and Pﬁster [95], non-zero magnetizations do
+occur. Also, even if Mermin-Wagner applies, in some contexts, see e.g. [50], other order pa-
+rameters can exist, leading to other manifestations of phase transitions. Moreover, diﬀerently
+from rotational long-range order, in superﬁcially similar but non-rotationally-invariant mod-
+els, with random or periodic external ﬁelds, e.g. longitudinal or vertical, long-range order due
+"spin-ﬂop" transitions etc. can occur, so that Mermin-Wagner in fact doesn't provide as strict
+a ban on the occurrence of phase transitions as one might initially imagine.
+In the course of
+our proofs, various choices of local functions f can be made so that we investigate essential
+discontinuity by the evaluation of the conditional probabilities
+ν+[f(⇀σ′)|F{(0,0)}c](⇀ω′) = µ+[f(⇀σ′)|FSc](⇀ω), ν+ −a.s.
+(2.13)
+where Sc = (2Z2) ∩{(0, 0)}c = (2Z2)c ∪{(0, 0)} is not ﬁnite: the conditioning is not on the
+complement of a ﬁnite set; so that DLR Equations (2.3) do not hold.
+6It will be alternating in our non-Gibbs results, but in principle here it can be any conﬁguration ω′ ∈Ω′.
+14
+
+2.2
+Global Speciﬁcation for Rotator Spins
+Although Global Speciﬁcations, useful in such a situations, have been proven to exist only
+in a more limited set-up in the study of ferromagnetic Ising cases by Fern´andez et al. in
+[54], we describe now how they can be extended thanks to the attractivity7 of XY -models,
+O(N)-models with N = 2, such that the following analogue of Theorem 1 is valid:
+Theorem 2 [Global speciﬁcation for 2d-rotator spins] Consider any of our ferromagnetic
+rotator models on Z2 at inverse temperature β > 0 with speciﬁcation γJ with (ferromagnetic)
+couplings J(i, j) deﬁned for any pair {i, j} ∈Z2, and in particular its extremal Gibbs measures
+µ+ and µ−, respectively obtained by weak limits from the opposed angle-b.c. θ+ ≡+π
+2 or
+θ−≡−π
+2.
+Deﬁne Γ+ = (Γ+
+S )S⊂Z2 to be the family of probability kernels on (Ω, F) as follows:
+• For S = Λ ﬁnite, for all ⇀ω ∈Ω, Γ+
+Λ(d⇀σ|⇀ω) := γJ
+Λ(d⇀σ|⇀ω).
+• For S inﬁnite, for all ⇀ω ∈Ω,
+Γ+
+S (d⇀σ|⇀ω) := µ+,⇀
+ω
+S
+⊗δ⇀
+ωSc(d⇀σ)
+(2.14)
+where the constrained measure µ+,⇀
+ω
+S
+is the weak limit obtained with freezing in ⇀+S⇀ωSc
+on Λc:
+µ+,⇀
+ω
+S
+(d⇀σS) := lim
+∆↑S γJ
+∆(d⇀σ | ⇀+S⇀ωSc).
+Then Γ+ is a global speciﬁcation such that µ+ ∈G(Γ+). Similarly, one deﬁnes a monotonicity-
+preserving and left-continuous global speciﬁcation Γ−such that µ−∈G(Γ−).
+Proof : Let us describe how the extension of the construction of a global speciﬁcation in
+the attractive case [54] - initially restricted to Ising state spaces E = {−1, +1} - extends to
+our continuous spin state-space E = S1 thanks to our choice of partial order ≤sin. Basically,
+we need to check that :
+• The fact the initial order on conﬁgurations is only partial does not aﬀect the use of the
+monotonicity-preserving property.
+• The fact that the state space becomes continuous does not aﬀect measurability properties
+of the kernels deﬁning the global speciﬁcation, nor the use of monotone-convergence
+theorem.
+As in the Ising case, we deﬁne the kernels Γ+
+S in two ways, depending whether S is ﬁnite
+or inﬁnite. We shall afterwards extend Lemma 3.1 and Lemma 3.2 from [54] to our rotator
+landscape.
+First, let the local speciﬁcation γJ and the global speciﬁcation Γ+ coincide on ﬁnite sets:
+Γ+
+Λ ≡γJ
+Λ,
+∀Λ ∈S.
+7For extension or non-extension, depending on the dimension to rotator or classical Heisenberg models of
+classical correlation inequalities (GHS or Lebowitz inequalities), see Ginibre [71] or Lebowitz [104]. See also
+Dunlop et al.[37, 38], Monroe [113], Ellis et al. [39], Kunz et al., [96, 97], Romerio et al. [121, 122].
+15
+
+Second, for any inﬁnite set S ⊂Z2 and any ﬁnite set Λ, by consistency we need
+Γ+
+S = Γ+
+S Γ+
+Λ = Γ+
+S γJ
+Λ.
+(2.15)
+Hence, for any function f ∈Floc and any ﬁnite set Λ, it holds
+Γ+
+S (f | ⇀ω) =
+Z
+Ω
+γJ
+Λ(f | ⇀σ)Γ+
+S (d⇀σ | ⇀ω)
+=
+properness
+Z
+Ω
+γJ
+Λ(f | ⇀σS⇀ωSc)Γ+
+S (d⇀σ | ⇀ω),
+and this has to be valid for any choice of the boundary condition ⇀ω. Thus the inﬁnite-volume
+probability measure Γ+
+S (· | ⇀ω) is consistent with the so-called constrained speciﬁcation γS,⇀
+ω
+deﬁned for any ⇀η by
+γS,⇀
+ω
+Λ (· | ⇀η) := γJ
+Λ(· | ⇀ηS⇀ωSc)
+for a frozen conﬁguration ⇀ω.
+To recover a global speciﬁcation consistent with µ+, we shall perform a weak limit with
+plus b.c. directly on this constrained speciﬁcation γS,⇀
+ω = (γS,⇀
+ω
+Λ , Λ ∈S).
+Here γS,⇀
+ω
+Λ (· |
+⇀η) deﬁnes a probability measure on (ΩS, FS) and γS,⇀
+ω
+Λ (F | ·) is FS\Λ-
+measurable for any choice of F ∈FS, so that we have only to check properness and consistency
+of the family of kernels Γ+ as deﬁned by (2.14). Then for any conﬁguration ⇀ω, the choice of a
+candidate for an element of G(γS,⇀
+ω) (in which the elements of the speciﬁcation have to be con-
+sistent according to (2.15)) is made as follows: for a ﬁnite set Λ ⊂S, the conﬁguration at Λc
+is ﬁxed at the θ+ values (i.e. +π/2) if sites do not belong to Sc; otherwise, the conﬁguration
+is frozen onto ⇀ω.
+Such a candidate measure in G(γS,⇀
+ω), called the constrained measure µ+,⇀
+ω
+S
+, is deﬁned via
+the weak limit8
+µ+,⇀
+ω
+S
+(·) := lim
+∆↑S γJ
+∆(· | ⇀+S ⇀ωSc),
+(2.16)
+and gives rise, for any inﬁnite set S ⊂Z2, to the kernels
+Γ+
+S (d⇀σ | ⇀ω) := µ+,⇀
+ω
+S
+(d⇀σS) ⊗δ⇀
+ωSc(d⇀σSc)
+which may be also written as
+Γ+
+S (d⇀σ | ⇀ω) = lim
+∆↑S γJ
+∆(d⇀σ | ⇀+S ⇀ωSc),
+to give a probability measure on (Ω, F). Let us now show, following almost verbatim Lemma
+3.2 in [54], that DLR consistency holds for the global speciﬁcation candidate Γ+, namely that
+for two inﬁnite subsets D1 ⊂D2, we have:
+Γ+
+D2Γ+
+D1 = Γ+
+D2.
+(2.17)
+For a set Λ1 ⊂D1, and f1 a Λ1-local function, (2.17) may be stated as
+Z
+Γ+
+D2(d⇀η | ⇀ω)Γ+
+D1(f1 | ⇀η) = Γ+
+D2(f1 | ⇀ω).
+8We stress that the weak limit in (2.16) for obtaining the constrained measure µ+,⇀
+ω
+S
+with θ+-boundary
+conditions on S is performed after the freezing into ⇀ω on the set Sc.
+16
+
+Recalling that Γ+
+S (d⇀σ | ⇀ω) := µ+,⇀
+ω
+S
+(d⇀σS) ⊗δ⇀
+ωSc(d⇀σ), we just have to prove
+Z
+µ+,⇀
+ω
+D2 (d⇀η)Γ+
+D1(f1 | ⇀ηD2⇀ωDc
+2) =
+Z
+µ+,⇀
+ω
+D2 (d⇀ηD2)f1(⇀ηS2).
+In order to have the claim we only need to check that for two non-negative, increasing (in the
+sense of the partial order ≤sin) functions f1, f2 which are respectively Λ1-local and Λ2-local,
+with Λ1 ⊂D1, Λ2 ⊂D2 \ D1,
+Eµ+(f1f2) = Eµ+(Γ+
+D1(f1 | ·)f2).
+So that in order to get it we only have to check that the monotonicity argument passes through
+as in [54]. In order to do so, let us recall now our important choice of partial order :
+⇀ω ≤sin ⇀ω′ ⇐⇒sin θi ≤sin θ′
+i for all i ∈Z2.
+A key observation to properly use the monotonicity of the initial conﬁguration for this (2d)
+rotator model is that any conﬁguration ⇀σ can be dominated as
+⇀σ ≤sin ⇀ηΛ⇀+Λc .
+Then we have, for any Λ ⊂D1, by the deﬁning properties of probability kernels,
+Γ+
+D1(f1 | ⇀η)
+≤
+Kernel monotony
+Γ+
+D1
+ f1(⇀σΛ⇀+Λc) | ⇀η
+
+= Γ+
+D1
+ f1(⇀σD1∩Λ⇀+D1∩Λc) | ⇀ηDc
+1
+
+= γJ
+Λ1
+ f1(⇀σΛ⇀+D1∩Λc) | ⇀ηDc
+1
+
+= γJ
+Λ
+ f1(⇀σΛ) | ⇀+D1∩Λc ⇀ηDc
+1
+
+= γJ
+Λ
+ f1(⇀σΛ) | ⇀+D1 ⇀ηDc
+1
+
+.
+(2.18)
+So that
+Γ+
+D1(f1 | ⇀η) ≤γJ
+Λ
+ f1 | ⇀+D1 ⇀ηDc
+1
+
+.
+(2.19)
+Following (3.23) of [54], and using the right-continuity of the function ⇀η 7→γ+
+D1(f1 | ⇀η) and
+monotonicity, we have
+Eµ+(Γ+
+D1(f1 | ·)f2) ≤lim
+∆↑D2 γJ
+∆(Γ+
+D1(f1 | ·)f2) ≤γJ
+Λ2(Γ+
+D1(f1 | ·)f2 | ⇀+)
+≤
+Z
+γJ
+Λ2(d⇀η | ⇀+)γJ
+Λ
+ f1 | ⇀+D1 ⇀ηDc
+1
+
+f2(⇀η)
+(2.20)
+where in the second inequality we have also used the fact that Λ2 is ﬁxed once and for all, and
+in the last inequality we have used (2.19). Choosing appropriately Λ2 such that Λ2 ∩D1 = Λ,
+we just recognize that the last term is
+Z
+γJ
+Λ2(d⇀η | ⇀+)γJ
+Λ
+ f1 | ⇀+D1 ⇀ηDc
+1
+
+f2(⇀η) =
+Z
+γJ
+Λ2(d⇀η | ⇀+)f1(⇀η)f2(⇀η),
+(2.21)
+so that we ﬁnally have the inequality
+Eµ+(Γ+
+D1(f1 | ·)f2) ≤Eµ+(f1f2).
+17
+
+We wish now to show the converse inequality. Now we can still use monotony, but for a subset
+M ⊂Λ2 ∩D1,
+Eµ+ (f1f2)
+≤
+lim
+Λ2
+Z
+γJ
+Λ2(d⇀η | ⇀+)f1(⇀η)f2(⇀η) = lim
+Λ2
+Z
+γJ
+Λ2(d⇀η | ⇀+)γJ
+M(f1|⇀η)f2(⇀η)
+≤
+lim
+Λ2
+Z
+γJ
+Λ2(d⇀η | ⇀+)γJ
+M(f1|⇀+D1 ⇀ηDc
+1)f2(⇀η) =
+Z
+µ+(d⇀η)γJ
+M(f1|⇀+D1 ⇀ηDc
+1)f2(⇀η).
+Then by Beppo Levi's theorem we have that
+Eµ+ (f1f2) ≤lim
+M↑D1
+Z
+µ+(d⇀η)f2(⇀η)γM(f1 | ⇀+D1 ⇀ηDc
+1) = Eµ+
+
+f2Γ+
+D1(f1 | ·)
+
+and hence consistency on inﬁnite sets, Γ+
+D1 = Γ+
+D1Γ+
+D2.
+⋄
+Now, for any special conﬁguration ⇀ω′
+spe, (2.13) reduces for ν+-a.e. ⇀ω′ ∈NΛ′,ϵ(⇀ω′
+spe) to
+ν+[f(⇀σ′)|F{(0,0)}c](⇀ω′) = Γ+
+S [f(⇀σ′)|⇀ω] µ+−a.e.(⇀ω)
+(2.22)
+with S = (2Z2)c ∪{(0, 0)} and ⇀ω ∈T −1{⇀ω′} is deﬁned to coincide with the chosen special
+conﬁguration on the even lattice 2Z2. The expression of the latter is provided in terms of the
+constrained measure µ+,⇀
+ω
+(2Z2)c∪{(0,0)}, with ⇀ω ∈T −1{⇀ω′} so that we get for any ⇀ω′ ∈NΛ′(⇀ω′
+spe),
+ν+[f(⇀σ′)|F{(0,0)}c](⇀ω′) = µ+,⇀
+ω
+(2Z2)c∪{(0,0)} ⊗δ⇀
+ω2Z2∩{(0,0)}c[f(⇀σ′)].
+It can be explicitly built as the monotone weak limit obtained by +π
+2-b.c. ﬁxed after a freezing
+of ⇀ω on the even sites : ∀⇀ω′ ∈NΛ′(⇀ω′
+alt), ∀⇀ω ∈T −1{⇀ω′},
+µ+,⇀
+ω
+(2Z2)c∪{(0,0)}(·) =
+lim
+∆∈S,∆↑(2Z2)c∪{0,0)} γJ
+∆(· | ⇀+(2Z2)c∪{0,0)}) ⇀ω2Z2∩{0,0)}c).
+(2.23)
+We shall use these constructions in Section 4, depending on the model, and adjust the
+function f to get a non zero essential diﬀerence between diﬀerent sub-neighbourhoods.
+3
+Ising and Rotator models: Phase Transitions
+In this section we review some of the low-temperature results which are known about the
+models we will consider. We will consider pair interactions with formal Hamiltonian
+HΛ(σΛ) = −
+X
+{i,j}
+J(i, j) ⟨σi · σj⟩
+where "⟨· ⟩" is either the scalar product (for Ising spins) or an inner product (for vector
+spins), as described below. In both the following scalar and vectorial cases, when there is
+no ambiguity, we denote γJ the corresponding Gibbs speciﬁcation at inverse temperature
+β > 0. We will for convenience restrict ourselves to spatial dimension 2, although most of our
+arguments will be extendible to higher-dimensions. The fact that we consider two-component
+spins comes from that in this case we have correlation inequalities to our disposal, which don't
+hold for higher-component spins, so although a number of statements might still be true, the
+proofs won't generalise as immediately.
+18
+
+3.1
+Ising Models on Z2
+The conﬁguration space (Ω, F, ρ) given by the products
+Ω= {−1, +1}Z2 , F = P({−1, +1})⊗Z2 , ρ =
+1
+2δ−1 + 1
+2δ+1
+⊗Z2
+,
+where δi is the Dirac measure on i ∈E = {−1, +1}.
+The interaction is Φ = (ΦA)A∈S deﬁned by ΦA ≡0 if A ̸= {i, j} and
+Φ{i,j}(σ) = −J(i, j) σi · σj
+where J : Z2 × Z2 −→R+ is a ferromagnetic coupling function (J(i, j) ≥0).
+In our ferromagnetic cases, Ising speciﬁcations are monotonicity-preserving (or attractive)
+in the sense that for all bounded increasing functions f, and Λ ∈S, the function γJ
+Λf is
+increasing as a consequence of the FKG property : spins have a tendency to align [58]. Using
+as boundary conditions the extremal (maximal "+" and minimal "-") elements of this order
+≤already allows to deﬁne extremal elements of G(γJ).
+Proposition 1 [54] The weak limits
+µ−(·) := lim
+Λ↑Zd γJ
+Λ(·|−) and µ+(·) := lim
+Λ↑Zd γJ
+Λ(·|+)
+(3.24)
+are well-deﬁned, translation-invariant and extremal elements of G(γJ). For any f bounded
+increasing, any other measure µ ∈G(γJ) satisﬁes
+µ−[f] ≤µ[f] ≤µ+[f].
+(3.25)
+Moreover, µ−and µ+ are respectively left-continuous and right-continuous.
+For the standard 2d-n.n. model, the existence of a critical temperature has been established
+by Peierls in 1936 [115, 75] and we state here the results we need through the following theorem
+on the structure of the set G(γJ) of Gibbs measures for the corresponding Ising speciﬁcation
+γJ[1, 27, 69, 82].
+Theorem 3 Let γβJ be the speciﬁcation (2.6) with 2d-n.n. Ising potentials at temperature
+β−1 > 0. Then there exists a critical inverse temperature 0 < βc < +∞such that
+• G(γJ) = {µβ} for all β < βc.
+• G(γJ) = [µ−
+β , µ+
+β ] for all β > βc where the extremal phases µ−
+β ̸= µ+
+β can be selected via
+"−" or "+" boundary conditions: for all f ∈Fqloc,
+µ−
+β [f] := lim
+Λ↑S γJ
+Λ[f | −] and µ+
+β [f] := lim
+Λ↑S γJ
+Λ[f | +].
+(3.26)
+Moreover, the extremal phases have opposite magnetizations
+m∗(β) := µ+
+β [σ0] = −µ−
+β [σ0] > 0.
+We focus here on the following long-range, possibly anisotropic in space, ex-
+tensions of the n.n. case and consider the following Ising models I1-I2-I3 :
+19
+
+Model I1. (Very) long-range, anisotropic in space, uniaxial (d = 2, α1 > 1) : J ≥0
+Jn.n.,α1(i, j) := J · 1|i−j|=1 · 1|i1−j1|=0 + J · |i1 −j1|−α1 · 1|i2−j2|=0
+Results on G(γJ) : As in the 2d-n.n. model, the set G(γJ) of Gibbs measures coincides
+with the interval [µ−, µ+] for long-range ferromagnetic models in 1d, even in the phase
+transition region α ∈(1, 2).
+For higher-dimensional long-range models however, in
+the isotropic case, there could exist non-translation invariant extremal Gibbs measures,
+similar to the so-called Dobrushin states for 3d−n.n. Ising models. Although this is not
+likely to happen in long-range isotropic models with α > 2, and it has been excluded
+for decays α > 3 by the general arguments due to Dobrushin/Shlosman in 1985 [34],
+it may happen that interface states exist in the anisotropic bi-axial cases allowing very
+long-range interactions (axial decay between 1 and 2). Indeed, in such anisotropic cases,
+due to the possibility of phase transition for one-dimensional polynomially decaying
+pair potentials for very long range decays α ∈(1, 2), an extension of the roughening
+proof techniques used in the 3d −n.n. model, shows that there exist non-translation-
+invariant extremal Gibbs measures (similar to Dobrushin states in higher dimensions),
+see [7, 22, 26, 103]. There thus also could be non-translation Gibbs measures amongst
+the mixed states.
+Although the non-Gibbsianness of all decimated Gibbs measures does not always follow
+from the non-Gibbsianness of the translation-invariant extremal states µ−or µ+, in our
+models this will in fact be the case.
+Model I2. Bi-axial, (Very) long-range, anisotropic in space
+(d = 2, α1, α2 > 1) : J ≥0
+Jα1,α2(i, j) := J · |i2 −j2|−α2 · 1|i1−j1|=0 + J · |i1 −j1|−α1 · 1|i2−j2|=0
+Results on G(γJ) : Same remark as Model I1: When one of the decay powers along
+an axis, α1 or α2, is less than 2, there could be a phase transition for the restriction of
+the interaction to a single axis, and the proof mechanism of e.g. van Beijeren [7] applies,
+leading to rigid interface states (extremal and non-translation-invariant). Nevertheless
+our proof on non-Gibbsianness applies to all Gibbs measures, as we show that there exist
+two open sets in any neighborhood of the discontinuity point, conditioned on which the
+two conditional expectations diﬀer by more than some given small constant. And open
+sets have positive measure for all Gibbs measures.
+Model I3. Long-range, Isotropic in space (α > d = 2) : J ≥0, i, j ∈Zd,
+Jiso,α(i, j) := J · |i −j|−α
+Results on G(γJ) : The full convex structure has not been proven to coincide with the
+simplex [µ−, µ+] (although this is probaly the case, as suggested by the fact that the
+absence of Dobrushin states has been proven in [26]), and no non-translation-invariant
+states can exist at low T [34] for α > 3. We shall focus on the decimations of the plus
+or minus measures, µ−and µ+, obtained by the standard b.c. procedure in (3.26) but,
+as in model I2, our proof is nevertheless valid for any Gibbs measure, without using its
+extremal decomposition.
+20
+
+3.2
+Rotator Models on Z2
+When changing the values of the Ising spins from E = {−1, +1} to unitary vectors belonging
+to the N-dimensional sphere E = SN−1, keeping the same type of pair potentials, we say that
+one considers O(N)-models9, also called Heisenberg models. In this work, for vectorial cases,
+we only consider the case of the one-dimensional sphere S1 (so N = 2), also called rotator
+-or XY - models. Although, similarly to 2d-n.n. Ising models, a phase transition is known
+to happen in 3d (see e.g. Friedli-Velenik [59], Chapter 10, and references therein), it is also
+well known that for such models continuous symmetries cannot be broken in two dimensions.
+One says that there is no magnetic long-range order, but10 if we impose periodic or random
+external ﬁelds in the direction of one of the spin components, at low temperature a so-called
+spin-ﬂop transition is possible [30, 48]. This can be used to provide a non-Gibbsianness result
+for the low-temperature decimated 2d-n.n. rotator model, even in absence of a phase transition
+for this model, but we leave this to further studies.
+In this paper, in order to be able to make use of correlation inequalities for vector spins,
+we restrict ourselves to spin dimension two, and focus on two rotator models for which a phase
+transition is possible (in our DLR-terminology) : Anisotropic rotator models (models V1) and
+long-range ones (models V2).
+Also called Vector spins (a particular case of Heisenberg or O(N)-models), our 2d rotator
+models can be seen as the continuous counterpart of the Ising spins; the single-spin space is
+the unit sphere of R2, i.e. the circle E = S1; the a priori measure ρ0 is the normalized Haar
+measure on it and the lattice is Z2, while we identify the circle with the interval of angles
+] −π, +π]. More formally, we consider the conﬁguration space to be the measurable space
+(Ω, E⊗Z2, ρ×Z
+0 ) where
+Ω= (S1)Zd , E = B(] −π, +π]) , ρ0 = λ]−π,+π] .
+Here λX denotes the Haar measure (Lebesgue normalized) on X.
+The reason why we focus on these models only, with N = 2, is that in such cases we shall
+be able to extend the Ising case thanks to correlation inequalities adapted to this vectorial
+context, that do not occur in higher spin dimensions, see [128] or later in our proofs. This two-
+components spin framework allows also a proper stochastic order that permits us to extend
+the concept of Global Speciﬁcation to this vectorial case, as we did in the previous section.
+At d = 2 in the n.n. case, the O(N)-model becomes the celebrated (classical) XY -model.
+Here absence of spontaneous magnetization (Mermin-Wagner theorem [110], for a recent exten-
+sion see e.g. [86]), plus some extra properties, gives a unique shift-invariant rotation-invariant
+Gibbs measure at all temperatures, due to a result of [19]. At large distances, the spin-spin
+two point correlation function is exponentially decaying at small β [107] but only algebraically
+decaying at large β [63], beyond the Berezinskii-Kosterlitz-Thouless transition. It has been
+sometimes called an "inﬁnite-order" phase transition, since the corresponding free energy is
+inﬁnitely diﬀerentiable at the transition point (notice that other spin models with O(N)-
+symmetry may display a ﬁrst-order phase transition with a positive latent heat, see [51]).
+9This is due to the fact that the ﬁnite- volume Hamiltonian is left unchanged by the simultaneous action of
+an element of the (compact, Lie) orthogonal group on all the microscopic vectors.
+10Other types of transitions are possible, related to ﬂuctuations of magnetization, called quasilong-range
+order in 2d or, beyond this case, other Berezinskii-Kosterlitz-Thouless transitions, see [59] or references here.
+21
+
+Side remark on d = 1:
+Note that at d = 1 with long-range interactions, for quadratically decaying interactions, for
+Ising spins a Thouless eﬀect occurs, namely, a discontinuous jump of the magnetization from
+zero to a strictly positive value as β is increased [2, 126]. However, this does not occur for
+vector spins [127]. For slower decaying long-range vector models, with decay power 1 < α < 2,
+the behaviour is as for Ising spins, though, low-T magnetisation with an ordinary critical point.
+See [66], [36], [69], [59] and corresponding bibliographical notes for further details.
+We shall start from a plus phase µ+ obtained by a weak limit of some arbitrary b.c.,
+using results from Ruelle [123] that the pure phases at low temperature - i.e. the extremal
+translation invariant equilibirum states - are obtained by taking as boundary condition ⇀σi ≡θ
+for all i outside Λ where θ ∈] −π, +π] for us. Note that Fr¨ohlich-Pﬁster [68] prove also that
+all the pure phases are constructed in this manner.
+We recall the standard results of the n.n. model with usual scalar product in the next
+section (namely the Mermin-Wagner Theorem on absence of continuous-symmetry-breaking
+in d = 2 [109, 110, 125, 69, 59] vs. phase transition in 3d, but also the Kunz-Pﬁster result for
+(very) long-range interactions on existence of a phase transition at low T [95, 60]).
+In the rest of the paper, and as the main novelty in this Gibbs vs. non -Gibbs framework,
+we consider rotator models that will be either anisotropic n.n. (Section 5.1) or isotropic long-
+range (Section 5.2).
+We also provide hints on how to exhibit a non-Gibbsian decimated
+measure in absence of phase transition for the original model, for the classical 2d-n.n. rotator
+(where we suspect the existence of bad conﬁgurations due to "spin-ﬂop").
+The potentials will be of the form
+ΦA(σ) =
+ J(i, j) · ⟨⇀σi · ⇀σj⟩
+if A = {i, j}
+0
+otherwise
+(3.27)
+where ⟨· ⟩is some inner product in R2.
+More precisely, we shall investigate and prove
+non-Gibbsianness of the decimated measure at low temperatures in the following models V1-
+V2-V3:
+In all cases (including Anisotropic), monotonicity-preservation allows to get the well-
+deﬁned weak limits as in the Ising case :
+Proposition 2 [54] Consider the XY -models deﬁned from (3.27) with a ferromagnetic cou-
+pling function J(·, ·), and the boundary condition θ = θ+ = +π/2 and θ = θ−= −π/2. Then
+the weak limits
+µ−(·) := lim
+Λ↑Zd γJ
+Λ(·|θ−) and µ+(·) := lim
+Λ↑Zd γJ
+Λ(·|θ+)
+(3.28)
+are well-deﬁned, translation-invariant and extremal elements of G(γJ). For any f bounded
+increasing (for the sin-order deﬁned previously), any other measure µ ∈G(γJ) satisﬁes
+µ−[f] ≤µ[f] ≤µ+[f].
+(3.29)
+Moreover, µ−and µ+ are respectively left-continuous and right-continuous.
+Furthermore, it is possible to get an extremal decomposition in terms of these weak limits
+: Let θ be an everywhere σi = θ ∈] −π, +π] conﬁguration. Then for any θ, there exist an
+extremal state µθ, so that any µ ∈G(γ) is written
+µ =
+Z 1
+0
+αθ(µ)dνθ.
+22
+
+Model V1. Anisotropic spin interaction, n.n. planar rotator model
+This is a well-known model in theoretical physics, whose phase transition has been
+conjectured by Fisher in 1967 [55], and ﬁrst proved by Bortz and Griﬃths in 1972 [16]
+for large anisotropy, while Malyshev extended it for any anisotropy parameter κ in [108].
+See also Costa-M´ol [29], Fr¨ohlich-Lieb [61], Hohenberg [84], Kunz-Pﬁster-Vuillermot [96],
+Romerio-Vuillermot [121, 122] for more complete studies.
+For a more precise discussion on the temperature-dependent anisotropy needed, see [18],
+for a relation to Renormalization Group see [6] (Remark 2, p. 426). See also [17] for
+correlation inequalities needed in the course of our proofs.
+We use the description and results of Georgii ([69], chapters 16-20 and bibliographical
+notes) and Friedli-Velenik ([59], Chapter 10). A parameter κ ∈(0, 1) is introduced so
+that the ordinary inner product in R2 is substituted by
+⟨⇀σi · ⇀σj⟩κ ≡σi1σj1 + κ σi2σj2, for i = (i1, i2), j = (j1, j2) ∈Z2.
+Thus we keep the n.n. coupling Jn.n. = J · 1|i−j|=1 and consider the pair potential Φ
+with ΦA = 0 unless A = {i, j}, |i −j| = 1 where
+ΦA(⇀σ) = −J⟨⇀σi · ⇀σj⟩κ.
+The parameter κ ∈[0, 1] is here the anisotropy parameter (so that the XY -model
+is recovered at κ = 1).
+One can learn in the references above or in detail in [59],
+Chapter 10, that there are indeed two ground states for this system at κ ∈[0, 1] (with
+corresponding Gibbs measures µ+, µ−∈G(β, κ), supposed to be the only extremal
+phases).
+Fluctuations of the ﬁnite-volume magnetization concentrate along the ﬁrst
+direction at suﬃciently low temperatures (Theorem 10.17). See also other investigations
+with external ﬁelds in [69], p. 393, Chapter 18 (1st edition).
+Consider the weak limits (they coincide with the preceding µ+, µ−), proven to exist (see
+Fr¨ohlich/Pﬁster 1983 [68], Griﬃths [77] or Friedli/Velenik [59], pp 412-413), for (⇀
+e1, ⇀
+e2)
+being the canonical basis of Z2,
+µ+(·) = µ+π/2(·) := lim
+Λ↑S γJκ(·|⇀
+e2) and µ+(·) = µ−π/2(·) = lim
+Λ↑S γJκ(·| −⇀
+e2)
+(3.30)
+As we quote in Section 4, for an anisotropy parameter 0 < κ < 1 phase transition is
+known to occur at low temperatures, with µ+ ̸= µ−in such a way that the vertical
+magnetizations diﬀer, see (5.36).
+Model V2. Isotropic long-range planar rotators
+It is the vectorial variant of Model I3, with the conﬁguration space Ω= (S1)Z2 and the
+long-range pair potential given for (α > d = 2) with ferromagnetic couplings as follows
+: J ≥0, i, j ∈Z2, and for any conﬁguration ⇀σ,
+Jiso,α(i, j) :=
+J
+|i −j|−α · ⟨⇀σi, ⇀σj⟩.
+Similarly to the other models, one can consider weak limits with our + or −boundary
+conditions, thanks to attractivity, in the same way as (3.30), and it has been known
+since Kunz-Pﬁster 1976 [95], using a domination of a vector-spin variant of Dyson's
+hierarchical models that there also spontaneous vertical magnetization (5.36) holds. In
+this phenomenon, the extension of Griﬃths' inequalities, initiated by Ginibre [71, 72],
+valid only for two-component spins, is essential.
+23
+
+4
+Decimation of 2d Long-Range Ising Models
+In the context of Ising spins, our extensions of the original Israel/van Enter-Fern´andez-Sokal
+example of non-Gibbsianness deep in the phase transition region will be performed by adding
+anisotropic or isotropic polynomial (very) long-range terms in three steps, for models 1., 2.
+and 3. described below. In all models, we adapt the original proofs from the 2d-n.n. and
+1d-Long-range contexts [41, 102, 46] to some some long-range contexts in 2d.
+We recall the strategy used there, involving similar alternating bad conﬁgurations ω′
+alt =
+(−1)i1+i2 for any site i = (i1, i2), the same Global Speciﬁcations, but also slightly diﬀerent
+energy estimates, also allowing to use Equivalence of Boundary Conditions in order to shield
+oﬀfar away -direct- inﬂuences due to long-range terms.
+We note that in the uniaxial or biaxial situation the total direct energy of a square of size L
+with the outside of an annulus of size N(L) is of order L2[N(L)]1−α, while in the isotropic case
+it will be of order L2[N(L)]2−α. This will give us a lower bound on the size of the annulus.
+The indirect inﬂuence from across the boundary decays in unique phase in the annulus in a
+way which is uniform in the annulus size. Thus we expect that the annulus size needed in the
+proof will indeed be of the order suggested by the argument above.
+Let us recall the results of [24] with our notations. Two boundary conditions ω1 and ω2
+are said to have a ﬁnite energy diﬀerence when
+Cω1,ω2 := sup
+Λ
+sup
+¯σΛ
+
+X
+X∩Λc̸=∅,X∩Λ̸=∅
+ΦX(¯σΛω1
+Λc) −ΦX(¯σΛω2
+Λc)
+ < +∞.
+In such a case, one concludes ([24]) that the inﬁnite-volume limits with these boundary
+conditions will have an equivalent (or the same) extremal decomposition (extremal equiva-
+lence) so that it's enough to consider any of them (and forget any inﬂuences outside a large
+enough annulus).
+In fact, we should show that it is enough to estimate for the sum under the absolute value
+the diﬀerence
+H+,ω1
+Λ
+(σΛ) −H+,ω1
+Λ
+(σΛ)
+for relevant choices of b.c. in subsets of neighborhoods where in annuli we have suitably
+chosen sizes, where H+,ω
+Λ
+is the Hamiltonian for ω-b.c. for the constrained (inﬁnite-volume)
+Gibbs measures µ+,ω
+S
+given by (2.23) and (2.12), living on the set S of internal spins (the spins
+living on a decorated lattice) plus the origin.
+In all cases we consider, as a necessary step we will need to prove the following bounded-
+energy estimate, where ω′+,1/2 will act as boundary conditions from the even spins to the
+internal spins, with +-b.c. very far away (that we will forget about, because asymptotically
+the reasoning will obviously be justiﬁed) :
+Lemma 1 Write Λ′ = Λ′(L) = ([−L, +L] ∩Z)2 and ∆′ = ∆′(N) = ([−N, +N] ∩Z)2, with
+N > L. Then, there exist sub-neighborhoods N +
+1 := N +
+L,N(ω′
+alt) and N −
+1 := N −
+L,N(ω′
+alt) such
+that for N = N(L) - depending on the model and on the decay α -, and for ω+
+1 ∈N +
+1
+and
+ω+
+2 ∈N −
+1 b.c. we obtain ∀Λ ∈S
+HΛ,ω+
+1 (σΛ) −HΛ,ω+
+2 (σΛ)
+ ≤C < ∞.
+(4.31)
+24
+
+In the following subsections, we describe the general common steps of the proofs, and
+then discuss in some detail the diﬀerent adaptations to obtain some bounds on the size of the
+annulus (derivation of Lemma 4.31 in both cases).
+4.1
+Decimation of the Bi-axial n.n./very Long-Range Cases α1 > 1
+We start as a warm-up with a mixed model, where the extension of the n.n. case is performed
+only along vertical lines, where it is very long-range with decay α1 > 1, in the ferromagnetic
+case J ≥0 :
+Jn.n.,1(i, j) := J · 1|i−j|=1 · 1|i1−j1|=0 + J · |i1 −j1|−α1 · 1|i2−j2|=0.
+The existence of a phase transition is deduced from the classical n.n. case by stochastic
+domination, and we consider the decimation of the + -phase µ+. As in this case the adaptation
+is similar to that of the 1d long-range case of [46], we only sketch it and focus on the main
+diﬀerence between this model and the n.n. 2d-case : the choice of the size of the annulus
+∆′
+N = ([−N, +N] ∩Z)2 (and thus ∆N = ([−2N, +2N] ∩Z)2) so that the neighborhoods
+NL,N(ω′
+alt) can exhibit diﬀerent magnetization values.
+Let us come back to the context of Section 1, where the decimation transformations have
+been deﬁned. As already claimed, and proven by e.g. [41], the special conﬁguration, which
+will be shown to be a point of essential discontinuity, is as usual the neutral alternating
+conﬁguration ω′
+alt, deﬁned naturally as
+(ω′
+alt)i = (−1)(i1+i2), ∀i ∈(i1, i2) ∈Z2.
+The main results of this section, non-Gibbsianness at low temperatures, will as usual
+follow from the observation that when a phase transition holds for the original speciﬁcation -
+at low enough temperature - the same is true for the constrained speciﬁcation with alternating
+constraint, albeit one needs even lower temperatures to have a phase transition, leading to
+non-Gibbsianness of ν+.
+From this phase transition, one will get the following essential
+discontinuity result as soon as long-range eﬀects are shielded oﬀby choosing a large enough
+annulus - the same as in [46] in this Subsection 4.1 -. The shielding-oﬀof long-range eﬀects
+will be (as in [46]) neglected by (4.31) and an argument similar to Equivalence of boundary
+conditions as a screening eﬀect will be combined with stochastic domination by external
+ﬁelds of homogeneous signs to yield essential discontinuities via Lemma 2, and then non-
+Gibbsianness.
+Lemma 2 Consider our Bi-axial n.n./long range model with an horizontal range 1 < α1 ≤2,
+at suﬃciently low temperature. Let Λ′ ⊂∆′ ∈S and consider two arbitrary conﬁgurations
+ω′+ ∈N +
+Λ′,∆′(ω′
+alt) and ω′−∈N −
+Λ′,∆′(ω′
+alt). Then ∃δ > 0, and ∃Λ′
+0 big enough s.t. for some
+∆′ ⊃Λ′ ⊃Λ′
+0 with ∆′ \ Λ′ chosen big enough compared to Λ′, for all ω+ ∈T −1{ω′+} and all
+ω−∈T −1{ω′−}
+µ+,ω+
+(2Z2)c∪{0}[σ0] −µ+,ω−
+(2Z2)c∪{0}[σ0]
+ > δ.
+(4.32)
+Proof of Lemma 2 for anisotropic 2d n.n./long-range:
+To prove non-Gibbsianness in our models, we need to prove an essential diﬀerence between
+the constrained magnetizations
+M+ = µ+,ω+
+(2Z2)c∪{(0,0)}[σ(0,0)] and M−= µ+,ω−
+(2Z2)c∪{(0,0)}[σ(0,0)]
+25
+
+but to do so we ﬁrst have to prove that the later are well-deﬁned and independent of asymptotic
+eﬀects.
+Write Λ′ = Λ′(L) = ([−L, +L] ∩Z)2 and ∆′ = ∆′(N) = ([−N, +N] ∩Z)2, with N > L.
+Let us give some further, more precise, description of our notations. In (4.32), the involved
+constrained measures µ+,ω
+S
+are inﬁnite-volume Gibbs measures on the internal spins deﬁned
+in (2.23) by taking the weak limit with +-b.c. with the constraint that conﬁgurations coincide
+with ω on Sc = (2Z2)c∪{(0, 0)}, i.e. the complement of the decorated lattice (plus the origin).
+Step 1 : Equivalence of b.c. to get rid of the long-range eﬀects.
+Denote formally by H the Hamiltonian of the constrained speciﬁcations for ω+
+1 and ω+
+2 as
+prescribed. Proceeding as in [46], one can bound uniformly in L the relative Hamiltonians with
+either ω+
+1 and ω+
+2 b.c. to get (4.31) in this case, as soon as one takes N = N(L) = O(L
+2
+α−1 )
+(thus larger than in 1d):
+δH
++,ω′
+1/2
+L
+:=
+HΛ,ω+
+1 (σΛ) −HΛ,ω+
+2 (σΛ)
+ ≤C < ∞.
+To get it and (4.31) in this case, we use the long-range structure of the interaction to get
+a uniform bound
+CΛ,∆
+ω′1,ω′2 = δH
++,ω′
+1/2
+L
+≤
+X
+x∈Λ2L
+2
+X
+k>2N
+1
+kα < C,
+as soon as
+N(L) >> L
+2
+α−1
+(4.33)
+because then for any σΛ ∈ΩΛ
+δH
++,ω′
+1/2
+L
+≤2 · (2L)2 · (2N)1−α
+1 −α
+= 8L2 · (2N)1−α
+1 −α .
+We have C = 1 when
+(2N)1−α = 1 −α
+8
+L−2
+i.e.
+N = 1
+2
+1 −α
+8
+1/1−α
+L2/(α−1)
+so that choosing N = N(L) as in (4.33) will do the job.
+Then, by [24] (see also [59]), all of the limiting Gibbs states obtained by these boundary
+conditions have the same measure-zero sets, and therefore an equivalent decomposition into
+extremal Gibbs states. The latter decomposition will in fact be presumably trivial here, as
+we shall see that the Gibbs measure will be unique, but this is not needed at this step. Thus
+one gets the same magnetisation on the diﬀerent sub-neighborhoods : M+ = M+(ω, N, L) =
+M+(ω+
+1 , N, L) = M+(ω+
+2 , N, L) is indeed independent of ω as soon as it belongs to the pre-
+image of the +-neighborhood of the alternating conﬁguration.
+Step 2 : Domination by uniform ﬁelds - Uniqueness for invisible spins
+Consider boxes Λ′
+L ⊂∆′
+N of linear dimensions 2L, 2N (see Fig. 1).
+For any conﬁguration ω′+ ∈N +
+Λ′,∆′(ω′
+alt), we have
+ν+[σ′
+(0,0)|F{(0,0)}c](ω′+) = µ+[σ(0,0)|Fc
+S](ω+)
+∀ω+ ∈T −1{ω′+}
+=
+by (2.12) Γ+
+S (σ(0,0) | ω+) = lim
+∆↑S γJ
+∆(σ(0,0) | +Sω+
+Sc)
+=
+
+σ(0,0)
+h+
+j
+S .
+(4.34)
+26
+
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
++
+-
++
+-
++
+-
++
+-
++
+-
++
+-
++
+-
++
+-
++
+-
++
+-
++
+-
++
+-
++
+-
+0
+∆′
+N
+Λ′
+L
+Figure 1:
+The origin is in black and only the decorated lattice is shown (a portion of the
+original lattice is visible inside the box Λ′
+L, depicted by green crosses).
+for a box ∆satisfying ∆⊂(2Z2)c ∪{(0, 0)}, where ⟨· · · ⟩
+h+
+j
+S
+denotes expectation with respect
+to the system at inﬁnite volume S with respect to the inhomogeneous eﬀective ﬁeld (h+
+j )j
+depending on the lattice site j. The crucial point is that
+
+σ(0,0)
+h+
+j
+S
+in (4.34) can be dominated
+below by an adaption of a rigorous argument due to Ruelle (see [124], Theorem 2). Indeed,
+observe that
+h+
+j = hj(ω+) =
+X
+k̸=j
+ω+
+k
+kα >
+X
+k̸=j
+ω+,0,L
+kα
+= cα
+1
+Lα−1 > 0
+(4.35)
+where ω+,0,L is the conﬁguration which is zero inside ΛL, and + outside, and c is some constant
+depending on α. Thus, for any ﬁxed L, the ﬁelds h+
+j are strictly positive, and we can always
+choose L, N suﬃciently large such that ⟨σ0⟩
+h+
+(0,0)
+S
+> δ
+2, for some δ possibly depending on L.
+Hence we still get the essential discontinuity in the + case, and an analogous statement holds
+for the measure ν−mutatis mutandi, namely,
+ν−[σ′
+(0,0)|F{(0,0)}c](ω′−) <
+
+σ(0,0)
+h−
+(0,0)
+S
+< δ
+2 < 0.
+Thus we get the following
+Theorem 4 For any 1 < α1 ≤2, at low enough temperature β > βJ(α1,∗)
+c
+, the decimated
+measure ν+ of the plus phase µ+ for the anisotropic long-range Ising model I1, ν+ = Tµ+, is
+non-quasilocal, hence non-Gibbs, and so are all decimated Gibbs measures.
+27
+
+4.2
+Decimation of the Bi-axial (very) Long-Range Model α1, α2 > 1
+We focus on the very long-range cases where both α1 and α2 are between11 1 and 2.
+Recall (d = 2, α1, α2 > 1) : J ≥0,
+J(α1,α2)(i, j) := J · |i2 −j2|−α2 · 1|i1−j1|=0 + J · |i1 −j1|−α1 · 1|i2−j2|=0.
+To prove Lemma 2 in this anisotropic/long-range case, we need to adjust the size of the
+annulus by proceeding as in (4.33, with only slight diﬀerences in the computation of the
+2d-sums. Indeed, the energy diﬀerence estimation becomes, with the same notations
+CΛ,∆
+ω′1,ω′2 = δH+,ω′1/2
+L
+≤
+X
+x∈Λ2L
+2
+ X
+k1>2N
+k−α1
+1
++
+X
+k2>2N
+k−α2
+2
+
+.
+Write α := min(α1, α2). Then proceeding as in model I, we get that for N bigger than
+N(L) = 1
+2
+1 −α
+16
+1/1−α
+L2/(α−1)
+suﬃces. One can thus take the same annulus as in model I, for α being the slowest decay
+between the vertical and the horizontal one.
+Proceeding as in the previous subsection, by using the global speciﬁcation and dominations
+with external ﬁelds of homogeneous signs, we eventually get
+Theorem 5 For any 1 < α1, α2 ≤2, at low enough temperature β > βJ(α1,α2)
+c
+, the decimated
+measure ν+ of the plus phase µ+ for the anisotropic long-range Ising model I2, ν+ = Tµ+, is
+non-quasilocal, hence non-Gibbs, and so are all decimated Gibbs measures.
+4.3
+Decimation of the Classical Isotropic Long-range Models with α > 2
+Recall our model in the 2d-vectorial context : (α > 2) : J ≥0, i, j ∈Zd,
+Jiso,α(i, j) := J · |i −j|−α.
+Proof of Lemma 2 for isotropic 2d long-range models:
+We proceed as in models I1 and I2 above, with a slightly diﬀerent estimation of the
+energy diﬀerence due to the bi-dimensional character of the interaction, leading to double
+sums instead of single sums.
+Indeed, by evaluating it, one gets, still with the same notations
+CΛ,∆
+ω′1,ω′2 ≤
+X
+x∈Λ2L
+2 ·
+X
+y∈Λc
+2N
+1
+|y|α
+which is of the order
+C = 2 · (2L)2 (2N)2−α
+(2 −α)
+11It is not diﬃcult to see that the other values are contained in the n.n. cases (or direct Markov order-R
+adaptations thereof). Note that it is in fact enough that one of the α's being between 1 and 2, because then a
+non-zero spontaneous magnetization would already occur.
+28
+
+and eventually a slightly smaller annulus size
+N >> 1
+2
+2 −α
+8
+
+1
+2−α
+· L
+2
+α−2
+and, of course for α > 2
+N(L) = L
+2
+α−2 .
+We get, proceeding similarly with global speciﬁcations and stochastic dominations,
+Theorem 6 For any 1 < α ≤2, at low enough temperature β > βJ(α)
+c
+, the decimated measure
+ν+ of the plus-phase µ+ for the anisotropic long-range Ising model I3, ν+ = Tµ+, is non-
+quasilocal, hence non-Gibbs, and so are all decimated Gibbs measures.
+5
+Decimation of 2d Rotator Models
+5.1
+Decimation of 2d n.n. Rotator Models with Spin Anisotropy
+We consider the anisotropic nearest-neighbour spin-interaction model VI with an anisotropy
+favouring the direction of the particular conﬁguration θ = +π
+2, in order to make use of the
+monotonicity and partial order described in the previous section.
+For an anisotropy parameter κ ∈(0, 1), for conﬁgurations (⇀σi)i∈Z2 ∈(S1)Z2, we consider
+the n.n. pair potential Φ = Φκ deﬁned so that ΦA = 0 unless A = {i, j}, |i −j| = 1 where
+Φ{i,j}(⇀σ) = −J⟨⇀σi · ⇀σj⟩κ = −J
+ σ(2)
+i
+σ(2)
+j
++ κ σ(1)
+i
+σ(1)
+j
+
+and n.n. coupling
+Jn.n. = J · 1|i−j|=1
+where we have written σ(1)
+i
+and σ(2)
+i
+for the the coordinates of the "spin" ⇀σi in the canonical
+basis (⇀
+e1, ⇀
+e2). Note that the anisotropy here is along the vertical direction, which is important
+for what follows (and consistent with the partial order introduced in Section 2). This indeed
+provides at low temperature two opposite extremal Gibbs measures, a "plus"-phase µ+ globally
+oriented upwards, and its opposite "minus" phase µ−globally oriented downwards.
+Thanks to the partial order, the speciﬁcation γJκ is monotonicity-preserving and the above
+"extremal" phases can be selected by the up or down b.c. ±π
+2 , and we consider the weak limits,
+proven to exist (see Fr¨ohlich/Pﬁster 1983 [68], Griﬃths [77] or Friedli/Velenik [59], pp 412-
+413), for (⇀
+e1, ⇀
+e2) being the canonical basis of Z2,
+µ+(·) = µ+π/2(·) := lim
+Λ↑S γJκ(·|⇀
+e2) and µ−(·) = µ−π/2(·) = lim
+Λ↑S γJκ(·| −⇀
+e2)
+with {µ−, µ+} ∈G(γJκ). Our model is n.n. thus the speciﬁcation is also quasilocal (and in
+particular continuous in any direction [54, 106], so also right- or left-continuous). All together,
+by right continuity and extremality (in the sense of the stochastic order), this allows us to
+extend the concept of global speciﬁcation to this vectorial context : there exists a global
+speciﬁcation Γ+ for µ+ expressed in terms of weak limits of the constrained speciﬁcation as
+in Theorem 2.12.
+29
+
+Now we consider the decimation of the +-phase ν+ = Tµ+. We prove that it is a non-
+Gibbsian measure by proceeding as in Section 4.
+To get it one can use the existence of a spontaneous vertical magnetization, proven by
+Ginibre [71], Bortz et al. [16], Fr¨ohlich/Lieb [61] or Kunz et al. [96, 97] or Malyshev [108],
+with the choice of the local function
+f(⇀σ′) = ⇀σ′(2)
+{0,0}
+corresponding to the vertical component of the spin at the origin (vertical magnetization).
+What is important for us here is that at low temperature, for some values of κ (∈(0, 1)),
+one can deﬁne the weak limits µ+ and µ−such that a vertical spontaneous magnetization
+holds :
+m−(β) := E−
+µ [⇀σ(2)
+{0,0}] < 0 < E−
+µ [⇀σ(2)
+{0,0}] := m+(β).
+(5.36)
+This is performed using correlation inequalities coined by Ginibre [71] in this vertical
+context (see e.g. the Peierls arguments of Bortz et al. [16], Malyshev [108], or inequalities
+from Dunlop et al. [38, 37] or Kunz et al. [97]).
+Similarly the standard case of the 2d-n.n. Ising model, this can be use to estimate the
+conditional expectations of the decimated measures and prove essential discontinuities, either
+by proving spontaneous magnetization on the decorated square lattice, either by dominating
+the later by the one above on the full lattice (as we did for Ising spins).
+To prove essential discontinuity, we consider again the alternating conﬁguration
+⇀ω′
+alt = (−1)i1+i2 ∗⇀
+e1
+as a bad conﬁguration and prove that for some small ϵ > 0, for large enough volumes Λ = ΛL,
+∆= ∆L+1, there exist two open subsets in all sub-neighborhoods, N + := N
++ π
+2
+Λ,∆,ϵ(⇀ω′
+alt) and
+N −= N
+−π
+2
+Λ,∆,ϵ(⇀ω′
+alt) such that for L, N large enough, for all ⇀ω′+ ∈N + and ⇀ω′−∈N −,
+ν+ h
+⇀σ′(2)
+{0,0} | F′
+{0,0}c
+i
+(⇀ω′+) −ν+ h
+⇀σ′(2)
+{0,0} | F′
+{0,0}c
+i
+(⇀ω′−)
+ > δ
+(5.37)
+for some δ > 0. Note that in these open subsets, the spins in the volume of size L are ε-close
+to the alternating conﬁguration, in the annulus they are ε-close to either a plus or a minus
+conﬁguration, and outside the annulus they are arbitrary.
+The constant ε can be chosen
+small enough so that the total energy diﬀerences from the pure alternating and plus or minus
+conﬁgurations remains small.
+To get (5.37), we now use the extension of Global Speciﬁcations - originally stated in
+[54] for Ising spins only (E = {−1, +1} - to this (compact) vectorial context (see Section
+1). Write again Γ+ for such a global speciﬁcation consistent with µ+. The magnetizations of
+above reads, as in the Ising spin context, as :
+⟨⇀σ′(2)
+(0,0)⟩+
+S,ω′ = ν+ h
+⇀σ′(2)
+(0,0) | F′
+(0,0)c
+i
+(⇀ω′+) = µ+ h
+⇀σ(2)
+(0,0) | F′
+Sc
+i
+(⇀ω′+)) = Γ+
+S
+ ⇀σ(2)
+(0,0)|⇀ω′+
+where S is as in the Ising context, the complement of the even sites plus the origin, which is
+not the complement of a ﬁnite set : Sc = (2Z2) ∩{(0, 0)}c.
+Similarly on for ⇀ω′−∈N −,
+⟨⇀σ′(2)
+(0,0)⟩−
+S,ω′ = ν+ h
+⇀σ′(2)
+{0,0} | F′
+{0,0}c
+i
+(⇀ω′−) = µ+ h
+⇀σ(2)
+{0,0} | F′
+Sc
+i
+(⇀ω′−)) = Γ+
+S
+ ⇀σ(2)
+{0,0}|⇀ω′−
+.
+30
+
+Now, using (5.36), we get (5.37) because for any δ > 0 we can take L, N large enough so
+that there exists a positive external ﬁeld h with
+⟨⇀σ′(2)
+(0,0)⟩+
+S,ω′ > ⟨⇀σ′(2)
+(0,0)⟩h > δ
+2
+and this yields essential discontinuity and non-Gibbsianness at low temperature.
+⋄
+5.2
+Decimation of Planar Long-Range Rotator Models
+In the context described in Section 2, we proceed similarly to prove the non-Gibbsianness of
+the measures µ+π/2 and µ−π/2, for a bad conﬁguration chosen to be the conﬁguration ⇀σθ,alt
+where for i = (i1, i2),
+⇀σθ,alt
+i
+= (−1)i1+i2θi.
+The proof requires only to combine the Equivalence of boundary conditions `a la Bricmont-
+Lebowitz-Pﬁster [24, 46] used in Model I3 of this paper (with exactly the same estimate), so
+that Lemma 4.1 holds, with the same choice of annulus, with the use of the Global speciﬁcation
+performed in the model V1 above. Using exactly the same techniques, we get an essential
+discontinuity and non-Gibbsianness of the decimated measure for this model. Just as before,
+we get open sets by having the local conﬁgurations in suﬃciently small intervals, both in
+volume and annulus.
+On these open sets N −(res. N +), one selects on the invisible spins the negatively (resp.
+positively) magnetized phase obtained by Kunz-Pﬁster [95], where here the magnetization has
+to be understood in the sense of the local function "vertical magnetization", as in the previous
+anisotropic model
+f : ⇀ω′ 7−→f(⇀ω′) = ω′(2)
+(0,0).
+Then, the strictly negative (resp. positive) values coined by Kunz-Pﬁster for very long
+ranges α ∈(2, 4) yields a signiﬁcant diﬀerence on the two neighborhooods of the alternat-
+ing conﬁguration, leading to non-Gibbsianness at low temperature after the use of global
+speciﬁcations (valid in this context):
+Theorem 7 For any 2 < α ≤4, at low enough temperature β > βJ(α)
+c
+, the decimated measure
+ν+ of the plus-phase µ+ for the anisotropic long-range rotator model V2, ν+ = Tµ+, is non-
+quasilocal, hence non-Gibbs, and so are all decimated Gibbs measures.
+5.3
+Decimation of Rotator Models, Extensions to Diﬀerent Dimensions.
+In fact, this argument also works immediately for the one-dimensional case with 1 < α < 2.
+Moreover, in higher dimensional n.n. models, as well as long-range models the analysis also
+applies. We just have to notice that the conditioned models are again vector models which
+have phase transitions, proven either by invoking [62] or [4] for n.n. models, and either one of
+these papers or [95] combined with correlation inequalities, for various long-range models.
+Concluding, in all examples discussed, decimating a low-temperature Gibbs measure at suﬃ-
+ciently low temperatures results in a non-Gibbsian measure.
+31
+
+6
+Comments and Perspectives
+In an upcoming Part 2 we will discuss cases where there is a diﬀerence in analysing the phase
+transition structure of the original model and suitably conditioned (on bad conﬁgurations)
+models. This will in particular include a number of borderline cases, in which the original
+models have no rotation-symmetry breaking, but a properly chosen conditioning may induce
+a transition which breaks a discrete - spin-ﬂip-like - symmetry, due to the occurrence of
+a "spin-ﬂop" transition. In contrast to what happens with stochastically evolved measures
+[49], the alternating conﬁguration in decimated measures will be a continuity point in these
+examples, but we can ﬁnd diﬀerent spin conﬁgurations which act as discontinuity points.
+These borderline cases occur in dimensions d = 1 and d = 2: in particular are included in
+dimension d = 2 either short-range models or long-range rotator models with decay at last as
+fast as 1/r4, and in dimension d = 1 the 1/r2-rotator model.
+Our results about the non-Gibbsianness of decimated Gibbs measures apply at very low
+temperatures; it is not to be expected that they extend all the way to (or even above) the
+critical temperature, in view of the analysis of the quite similar Ising situations for n.n. models
+in general dimensions and long-range models in d = 1, in [80, 90].
+Note that some of the models in the class we discuss above are not fully understood, even at
+the physics level. In particular, it has recently been suggested [70] that for some decay powers
+the long-range isotropic vector models may have an intermediate Kosterlitz-Thouless phase in
+between the high-temperature regime with summable decay and the low-temperature regime
+where spontaneous magnetisation occurs. It would of course be of great interest if this could
+be proven, but this seems not within reach to us by the methods at our disposal.
+Acknowledgments: Research has been partially supported within the CNRS Interna-
+tional Research Program B´ezout-Eurandom "Random Graph, Statistical Mechanics and Net-
+works", supported by Laboratory LAMA (CNRS UMR8050), B´ezout federation (CNRS Unit
+FR3522), Labex B´ezout (ANR-10-LABX-58) and Eurandom (TU/e Eindhoven). M. D'A. is
+grateful to S. Caracciolo for providing reference [70].
+References
+[1] M. Aizenman. Translation-Invariance and Instability of Phase Coexistence in the Two-
+Dimensional Ising system. Comm. Math. Phys. 73, no 1:83-94, 1980.
+[2] M. Aizenman, J.T. Chayes, L. Chayes, C.M. Newman. Discontinuity of the magnetization
+in one-dimensional
+1
+|x−y|2 Ising and Potts models. J. Stat.Phys. 50:1-40, 1988.
+[3] M. Aizenman, R. Fern´andez. Critical Exponents for Long-Range Interactions. Lett. Math.
+Phys. 16:39-49, 1988.
+[4] T. Balaban, M. O'Carrol. Low Temperature Properties for Correlation Functions in Clas-
+sical N-Vector Spin Models. Comm. Math. Phys. 199:493-520, 1999.
+[5] S. Barbieri, R. G´omez, B. Marcus, T. Meyerovitch, S. Taati. Gibbsian Representations
+of Continuous Speciﬁcations: the Theorems of Kozlov and Sullivan Revisited. Comm.
+Math. Phys., 382, 1111-1164, 2021.
+[6] P. Beale. S. Sarker, J. Krumhansl. A Renormalization Group Study of Crossover in
+Structural Phase Transitions. Phys. Rev. B 24:266, 1981.
+32
+
+[7] H. van Beijeren. Interface Sharpness in the Ising System, Comm. Math. Phys., 40:1-6,
+1975.
+[8] S. Berghout. Gibbs Processes and Applications. PhD Thesis, Leiden University, 2020.
+[9] S. Berghout and E.A.Verbitskiy.On regularity of functions of Markov chains, Stoch. Proc.
+and App. Volume 134: 29-54, 2021.
+[10] L. Bertini, E. Cirillo, E. Olivieri. Renormalization group in the uniqueness region: weak
+Gibbsianity and convergence. Comm. Math. Phys. 261:323-378, 2006.
+[11] R. Bissacot, E.O. Endo, A.C.D. van Enter, A. Le Ny. Entropic Repulsion and Lack of
+the g-Measure Property for Dyson Models, Comm. Math. Phys., 363:767-788, 2018.
+[12] P.M. Bleher, Ya.G. Sinai. Investigation of the Critical Point in Models of the Type of
+Dyson Hierarchical Models. Comm. Math. Phys. 33:23-42, 1973.
+[13] P.M. Bleher. The Thouless Eﬀect in the Hierarchical Model.
+VIIIth International
+Congress on Mathematical Physics, Marseilles, July 18-25, 1986.
+[14] P.M. Bleher, P. Major. Phase Transition in Statistical Physical Models with discrete and
+Continuous Symmetries. In New directions in Time Series Analysis, vol. 2. IMA vol.
+Math. Appl. 46:11-20, 2012.
+[15] T. Bodineau. Translation-Invariant Gibbs states for the Ising Model. Proba. Theo. Rel.
+Fields, 135, no 2:153-168, 2006.
+[16] A. Bortz, R.B. Griﬃths. Phase Transitions in Anisotropic Heisenberg Ferromagnets.
+Comm. Math. Phys. 26:102-108, 1972.
+[17] J. Bricmont, J.-R. Fontaine. Correlation Inequalities and Contour Estimates. J. Stat.
+Phys. 26:745, 1981.
+[18] J. Bricmont, J.-R. Fontaine. Infrared Bounds and the Peierls Argument in Two Dimen-
+sions. Comm. Math. Phys. 87:417-427, 1982.
+[19] J. Bricmont, J.-R. Fontaine, L. Landau. On the Uniqueness of Equilibrium State for
+Plane Rotators. Comm. Math. Phys. 56:281-290, 1977.
+[20] J. Bricmont, K. Kuroda, J.L. Lebowitz. First Order Phase Transitions in Lattice and
+Continuous Systems : Extension of Pirogov-Sinai Theory. Comm. Math. Phys. 101:501-
+538, 1985.
+[21] J. Bricmont, J.-R. Fontaine, J.L. Lebowitz, E.H. Lieb, T. Spencer. Lattice Systems with
+a Continuous Symmetry. III. Low Temperature Asymptotic Expansion for the Plane
+Rotator Model. Comm. Math. Phys. 78, no 4:545-566, 1980.
+[22] J. Bricmont, J.L. Lebowitz, E. Olivieri, C. E. Pﬁster. Non-Translation Invariant Gibbs
+States with Coexisting Phases. I. Existence of Sharp Interfaces for Widom-Rowlinson
+Type Lattice Models in Three Dimension. Comm. Math. Phys., 66:1-20, 1979.
+[23] J. Bricmont, J.L. Lebowitz, E. Olivieri, C. E. Pﬁster. Non-Translation Invariant Gibbs
+States with Coexisting Phases. II. Comm. Math. Phys., 66:21-36, 1979.
+33
+
+[24] J. Bricmont, J.L. Lebowitz, C.-E. Pﬁster. On the Equivalence of Boundary Conditions.
+J. Stat. Phys. 21, no 5:573-582, 1979.
+[25] J. Bricmont, J.L. Lebowitz, C.-E. Pﬁster. Periodic Gibbs States of Ferromagnetic Spin
+Systems. J. Stat. Phys. 24, no 1:269-277, 1981.
+[26] L. Coquille, A.C.D. van Enter, A. Le Ny, W.M. Ruszel. Absence of Dobrushin States for
+2d Long-Range Ising Models. J. Stat. Phys. 172, no 5:1210-1222, 2018.
+[27] L. Coquille, Y. Velenik. A Finite-Volume Version of Aizenman-Higuchi Theorem for the
+2d-Ising Model. Proba. Theo. Relat. Fields 153:25-44, 2012.
+[28] F. Collet, W.M. Ruszel. Synchronization and Spin-Flop Transitions for a Mean-Field
+XY -Model in Random Field. J. Stat. Phys. 164:645-666, 2016.
+[29] B. Costa, L.A.S. M´ol. The Phase Transition in the Anisotropic Heisenberg model with
+Long-Range Dipolar Interactions. J. Magn. Magnet. Materials.353::11-14, 2013.
+[30] N. Crawford. On Random Field Induced Ordering in the Classical XY -Model. J. Stat.
+Phys. 142, no 1:11-42, 2011.
+[31] R.L. Dobrushin. The Description of a Random Field by Means of Conditional Probabil-
+ities and Conditions of its Regularity. Th. Prob. Appl. 13:197-224, 1968.
+[32] R.L. Dobrushin. Gibbs States Describing Coexistence of Phases for a Three Dimensional
+Ising Model. Theo. Prob. Appl. 17, no 4:619-639, 1972.
+[33] R.L. Dobrushin, S.B. Shlosman. Absence of Breakdown of Continuous Symmetry in Two-
+Dimensional Models of Statistical Physics. Comm. Math. Phys.42:31-40, 1975.
+[34] R.L. Dobrushin, S.B. Shlosman.The Problem of Translation Invariance of Gibbs states
+at Low Temperatures. Math. Phys. Rev. 5:53-195, 1985.
+[35] E.B. Dynkin. Suﬃcient Statistics and Extreme Points. Ann. Proba. 6, no. 5:705-730,
+1978.
+[36] H. Duminil-Copin, C. Garban, V. Tassion Long-range models in 1D revisited. arXiv:
+201104642, 2020.
+[37] F. Dunlop. Correlation Inequalities for Multicomponent Rotators. Comm. Math. Phys.
+49:247-256, 1976.
+[38] F. Dunlop, C.M. Newman. Multicomponent Field Theory and Classical Rotators. Comm.
+Math. Phys.44:223-235, 1975.
+[39] R.S. Ellis, J.L. Monroe, C.M. Newman. The GHS and Other Correlation Inequalities for
+a Class of Even Ferromagnets. Comm. Math. Phys. 46:167-182, 1976.
+[40] A.C.D. van Enter, V. Ermolaev, G. Iacobelli, C. K¨ulske. Gibbs-non-Gibbs properties for
+evolving Ising models on trees. Ann. I.H.P. P. & S. 48:774-791, 2012.
+[41] A.C.D. van Enter, R. Fern´andez, A.D. Sokal. Regularity Properties and Pathologies of
+Position-Space R.G. Transformations: Scope and Limitations of Gibbsian Theory. J. Stat.
+Phys. 72: 879-1167, 1993.
+34
+
+[42] A.C.D. van Enter, R. Fern´andez, R. Koteck´y. Pathological behavior of renormalization-
+group maps at high ﬁelds and above the transition temperature. J. Stat. Phys. 79:969-
+992, 1995.
+[43] A.C.D. van Enter, J. Fr¨ohlich. Absence of Symmetry Breaking for N-vector Spin Glass
+Models in Two Dimensions. Comm. Math. Phys. 98: 425-433, 1985.
+[44] A.C.D. van Enter, C. K¨ulske, A.A. Opoku. Discrete Approximations to Vector Spin
+Models. J. Phys. A 44, no 47: 475002, 2011.
+[45] A.C.D. van Enter, C. K¨ulske, A.A. Opoku, W. M. Ruszel. Gibbs-non-Gibbs Properties
+for N-vector Lattice and Mean-Field Models. Braz. J. Probab. Stat. 24, no. 2:226-255,
+2010.
+[46] A.C.D. van Enter, A. Le Ny. Decimation of the Dyson-Ising Ferromagnet. Stoch. Proc.
+Appl. 127:3776-3791, 2017.
+[47] A.C.D. van Enter, A. Le Ny, F. Paccaut. Markov and Almost Markov Properties in One
+and More Dimensions. To appear in Markov Proc. Relat. Fields, 2021.
+[48] A.C.D. van Enter, W.M. Ruszel. Loss and Recovery of Gibbsianness for XY -Models in
+External Fields. J. Math. Phys. 49:125208, 2008.
+[49] A.C.D. van Enter, W.M. Ruszel. Gibbsianness vs. non-Gibbsianness of Time-Evolved
+Planar Rotor Models. Stoch. Proc. Appl. 119:1866-1888, 2009.
+[50] A.C.D. van Enter, S.B. Shlosman. First-Order Transitions for n-Vector Models in Two
+or More Dimensions: Rigorous Proofs. Phys. Rev. Lett. 89:285702, 2002.
+[51] A.C.D. van Enter, S.B. Shlosman. Provable First-Order Transitions for Nonlinear Vector
+and Gauge Models with Continuous Symmetries. Comm. Math. Phys. 255:21-32, 2005.
+[52] M. Fannes, P. Vanheuverzwijn, A. Verbeure. Energy-Entropy Inequalities for Classical
+Lattice Systems. J. Stat. Phys. 29, no 3: 547-560, 1982.
+[53] R. Fern´andez. Gibbsianness and non-Gibbsianness in Lattice Random Fields. In Math-
+ematical Statistical Physics. Proceedings of the 83rd Les Houches Summer School (july
+2005), Elsevier, A. Bovier, A.C.D. van Enter, F. den Hollander, F. Dunlop eds., 2006.
+[54] R. Fern´andez, C.-E. Pﬁster. Global speciﬁcations and Non-Quasilocality of Projections
+of Gibbs Measures. Ann. Proba. 25, no 3:1284-315, 1997.
+[55] M.E. Fisher. Magnetic Critical Point Exponents - Their Interrelations and Meaning. J.
+Appl. Phys. 38:981, 1967.
+[56] H. F¨ollmer. Phase Transition and Martin Boundary. In S´eminaires de Probabilit´es IX,
+Universit´e de Strasbourg. Lecture Notes in Mathematics 465:305-317, Springer, 1975.
+[57] H. F¨ollmer. On the Global Markov Property. In Quantum ﬁelds: Algebras, Processes (L.
+Streit, ed.):293-302, Springer, New York, 1980.
+[58] C. Fortuin, P.W. Kasteleyn, J. Ginibre. Correlation Inequalities on some Partially Or-
+dered Sets. Comm. Math. Phys. 22:89-103, 1971.
+35
+
+[59] S. Friedli, Y. Velenik. Statistical Mechanics of Lattice Systems: a Concrete Mathematical
+Introduction. Cambridge University Press, 2017.
+[60] J. Fr¨ohlich, R.B. Israel, E.H. Lieb, B. Simon. Phase Transitions and Reﬂection Positivity.
+I. General theory and Long-Range Lattice Models. Comm. Math. Phys. 62:1-34, 1978.
+[61] J. Fr¨ohlich, E.H. Lieb. Phase Transitions in Anisotropic Lattice Spin Systems. Comm.
+Math. Phys. 60:233-267, 1978.
+[62] J. Fr¨ohlich, B. Simon, T. Spencer. Infrared Bounds, Phase Transitions and Continuous
+Symmetry Breaking. Comm. Math. Phys. 50, no 1:79-95, 1976.
+[63] J. Fr¨ohlich, T. Spencer. The Kosterlitz-Thouless in Two-Dimensional Abelian Spin Sys-
+tems and the Coulomb Gas. Comm. Math. Phys. 81:527-602, 1981.
+[64] J. Fr¨ohlich, T. Spencer. The Phase Transition in the One-Dimensional Ising Model with
+1/r2 Interaction Energy. Comm. Math. Phys. 84:87-101, 1982.
+[65] J. Fr¨ohlich, T. Spencer. Massless Phases and Symmetry Restoration in Abelian Gauge
+Theories ans Spin Systems. Comm. Math. Phys. 83:411-454, 1982.
+[66] J. Fr¨ohlich, T. Spencer. The Berezinskii-Kosterlitz-Thouless Transition (Energy-Entropy
+Argument in Defect Gases). In Scaling and Self-Similarity in Physics. Fr¨ohlich, J. (ed.),
+Progress in Physics, Basel, Boston : Birkh¨auser, 1983/84.
+[67] J. Fr¨ohlich, C.-E. Pﬁster. On the Absence of Spontaneous Symmetry Breaking and of
+Crystalline Ordering in 2d Systems. Comm. Math. Phys. 81:277-298, 1981.
+[68] J. Fr¨ohlich, C.-E. Pﬁster. Spin Waves, Vortices, and the Structure of Equilibrium States
+in the Classical XY -Model. Comm. Math. Phys. 89:303-327, 1983.
+[69] H.-O. Georgii. Gibbs Measures and Phase Transitions. De Gruyter Studies in Mathemat-
+ics 9 Berlin-NY, 1988. See also 2d edition, 2011.
+[70] G. Giachetti, N. Defenu, S. Ruﬀo, A. Trombettoni. Berezinskii-Kosterlitz-Thouless phase
+transitions with long-range couplings. Preprint arXiv:2104.13217, 2021.
+[71] J. Ginibre. General Formulation of Griﬃths' Inequalities. Comm. Math. Phys. 16:310-
+328, 1970.
+[72] J. Ginibre. Correlation Inequalities in Statistical Mechanics. Mathematical aspects of sta-
+tistical mechanics (Proc. Sympos. Appl. Math., New York, 1971), pp. 27-45.
+[73] S. Goldstein. A Note on Speciﬁcations. Z. Wahrsch. verw. Geb. 46:45-51, 1978.
+[74] S. Goldstein. Remarks on the Global Markov Property. Comm. Math. Phys. 74, 1980.
+[75] R.B. Griﬃths. Peierls' Proof of Spontaneous Magnetization in a Two-Dimensional Ising
+Ferromagnet. Phys. Rev. (2) 136, 136:A437-439, 1964.
+[76] R.B. Griﬃths. Rigorous Results for Ising Ferromagnets of Arbitrary Apin. J. Mathemat-
+ical Phys. 10, 1969.
+36
+
+[77] R.B. Griﬃths. Phase Transitions. In Statistical Mechanics and Quantum Field Theory,
+Les Houches Summer School 1970, C. de Witt and R. Stora (eds), Gordon and Breach
+NY, pp 241-279, 1971
+[78] R.B. Griﬃths, P.A. Pearce. Position-Space Renormalization Group Transformations.
+Phys. Rev. Lett. 49:917-920, 1978.
+[79] R.B. Griﬃths, P.A. Pearce. Mathematical Properties of Position-Space Renormation-
+Group Transformations. J. Stat. Phys. 20:499-545, 1979.
+[80] K. Haller, T.G. Kennedy. Absence of Renormalization Group Pathologies near the Critical
+Temperature. Two Examples. J. Stat. Phys. 85:607-637, 1996
+[81] G.C. Hegerfeldt. Correlation Inequalities for Ising Ferromagnets with Symmetries. Comm.
+Math. Phys. 57:259-266, 1977.
+[82] Y. Higuchi. On the Absence of Non-Translation-Invariant Gibbs States for the Two-
+Dimensional Ising model. In Random Fields (Esztergom, 1979) Vol II:517-534, 1981.
+[83] C. Herring, C. Kittel. On the Theory of Spin Waves in Ferromagnetic Media. Phys. Rev.,
+81:869, 1951.
+[84] P.C. Hohenberg. Existence of Long-Range Order on One and Two Dimensions. Phys.
+Rev. 158, no 2:383-387, 1967.
+[85] P. Hulse. On the Ergodic Properties of Gibbs States for Attractive Speciﬁcations. J.
+London Math. Soc. (2) 43:119-124, 1991.
+[86] D. Ioﬀe, S.B. Shlosman, Y. Velenik. 2D Models of Statistical Physics with Continuous
+Symmetry: The Case of Singular Interactions. Comm. Math. Phys. 226:433-454, 2002.
+[87] R.B. Israel. Banach Algebras and KadanoﬀTransformations. In Random Fields (Eszter-
+gom, 1979) J. Fritz, J.L. Lebowitz and D. Sz´asz eds, vol II, pp 593-608, 1981.
+[88] R.B. Israel. General Trivialities of Phase Diagrams in Spaces of Long-Range Interactions.
+Comm. Math. Phys., 106:459-466, 1986.
+[89] G. Jona-Lasinio. The Renormalization Group: A Probabilistic View. Il Nuovo Cimento
+26 B, no 1, 1975.
+[90] T.G. Kennedy. Renormalization Group maps for Ising models in Lattice gas variables.J.
+Stat. Phys. 140: 409-426, 2010.
+[91] T.G. Kennedy. Absence of Renormalization Group pathologies in Some Critical Dyson-
+Ising Ferromagnets. Preprint arXiv:2006.11429., 19 June 2020.
+[92] O.K. Kozlov. Gibbs Description of a System of Random Variables. Problems Inform.
+Transmission. 10:258-265, 1974.
+[93] C. K¨ulske, A. Le Ny. Spin-Flip Dynamics of the Curie-Weiss Model: Loss of Gibbsianness
+with Possibly Broken Symmetry. Comm. Math. Phys. 271, no 2:431-454, 2007.
+[94] C. K¨ulske, A.A. Opoku. The posterior metric and the goodness of Gibbsianness for trans-
+forms of Gibbs measures. Elec. J. Prob. 13:1307-1344, 2008.
+37
+
+[95] H. Kunz, C.-E. Pﬁster. First Order Phase Transition in the Plane Rotator Ferromagnetic
+Model in Two Dimensions. Comm. Math. Phys. 46:245-251, 1976.
+[96] H. Kunz, C.-E. Pﬁster, P.-A. Vuillermot. Correlation Inequalities for some Classical Spin
+Vector Model. Phys. Lett 54A:428, 1975.
+[97] H. Kunz, C.-E. Pﬁster, P.-A. Vuillermot. Inequalities for some Classical Spin Vector
+Model. J. Phys. A.: Math. Gen. 9:1673, 1976.
+[98] L. Landau, E. Lifchitz. Physique Th´eorique, Tome 5. Physique Statistique. Ed. MIR
+Moscow 1962 (traduit du Russe, Ellipses, Paris, 1994). Statistical Physics, Addison-
+Wesley, NY, 1969.
+[99] O.E. Lanford, D. Ruelle. Observables at Inﬁnity and States with Short Range Correlations
+in Statistical Mechanics. Comm. Math. Phys. 13:194-215, 1969.
+[100] B. Lees, L. Taggi. Exponential Decay of Transverse Correlations for Spin Systems with
+Continuous Symmetry and Non-Zero external Field. Preprint arXiv:2006.06654, 2020.
+[101] A. Le Ny. Introduction to Generalized Gibbs measures. Ensaios Matem´aticos 15, 2008.
+[102] A. Le Ny. Almost Gibbsianness and Parsimonious Description of the Decimated 2d-Ising
+Model. J. Stat. Phys. 152, no. 2:305-335, 2013.
+[103] A. Le Ny. Gibbs Measures for Long-Range Ising Models. In ´Etats de la Recherche -
+M´ecanique Statistique (Soci´et´e Math´ematique de France), arXiv:1911.01860, 2021+.
+[104] J.L. Lebowitz. GHS and Other Inequalities. Comm. Math. Phys. 35:87-92, 1974.
+[105] T.D. Lee, C.N. Yang. Statistical Theory of equations of state and phase transitions. II.
+Lattice gas and Ising model.
+[106] C. Maes, F. Redig, A. van Moﬀaert. Almost Gibbsian vs. Weakly Gibbsian measures.
+Stoch. Proc. and Appl. 99:1-15, 1999.
+[107] O.A. McBryan, T. Spencer. On the Decay of Correlations in SO(N)-Symmetric Ferro-
+magnets. Comm. Math. Phys. 53: 299-302, 1977.
+[108] V.A. Malyshev. Phase Transitions in Classical Ferromagnets with Arbitrary Paramterer
+of Anisotropy. Comm. Math. Phys. 40:75-82, 1975.
+[109] N.D. Mermin. Absence of Ordering in Certain Classical Systems. J. Math. Phys. 8:1061-
+1064, 1967.
+[110] N.D. Mermin, H. Wagner. Absence of Ferromagnetism or Antiferromagnetism in One-
+or Two-dimensional Isotropic Heisenberg Models. Phys. Rev. Lett. 17:1133-1136, 1966.
+[111] A. Messager, S. Miracle-sole, C.-E. Pﬁster. Correlation Inequatlities and Uniqueness
+of the Equilibrium State for the Plane Rotator Ferromagnetic Model. Comm. Math.
+Phys.58:19-29, 1978.
+[112] L. M´ol, A. Pereira, W. Moura-Melo. On Phase Transition and Vortex Stability in the
+Generalized XY -models. Phys. Rev. Lett. A, 319:114-121, 2013.
+38
+
+[113] J.L. Monroe. Correlation Inequalities for Two-Dimensional Vector Spin Systems. J.
+Math. Phys. 16:1809-1812, 1975.
+[114] C.M. Newman. Moment Inequalities for Ferromagnetic Gibbs distributions. J. Math.
+Phys. 16:1956, 1975.
+[115] R. Peierls. On Ising's Model of Ferromagnetism. Proc.Camb.Phil.Soc. 32, 1936.
+[116] C. E. Pﬁster. On the Symmetry of the Gibbs States in 2D Lattice Systems. Comm.
+Math. Phys., 79:181-188, 1981.
+[117] C. Preston. Gibbs states on countable sets, Cambridge University Press, 1975.
+[118] C. Preston. Random Fields. Lectures Notes in Mathematics 534, Springer, 1976.
+[119] C. Preston. Construction of Speciﬁcations. In Quantum Fields - Algebras, Processes
+(Bielefeld symposium 1978) pp 269-282, ed. L. Streit, Wien-NY : Springer 1980.
+[120] A. Raouﬁ. Translation-Invariant Gibbs States of Ising Models: General Settings. Ann.
+Proba. 48, no 2:760-777, 2020.
+[121] M. Romerio, P.-A. Vuillermot. Absence of Long-Range Order for a Class of Two-
+Dimensional systems. Group theoretical methods in physics (Proc. Third Internat. Colloq.,
+CNRS CPT Marseille, 1974), Vol. 1, pp. 153-159, 1974.
+[122] M. Romerio, P.-A. Vuillermot. Absence of Ordering in a Class of Lattice Systems. Comm.
+Math. Phys. 41:281-288, 1975.
+[123] D. Ruelle. Statistical Mechanics. New York : Benjamin, 1969.
+[124] D. Ruelle. On the Use of "Small External Fields" in the Problem of Symmetry Break-
+down in Statistical Mechanics. Ann. Phys. 69, no 2:366-374, 1972.
+[125] S.B. Shlosman. Absence of Continuous Symmetry Breakdown in Two-Dimensional Mod-
+els of Statistical Physics. Theor. Math. Phys.33:897-902, 1977.
+[126] B. Simon, A.D. Sokal. Rigorous Entropy-Energy Arguments. J. Stat. Phys. 25, no 4:679-
+694, 1981.
+[127] B. Simon. Absence of continuous symmetry breaking in a one-dimensional n−2 model.
+J. Stat. Phys. 26, 307-311, 1981.
+[128] B. Simon. Twelve Tales in Mathematical Physics: An Expanded Heinemann Prize Lec-
+ture. arXiv:2011.12335, 2020.
+[129] A.D. Sokal. Existence of Compatible Families of Proper Regular conditional probabili-
+ties. Z.W.v.Geb., 56, no 4: 537-548, 1981.
+[130] W.G. Sullivan. Potentials for Almost Markovian Random Fields. Comm. Math. Phys.
+33:61-74, 1973.
+39
+

@@ -1,0 +1,1246 @@
+The 2D Ising model, criticality and AIT
+G. Ruﬃnia,b,∗, G. Decoc
+aNeuroelectrics Corporation, Cambridge, 02139 MA, USA
+bNeuroelectrics Barcelona, Av. Tibidabo 47bis, 08035, Barcelona, Spain
+cInstituci´o Catalana de Recerca i Estudis Avan¸cats (ICREA), Universitat Pompeu Fabra,
+Computational Neuroscience, Pla¸ca de la Merc`e, 10-12, 08002 Barcelona, Spain.
+Abstract
+In this short note we study the 2D Ising model, a universal computational model
+which reﬂects phase transitions and critical phenomena, as a framework for estab-
+lishing links between systems that exhibit criticality with the notions of complexity.
+This is motivated in the context of neuroscience applications stemming from algo-
+rithmic information theory (AIT). Starting with the original 2D Ising model, we
+show that — together with correlation length of the spin lattice, susceptibility to
+a uniform external ﬁeld — the correlation time of the magnetization time series,
+the compression ratio of the spin lattice, the complexity of the magnetization time
+series — as derived from Lempel-Ziv-Welch compression—, and the rate of informa-
+tion transmission in the lattice, all reﬂect the eﬀects of the phase transition, which
+results in spacetime pockets of uniform magnetization at all scales. We also show
+that in the Ising model the insertion of sparse long-range couplings has a direct
+eﬀect on the critical temperature and other parameters. The addition of positive
+links extends the ordered regime to higher critical temperatures, while negative
+links have a stronger, disordering inﬂuence at the global scale. We discuss some
+implications for the study of long-range (e.g., ephaptic) interactions in the human
+brain and the eﬀects of weak perturbations in neural dynamics.
+Keywords:
+Ising model, algorithmic complexity, ephaptic interactions,
+LZW
+∗Corresponding Author
+Email address: giulio.ruffini@neuroelectrics.com (G. Ruﬃni)
+Preprint submitted to bioRxiv
+October 21, 2021
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+Contents
+1
+Introduction
+3
+1.1
+Network brain models . . . . . . . . . . . . . . . . . . . . . .
+3
+1.2
+Critical phenomena and the 2D Ising model . . . . . . . . . .
+3
+1.3
+The ampliﬁcation of weak perturbations by neuronal assemblies
+4
+1.4
+Ephaptic interactions . . . . . . . . . . . . . . . . . . . . . . .
+5
+1.5
+Our aims here . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6
+2
+Materials and Methods
+7
+2.1
+The 2D Ising model
+. . . . . . . . . . . . . . . . . . . . . . .
+7
+2.2
+Hyperlinks (h-links)
+. . . . . . . . . . . . . . . . . . . . . . .
+7
+2.3
+Implementation . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+2.4
+Observables . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+2.4.1
+Autocorrelation length of lattice and time
+. . . . . .
+8
+2.4.2
+Compression ratio of magnetization time series or lat-
+tice data . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+2.5
+Magnetic susceptibility and heat capacity . . . . . . . . . . .
+9
+2.6
+Susceptibility to spin perturbations . . . . . . . . . . . . . . .
+10
+2.7
+Information transmission . . . . . . . . . . . . . . . . . . . . .
+10
+3
+Results and discussion
+10
+3.1
+Impact of positive hyperlinks . . . . . . . . . . . . . . . . . .
+10
+3.2
+Impact of negative hyperlinks
+. . . . . . . . . . . . . . . . .
+11
+3.3
+Complexity and critical temperature . . . . . . . . . . . . . .
+12
+3.4
+Information transmission is maximal at the critical tempera-
+ture unaﬀected by long range h-links . . . . . . . . . . . . . .
+12
+4
+Conclusions
+12
+4.1
+Relevance to hybrid brain modeling . . . . . . . . . . . . . . .
+13
+4.2
+A personalized critical temperature for the individual brain .
+13
+4.3
+Ising and individual or brain state dependence to tES
+. . . .
+14
+2
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+1. Introduction
+1.1. Network brain models
+The human brain is a multiscale dynamical network. A body of evidence
+suggests that brain function emerges from interactions between specialized,
+spatially-segregated areas of large-scale networks. In such networks, nodes
+correspond to cortical or sub-cortical brain regions and edges correspond
+to either structural (i.e., direct connections) or functional (i.e., through
+synaptic or ephaptic interactions) couplings between these regions.
+Sev-
+eral computational studies have developed whole-brain network models to
+explore the relationship between brain function and its underlying connec-
+tivity [1, 2, 3, 4, 5, 6, 7, 8].
+1.2. Critical phenomena and the 2D Ising model
+More abstract frameworks from statistical physics can shed light into
+understanding emerging phenomena in large networks such as phase transi-
+tions in systems where nodes — neurons or cortical columns here — inter-
+change information under the assumptions of the maximum entropy princi-
+ple [9, 10, 11].
+The description of systems with many degrees of freedom can be sum-
+marized by coarse-graining variables (describing macrostates), a step which
+introduces statistics into modeling. At so-called critical points, observable
+quantities such as diverging correlation length or susceptibility to external
+perturbations reveal singularities in the limit as the number of degrees of
+freedom goes to inﬁnity. At these transitions, from order to disorder, there
+is a loss of sense of scale, with fractal properties in energy and information
+ﬂow.
+In this framework, elements such as neurons, columns or brain regions
+are modeled by spins (i.e., with two states, up or down, on or oﬀ) with
+nearest neighbor pair interactions, and the emerging statistical properties
+of large networks of these elements are studied under diﬀerent conditions
+(temperature or excitability, or an external magnetic or electric ﬁeld, see
+Figure 1). The prototypical simplest system in this context is the 2D Ising
+model, which features nearest neighbor interactions and a phase transition.
+This model has been shown to be universal, i.e., that all the physics of
+every classical spin model (with more general types of interactions) can be
+reproduced in the low-energy sector of certain "universal" models such as
+the 2D Ising model [12]. This fact reﬂects the intrinsic computational power
+of near-neighbor interactions. In fact, Ising models have been shown to be
+3
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+Figure 1: Parallels between the Ising 2D model and hybrid brain models (HMBs). LRC:
+long-range connectivity, synaptic or ephaptic.
+universally complete [13, 14], with a map between any given logic circuit to
+the ground states of some 2D Ising model Hamiltonian.
+On the other hand, the fact the brain exhibits characteristics of criti-
+cality that may be modeled by systems such as the Ising model is now well
+established, with ideas that go back to pioneers such as Turing, Bak [15] and
+Hopﬁeld [16]. There is further evidence that the dynamics of the healthy
+brain occupy a sub-critical zone (see [17] and references therein).
+While some recent studies have investigated the interpretation of fMRI
+data using the Ising formalism, our context is for its use with EEG data and
+for analysis/personalization of HBMs.
+1.3. The ampliﬁcation of weak perturbations by neuronal assemblies
+Accumulating evidence from several decades of research suggests that
+endogenous or exogenous weak electric ﬁelds may inﬂuence neural process-
+ing, but how and where this may happen is not yet fully understood [18].
+4
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+Weak electric ﬁelds such as the ones produced by non-invasive transcranial
+electrical current stimulation produce only very small perturbations of the
+transmembrane potential of the most sensitive neurons (elongated pyrami-
+dal cells). Understanding how these small (about 0.1-0.2 mV per V/m of
+electric applied [19] and signiﬁcantly lower than the 20 mV depolarization
+required to bring a neuron from resting potential to spike threshold in vitro
+[20]), but relatively spatiotemporally homogenous single-cell eﬀects collec-
+tively amplify is central to these questions. Two solutions can be envisioned.
+Although membrane perturbations from weak ﬁelds are sub-threshold,
+nonlinear eﬀects in coupled populations probably lead to an ampliﬁcation
+of eﬀects. For example, mathematical models have demonstrated the am-
+pliﬁcation of weak but coherent signals in networks of nonlinear oscillators
+(see, e.g., [21, 22, 23]) and, more speciﬁcally, in computational models of
+neural circuits [24, 25]). This eﬀect is ultimately dependent on the coupling
+strength of network elements and their architecture, while noise can con-
+tribute to the enhancement of small but homogeneous perturbations in the
+network (array enhanced stochastic resonance). Thus, cooperative eﬀects
+arising from noise and coupling in coupled systems can lead to an enhance-
+ment of the network response over that of a single element.
+The second potential mechanism calls for the role of criticality, which is
+the one we directly study here. In fact, these two mechanisms, stochastic
+resonance and criticality, are probably closely related in the context of the
+human brain [26, 27].
+1.4. Ephaptic interactions
+When modeling systems as networks, the connectivity matrix of nodes
+plays a key role. Recently, the role of ephaptic interaction as an additional
+cortical coupling mechanism has been suggested. Ephaptic interactions refer
+to the direct eﬀects on neurons of electric ﬁelds generated by the activity
+of other neurons [28]. Their main features are that they enable vert fast,
+bidirectional, propagation of information between cortical sites, inﬂuencing
+both local and synaptically distant regions as long as they are close in 3D
+space, and in a direction dictated by the state and orientation of the emitting
+and receiving populations (i.e., with eﬀects that can be both excitatory and
+inhibitory). In [18], we studied the macroscopic electric ﬁeld generated by
+cortical dipoles using realistic ﬁnite element modeling of the human brain.
+We found that modeled endogenous ﬁeld magnitudes are comparable to
+those in measurements of weak but functionally relevant endogenous ﬁelds,
+or to those generated by transcranial current stimulation. The eﬀects may
+5
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+Figure 2: Algorithmic information or Kolmogorov uniﬁcation program aiming to link
+algorithmic information theory, statistical mechanics and integrated information theory.
+Here we focus on the ﬁrst two (red arrow).
+thus play a role in linking synaptically distant regions, i.e., across sulci in
+the cortex.
+1.5. Our aims here
+As discussed above, a statistical network perspective appears of interest
+for two reasons. First, it may help understand the enhanced sensitivity of
+neuronal networks, which may ﬁnd a direct analog in the increased suscepti-
+bility of Ising models near the critical temperature. Second, it may provide a
+tool to study the impact of long-range connections in the system (mimicking
+ephaptic eﬀects) in properties such as critical temperature or susceptibility.
+Here, we ﬁrst consider the use of this model to study the links between
+the views aﬀorded by statistical mechanics and algorithmic information the-
+ory, which is part of a uniﬁcation program seeking to bring together al-
+gorithmic information theory, criticality and integrated information theory
+perspectives of the cognition (see Figure 2).
+We ﬁrst aim to show that,
+at the abstract level, an Ising model can shed some light into how criti-
+cal phenomena and complexity can be mathematically related, by studying
+algorithmic complexity of Ising model data near the critical temperature.
+Our second task is to then investigate the impact of short and long range
+"ephaptic" links on the classical 2D Ising model with local couplings (the
+original model) on phenomena such as phase transitions and complexity.
+The impact on susceptibility to weak perturbations will also be studied. As
+discussed, this is of interest due to the presence of such long range interac-
+tions in the human brain, both structural or electrical in nature (ephaptic
+interactions).
+In the next sections, we ﬁrst describe the model used and the metrics we
+will employ to study its dynamics. We then provide the results of simulations
+and discuss the results.
+6
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+2. Materials and Methods
+We ﬁrst describe the original 2D Ising model with ﬁelds.
+2.1. The 2D Ising model
+The Ising model is given by the energy or Hamiltonian of the 2D lattice
+of side length L, S = {σi|i = 1, .., Nl ≡L2},
+E[σ] = −
+X
+i<j≤L2
+Jijσiσj −
+X
+j
+Bj σj
+(1)
+where σi denotes the orientation of each spin in the lattice (±1), Jij is
+the coupling matrix (reﬂecting nearest neighbor coupling only with pairs
+counted once) and B is an external magnetic ﬁeld (see Figure 3) that may
+be inhomogeneous.
+We can rewrite this using 2d indices as (we assume a uniform B ﬁeld for
+simplicity)
+E[σ] = −1
+2
+X
+(n,m)̸=(n′,m′)
+J(n,m),(n′,m′)σ(n,m)σ(n′,m′) −B
+X
+(n,m)
+σ(n,m)
+(2)
+The energy of a single spin is
+E(σ(n,m)) = −σ(n,m)
+X
+(n′,m′)
+J(n,m),(n′,m′)σ(n′,m′) −B σ(n,m)
+(3)
+2.2. Hyperlinks (h-links)
+In order to study the impact of additional sparse short or long-range
+couplings, we deﬁne a linking probability and create additional elements in
+the Jij matrix. Holding the number of additional links ﬁxed, we then study
+three diﬀerent scenarios: a) uniformly selected random links, b) long-range
+links on the "antipodal" points in the toroidal manifold, and c) near-range
+links. The probability of adding a new link to a given site used was of 0.01%.
+2.3. Implementation
+The model has been implemented in Python 3 with the Numpy [29] and
+Scipy [30] libraries. Starting from a random lattice conﬁguration, the system
+is evolved using a modiﬁed Metropolis algorithm where we update the state
+of a quarter of the spins (randomly chosen) at each time step. The number
+of time steps used is of ∼1-2 ×105.
+7
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+Figure 3: Ising model on 2D torus geometry. The torus has actually the same number of
+sites in each of its to directions — the lattice is square with periodic boundary conditions
+on the Jij. Nearest neighbors and remote spins that may be linked are depicted. A "focus"
+spin is highlighted on the left (solid circle with border) with its four nearest neighbors.
+Distant spins to which it may couple are also shown.
+2.4. Observables
+The main global observable is the lattice average magnetization M over
+the spin lattice S,
+M = ⟨σ⟩S = 1
+Nl
+Nl
+X
+i=1
+σi
+(4)
+and lattice energy, where recall Nl is the number of points in the lattice.
+This is a function of time as the lattice evolves. Relying on ergodicity, we
+can compute time averages instead of ensemble averages.
+2.4.1. Autocorrelation length of lattice and time
+Autocorrelation length or time are computed from data by ﬁrst generat-
+ing the autocorrelation function, and then computing from it the integrated
+autocorrelated time or length, e.g., lc = 1 + 2 PL/2
+n=1 ρ(n) [31, 32]. The auto-
+correlation function of the lattice is computed along the two main axes and
+averaged.
+2.4.2. Compression ratio of magnetization time series or lattice data
+The compression ratio is computed essentially as described in [33], i.e.,
+compressing the quantized time series using the Lepel-Ziv-Welch algorithm
+8
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+Figure 4: Results from simulation: magnetization as a function of temperature in a 40×40
+lattice with and without long-range, sparse (0.01% probability of coupling) positive cou-
+plings on the critical temperature.
+and computing the ratio of compressed string length vs original string length.
+For (binary) lattice data, the array is ﬂattened ﬁrst. For time series data,
+quantiﬁcation is done in 10 levels, (i.e., with digits 0-9).
+As discussed in [33], two variants of this metric are computed, ρ0 and
+ρ1 = ρ0 −H0, with H0 the ﬁrst order entropy. The second metric provides
+a measure of second and higher order eﬀects on entropy rate, which can
+be interpreted as the extra apparent extra entropy (bits/char) incurred by
+using ﬁrst order methods instead estimating the true entropy rate.
+2.5. Magnetic susceptibility and heat capacity
+These are computed from statistical mechanics considerations. Let
+E[σ] = −
+X
+i<j
+Jijσiσj −B
+X
+j
+σj
+and
+Z(β, B) =
+X
+σ
+e−βE[σ]
+9
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+be the partition function. The average magnetization is the ensemble aver-
+age of lattice magnetization,
+⟨M⟩= 1
+Z
+X
+σ
+M e−βE[σ]
+(5)
+Then we can express (see, e.g., [34])
+⟨M⟩=
+1
+βZ
+∂Z
+∂B
+and following similar considerations
+χ = ∂⟨M⟩
+∂B
+
+T
+= σ2
+M/T, and Cv = ∂⟨E⟩
+∂T
+
+B
+= σ2
+E/T 2
+(6)
+where the standard deviation computation is taken over the ensemble (i.e.,
+time averages here).
+2.6. Susceptibility to spin perturbations
+We have also studied the impact of spin ﬂips on lattice dynamics as a
+function of temperature. In order to do this we clamp the time series at a
+spin location to a randomly generated time series, and we study the corre-
+lation of this time series with that of a spin at a nearby location. Figure 7
+displays the correlation and its p-value for diﬀerent temperatures, highlight
+the increase in information transmission at the critical temperature.
+2.7. Information transmission
+Information transmission in Ising models of the brain has been studied
+before [35], ﬁnding that it is maximal at the critical temperature. Here we
+will study information transmission in the classical Ising model with h-links.
+Our approach is simple: we inject information at a spin site (clamping it
+down) and study the correlation of its forced activity at a displaced site,
+looking for maximal correlation at some delay ∆τ.
+3. Results and discussion
+3.1. Impact of positive hyperlinks
+In Figure 4 the results from a 40×40 lattice are displayed, with and
+without long range hyper links. The ﬁrst conclusion is that adding a few
+positive-coupling hyperlinks increases the critical temperature and extends
+10
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+Figure 5: Results from simulation: lattice magnetization, correlation length and compres-
+sion ratio as a function of temperature (30x30 lattice, 1e5 steps) with and without positive
+links.
+the sub-critical range, as reﬂected in the magnetization, heat capacity and
+susceptibility. The eﬀect is larger for larger lattices given a ﬁxed percent of
+new links (0.01% here).
+The eﬀect of the hyperlinks is also seen on the complexity metrics. Fig-
+ure 5 displays the compression ratio and autocorrelation length and time of
+lattice and magnetization time series. The addition of hyperlinks creates a
+local minimum in the compression ratio of the time series.
+The addition of a new links amounts, in some sense, to a change in
+the topology of the lattice, i.e., increasing its genus. However, the analogy
+is not perfect, as in a proper topological sense, we should reconﬁgure more
+elements of the connectivity matrix to ensure each node has the same number
+of nearest neighbors (4).
+3.2. Impact of negative hyperlinks
+The addition of negative coupling h-links has a very strong eﬀect, and
+eﬀectively reduces the phase transition temperature point.
+11
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+Figure 6: Results from simulation: magnetization time series compression ratio, speciﬁc
+heat and susceptibility as a function of temperature (30x30 lattice, 1e5 steps).
+3.3. Complexity and critical temperature
+The results of running a 30×30 lattice model can be seen in Figure 5 and
+Figure 6. The critical temperature of the classical model does not appear
+to be aﬀected by lattice size, but the addition of extra links has a strong
+impact, in particular of long range links.
+3.4. Information transmission is maximal at the critical temperature unaf-
+fected by long range h-links
+Figure 7 displays the correlation statistics as a function of temperature.
+Information transmission is maximal near the critical temperature of the
+standard model, irrespective of the presence of h-links.
+4. Conclusions
+The main conclusion from this study is that the Ising model is very
+sensitive to the presence of a few long range (positive) connections. This has
+12
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+substantial impact on the critical point of the system. Negative connections
+seem to have an even stronger eﬀect.
+The second conclusion is that the transition from order to disorder de-
+ﬁned by the critical boundary has a ﬁngerprint on the entropy of the dy-
+namics of system as measured by Lempel Ziv complexity, an eﬀect that can
+be seen in the entropy of variables such as the magnetization time series.
+Finally, we have looked at information transmission in the lattice as
+function of temperature, verifying that it peaks at the critical temperature,
+as expected. The presence of long range links does not seem to have an
+eﬀect on the temperature at which the peak is found.
+4.1. Relevance to hybrid brain modeling
+One of the key question in HBM personalization is how to ﬁx model
+parameters. An interesting line of work can be foreseen using Ising models
+derived from either cortically mapped EEG data, or from the ﬁtted model.
+From a ﬁtted HBM we can derive an Ising model and study it from the point
+of view of criticality for further insights into how to intervene. For example,
+we can binarize the time series associated to each NMM dipole ﬁeld J(t)
+and then ﬁt a Hamiltonian to reproduce the energy landscape in the data
+as in [36], and to see how far from the critical temperature it is.
+It is possible that a necessary condition for a healthy brain will be to
+operate near but under its critical temperature. It has been argued that
+some brain states (e.g., psychodelics) or pathologies (ﬁbromyalgia) can be
+attributed to critico-patologies — being too close [37, 17, 38] or below the
+optimal zone. Several neurodenerative diseases have been characterized as
+displaying less complexity (e.g., AD or PD, see e.g., [39] and references
+therein).
+In future research we plan to use personalized Ising models to study both
+energy landscapes and associated temperature to see how close to criticality
+the system is.
+4.2. A personalized critical temperature for the individual brain
+Ising models have been used to model brain activity (see., e.g., [36]).
+Here we would suggest to proceed as follows. Use a parcellation of the cortex
+and create an associated 2D Ising (classical) model, but with connectivity
+deﬁned by the connectome (see, e.g., [40]). Add h-links as estimated by the
+ephaptic coupling index (see [41]) or related considerations. Compute the
+critical temperature and modiﬁed susceptibility of the created Ising model
+to estimate the eﬀect of perturbations by external ﬁelds (globally or locally
+13
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+deﬁned by, e.g., realistic electric ﬁeld modeling). This can be done at the
+global level, in each parcel.
+4.3. Ising and individual or brain state dependence to tES
+As we have seen, criticality may be an important concept in tES. There
+is a hypothesis we can explore related to the inter-individual variability in
+tES responses, or something called "brain state dependence" of stimulation
+eﬀects. Could this be related to the Tc of each patient? We can ﬁt an Ising
+model to each person and estimate distance to critical temperature. There
+are diﬀerent routes to do this, and diﬀerent data sources we can use. A
+ﬁtted HBM can be the starting point. Or we can create an Ising model
+directly from data (EEG or fMRI or other as in [36]), and include or not
+DTI information. The hypothesis would be that what are traditionally called
+"responders" in brain stimulation (tES or TMS) are those that happen to
+be near Tc when stimulation is applied.
+In order to account for the eﬀect of the electric ﬁeld, we need to adapt
+it to the Ising modeling framework. The eﬀect of an electric ﬁeld can be
+modeled as a shift of the ﬁring rate of neuronal populations. If we think of
+the spin as a discretized version of the local cortical dipole, we can connect
+the two worlds, for example, by selecting a bandpass for the signals (fMRI,
+EEG, MEG or others) and discretize the power envelope to reﬂect an up or
+down state (-1 being a state of low activity).
+E[σ] = −
+X
+i<j≤L2
+Jijσiσj −
+X
+j
+Bj σj
+with
+Bj = −aλ · Ej
+where Ej is the vector E ﬁeld value at node j in the physical mesh.
+Acknowledgements
+This project has received funding from the European Research Council
+(ERC) (Galvani) under the European Union's Horizon 2020 research and
+innovation programme (grant agreement No 855109) and from the Euro-
+pean Union's Horizon 2020 research and innovation programme under grant
+agreement No 101017716 (Neurotwin).
+14
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+Figure 7: Information transmission as a function of temperature measured by p-value of
+correlation of the injected noise at a site with activity at another site displaced two steps.
+(30x30 lattice, 1e5 steps). Top: p-value. Bottom: cross-correlation coeﬃcient.
+References
+[1] I. Merlet, G. Birot, R. Salvador, B. Molaee-Ardekani, A. Mekonnen,
+A. Soria-Frish, G. Ruﬃni, P. C. Miranda, F. Wendling, From oscillatory
+transcranial current stimulation to scalp EEG changes: A biophysical
+and physiological modeling study, PLoS ONE 8 (2) (2013) e57330.
+[2] G. Deco, A. Ponce-Alvarez, P. Hagmann, G. L. Romani, D. Mantini,
+M. Corbetta, How Local Excitation-Inhibition Ratio Impacts the
+Whole Brain Dynamics, Journal of Neuroscience 34 (23) (2014)
+7886-7898. doi:10.1523/JNEUROSCI.5068-13.2014.
+URL
+http://www.jneurosci.org/cgi/doi/10.1523/JNEUROSCI.
+5068-13.2014
+[3] G. Deco, G. Tononi, M. Boly, M. L. Kringelbach, Rethinking segrega-
+tion and integration: contributions of whole-brain modelling, Nature
+Reviews Neuroscience 16 (2015).
+[4] G. Deco, M. L. Kringelbach, The economy of anatomy: Discovering
+the turbulent homogeneous isotropic functional core organisation of the
+human brain, bioRxiv (2019).
+[5] K. Bansal, J. D. Medaglia, D. S. Bassett, J. M. Vettel, S. F. Mul-
+doon, Data-driven brain network models diﬀerentiate variability across
+language tasks, PLOS Computational Biology 14 (10) (2018) 1-25.
+doi:10.1371/journal.pcbi.1006487.
+URL https://doi.org/10.1371/journal.pcbi.1006487
+15
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+[6] D. S. Bassett, O. Sporns, Network neuroscience, Nature Neuroscience
+20 (3) (2017) 353-364. arXiv:0106096v1, doi:10.1038/nn.4502.
+[7] J. Cabral, H. Luckhoo, M. Woolrich, M. Joensson, H. Mohseni,
+A. Baker, M. L. Kringelbach, G. Deco, Exploring mechanisms of spon-
+taneous functional connectivity in MEG: How delayed network interac-
+tions lead to structured amplitude envelopes of band-pass ﬁltered oscil-
+lations, NeuroImage 90 (2014) 423-435. doi:10.1016/j.neuroimage.
+2013.11.047.
+URL http://dx.doi.org/10.1016/j.neuroimage.2013.11.047
+[8] R. Sanchez-Todo, R. Salvador, E. Santarnecchi, F. Wendling, G. Deco,
+G. Ruﬃni, Personalization of hybrid brain models from neuroimaging
+and electrophysiology data, BioRxiv (2018).
+[9] E. Jaynes, Information theory and statistical mechanics, Physical Re-
+view 106 (4) (1957) 620-630.
+[10] E. Jaynes, Probability theory - the logic of science, Cambridge, 2003.
+[11] E. Schneidman, M. J. B. II, R. Segev, W. Bialek, Weak pairwise corre-
+lations imply strongly correlated network states in a neural population,
+Nature 440 (20) (2006) 1007-10112.
+[12] G. D. las Cuevas, T. S. Cubitt, Simple universal models capture all
+classical spin physics, Science 351 (6278) (2016).
+[13] M. Gu, A. Perales, Encoding universal computation in the ground states
+of Ising lattices, Phys. Rev. E 86 (011116) (2012) 1-6.
+[14] T. Kohler, T. Cubitt, Translationally invariant universal classical
+hamiltonians, Journal of Statistical Physics 176 (2019) 228-261.
+[15] D. R. Chialvo, Critical brain networks, Physica A 340 (2004) 756-765.
+[16] J. J. Hopﬁeld, Neural networks and physical systems with emergent
+collective computational abilities, PNAS 79 (1982) 2554-2558.
+[17] R. Carhart-Harris, The entropic brain — revisited, Neuropharmacology
+142 (167-178) (2018).
+[18] G.
+Ruﬃni,
+R.
+Salvador,
+E.
+Tadayon,
+R.
+Sanchez-Todo,
+A. Pascual-Leone, E. Santarnecchi, Realistic modeling of ephap-
+tic ﬁelds in the human brain,
+bioRxiv (2019).
+arXiv:https:
+16
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+//www.biorxiv.org/content/early/2019/07/02/688101.full.pdf,
+doi:10.1101/688101.
+URL
+https://www.biorxiv.org/content/early/2019/07/02/
+688101
+[19] J. Berzhanskaya, N. Chernyy, B. J. Gluckman, S. J. Schiﬀ, G. A. Ascoli,
+Modulation of hippocampal rhythms by subthreshold electric ﬁelds and
+network topology modulation of hippocampal rhythms by subthreshold
+electric ﬁelds and network topology, J Comput Neurosci 34 (2013) 369-
+389.
+[20] A. Liu, M. V¨or¨oslakos, G. Kronberg, S. Henin, M. R. Krause, Y. Huang,
+A. Opitz, A. Mehta, C. C. Pack, B. Krekelberg, A. Ber´enyi, L. C. Parra,
+L. Melloni, O. Devinsky, G. Buzs´aki, Immediate neurophysiological
+eﬀects of transcranial electrical stimulation, Nature Communications
+9 (1) (2018) 5092. doi:10.1038/s41467-018-07233-7.
+URL https://doi.org/10.1038/s41467-018-07233-7
+[21] M. E. Inchiosa, A. R. Bulsara, Nonlinear dynamic elements with noisy
+sinusoidal forcing: enhancing response via nonlinear coupling, Phys.
+Rev. E 52 (1) (1995) 327-339.
+[22] J. F. Lindner, et al., Array enhanced stochastic resonance and spa-
+tiotemporal synchronization, Physical Review Letters 75 (1) (1995) 3-
+6.
+[23] A. R. Bulsara, L. Gammaitoni, Tuninig in to noise, Physics Today
+(1996) 39-45.
+[24] F. Fr¨ohlich, D. A. McCormick, Endogenous electric ﬁelds may guide
+neocortical network activity, Neuron 67 (2010) 129-143.
+[25] M. Zhang, T. Ladas, C. Qiu, R. Shivacharan, L. Gonzalez-Reyes, D. Du-
+rand, Propagation of epileptiform activity can be independent of synap-
+tic transmission, gap junctions, or diﬀusion and is consistent with elec-
+trical ﬁeld transmission, J. Neurosci. 34 (2014) 1409-1419.
+[26] K. Linkenkaer-Hansen, Self-organized criticality and stochastic reso-
+nance in the human brain, Ph.D. thesis, Helsinki University of Tech-
+nology (November 2002).
+[27] B. V´azquez-Rodr´ıguez, A. Avena-Koenigsberger, O. Sporns, A. Grifa,
+P. Hagmann, H. Larralde, Stochastic resonance at criticality in a net-
+work model of the human cortex, Scientiﬁc Reports 7 (13020) (2017).
+17
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+[28] J. G. Jeﬀerys, R. D. Traub, M. A. Whittington, Neuronal networks for
+induced '40 hz' rhythms, Trends Neurosci 19 (5) (1996) 202-8.
+[29] S. van der Walt, S. C. Colbert, G. Varoquaux., The NumPy Array: A
+structure for eﬃcient numerical computation, Computing in Science &
+Engineering 13 (2011) 22-30.
+[30] P. Virtanen, R. Gommers, T. E. Oliphant, M. Haberland, T. Reddy,
+D. Cournapeau, E. Burovski, P. Peterson, W. Weckesser, J. Bright,
+S. J. van der Walt, M. Brett, J. Wilson, K. Jarrod Millman, N. May-
+orov, A. R. J. Nelson, E. Jones, R. Kern, E. Larson, C. Carey, ˙I. Polat,
+Y. Feng, E. W. Moore, J. Vand erPlas, D. Laxalde, J. Perktold, R. Cim-
+rman, I. Henriksen, E. A. Quintero, C. R. Harris, A. M. Archibald, A. H.
+Ribeiro, F. Pedregosa, P. van Mulbregt, S. . . Contributors, SciPy 1.0-
+Fundamental Algorithms for Scientiﬁc Computing in Python, arXiv
+e-prints (2019) arXiv:1907.10121arXiv:1907.10121.
+[31] A. Sokal, Monte Carlo methods in statistical mechanics:
+Founda-
+tions and new algorithms, in: C. DeWitt-Morette, P. Cartier, A. Fo-
+lacci (Eds.), Functional Integration, NATO ASI B: Physics, vol 361,
+Springer, Boston, MA, 1997, pp. 131-192.
+[32] M. B. Thompson, A comparison of methods for computing autocorre-
+lation time, Tech. Rep. 1007, Department of Statistics, U. of Toronto
+(2010).
+[33] G. Ruﬃni, Lempel-Ziv complexity reference, arXiv:1707.09848 [cs.IT]
+(2017).
+[34] R. Pathria, P. D. Beale, Statistical Mechanics, Elsevier Ltd, 2011.
+[35] D. Marinazzo, M. Pellicoro, G. Wu, L. Angelini, J. Cort´es, S. Stra-
+maglia, Information transfer and criticality in the ising model on the
+human connectome, PLoS ONE 9 (4) (2014).
+[36] T. Ezaki, T. Watanabe, M. Ohzeki, , N. Masuda, Energy landscape
+analysis of neuroimaging data, Philos Trans R Soc A 375 (20160287)
+(2017).
+[37] M. M. Schartner, R. L. Carhart-Harris, A. B. Barrett, A. K. Seth, S. D.
+Muthukumaraswamy, Increased spontaneous MEG signal diversity for
+psychoactive doses of ketamine, lsd and psilocybin, Scientiﬁc Reports
+7 (46421) (2017).
+18
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+[38] U. Lee, M. Kim, K. Lee, C. Kaplan, D. Clauw, S. Kim, G. A. Mashour,
+R. E. Harris, Functional brain network mechanism of hypersensitivity
+in chronic pain, Scientiﬁc Reports 8 (243) (2018) 1-11.
+[39] G. Ruﬃni, D. Iba˜nez, E. Kroupi, J.-F. Gagnon, J. Montplaisir,
+R. Ronald B. Postuma, M. Castellano, A. Soria-Frisch, Algorithmic
+complexity of eeg for prognosis of neurodegeneration in idiopathic rapid
+eye movement behavior disorder (rbd), Annals of Biomedical Engineer-
+ing 47 (2019) 282-296.
+[40] T. Das, P. Abeyasinghe, J. S. Crone, A. Sosnowski, S. Laureys, A. M.
+Owen, A. Soddu, Highlighting the structure-function relationship of
+the brain with the ising model and graph theory, BioMed Research
+International (237898) (2014).
+[41] G. Ruﬃni, R. Salvador, E. Tadayon, R. Sanchez-Todo, A. Pascual-
+Leone, E. Santarnecchi, Realistic modeling of ephaptic ﬁelds in the
+human brain, BioRXiv (2019).
+19
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.0
+0.2
+0.4
+0.6
+0.8
+M
+Time average of lattice M as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.0
+0.2
+0.4
+0.6
+0.8
+M
+Time average of lattice M as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+5
+10
+15
+20
+25
+Integrated lc
+Time average of lattice Integrated lc as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+5
+10
+15
+20
+25
+Integrated lc
+Time average of lattice Integrated lc as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.2
+0.4
+0.6
+0.8
+1.0
+entropy
+Time average of lattice entropy as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1.0
+entropy
+Time average of lattice entropy as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.6
+0.8
+1.0
+1.2
+1.4
+0
+Time average of lattice 
+0 as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.6
+0.8
+1.0
+1.2
+1.4
+0
+Time average of lattice 
+0 as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.28
+0.30
+0.32
+0.34
+0.36
+0.38
+0.40
+1
+Time average of lattice 
+1 as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.15
+0.20
+0.25
+0.30
+0.35
+0.40
+1
+Time average of lattice 
+1 as a function of temperature
+without h-links
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.0
+0.2
+0.4
+0.6
+0.8
+Entropy
+Magnetization time series Entropy
+none
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+Entropy
+Magnetization time series Entropy
+none
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.05
+0.10
+0.15
+0.20
+0
+Magnetization time series 
+0
+none
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.025
+0.050
+0.075
+0.100
+0.125
+0.150
+0.175
+0
+Magnetization time series 
+0
+none
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+0.0
+1
+Magnetization time series 
+1
+none
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.8
+0.6
+0.4
+0.2
+0.0
+1
+Magnetization time series 
+1
+none
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.00
+0.05
+0.10
+0.15
+0.20
+Susceptibility
+none
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+0.00
+0.05
+0.10
+0.15
+0.20
+0.25
+0.30
+0.35
+Susceptibility
+none
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+2
+4
+6
+8
+10
+Cv
+Specific heat
+none
+random h-links
+long range h-links
+short range h-links
+2.0
+2.2
+2.4
+2.6
+2.8
+T
+2
+4
+6
+8
+10
+Cv
+Specific heat
+none
+random h-links
+long range h-links
+short range h-links
+Figure 8: Results from simulation—lattice and time series metrics. Left: positive (p=1e-4)
+couplings. Right: negative couplings (p=2e-5). (30x30 lattice, 1e5 steps).
+20
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted October 22, 2021. 
+; 
+https://doi.org/10.1101/2021.10.21.465265
+doi: 
+bioRxiv preprint 
+

@@ -1,0 +1,2286 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/328395242
+Towards fungal computer
+Article  in  Interface Focus · October 2018
+DOI: 10.1098/rsfs.2018.0029
+CITATIONS
+53
+READS
+5,558
+1 author:
+Andrew Adamatzky
+University of the West of England, Bristol
+925 PUBLICATIONS   14,682 CITATIONS   
+SEE PROFILE
+All content following this page was uploaded by Andrew Adamatzky on 23 October 2018.
+The user has requested enhancement of the downloaded file.
+
+rsfs.royalsocietypublishing.org
+Research
+Cite this article: Adamatzky A. 2018 Towards
+fungal computer. Interface Focus 8: 20180029.
+http://dx.doi.org/10.1098/rsfs.2018.0029
+Accepted: 4 September 2018
+One contribution of 10 to a theme issue
+'Computation by natural systems'.
+Subject Areas:
+biomathematics, biomedical engineering,
+computational biology
+Keywords:
+natural computation, fungi, unconventional
+computing
+Author for correspondence:
+Andrew Adamatzky
+e-mail: andrew.adamatzky@uwe.ac.uk
+Towards fungal computer
+Andrew Adamatzky
+Unconventional Computing Lab, UWE, CSCT, Bristol, UK
+AA, 0000-0003-1073-2662
+We propose that fungi Basidiomycetes can be used as computing devices:
+information is represented by spikes of electrical activity, a computation is
+implemented in a mycelium network and an interface is realized via fruit
+bodies. In a series of scoping experiments, we demonstrate that electrical
+activity recorded on fruits might act as a reliable indicator of the fungi's
+response to thermal and chemical stimulation. A stimulation of a fruit is
+reflected in changes of electrical activity of other fruits of a cluster,
+i.e. there is distant information transfer between fungal fruit bodies. In an
+automaton model of a fungal computer, we show how to implement compu-
+tation with fungi and demonstrate that a structure of logical functions
+computed is determined by mycelium geometry.
+1. Introduction
+The fungi are the largest, widely distributed and oldest group of living organ-
+isms [1]. The smallest fungi are microscopic single cells. The largest mycelium
+belongs to Armillaria bulbosa, which occupies 15 hectares and weights 10 tons
+[2], and the largest fruit body belongs to Fomitiporia ellipsoidea, which at
+20 years old is 11 m long, 80 cm wide, 5 cm thick and has an estimated
+weight of nearly half-a-ton [3]. During the last decade, we produced nearly
+40 prototypes of sensing and computing devices from the slime mould Phy-
+sarum polycephalum [4], including the shortest path finders, computational
+geometry processors, hybrid electronic devices, see the compilation of the
+latest results in [5]. We found that the slime mould is a convenient substrate
+for unconventional computing; however, the geometry of the slime mould's
+protoplasmic networks is continuously changing, thus preventing fabrication
+of long-living devices, and slime mould computing devices are confined to
+experimental laboratory set-ups. Fungi Basidiomycetes are now taxonomically
+distinct from the slime mould; however, their development and behaviour are
+phenomenologically similar: mycelium networks are analogous to the slime
+mould's protoplasmic networks, and the fruit bodies are analogous to the
+slime mould's stalks of sporangia. Basidiomycetes are less susceptible to infec-
+tions; when cultured indoors, especially commercially available species, they
+are larger in size and more convenient to manipulate than slime mould, and
+they could be easily found and experimented on outdoors. This makes the
+fungi an ideal object for developing future living computing devices. Advan-
+cing our recent results on electrical signalling in fungi [6], which in a way is
+similar to electrical signalling in plants [7], we are exploring the computing
+potential of fungi in the present paper. We introduce a mycelium basis of
+fungal computing and define an architecture of fungal computers in §2. Find-
+ings on the electrical activity of fungi [6,8,9] are augmented in §3 by
+demonstrations of endogenous spiking, signalling between fruit bodies and
+signalling
+by
+fruit
+bodies
+about
+the
+state
+of
+the
+growth
+substrate.
+In experiments, we use oyster mushrooms, species pleurotus, family Tricholoma-
+taceae, because of their wide availability and interesting properties [10-12].
+We imitate electrical activity of the mycelium in a discrete model in §4.
+There we encode logical values into presence/absence of spikes in fruit
+bodies and show how logical functions can be executed. We also demonstrate
+that a geometrical structure of mycelium, in the model this is represented by a
+& 2018 The Author(s) Published by the Royal Society. All rights reserved.
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+random planar set structure, affects families of logical cir-
+cuits computed. Directions of future research on fungal
+computing are outlined in §5.
+2. Mycelium basis of fungal computer
+Mycelium propagates by a foraging front and consolidations
+of mycelial cords behind the front [13]. The foraging front
+travels outward and produces fruit bodies (figure 1a,b).
+The
+front
+is
+also
+manifested
+by
+rings
+of
+increased
+vegetation and 'exhausted' soil (figure 1c), see historical over-
+views in [14,15]. Propagation/extension of the ring is due to
+exhaustion of nutrients necessary for fungi growth.
+A mycelial growth pattern is determined by nutritional
+conditions and temperature [13,17-21], as also demonstrated
+in computer models in [22,23]. A complexity of the mycelium
+network, as estimated by a fractal dimension, is determined
+by the nutrient availability and the pressure built up between
+various parts of the mycelial network [24]. In domains with
+high concentration of nutrients mycelia branch; in poor nutri-
+ent domains mycelia stop branching [25]. As indicated in [18]
+optimization of resources is evidenced by the inhibitory
+effect of contact with baits on the remainder of the colony
+margin, regression of mycelium originating from the inoculum
+associated with the renewed growth from the bait, and differ-
+ences between growth patterns of large and small inocula/
+baits (figure 1d). Optimization of the mycelial network [20]
+is quite similar to that of the slime mould P. polycephalum,
+as evidenced in our previous studies, especially in terms of
+proximity graphs [26] and transport networks [27]. Explora-
+tion of confined spaces by hyphae has been studied in
+[28-32], and evidence of the efficiency of the exploration pro-
+vided. All the above indicate that (i) fungal mycelium can solve
+the same range of computational geometry problems as the
+slime mould P. polycephalum does [5]: shortest path [33-37],
+Voronoi diagram [38], Delaunay triangulation, proximity
+graphs and spanning tree, concave hull and, possibly, convex
+hull, and, with some experimental efforts, the travelling
+salesman problem [39], and (ii) by changing environmental
+(e)
+( f )
+(b)
+(a)
+(c)
+(d)
+(g)
+(h)
+D1
+D2
+D3
+D8
+D4
+D5
+D6
+D7
+Figure 1. Development of mycelium in nutrient-rich (a-d) and nutrient-poor (e) substrates. (a) A cross-section of a fairy ring produced by Marasmius Oreades.
+Reproduced with permission from [14]. (b) A view from above: the mycelium is dark red, the fruits are red and the dried fruits are blue. (c) Vegetation profile
+corresponding to (b): outer stimulated (light green) and inner stimulated (dark green) zones of increased vegetation, dead zone (grey) of reduced vegetation and
+inside zone (yellow) of ambient vegetation. (d) Rings and fragments of rings of Agaricus campestris (dark red) inside 65 m ring of Calvatia ciathyiformi (fresh fruits
+are red, dry fruits are blue). Reproduced with permission from [15]. (e) A development pattern of a single mycelial system of Phanerochaete velutina. Lines are
+mycelial cords. Orange/grey rectangles are inoculum blocks, white rectangles decayed inoculum blocks. Scale bar, 1 m. Reproduced with permission from [16].
+(f ) Photo of mycelium propagating on a nutrient-rich cocoa substrate. (g) Zoomed view of the propagating front where branching is articulated. (h) Schematic
+architecture of a fungal computer. Fruit bodies D1, D2, . . . are I/O interface. Mycelium network C is a distributed computing device.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+2
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+conditions we can reprogram a geometry and graph-theoretical
+structure of the mycelium networks and then use electrical
+activity of fungi [6,8,9] to realize computing circuits.
+A mycelium is hidden underground, therefore only confi-
+gurations of fruit bodies can be seen as outputs of a geometric
+computation implemented by propagating mycelium. Consider
+the following example of interacting foraging fronts. Propa-
+gation of wavefronts of fungi at large scale was described
+by Shantz & Piemeisel in Yuma, Colorado, on June 1916 [15].
+This is illustrated in (figure 1d). There are two species of fungi,
+Agaricus campestris and Calvatia ciathyiformi. The ring of
+C. ciathyiformi was nearly 65 m in diameter with 50 fresh fruits.
+There are several smaller rings of A. campestris: in some places,
+they interrupt 'wavefronts' of C. ciathyiformi growth. In theory,
+such interaction of wavefronts of different species can be used
+to approximate the Voronoi diagram, as has been done pre-
+viously with slime mould [38,40], when planar data points are
+represented by locations of fungi inoculates.
+Also, notice the characteristic location of dry fruits of
+C. ciathyiformi (blue in figure 1b,d); this brings in an analogy
+with an excitable medium: the fresh fruits are analogous to
+the 'excitation' wavefront and the dried fungi to 'refractory'
+tails of the excitation waves. Fungi rings can extend up to
+200 m diameter [15]. The analogy between fungi foraging
+fronts and excitation wavefronts indicates that already algor-
+ithms for computing with wavefronts in excitable medium
+[41,42] can be realized with foraging mycelium. That said,
+solving geometrical problems with mycelium networks
+does not sound feasible, because the mycelium growth rate
+is very low, thus the solution of any problem could take
+weeks and months, if not years, for problems in which spatial
+representation covers hundreds of metres.
+In contrast to the slow growth of mycelium, fungi exhibit an
+electrical response to stimulation in a matter of seconds or min-
+utes [6,8,9]. Therefore, a computation using electrical impulses
+propagating in and modified by the mycelium networks seems
+to be promising. We propose the following architecture of a
+fungal computer A (figure 1h): a mycelium C is a processor,
+or rather a network of processors, and fruit bodies D1, D2, . . .
+comprise I/O interface of the fungal computer. The infor-
+mation is represented by spikes of electrical potential. Thus, a
+state of Dt
+i at a time step t could be either binary, depending
+on whether a spike is present or absent at time t, or multiple
+valued, depending on a number of spikes in a train, duration
+of spikes and their amplitudes. Any fruit body can be con-
+sidered as input and output and the fungal computer
+A: Dtþw ¼ F(D), where w is a positive integer. Details on
+how exactly A could compute will be analysed in §4; first let
+us consider, §3, a few examples from laboratory experiments
+on endogenous spiking, response of fungi to stimulation and
+evidence of communication between fruit bodies.
+3. Electrical activity of fungi
+3.1. Experimental procedure
+We used commercial mushroom growing kits1 of pearl oyster
+mushrooms P. ostreatus. In the experiments reported seven
+(b)
+(a)
+V
+Figure 2. Experimental set-up. (a) Photographs of fruit bodies with electrodes inserted. (b) Position of electrodes in relation to a translocation zone. Drawing of fruit
+body is from Schu¨tte [46]; a scheme of electrodes is ours.
+A
+B
+electrical potential (mV)
+-1
+0
+1
+2
+3
+4
+0
+20 000
+40 000
+60 000
+-0.2
+0
+0.2
+40 000
+45 000
+electrical potential (mV)
+0
+0.5
+1.0
+1.5
+0
+5000
+10 000
+15 000
+electrical potential (mV)
+-0.15
+-0.10
+-0.05
+0
+0.05
+time (s)
+35 000
+40 000
+45 000
+50 000
+(b)
+(a)
+(c)
+Figure 3. Co-existence of various types of electrical activity in fruit bodies of
+the same cluster. (a) Electrical potential recorded for over 16 h on four fruits.
+(b) Zoomed in area marked 'A' in (a). Large amplitude spikes. (c) Zoomed in
+area marked 'B' in (a). Two wave-packets.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+3
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+growing kits were used. For each kit, we recorded electrical
+activity of the first flush of fruiting bodies only because the
+first flush usually provides the maximum yield of fruiting
+bodies [43] and the growing mycelium in the substrate
+was less affected by products of fungi metabolism [44,45].
+Each substrate's bag was 22 cm  10 cm  10 cm, 800-900 g
+in weight. The bag was cross-sliced 10 cm vertical and 8 cm
+horizontal and placed in a cardboard box with 8 cm  10 cm
+opening. Experiments were conducted at room temperature
+in constant (24 h) ambient lighting of 10 lux. Electrical potential
+of fruit bodies was recorded from the second to third day of
+their emergence. Resistance between cap and stalk of a fruit
+body was 1.5 MV on average between any two heads in the
+cluster 2 MV (measured by Fluke 8846 A). We recorded
+the electrical potential difference between cap and stalk of the
+fruit body. We used sub-dermal needle electrodes with twisted
+cable.2 A recording electrode was inserted into the stalk and a
+reference electrode in the translocation zone; figure 2b shows
+S1
+S4
+S2
+S3
+Ch1
+Ch3
+Ch5
+Ch7
+Ch9
+electrical potential (mV)
+-0.8
+-0.6
+-0.4
+-0.2
+0
+0.2
+0.4
+0.6
+0.8
+1.0
+time (s)
+0
+5000
+10 000
+15 000
+Ch1
+Ch3
+Ch5
+Ch7
+Ch9
+S2
+S1
+S3
+S4
+(b)
+(a)
+Figure 4. Stimulation of fruits. (a) Set-up of recording, sites of stimulation and location of electrode pairs corresponding to channels Ch1-Ch9. (b) Electrical
+potential recording on five mushrooms. Channel Ch1 is shown by black, Ch3 red, Ch5 blue, Ch7 green and Ch9 orange. The following stimuli have been applied
+to fruiting bodies. (S1) 3450 s: start open flame stimulation for 20 s. (S2) 5310 s: start open flame stimulation for 60 s. (S3) 7000 s: ethanol drop is placed on a cap
+of the fruit. (S4) 10440 s: 15 mg of table salt is placed on a cap of one of fruiting bodies.
+A
+B
+electrical potential (mV)
+-1.0
+-0.5
+0
+0.5
+1.0
+1.5
+250
+300
+350
+400
+450
+500
+550
+A
+-0.6
+-0.5
+-0.4
+-0.3
+-0.2
+ -0.1
+0
+0.1
+0.2
+time (s)
+time (s)
+3600
+3650
+3700
+A
+B
+C
+(b)
+(a)
+(c)
+Figure 5. Response of fruits to stimulation of neighbouring fruits. (a) Photo of the fruit cluster taken after experiments were completed. The stimulated fruits are
+indicated by arrows: 20 mg of salt (A), open flame of a butane lighter, temperature 600-800C for 60 s (B), 20 mg sugar (C). (b) Electrical potential of five non-
+stimulated fruits during stimulation of a fruit from their cluster with an open flame: start of the thermal stimulation is shown by arrow 'A', end of the stimulation by
+arrow 'B'. (c) Electrical potential of five fruits recorded during stimulation of a fruit from their cluster with salt, moment when salt was placed on a cap is shown by
+arrow labelled 'A'.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+4
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+the cross-section of a fruit body showing the translocation zone,
+drawing by Schu¨tte [46], of the cap; the distance between elec-
+trodes was 3-5 cm. In each cluster, we recorded four to six fruit
+bodies simultaneously (figure 2a) for 2-3 days. Electrical
+activity of fruit bodies was recorded with an ADC-24 High-
+Resolution Data Logger.3 The data logger employs differential
+inputs, galvanic isolation and software-selectable sample
+rates—these contribute to a superior noise-free resolution; its
+24-bit A/D converter maintains a gain error of 0.1%. Its
+input impedance is 2 MV for differential inputs, and offset
+error is 36 mV in +1250 mV range use. We recorded the electri-
+cal activity one sample per second; during the recording the
+logger made as many measurements as possible (typically up
+600) per second then saved the average value.
+3.2. Endogenous spiking
+As we previously discussed in [6] fruits show a rich family of
+endogenous, i.e. not caused by purposeful stimulation during
+experiments, spiking behaviour. Spiking patterns of several
+types have been observed during simultaneous recording
+from the different fruits of the same cluster. Recordings of
+four fruit bodies during nearly 20 h are shown in figure 3.
+Most pronounced patterns are the trains of large amplitude
+spikes (figure 3b) and the wave-packets (figure 3c).
+Large amplitude spikes (figure 3b) have average amplitude
+0.77 mV, s.d. 0.29. The spikes are usually observed in pairs.
+Average distance between spikes in a pair is 238 s, s.d. 81 s.
+Time interval between the two largest, over 0.8 mV, spikes
+varies from 20 to 48 min. Two wave-packets are shown in
+figure 3c. The first wave-packet, roughly 91 min long, consists
+of 10 spikes. Their amplitude varies from 0.05 mV at the begin-
+ning to 0.1 mV at the eclipse. The shortest spike is 362 s
+duration; the longest, in the middle of the waveform, is 705 s.
+The second most pronounced wave-packet consists of 19
+spikes and lasts for 163 min. Amplitudes of the spikes vary
+from 0.05 mV at the beginning of the wave-packet to 0.2 mV
+in the middle. The shortest spike is 457 s long, and the longest
+spike is 609 s long. Average spike duration is 516 s (s ¼ 56);
+average amplitude is 0.12 mV (s ¼ 0:06).
+3.3. Signalling between fruits
+To check if fruits in a cluster would respond to stimulation of
+their neighbours, we conducted the experiments illustrated in
+figure 4. Note, fruits which electrical potential recorded were
+not stimulated (figure 4a). Recording on one of the fruiting
+bodies (Ch3) shows periodic oscillations: average amplitude
+0.47 mV (s ¼ 0:19), average duration of a spike is 1669 s
+(s.d. 570) and average period 1819 s (s.d. 847) (figure 4b). Other
+recorded fruiting bodies also show substantial yet non-periodic
+changesin theelectricalpotential with amplitudes upto 1 mV. A
+thermal stimulation, S1 and S2, in figure 4b, leads to a temporal
+disruption of oscillation of the fruit Ch3, and low-amplitude
+short-period spikes in other recorded fruits Ch1, Ch2, Ch4-
+Ch9. The response of an intact fruit to stimulation of another
+fruit with an open flame consists of a depolarization approxi-
+mately
+0.02 mV
+amplitude,
+approximately
+6 s
+duration,
+followed by a repolarization approximately 0.2 mV amplitude,
+approximately 9 s duration. The depolarization starts approxi-
+mately 3 s after start of stimulation. This might indicate that it
+is caused by action potential-like fast dynamical changes.
+High-amplitude repolarization takes place at approximately
+13 s after start of stimulation, when a substantial loci of a fruit
+cap becomes thermally damaged. Application of ethanol (S3,
+figure 4) and salt (S4, figure 4) leads to a 0.15-0.45 mV drop in
+electrical potential; recovery occurs in approximately 1200 s.
+In the experiment illustrated in figure 5, we stimulated
+fruits with an open flame, salt and sugar, and recorded electri-
+cal responses from non-stimulated neighbours. Application of
+sugar did not cause any response, and thus can be seen as a
+control experiment on mechanical stimulation. No responses
+to a short-term (approx. 1-2 s) mechanical stimulation were
+recorded. Fruits respond to thermal stimulation of a member
+of their cluster by a couple of action-potential like impulses
+(figure 5b). The amplitude of the response differs from fruit
+to fruit, and more likely depends not only on the distance
+between the recorded fruit and the stimulated fruit but also
+on the position of electrodes. The fruits respond to saline
+stimulation of their neighbour in a more uniform manner
+(figure 5c). In 12-15 s after the application of salt, the electrical
+potential of the recorded fungi drops by approximately
+0.2,0:8 mV. The potential recovers in approximately 30 s.
+3.4. Signalling about state of growth substrate
+To test the response of fruits to environmental changes in the
+growth substrate, we injected 150 ml of sodium chloride
+(6 mg ml1) in the substrate and recorded the electrical poten-
+tial of a fruit. The moment of injection is reflected in the spike
+of electrical potential with amplitude 9 mV. This spike might
+be caused by mechanical stimulation of mycelium (figure 6).
+Four hours after injection, the recorded fruit exhibited trains
+of spiking activity. Amplitude of spikes vary from 0.29 to
+12.3 mV, average 4.1 mV (s ¼ 3:5 mV). Duration of a spike
+varies from 33 s to 151 s, average 71 s (s ¼ 32 s). Periods
+vary from 450 s to 2870 s, average duration 953 s (s ¼ 559).
+The spikes might be caused by an osmotic function of
+mycelium due to intake of saline solution and transported
+into the caps of fruits [47] (cited by Galle´ et al. [7]).
+electrical potential (mV)
+2
+4
+6
+8
+10
+12
+20 000
+30 000
+40 000
+50 000
+60 000
+electrical potential (mV)
+2
+4
+6
+8
+10
+12
+time (s)
+43 500
+44 000
+44 500
+45 000
+(b)
+(a)
+Figure 6. Electrical response of a fruit body to the injection of saline solution
+in the substrate.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+5
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+4. Automaton model of a fungal computer
+To imitate propagation of depolarization waves in the
+mycelium network, we adopt an automaton model. The
+automaton models are proved to be appropriate discrete
+models for spatially extended excitable media [48-50] and ver-
+ified in models of calcium wave propagation [51], propagation
+of electrical pulses in the heart [52-54] and simulation of action
+potential [55,56]. We represent a fungal computer by an
+automaton A ¼ hC, Q, r, h, u, di, where C , R is a planar
+set, each point p [ C takes states from the set Q ¼ {w, †,  },
+excited (w), refractory (†), resting (), and updates its state in
+a discrete time depending on its current state and state of its
+neighbourhood u(p) ¼ {q [ C : d(p, q)  r}; r is a neighbour-
+hood radius, u is an excitation threshold and d is refractory
+R
+L
+U
+D
+0
+0.2
+0.4
+0.6
+0.8
+1.0
+R
+1.0
+ratio of nodes
+0
+0.02
+0.04
+0.06
+0.08
+0.10
+0.12
+0.14
+0.16
+0.18
+0.20
+no. neighbours
+0
+20
+40
+60
+80
+100
+120
+prevaling neighbourhood size
+0
+10
+20
+30
+40
+50
+r
+5
+10
+critical threshold
+0
+2
+4
+6
+8
+10
+12
+14
+r
+2
+4
+6
+8
+10
+12
+14
+p(R)
+0.9
+0.8
+0.7
+0.6
+0.5
+r = 4
+r = 3
+r = 5
+r = 6
+r = 7
+r = 10
+r = 12
+r = 15
+(e)
+(b)
+(a)
+(c)
+(d)
+Figure 7. Fungal computer architecture. (a) Visualization of C. (b) Probability of point in C as a function of distance from R. (c) Distribution of a number of
+neighbours for r ¼ 3 . . . 15. A number of neighbours depending on a neighbourhood radius r. (d) Prevailing number of neighbours for r ¼ 3 . . . 15. (e) Critical
+values of excitation threshold u for r ¼ 1, . . . , 15.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+6
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+delay. All points update their states in parallel and by the
+same rule:
+ptþ1 w,
+if (pt ¼ ) and s(p)t . u
+†,
+if (pt ¼ ) or ((pt ¼ †) and (ht
+p . 0))
+,
+otherwise
+8
+<
+:
+htþ1
+p
+¼
+d,
+if (ptþ1 ¼ †) and (pt ¼w)
+ht
+p  1,
+if (ptþ1 ¼ †) and ht
+p . 0
+0,
+otherwise.
+8
+<
+:
+Every resting () point of C excites (w) at the moment t þ 1
+if a number of its excited neighbours at the moment
+t—s(p)t ¼ j{q [ u(p) : qt ¼w}j—exceeds a threshold u. Excited
+point pt ¼w takes refractory state † at the next time step t þ 1, at
+the same moment a counter of refractory state hp is set to the
+refractory delay d. The counter is decremented, htþ1
+p
+¼ ht
+p  1
+at each iteration until it becomes 0. When the counter hp
+becomes zero the point p returns to the resting state .
+Architecture of C was chosen as follows. We randomly dis-
+tributed 2  104 points in a ring with small radius R ¼ 0:5 and
+large radius 1 (figure 7a). To reflect the higher density
+of mycelium near the propagation front and decay of
+mycelium inside the propagating disc we distributed points
+with
+a
+probability
+described
+by
+a
+quadratic
+function
+p(R) ¼ 3:7  R2  3:6  R þ 0:9, where R [ [0:5, 1] (figure 7b);
+the function reflects biomass distribution in a cross-section of a
+fairy ring [57,58]. To imitate fruit bodies, we distributed points
+in horizontal (L and R) and vertical (U and D) domains with
+size 0.27 by 0.023 (figure 7a); each domain contains 370 points
+distributed randomly. Distributions of a point's number of
+neighbours for neighbourhood radius r ¼ 3, . . . , 15 are shown
+potential, units
+-50
+0
+50
+-50
+0
+50
+time, iterations
+0
+50
+100
+150
+200
+0
+50
+100
+150
+200
+potential, units
+time, iterations
+(b)
+(a)
+(c)
+(d)
+Figure 8. Dynamics of the excitation of two fruit automaton A: in scenarios of right R (a,c) and left L (b,d) fruits excited. (a,b) Exemplar snapshots of the
+dynamics. (c,d) Electrical potential measured. Dashed line is a potential measured on R and solid line is a potential measured on L.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+7
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+in figure 7c. We have chosen u ¼ 4 (§4.2.1), u ¼ 5 (§4.2.2), r ¼ 10,
+d ¼ 5 in the reported experiments for the following reasons.
+A median radius r ¼ 10 neighbourhood size is approxi-
+mately 600 times less than a number of points in C (figure 7d);
+thus a locality of the automaton state updates is assured. Exci-
+tation threshold u ¼ 4 is critical for A with r ¼ 10 (figure 7e),
+i.e. it assures that excitation wavefronts propagate for at least
+half of the perimeter of the ring (figure 7a).
+4.1. Automaton action potential
+The
+automaton
+A
+supports
+propagation
+of
+excitation
+waves, fronts of which are represented by points in the state
+w and tails by points in state †. We assume a point in the
+state w has higher electrical potential than a point in the
+state †. To imitate a voltage difference between electrodes
+inserted in fruit bodies we select two domains, D1 and D2, in
+each of four fruit bodies and calculate a voltage difference V
+between domains as follows: V ¼ P
+q[D1 x(qt)  P
+q[D2 x(qt),
+where x() ¼ 0, x(w) ¼ 1, and x(†) ¼ ht
+q. This imitates an elec-
+trical potential difference between electrodes inserted in the
+cap and the step of a fruit, as illustrated in figure 2.
+We excite the fungal automaton A by assigning points of a
+selected fruit body states w. This is equivalent to thermal or
+mechanical stimulation of fruits in our laboratory experiments.
+We record voltage on fruit bodies at every iteration of the auto-
+mation evolution. Two examples are shown in figure 8. For
+simplicity, we consider A with only two fruit bodies: L and R.
+When right fruit R is stimulated (see first spike in figure 8c) an
+excitation wave propagates into the mycelium ring C and
+splits into two waves (figure 8a). Excitation waves enter fruit
+bodies when they reach them, which is reflected in spikes of
+the calculated potential. If the medium was regular (as e.g. a lat-
+tice) the excitation wavefronts would annihilate each other
+when colliding. However, the disorganized structure of the con-
+ductive medium leads to formation of the new excitation waves
+(see train of three spikes in figure 8c). New waves travel along
+the ring but eventually die out. Excitation of the left fruit L
+(figure 8b) generate two waves propagating along the ring.
+However, in this case, due to irregularity of the excitable
+medium a temporary wave generator is born in the upper part
+of the ring (2nd snapshot in figure 8b). The generator produces
+pairs of waves (3rd snapshots in figure 8b). The transition from
+sparse spiking towave-packets is similar to experimental results
+shown in figure 3. In this example, we witness that fungal
+responses to stimulation of the left and the right fruits are differ-
+ent. This can be employed in designs of computing schemes
+with fungal automata, as outlined in the next section.
+4.2. Logical functions computed by A
+Dynamics of excitation wave propagation and interaction in C
+is determined by exact configuration of the planar set. The con-
+figurations are generated at random; therefore we expect fungal
+automaton to implement different functions for each, or nearly,
+configuration. This is illustrated by the two following examples.
+Here we use four fruit bodies acting as both inputs and outputs.
+A logical input TRUE, or '1', is represented by excitation of a
+chosen fruit body. A logical output TRUE, or '1', is recognized
+as one or more impulses recorded at the fruit body some time
+interval after stimulation: we started recording 40 iterations
+(the parameter w introduced in §2) of automaton evolution,
+after stimulation and stopped recording 130 iterations. Let us
+consider two examples. The sets C are generated randomly,
+therefore the dynamics of excitation is expected to be different
+in these examples.
+4.2.1. First example
+In the first example, we consider the configuration C shown in
+figure 9a. Excitation dynamics for inputs R ¼ 0, U ¼ 1, D ¼ 0,
+L ¼ 1 is shown in figure 9 and for inputs R ¼ 1, U ¼ 0, D ¼ 1,
+L ¼ 0 in figure 10. When fruits U and D are stimulated
+t = 5
+t = 15
+t = 35
+t = 71
+t = 73
+t = 82
+(e)
+( f )
+(b)
+(a)
+(c)
+(d)
+Figure 9. (a-f) Snapshots of excitation dynamics in a four-fruit fungal automaton for inputs R ¼ 0, U ¼ 1, D ¼ 0, L ¼ 1.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+8
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+(figure 9) the fungal automaton A responds with spikes on fruits
+L and R (figure 11a). Excitation dynamics is less trivial when
+fruits L and R are stimulated (figure 10): automaton A responds
+with two voltage spikes at fruit D, and a single spike at fruits U
+and R (figure 11b). When only fruit R is stimulated the automa-
+tonA respondswithpairs of spikes onallfruitsbutL(figure12b).
+TheautomatonA respondswith a spike on fruitL just before cut-
+off time 150. After the 150th iteration, two centres of spiral waves
+are formed andthusthe fungal automatonexhibits regular trains
+of spikes on all fruit bodies (figure 12a), similar to the dynamics
+of excitation shown in figure 4b.
+We stimulated the fungal automaton with 16 combi-
+nations
+of
+input
+variables
+and
+constructed
+a
+tabular
+representation of a function realized by the automaton
+(table 1), where R, U, L, D are values of input variables,
+and
+Rw,
+Uw,
+Lw,
+Dw are
+values
+of
+output
+variables.
+Assuming one or two impulses on the fruits represent
+TRUE we have the following functions implemented by the
+fungal automaton:
+Rw ¼ R(U þ L þ D) þ RD,
+Uw ¼ U(L þ U þ R),
+Lw ¼ L(D þ U þ R)
+and
+Dw ¼ D(L þ U þ R),
+9
+>
+>
+>
+>
+>
+>
+=
+>
+>
+>
+>
+>
+>
+;
+(4:1)
+t = 5
+t = 15
+t = 28
+t = 49
+t = 88
+t = 95
+t = 103
+t = 137
+t = 176
+t = 193
+t = 67
+t = 79
+(e)
+( f )
+(b)
+(a)
+(c)
+(d)
+(i)
+(k)
+(l)
+( j)
+(g)
+(h)
+Figure 10. (a-l) Snapshots of excitation dynamics in a four-fruit fungal automaton for inputs R ¼ 1, U ¼ 0, D ¼ 0, L ¼ 1.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+9
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+with the equivalent circuit for fruit D shown in figure 13. If
+we assume that only two impulses represent TRUE we have
+Rw ¼ Uw ¼ Lw ¼ 0 and Dw ¼ RD.
+4.2.2. Second example
+In the second example, discussed below, we used a random
+configuration of points C4 and the automaton A with
+d ¼ 5, r ¼ 10 and u ¼ 5. Frames and videos of the experi-
+ments
+are
+available
+at
+https://drive.google.com/open?
+id=1XSTQt7lD2KGUHCuJchJ-ah6CO-XUSap. Dynamics of
+electrical potential for 15 combinations of input values is
+shown in figure 14. The response of the automaton is illus-
+trated in table 2. Assuming one impulse or two impulses
+on the fruits symbolize '1', we have the following functions
+realized on each of the fruit bodies:
+Rw ¼ 0,
+Uw ¼ L þ D,
+Lw ¼ LD(R þ U) þ R ULD
+and
+Dw ¼ L(R þ D þ U):
+9
+>
+>
+>
+>
+>
+>
+=
+>
+>
+>
+>
+>
+>
+;
+(4:2)
+Assuming only two impulses on the fruits symbolize '1',
+we have the following functions recorded on each of the
+potential, units
+-200
+-100
+0
+100
+200
+time, iterations
+0
+20
+40
+60
+80
+100
+-200
+-100
+0
+100
+200
+time, iterations
+0
+20
+40
+60
+80
+100
+120
+140
+160
+(b)
+(a)
+Figure 11. Voltage measured on four fruits for inputs (a) R ¼ 0, U ¼ 1, D ¼ 0, L ¼ 1, see dynamics in figure 9, and (b) R ¼ 1, U ¼ 0, D ¼ 1, L ¼ 0, see
+dynamics in figure 10. Voltage recorded on fruit R is plotted with red colour, U blue, L green and D magenta.
+potential, units
+-80
+-60
+-40
+-20
+0
+20
+40
+60
+80
+time, iterations
+0
+50
+100
+150
+200
+250
+300
+(b)
+(a)
+Figure 12. Response of the fungal automaton for input values R ¼ 1, U ¼ 0, D ¼ 0, L ¼ 0. (a) A snapshot of the automaton taken at 350th step of evolution.
+(b) Voltage recorded on the fruit R is plotted with red colour, U blue, L green and D magenta.
+Table 1. Table of a function realized by four-fruit automaton A
+(ﬁgure 9a). One impulse on a fruit is shown by '1', two impulses by '2'
+and no impulses by '0'.
+R
+U
+L
+D
+Rw
+Uw
+Lw
+Dw
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+1
+1
+1
+0
+0
+0
+1
+0
+1
+1
+0
+1
+0
+0
+1
+1
+1
+1
+0
+0
+0
+1
+0
+0
+1
+0
+1
+1
+0
+1
+0
+1
+1
+0
+1
+0
+0
+1
+1
+0
+1
+0
+0
+1
+0
+1
+1
+1
+1
+0
+0
+0
+1
+0
+0
+0
+1
+1
+1
+2
+1
+0
+0
+1
+0
+1
+1
+0
+1
+0
+1
+0
+1
+1
+0
+2
+1
+0
+1
+1
+0
+1
+0
+0
+1
+1
+0
+0
+1
+0
+1
+2
+1
+1
+0
+1
+0
+0
+1
+0
+1
+1
+1
+0
+1
+0
+0
+2
+1
+1
+1
+1
+0
+0
+0
+0
+L
+U
+R
+D
+D*
+Figure 13. Equivalent logical circuit for fruit D implemented by the fungal
+automaton A, with configuration of C shown in figure 9a.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+10
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+fruit bodies:
+Rw ¼ 0,
+Uw ¼ L þ D(R þ U),
+Lw ¼ R U LD
+and
+Dw ¼ LD(R þ U):
+9
+>
+>
+>
+>
+>
+>
+=
+>
+>
+>
+>
+>
+>
+;
+(4:3)
+5. Discussion
+We proposed that fungi can be used as computing devices:
+information is represented by spikes of electrical activity, a
+computation is implemented in a mycelium network and an
+interface is realized via fruit bodies. In laboratory experiments,
+we demonstrated that fungi respond with spikes of electrical
+potential to stimulation of their fruit bodies. Thus, we can
+input data into a fungal computer via mechanical, chemical
+and electrical stimulation of the fruit bodies. Electrical signal-
+ling in fungi, previously evidenced during intracellular
+recording of electrical potential [8,9], is similar to the signalling
+in plants [7,59]. The experimental results provided in the paper
+are of illustrative nature with focus on architectures of potential
+computing devices; a statistical analysis of spontaneous
+spiking
+behaviour of
+the
+fungi
+can
+be
+found
+in
+[6].
+Further extensive studies will be necessary to obtain statistical
+results on fungal response to a stimulation, particularly on
+the response's dependence on a strength of stimuli and
+inter-species differences in their responses.
+Voltagespikestravellingalongmycelium networksmightbe
+seen as analogous, but of different physical and chemical nature,
+to oxidation wavefronts in a thin-layer Belousov-Zhabotinsky
+(BZ) medium [60,61]. Thus, in future, we could draw some
+useful designs of fungal computers based on an established set
+of experimental laboratory prototypes of BZ computing devices.
+The prototypes produced are image processes and memory
+devices [62-64], logical gates implemented in geometrically
+constrained BZ medium [65,66], approximation of shortest
+path by excitation waves [67-69], memory in BZ micro-
+emulsion [64], information coding with frequency of oscillations
+[70], on-board controllers for robots [71-73], chemical diodes
+[74,75], neuromorphic architectures [42,76-80] and associative
+potential, units
+-100
+-50
+0
+50
+100
+-100
+-50
+0
+50
+100
+-100
+-50
+0
+50
+100
+-100
+-50
+0
+50
+100
+-100
+-50
+0
+50
+100
+-100
+-50
+0
+50
+100
+-100
+-50
+0
+50
+100
+0
+50
+100
+150
+200
+0001
+0
+50
+100
+150
+200
+0010
+0
+20
+40
+60
+80
+100 120 140 160
+0
+20
+40
+60
+80
+100 120 140 160
+0011
+potential, units
+-50
+0
+50
+-50
+0
+50
+-50
+0
+50
+0
+10
+20
+30
+40
+50
+60
+70
+80
+90
+0100
+0
+50
+100
+150
+200
+0101
+0110
+potential, units
+-100
+-50
+0
+50
+100
+-100
+-50
+0
+50
+100
+-100
+-50
+0
+50
+100
+0
+50
+100
+150
+200
+0111
+0
+10
+20
+30
+40
+50
+1000
+0
+50
+100
+150
+200
+1001
+potential, units
+-100
+-50
+0
+50
+100
+0
+50
+100
+150
+200
+0
+50
+100
+150
+200
+1010
+0
+20
+40
+60
+80
+100
+120
+140
+0
+20
+40
+60
+80
+100 120 140 160
+0
+20
+40
+60
+80
+100 120 140 160
+1011
+0
+10
+20
+30
+40
+50
+1100
+potential, units
+-100
+-50
+0
+50
+100
+time, iterations
+1101
+time, iterations
+1110
+time, iterations
+1111
+(e)
+( f )
+(b)
+(a)
+(c)
+(d)
+(i)
+(k)
+(m)
+(n)
+(o)
+(l)
+( j)
+(g)
+(h)
+Figure 14. (a-o) Dynamics of electrical potential on fruits, in experiment with random seed 357556317, in response to stimulation of inputs. The inputs are shown
+in the captions in the format (RULD). Spikes appearing during first 10-15 iterations are input spikes. All other spikes are outputs. Voltage recorded on fruit R is
+plotted with red colour, U blue, L green and D magenta.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+11
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+memory [81,82], wave-based counters [83] and other infor-
+mation processors [84-87]. First steps have been already
+made towards prototyping arithmetical circuits with BZ:
+simulation and experimental laboratory realization of gates
+[41,65,66,88-90], clocks [91] and evolving logical gates [92].
+A one-bit half-adder, based on a ballistic interaction of
+growing patterns [93], was implemented in a geometrically con-
+strained light-sensitive BZ medium [94]. Models of multi-bit
+binary adder, decoder and comparator in BZ are proposed in
+[95-98]. These architectures employ crossover structures as
+T-shaped coincidence detectors [99] and chemical diodes [75]
+that heavily rely on heterogeneity of geometrically constrained
+space. By controlling excitability [100] in different loci of the
+medium,wecan achieveimpressiveresults,as it is demonstrated
+in works related to analogues of dendritic trees [79], poly-
+morphic logical gates [101], and experimental laboratory
+prototype of four-bit input, two-bit output integer square root
+circuits based on alternating 'conductivity' of junctions between
+channels [102].
+Spikes of electrical potential are not the only means of
+implementing information processing in fungal computers.
+Microfluidics could be an additional computational resource.
+Eukaryotic cells, including slime moulds and fungi, exhibit
+cytoplasmic streaming [103,104]. In experiments with the
+slime mould P. polycephalum, we found that when a fragment
+of protoplasmic tube is mechanically stimulated, cytoplasmic
+streaming in this fragment halts and the fragment's resistance
+substantially increases. Using this phenomenon, we designed
+a range of logical circuits and memory devices [105]. These
+designs can be adopted in prototypes of fungal computers;
+however, more experiments would be necessary to establish
+optimal ways of mechanical addressing of strands of mycelium.
+5.1. Programmability
+To program fungal computers, we must control the geometry of
+the mycelium network. The geometry of the mycelium
+network can be modified by varying nutritional conditions
+and temperature [13,21-23], especially the degree of branching
+is proportional to the concentration of nutrients [25], and a wide
+range of chemical and physical stimuli [106]. Also, we
+can geometrically constrain it [28-32]. The feasibility of
+shaping similar networks has been demonstrated in [107]:
+high-amplitude, high-frequency voltage applied between two
+electrodes
+in
+a
+network
+of
+protoplasmic
+tubes
+of
+P. polycephalum leads to abandonment of the stimulated proto-
+plasmic without affecting the non-stimulated tubes and
+low-amplitude, low-frequency voltage applied between two
+electrodes in the network enhances the stimulated tube and
+encourages abandonment of other tubes [107].
+5.2. Parameters of fungal computers
+Interaction of voltage spikes, travelling along mycelium strands,
+at the junctions between strands is a key mechanism of fungal
+computation. We can see each junction as an elementary proces-
+sor of a distributed multi-processor computing network. We
+assumethe numberof junctionsis proportional to the numberof
+hyphal tips. There are estimated to be 10-20 tips per 1.5-3 mm
+[108] of a substrate. Without knowing the depth of the mycelial
+network, we go for the safest lower margin of two-dimensional
+estimation: 50 tips mm2. Considering that the largest known
+fungi, Armillaria bulbosa, populates over 15 hectares [2], we
+could assume that there could be 75  1011 branching points,
+that is nearly a trillion of elementary processing units. With
+regards to a speed of computation by fungal computers,
+Olsson & Hansson [9] estimated that electrical activity in fungi
+could be used for communication with message propagation
+speed 0:5 mm s1 (this is several orders slower than the speed
+of a typical action potential in plants: from 0:005 mm s1 to
+0:2 mm s1 [109]). Thus, it would take about half an hour for
+a signal in the fungal computer to propagate 1 m. The low
+speed of signal propagation is not a critical disadvantage of
+potential fungal computers, because they never meant to
+compete with conventional silicon devices.
+5.3. Application domains
+Likely application domains of fungal devices could be large-
+scale networks of mycelium which collect and analyse
+information about environment of soil and, possibly, air and
+execute some decision-making procedures. Fungi 'possess
+almost all the senses used by humans' [106]. Fungi sense
+light, chemicals, gases, gravity and electric fields. Fungi show
+a pronounced response to changes in a substrate pH [110],
+demonstrate mechanosensing [111]; they sense toxic metals
+[112], CO2 [113] and direction of fluid flow [114]. Fungi exhibit
+thigmotacticandthigmomorphogeneticresponses,whichmight
+be reflected in dynamic patterns of their electrical activity [115].
+Fungi are also capable of sensing chemical cues, especially
+stress hormones, from other species [116], thus they might be
+used as reporters of health and well-being of other inhabitants
+of the forest. Thus, fungal computers can be made an essential
+part of distributed large-scale environmental sensor networks
+in ecological research to assess not just soil quality but the
+overall health of the ecosystems [117-119].
+5.4. Further studies
+In automaton models of a fungal computer, we have shown
+that a structure with Boolean functions realized depends on
+Table 2. Table of a logical function realized by four-fruit automaton A. One
+impulse on a fruit is shown by '1', two impulses by '2' and no impulses by '0'.
+R
+U
+L
+D
+Rw
+Uw
+Lw
+Dw
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+2
+1
+0
+0
+0
+1
+0
+0
+2
+0
+2
+0
+0
+1
+1
+0
+2
+0
+1
+0
+1
+0
+0
+0
+0
+0
+0
+0
+1
+0
+1
+0
+2
+1
+0
+0
+1
+1
+0
+0
+2
+0
+2
+0
+1
+1
+1
+0
+2
+0
+1
+1
+0
+0
+0
+0
+0
+0
+0
+1
+0
+0
+1
+0
+2
+2
+0
+1
+0
+1
+0
+0
+2
+1
+0
+1
+0
+1
+1
+0
+2
+0
+1
+1
+1
+0
+0
+0
+0
+0
+0
+1
+1
+0
+1
+0
+2
+1
+0
+1
+1
+1
+0
+0
+2
+0
+2
+1
+1
+1
+1
+0
+2
+0
+1
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+12
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+the geometry of a mycelial network. In further studies, we will
+tackle four aspects of fungal computing as follows.
+First, ideas developed in the automaton model of a
+fungal computer should be verified in laboratory experiments
+with fungi. In the automaton model developed, we did not take
+into account a full range of parameters recorded during exper-
+imental laboratory studies: origination and propagating of
+impulses have been imitated in the dynamics of the final
+state machines. To keep the same physical nature of inputs
+and outputs, we will consider stimulating fruit bodies with
+alternating electrical current. To cascade logical circuits
+implemented in clusters of fruit bodies, we might need to
+include amplifiers in the hybrid fungi-based electrical circuits.
+Second, in experiments we evidenced electrical responses
+of fruits to thermal and chemical stimulation; in some cases,
+we observed trains of spikes. This means we could, in prin-
+ciple, apply experimental findings of Physarum oscillatory
+logic [120], where logical values are represented by different
+types of stimuli, apply threshold operations to frequencies of
+the electrical potential oscillations, and attempt to implement
+logical gates. Another option would be to adopt ideas of
+oscillatory threshold logic reported in [121]; however, this
+might require unrealistically precise control of the geometry
+of mycelial networks.
+Third, we might consider measuring electrical potential
+between fungal bodies. In the set-up shown in figure 15a,b,
+we recorded the electrical potential difference between neigh-
+bouring fruits. An example of the recorded activity is shown
+in figure 15b. Average distance between spikes is 4111 s
+(s ¼ 2140). Average duration of a spike is 287 s (s ¼ 1515).
+Average amplitude is 0.25 mV (s ¼ 0:06). There is a possi-
+bility
+that
+patterns
+of
+oscillation
+will
+be
+affected
+by
+stimulation of other fruit bodies in the cluster. This might
+lead to a complementary method of computing with fungi.
+Fourth, we must learn how to programme the geometry
+of mycelial networks to be able to execute not arbitrary, as
+demonstrated in the automaton model, but predetermined
+electrical potential (mV)
+-0.1
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+time (s)
+30 000
+40 000
+50 000
+60 000
+(b)
+(a)
+(c)
+Figure 15. Electrical potential difference between two neighbouring fruits. (a) Position of electrodes when measuring potential different between fungal bodies.
+(b) Part of experimental set-up. (c) Exemplar plot of electrical potential.
+D1
+D2
+D3
+D4
+D5
+D6
+D7
+D8
+C
+Figure 16. Representation of a mycelium by relative neighbourhood graph
+with 2000 nodes. Black discs are fruit bodies.
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+13
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+logical circuits. The computer modelling approach may be
+based on formal representation of mycelial networks as a
+proximity graph, e.g. relative neighbourhood graph [122]
+(figure 16), and then dynamically updating the graph structure
+till a desired logical circuit is implemented on the graph. Con-
+nection rules in proximity graphs are fixed, therefore the graph
+structure can be updated only by adding or removing nodes.
+A new set of nodes can be added to a living mycelial network
+by placing sources of nutrients. However, due to the very slow
+growth rate of mycelium, this could be unfeasible. Thus, the
+best way would be to focus only on removing parts of
+the mycelial network. When parts of a network are removed
+the network will re-route locally, and the set of logical
+functions implemented by the network will change.
+Data accessibility. Videos of computer experiments are accessible at
+https://doi.org/10.5281/zenodo.1451496.
+Competing interests. I declare I have no competing interests.
+Funding. I received no funding for this study.
+Acknowledgements. I acknowledges pearl oyster mushrooms P. ostreatus
+for their cooperation in the studies.
+Endnotes
+1Copyright q Espresso Mushroom Company, Brighton, UK.
+2Copyright q SPES MEDICA SRL Via Buccari 21 16153 Genova, Italy.
+3Pico Technology, St Neots, Cambridgeshire, UK.
+4File with coordinates is available here https://drive.google.com/
+open?id=1wcmo8DkcKN49rDSRFGm9hnIjJj5LTbDL.
+Reference
+1.
+Carlile MJ, Watkinson SC, Gooday GW. 2001 The
+fungi. Utrecht, The Netherlands: Gulf Professional
+Publishing.
+2.
+Smith ML, Bruhn JN, Anderson JB. 1992 The fungus
+Armillaria bulbosa is among the largest and oldest
+living organisms. Nature 356, 428. (431doi:10.1038/
+356428a0)
+3.
+Dai Y-C, Cui B-K. 2011 Fomitiporia ellipsoidea has the
+largest fruiting body among the fungi. Fungal Biol.
+115, 813-814. (doi:10.1016/j.funbio.2011.06.008)
+4.
+Adamatzky A. 2010 Physarum machines: computers
+from slime mould, vol. 74. Singapore: World Scientific.
+5.
+Adamatzky A. 2016 Advances in Physarum
+machines: sensing and computing with slime mould.
+Berlin, Germany: Springer.
+6.
+Adamatzky A. 2018 On spiking behaviour of oyster
+fungi Pleurotus djamor. Sci. Rep. 7873, 7873.
+(doi:10.1038/s41598-018-26007-1)
+7.
+Galle´ A, Lautner S, Flexas J, Fromm J. 2015
+Environmental stimuli and physiological responses:
+the current view on electrical signalling. Environ.
+Exp. Bot. 114, 15-21. (doi:10.1016/j.envexpbot.
+2014.06.013)
+8.
+Slayman CL, Scott Long W, Gradmann D. 1976
+'Action potentials' in Neurospora crassa, a mycelial
+fungus. Biochim. Biophys. Acta 426, 732-744.
+(doi:10.1016/0005-2736(76)90138-3)
+9.
+Olsson S, Hansson BS. 1995 Action potential-like
+activity found in fungal mycelia is sensitive to
+stimulation. Naturwissenschaften 82, 30-31.
+(doi:10.1007/BF01167867)
+10. Royse DJ. 1997 Speciality mushrooms and their
+cultivation. Hortic. Rev. (Am. Soc. Hortic. Sci) 19,
+59-97. (doi:10.1002/9780470650622.ch2)
+11. Khan MA, Tania M. 2012 Nutritional and medicinal
+importance of Pleurotus mushrooms: an overview.
+Food Rev. Int. 28, 313-329. (doi:10.1080/
+87559129.2011.637267)
+12. Thorn RG, Barron G.L. 1984 Carnivorous mushrooms.
+Science 224, 76-78. (doi:10.1126/science.224.4644.76)
+13. Boddy L, Wells JM, Culshaw C, Donnelly DP. 1999
+Fractal analysis in studies of mycelium in soil.
+Geoderma 88, 301-328. (doi:10.1016/S0016-
+7061(98)00111-6)
+14. Marin Molliard M. 1910 De l'action du Marasmius
+oreades fr. sur la ve´ge´tation. Bulletin De La Societe
+Botanique De France 57, 62-69. (doi:10.1080/
+00378941.1910.10832167)
+15. Shantz HL, Piemeisel RL. 1917 Fungus fairy rings in
+eastern Colorado and their effects on vegetation.
+J. Agric. Res. XI, 191-245.
+16. Dowson CG, Rayner ADM, Boddy L. 1988 Inoculation
+of mycelial cord-forming basidiomycetes into
+woodland soil and litter II. Resource capture and
+persistence. New Phytologist 109, 343-349.
+(doi:10.1111/j.1469-8137.1988.tb04204.x)
+17. Watkinson SC. 1975 The relation between nitrogen
+nutrition and formation of mycelial strands in
+Serpula lacrimans. Trans. Br. Mycol. Soc. 64,
+195-200. (doi:10.1016/S0007-1536(75)80102-1)
+18. Dowson CG, Rayner ADM, Boddy L. 1986 Outgrowth
+patterns of mycelial cord-forming basidiomycetes
+from and between woody resource units in soil.
+Microbiology 132, 203-211. (doi:10.1099/
+00221287-132-1-203)
+19. Jennings DH. 1995 The physiology of fungal nutrition.
+Cambridge, UK: Cambridge University Press.
+20. Boddy L, Hynes J, Bebber DP, Fricker MD. 2009
+Saprotrophic cord systems: dispersal mechanisms in
+space and time. Mycoscience 50, 9-19. (doi:10.
+1007/S10267-008-0450-4)
+21. Thi Hoa H, Wang C-L. 2015 The effects of
+temperature and nutritional conditions on mycelium
+growth of two oyster mushrooms (Pleurotus
+ostreatus and Pleurotus cystidiosus). Mycobiology 43,
+14-23. (doi:10.5941/MYCO.2015.43.1.14)
+22. Rayner ADM. 1991 The challenge of the
+individualistic mycelium. Mycologia 83, 48-71.
+(doi:10.1080/00275514.1991.12025978)
+23. Regalado CM, Crawford JW, Ritz K, Sleeman BD.
+1996 The origins of spatial heterogeneity in
+vegetative mycelia: a reaction-diffusion model.
+Mycol. Res. 100, 1473-1480. (doi:10.1016/S0953-
+7562(96)80080-3)
+24. Bolton RG, Boddy L. 1993 Characterization of the
+spatial aspects of foraging mycelial cord systems
+using fractal geometry. Mycol. Res. 97, 762-768.
+(doi:10.1016/S0953-7562(09)80158-5)
+25. Ritz K. 1995 Growth responses of some soil fungi to
+spatially heterogeneous nutrients. FEMS Microbiol.
+Ecol. 16, 269-279. (doi:10.1111/j.1574-6941.1995.
+tb00291.x)
+26. Adamatzky A. 2009 Developing proximity graphs by
+Physarum polycephalum: does the plasmodium
+follow the toussaint hierarchy? Parallel. Process.
+Lett. 19, 105-127. (doi:10.1142/s01296264
+09000109)
+27. Adamatzky A (ed.). 2012 Bioevaluation of world
+transport networks. Singapore: World Scientific.
+28. Hanson KL, Nicolau Jr L, Filipponi DV, Wang L, Lee
+AP, Nicolau DV. 2006 Fungi use efficient algorithms
+for the exploration of microfluidic networks. Small
+2, 1212-1220. (doi:10.1002/smll.200600105)
+29. Held M, Edwards C, Nicolau DV. 2008 Examining the
+behaviour of fungal cells in microconfined mazelike
+structures. In Imaging, manipulation, and analysis of
+biomolecules, cells, and tissues VI (eds DL Farkas, DV
+Nicolau, RC Leif), vol. 6859, p. 68590U. Bellingham,
+WA: International Society for Optics and Photonics.
+30. Held M, Edwards C, Nicolau DV. 2009 Fungal
+intelligence; or on the behaviour of microorganisms
+in confined micro-environments. J. Phys. Conf. Ser.,
+178, 012005. (doi:10.1088/1742-6596/178/1/
+012005)
+31. Held M, Lee AP, Edwards C, Nicolau DV. 2010
+Microfluidics structures for probing the dynamic
+behaviour of filamentous fungi. Microelectron. Eng.
+87, 786-789. (doi:10.1016/j.mee.2009.11.096)
+32. Held M, Edwards C, Nicolau DV. 2011 Probing the
+growth dynamics of neurospora crassa with
+microfluidic structures. Fungal. Biol. 115, 493-505.
+(doi:10.1016/j.funbio.2011.02.003)
+33. Nakagaki T, Yamada H, To´th A´. 2000 Intelligence:
+maze-solving by an amoeboid organism. Nature
+407, 470. (doi:10.1038/35035159)
+34. Nakagaki T. 2001 Smart behavior of true slime mold
+in a labyrinth. Res. Microbiol. 152, 767-770.
+(doi:10.1016/s0923-2508(01)01259-1)
+35. Nakagaki T, Yamada H, Toth A. 2001 Path finding
+by tube morphogenesis in an amoeboid organism.
+Biophys. Chem. 92, 47-52. (doi:10.1016/s0301-
+4622(01)00179-x)
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+14
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+36. Nakagaki T, Iima M, Ueda T, Nishiura Y, Saigusa T,
+Tero A, Kobayashi R, Showalter K. 2007 Minimum-
+risk path finding by an adaptive amoebal network.
+Phys. Rev. Lett. 99, 068104. (doi:10.1103/
+PhysRevLett.99.068104)
+37. Tero A, Takagi S, Saigusa T, Ito K, Bebber DP, Fricker
+MD, Yumiki K, Kobayashi R, Nakagaki T. 2010 Rules
+for biologically inspired adaptive network design.
+Science 327, 439-442. (doi:10.1126/science.
+1177894)
+38. Shirakawa T, Adamatzky A, Gunji Y-P, Miyake Y.
+2009 On simultaneous construction of voronoi
+diagram and delaunay triangulation by physarum
+polycephalum. Int. J. Bifurcation Chaos 19,
+3109-3117. (doi:10.1142/S0218127409024682)
+39. Jones J, Adamatzky A. 2014 Computation of the
+travelling salesman problem by a shrinking blob.
+Nat. Comput. 13, 1-16. (doi:10.1007/s11047-013-
+9401-x)
+40. Jones J, Adamatzky A. 2015 Slime mould inspired
+generalised Voronoi diagrams with repulsive fields.
+(http://arxiv.org/abs/1503.06973)
+41. Adamatzky A. 2004 Collision-based computing in
+Belousov-Zhabotinsky medium. Chaos Solitons
+Fractals 21, 1259-1264. (doi:10.1016/j.chaos.2003.
+12.068)
+42. Gorecki J, Natalia Gorecka J, Igarashi Y. 2009
+Information processing with structured excitable
+medium. Nat. Comput. 8, 473-492. (doi:10.1007/
+s11047-009-9119-y)
+43. Shah ZA, Ashraf M, Ishtiaq M. 2004 Comparative
+study on cultivation and yield performance of oyster
+mushroom (pleurotus ostreatus) on different
+substrates (wheat straw, leaves, saw dust).
+Pakistan J. Nutr. 3, 158-160. (doi:10.3923/pjn.
+2004.158.160)
+44. Sa´nchez C. 2010 Cultivation of pleurotus ostreatus
+and other edible mushrooms. Appl. Microbiol.
+Biotechnol. 85, 1321-1337. (doi:10.1007/s00253-
+009-2343-7)
+45. Oei P. 2003 Mushroom cultivation: appropriate
+technology for mushroom growers, 3rd edn.
+Backhuys Publishers.
+46. Schu¨tte KH. 1956 Translocation in the fungi. New
+Phytologist 55, 164-182. (doi:10.1111/j.1469-8137.
+1956.tb05278.x)
+47. Mummert H, Gradmann D. 1976 Voltage dependent
+potassium fluxes and the significance of action
+potentials in Acetabularia. Biochim. Biophys. Acta 443,
+443-450. (doi:10.1016/0005-2736(76)90464-8)
+48. Markus M, Hess B. 1990 Isotropic cellular
+automaton for modelling excitable media. Nature
+347, 56-58. (doi:10.1038/347056a0)
+49. Gerhardt M, Schuster H, Tyson JJ. 1990 A cellular
+automation model of excitable media including
+curvature and dispersion. Science 247, 1563-1566.
+(doi:10.1126/science.2321017)
+50. Weimar JR, Tyson JJ, Watson LT. 1992 Diffusion and
+wave propagation in cellular automaton models of
+excitable media. Physica D: Nonlinear Phenomena
+55, 309-327. (doi:10.1016/0167-2789(92)90062-R)
+51. Lechleiter J, Girard S, Peralta E, Clapham D. 1991
+Spiral calcium wave propagation and annihilation in
+xenopus laevis oocytes. Science 252, 123-126.
+(doi:10.1126/science.2011747)
+52. Saxberg BEH, Cohen RJ. 1991 Cellular automata
+models of cardiac conduction. In Theory of heart
+(eds L Glass, P Hunter, A McCulloch), pp. 437-476.
+Berlin Germany: Springer.
+53. Dowle M, Mantel RM, Barkley D. 1997 Fast
+simulations of waves in three-dimensional excitable
+media. Int. J. Bifurcation Chaos 7, 2529-2545.
+(doi:10.1142/S0218127497001692)
+54. Siregar P, Sinteff JP, Julen N, Le Beux P. 1998 An
+interactive 3D anisotropic cellular automata model
+of the heart. Comput. Biomed. Res. 31, 323-347.
+(doi:10.1006/cbmr.1998.1485)
+55. Ye P, Entcheva E, Grosu R, Smolka SA. 2005 Efficient
+modeling of excitable cells using hybrid automata.
+In Proc. of CMSB, vol. 5, pp. 216-227. Berlin,
+Germany: Springer.
+56. Alonso Atienza F, Requena Carrio´n J, Garcı´a Alberola
+A, Rojo A´lvarez JL, Sa´nchez Mun˜oz JJ, Martı´nez
+Sa´nchez J, Valde´s Cha´varri M. 2005 A probabilistic
+model of cardiac electrical activity based on a
+cellular automata system. Revista Espan˜ola de
+Cardiologı´a (English Edition) 58, 41-47. (doi:10.
+1016/S1885-5857(06)60233-8)
+57. Karst N, Dralle D, Thompson S. 2016 Spiral and
+rotor patterns produced by fairy ring fungi. PLoS
+ONE 11, e0149254. (doi:10.1371/journal.pone.
+0149254)
+58. Dahlberg A, Stenlid J. 1995 Spatiotemporal patterns
+in ectomycorrhizal populations. Can. J. Bot. 73,
+1222-1230. (doi:10.1139/b95-382)
+59. Pickard BG. 1973 Action potentials in higher plants.
+Bot. Rev. 39, 172-201. (doi:10.1007/BF02859299)
+60. Belousov BP. 1959 A periodic reaction and its
+mechanism. Compil. Abstr. Radiat. Med. 147, 1.
+61. Zhabotinsky AM. 1964 Periodic processes of malonic
+acid oxidation in a liquid phase. Biofizika 9, 11.
+62. Kuhnert L. 1986 A new optical photochemical
+memory device in a light-sensitive chemical active
+medium. Nature 319, 393-394. (10.1038/
+319393a0)
+63. Kuhnert L, Agladze KI, Krinsky VI. 1989 Image
+processing using light-sensitive chemical waves.
+Nature 337, 244-247.
+64. Kaminaga A, Vanag VK, Epstein IR. 2006 A
+reaction-diffusion memory device. Angew. Chem.
+Int. Edn 45, 3087-3089. (doi:10.1002/anie.
+200600400)
+65. Steinbock O, Kettunen P, Showalter K. 1996
+Chemical wave logic gates. J. Phys. Chem. 100,
+18 970-18 975. (doi:10.1021/jp961209v)
+66. Sielewiesiuk J, Go´recki J. 2001 Logical functions of a
+cross junction of excitable chemical media. J. Phys.
+Chem. A 105, 8189-8195. (doi:10.1021/jp011072v)
+67. Steinbock O, To´th A´, Showalter K. 1995 Navigating
+complex labyrinths: optimal paths from chemical
+waves. Science 267, 868-871. (doi:10.1126/science.
+267.5199.868)
+68. Rambidi NG, Yakovenchuk D. 2001 Chemical
+reaction-diffusion implementation of finding the
+shortest paths in a labyrinth. Phys. Rev. E 63,
+026607. (doi:10.1103/PhysRevE.63.026607)
+69. Adamatzky A, de Lacy Costello B. 2002 Collision-free
+path planning in the Belousov-Zhabotinsky medium
+assisted by a cellular automaton.
+Naturwissenschaften 89, 474-478. (doi:10.1007/
+s00114-002-0363-6)
+70. Gorecki J, Gorecka JN, Adamatzky A. 2014
+Information coding with frequency of oscillations in
+Belousov-Zhabotinsky encapsulated disks. Phys. Rev.
+E 89, 042910. (doi:10.1103/PhysRevE.89.042910)
+71. Adamatzky A, de Lacy Costello B, Melhuish C,
+Ratcliffe N. 2004 Experimental implementation of
+mobile robot taxis with onboard Belousov-
+Zhabotinsky chemical medium. Mater. Sci. Eng. C
+24, 541-548. (doi:10.1016/j.msec.2004.02.002)
+72. Yokoi H, Adamatzky A, de Lacy Costello B, Melhuish
+C. 2004 Excitable chemical medium controller for a
+robotic hand: closed-loop experiments.
+Int. J. Bifurcation Chaos 14, 3347-3354. (doi:10.
+1142/S0218127404011363)
+73. Vazquez-Otero A, Faigl J, Duro N, Dormido R. 2014
+Reaction-diffusion based computational model for
+autonomous mobile robot exploration of unknown
+environments. IJUC 10, 295-316. (doi:10.1017/
+S1744552314000135)
+74. Agladze K, Aliev RR, Yamaguchi T, Yoshikawa K.
+1996 Chemical diode. J. Phys. Chem. 100,
+13 895-13 897. (doi:10.1021/jp9608990)
+75. Igarashi Y, Gorecki J. 2011 Chemical diodes built
+with controlled excitable media. IJUC 7, 141-158.
+76. Gorecki J, Natalia Gorecka J. 2006 Information
+processing with chemical excitations-from instant
+machines to an artificial chemical brain.
+Int. J. Unconventional Comput. 2, 36-48.
+77. Stovold J, O'Keefe S. 2012 Simulating neurons in
+reaction-diffusion chemistry. In Int. Conf. on
+Information Processing in Cells and Tissues (eds MA
+Lones, SL Smith, S Teichmann, F Naef, A Jonsson,
+MA Trefzer), pp. 143-149. Berlin, Germany:
+Springer.
+78. Luigi Gentili P, Horvath V, Vanag VK, Epstein IR.
+2012 Belousov-Zhabotinsky 'chemical neuron' as a
+binary and fuzzy logic processor. IJUC 8, 177-192.
+79. Takigawa-Imamura H, Motoike IN. 2011 Dendritic
+gates for signal integration with excitability-
+dependent responsiveness. Neural. Netw. 24,
+1143-1152. (doi:10.1016/j.neunet.2011.05.003)
+80. Gruenert G, Gizynski K, Escuela G, Ibrahim B,
+Gorecki J, Dittrich P. 2015 Understanding networks
+of computing chemical droplet neurons based on
+information flow. Int. J. Neural. Syst. 25, 1450032.
+(doi:10.1142/s0129065714500324)
+81. Stovold J, O'Keefe S. 2016 Reaction-diffusion
+chemistry implementation of associative memory
+neural network. Int. J. Parallel Emergent Distrib.
+Syst. 32, 74-94. (doi:10.1080/17445760.2016.
+1155579)
+82. Stovold J, O'Keefe S. 2017 Associative memory in
+reaction-diffusion chemistry. In Advances in
+unconventional computing (ed. A Adamatzky),
+pp. 141-166. Berlin, Germany: Springer.
+83. Gorecki J, Yoshikawa K, Igarashi Y. 2003 On
+chemical reactors that can count. J. Phys. Chem. A
+107, 1664-1669. (doi:10.1021/jp021041f)
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+15
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+
+84. Yoshikawa K, Motoike I, Ichino T, Yamaguchi T,
+Igarashi Y, Gorecki J, Natalia Gorecka J. 2009 Basic
+information processing operations with pulses of
+excitation in a reaction-diffusion system. IJUC 5,
+3-37.
+85. Escuela G, Gruenert G, Dittrich P. 2014 Symbol
+representations and signal dynamics in evolving
+droplet computers. Nat. Comput. 13, 247-256.
+(doi:10.1007/s11047-013-9384-7)
+86. Gruenert G, Gizynski K, Escuela G, Ibrahim B,
+Gorecki J, Dittrich P. 2014 Understanding networks
+of computing chemical droplet neurons based on
+information flow. Int. J. Neural. Syst. 25, 1450032.
+(doi:10.1142/s0129065714500324)
+87. Gorecki J, Gizynski K, Guzowski J, Gorecka JN,
+Garstecki P, Gruenert G, Dittrich P. 2015 Chemical
+computing with reaction-diffusion processes. Phil.
+Trans. R. Soc. A 373, 20140219. (doi:10.1098/rsta.
+2014.0219)
+88. Adamatzky A, de Lacy Costello B. 2007 Binary
+collisions between wave-fragments in a sub-
+excitable Belousov-Zhabotinsky medium. Chaos
+Solitons Fractals 34, 307-315. (doi:10.1016/j.chaos.
+2006.03.095)
+89. Toth R, Stone C, de Lacy Costello B, Adamatzky A,
+Bull L. 2010 Simple collision-based chemical logic
+gates with adaptive computing. In Theoretical and
+technological advancements in nanotechnology and
+molecular computation: interdisciplinary gains:
+interdisciplinary gains (ed. B MacLennan), p. 162.
+Hershey, PA: IGI Global.
+90. Adamatzky A, De Lacy Costello B, Bull L, Holley J.
+2011 Towards arithmetic circuits in sub-excitable
+chemical media. Isr. J. Chem. 51, 56-66. (doi:10.
+1002/ijch.201000046)
+91. de Lacy Costello B, Toth R, Stone C, Adamatzky A,
+Bull L. 2009 Implementation of glider guns in the
+light-sensitive Belousov-Zhabotinsky medium. Phys.
+Rev. E 79, 026114. (doi:10.1103/PhysRevE.79.
+026114)
+92. Toth R, Stone C, Adamatzky A, de Lacy Costello B,
+Bull L. 2009 Experimental validation of binary
+collisions between wave fragments in the
+photosensitive Belousov-Zhabotinsky reaction.
+Chaos Solitons Fractals 41, 1605-1615. (doi:10.
+1016/j.chaos.2008.07.001)
+93. Adamatzky A. 2010 Slime mould logical gates:
+exploring ballistic approach. (http://arxiv.org/abs/
+1005.2301)
+94. De Lacy Costello B, Adamatzky A, Jahan I, Zhang L.
+2011 Towards constructing one-bit binary adder in
+excitable chemical medium. Chem. Phys. 381,
+88-99. (doi:10.1016/j.chemphys.2011.01.014)
+95. Sun M-Z, Zhao X. 2013 Multi-bit binary decoder
+based on Belousov-Zhabotinsky reaction. J. Chem.
+Phys. 138, 114106. (doi:10.1063/1.4794995)
+96. Zhang G-M, Wong I, Chou M-T, Zhao X. 2012
+Towards constructing multi-bit binary adder based
+on Belousov-Zhabotinsky reaction. J. Chem. Phys.
+136, 164108. (doi:10.1063/1.3702846)
+97. Sun M-Z, Zhao X. 2015 Crossover structures for
+logical computations in excitable chemical medium.
+Int. J. Unconventional Comput. 11, 165-184.
+98. Guo S, Sun M-Z, Han X. 2015 Digital comparator in
+excitable chemical media. Int. J. Unconventional
+Comput. 11, 131-145.
+99. Gorecka J, Gorecki J. 2003 T-shaped coincidence
+detector as a band filter of chemical signal
+frequency. Phys. Rev. E 67, 067203. (doi:10.1103/
+PhysRevE.67.067203)
+100. Igarashi Y, Gorecki J, Gorecka JN. 2006 Chemical
+information processing devices constructed using a
+nonlinear medium with controlled excitability. In
+Unconventional computation (ed. A Adamatzky),
+pp. 130-138. Berlin, Germany: Springer.
+101. Adamatzky A, de Lacy Costello B, Bull L. 2011 On
+polymorphic logical gates in subexcitable chemical
+medium. Int. J. Bifurcation Chaos 21, 1977-1986.
+(doi:10.1142/S0218127411029574)
+102. Stevens WM, Adamatzky A, Jahan I, de Lacy Costello B.
+2012 Time-dependent wave selection for information
+processing in excitable media. Phys. Rev. E 85, 066129.
+(doi:10.1103/PhysRevE.85.066129)
+103. Cole L, Orlovich DA, Ashford AE. 1998 Structure,
+function, and motility of vacuoles in filamentous
+fungi. Fungal Genet. Biol. 24, 86-100. (doi:10.
+1006/fgbi.1998.1051)
+104. Goldstein RE, Tuval I, van de Meent J-W. 2008
+Microfluidics of cytoplasmic streaming and its
+implications for intracellular transport. Proc. Natl
+Acad. Sci. USA 105, 3663-3667. (doi:10.1073/pnas.
+0707223105)
+105. Adamatzky A, Schubert T. 2014 Slime mold
+microfluidic logical gates. Mater. Today 17, 86-91.
+(doi:10.1016/j.mattod.2014.01.018)
+106. Bahn Y-S, Xue C, Idnurm A, Rutherford JC, Heitman
+J, Cardenas ME. 2007 Sensing the environment:
+lessons from fungi. Nat. Rev. Microbiol. 5, 57-69.
+(doi:10.1038/nrmicro1578)
+107. Whiting JGH, Jones J, Bull L, Levin M, Adamatzky A.
+2016 Towards a Physarum learning chip. Sci. Rep. 6,
+19948. (doi:10.1038/srep19948)
+108. Trinci APJ. 1974 A study of the kinetics of hyphal
+extension and branch initiation of fungal mycelia.
+Microbiology 81, 225-236. (doi:10.1099/00221287-
+81-1-225)
+109. Fromm J, Lautner S. 2007 Electrical signals and
+their physiological significance in plants. Plant Cell
+Environ. 30, 249-257. (doi:10.1111/j.1365-3040.
+2006.01614.x)
+110. Van Aarle IM, Axel Olsson P, So¨derstro¨m B. 2002
+Arbuscular mycorrhizal fungi respond to the substrate
+ph of their extraradical mycelium by altered growth
+and root colonization. New Phytologist 155,
+173-182. (doi:10.1046/j.1469-8137.2002.00439.x)
+111. Kung C. 2005 A possible unifying principle for
+mechanosensation. Nature 436, 647-654. (doi:10.
+1038/nature03896)
+112. Fomina M, Ritz K, Gadd GM. 2000 Negative fungal
+chemotropism to toxic metals. FEMS. Microbiol. Lett.
+193, 207-211. (doi:10.1111/j.1574-6968.2000.
+tb09425.x)
+113. Bahn Y-S, Mu¨hlschlegel FA. 2006 CO2 sensing in
+fungi and beyond. Curr. Opin. Microbiol. 9,
+572-578. (doi:10.1016/j.mib.2006.09.003)
+114. Oh K-B, Nishiyama T, Sakai E, Matsuoka H, Kurata H.
+1997 Flow sensing in mycelial fungi. J. Biotechnol. 58,
+197-204. ( doi:10.1016/s0168-1656(97)00147-8)
+115. Jaffe MJ, Leopold AC, Staples RC. 2002 Thigmo
+responses in plants and fungi. Am. J. Bot. 89,
+375-382. (doi:/10.3732/ajb.89.3.375)
+116. Howitz KT, Sinclair DA. 2008 Xenohormesis: sensing
+the chemical cues of other species. Cell 133, 387-391.
+(doi:10.1016/j.cell.2008.04.019)
+117. Rundel PW, Graham EA, Allen MF, Fisher JC,
+Harmon TC. 2009 Environmental sensor networks in
+ecological research. New Phytologist 182, 589-607.
+(doi:10.1111/j.1469-8137.2009.02811.x)
+118. Schloter M, Nannipieri P, Sørensen SJ, Dirk van Elsas
+J. 2018 Microbial indicators for soil quality. Biol.
+Fertil. Soils 54, 1-10. (doi:10.1007/s00374-017-
+1248-3)
+119. Vogt KA, Publicover DA, Bloomfield J, Perez JM,
+Vogt DJ, Silver WL. 1993 Belowground responses as
+indicators of environmental change. Environ. Exp.
+Bot. 33, 189-205. (doi:10.1016/0098-8472(93)
+90065-N)
+120. Whiting JGH, de Lacy Costello BPJ, Adamatzky A.
+2014 Slime mould logic gates based on frequency
+changes of electrical potential oscillation. Biosystems
+124, 21-25. (doi:10.1016/j.biosystems.2014.08.
+001)
+121. Borresen J, Lynch S. 2012 Oscillatory threshold logic.
+PLoS ONE 7, e48498. (doi:10.1371/journal.pone.
+0048498)
+122. Toussaint GT. 1980 The relative neighbourhood
+graph of a finite planar set. Pattern.
+Recognit. 12, 261-268. (doi:10.1016/0031-
+3203(80)90066-7)
+rsfs.royalsocietypublishing.org
+Interface Focus 8: 20180029
+16
+ on October 23, 2018
+http://rsfs.royalsocietypublishing.org/
+Downloaded from 
+View publication stats
+

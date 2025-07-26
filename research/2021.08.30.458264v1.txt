@@ -1,0 +1,3083 @@
+Coordinated drift of receptive ﬁelds during noisy
+1
+representation learning
+2
+Shanshan Qin1,2, Shiva Farashahi3,†, David Lipshutz3,†, Anirvan M. Sengupta3,4, Dmitri B. Chklovskii3,5, and
+3
+Cengiz Pehlevan ∗1,2
+4
+1John A. Paulson School of Engineering and Applied Sciences, Harvard University, Cambridge, MA 02138, U.S.A
+5
+2Center for Brain Science, Harvard University,Cambridge, MA 02138, U.S.A
+6
+3Center for Computational Neuroscience, Flatiron Institute, New York, NY 10010, U.S.A
+7
+4Department of Physics and Astronomy, Rutgers University, New Brunswick, NJ 08901, U.S.A
+8
+5NYU Langone Medical Center, New York, NY 10016, U.S.A
+9
+10
+Abstract
+11
+Long-term memories and learned behavior are conventionally associated with stable
+12
+neuronal representations. However, recent experiments showed that neural population
+13
+codes in many brain areas continuously change even when animals have fully learned
+14
+and stably perform their tasks. This representational "drift" naturally leads to questions
+15
+about its causes, dynamics, and functions. Here, we explore the hypothesis that neural
+16
+representations optimize a representational objective with a degenerate solution space,
+17
+and noisy synaptic updates drive the network to explore this (near-)optimal space causing
+18
+representational drift. We illustrate this idea in simple, biologically plausible Hebbian/anti-
+19
+Hebbian network models of representation learning, which optimize similarity matching
+20
+objectives, and, when neural outputs are constrained to be nonnegative, learn localized
+21
+receptive ﬁelds (RFs) that tile the stimulus manifold. We ﬁnd that the drifting RFs of in-
+22
+dividual neurons can be characterized by a coordinated random walk, with the effective
+23
+diffusion constants depending on various parameters such as learning rate, noise ampli-
+24
+tude, and input statistics. Despite such drift, the representational similarity of population
+25
+codes is stable over time. Our model recapitulates recent experimental observations in
+26
+hippocampus and posterior parietal cortex, and makes testable predictions that can be
+27
+probed in future experiments.
+28
+∗Corresponding author. E-mail: cpehlevan@seas.harvard.edu
+†These authors contributed equally to this work
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Introduction
+29
+Memories and learned behavior can be stable for a long time. We can recall vividly the memory
+30
+of events that happened years ago. Motor skills, such as riding a bike, once learned, can
+31
+last life-long even without further practice.
+A natural question is then whether stable task
+32
+performance and memories are related to stable neuronal representations.
+33
+Recent technical advances in electrophysiology and optical imaging enabled researchers
+34
+to address this question by studying the long-term dynamics of neural population activity in
+35
+awake behaving animals (Katlowitz, Picardo, and Long 2018; Li et al. 2017; Luo et al. 2020;
+36
+Schoonover et al. 2021; Ulivi et al. 2019; Y. Ziv et al. 2013). A number of these experiments
+37
+have shown that neuronal activities in cortical areas that are essential for speciﬁc tasks un-
+38
+dergo continuous reorganization even after the animals have fully learned their tasks, a phe-
+39
+nomenon termed "representational drift" (Mau, Hasselmo, and Cai 2020; Rule, O'Leary, and
+40
+Harvey 2019). For instance, in sensorimotor tasks, neuronal representations in the posterior
+41
+parietal cortex (PPC) of mice change across days while the performance of animals remain
+42
+stable and high (Driscoll et al. 2017). Place ﬁelds of individual place cells in CA1 region of
+43
+hippocampus drift over days and weeks even when the animals remain in the same familiar
+44
+environment (Gonzalez et al. 2019; Lee et al. 2020; Y. Ziv et al. 2013). Individual neurons in
+45
+the primary motor cortex and supplementary motor cortex show unstable tuning while animals
+46
+perform highly stereotyped motor tasks (Rokni et al. 2007) (but see (Chestek et al. 2007; Gal-
+47
+lego et al. 2020)). Representational drift has been observed even in primary sensory cortices,
+48
+such as mouse visual cortex (Deitch, Rubin, and Y. Ziv 2021; Marks and Goard 2021) and
+49
+piriform cortex (Schoonover et al. 2021). The ubiquity of representational drift raises several
+50
+important questions: What is the underlying mechanism of such drift? How can neural cir-
+51
+cuits generate stable coding in the presence of continuous drift? What are the dynamics of
+52
+representational drift?
+53
+To address these issues, we consider a setting where a neural population learns to rep-
+54
+resent stimuli in a way that optimizes a representational objective. Such a normative account
+55
+of sensory representations is common in neuroscience (Atick and Redlich 1992; Attneave
+56
+1954; Barlow 1961; Chalk, Marre, and Tkacik 2018; Hateren 1992; Olshausen and Field
+57
+1997; Pehlevan, Hu, and Chklovskii 2015; Rao and Ballard 1999; Srinivasan, Laughlin, and
+58
+Dubs 1982). Furthermore, the representational objective we consider has many solutions,
+59
+consistent with the notion that there are many optimal neural representations of input stimuli.
+60
+Based on the observations that synapses in the cortex are highly dynamic (Attardo, Fitzgerald,
+61
+and Schnitzer 2015; Hazan and N. E. Ziv 2020; Rumpel and Triesch 2016), we hypothesize
+62
+that noisy synaptic updates during learning will drive the network to explore the synaptic weight
+63
+space that corresponds to (near-)optimal neural representations. In other words, the neural
+64
+2
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Neurons:
+A  B  C  D
+da
+ta 
+manifol
+d
+Receptive Field
+Hebbian
+anti-Hebbian synapses
+A
+B
+Figure 1: (A) Illustration of localized receptive ﬁelds that tile the data manifold. (B) Hebbian/anti-Hebbian network with nonnegative neural
+activity can learn localized receptive ﬁelds.
+representation will drift within the space of optimal representations.
+65
+To test this hypothesis, we focus on a well-studied biologically plausible network for repre-
+66
+sentation learning: the Hebbian/anti-Hebbian network (Földiak 1990; Pehlevan and Chklovskii
+67
+2019) (Fig. 1B). These networks optimize similarity matching objectives which exhibit a de-
+68
+generacy of optimal representational solutions (Pehlevan, Sengupta, and Chklovskii 2018), all
+69
+of which share the same representational similarity matrix (Kriegeskorte, Mur, and Bandettini
+70
+2008). Hebbian/anti-Hebbian networks have also been shown to learn localized RFs that tile
+71
+the input data manifold (Sengupta et al. 2018), hence they can be used as simpliﬁed models for
+72
+brain areas where neurons have localized receptive ﬁelds (RFs), such as hippocampal place
+73
+cells and neurons in PPC (Driscoll et al. 2017; Gonzalez et al. 2019; Y. Ziv et al. 2013). In
+74
+these systems, population of neurons with different localized RFs generally tile the parameter
+75
+space they encode (Fig. 1A). The simplicity and mathematical-tractability make Hebbian/anti-
+76
+Hebbian networks an excellent starting point to elucidate the mechanism and properties of
+77
+representational drift due to noise in synaptic updates.
+78
+By numerical and analytical methods, we ﬁnd that while the RFs of individual neurons
+79
+change signiﬁcantly over time, the representational similarity of population codes is stable.We
+80
+show that the drift dynamics of individual RFs can be largely captured by a random walk on the
+81
+data manifold, with the effective diffusion constant depending on noise amplitude, learning rate
+82
+and other model parameters such as the number of output neurons. At the population level,
+83
+the drifting RFs are coordinated in a way that preserves representational similarity. Our model
+84
+accounts for many of the recent experimental observations in the hippocampus and PPC, and
+85
+makes testable predictions. Overall, our results show how optimal representation learning and
+86
+noise can lead to representational drift while maintaining representational similarity.
+87
+3
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+0
+5
+10
+104
+0
+0.1
+0.2
+0.3
+0.4
+PSP error
+0
+5
+10
+104
+-1
+-0.5
+0
+0.5
+1
+y1
+y2
+y3
+A
+B
+C
+start
+end
+Time
+D
+-2
+0
+-2
+2
+0
+0
+2
+2
+-2
+101
+102
+103
+104
+105
+10-4
+10-2
+100
+E
+F
+G
+1
+1
+10
+20
+10
+20
+Stimuli
+Stimuli
+1
+10
+20
+Stimuli
+-4
+-2
+0
+2
+4
+100
+101
+102
+10-6
+10-5
+10-4
+10-3
+simulation
+theory
+10-6
+10-4
+10-2
+10-8
+10-6
+10-4
+simulation
+theory
+Figure 2: Drift dynamics in principal subspace projection (PSP) task. In the simulation, each input xt ∈R10 is drawn independently
+from a joint Gaussian distribution N(0, C). The ﬁrst three eigenvalues of the covariance matrix C are: 4.5, 3.5, 1 and the rest are 0.1.
+A Hebbian/anti-Hebbian network learns to project this input to k = 3 dimensions. (A) PSP error remains stable after the task has been
+learned even with noisy synapse update. (B) The learned representation of an example input continuously changes due to noisy updates.
+Shown are the 3 component of y(t). (C) Pairwise similarity between learned representations are stable over time, as shown by the almost
+identical similarity matrices at t = 0 (left) and t = 2 × 104 (right). (D) Drifting representation as a random walk on a "sphere", showing
+the representation of a single sample yt over time . Color codes for different time steps. (E) Estimating rotational diffusion constant Dϕ
+from mean squared angular displacement (MSAD). Grey lines are MSAD estimated based on individual representation trajectory y(t). The
+dashed line is a linear ﬁt between ⟨(∆ϕ)2⟩≡⟨(ϕ(t + ∆t) −ϕ(t))2⟩and ∆t to estimate the rotational diffusion constant. Inset: illustration
+of ∆ϕ. (F) Relationship between Dϕ and noise amplitude σ2. Symbol with error bars are numerical simulation, and the solid line is the
+theory Eq.5. (G) Dependence of Dϕ on the eigenspectrum {λi} of the input covariance matrix. Error bars represent standard deviation,
+only one side is shown to reduce cluttering. In all the ﬁgures t = 0 is the starting point when the representation is learned. Parameters:
+n = 10, k = 3, η = 0.1, σ1 = σ2 = 0.01, T = 104.
+Results
+88
+Drift dynamics in linear Hebbian/anti-Hebbian networks
+89
+We ﬁrst study drift in linear Hebbian/anti-Hebbian networks, which compress inputs into a
+90
+lower dimensional space (Pehlevan, Hu, and Chklovskii 2015). While the resulting RFs are not
+91
+localized, it is still instructive to study how learned representations evolve with noisy synaptic
+92
+updates in this analytically tractable model.
+93
+The network we consider minimizes a similarity matching cost function (Pehlevan, Hu, and
+94
+Chklovskii 2015). Here, the similarity between two vectors is deﬁned as their dot product. Let
+95
+xt ∈Rn, t = 1, · · · , T be a set of network inputs (or sensory stimulus) and yt ∈Rk, k < n
+96
+be the corresponding outputs constituting a representation. Similarity matching minimizes the
+97
+mismatch between the similarity of pairs of inputs and corresponding pairs of outputs
+98
+min
+∀t:yt
+1
+T 2
+T
+X
+t=1
+T
+X
+t′=1
+(x⊤
+t xt′ −y⊤
+t yt′)2.
+(1)
+4
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Optimal solutions to this problem are given by projecting the inputs to their principal subspace
+99
+(Pehlevan, Hu, and Chklovskii 2015). However, there is a continuum of such projections each
+100
+corresponding to a basis in the subspace. This degeneracy can be seen from the rotational
+101
+symmetry of the similarity matching cost function, (1). For any set of yt, Ryt has the same
+102
+cost, where R is an orthogonal matrix.
+103
+Previous work showed that this cost function can be minimized by a neural network in an
+104
+online manner, where each input xt is presented sequentially and an output yt is produced
+105
+(Pehlevan, Hu, and Chklovskii 2015) (Materials and Methods) by running the following neural
+106
+dynamics until convergence:
+107
+˙yt = Wxt −Myt.
+(2)
+Here, W holds the feedforward synaptic weights and M the lateral weights. We note that
+108
+at the ﬁxed point of the neural dynamics yt = M−1Wxt = Fxt, where we deﬁne a ﬁlter
+109
+matrix, F ≡M−1W, whose rows are neural ﬁlters. After each presentation of an input and
+110
+convergence of the neural dynamics, the weights W and M are updated with a Hebbian and
+111
+anti-Hebbian rule, respectively:
+112
+∆W = η(ytxt −W),
+∆M = η(yty⊤
+t −M).
+(3)
+The learning rule is local in the sense that synaptic update only depends on activities of presy-
+113
+naptic and postsynaptic neurons. The update of M is anti-Hebbian due to the negation in (2).
+114
+As the number of samples increases, these weights converge to a conﬁguration where neural
+115
+ﬁlters learn an orthonormal basis for the principal space (Pehlevan, Hu, and Chklovskii 2015;
+116
+Pehlevan, Sengupta, and Chklovskii 2018).
+117
+Here, we model biological noise during learning by introducing noise to the weight updates,
+118
+and examine the consequences of this noise. The updates are
+119
+∆W(t) = η(ytx⊤
+t −W(t)) + ξW,
+∆M(t) = η(yty⊤
+t −M(t)) + ξM,
+(4)
+where the noise terms ξW
+ij , ξM
+ij are independent Gaussian noise, with the following statistics:
+120
+⟨ξW
+ij (t)⟩= ⟨ξM
+ij (t)⟩= 0 and ⟨(ξW
+ij (t)ξW
+kl (t′)⟩= ησ2
+1δikδjlδ(t−t′), ⟨ξM
+ij (t)ξM
+kl (t′)⟩= ησ2
+2δikδjlδ(t−
+121
+t′).
+122
+As expected, the network learns the principle subspace and maintains a stable perfor-
+123
+mance, as quantiﬁed by the principle subspace projection (PSP) error: ||F⊤
+t Ft−UU⊤||F/||UU⊤||F
+124
+where U is a n×k matrix whose columns are the top k left singular vector of X (Fig. 2A). Due
+125
+to the synaptic noise, network weights do not settle down to ﬁxed points but roam around in the
+126
+subspace that gives equally good solutions to the similarity matching problem. Consequently,
+127
+the representation of a given stimulus yt drifts over time (Fig. 2B). However, the similarity
+128
+between any two outputs yt and yt′ remains stable (Fig. 2C, SI Appendix Fig. S1A). As a
+129
+5
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+consequence, the drift does not change the length of the output vectors, yt, which undergo
+130
+a random walk on a spherical surface (Fig. 2D). The drift of the representation ensemble
+131
+Yt ≡[y1, · · · , yT] behaves like a randomly-rotating rigid body consisting of a cloud of points
+132
+(SI Appendix Fig. S1B).
+133
+These observations motivated us to quantify the drift rate by the rotational diffusion con-
+134
+stant Dϕ (Kämmerer, Kob, and Schilling 1997; Mazza et al. 2006) (Materials and Methods).
+135
+We can derive an approximate analytical formula for Dϕ from a linear stability analysis of the
+136
+ﬁlter matrix (F) (Materials and Methods, and SI Appendix for details):
+137
+Dϕ ≈1
+8η(σ2
+1 + σ2
+2)
+k
+X
+i=1
+1
+λ2
+i
+.
+(5)
+Here, λ1 ≥λ2 ≥· · · ≥λk are the ordered eigenvalues of the input covariance matrix. (5)
+138
+indicates that Dϕ is proportional to the noise amplitude (Fig. 2F). Further, the drift amplitude
+139
+along each eigenvector is proportional to 1/λ2
+i . This is analogous to the rotation of an ellipsoid
+140
+rigid body due to torque. In that system, the rotation around the axis with smaller moment of
+141
+inertia is easier. Predictions of (5) is well in agreement with simulations (Fig. 2E-G).
+142
+The above simulation and analysis demonstrate that, in this model, while the network's out-
+143
+put is drifting over time, similarity of representation is preserved. This is due to a coordinated
+144
+random walk in the representational space, which in the linear case can be described by a rigid
+145
+body rotation. This coordinated drift explores equally optimal representations. Because the
+146
+quality of a representation is quantiﬁed by its representational similarity in (1), representational
+147
+similarity is preserved despite the drift. Next, we consider nonlinear networks and show that
+148
+these results carry over.
+149
+Drift dynamics in nonlinear Hebbian/anti-Hebbian networks
+150
+RFs of neurons in many brain areas are localized in the parameter space which they represent.
+151
+For example, response of neurons in primary visual cortex (V1) are tuned to orientations of
+152
+gratings (Hubel 1995). Neurons in the owl's external nucleus of the inferior colliculus (ICX) are
+153
+tuned to different horizontal and vertical positions, forming an auditory spatial map (Peña and
+154
+Konishi 2001). Place cells in hippocampus are active when an animal is at a particular spatial
+155
+location of an environment (O'Keefe and Dostrovsky 1971).
+156
+A nonlinear version of our Hebbian/anti-Hebbian network can capture these localized RF
+157
+properties (Fig. 1B). This network minimizes a nonnegative similarity matching (NSM) cost
+158
+function (Földiak 1990; Pehlevan, Hu, and Chklovskii 2015; Sengupta et al. 2018):
+159
+min
+∀t:yt≥0
+1
+T 2
+T
+X
+t,t′=1
+(x⊤
+t xt′ −y⊤
+t yt′ −α2)2,
+(6)
+6
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+0
+2
+A
+B
+C
+D
+2
+4
+6
+8
+Time
+0
+2
+Position
+0
+0.5
+1
+x103
+10-3
+10-2
+10-1
+10-6
+10-4
+10-2
+10-4
+10-3
+10-2
+10-110-5
+10-4
+10-3
+Figure 3: Drift of a single localized RF learned from a ring data manifold. (A) A ring in 2D as input dataset: x(θ) = [cos(θ), sin(θ)]⊤, θ ∈
+[0, 2π). (B) The single RF has the shape of a truncated cosine curve, whose position drift on the ring and behaves like a random walk. (C,D)
+The effective diffusion constant D of centroid position increases with learning rate η even without explicit synatpic noise (σ = 0), and with
+the noise amplitude of explicit synaptic noise. Error bars represent standard deviation of 40 simulations. Megenta lines correspond to (9).
+Parameters: α2 = 0, β1 = β2 = 0, in (D) η = 0.05.
+where xt ∈Rn and yt ∈Rk are input and output, respectively, and α2 sets the threshold of
+160
+similarity to be preserved in the output representation. With nonnegative neural activity, the
+161
+above NSM objective function strives to preserve similarity for similar pairs of input samples
+162
+but orthogonalizes the outputs corresponding to dissimilar input pairs. Compared with the
+163
+linear network, non-negativity breaks the rotational symmetry of the solution, but the permu-
+164
+tation symmetry is still preserved, i.e., exchanging identities of neurons does not change the
+165
+objective function. To see this more clearly, the above target function can be written in terms
+166
+of input-output Gram matrices: ||X⊤X −Y⊤Y −α2E||2
+F, where X ∈Rn×T, Y ∈Rk×T, and
+167
+E ∈RT×T is a matrix with all entries set to 1. Thus, if Y is a solution, then PY is also a
+168
+solution for any permutation matrix P. Note that a general rotation would not preserve the
+169
+nonnegativity of the output and thus not lead to a new solution. One can further control the
+170
+behavior of learned representations by introducing regularizers to yt in (6), for example an l1
+171
+norm of y leads to more sparse code (Materials and Methods).
+172
+Similar to the previous linear Hebbian/anti-Hebbian network, this network also operates in
+173
+an online fashion with a similar local learning rule. It takes an input xt and generates an output
+174
+yt by running the following neural dynamics until it converges (Pehlevan 2019):
+175
+7
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+0
+2
+Position
+0
+0.2
+0.4
+0.6
+Response
+0
+2000
+4000
+Time
+0
+Centroid of RF
+A
+E
+G
+H
+F
+B
+C
+D
+0
+2
+Position
+Position
+0
+2
+0
+2
+Position
+0
+0.5
+1
+0
+5000
+10000
+Time
+0
+0.2
+0.4
+0.6
+Peak Amplitude
+active
+silent
+0
+5000
+10000
+Time
+0
+0.5
+1
+Active fraction
+0
+0.2
+0.4
+Mean peak amplitude
+0
+0.2
+0.4
+0.6
+0.8
+Fraction of active time
+100
+300
+500
+0
+0.5
+1
+Active fraction
+ = 0
+ = 10-4
+ = 10-1
+0
+0.2
+0.4
+Mean peak amplitude
+10-4
+10-2
+I
+Centroid 
+of RF
+0
+10
+20
+0
+1
+2
+3
+4
+independent
+model
+Figure 4: Drift of manifold-tiling localized RFs. (A) Learned localized RFs tile the input ring data manifold. Colors represent RFs of 5 example
+neurons. (B) Evolution of the RF centroids of two example neurons due to synaptic noise. (C) The representational similarity matrix Y⊤Y
+is approximately circulant and stable over time. (D) When there are large number of neurons, each neuron has active and silent (shaded
+region) periods. (E) At population level, the fraction of neurons with active RFs are constant. (F) The fraction of neurons that have active RFs
+decreases with the total number of output neurons, as well as the noise amplitude. (G-H) Neurons that have stronger RFs tend to have longer
+active time (G) and also are more stable as quantiﬁed by smaller effective diffusion constants D (H). (I) At population level, the drift of RFs
+are coordinated such that their centroids are more uniformly distributed compared to that of the independent random walk case, in which the
+step size follows the same distribution of the Hebbian/anti-Hebbian network model. Shown are the variance of distances between adjacent
+centroids. Parameters in C-G: N = 200, σ = 0.002, η = 0.05, α2 = 0 except σ = 0 in B. In H: η = 0.05.
+dui
+dτ = −ui + [Wxt]i −αbi −[ ¯Myt]i,
+(7)
+176
+yi = max{ui/Mii, 0},
+177
+178
+where ui and yi represent the membrane potential and ﬁring rate of neuron i, and bi is the bias
+179
+term. The forward weight matrix W ∈Rk×n and lateral weight matrix M ∈Rk×k (we have
+180
+deﬁned ¯M = M −diag(M)) update according to the following "noisy" learning rule (Pehlevan
+181
+2019):
+182
+∆W = η(ytx⊤
+t −W) + ξW,
+∆M = η(yty⊤
+t −M) + ξM,
+∆b = η(αyt −b),
+(8)
+183
+where η is the learning rate, and ξW and ξM are Gaussian white noise terms with the same
+184
+statistics as in (4). The properties of the above learning rule without noise has been studied
+185
+previously (Földiak 1990; Pehlevan 2019; Pehlevan and Chklovskii 2014; Pehlevan, Mohan,
+186
+and Chklovskii 2017; Sengupta et al. 2018). Here, our interest is investigating how the learned
+187
+representations evolve in the presence of noise in synaptic updates. We will ﬁrst study the
+188
+general drifting dynamics of RFs by a simple input: a ring data manifold. Based on the insights
+189
+gained from this model, we will build models of drifting representations in place cells and
+190
+neurons in PPC.
+191
+8
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Localized receptive ﬁelds on a ring stimulus manifold
+192
+To explore how RFs evolve in the presence of synaptic noise, we ﬁrst consider stimuli living
+193
+on a ring (Fig. 3A), like the direction of a drifting grating used in experimental study of visual
+194
+systems. Location of the stimulus on the ring is parameterized by an angular variable θ ∈
+195
+[0, 2π) (Materials and Methods). The input similarity matrix X⊤X has a diagonal band structure
+196
+and two inputs that are close on the ring have large similarity.
+197
+In the case of a single output neuron and in the absence of noise, the learned RF can
+198
+be solved analytically, which is a truncated cosine curve centered around a random angle φ,
+199
+i.e., yφ(θ) = µ[cos(θ −φ)]+ with µ being the peak amplitude. Derivation of this results and
+200
+dependence of µ to model parameters is given in Materials and Methods. With synaptic noise
+201
+during learning, the centroid drifts on the ring like a random walk. We quantiﬁed the speed
+202
+of drift with an effective diffusion constant, D, of the centroid by the conventional relation:
+203
+⟨(φ(t + ∆t) −φ(t))2⟩= 2D∆t, where φ(t) is the centroid position at time t. For a single
+204
+neuron, the dependence of D on the learning rate η and noise amplitude σ2 can be analytically
+205
+approximated as (Materials and Methods, and SI Appendix):
+206
+D ≈1
+2(η2 + 16ησ2).
+(9)
+The ﬁrst term of (9) is due to the sampling noise, i.e., the fact that the network sees one random
+207
+stimulus at a time, and the second term is due to the explicit synaptic noise (noise terms in
+208
+(8)). (9) indicates that faster learning and larger explicit noise result in more rapid drift of the
+209
+RF. Numerical simulation agrees well with the theory (Fig. 3C-D).
+210
+When there is a population of output neurons, the Hebbian/anti-Hebbian network learns
+211
+multiple localized RFs that tile the ring manifold with overlap (Fig. 4A), consistent with previ-
+212
+ous analytical accounts of simpliﬁed versions of such networks (Sengupta et al. 2018). With
+213
+synaptic noise, we expect each RF to drift by a similar diffusion process as in the single neuron
+214
+case, but with interactions between the neurons affecting the dynamics (Fig. 4B). In particular,
+215
+the structure of neural population activity, as indicated by output similarity matrix Y⊤Y, is sta-
+216
+ble across time (Fig. 4C). Further, a neuron's response to the same stimulus is intermittent,
+217
+having active and silent periods (Fig. 4D). At the population level, the fraction of neurons that
+218
+have active RFs at any given time is constant (Fig. 4E), and it decreases with total number
+219
+of output neurons as well as the noise amplitude (Fig. 4F). Thus, in a large population of
+220
+neurons, only a small fraction of them will be active at a give time, forming a sparse population
+221
+code. Neurons whose RFs have stronger tuning (characterized by the peak amplitude of RF)
+222
+tend to be active more often (Fig. 4G), and have smaller drift (Fig. 4H).
+223
+At the population level, the drift of RFs are coordinated. To see the difference between our
+224
+model and independent random walkers, we simulated Nactive centroids undergoing indepen-
+225
+9
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+dent random walks on the ring. The step size of the independent random walks were drawn
+226
+from the same distribution as the centroid shift between two adjacent time steps in our model
+227
+(Materials and Methods). We observed that centroids in our model tile the ring manifold more
+228
+uniformly than those of independent random walks, as indicated by the smaller variance of
+229
+distances between two adjacent centroids on the ring (Fig. 4I).
+230
+Having gained better understanding of drifting dynamics in the above simple model, we
+231
+now discuss models of representational drift in the Hippocampus CA1 region and PPC. The
+232
+observations made in Fig. 4 will conceptually carry over, providing explanations for previous
+233
+experimental observations.
+234
+A Hebbian/anti-Hebbian Network model for drifting place ﬁelds in CA1
+235
+CA1 place cells in the hippocampus play a crucial role in spatial memory and navigation.
+236
+Recent long-term recording experiments show that place coding by the population of CA1
+237
+pyramidal cells are dynamic even when the animal is in the same familiar environment. In
+238
+the time course of several weeks, some neurons lose their place ﬁelds while other previously
+239
+non-place coding cells gain place ﬁelds. Despite the drift, the spatial information is preserved
+240
+(Gonzalez et al. 2019; Y. Ziv et al. 2013).
+241
+One possible mechanism of place ﬁeld formation is that CA1 place cells receive both for-
+242
+ward input from grid cells in the entorhinal cortex and lateral competition from other place cells
+243
+within the hippocampus (M.-B. Moser, Rowland, and E. I. Moser 2015). This motivated us
+244
+to use the Hebbian/anti-Hebbian network to learn a place cell representation of a 2D square
+245
+environment. Each position on the plane is represented by a population of grid cells with dif-
+246
+ferent grid spacing, phases and offsets (Fig. 5A, Materials and Methods), which serves as the
+247
+input xt to the network. After learning, some output neurons develop localized RFs (or place
+248
+ﬁelds, Fig. 5B). This can be visualized by arranging each row of response matrix Y into a
+249
+square matrix, as shown in Fig. 5B. The population of output neurons tile the 2D environment,
+250
+as indicated by the uniform distribution of centroids of place ﬁelds (Fig. 5B, right). Due to the
+251
+noise in the weight update, place ﬁelds continuously drift over time (Fig. 5C). Despite the drift,
+252
+representational similarity of positions in the 2D environment is stable (SI Appendix, Fig. S2A).
+253
+We also observed that a place cell may lose its place ﬁeld for some time and gain a new place
+254
+ﬁeld later on (SI Appendix, Fig. S2B). The intermittence of RFs is due to both the competition
+255
+between RFs and the ﬂuctuation of W and M. For example, once the forward input is smaller
+256
+than the lateral inhibition at the centroid of an RF, then this RF becomes silent. The interval of
+257
+these silent periods follow exponential distributions (SI Appendix Fig. S2C), indicating that the
+258
+transition between active and silent state of RFs are random and memoryless. However, the
+259
+fraction of neurons with active place ﬁelds at any given time remains constant (SI Appendix,
+260
+10
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Grid cells
+Place cells
+A
+B
+0
+0.5
+1
+0
+0.5
+1
+y position
+x position
+Days
+0.2
+0.4
+0.6
+0.8
+1
+0
+2
+4
+16
+18
+20
+Neuron index 
+sorted by t = 1
+Position
+Position
+t = 1
+t = 300
+0
+L
+Position
+0
+L
+0
+L
+Similarity matrix
+Similarity matrix
+E
+G
+F
+H
+Day1
+Day16
+0
+0.5
+1
+0
+20
+40
+60
+80
+-20 -10
+0  
+10 20 
+Centroid shift
+0
+0.05
+0.1
+0.15
+1 day
+10 days
+50 days
+Random
+5 10 15 20 25
+Days
+0
+0.1
+0.2
+0.3
+Fraction of active
+place cells
+Fraction of active
+ place cells
+I
+L
+0
+t
+t+1
+J
+K
+-1
+0
+1
+0
+2
+4
+6
+Pdf
+-1
+0
+1
+0
+0.2
+0.4
+Probability
+random walk
+experiment
+1
+2000
+Time
+0  
+0.5
+1  
+x position
+0  
+0.5
+1  
+y position
+C
+Position on track
+Response
+grid cell 1
+grid cell 2
+D
+X position
+Y position
+1D slice
+0
+5
+10
+15
+-1  -0.5
+0   
+0.5 
+1   
+Centroid shift
+0
+0.05
+0.1
+0.15
+0.2
+Fraction
+ t=200
+ t=400
+ t=700
+Random
+0
+1
+2
+Time
+104
+0
+0.5
+1
+0
+1
+2
+3
+0
+0.2
+0.4
+0.6
+Distance (L)
+-0.4
+-0.2
+0
+0.2
+Experiment
+Model
+Random walk
+Corr. Coeff.
+Model
+Model
+Model
+Experiment
+Experiment
+Experiment
+0
+200
+400
+Time
+0
+0.5
+1
+PV correlation
+Figure 5: Drift of place ﬁelds. (A) Place cells receive input from grid cells that have different grid spacing, orientations and offsets. They
+also receive lateral inhibition due to competition with other place cells. (B) Left: learned place ﬁelds (left) tile the entitle 2D plane with red
+square highlighting an silent neuron. Right: each dot represents a centroid of a place ﬁeld. (C) Drift of place ﬁeld of an exemplar place
+cell. Each circle represents the position of its centroid at different times. (D) Left: Slice through a 2D grid ﬁeld. Right: Response of neurons
+across this slice. (E) Upper: learned place ﬁelds tile a 1D linear track when sorted by their centroid positions (left), but continuously change
+over time (right). Lower: Representational similarity matrix Y⊤Y of position is stable over time. (F) Experimental results corresponding to
+(E), place ﬁelds of a group of CA1 place cells concatenated from several mice when exploring the same familiar 1D linear track. (G) The
+average autocorrelation coefﬁcient of population vectors representing each spatial position in the model (left) and experiment (right) decay
+over time. Shades represents standard deviation over different positions. (H) Probability distribution of centroid drifts of place cells at three
+different time intervals. Red lines represent random distributions, which are obtained by randomly aligning place ﬁelds of neurons between
+the same interval. The qualitative behavior of the model (left) is very similar to that of the experimental result (right). (I) Despite the continuous
+reconﬁguration of place cell ensembles, the fraction of active place ﬁelds are stable over time in the model (left) and experiment (right). (J)
+Centroid shift ∆r = r(t + 1) −r(t) observed in experiment could be a result of two different 'random walks' (blue lines) under reﬂecting
+boundary conditions (upper of J). To make a fair comparison with an independent random walk, we sample step sizes ∆s of a random
+walk from a distribution p(∆s) (lower left of F) that produces similar shift distribution as in experiment p(∆r) (lower right panel of F). (K)
+Drifts of RFs show distance-dependent correlations, quantiﬁed by the average Pearson correlation coefﬁcients. The model can recapitulate
+the behavior observed in experiment. Shades represent the standard deviation of different pairs of centroids. Experimental results in F-K
+are plotted using data from (Gonzalez et al. 2019). Parameters: (A)-(C) β1 = 0.1, β2 = 0.05, η = 0.02, σ = 0.01, Np = 400. (D)-(I):
+Np = 200, α = 15, σ = 0, η = 0.01, β1 = 0, β2 = 0.05.
+Fig. S2D).
+261
+As in the simple ring model in the previous section, we found that the drifts of individual RFs
+262
+can be largely captured by a random walk but with intermittence due to the inactive periods of
+263
+RFs. The drift speed can be quantiﬁed by an effective diffusion constant D. The dependence
+264
+11
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+of D on the number of neuron N is similar to the ring model in the previous section. When N is
+265
+small, sampling noise dominates the synaptic update, resulting in a slight decrease of D as N
+266
+increases. However, beyond a certain N, D increases rapidly with N (SI Appendix, Fig. S2E).
+267
+Our model also predicts that neurons whose RFs have stronger tuning (larger peak amplitude
+268
+of the RF) tend to be active more often, and have smaller drift (SI Appendix,Fig. S2F,G).
+269
+While the above predictions could be compared with long-term recording experiments for
+270
+animals in a 2D environment, existing long-term recording experiments are limited to 1D envi-
+271
+ronments (typically linear tracks). To compare our model with these experimental results, we
+272
+simulated our model in a 1D environment, where grid cell responses are modeled as 1D slices
+273
+through the 2D grid ﬁelds, as observed in experiments (Yoon et al. 2016)(Fig. 5D, Material
+274
+and Methods). The model generates qualitatively similar results as the above 2D place cell
+275
+model. The learned place ﬁelds tile the linear track but drift over time due to ongoing noisy
+276
+weight updates, yet the representational similarity is stable over time (Fig. 5E). This is also
+277
+observed in an experiment (Gonzalez et al. 2019), where CA1 pyramidal cells were recorded
+278
+when mice were in the same familiar environment for several months (Fig. 5F). Due to drifting
+279
+place ﬁelds, the autocorrelation coefﬁcients of neural population vectors in both our model and
+280
+in experiment decay over time (Fig. 5G). The shift of centroids of place ﬁelds increases with
+281
+time, with a distribution eventually approaching the case wherein the place ﬁelds are randomly
+282
+permuted. Such behavior closely resembles that of experiments (Gonzalez et al. 2019) (Fig.
+283
+5H). Despite the continuous reconﬁguration of the neural assemblies representing the position,
+284
+the fraction of active place cells is stable over time (Fig. 5I).
+285
+To further explore the underlying structure of centroid shifts, and test the main prediction of
+286
+our model that the drift of RFs is coordinated, we set out to compare the experiment and our
+287
+simulation results to a null hypothesis — the shift of RFs behave like an independent random
+288
+walk. To make a fair comparison, for the null hypothesis, we assume each centroid takes
+289
+a step size ∆s that is drawn from a distribution p(∆s) with a reﬂecting boundary condition
+290
+(upper panel of Fig. 5J). The distribution p(∆s) was chosen such that the resulting centroid
+291
+shift ∆r closely matches that of experiment (lower left panel of Fig. 5J, Material and Methods).
+292
+Centroid shifts in experiment show clear distance-dependent correlations, i.e., two RFs that
+293
+are very close to each other are more likely to drift in the same direction on the next day,
+294
+while RFs that are far apart are more likely to drift in opposite directions (blue line, Fig. 5 K).
+295
+This is in stark contrast with the independent random walk picture (gray horizontal line, Fig.
+296
+5 K), but can be recapitulated by our model (red line, Fig. 5 K), suggesting that the drift of
+297
+RFs in experiment is coordinated at the population level, possibly to preserve representational
+298
+similarity.
+299
+12
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+A Hebbian/anti-Hebbian network model for drifting RFs of neurons in
+300
+PPC
+301
+The above model and results can be extended to another sensorimotor task, in which mice
+302
+were trained to navigate a virtual T-maze (Driscoll et al. 2017). At the ﬁrst half of the T-stem,
+303
+mice saw one of two alternative visual scenes, and associated them with left-turn or right-turn
+304
+at the T-junction to receive a reward at the end of the track (Fig. 6A). PPC is essential for this
+305
+task (Driscoll et al. 2017; Harvey, Coen, and Tank 2012). After learning, a sub-population of
+306
+neurons in PPC have localized receptive ﬁelds, i.e., they ﬁre when a mouse is at a speciﬁc
+307
+position along the T-maze and their RFs tile the T-maze, providing essential information about
+308
+the task. While mice stably perform the task after learning, the neural population activities
+309
+in PPC continuously drift over weeks. Despite such drift, the task information can be stably
+310
+encoded by the activities of a subpopulation of PPC neurons (Driscoll et al. 2017).
+311
+To better understand the positional tuning and drifting behavior of neurons in PPC, we
+312
+again use a Hebbian/anti-Hebbian network with noisy weight update rule to model this system.
+313
+For simplicity, the task information is represented by a vector xR/L(θ) = [cos(θ), sin(θ), ±1]⊤,
+314
+θ ∈[0, π), with the last entry indicating a right-turn (1) or a left-turn task (-1).
+315
+Reward
+Reward
+Running
+cue offset
+A
+C
+Neuron 
+index
+Sorted 
+neuron
+ index
+Position
+Left-turn
+Right-turn
+B
+t = 400
+t = 2000
+Neuron sorted 
+by t =400
+Neuron sorted 
+by t =2000
+Position along the T-maze
+0
+L
+0
+L
+0
+L
+0
+L
+Left-turn Right-turn
+0
+0.1
+0.2
+0
+0.2
+0.4
+0
+0.05
+0.1
+0.15
+0
+200
+400
+600
+0
+0.2
+0.4
+0.6
+0.8
+1
+Fraction of cells
+Consistent
+Switch
+Loss
+Model
+10
+20
+30
+Experiment
+1
+10
+20
+0
+1000
+2000
+0.2
+0.4
+0.6
+Fraction of
+peak moved
+ s > 0.1 L
+ s > 0.2 L
+ s > 0.3 L
+1
+10
+20
+0
+0.2
+0.4
+0.6
+Fraction of cells
+with active RF
+0
+2
+4
+6
+103
+D
+E
+F
+Figure 6: Representational drift in PPC. (A) Schematic of the visual-cue-guided T-maze sensorimotor task as in (Driscoll et al. 2017). The
+linear length of the track from the beginning to the end (dashed line) is L. (B) Population activity for the left-turn and right-turn task before
+(upper) and after (lower) sorting based on the centroids of their RFs. Only neurons that have active RFs at the given time point are shown.
+(C) Population activity drifts but representational similarity is stable over time. Activity of neurons identiﬁed with signiﬁcant peak in the sorted
+time (upper and middle). Representational similarity matrix is stable for both left-turn and right-turn task (lower panels). (D) left: For a
+group of neurons that have tuning to left-turn (or right-turn) tasks, the fraction of them that have consistent tuning (black), switched tuning
+(magenta), losing tuning (cyan) to left (or right) in the following time. (E) Shift of RFs for neurons with a signiﬁcant peak between time t and
+t + ∆t. Smaller shift happens more often than larger shift. (F) The fraction of the neurons with active RFs is stable across time. In (D)-(F)
+Left panels are simulation results of our model, right panels are corresponding experiment results from (Driscoll et al. 2017). Parameters:
+N = 400, α2 = 1.6, η = 0.05, σ = 10−4, β1 = 10−4, β2 = 10−3.
+13
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+After learning, the population of output neurons in the model develop positional tuning of
+316
+the T-maze, i.e., for either left-turn input xL or right-turn input xR, there are a subpopulation of
+317
+neurons that ﬁre most strongly when the animal is at the speciﬁc positions of the track, forming
+318
+RFs that tile the maze (Fig. 6B).
+319
+To see how the RFs of neurons evolve over time, we ﬁrst sort neurons with signiﬁcant
+320
+RFs based on the centroid positions of their RFs at a reference time point. We ﬁnd that RFs of
+321
+neurons drift over time, i.e., neurons rarely have the same or similar RFs at two long-separated
+322
+time points. However, the population representation of location-context information is stable
+323
+across time. Thus, at any given time, we can identify a subset of neurons with signiﬁcant
+324
+RFs that tile the positions of the T-maze for both left-turn and right-turn tasks (Fig. 6C, upper
+325
+and middle panels). Despite the drift, representational similarity of both left-turn and right-
+326
+turn tasks are stable over time (Fig. 6C, lower panel). Neurons also gradually change their
+327
+tuning to tasks choices. For example, a group of neurons that are tuned to the left-turn tasks
+328
+at time 0 may loss such tuning or become tuned to right-turn tasks, and vise versa. Drift of
+329
+an RF accumulates over time, such that the probability of centroid shift that is larger than a
+330
+certain distance increases with time (left, Fig. 6E). Overall, the fraction of neurons that have
+331
+positional tuning at any time for both left-turn and right-turn trials are constant (left, Fig. 6F). All
+332
+these behavior are consistent with the experiment (right panels of Fig. 6D-F). Together, these
+333
+comparisons shows that our simple model can explain many characteristics of representational
+334
+drift in PPC.
+335
+Summary and Discussion
+336
+In this paper, we explored the hypothesis that representational drift is due to the existence of
+337
+many (possibly inﬁnite) ensembles of population codes that achieve a representational objec-
+338
+tive. Noise in learning drives the network to explore this space, causing the drift of population
+339
+activity. While our focus was on synaptic noise, other sources of noise can also cause similar
+340
+representational drift with potentially different statistics. Similarly, network architectures that
+341
+optimize other objective functions can also show drift when learning with noise. However, we
+342
+expect the drift to be strongly affected by the degeneracy of the solution space of the objective
+343
+function. For example, in a feedforward network performing online principal component anal-
+344
+ysis, which has no degeneracy as the principal subspace projection task, we found stabilized
+345
+representations in the presence of noise (Fig. S3, SI Appendix).
+346
+To explore the consequences of our hypothesis in a concrete model, we focused on a
+347
+well-studied model for biologically plausible representation learning that optimizes similarity-
+348
+based representational objectives (Pehlevan and Chklovskii 2019). We showed that simple
+349
+14
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Hebbian/anti-Hebbian networks with noisy synaptic updates recapitulate observed represen-
+350
+tational drift phenomena in experiments. In the case that the network consists of a single
+351
+output neuron, we observed that its RF behaves like a random walk on the data manifold
+352
+with a diffusion constant that depends on the noise amplitude, learning rate, and statistical
+353
+structure of the input. When the network consists of many neurons, different drifting RFs are
+354
+coordinated such that representational similarity is stable across time.
+355
+We used the Hebbian/anti-Hebbian network as a simpliﬁed model to study the RFs of hip-
+356
+pocampal place cells and neurons in the PPC. Our model recapitulates the drift statistics at
+357
+population-level observed in these regions: First, a constant fraction of active neurons rep-
+358
+resent task variables at a given day. Second, neurons drop in and out of this assembly over
+359
+days. As a consequence, the autocorrelation coefﬁcient of population vectors decay over time.
+360
+Third, drift at population level preserves representational similarity (Fig. 5,6). While simple,
+361
+the network captures the essential properties of those neural circuits, i.e., RFs are shaped
+362
+by input from upstream and effective lateral inhibition/competition within the layer. It is also
+363
+possible to model these systems by training a general recurrent neural network (RNN), as has
+364
+been demonstrated in (Rajan, Harvey, and Tank 2016). It will be interesting to see whether
+365
+neurons in such RNN models with noisy weight update also show representational drift.
+366
+Our model makes several testable predictions. First, our model predicts that the drifts of
+367
+RFs are coordinated. This coordination is arising from the existence of a representational ob-
+368
+jective for the neural population as a whole. We veriﬁed this prediction in hippocampal data
+369
+Fig. 5J,K. Second, it predicts that neurons whose synapses have faster turnover dynamics
+370
+tend to drift more rapidly. For example, the lifetime of spines of pyramidal cells in hippocam-
+371
+pus is about 1 to 2 weeks, much shorter than that of neocortex neurons (Attardo, Fitzgerald,
+372
+and Schnitzer 2015). This suggests that representational drift should be more prominent in
+373
+hippocampus than in neocortex. Furthermore, the lifetime of synapses can be perturbed by
+374
+blocking receptors such as NMDA (Zuo et al. 2005), which will alter the stability of RFs. A
+375
+deﬁnitive examination of this prediction requires experiments that both measure the life time of
+376
+synapses and the long-term neural activity in brain regions that represent learned stereotyped
+377
+behavior under unperturbed and perturbed states. While challenging, this is nonetheless be-
+378
+coming within reach with new experimental techniques. Third, our model predicts that neurons
+379
+with strongly tuned RFs should be more stable. This prediction can be tested by examining the
+380
+amplitude of tuning curves (RFs) of individual neurons and their stability in long-term record-
+381
+ing experiments. Furthermore, the strength of RFs can be perturbed by optogenetic tools to
+382
+examine how it affects the stability of RFs.
+383
+Representational drift contradicts the hypothesis that stable neural activity is the substrate
+384
+of stable behavior. However, there needs to be stable aspects of representations which pro-
+385
+vide a substrate for stable downstream decoding and readout. Representational similarity can
+386
+15
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+be one such substrate for multiple reasons. First, our modeling shows that achieving stable
+387
+representational similarity despite the drift of population activity is biologically plausible. Sec-
+388
+ond, stable representational similarity may be a general internal structure of drifting neural
+389
+population activity. For example, mouse visual cortices show strong representational drift yet
+390
+the relation between population activities that represent different inputs remains stable and
+391
+stereotyped (Deitch, Rubin, and Y. Ziv 2021). Conserved and stable internal structure of neu-
+392
+ral activity has also been discovered in hippocampus and prefrontal cortex in free-behaving
+393
+mice (Rubin et al. 2019). Third, experimental evidence is consistent with stable representa-
+394
+tional similarity being a foundation for robust downstream decoding. Studies in monkey motor
+395
+cortices have shown that stable geometry of latent population dynamics underlies stereotyped
+396
+reaching tasks (Gallego et al. 2020) despite the inherently variable single neuron activities
+397
+(Liberti et al. 2016; Rokni et al. 2007) (see however (Chestek et al. 2007; Katlowitz, Picardo,
+398
+and Long 2018)). Interestingly, a recent experiment has shown that the spatial code of dif-
+399
+ferent environments in the hippocampus are random in individual rodents but share the same
+400
+geometry across different animals (Kinsky et al. 2018). Finally, preserving pairwise similarity
+401
+of representations may provide some computational beneﬁts. Recent unsupervised learning
+402
+algorithms for image recognition, such as contrastive representational learning (Chen et al.
+403
+2020) and "Barlow Twins" (Zbontar et al. 2021), are based on objectives that maximize rep-
+404
+resentational similarity between a sample and its distorted/augmented versions. Such algo-
+405
+rithms can achieve comparable performance to supervised learning algorithms. From a theo-
+406
+retical point of view, the representational similarity matrix (or kernel) determines the number of
+407
+sampled stimuli required to learn an accurate linear readout from a population code, indicating
+408
+that performance need not suffer as long as the representational kernel is preserved (Bordelon
+409
+and Pehlevan 2021).
+410
+A hypothesis for achieveing stable readout despite time-varying neural activity is that the
+411
+variation happens in the "coding-null space" (Druckmann and Chklovskii 2012; Kaufman et al.
+412
+2014). Representations in our model exhibit drift in all dimensions, precluding the existence
+413
+of such coding-null space. Similarly, a closer scrutiny of the response of PPC neurons in the
+414
+'T-maze' task showed that drift is not conﬁned to a "coding null space" (Rule, Loback, et al.
+415
+2020). Hence, an adaptive readout mechanism which involves synaptic plasticity to track and
+416
+compensate the drift is required to achieve stable behavior (Rule, Loback, et al. 2020; Rule
+417
+and O'Leary 2021). Whether and how such a mechanism is implemented in the brain remains
+418
+an open question.
+419
+The ubiquity of representational drift raises the question of whether it is a biological feature
+420
+or a bug. Representational drift may be desirable under certain circumstances (Mau, Has-
+421
+selmo, and Cai 2020). For example, in a model of the bird song learning system, variation in
+422
+the neural representation of the stereotyped behavior enables the system to adapt quickly to
+423
+16
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+a shift of target song, and to reduce error due to loss of neurons (Duffy et al. 2019). Drift can
+424
+accommodate new learning with minimal inference by continuously modifying existing mem-
+425
+ories (Mau, Hasselmo, and Cai 2020). Other authors proposed that noisy synaptic plasticity
+426
+and spine motility enable cortical networks of neurons to carry out probabilistic inference by
+427
+sampling from a posterior distribution of network conﬁgurations (Kappel et al. 2015). Such
+428
+sampling would lead to a representational drift as a byproduct.
+429
+Material and Methods
+430
+Similarity matching and the linear Hebbian/anti-Hebbian network
+431
+The linear Hebbian/anti-Hebbian network can be derived from (1). The detailed derivation can
+432
+be found in (Pehlevan, Hu, and Chklovskii 2015; Pehlevan, Sengupta, and Chklovskii 2018),
+433
+we sketch the main steps here. Starting from the cross term in (1), by introducing a new matrix
+434
+variable W ∈Rk×n, we obtain
+435
+−1
+T 2
+T
+X
+t=1
+T
+X
+t′=1
+y⊤
+t yt′x⊤
+t xt′ = −1
+T 2
+T
+X
+t=1
+y⊤
+t
+" T
+X
+t′
+yt′x⊤
+t′
+#
+xt =
+min
+W∈Rk×n −2
+T
+T
+X
+t=1
+y⊤
+t Wxt+TrW⊤W.
+(10)
+Similarly, we can introduce another matrix variable M for the quartic yt term in (1):
+436
+−1
+T 2
+T
+X
+t=1
+T
+X
+t′=1
+y⊤
+t yt′y⊤
+t yt′ = 1
+T 2
+T
+X
+t=1
+y⊤
+t
+" T
+X
+t′
+yt′y⊤
+t′
+#
+yt =
+max
+M∈Rk×k
+2
+T
+T
+X
+t=1
+y⊤
+t Wyt −TrM⊤M.
+(11)
+By substituting (10) and (11) into (1) and changing orders of optimization (Pehlevan, Sengupta,
+437
+and Chklovskii 2018) we get:
+438
+min
+W∈Rk×n max
+M∈Rk×k
+1
+T
+
+2Tr(W⊤W) −Tr(M⊤M) +
+min
+yt∈Rk×1 lt(W, M, yt)
+
+,
+(12)
+where
+439
+lt(W, M, yt) = −4x⊤
+t Wyt + 2y⊤
+t Myt.
+(13)
+The minimax problem (12) can be solved by the following two-step online algorithm. First,
+440
+minimizing (13) while keeping W and M ﬁxed, which is solved by running the dynamics of
+441
+output variable yt until convergence
+442
+dyt
+dt = Wxt −Myt.
+(14)
+Second, after the convergencec of yt, update W and M by gradient descent and gradient
+443
+ascent of (12) respectively:
+444
+Wij ←Wij + η(yixj −Wij),
+Mij ←Mij + η(Mij −yiyj).
+(15)
+17
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+The above learning algorithm (14), (15) can be naturally mapped onto a single-layer biologi-
+445
+cally plausible neural network, the linear Hebbian/anti-Hebbian network. Here, yt is the neural
+446
+activity of the output, W and M are synaptic matrices of the forward and lateral connections
+447
+respectively. The synaptic update rule (15) is local since the change of a synapse only de-
+448
+pends on the activity of presynaptic and postsynaptic neurons.
+449
+Calculation of the rotational diffusion constant
+450
+An analytical calculation of the rotational diffusion constant, deﬁned by (Hunter et al. 2011;
+451
+Kämmerer, Kob, and Schilling 1997; Mazza et al. 2006),
+452
+Dϕ ≡lim
+t→∞
+1
+4t⟨|⃗ϕ(t) −⃗ϕ(0)|2⟩.
+(16)
+is difﬁcult. However, we were able to obtain an approximation which matches numerical ex-
+453
+periments very well, as shown in Fig. 2E-G. We present the details of this derivation in the
+454
+SI Appendix. Our approximation assumes that 1) angular displacements of the representation
+455
+vectors after different time steps are not correlated, and 2) the network weights stay close to
+456
+the optimal representation manifold. Under these assumptions, Dϕ can be approximated by
+457
+the mean squared angular displacement (MSAD),
+458
+Dϕ ≈
+1
+4∆t⟨|∆⃗ϕ|2⟩,
+(17)
+where ∆t is the small time interval elapsed during a single step update, and ∆⃗ϕ arises from
+459
+a noisy synaptic update to the network with an optimal set of synapses. We calculate MSAD
+460
+analytically (SI) to arrive at (5).
+461
+To numerically estimate Dϕ from trajectory of y(t) with total length of T time steps, we ﬁrst
+462
+calculate δ⃗ϕ at each simulation step, then estimate ⃗ϕ(t) by cumulatively summing δ⃗ϕ up to
+463
+time step t. Next, we estimate the MSAD of time interval τ using all the pairs of ⃗ϕ(t + τ) and
+464
+⃗ϕ(t), which gives ⟨|∆⃗ϕ|2⟩= ⟨|⃗ϕ(t + τ) −⃗ϕ(t)|2⟩. Last, we plot |∆⃗ϕ|2 as a function of τ and ﬁt
+465
+a line that pass the origin to the data. The slope of the best ﬁt is then 4Dϕ.
+466
+Hebbian/anti-Hebbian network and nonnegative similarity matching
+467
+The nonlinear Hebbian/anti-Hebbian network (Eq. s(7) and (8)) can be derived from the gen-
+468
+eral nonnegative similarity matching (NSM) problem (Pehlevan 2019; Pehlevan and Chklovskii
+469
+2019). Denoting the input data as a set of vectors xt=1,··· ,T ∈Rn and the corresponding output
+470
+vectors yt=1,··· ,T ∈Rk, the NSM objective is deﬁned as
+471
+min
+∀yt≥0
+1
+T 2
+T
+X
+t,t′=1
+(x⊤
+t xt′ −y⊤
+t yt′ −α2)2 + 1
+T
+T
+X
+t=1
+(2β1||yt||1 + β2||yt||2
+2),
+(18)
+18
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+where α2 sets the threshold of similarity to be preserved in the output representation, the other
+472
+two regularizers β1, β2 control the sparsity and amplitude of output. The detailed derivation of
+473
+(7) and (8) from (18) is described in (Pehlevan 2019).
+474
+To see why the above NSM objective (18) leads to localized RFs, we can consider the
+475
+simpler case where β1 = β2 = 0 and a single pair of inputs. If two inputs are similar, i.e.,
+476
+x1 · x2 > α2, then the corresponding outputs y1 and y2 would prefer y1 · y2 = x1 · x2 −α2,
+477
+i.e., they are also similar. In contrast, if two inputs are less similar, i.e., x1 · x2 < α2, due to
+478
+the nonnegativity of outputs, y1, y2 they tend to be orthogonal: y1 · y2 = 0. To achieve this,
+479
+dissimilar inputs must activate non-ovelapping sets of neurons. Thus, in manifold learning, (18)
+480
+preserve local geometric structure in the y representation space of the input data clouds. A
+481
+detailed explanation of why localized RFs are learned in a simpliﬁed version of (18) is provided
+482
+in (Sengupta et al. 2018).
+483
+The neural dynamics derived from (18) (with regularizers) differ from that in main text
+484
+slightly by changing the transfer function in (7) to
+485
+yi = max{(ui −β1)/(β2 + Mii), 0}.
+(19)
+Derivation of the diffusion constant of the ring model
+486
+We sketch the derivation of (9) here, more details are in SI Appendix. We again consider
+487
+the approximation that the diffusion coefﬁcient can be approximated by the mean squared
+488
+displacement around a ﬁxed point by a noisy synaptic update.
+489
+Consider a single output neuron that learns a RF from inputs that are on a ring manifold
+490
+(Fig. 3A). The response of the output neuron to x = [cos θ, sin θ]⊤is
+491
+y(θ) =
+1
+m + β [w1 cos θ + w2 sin θ −αb]+,
+(20)
+where [x]+ denotes the rectiﬁed linear function and β is the l2 regularizer. The stationary state
+492
+parameters {w∗
+1, w∗
+2, m∗, b∗} satisfy the following conditions
+493
+⟨w∗
+1⟩= ⟨y(θ) cos θ⟩θ,
+⟨w∗
+2⟩= ⟨y(θ) sin θ⟩θ,
+494
+⟨m∗⟩= ⟨y2(θ)⟩θ,
+⟨b∗⟩= α⟨y(θ)⟩θ.
+(21)
+495
+496
+These equations can be solved self-consistently by assuming an ansatz of the form:
+497
+yφ(θ) = µ[cos(θ −φ) −cos(ψ)]+,
+θ ∈(−π, π],
+(22)
+which gives the dependence of µ and ψ on α, β
+µ2 =
+2ψ −sin 2ψ −4βπ
+4ψ + 2ψ cos 2ψ −3 sin 2ψ,
+α2 = cos ψ(2ψ −sin 2ψ)
+4(sin ψ −ψ cos ψ) .
+(23)
+19
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Using the fact that dy(θ)/dθ = 0 at θ = φ, we have tan φ = w∗
+2/w∗
+1 and
+498
+dφ
+dt = 1
+ˆµ
+dw2
+dt cos φ −dw1
+dt sin φ
+
+,
+(24)
+where ˆµ =
+p
+w∗2
+1 + w∗2
+2 is the norm of weight vector. Using the noisy update rule (8) and (22),
+499
+the shift of centroid due to one-step update eventually becomes
+500
+∆φ = 1
+ˆµ{ηµ[cos(θ −φ) −cos ψ]+ sin(θ −φ) + (ξ2 cos φ −ξ1 sin φ)}.
+(25)
+Finally, using the relation ⟨(∆φ)2⟩≈2D∆t, we have
+501
+D ≈γη2 + ηˆσ2
+ˆµ2 ,
+(26)
+where ˆσ2 ≡σ2
+1 cos2 φ + σ2
+2 sin2 φ, and
+502
+γ ≡µ2
+ˆµ2⟨([cos(θ −φ) −cos ψ]2
++ sin2(θ −φ))⟩θ.
+(27)
+When α = β = 0, σ1 = σ2 = σ, we have γ = 1 and ˆµ = 1/4, (26) reduces to (9) in the main
+503
+text.
+504
+Numerical simulation of 2D place cells
+505
+We considered a 32 × 32 grid plane as the environment, each position (x, y) is represented
+506
+by a group of grid cells with different grid spacings, orientations and offsets as observed in
+507
+experiment (Stensola et al. 2012). The hexagonal ﬁring ﬁelds of grid cells are modeled as a
+508
+summation of three two-dimensional sinusoidal functions as in (Kropff and Treves 2008; Lian
+509
+and Burkitt 2020; Solstad, E. I. Moser, and Einevoll 2006)
+510
+G(r) = 2
+3
+ 
+1
+3
+3
+X
+i=1
+cos
+ 4π
+√
+3lei · (r −r0)
+
++ 1
+2
+!
+,
+(28)
+where r = [x, y]⊤is the location on the plane, r0 = [x0, y0]⊤is the phase offset, l is the grid
+511
+spacing. ei = (cos(2πi/3 + θ), sin(2πi/3 + θ)), i = 1, 2, 3 is the unit vector in the direction
+512
+2πi/3 + θ with θ being the grid orientation. In the simulation, grid cells have 5 modules, i.e.,
+513
+Nl = 5. The value of l increases as geometric series with a ratio 1.42 that is consistent
+514
+with experiment (Stensola et al. 2012). For example, in our simulation, the smallest spacing
+515
+is 0.2L with L being the linear length of the plane, then the rest spacing would be 0.2 ×
+516
+1.42L, · · · , 0.2 × 1.42Nl−1L. In each module, the number of orientation θ, Nθ = 6, which are
+517
+drawn uniformly in the range [0, π/3). Similarly, the number of grid phase offsets x0, y0 are
+518
+Nx = 5 and Ny = 5, which are drawn uniformly in the range [0, l). As result, the total number
+519
+of grid cell is Ng = NlNθNxNy = 750.
+520
+20
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Numerical simulation of 1D place cell
+521
+We consider a linear track with length L. Tuning curves of grid cells on the linear track are
+522
+slices through 2D grid ﬁelds described above. The orientation of the slices are the same and
+523
+randomly selected in the range [0, π/3].
+524
+Autocorrelation coefﬁcient of the population vector
+525
+In all the cases, the autocorrelation coefﬁcient ρ of population vector is deﬁned as the Pear-
+526
+son's correlation coefﬁcent between yt and y0 to the same input:
+527
+ρ(t) =
+1
+n −1
+n
+X
+i=1
+y0,i −¯
+y0,i
+σy,0
+ yt,i −¯
+yt,i
+σy,t
+
+,
+(29)
+where ¯y0, ¯yt are the mean of y0,i and yt,i, σy,0, σy,t are the standard deviation of y0,i and yt,i.
+528
+Step size in independent random walks place ﬁelds
+529
+In Fig. 5J,K, the step size of independent random walks were drawn from a distribution p(∆s)
+530
+closely matching that of experiment. To determine this distribution, we ﬁrst calculated the
+531
+distribution of centroid shift between two adjacent days in experiment p(∆r) with ∆r = r(t +
+532
+1) −r(t). For a random walk whose centroid is at position ˆrt, its position at next time step is
+533
+ˆrt+1 = ˆrt + ∆s with ∆s randomly sampled from p(∆s). To constrain ˆrt+1 in the range of the
+534
+track [0, L] with L being the length of the track, we assumed a reﬂecting boundary condition,
+535
+which gives
+536
+ˆrt+1 =
+
+
+
+
+
+|ˆrt + ∆s|
+ˆrt + ∆s < 0
+2L −(ˆrt + ∆s)
+ˆrt + ∆s > L
+ˆrt + ∆s
+other
+The shift of centroid in the random walk model is then determined by ∆ˆr = ˆrt+1 −ˆrt according
+537
+to the above equation. Our aim is to ﬁnd a distribution p(∆s), such that p(∆ˆr) is close to that
+538
+of experiment p(r). Based on the shape of p(r), we searched p(∆s) from a family of Levy's
+539
+alpha stable distribution (Samorodnitsky and Taqqu 2017) by minimizing the Kullback-Leibler
+540
+divergence between p(r) and p(ˆr).
+541
+Data source and processing
+542
+Experimental data presented in Fig. 5 are originally described in (Gonzalez et al. 2019). We
+543
+used the processed data and MATLAB code, which are available at the Caltech Research Data
+544
+Repository (https://doi.org/10.22002/d1.1229) to produce these plots.
+545
+21
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Experimental data presented in Fig. 6 is extracted from Figure 2C, 2D, and 4E of (Driscoll
+546
+et al. 2017). The data is freely available in (Driscoll et al. 2020).
+547
+Acknowledgements
+548
+This work was supported by NIH (1UF1NS111697-01), the Intel Corporation through Intel
+549
+Neuromorphic Research Community, and a Google Faculty Research Award. We thank Walter
+550
+Gonzalez, Hanwen Zhang, Anna Harutyunyan and Carlos Lois for sharing the data on place
+551
+cell recordings. We thank Laura Driscoll, Noah Pettit, Matthias Minderer, Selmaan Chettih and
+552
+Christopher Harvey for making the T-maze experimental data available. We are grateful to
+553
+members of Pehlevan group for helpful discussions, and Christopher Harvey for comments on
+554
+the manuscript.
+555
+Competing interests
+556
+The authors declare no competing interests.
+557
+22
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+References
+558
+Atick, J. J. and A. N. Redlich (Mar. 1992). "What Does the Retina Know about Natural Scenes?" In: Neural
+559
+Computation 4.2, pages 196-210. DOI: 10.1162/neco.1992.4.2.196.
+560
+Attardo, Alessio, James E Fitzgerald, and Mark J Schnitzer (2015). "Impermanence of dendritic spines in live
+561
+adult CA1 hippocampus". In: Nature 523.7562, pages 592-596.
+562
+Attneave, Fred (1954). "Some informational aspects of visual perception." In: Psychological review 61.3, page 183.
+563
+Barlow, H. (1961). "Possible principles underlying the transformation of sensory messages". In: Sensory Com-
+564
+munication, MIT Press.
+565
+Bordelon, Blake and Cengiz Pehlevan (2021). "Population Codes Enable Learning from Few Examples By Shap-
+566
+ing Inductive Bias". In: bioRxiv.
+567
+Chalk, Matthew, Olivier Marre, and Gasper Tkacik (2018). "Toward a uniﬁed theory of efﬁcient, predictive, and
+568
+sparse coding". In: Proceedings of the National Academy of Sciences 115.1, pages 186-191.
+569
+Chen, Ting et al. (2020). "A simple framework for contrastive learning of visual representations". In: arXiv preprint
+570
+arXiv:2002.05709.
+571
+Chestek, Cynthia A et al. (2007). "Single-neuron stability during repeated reaching in macaque premotor cortex".
+572
+In: Journal of Neuroscience 27.40, pages 10742-10750.
+573
+Deitch, Daniel, Alon Rubin, and Yaniv Ziv (Oct. 2021). "Representational drift in the mouse visual cortex". In:
+574
+Current Biology 31.10, pages 1-13.
+575
+Driscoll, Laura N et al. (2017). "Dynamic reorganization of neuronal activity patterns in parietal cortex". In: Cell
+576
+170.5, pages 986-999.
+577
+—
+(2020). "Data from: Dynamic reorganization of neuronal activity patterns in parietal cortex dataset," in: Dryad,
+578
+Dataset. URL: https://doi.org/10.5061/dryad.gqnk98sjq.
+579
+Druckmann, Shaul and Dmitri B Chklovskii (2012). "Neuronal circuits underlying persistent representations de-
+580
+spite time varying activity". In: Current Biology 22.22, pages 2095-2103.
+581
+Duffy, Alison et al. (2019). "Variation in sequence dynamics improves maintenance of stereotyped behavior in an
+582
+example from bird song". In: Proceedings of the National Academy of Sciences 116.19, pages 9592-9597.
+583
+Földiak, Peter (1990). "Forming sparse representations by local anti-Hebbian learning". In: Biological cybernetics
+584
+64.2, pages 165-170.
+585
+Gallego, Juan A et al. (2020). "Long-term stability of cortical population dynamics underlying consistent behavior".
+586
+In: Nature Neuroscience, pages 1-11.
+587
+Gonzalez, Walter G et al. (2019). "Persistence of neuronal representations through time and damage in the
+588
+hippocampus". In: Science 365.6455, pages 821-825.
+589
+Harvey, Christopher D, Philip Coen, and David W Tank (2012). "Choice-speciﬁc sequences in parietal cortex
+590
+during a virtual-navigation decision task". In: Nature 484.7392, pages 62-68.
+591
+Hateren, Johannes H van (1992). "A theory of maximizing sensory information". In: Biological cybernetics 68.1,
+592
+pages 23-29.
+593
+Hazan, Liran and Noam E Ziv (2020). "Activity dependent and independent determinants of synaptic size diver-
+594
+sity". In: Journal of Neuroscience 40.14, pages 2828-2848.
+595
+Hubel, David H (1995). Eye, brain, and vision. Scientiﬁc American Library/Scientiﬁc American Books.
+596
+Hunter, Gary L et al. (2011). "Tracking rotational diffusion of colloidal clusters". In: Optics express 19.18, pages 17189-
+597
+17202.
+598
+Kämmerer, Stefan, Walter Kob, and Rolf Schilling (1997). "Dynamics of the rotational degrees of freedom in a
+599
+supercooled liquid of diatomic molecules". In: Physical Review E 56.5, page 5450.
+600
+Kappel, David et al. (2015). "Network plasticity as Bayesian inference". In: PLoS Comput Biol 11.11, e1004485.
+601
+23
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Katlowitz, Kalman A, Michel A Picardo, and Michael A Long (2018). "Stable sequential activity underlying the
+602
+maintenance of a precisely executed skilled behavior". In: Neuron 98.6, pages 1133-1140.
+603
+Kaufman, Matthew T et al. (2014). "Cortical activity in the null space: permitting preparation without movement".
+604
+In: Nature neuroscience 17.3, pages 440-448.
+605
+Kinsky, Nathaniel R et al. (2018). "Hippocampal place ﬁelds maintain a coherent and ﬂexible map across long
+606
+timescales". In: Current Biology 28.22, pages 3578-3588.
+607
+Kriegeskorte, Nikolaus, Marieke Mur, and Peter A Bandettini (2008). "Representational similarity analysis-connecting
+608
+the branches of systems neuroscience". In: Frontiers in systems neuroscience 2, page 4.
+609
+Kropff, Emilio and Alessandro Treves (2008). "The emergence of grid cells: Intelligent design or just adaptation?"
+610
+In: Hippocampus 18.12, pages 1256-1269.
+611
+Lee, Jae Sung et al. (2020). "The statistical structure of the hippocampal code for space as a function of time,
+612
+context, and value". In: Cell 183.3, pages 620-635.
+613
+Li, Ming et al. (2017). "Long-term two-photon imaging in awake macaque monkey". In: Neuron 93.5, pages 1049-
+614
+1057.
+615
+Lian, Yanbo and Anthony N Burkitt (2020). "Learning an efﬁcient place cell map from grid cells using non-negative
+616
+sparse coding". In: bioRxiv.
+617
+Liberti, William A et al. (2016). "Unstable neurons underlie a stable learned behavior". In: Nature neuroscience
+618
+19.12, pages 1665-1671.
+619
+Luo, Thomas Zhihao et al. (2020). "An approach for long-term, multi-probe Neuropixels recordings in unrestrained
+620
+rats". In: Elife 9, e59716.
+621
+Marks, Tyler D. and Michael J. Goard (2021). "Stimulus-dependent representational drift in primary visual cortex".
+622
+In: Nature Communications 12.1, page 5169.
+623
+Mau, William, Michael E Hasselmo, and Denise J Cai (2020). "The brain in motion: How ensemble ﬂuidity drives
+624
+memory-updating and ﬂexibility". In: Elife 9, e63550.
+625
+Mazza, Marco G et al. (2006). "Relation between rotational and translational dynamic heterogeneities in water".
+626
+In: Physical Review Letters 96.5, page 057803.
+627
+Moser, May-Britt, David C Rowland, and Edvard I Moser (2015). "Place cells, grid cells, and memory". In: Cold
+628
+Spring Harbor perspectives in biology 7.2, a021808.
+629
+O'Keefe, John and Jonathan Dostrovsky (1971). "The hippocampus as a spatial map: Preliminary evidence from
+630
+unit activity in the freely-moving rat." In: Brain research.
+631
+Olshausen, Bruno A. and David J. Field (1997). "Sparse coding with an overcomplete basis set: A strategy
+632
+employed by V1?" In: Vision Research 37.23, pages 3311-3325. ISSN: 0042-6989. DOI: https://doi.org/
+633
+10.1016/S0042-6989(97)00169-7.
+634
+Pehlevan, Cengiz (2019). "A spiking neural network with local learning rules derived from nonnegative similarity
+635
+matching". In: ICASSP 2019-2019 IEEE International Conference on Acoustics, Speech and Signal Process-
+636
+ing (ICASSP). IEEE, pages 7958-7962.
+637
+Pehlevan, Cengiz and Dmitri B Chklovskii (2014). "A Hebbian/anti-Hebbian network derived from online non-
+638
+negative matrix factorization can cluster and discover sparse features". In: 2014 48th Asilomar Conference
+639
+on Signals, Systems and Computers. IEEE, pages 769-775.
+640
+—
+(2019). "Neuroscience-inspired online unsupervised learning algorithms: Artiﬁcial neural networks". In: IEEE
+641
+Signal Processing Magazine 36.6, pages 88-96.
+642
+Pehlevan, Cengiz, Tao Hu, and Dmitri B Chklovskii (2015). "A hebbian/anti-hebbian neural network for linear
+643
+subspace learning: A derivation from multidimensional scaling of streaming data". In: Neural computation
+644
+27.7, pages 1461-1495.
+645
+24
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Pehlevan, Cengiz, Sreyas Mohan, and Dmitri B Chklovskii (2017). "Blind nonnegative source separation using
+646
+biological neural networks". In: Neural computation 29.11, pages 2925-2954.
+647
+Pehlevan, Cengiz, Anirvan M Sengupta, and Dmitri B Chklovskii (2018). "Why do similarity matching objectives
+648
+lead to hebbian/anti-hebbian networks?" In: Neural computation 30.1, pages 84-124.
+649
+Peña, José Luis and Masakazu Konishi (2001). "Auditory spatial receptive ﬁelds created by multiplication". In:
+650
+Science 292.5515, pages 249-252.
+651
+Rajan, Kanaka, Christopher D Harvey, and David W Tank (2016). "Recurrent network models of sequence gen-
+652
+eration and memory". In: Neuron 90.1, pages 128-142.
+653
+Rao, Rajesh PN and Dana H Ballard (1999). "Predictive coding in the visual cortex: a functional interpretation of
+654
+some extra-classical receptive-ﬁeld effects". In: Nature neuroscience 2.1, pages 79-87.
+655
+Rokni, Uri et al. (2007). "Motor learning with unstable neural representations". In: Neuron 54.4, pages 653-666.
+656
+Rubin, Alon et al. (2019). "Revealing neural correlates of behavior without behavioral measurements". In: Nature
+657
+communications 10.1, pages 1-14.
+658
+Rule, Michael Everett, Adrianna R Loback, et al. (2020). "Stable task information from an unstable neural popu-
+659
+lation". In: eLife 9, e51121.
+660
+Rule, Michael Everett and Timothy O'Leary (2021). "Self-Healing Neural Codes". In: bioRxiv.
+661
+Rule, Michael Everett, Timothy O'Leary, and Christopher D Harvey (2019). "Causes and consequences of repre-
+662
+sentational drift". In: Current opinion in neurobiology 58, pages 141-147.
+663
+Rumpel, Simon and Jochen Triesch (2016). "The dynamic connectome". In: Neuroforum 22.3, pages 48-53.
+664
+Samorodnitsky, Gennady and Murad S Taqqu (2017). Stable Non-Gaussian Random Processes: Stochastic Mod-
+665
+els with Inﬁnite Variance: Stochastic Modeling. Routledge.
+666
+Schoonover, Carl E. et al. (2021). "Representational drift in primary olfactory cortex". In: Nature 594.7864,
+667
+pages 541-546. DOI: 10.1038/s41586-021-03628-7.
+668
+Sengupta, Anirvan M et al. (2018). "Manifold-tiling localized receptive ﬁelds are optimal in similarity-preserving
+669
+neural networks". In: Advances in Neural Information Processing Systems, pages 7080-7090.
+670
+Solstad, Trygve, Edvard I Moser, and Gaute T Einevoll (2006). "From grid cells to place cells: a mathematical
+671
+model". In: Hippocampus 16.12, pages 1026-1031.
+672
+Srinivasan, Mandyam Veerambudi, Simon Barry Laughlin, and Andreas Dubs (1982). "Predictive coding: a fresh
+673
+view of inhibition in the retina". In: Proceedings of the Royal Society of London. Series B. Biological Sciences
+674
+216.1205, pages 427-459.
+675
+Stensola, Hanne et al. (2012). "The entorhinal grid map is discretized". In: Nature 492.7427, pages 72-78.
+676
+Ulivi, Alessandro F et al. (2019). "Longitudinal two-photon imaging of dorsal hippocampal CA1 in live mice". In:
+677
+JoVE (Journal of Visualized Experiments) 148, e59598.
+678
+Yoon, KiJung et al. (2016). "Grid cell responses in 1D environments assessed as slices through a 2D lattice". In:
+679
+Neuron 89.5, pages 1086-1099.
+680
+Zbontar, Jure et al. (2021). "Barlow twins: Self-supervised learning via redundancy reduction". In: arXiv preprint
+681
+arXiv:2103.03230.
+682
+Ziv, Yaniv et al. (2013). "Long-term dynamics of CA1 hippocampal place codes". In: Nature neuroscience 16.3,
+683
+page 264.
+684
+Zuo, Yi et al. (2005). "Long-term sensory deprivation prevents dendritic spine loss in primary somatosensory
+685
+cortex". In: Nature 436.7048, pages 261-265.
+686
+25
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+Supplemental Material for: Coordinated drift of receptive ﬁelds during noisy
+representation learning
+Shanshan Qin, Shiva Farashahi, David Lipshutz, Anirvan M. Sengupta, Dmitri B. Chklovskii, and Cengiz Pehlevan
+I.
+DERIVATION OF THE ROTATIONAL DIFFUSION CONSTANT THE IN THE LINEAR
+HEBBIAN/ANTI-HEBBIAN NETWORK
+In this section, we derive an analytical expression for the rotational diﬀusion constant deﬁned by [1, 2]
+Dϕ ≡lim
+t→∞
+1
+4t⟨|⃗ϕ(t) −⃗ϕ(0)|2⟩,
+(1)
+where brackets mean averaging over diﬀerent realizations of the noise.
+Obtaining an exact expression for Dϕ is
+diﬃcult, but we are able to derive an approximation that matches numerical experiments well, as shown in Figure 2
+E, F and G of main text.
+Our approach relies on two simpliﬁcations. First, we deﬁne the single-step angular displacement
+∆⃗ϕi ≡⃗ϕ(i) −⃗ϕ(i −1)
+(2)
+and note that
+⟨|⃗ϕ(t) −⃗ϕ(0)|2⟩=
+t
+X
+i=1
+⟨|∆⃗ϕi|2⟩+
+t
+X
+i=1
+t
+X
+j=1,i̸=j
+⟨∆⃗ϕi · ∆⃗ϕj⟩.
+(3)
+We assume that the correlation between angular displacements at diﬀerent times is negligible. Therefore, we approx-
+imate
+Dϕ ≈lim
+t→∞
+1
+4t
+t
+X
+k=1
+⟨|∆⃗ϕi|2⟩.
+(4)
+Second, we assume that the network weights start at a conﬁguration that is already an optimal solution to the
+similarity matching objective, projecting the input to its principal subspace, and the drift keeps the weights in the
+optimal solution space. This is a reasonable approximation because of a linear stability analysis presented in [3, 4].
+We now review that argument. We refer an optimal solution to the similarity matching problem in the oﬄine setting
+without noise as a ﬁxed point and denote it with aˆ. We note that a general perturbation of feature map δF around
+a ﬁxed point ˆF = ˆM−1 ˆ
+W can be decomposed as
+δF = δAˆF + δSˆF + δB ˆG,
+(5)
+where δA is a k × k antisymmetric matrix, δS is a k × k symmetric matrix, and ˆG is a (n −k) × n matrix with
+orthonormal rows. These rows are chosen to be orthogonal to the rows of F. δB is a k × (n −k) matrix [4]. So we
+have δA + δS = δFˆF. The ﬁrst term corresponds to a rotation of the neural ﬁlter basis of the principal subspace,
+the second term captures deviations from orthogonality of the basis vectors within the subspace, and the third term
+captures perturbations of the weight vectors that lead to projecting outside the principal subspace. As shown in [4],
+the ﬁxed point is stable to the perturbation due to the second and third term, meaning they decay exponentially to
+zero, making a principal subspace projection linearly stable. Therefore, we consider drift due to the ﬁrst term, which
+rotates neural ﬁlters and, in turn, the data cloud. We ﬁnd that (see below) in this limit, ⟨|∆⃗ϕi|2⟩is independent of
+time step i. Therefore, our ﬁnal approximation is
+Dϕ ≈
+1
+4∆t⟨|∆⃗ϕ|2⟩,
+(6)
+where ∆t is the small time interval elapsed during a single step update, and ∆⃗ϕ arises from a noisy synaptic update
+to the network with an optimal set of synapses. This quantity is called mean squared angular displacement (MSAD).
+This approximation turns out to match simulations very well as shown in Figure 2 E, F and G.
+Next, we calculate Dϕ. In the linear Hebbian/anti-Hebbian network for principle subspace projection task, the
+learning rule with synaptic noise is
+∆W = η(ytx⊤
+t −W) + ξW ,
+∆M = η(yty⊤
+t −M) + ξM,
+(7)
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+2
+where ⟨ξW
+ij (t)⟩= ⟨ξM
+ij (t)⟩= 0 and ⟨(ξW
+ij (t)ξW
+kl (t′)⟩= ησ2
+1δikδjlδ(t−t′), ⟨ξM
+ij (t)ξM
+kl (t′)⟩= ησ2
+2δikδjlδ(t−t′). As discussed,
+by estimating the variance of the rotation the learned representation during a single-step update under rule (7), we
+can deﬁne an eﬀective rotational diﬀusion constant that is related to this variance. More speciﬁcally, in the small
+update and noise regime, δA is related to an inﬁnitesimal rotation R by R = exp δA = exp(⃗θ · ⃗L), where ⃗L is the
+inﬁnitesimal rotation generator [5]. ⃗L is a tensor, whose components can be written in matrix form.
+We start by writing δF in terms of the perturbation of ˆ
+W, ˆM:
+δF = ˆM−1δW −ˆM−1δM ˆM−1 ˆ
+W = ˆM−1(δW −δMˆF),
+(8)
+where we have used the property ˆFˆF⊤= I. Right-multiplying (8) by ˆF and using (7), we have
+δFˆF⊤= ˆM−1(δWˆF⊤−δM) = ˆM−1 
+η(yx⊤
+t −ˆ
+W)ˆF⊤−η(yy⊤−ˆM) + ξW ˆF⊤−ξM
+= ˆM−1(ξW ˆF⊤−ξM), (9)
+where we have used the fact
+ˆM−1 
+ytx⊤
+t −ˆ
+W)ˆF⊤−(yty⊤
+t −ˆM)
+
+= ˆM−1 
+yty⊤
+t −ˆ
+WˆF⊤−yty⊤
+t + ˆM
+
+= −ˆM−1 ˆ
+WˆF⊤+ I = 0
+(10)
+Now, the antisymmetric part δA = 1
+2(δFˆF⊤−ˆFδF⊤) can be written down explicitly:
+δA = 1
+2[( ˆM−1ξW ˆF⊤−ˆFξW ⊤ˆM−1) + (ξM⊤ˆM−1 −ˆM−1ξM)].
+(11)
+The mean squared angular displacement (MSAD) is related to δA. To see this more clearly, consider a d-dimension
+rotation, which can be interpreted as rotation in a d −1 dimensional hyperplane from one unit vector to another unit
+vector. Given any two d-dimensional orthogonal unit vector e1, e2, i.e., e1⊤·e1 = e2⊤·e2 = 1, e1⊤·e2 = e2⊤·e1 = 0.
+The generator for this rotation can be represented as
+Le1e2 = e2e⊤
+1 −e1e⊤
+2 .
+(12)
+Hence δA can be expressed as δA = ∆ϕLe1e2, with ∆ϕ reﬂecting the rotation 'amplitude'. Using the fact that
+Tr(Le1e2L⊤
+e1e2) = 2, we have
+2(∆ϕ)2 = Tr(δAδA⊤).
+(13)
+The variance of δAij is
+⟨δA2
+ij⟩= η
+4
+"
+σ2
+1
+X
+kl
+( ˜
+MikFjl −˜
+MjkFil)2 + σ2
+2
+X
+k
+( ˜
+M 2
+kj + ˜
+M 2
+ki) −2δij ˜
+Mki ˜
+Mkj
+#
+∆t,
+(14)
+where ˜M ≡ˆM−1 and the average ⟨⟩is over the noise distribution, ∆t is the time interval of the single-step update.
+Using the fact that eig( ˆM) = [λ1, · · · , λk] [4], and Tr ˜
+M = Pk
+i=1 1/λ2
+i . We have
+⟨TrδAδA⊤⟩=
+X
+ij
+⟨δA2
+ij⟩= 1
+2η(k −1)∆t(σ2
+1 + σ2
+2)
+k
+X
+i=1
+1
+λ2
+i
+,
+(15)
+where we have used the fact. We then deﬁne the rotational diﬀusion constant Dϕ by the relation ⟨|ϕ(t+∆t)−ϕ(t)|2⟩=
+2(k −1)Dϕ∆t. With Eq.(13) and Eq.(15), we arrive Eq. 5 in the main text.
+II.
+DERIVATION OF THE EFFECTIVE DIFFUSION CONSTANT IN THE RING MODEL
+Here, we calculate the diﬀusion constant in the ring model for a single output neuron, using the MSAD approxi-
+mation as before.
+We start from the simplest setup for the 1D place cell model: a single place cell which receives input from the
+"ring" manifold, i.e., the position is parameterized as x = [cos θ, sin θ]⊤. The response of the neurons is given by
+y(θ) =
+1
+m + β [w1 cos θ + w2 sin θ −αb]+.
+(16)
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+3
+Here and after, we use [x]+ to denote the rectiﬁed linear function. We deﬁne a steady state where the average update
+to the weights is zero. Denoting the stationary state weights as {w∗
+1, w∗
+2, m∗, b∗}, this leads to the conditions:
+⟨w∗
+1⟩= ⟨y(θ) cos θ⟩θ,
+⟨w∗
+2⟩= ⟨y(θ) sin θ⟩θ,
+⟨m∗⟩= ⟨y2(θ)⟩θ,
+⟨b∗⟩= α⟨y(θ)⟩θ,
+(17)
+Where ⟨·⟩θ means averaging over θ ∈[−π, π) which is a uniform distribution. These equations can be solved self-
+consistently using an ansatz of the form:
+yφ(θ) = µ[cos(θ −φ) −cos(ψ)]+,
+θ ∈[−π, π]
+(18)
+where ψ determines the "width" of the RF, and µ(1 −cos ψ) is the peak amplitude and φ is the centroid of the
+receptive ﬁeld. Plugging (18) into (16) and (17), we ﬁnd that
+⟨w∗
+1⟩= µ
+4π (2ψ −sin 2ψ) cos φ,
+(19)
+⟨w∗
+2⟩= µ
+4π (2ψ −sin 2ψ) sin φ,
+(20)
+⟨m∗⟩= µ2
+4π (4ψ + 2ψ cos 2ψ −3 sin 2ψ),
+(21)
+⟨b∗⟩= αµ
+π (sin ψ −ψ cos ψ).
+(22)
+(16) can be rewritten as
+y(θ) =
+p
+w2
+1 + w2
+2
+m + β
+[
+w1
+p
+w2
+1 + w2
+2
+cos θ +
+w2
+p
+w2
+1 + w2
+2
+sin θ −
+αb
+p
+w2
+1 + w2
+2
+]+
+(23)
+Compared with (18), we have
+µ =
+p
+w∗2
+1 + w∗2
+2
+m∗+ β
+,
+αb∗=
+q
+w∗2
+1 + w∗2
+2 cos ψ.
+(24)
+Combining (19)-(22) and (24), we get the dependence of µ and ψ on α, β, given parametrically by
+µ2 =
+2ψ −sin 2ψ −4βπ
+4ψ + 2ψ cos 2ψ −3 sin 2ψ ,
+α2 = cos ψ(2ψ −sin 2ψ)
+4(sin ψ −ψ cos ψ) .
+(25)
+Next, we proceed to estimate the drift due to noisy synaptic updates. From (23), we have
+w∗
+1 cos φ + w∗
+2 sin φ =
+q
+w∗2
+1 + w∗2
+2 = µ
+4π (2ψ −sin 2ψ) ≡ˆµ,
+(26)
+where we have deﬁned ˆµ to simplify the following notations. Using the fact that dy(θ)/dθ = 0 at θ = φ, we have
+tan(φ) = w∗
+2/w∗
+1 and
+dφ
+dt = 1
+ˆµ
+dw2
+dt cos φ −dw1
+dt sin φ
+
+.
+(27)
+We are interested in how the centroid of the RF changes when a perturbation is added to the stationary weight
+vector
+∆φ = 1
+ˆµ(∆w2 cos φ −∆w1 sin φ),
+(28)
+∆w1 = η(y(θ) cos θ −w∗
+1) + ξ1,
+(29)
+∆w2 = η(y(θ) sin θ −w∗
+2) + ξ2.
+(30)
+The Gaussian white noise terms have the following property: ⟨ξ1⟩= ⟨ξ2⟩= 0, ⟨ξ2
+1⟩= ⟨ξ2
+2⟩= ησ2∆t with ∆t as the
+time interval between two adjacent update events. From (26), we have w∗
+1 = ˆµ cos φ, w∗
+2 = ˆµ sin φ. Then ∆φ can be
+written as
+∆φ = 1
+ˆµ (ηµ[cos(θ −φ) −cos ψ]+ sin θ cos φ −ηµ[cos(θ −φ) −cos ψ]+ cos θ sin φ + (w∗
+1ξ2 −w∗
+2ξ1))
+= 1
+ˆµ{ηµ[cos(θ −φ) −cos ψ]+ sin(θ −φ) + (ξ2 cos φ −ξ1 sin φ)}
+= 1
+ˆµ{ht(θ, φ, ψ) −(ξ2 cos φ −ξ1 sin φ)},
+(31)
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+4
+where we have deﬁned ht(θ, φ, ψ) = ηµ[cos(θ −φ) −cos ψ]+. Since in the online learning, θ is sampled randomly, we
+can regard ht as a stochastic process. Averaging over θ, we have
+⟨(∆φ)2⟩= µ2
+ˆµ2 η2⟨([cos(θ −φ) −cos ψ]2
++ sin2(θ −φ))⟩θ + 1
+ˆµ2 (cos2 φ⟨ξ2
+2⟩+ sin2 φ⟨ξ2
+1⟩) = γη2∆t + ησ2
+ˆµ2 ∆t,
+(32)
+where
+γ ≡µ2
+ˆµ2
+1
+2π
+Z π
+−π
+[cos(θ −φ) −cos ψ]2
++ sin2(θ −φ)dθ = π
+6
+36ψ + 24ψ cos(2ψ) −28 sin(2ψ) −sin(4ψ)
+(2ψ −sin(2ψ))2
+(33)
+Using the relation ⟨(∆φ)2(∆t)⟩= 2D∆t, we have
+D ≈γη2 + ησ2
+ˆµ2 ,
+(34)
+where we use ≈because we calculate single-step MSAD.
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+5
+-2
+2
+0
+2
+0
+2
+0
+-2
+-2
+0
+5
+10
+104
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+A
+B
+FIG. S1.
+(A) The relative change of Frobenus norm of the similarity matrix at time t compared with time point 0 in the PSP
+task. (B) Ensemble of output Y ≡[y1, · · · , y1] at two time points. The data clouds have ellipsoid shape. Related to ﬁgure 2
+in the main text. Parameters are the same as in ﬁgure 2 of the main text.
+Position
+Position
+A
+Representational similarity matrix
+D
+C
+0
+1
+2
+Time
+104
+0
+0.5
+1
+Active fraction
+B
+0
+5000
+10000
+Time
+0
+2
+4
+6
+8
+Peak Amplitude
+silent
+active
+F
+G
+E
+4
+5
+Average peak amplitude
+0.4
+0.6
+0.8
+1
+Fraction of active time
+100
+102
+10-2
+10-1
+100
+0
+5
+10
+15
+20
+25
+t = 2000 
+t = 1 
+0
+20
+40
+60
+Silent interval
+0
+0.05
+0.1
+0.15
+Pdf
+simulation
+exponential fit
+4
+5
+Average peak amplitude
+0
+0.05
+0.1
+0.15
+0.2
+FIG. S2.
+Drift of 2D place cells in the model. (A) Representational similarity is preserved despite the continuous drift of
+place cell RFs. Positions on the plane are represented by an index from 1 to 1024. (B) The RFs are intermittent. The peak
+amplitude of an example place ﬁeld has active and silent bouts. (C) The interval of silent bouts follow exponential distribution.
+(D) At population level, there is a constant fraction of active RFs over time. (E) Dependence of eﬀective diﬀusion constant on
+the total number output neurons. (F,G) Place cells that have stronger place ﬁelds tend to be active more often (F) and also
+more stable as quantiﬁed by smaller diﬀusion constant (G). Parameters used are the same as Figure 5 in the main text.
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+
+6
+0
+0.5
+1
+1.5
+2
+105
+-2
+-1
+0
+1
+2
+y1
+y2
+y3
+0
+0.5
+1
+1.5
+2
+105
+-1
+0
+1
+2
+0
+0.5
+1
+1.5
+2
+105
+-2
+-1
+0
+1
+2
+A
+B
+C
+Hebbian
+anti-Hebbian synapses
+Input
+output
+FIG. S3.
+Degeneracy of learning objective function and representational drift. We compare the long-term behavior of learned
+representations in three diﬀerent networks. (A) Upper: the Hebbian/anti-Hebbian network for PSP. Lower: the evolution of
+the three components of a representation yt. (B) Upper: The network diﬀers from Hebbian/anti-hebbain network only in the
+lateral matrix M which break the rotational symmetry of PSP solution. The learning rule is the same. Lower: the learned
+representation only ﬂuctuates around a equilibrium. (C) A single feedforward network that perform online principle component
+analysis with Sanger's rule [6]. This network has only feedforward input matrix W and the learning rule is nonlocal. Lower:
+learned representation is relatively stable in the presence of noise. Parameters are the same as in the ﬁgure 2 of main text
+except that η = 0.01.
+[1] S. K¨ammerer, W. Kob, and R. Schilling, Dynamics of the rotational degrees of freedom in a supercooled liquid of diatomic
+molecules, Physical Review E 56, 5450 (1997).
+[2] M. G. Mazza, N. Giovambattista, F. W. Starr, and H. E. Stanley, Relation between rotational and translational dynamic
+heterogeneities in water, Physical Review Letters 96, 057803 (2006).
+[3] C. Pehlevan and D. Chklovskii, A normative theory of adaptive dimensionality reduction in neural networks, in Advances
+in neural information processing systems (2015) pp. 2269-2277.
+[4] C. Pehlevan, A. M. Sengupta, and D. B. Chklovskii, Why do similarity matching objectives lead to hebbian/anti-hebbian
+networks?, Neural computation 30, 84 (2018).
+[5] A. Zee, Group theory in a nutshell for physicists, Vol. 17 (Princeton University Press, 2016).
+[6] T. D. Sanger, Optimal unsupervised learning in a single-layer linear feedforward neural network, Neural networks 2, 459
+(1989).
+.
+CC-BY-NC-ND 4.0 International license
+available under a
+(which was not certified by peer review) is the author/funder, who has granted bioRxiv a license to display the preprint in perpetuity. It is made 
+The copyright holder for this preprint
+this version posted September 1, 2021. 
+; 
+https://doi.org/10.1101/2021.08.30.458264
+doi: 
+bioRxiv preprint 
+

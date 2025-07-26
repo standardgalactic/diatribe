@@ -1,0 +1,1623 @@
+royalsocietypublishing.org/journal/rsif
+Research
+Cite this article: Nareddy VR, Machta J,
+Abbott KC, Esmaeili S, Hastings A. 2020
+Dynamical Ising model of spatially coupled
+ecological oscillators. J. R. Soc. Interface 17:
+20200571.
+http://dx.doi.org/10.1098/rsif.2020.0571
+Received: 17 July 2020
+Accepted: 7 October 2020
+Subject Category:
+Life Sciences-Physics interface
+Subject Areas:
+biocomplexity, biophysics
+Keywords:
+spatial synchrony, Ising model with memory,
+metapopulation, forecast skill, dynamical Ising
+inference
+Author for correspondence:
+Vahini Reddy Nareddy
+e-mail: vnareddy@umass.edu
+Electronic supplementary material is available
+online at https://doi.org/10.6084/m9.figshare.
+c.5178287.
+Dynamical Ising model of spatially
+coupled ecological oscillators
+Vahini Reddy Nareddy1, Jonathan Machta1,2, Karen C. Abbott3,
+Shadisadat Esmaeili4 and Alan Hastings2,4
+1Department of Physics, University of Massachusetts, Amherst, MA 01003, USA
+2Santa Fe Institute, 1399 Hyde Park Road, Santa Fe, NM 87501, USA
+3Department of Biology, Case Western Reserve University, 10900 Euclid Ave, Cleveland, OH 44106, USA
+4Department of Environmental Science and Policy, University of California, Davis, One Shields Avenue, Davis,
+CA 95616, USA
+VRN, 0000-0001-6840-2397; JM, 0000-0002-0495-7139; KCA, 0000-0001-5143-0690;
+SE, 0000-0002-3411-3834; AH, 0000-0002-0717-8026
+Long-range synchrony from short-range interactions is a familiar pattern in
+biological and physical systems, many of which share a common set of 'uni-
+versal' properties at the point of synchronization. Common biological
+systems of coupled oscillators have been shown to be members of the
+Ising universality class, meaning that the very simple Ising model replicates
+certain spatial statistics of these systems at stationarity. This observation is
+useful because it reveals which aspects of spatial pattern arise independently
+of the details governing local dynamics, resulting in both deeper under-
+standing of and a simpler baseline model for biological synchrony.
+However, in many situations a system's dynamics are of greater interest
+than their static spatial properties. Here, we ask whether a dynamical
+Ising model can replicate universal and non-universal features of ecological
+systems, using noisy coupled metapopulation models with two-cycle
+dynamics as a case study. The standard Ising model makes unrealistic dyna-
+mical predictions, but the Ising model with memory corrects this by using an
+additional parameter to reflect the tendency for local dynamics to maintain
+their phase of oscillation. By fitting the two parameters of the Ising model
+with memory to simulated ecological dynamics, we assess the correspon-
+dence between the Ising and ecological models in several of their features
+(location of the critical boundary in parameter space between synchronous
+and asynchronous dynamics, probability of local phase changes and ability
+to predict future dynamics). We find that the Ising model with memory is
+reasonably good at representing these properties of ecological metapopula-
+tions. The correspondence between these models creates the potential for the
+simple and well-known Ising class of models to become a valuable tool for
+understanding complex biological systems.
+1. Introduction
+Synchrony of dynamics in spatially extended systems has been a subject of
+intense study in a diverse array of scientific disciplines and range of biological
+scales [1-6]. In ecological systems, the study of synchrony of oscillations in
+population numbers across space and time has a long history [7] and has pro-
+vided great insights into fundamental issues of population dynamics [3,5]. The
+dynamics of flocking in birds or schooling in fish and similar behaviour in bac-
+teria [8] essentially are examples of synchrony across a large scale determined
+by local interactions [9-11]. At the suborganism scale, how the dynamics of
+individual neurons lead to collective behaviour is a key question in neuro-
+science [12]. The synchrony of neural oscillators is thought to play an
+important role in behaviour [6] and in various pathologies [13].
+Given the ubiquity of analogous synchronous behaviour across a range of
+biological systems and scales, it is reasonable to look for explanations that do
+© 2020 The Author(s) Published by the Royal Society. All rights reserved.
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+not depend on fine details. One approach is based on the
+Ising model from physics, which is an idealized description
+of the macroscopic behaviour of magnetic materials based
+on the local coupling of the microscopic magnetic moments
+of electrons. The Ising model (see, for example, [14-18]) is a
+fundamental model in statistical physics and the simplest
+example of a 'spin' model. It was introduced to understand
+how long-range order can develop from local interactions in
+the setting of ferromagnetism—the global alignment of
+atomic-scale magnetic moments to produce bulk magnet-
+ism in materials such as iron. A variety of biological
+synchrony phenomena have previously been described
+using models based on the Ising model and related spin
+models, such as cell synchrony [19], pattern formation
+[20], synchronous nerve firing [21,22], swarming and flock-
+ing dynamics [11,23] and masting behaviour [24]. These
+previous studies have focused on static properties, but
+synchronization is a dynamic phenomenon. Important
+questions emerge when considering the dynamics of syn-
+chrony that require further properties of the Ising model.
+We focus here on ecological systems where these dynamic
+features emerge, but the ideas and approaches should
+have much wider applicability.
+Long-range
+synchrony
+in
+population
+fluctuations
+is
+widely observed and is thought to occur through several
+non-mutually exclusive mechanisms [3,5,25-27]. Long-range
+correlations
+in
+environmental
+perturbations
+and
+long-
+distance dispersal are both capable of synchronizing local
+population dynamics across a large geographical scale
+[7,28-31]. However, some species with limited dispersal abil-
+ities also show strong spatial synchrony [32]. For populations
+with cyclic dynamics, short-range dispersal (or, equivalently,
+other forms of local coupling such as resource sharing
+between neighbouring trees [24]) is often sufficient to drive
+long-distance
+synchrony
+[33-37],
+suggesting
+a
+role
+for
+short-distance coupling in some of the examples of synchrony
+we see in nature.
+Population densities of species such as forest insects [38],
+voles [39] and annual plants [40], as well as fruit yield of
+alternate-bearing plants [41], may exhibit a strong pattern
+of alternation between high and low states. This prevailing
+two-cycle has two possible phases of oscillations: highs in
+odd years or highs in even years. This suggests a correspon-
+dence with the discrete 'spin-up' or 'spin-down' states of the
+Ising model. Environmental stochasticity can explain the
+fact that exact highs and lows vary from cycle to cycle in
+real populations, and that real two-cycles may at times
+change
+their
+phase,
+corresponding
+to
+'spin
+flips'
+in
+dynamical Ising models.
+Local coupling of multiple subpopulations undergoing
+noisy two-cycles in a metapopulation can lead to long-
+range synchrony [27,34,41-43]. While many continuous
+measures of synchrony have been proposed [44-48], we
+can take advantage of the binary nature of the two-cycle
+to classify metapopulations as either 'synchronous' at
+the scale of the metapopulation (most subpopulations are
+high in the same years) or else 'incoherent' (with perhaps
+some
+locally
+synchronized
+populations
+but
+no
+long-
+range synchrony). Intuitively, higher dispersal rates and
+weaker (spatially uncorrelated) environmental stochasticity
+promote synchrony.
+For metapopulations with noisy local two-cycles, the tran-
+sition from incoherence to global synchrony occurs abruptly
+with gradual increases in dispersal or decreases in noise
+[41]. This kind of sharp phase transition is also a characteristic
+of the Ising model [15,17]. In its original application to mag-
+netic materials,
+the strength of
+microscopic interaction
+between electron magnetic moments ('spins') and the temp-
+erature (analogous to noise level) of the system determine
+whether spins are globally aligned so that the material dis-
+plays permanent magnetism. Systems that follow the same
+power-law scaling of correlation functions as the Ising
+model at the transition point from disordered to ordered
+are in what is known as the Ising universality class. In pre-
+vious work, Noble et al. [41] showed that many ecological
+two-cycle oscillators fall into this class.
+The transition from incoherence to synchrony in any
+model in the Ising universality class shares some non-trivial
+features exactly with the transition from disorder to order in
+the Ising model. Universality thus allows us to understand
+many features of synchrony in models like the noisy coupled
+ecological
+two-cycles
+by
+instead
+studying
+the
+Ising
+model, which is very simple, tractable, well understood and
+amenable to detailed, quantitative mathematical and compu-
+tational analysis. However, universal properties that are
+exactly shared by all members of the Ising universality class
+are limited to the large-distance and long-time properties of
+correlation functions measured in the stationary (equilibrium)
+state near the critical point.
+Here we posit that a dynamical Ising model can accurately
+represent a much broader array of non-universal features of
+the behaviour exhibited by metapopulations with noisy
+two-cycles, including the approach to the stationary state
+and local dynamical properties. To obtain a faithful represen-
+tation, we need to go beyond the simplest dynamical Ising
+model and add a self-interaction (local memory) term to the
+dynamical Ising model [49]. This memory term reflects that
+subpopulations are strongly influenced by their own current
+state, owing to local density dependence. We use inference
+methods [50] to find the Ising model parameters that best
+represent simulated ecological metapopulation dynamics.
+We find surprisingly good agreement between the full
+metapopulation model and its Ising representation. This
+allows us to use the Ising model to develop new quantitative
+predictions and qualitative insights. For example, the noisy,
+locally
+coupled
+Ricker
+metapopulation
+has three
+par-
+ameters: dispersal, noise and local intrinsic population
+growth rate. The interplay between these parameters in
+determining the dynamics and patterns of synchronization
+can be rather complex [34,51,52]. The Ising model with
+memory is a significantly simpler model with only two par-
+ameters: an effective local coupling and an effective memory
+term. Each of these parameters plays an intuitively clear role
+in determining both the dynamics and patterns of synchro-
+nization. More importantly, for natural systems for which we
+lack a validated mechanistic model, the dynamical Ising
+model provides a simple representation that makes very
+few assumptions about underlying mechanisms. Using
+Ising inference methods, we are able to obtain a reasonable
+description that both has predictive value and yields
+qualitative insights.
+Our study is primarily focused on dynamics near the
+critical transition to synchrony, where it is most difficult to
+model the behaviour of a system owing to the emergence
+of multiple length scales and time scales [15,17]. In this
+work we ignore the spatial correlations in environmental
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+2
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+stochasticity because we wish to focus specifically on the role
+of short-range dispersal in generating large-scale synchrony.
+Correlated noise can be easily added to the dynamical Ising
+model and will be the subject of a subsequent study.
+1.1. Overview
+The overall programme of the paper is sketched in figure 1.
+First, we carry out simulations of our metapopulation
+models, which consist of noisy, locally coupled lattice maps
+(§2.1). The first row of the figure shows three successive snap-
+shots of this model with the colour code representing local
+subpopulation densities. From the (continuous) subpopu-
+lation densities we obtain a reduced description, where the
+phase of oscillation of each subpopulation is represented by
+a phase variable that takes values of ±1 (§2.2). A dynamical
+Ising model with memory introduced in §2.3 equips the
+phase variables with stochastic, Markovian dynamics. Finally,
+from successive snapshots of the phase variables (second row
+of figure 1) we use maximum-likelihood inference methods
+(electronic supplementary material, appendix D) to obtain
+values of the two parameters of the dynamical Ising model
+that best represent the dynamics of the metapopulation
+models. Results from the application of this programme and
+an assessment of the accuracy of the dynamical Ising rep-
+resentation are presented in §3. The stationary state and
+approach to the stationary state are studied in §3.1 and §3.2,
+respectively, and the predictive power of Ising dynamics is
+tested in §3.3. The results show that the inferred dynamical
+Ising model is a reasonably good approximation to the
+more complex metapopulation dynamics for several meta-
+population models and a wide range of parameters of the
+models. Shortcomings of the dynamical Ising representation
+and an idea for how to improve it are discussed in §3.4. The
+paper closes with a discussion in §4.
+2. Models and methods
+2.1. Dynamical metapopulation models: noisy coupled
+lattice maps
+The simplest metapopulation models have identical local
+populations arrayed on a two-dimensional square lattice
+with only local dispersal, namely a noisy coupled lattice
+map [53,54]. Metapopulation models of this form with
+dispersal between four nearest neighbour patches on the
+lattice are studied on a grid of size L × L with N = L2
+patches. Let Xi,t be the subpopulation density in patch i
+at time t and let Xt = {Xi,t} represent the collection of all sub-
+population sizes. We use periodic boundary conditions,
+which makes our lattice topologically equivalent to a
+torus. While true ecological systems have edges, this set-
+up yields results that are more homogeneous and differ
+little from other possible boundary conditions except in
+small systems.
+Each subpopulation undergoes local dynamics, interacts
+with its nearest neighbours through dispersal and is subject
+to uncorrelated environmental noise. These three processes
+happen in a sequence and are represented, respectively, by
+three operators, R, D and N, described below.
+2.1.1. Local dynamics R
+Short-period oscillations in species with seasonal life histories
+and intraspecific density dependence are well described by
+discrete-time quadratic maps such as the Ricker and logistic
+models [55-58]. For example, the local dynamics with the
+Ricker map [59] acting on all the patches independently, R,
+is given by
+Xi,tþ1 ; (RXt)i ¼ Xi,t exp [r(1  Xi,t)],
+(2:1)
+§§2.3 and 2.4: infer parameters
+for the dynamical Ising
+model with memory
+§3 (results): assess the
+accuracy of the
+dynamical Ising model
+§2.1:
+metapopulation
+data
+Xt
+Xt+1
+Xt+2
+§2.2: extract local
+phase of oscillation 
+˜St
+˜St+1
+Both have 
+same stationary 
+state?
+Ising 
+dynamics explain 
+metapopulation 
+dynamics?
+transition 
+probability governed 
+by coupling J and
+memory K 
+˜Si,t = (−1)t sgn (Xi,t+1 − Xi,t)
+Figure 1. The steps in constructing and assessing a dynamical Ising model that best describes a two-cycle metapopulation.
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+3
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+with Xi,t ∈[0, ∞), whereas the local dynamics with the logis-
+tic map is given by
+Xi,tþ1 ; (RXt)i ¼ rXi,t(1  Xi,t),
+(2:2)
+with Xi,t ∈[0, 1], where the parameter r is the intrinsic popu-
+lation growth rate. Each patch in a metapopulation is
+assumed to undergo the same local dynamics and have the
+same growth rate.
+As r increases, the behaviour of the map goes through a
+series of bifurcations following the classic period-doubling
+route to chaos [60]. For the rest of the work, we choose r
+such that the local dynamics is in the two-cycle regime so
+Xi,t oscillates between high and low values.
+2.1.2. Dispersal D
+During dispersal a fraction ϵ of each subpopulation leaves its
+home patch and ϵ/4 migrates to each of the four neighbouring
+patches. The dispersal operator, D, takes the form
+Xi,tþ1 ; (DXt)i ¼ (1  e)Xi,t þ e
+4
+X
+hj;ii
+X j,t,
+(2:3)
+where 〈j; i〉indicates a sum over the nearest neighbours of site i.
+The values of dispersal ϵ ≤1/2 are reasonable from the biologi-
+cal standpoint by ensuring that a majority of the local
+population remains in its home patch.
+2.1.3. Noise N
+We use log-normally distributed, multiplicative noise that
+acts independently on each patch at each time step,
+(NXt)i ¼ Xi,t exp (lzi,t),
+(2:4)
+where λ is the noise level and ζi,t are independent, identically
+distributed
+normal
+variates
+with
+mean
+zero
+and
+unit
+standard deviation.
+The three processes can be arranged in any order to form
+a metapopulation model. In the case of NDRXt, each process
+acts once per cycle in the same order, first R, then D and
+finally N. Any cyclic permutation of this order represents
+the same model but with the population censused at different
+stages in the cycle (see [28] for a discussion of the effect of
+census time on measured synchrony). On the other hand,
+NRD and its three cyclic permutations represent a distinct
+metapopulation
+model.
+We
+study
+four
+metapopulation
+models with different choices of local dynamics and sequence
+of processes (table 1). For a given model, the additional three
+parameters are the number of patches, N, dispersal, ϵ, and
+noise, λ.
+2.2. Synchrony and phase transitions in metapopulation
+models
+A discrete two-cycle oscillator, for example the Ricker map at
+r = 2.2, has two possible phases of oscillation. In what we
+define arbitrarily as the 'plus' phase, the high value of the
+oscillator occurs
+at
+odd
+times;
+in
+the
+'minus'
+phase,
+the high values occur at even times. We define a two-cycle
+variable, Mi,t, for each subpopulation i at time t as an
+alternating-sign first difference,
+Mi,t ¼ 1
+2 (1)t(Xi,tþ1  Xi,t):
+(2:5)
+When Mi,t is positive (negative) the oscillation in patch i is in
+the plus (minus) phase.
+The variable Mi,t contains both amplitude and phase
+information. We can extract the phase, ~Si,t, of the oscillation
+by taking the sign (signum function, sgn) of Mi,t,
+~Si,t ¼ sgn(Mi,t),
+(2:6)
+where ~Si,t takes values ±1. We refer to ~Si,t as the subpopu-
+lation phase variable. For a single local oscillator without
+noise in a steady-state two-cycle, the phase variable is inde-
+pendent of time. In the presence of noise, the phase of
+oscillation and thus the phase variable changes stochastically,
+as shown in figure 2, where the points circled in red denote
+times when the phase of oscillation changes.
+Let Mt = {Mi,t} and ~St ¼ {~Si,t} denote the collection of two-
+cycle variables and associated phase variables, respectively,
+for all subpopulations.
+For much of the remainder of this study, we consider the
+behaviour of the metapopulation model after it has reached a
+stationary state where the statistical properties of Mt and,
+therefore, ~St are time-independent. The spatial and temporal
+average of ~Si,t or, equivalently, the average over the stationary
+distribution [61], s,
+s(l, e) ¼
+1
+T  Tb
+1
+N
+X
+T1
+t¼Tb
+X
+N
+i¼1
+~Si,t
+
+,
+(2:7)
+is called the 'synchronization order parameter' and measures
+the degree of synchrony in the entire metapopulation. Tb is a
+time we wait for the system to reach its stationary state and T
+is a much longer time. For a large system, the metapopulation
+may remain synchronized for very long times even though
+the phase variable of individual oscillators may change on
+relatively short time scales.
+The metapopulation's stationary state depends on the
+noise and dispersal parameters and, as a function of these
+parameters, undergoes a critical transition (also sometimes
+referred to as a continuous or second-order phase transition)
+in the following sense. The synchronization order parameter,
+s(λ, ϵ), changes continuously as a function of both noise λ and
+dispersal ϵ. For a given value of dispersal and noise less than
+a critical value, λc(ϵ), the synchronization order parameter is
+non-zero and its magnitude approaches 1 as λ approaches
+zero. Synchronization occurs for arbitrarily large systems
+but the time scale to synchronize increases with system
+size. As λ increases for fixed ϵ, the synchronization order par-
+ameter decreases and it is very near zero for all values λ ≥
+λc(ϵ). Figure 3a is the state diagram (also referred to as the
+phase diagram) obtained for a metapopulation model A
+showing regions in the noise-dispersal (λ-ϵ) plane where
+Table 1. Metapopulation models studied here. The models are deﬁned in
+detail in electronic supplementary material, appendix A. Except where
+otherwise state, reported results refer to model A. In all cases,
+measurement is done after the action of noise. In model D, the order of
+local dynamics and dispersal is reversed.
+model
+local map
+growth parameter
+sequence
+A
+Ricker
+r = 2.2
+NDR
+B
+Ricker
+r = 2.4
+NDR
+C
+logistic
+r = 3.2
+NDR
+D
+Ricker
+r = 2.2
+NRD
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+4
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+there is synchronous (ordered, |s| > 0) and incoherent (disor-
+dered, s ≈0) behaviour together with the critical line, λc(ϵ),
+separating these regions. As expected, for higher values of
+dispersal, synchrony is maintained for higher values of
+noise. To obtain the critical line, the critical noise, λc(ϵ), is
+found for a number of ϵ values using the Binder cumulant
+method (electronic supplementary material, appendix B) [62].
+The transition from incoherence to synchrony in the
+metapopulation model is a critical transition because it exhi-
+bits two related features: large fluctuations and long-ranged
+correlations. These features can be seen qualitatively in
+figure 3b, which shows typical snapshots of the local popu-
+lation variables of the metapopulation after it has reached
+the stationary state for different values of dispersal and
+noise. As shown in [41], the critical transition of many
+noisy lattice map systems in the two-cycle regime, including
+the metapopulation models studied here, are in the Ising
+universality class.
+2.3. Dynamical Ising model with memory
+In this work we seek to go beyond universal properties and
+understand whether the Ising model can provide a good
+description of the local dynamics of a metapopulation.1 For
+this purpose we need to introduce dynamical Ising models.
+Several dynamical Ising models have been studied in statisti-
+cal physics [63]. All of these models have stationary state
+properties described by Gibbs distributions in the Ising uni-
+versality class but they differ in their dynamics. The
+standard dynamical model, sometimes known as heat bath
+dynamics or the Glauber model [64,65], has no self-inter-
+action. For this reason, it fails to capture an essential feature
+of the metapopulation model—that each subpopulation
+tends to preserve its own phase of oscillation, as is seen in
+figure 2. In this section and in electronic supplementary
+material, appendix C we introduce the dynamical Ising
+model with memory, which provides a far better description
+of the metapopulation dynamics.
+The degrees of freedom of Ising models are Ising spins,2
+St = {Si,t} with Si,t = ±1. In the standard dynamical Ising
+model the state of each spin at time t + 1 is influenced by
+the state at time t of its nearest neighbours with an interaction
+strength, J. For the dynamical Ising model with memory
+[49,66], the state of a spin at time t + 1 is additionally influ-
+enced by its own state at time t with a self-interaction
+strength, K. The spatial structure and thus the neighbourhood
+of each spin in the dynamical Ising model is the same square
+grid as in the metapopulation models. Spins are updated in
+parallel as they are in the metapopulation models.
+The dynamics of the Ising model with memory is most
+succinctly stated in term of the probability, P(Si,t+1 = −Si,t|St,
+J, K), that spin Si,t changes sign from time t to t + 1. This
+'flip probability' depends only on the state of the spin and
+its four nearest neighbours according the flip probability
+function Pf,
+P(Si,tþ1 ¼ Si,tjSt, J, K) ¼ Pf(hi,tSi,t),
+(2:8)
+where hi,t is the sum of neighbour spins,
+hi,t ¼
+X
+hj;ii
+S j,t,
+(2:9)
+and the flip probability function takes the form
+Pf(x) ¼ exp
+
+Jx  K
+
+2 cosh
+
+Jx þ K
+ :
+(2:10)
+Flips are suppressed when a spin is in the same state as the
+majority of its neighbours x = hi,tSi,t > 0 and vice versa.
+When the memory term K is large, flips are suppressed
+regardless of the state of the neighbours, Pf →e−2K, and the
+dynamics of the system is very slow.
+2.4. Ising representation of the metapopulation models
+In this section we describe the methods we use to obtain the
+best dynamical Ising model representation of a metapopula-
+tion and then to assess the fidelity of that representation. For
+time t
+-1
+1
+0
+20
+40
+60
+0
+20
+40
+60
+1
+2
+˜St
+Xt
+(a)
+(b)
+Figure 2. (a) A time series of the Ricker variable Xt for a single noisy Ricker map in the two-cycle regime (r = 2.2) with noise level, λ = 0.15. The amplitude and
+phase of the oscillations vary due to the noise. Times when the phase of the oscillation changes are marked with red circles. (b) The time series of ~St, representing
+the phase of oscillation of the Ricker variable, is obtained from the time series Xt (equation (2.6)).
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+5
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+a given metapopulation model, we carry out simulations to
+generate a large set of successive triples of snapshots of the
+subpopulation densities, (Xt, Xt+1, Xt+2), for various values
+of dispersal and noise along its critical line, λc(ϵ). From
+each triple, we obtain a pair of phase configurations,
+(~St, ~Stþ1) (figure 1). We use these generated pairs to infer
+the parameters J and K of the dynamical Ising model that
+maximize the likelihood of producing the same distribution
+of pairs of Ising spin configurations (St, St+1). We describe
+the dynamical inference method in electronic supplementary
+material, appendix D. Note that the inference method is
+based solely on the flip probabilities and hence can be
+applied to metapopulation data at any time, not just in the
+stationary state. Furthermore, since the phase variables and
+Ising variables are binary, the inference procedure is straight-
+forward to implement and reasonably accurate even with
+relatively little metapopulation data.
+We can use the inferred Ising model as a predictive tool as
+follows. Suppose we are given information about the metapo-
+pulation at times t and t + 1 in the form of the phase variables
+~St (which involves the transition between times t and t + 1).
+We can use these data as an initial value for the dynamical
+Ising model by setting St ¼ ~St, and then calculate the flip
+probability given by equation (2.8) to predict the future
+state of the metapopulation from the Ising model. These
+probabilistic predictions are then compared with the meta-
+population data and assessed using measures of forecast
+skill. The set-up is sketched in figure 4.
+3. Results
+In this section we present the results of our metapopulation
+simulations and their Ising representations. Our objective is
+to provide a broad assessment of the dynamical Ising
+model with memory as an effective tool for describing and
+predicting metapopulation dynamics. In §3.1 we test whether
+the inferred Ising model has stationary states which are close
+to the critical stationary states of the metapopulation models
+they are representing. In §3.2 we explore how the best fit Ising
+parameters change as a function of time as the metapopula-
+tion goes from an initially random configuration towards
+the stationary state. In §3.3 we compare the flip probability
+of an Ising spin with the probability of a phase change in a
+subpopulation
+and
+measure
+the
+forecast
+skill
+of
+the
+noise level l
+increasing noise l
+dispersal ϵ
+0.10
+0.15
+0.20
+0.25
+0.1
+0.3
+0.5
+0.7
+0.9
+synchrony
+incoherence
+0.5
+1.0
+1.5
+increasing dispersal ϵ
+(a)
+(b)
+Figure 3. (a) The state diagram for metapopulation model A showing the synchronous (ordered) and incoherent (disordered) regions in the noise-dispersal plane.
+The two regions are separated by a critical transition (blue line). The open circles show the values of dispersal ϵ for which simulations were performed to find the
+critical values of noise λc(ϵ) and the blue line connects the points. (b) Typical snapshots showing local population densities in each patch of a 60 × 60 meta-
+population. The dispersal and noise value for each snapshot is shown as a corresponding grey square on the state diagram. The snapshot outlined in red is on the
+critical line and shows long-range correlations. The snapshots outlined in brown and black are about same distance from the critical line but the snapshot in
+the incoherent state (outlined in black) looks more critical. The snapshots near the upper left are in the synchronous state and display global synchrony while
+the snapshots near the lower right are in the incoherent state and subpopulations are uncorrelated.
+metapopulation
+dynamics 
+Ising
+representation
+M0
+M
+˜S0
+S
+forecast
+skill 
+˜S
+Ising dynamics
+Figure 4. Using Ising dynamics to predict metapopulation dynamics. The
+initial state is a metapopulation two-cycle configuration M0 chosen from
+the stationary distribution and M is the configuration at the next time
+step. The input for the Ising model prediction is the configuration of
+phase variables, ~S0, obtained from M0. The prediction of the subsequent
+configuration, S, is compared with the actual configuration, ~S, using a forecast
+skill score.
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+6
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+dynamical Ising model to predict phase changes in subpopu-
+lations. Finally, in §3.4 we identify what the dynamical Ising
+model
+misses
+that
+cause
+errors
+in
+modelling
+the
+metapopulation.
+3.1. Inferred Ising parameters in the stationary state
+Figure 5a shows a snapshot of the Ising model with memory
+in the stationary state simulated with the inferred parameters
+for the metapopulation model A with dispersal ϵ = 0.325 and
+critical noise λc(ϵ) = 0.179. The snapshot displays long-range
+correlations and is visually similar to the corresponding criti-
+cal snapshot of the metapopulation model (figure 3b, red
+box).
+Figure 5b shows the maximum-likelihood parameters J
+and K of the dynamical Ising model inferred from simulation
+data of the four metapopulation models for various values of
+dispersal ϵ and noise λc(ϵ). Each coloured point represents
+the inferred value of J and K for a given value of dispersal
+ϵ and noise λc(ϵ) chosen from the critical line of the appro-
+priate metapopulation model. For model A, the critical line
+is shown in figure 3 (and electronic supplementary material,
+figure A1 for other models). The order of the points in
+figure 5b is the reverse of the order of the points in figure 3.
+This ordering can be understood intuitively from the obser-
+vation that increasing noise should reduce the stability of
+the phase of the local oscillators and increasing dispersal
+should increase the coupling between neighbouring oscil-
+lators. Thus we expect that, with increasing noise and
+dispersal, the inferred memory K will decrease and the
+inferred coupling J will increase, as clearly seen in figure 5b.
+The critical line of the dynamical Ising model with
+memory from [49] is re-plotted in red in figure 5b. Since the
+stationary state of the metapopulation models is at a critical
+point for each of the simulated values of dispersal and
+noise, a perfectly accurate Ising representation of the meta-
+population would also have critical stationary states. We
+see that this is not quite the case, and instead the inferred
+Ising models have stationary states close to but clearly
+below the critical line in the disordered state. It is perhaps
+not surprising that a simplified model that is inferred from
+the local dynamical properties of a metapopulation fails to
+exactly capture the large-scale ordering properties of the
+system in the stationary state. We explore a possible cause
+of this failure in §3.4. Nonetheless, the inferred parameters
+are close enough to the Ising critical line to display
+long-ranged correlations (figure 5a).
+Figure 5b also shows that the dynamical Ising represen-
+tation is robust and performs very similarly independent of
+the underlying metapopulation dynamics since the results
+for the four different metapopulation models all lie on
+nearly the same curve.
+3.2. Time dependence of inferred Ising parameters
+The inferred Ising results shown in figure 5b are obtained
+from simulation results after the metapopulation has reached
+the stationary state. We repeat the inference calculation at
+various times before the metapopulation has reached its
+stationary state for the case ϵ = 0.2 and its critical noise
+λc(ϵ) = 0.15, starting from a random initial condition with
+half of the subpopulations at the low value of the two-cycle
+and the other half at the high value (figure 6b, t = 0).
+Figure 6a shows the inferred parameters at different times
+after random initial conditions. The snapshots in figure 6b
+show the evolution of the configurations with time t. Long-
+range correlations and critical behaviour develop slowly
+and are not fully visible until t = 104. We observe that, at
+early times, the inferred values of J and K decrease and
+later increase to saturate at the inferred values in the station-
+ary state. A perfectly accurate dynamical model should
+have parameters that are independent of the current state of
+the system. The relatively weak time dependence of the
+parameters is another indication that the dynamical Ising
+model is a good but not perfect approximation to the
+metapopulation model.
+3.3. Flip probability and forecast skill
+Figure 7a shows the average flip probability (rate of phase
+changes of subpopulations) measured in the steady state of
+the metapopulation compared with the prediction of the
+inferred dynamical Ising model, E[Pf(~hi~Si)], where the expec-
+tation is over values of ~hi~Si in the metapopulation steady state
+increasing dispersal ϵ and noise l 
+inferred coupling J
+A : Ricker (r = 2.2)
+B : Ricker (r = 2.4)
+C : logistic (r = 3.2)
+D : Ricker (r = 2.2)
+inferred memory K
+0.5
+0.18
+0.20
+0.22
+0.24
+0.26
+1.0
+1.5
+2.0
+(a)
+(b)
+Figure 5. (a) A typical spin configuration in the stationary state of the Ising model with memory simulated with the best fit parameters inferred from meta-
+population model A with parameters ϵ = 0.325 and critical noise λc(ϵ) = 0.179. (b) Inferred Ising parameters are plotted in the coupling-memory (J-K)
+plane and are compared with the critical curve (red line) of the dynamical Ising model with memory. Each inferred (J,K) point corresponds to a simulation
+point (λ = λc(ϵ)) on the critical line of the corresponding metapopulation model (see figure 3 and electronic supplementary material, figure A1), with increasing
+K corresponding to decreasing noise. The uncertainties in K are smaller than symbol size.
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+7
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+and Pf is defined in equation (2.8). The Ising model very
+accurately predicts the average rate of phase changes.
+The remaining panels of figure 7 show flip probabilities
+conditioned on specific initial (time t) values of the product
+~hi~Si, which take values ±4, ±2 and 0. When ~hi~Si is positive,
+the neighbours of subpopulation i have the same phase of
+oscillation as subpopulation i and phase changes are discour-
+aged; when ~hi~Si is negative, phase changes are encouraged, as
+evidenced in the plots. Again, the predictions of the dynami-
+cal Ising model with memory, Pf(~hi~Si), are quite accurate.
+These results show that the effects of neighbours are very
+important for understanding the behaviour of a subpopu-
+lation and that the Ising model does a good job of
+capturing these effects through the neighbour coupling, J.
+The small value of the flip probability, especially for weak
+noise, shows the importance of phase memory, captured in
+the memory parameter K. Note that the standard (K = 0)
+dynamical Ising model predicts a flip probability of 1/2 for
+~hi ¼ 0, which is far from the observed behaviour of the meta-
+population model (figure 7b). It is perhaps not surprising that
+the Ising model with memory does quite a good job at pre-
+dicting the five conditional flip probabilities shown in
+figure 7b-f since these five measured numbers are the
+inputs to the dynamical inference procedure that yields J
+and K (see electronic supplementary material, appendix D).
+A more stringent test of the predictive power of the Ising
+model is the forecast skill in predicting whether a specific
+subpopulation i will undergo a phase change from time t to
+t + 1 given the time t data, ~hi,t~Si,t. The Ising prediction for
+the probability of this flip is Pf(~hi~Si). Figure 8 shows the
+Brier forecast skill score (electronic supplementary material,
+appendix E) for this probabilistic prediction. The forecast
+skill score compares the forecast with a reference forecast,
+which we here choose as the overall average rate of phase
+changes (red points in figure 7a). The forecast skill score is
+bounded by the skill score of the underlying metapopulation
+model, shown as the upper curve in figure 8, which is less
+than 1 and decreasing with noise because the metapopulation
+model is inherently stochastic. The forecast skill of the Ising
+model with memory is relatively far from the bound,
+especially for low noise. We believe this lack of skill is the
+result of the loss of information going from the original con-
+tinuous two-cycle variables Mi,t to the binary-phase variables
+~Si,t as discussed in the next section.
+3.4. What does the dynamical Ising model miss?
+In the previous section we saw that the dynamical Ising
+model with memory displays low skill in predicting phase
+changes in the metapopulation model for weak noise. We
+believe that this deficiency is the result of using a model
+with binary variables to predict the behaviour of a system
+with continuous variables. Figure 9a shows a time series of
+the
+two-cycle
+variable
+of
+M0,t
+(see
+equation
+(2.5))
+of
+1
+102
+104
+106
+0.16
+0.18
+0.20
+1.1
+1.2
+memory K
+coupling J
+time t
+1.3
+t = 10
+t = 30
+t = 0
+t = 104
+t = 106
+t = 102
+0
+1
+2
+(a)
+(b)
+Figure 6. (a) Inferred parameters J and K as a function of time for metapopulation model A with random initial conditions and with ϵ = 0.2 and λc(ϵ = 0.2) =
+0.15. At t = 0 each subpopulation is equally likely to be in the high or low state of the two-cycle Ricker map. The inferred values at late times match the stationary
+state results in figure 5. (b) Lattice snapshots of the metapopulation model at several times show the evolution of the system from the random initial configuration
+to the stationary state.
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+8
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+subpopulation 0 in the steady state. The two-cycle variable
+contains both phase and amplitude information. Consider
+times in the figure where the phase variable changes sign
+(~S0,tþ1 ¼ ~S0,t). These events invariably occur when the
+amplitude of M0,t is small, with a value in or near
+the narrow grey band in the figure. On the other hand, the
+binary variables Si,t contain no amplitude information. Dyna-
+mical Ising models cannot capture the fact that phase changes
+occur when the amplitude of oscillation becomes small. We
+believe this defect explains why the forecast skill score is rela-
+tively low and also why the inferred Ising parameters do not
+fall exactly on the critical curve of the Ising model with
+memory.
+To test the latter hypothesis, we discarded the 5% of the
+subpopulations in the metapopulation data with the smallest
+values of Mi,t (grey band in figure 9) and re-ran inference on
+the remaining data. The results are shown in figure 10. The
+parameters J and K now fall much closer to the critical line
+of the Ising model with memory. This success suggests
+using a generalization of the Ising model with three states,
+−1, 0 and +1, to better capture the fact that phase changes
+typically occur when the amplitude of oscillation is near
+zero. The Blume-Capel model [67,68] is an appropriate
+three-state generalization of the Ising model that will be the
+subject of a future study.
+Note that the inferred values of K are larger when the
+smallest values of the two-cycle variable are discarded. In
+this reduced dataset there are far fewer phase changes,
+which corresponds to larger values of K. This consideration
+explains the high initial value of K in the time-dependent
+inference shown in figure 6a. The initial condition in this
+simulation is a 50 : 50 mixture of high and low two-cycle
+values of the Ricker map. Since there are initially no small
+values of the two-cycle variable, phase changes are again
+unlikely and the inferred K is large. Finally, a similar con-
+sideration explains why the forecast skill score of the Ising
+flip probability
+flip probability
+flip probability
+average
+˜hi,tSi,t = −4
+˜
+˜hi,tSi,t = 4
+˜
+˜hi,t = 0
+˜hi,tSi,t = −2
+˜
+˜hi,tSi,t = 2
+˜
+0.1
+0.12
+0.14
+0.16
+0.18
+noise l
+0.20
+0.22
+0.24
+0.12
+0.14
+0.16
+0.18
+noise l
+0.20
+0.22
+0.24
+0.12
+0.14
+0.16
+0.18
+0.20
+0.22
+0.24
+0.12
+0.14
+0.16
+0.18
+0.20
+0.22
+0.24
+0.12
+0.14
+0.16
+0.18
+0.20
+0.22
+0.24
+0.12
+0.14
+0.16
+0.18
+0.20
+0.22
+0.24
+0.2
+0.3
+0.4
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.04
+0.06
+0.08
+0.12
+0.14
+0.10
+0.05
+0.10
+0.15
+0.20
+0.25
+0.010
+0.015
+0.020
+0.025
+0.030
+0.035
+0.040
+0.045
+0.02
+0.04
+0.06
+0.08
+0.10
+0.12
+(a)
+(b)
+(c)
+(d)
+(e)
+(f)
+Figure 7. Probability of a phase change ('flip') for metapopulation model A (red circles) and predictions of the Ising model with memory (blue triangles). Panel (a)
+shows the average flip probability in the stationary state. The remaining panels show flip probabilities conditioned on the possible values of the product ~hi,t~Si,t.
+When this product is positive (negative), the phase of a subpopulation i at time t agrees (disagrees) with the majority of its neighbours. When ~hi,t ¼ 0 the
+influence of the neighbours is weak.
+noise l 
+0.12
+0.14
+0.16
+0.18
+0.20
+0.22
+0.24
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+Metapopualtion dynamics
+Ising model with memory
+metapopulation dynamics
+Ising model with memory
+forecast skill score
+Figure 8. The forecast skill score for predicting phase flips is measured as a
+function of noise strength λc(ϵ) for values of noise and dispersal along the
+critical curve of the metapopulation model. The reference forecast is the aver-
+age flip probability. The forecast skill of the metapopulation model itself (top,
+blue line) is less than 1 because of stochasticity and serves as an upper bound
+on predictability.
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+9
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+model improves with noise (figure 8) since at higher noise it
+is more likely for a subpopulation to change phase without its
+amplitude of oscillation becoming small.
+Figure 9b shows the observed distribution of the two-
+cycle variable M0,t and reveals that this distribution is
+broad with values near zero quite common. In principle,
+the two peaks in this distribution should be exactly sym-
+metric (M and −M equally probable). The asymmetry in the
+figure is because the histogram is constructed from a finite
+time series (6 × 107 steps) and because the rate of phase
+flips of the entire metapopulation is very low.
+4. Discussion
+Previous work [41] has demonstrated a correspondence
+between the critical point of the static Ising model and the
+large-scale properties of stationary states of spatially coupled
+biological models with simple cyclic behaviour. But for bio-
+logical
+systems
+in
+general
+and
+ecological
+systems
+in
+particular, shorter term dynamical behaviour is of much
+more interest. We have shown here that a simple dynamical
+Ising model can be successfully employed to understand
+and predict the dynamics of more complex, cyclic biological
+systems. Focusing on ecological metapopulation models,
+we found it necessary to include a memory term in the
+dynamical Ising model since subpopulations tend to main-
+tain their phase of oscillation. We inferred the parameters
+of the dynamical Ising models that best represent the
+simulated dynamics of several metapopulation models. Com-
+paring the Ising representations with the full models, we
+found good agreement for both stationary states (figure 5)
+and dynamical properties (figure 7).
+A key issue in understanding ecological dynamics is pre-
+diction given the level of knowledge of a system [69]. A
+simplified representation will obviously omit details but a
+comparison is vital for understanding the limits to prediction.
+We are interested in the Ising model specifically because it is
+a simplification of complete ecological dynamics and, there-
+fore, it is unsurprising that the forecast skill score for the
+Ising model is low relative to the metapopulation model
+(figure 8). Nevertheless, the forecast skill shows that infor-
+mation useful for prediction is obtained, even for the
+simplest model.
+Our results point to avenues for including more biological
+detail that would provide further understanding by dealing
+with obvious limitations resulting from simplifications. A
+major insight from our work is that both the static and
+dynamic properties of a wide range of two-cycle metapopu-
+lation models can be reproduced by the Ising model with
+memory. This means that certain features of ecological meta-
+populations with local two-cycles will arise independent of
+the details governing the dynamics. In other words, the suc-
+cess of the Ising representation reveals which aspects of
+ecological synchrony are detail-independent, yielding a
+much more general understanding of synchrony and pattern
+formation than can be derived from any specific model. The
+dynamical Ising model with memory therefore serves as a
+simple baseline model with which to study ecological oscil-
+lators,
+without
+requiring
+any
+specific
+details
+of
+local
+dynamics. This is useful because we rarely know the exact
+structure of density dependence governing the dynamics of
+real populations. Even when we do know these functions
+with reasonable certainty, we may lack precise parameter esti-
+mates. By fitting the Ising model with memory to observed
+dynamics, we gain a quantitative representation that can be
+used for both understanding and prediction despite these
+sources of uncertainty.
+Many of the more biological details we do not include
+here can be included in models that are only moderately
+more complex and still quite general. While the Ising model
+t0
+t0 + 50
+t0 + 100
+t0 + 150
+t0 + 200
+t0 + 250
+-2
+-1
+0
+1
+2
+ϵ = 0.15
+l = 0.13
+two-cycle variable M0,t 
+time
+0
+2
+4
+6
+8
+10
+12
+14
+16
+frequency (×10−5)
+(a)
+(b)
+Figure 9. (a) A typical time series of the two-cycle variable, M0,t, for a single subpopulation in metapopulation model A with dispersal ϵ = 0.15 and noise λc(ϵ) =
+0.13. The time t0 is after the metapopulation model has reached the steady state. The region shaded grey highlights times when the oscillation amplitude is near
+zero. Changes in the phase of oscillation tend to occur when the amplitude has a value near zero. (b) Distribution of the subpopulation two-cycle variable, M0,t.
+increasing dispersal ϵ and noise l 
+inferred coupling J
+inferred memory K
+0.5
+0.18
+0.20
+0.22
+0.24
+0.26
+0.28
+0.30
+1.0
+1.5
+3.0
+2.0
+2.5
+Figure 10. Inference results using the full dataset (blue, same as figure 3)
+and using a subset of the data (black) obtained by discarding the 5% of the
+smallest absolute values of the two-cycle variable Mi,t (shaded region in
+figure 9a).
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+10
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+itself is limited to representing systems whose local dynamics
+can be categorized into two distinct states, such as coupled
+noisy two-cycles, other spin models may allow us to take
+this approach further. For instance, by retaining slightly
+more
+information,
+the
+three-state
+Blume-Capel
+model
+[67,68] shows promise for representing the general mechan-
+ism of changes in the phase of oscillation of subpopulations
+in a metapopulation.
+Another possibility would be to use these ideas to exam-
+ine dynamics of some continuous time systems with three or
+more species where there is a limit cycle that undergoes
+period doubling as a parameter is changed, such as the
+Hastings-Powell model [70]. These dynamics can be studied
+in discrete time by examining the resulting Poincaré map [71],
+which has dimension only slightly greater than 1 and has
+period-2 cycles like the ones we consider here. If dispersal
+is similar for all three species, the onset of synchrony
+should occur as in the Ising model. If dispersal rates differ
+markedly between species, the Ising representation may no
+longer be useful, as more complex patterns like desynchroni-
+zation of one species with increased dispersal of another can
+result [72].
+Heterogeneous
+metapopulations
+with
+varying
+local
+dynamics, noise and dispersal on imperfect lattices could
+also be represented with corresponding dynamical Ising
+models
+with
+different
+coupling
+and
+memory
+at
+each
+lattice site. The performance of the Ising representation in
+this more realistic setting is an important question for
+future research.
+Although we considered only spatially uncorrelated noise
+here, correlated environmental stochasticity, the Moran effect,
+is thought to be an important synchronizing force in ecology
+[7]. Correlated noise can be represented by a dynamical Ising
+model with an external field that acts on the entire lattice.
+Whether the parameters of an Ising model with such a field
+can be reliably estimated from simulated metapopulations
+with correlated noise remains an open question. If so, Ising
+models fitted to data might be useful for determining the
+relative roles of dispersal and correlated noise in driving
+observations of synchrony.
+It is important to emphasize that, while we have focused
+here on ecological models, the insights apply much more
+broadly to the application of ideas from statistical physics
+for understanding spatially coupled biological dynamics. A
+key general conclusion is that a dynamical Ising model
+with memory, only slightly more complex than the standard
+Ising model, can both represent dynamics on biologically
+relevant time scales and highlight the importance of local
+(in space) memory of the system state as a difference between
+biological systems and the standard Ising model.
+Data accessibility. This article has no additional data.
+Competing interests. We declare we have no competing interests.
+Funding. The work was supported in part by NSF grant no. 1840221.
+Acknowledgements. We thank Larry Abbott and Andrew Noble for
+useful discussions.
+Endnotes
+1There are universal dynamical properties but these apply to asymp-
+totic long-time and long-distance properties of time correlation
+functions not the local and short-time properties studied here.
+2We use the notation St to refer to the spin configuration of a
+dynamical Ising model, in contrast to ~St, which represents the sub-
+population phases of oscillation as described in §2.2.
+References
+1.
+Kuramoto Y. 1975 Self-entrainment of a population
+of coupled non-linear oscillators. In International
+symposium on mathematical problems in theoretical
+physics (ed. H Arakai), pp. 420-422. New York, NY:
+Springer-Verlag.
+2.
+Acebron J, Bonilla L, Vicente C, Ritort F, Spigler R.
+2005 The Kuramoto model: a simple paradigm for
+synchronization phenomena. Rev. Mod. Phys. 77,
+137-185. (doi:10.1103/RevModPhys.77.137)
+3.
+Bjørnstad O, Ims RA, Lambin X. 1999 Spatial
+population dynamics: analyzing patterns and
+processes of population synchrony. Trends Ecol.
+Evol. 14, 427-432. (doi:10.1016/S0169-
+5347(99)01677-8)
+4.
+Strogatz S. 2003 Sync: the emerging science of
+spontaneous order. New York, UK: Hyperion.
+5.
+Liebhold A, Koenig W, Bjørnstad O. 2004 Spatial
+synchrony in population dynamics. Annu. Rev. Ecol.
+Evol. Syst. 35, 467-490. (doi:10.1146/annurev.
+ecolsys.34.011802.132516)
+6.
+Harris A, Gordon J. 2015 Long-range neural
+synchrony in behavior. Annu. Rev. Neurosci. 38,
+171-194. (doi:10.1146/annurev-neuro-071714-
+034111)
+7.
+Moran PAP. 1953 The statistical analysis of the
+Canadian lynx cycle. II. Synchronization and
+meteorology. Aust. J. Zool. 1, 291-298. (doi:10.
+1071/ZO9530291)
+8.
+Zhang H, Be'er A, Florin E, Swinney H. 2010
+Collective motion and density fluctuations
+in bacterial colonies. Proc. Natl Acad. Sci.
+USA 107, 13626-13630. (doi:10.1073/pnas.
+1001651107)
+9.
+Sumpter D, Buhl J, Biro D, Couzin I. 2008
+Information transfer in moving animal groups.
+Theory Biosci. 127, 177-186. (doi:10.1007/s12064-
+008-0040-1)
+10. Toner J, Tu Y. 1995 Long-range order in a two-
+dimensional dynamical XY model: how birds fly
+together. Phys. Rev. Lett. 75, 4326-4329. (doi:10.
+1103/PhysRevLett.75.4326)
+11. Bialek W, Cavagna A, Giardina I, Mora T, Silvestri M,
+Walczak A. 2012 Statistical mechanics for
+natural flocks of birds. Proc. Natl Acad. Sci.
+USA 109, 4786-4791. (doi:10.1073/pnas.
+1118633109)
+12. Bayati M, Valizadeh A, Abbassian A, Cheng S. 2015
+Self-organization of synchronous activity
+propagation in neuronal networks driven by local
+excitation. Front. Comput. Neurosci. 9, 69.
+13. Uhlhaas P, Singer W. 2006 Neural synchrony in brain
+disorders: relevance for cognitive dysfunctions and
+pathophysiology. Neuron 52, 155-168. (doi:10.
+1016/j.neuron.2006.09.020)
+14. Stanley H. 1971 Introduction to phase transitions
+and critical phenomena. Oxford, UK: Oxford
+University Press.
+15. Goldenfeld N 1992 Lectures on phase transitions and
+the renormalization group. Frontiers in Physics,
+vol. 85. Reading, MA: Perseus Books.
+16. Cardy J. 1996 Scaling and renormalization in
+statistical physics. Cambridge, UK: Cambridge
+University Press.
+17. Sethna J. 2006 Statistical mechanics: entropy, order
+parameters and complexity. Oxford, UK: Oxford
+University Press.
+18. Solé R. 2011 Phase transitions. Princeton, NJ:
+Princeton University Press.
+19. Weber M, Buceta J. 2016 The cellular Ising model: a
+framework for phase transitions in multicellular
+environments. J. R. Soc. Interface 13, 20151092.
+(doi:10.1098/rsif.2015.1092)
+20. Wang Y, Badea T, Nathans J. 2006 Order from
+disorder: self-organization in mammalian hair
+patterning. Proc. Natl Acad. Sci. USA 103,
+19 800-19 805. (doi:10.1073/pnas.0609712104)
+21. Cocco S, Leibler S, Monasson R. 2009 Neuronal
+couplings between retinal ganglion cells inferred by
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+11
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+efficient inverse statistical physics methods. Proc.
+Natl Acad. Sci. USA 106, 14 058-14 062. (doi:10.
+1073/pnas.0906705106)
+22. Schneidman E, Berry M, Segev R, Bialek W. 2006
+Weak pairwise correlations imply strongly
+correlated network states in a neural
+population. Nature 440, 1007-1012. (doi:10.1038/
+nature04701)
+23. Calovi D, Lopez U, Ngo S, Sire C, Chaté H, Theraulaz
+G. 2014 Swarming, schooling, milling: phase
+diagram of a data-driven fish school model.
+New J. Phys. 16, 015026. (doi:10.1088/1367-2630/
+16/1/015026)
+24. Noble A, Rosenstock T, Brown P, Machta J, Hastings A.
+2018 Spatial patterns of tree yield explained by
+endogenous forces through a correspondence
+between the Ising model and ecology. Proc. Natl
+Acad. Sci. USA 115, 1825-1830. (doi:10.1073/pnas.
+1618887115)
+25. Grenfell B, Wilson K, Finkenstädt BF, Coulson T,
+Murray S, Albon S, Pemberton JM, Clutton-Brock T,
+Crawley M. 1998 Noise and determinism in
+synchronized sheep dynamics. Nature 394,
+674-676. (doi:10.1038/29291)
+26. Vasseur D, Fox J. 2009 Phase-locking and
+environmental fluctuations generate synchrony in a
+predator-prey community. Nature 460, 1007-1010.
+(doi:10.1038/nature08208)
+27. Abbott K. 2011 A dispersal-induced paradox:
+synchrony and stability in stochastic
+metapopulations. Ecol. Lett. 14, 1158-1169.
+(doi:10.1111/j.1461-0248.2011.01670.x)
+28. Ripa J. 2000 Analysing the Moran effect and
+dispersal: their significance and interaction
+in synchronous population dynamics. Oikos
+90, 175-187. (doi:10.1034/j.1600-0706.2000.
+890119.x)
+29. Greenman JV, Benton T. 2001 The impact of
+stochasticity on the behaviour of nonlinear population
+models: synchrony and the Moran effect. Oikos 93,
+343-351. (doi:10.1034/j.1600-0706.2001.930217.x)
+30. Desharnais R, Reuman D, Costantino R, Cohen J.
+2018 Temporal scale of environmental correlations
+affects ecological synchrony. Ecol. Lett. 21,
+1800-1811. (doi:10.1111/ele.13155)
+31. Hopson J, Fox J. 2018 Occasional long distance
+dispersal increases spatial synchrony of population
+cycles. J. Anim. Ecol. 116, 903.
+32. Peltonen M, Liebhold A, Bjørnstad O, Williams D.
+2002 Spatial synchrony in forest insect outbreaks:
+roles of regional stochasticity and dispersal. Ecology
+83, 3120-3129. (doi:10.1890/0012-9658(2002)083
+[3120:SSIFIO]2.0.CO;2)
+33. Jansen V. 1999 Phase locking: another cause of
+synchronicity in predator-prey systems. Trends Ecol.
+Evol. 14, 278. (doi:10.1016/S0169-5347(99)01654-7)
+34. Bjørnstad O. 2000 Cycles and synchrony: two
+historical 'experiments' and one experience. J. Anim.
+Ecol. 69, 869-873. (doi:10.1046/j.1365-2656.2000.
+00444.x)
+35. Earn D, Levin S, Rohani P. 2000 Coherence and
+conservation. Science 290, 1360-1364. (doi:10.
+1126/science.290.5495.1360)
+36. Fox J, Vasseur D, Hausch S, Roberts J. 2011 Phase
+locking, the Moran effect and distance decay of
+synchrony: experimental tests in a model system.
+Ecol. Lett. 14, 163-168. (doi:10.1111/j.1461-0248.
+2010.01567.x)
+37. Haynes K, Walter J, Liebhold A. 2019 Population
+spatial synchrony enhanced by periodicity
+and low detuning with environmental forcing.
+Proc. R. Soc. B 286, 20182828. (doi:10.1098/rspb.
+2018.2828)
+38. Turchin P. 1990 Rarity of density dependence or
+population regulation with lags. Nature 344,
+660-663. (doi:10.1038/344660a0)
+39. Barraquand F, Pinot A, Yoccoz N, Bretagnolle V.
+2014 Overcompensation and phase effects in a cyclic
+common vole population: between first and second-
+order cycles. J. Anim. Ecol. 83, 1367-1378. (doi:10.
+1111/1365-2656.12257)
+40. Symonides E, Silvertown J, Andreasen V. 1986
+Population cycles caused by overcompensating
+density-dependence in an annual plant. Oecologia
+71, 156-158. (doi:10.1007/BF00377336)
+41. Noble A, Machta J, Hastings A. 2015 Emergent
+long-range synchronization of oscillating ecological
+populations without external forcing described by
+Ising universality. Nat. Commun. 6, 6664. (doi:10.
+1038/ncomms7664)
+42. Abbott K. 2007 Does the pattern of population
+synchrony through space reveal if the Moran effect
+is acting? Oikos 116, 903-912. (doi:10.1111/j.2007.
+0030-1299.15856.x)
+43. Wysham D, Hastings A. 2007 Sudden shifts in
+ecological systems: intermittency and transients in
+the coupled Ricker population model. Bull. Math. Biol.
+70, 1013-1031. (doi:10.1007/s11538-007-9288-8)
+44. Blasius B, Huppert A, Stone L. 1999 Complex
+dynamics and phase synchronization in spatially
+extended ecological systems. Nature 399, 354-359.
+(doi:10.1038/20676)
+45. Bjørnstad O, Falck W. 2001 Nonparametric spatial
+covariance functions: estimation and testing.
+Environ. Ecol. Stat. 8, 53-70. (doi:10.1023/
+A:1009601932481)
+46. Buonaccorsi J, Elkinton J, Evans S, Liebhold A. 2001
+Measuring and testing for spatial synchrony. Ecology
+82, 1668-1679. (doi:10.1890/0012-9658(2001)082
+[1668:MATFSS]2.0.CO;2)
+47. Gouhier T, Guichard F. 2014 Synchrony:
+quantifying variability in space and time.
+Methods Ecol. Evol. 5, 524-533. (doi:10.1111/2041-
+210X.12188)
+48. Walter J, Sheppard L, Anderson T, Kastens J,
+Bjørnstad O, Liebhold A, Reuman D. 2017 The
+geography of spatial synchrony. Ecol. Lett. 20,
+801-814. (doi:10.1111/ele.12782)
+49. Nareddy V, Machta J. 2020 Kinetic Ising models
+with self-interaction: sequential and parallel
+updating. Phys. Rev. E 101, 012122. (doi:10.1103/
+PhysRevE.101.012122)
+50. Decelle A, Ricci-Tersenghi F, Zhang P. 2016 Data
+quality for the inverse Ising problem. J. Phys. A
+Math. Theor. 49, 384001. (doi:10.1088/1751-8113/
+49/38/384001)
+51. Lande R, Engen S, Saeter B. 1999 Spatial scale of
+population synchrony: environmental correlation
+versus dispersal and density regulation. Am. Nat.
+154, 271-281. (doi:10.1086/303240)
+52. Liebhold A, Johnson D, Bjørnstad O. 2006
+Geographic variation in density-dependent
+dynamics impacts the synchronizing effect
+of dispersal and regional stochasticity. Popul. Ecol.
+48, 131-138. (doi:10.1007/s10144-005-0248-6)
+53. Hanski I. 1991 Single-species metapopulation
+dynamics: concepts, models and observations.
+Biol. J. Linn. Soc. 42, 17-38. (doi:10.1111/j.1095-
+8312.1991.tb00549.x)
+54. Durrett R, Levin S. 1994 The importance of being
+discrete (and spatial). Theor. Popul. Biol. 46,
+363-394. (doi:10.1006/tpbi.1994.1032)
+55. Fagan W, Meir E, Prendergast J, Folarin A, Kareiva P.
+2001 Characterizing population vulnerability for 758
+species. Ecol. Lett. 4, 132-138. (doi:10.1046/j.1461-
+0248.2001.00206.x)
+56. Murdoch W, Kendall B, Nisbet R, Briggs C, McCauley
+E, Bolser R. 2002 Single-species models for many-
+species food webs. Nature 417, 541-543. (doi:10.
+1038/417541a)
+57. Krkošk M, Drake J. 2014 On signals of phase
+transitions in salmon population dynamics.
+Proc. R. Soc. B 281, 20133221. (doi:10.1098/rspb.
+2013.3221)
+58. Abbott K, Ives A. 2012 Single-species population
+models. In Encyclopedia of theoretical ecology (eds
+AM Hastings, L Gross), pp. 641-648. Berkeley, CA:
+University of California Press.
+59. Ricker W. 1954 Stock and recruitment. J. Fish. Res.
+Board Can. 11, 559-623. (doi:10.1139/f54-039)
+60. May RM. 1974 Biological populations with
+nonoverlapping generations—stable points, stable
+cycles, and chaos. Science 186, 645-647. (doi:10.
+1126/science.186.4164.645)
+61. Durrett R. 1999 Stochastic spatial models. SIAM Rev.
+41, 677-718. (doi:10.1137/S0036144599354707)
+62. Binder K. 1981 Critical properties from Monte Carlo
+coarse graining and renormalization. Phys. Rev. Lett.
+47, 693-696. (doi:10.1103/PhysRevLett.47.693)
+63. Hohenberg P, Halperin B. 1977 Theory of dynamic
+critical phenomena. Rev. Mod. Phys. 49, 435-479.
+(doi:10.1103/RevModPhys.49.435)
+64. Glauber R. 1963 Time-dependent statistics of the
+Ising model. J. Math. Phys. 4, 294-307. (doi:10.
+1063/1.1703954)
+65. Newman M, Barkema G. 1999 Monte Carlo
+methods in statistical physics. Oxford, UK: Clarendon
+Press.
+66. Cirillo E, Louis P, Ruszel W, Spitoni C. 2014
+Effect of self-interaction on the phase diagram of a
+Gibbs-like measure derived by a reversible
+probabilistic cellular automata. Chaos Solitons
+Fractals 64, 36-47. (doi:10.1016/j.chaos.2013.
+12.001)
+67. Blume M. 1966 Theory of the first-order magnetic
+phase change in UO2. Phys. Rev. 141, 517-524.
+(doi:10.1103/PhysRev.141.517)
+68. Capel H. 1966 On the possibility of first-order phase
+transitions in Ising systems of triplet ions with zero-
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+12
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+
+field splitting. Physica 32, 966-988. (doi:10.1016/
+0031-8914(66)90027-9)
+69. Dietze M et al. 2018 Iterative near-term ecological
+forecasting: needs, opportunities, and challenges.
+Proc. Natl Acad. Sci. USA 115, 1424-1432. (doi:10.
+1073/pnas.1710231115)
+70. Hastings A, Powell T. 1991 Chaos in a three-species
+food chain. Ecology 72, 896-903. (doi:10.2307/
+1940591)
+71. Guckenheimer J, Holmes P 1983 Nonlinear
+oscillations, dynamical systems, and
+bifurcations of vector fields. Applied
+Mathematical Sciences. New York, NY:
+Springer.
+72. Koelle K, Vandermeer J. 2005 Dispersal-induced
+desynchronization: from metapopulations to
+metacommunities. Ecol. Lett. 8, 167-175. (doi:10.
+1111/j.1461-0248.2004.00703.x)
+royalsocietypublishing.org/journal/rsif
+J. R. Soc. Interface 17: 20200571
+13
+ Downloaded from https://royalsocietypublishing.org/ on 25 July 2025 
+

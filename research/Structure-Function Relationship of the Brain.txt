@@ -1,0 +1,2776 @@
+Western University 
+Western University 
+Electronic Thesis and Dissertation Repository 
+9-11-2015 12:00 AM 
+Structure-Function Relationship of the Brain: A comparison 
+Structure-Function Relationship of the Brain: A comparison 
+between the 2D Classical Ising model and the Generalized Ising 
+between the 2D Classical Ising model and the Generalized Ising 
+model 
+model 
+Pubuditha M. Abeyasinghe, The University of Western Ontario 
+Supervisor: Dr. Andrea Soddu, The University of Western Ontario 
+A thesis submitted in partial fulfillment of the requirements for the Master of Science degree in 
+Physics 
+© Pubuditha M. Abeyasinghe 2015 
+Recommended Citation 
+Recommended Citation 
+Abeyasinghe, Pubuditha M., "Structure-Function Relationship of the Brain: A comparison between the 2D 
+Classical Ising model and the Generalized Ising model" (2015). Electronic Thesis and Dissertation 
+Repository. 3239. 
+https://ir.lib.uwo.ca/etd/3239 
+This Dissertation/Thesis is brought to you for free and open access by Scholarship@Western. It has been accepted 
+for inclusion in Electronic Thesis and Dissertation Repository by an authorized administrator of 
+Scholarship@Western. For more information, please contact wlswadmin@uwo.ca. 
+
+STRUCTURE-FUNCTION RELATIONSHIP OF THE BRAIN: A
+COMPARISON BETWEEN THE 2D CLASSICAL ISING MODEL AND
+THE GENERALIZED ISING MODEL
+(Thesis format: Monograph)
+by
+Pubuditha Abeyasinghe
+Graduate Program in Physics
+A thesis submitted in partial fulﬁllment
+of the requirements for the degree of
+Master of Science
+The School of Graduate and Postdoctoral Studies
+The University of Western Ontario
+London, Ontario, Canada
+c⃝Pubuditha Manurangi Abeyasinghe, 2015
+
+Abstract
+There is evidence that the functional patterns of the brain observed at rest using fMRI are
+sustained by a structural architecture of axonal ﬁber bundles. As neuroimaging techniques
+advance with time, the relationship between structure and function has become the object of
+many studies in neuroscience. As recently suggested, the well-deﬁned connectivity structure
+found in the brain can be used to understand the self organization of the brain at rest, as well as
+to infer the functional connectivity patterns of the brain using diﬀerent models. These models
+include the Kuramoto model, which studies synchronization, and the two-dimensional classical
+Ising model, which studies the global dynamics of the brain at the critical temperature. These
+models have been successful in capturing the underlying properties of the brain. To extend this
+understanding, our objective is to develop the generalized Ising model, following the lesson
+from the two-dimensional Ising model, as the generalized Ising model could be simulated
+using the anatomical structure of the brain. This model can then be used to study functional
+information integration and segregation in the brain at rest. Thus, the primary research question
+would be: can the generalized Ising model explain the functional behaviour of the resting brain
+at the critical temperature? Preliminary analyses were carried out to determine the critical
+temperature of the models and to compare the correlation distributions. Further analyses were
+carried out using graph theory considering the brain as a network. By observing the results
+obtained from our simulations, it can be inferred that there is a temperature that is diﬀerent
+from the critical temperature of the model at which the generalized Ising model shows a match
+with the empirical functional connectivity. At that temperature, the generalized Ising model
+could be used to study the global dynamics, as well as the local dynamics of the brain.
+Keywords: Ising model, Structure and function of the brain, Graph Theory
+ii
+
+Dedication
+To my family,
+for their unconditional love and care...
+To my adorable nephew,
+for his priceless love and the biggest heart...
+iii
+
+Acknowledgement
+The preparation and compilation of this Dissertation would not have been possible if not for
+the assistance and support given to me by my seniors, family and friends.
+I would like to take this opportunity to extend my gratitude to my advisor, Prof. Andrea
+Soddu for the assistance he rendered to me and for the amount of tolerance he demonstrated
+when directing me in the correct path to make this dissertation a success. I must state that it was
+a privilege to be guided by you. My extended gratitude goes towards my advisory committee
+for spending their time to evaluate my work and to have all the meaningful discussions in order
+to give me the opportunity to learn.
+I also wish to extend my sincere thanks to Dr. Tushar K. Das for the support and for the
+motivation he provided for my success from the beginning. Further, I thank all the members in
+our group whom I met at some point in the past two years.
+My heartfelt thanks are extended to all my friends who stood beside me during this journey
+and who were supportive throughout.
+Further, I thank my two brothers and sister for always being there with me whenever I need,
+despite miles apart.
+Finally, I thank my parents for being the biggest and the strongest pillers of my life. Even
+though they are thousands of miles away, they managed to be with me the entire journey. I
+would have performed less if it was not for their love and care. Special thanks goes to them,
+for understanding my ﬂaws, accepting me for who I am and for being closer to my heart always.
+iv
+
+Contents
+Abstract
+ii
+Dedication
+iii
+Acknowledgement
+iv
+List of Figures
+viii
+List of Tables
+xi
+1
+Introduction
+1
+1.1
+Introduction . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+1
+1.2
+Motivation & Objectives
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2
+1.3
+Thesis Outline . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3
+2
+Background & related work
+4
+2.1
+Overview
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4
+2.2
+Neuronal Communication . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5
+2.2.1
+Functional Connectivity
+. . . . . . . . . . . . . . . . . . . . . . . . .
+7
+2.2.2
+Structural Connectivity . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+2.3
+Brain Imaging . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+9
+2.3.1
+Functional Magnetic Resonance Imaging (fMRI) . . . . . . . . . . . .
+9
+2.3.2
+Diﬀusion Tensor Imaging (DTI) . . . . . . . . . . . . . . . . . . . . .
+12
+2.4
+Modelling the Brain . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+v
+
+2.4.1
+Kuramoto Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+14
+Generalized Kuramoto Model
+. . . . . . . . . . . . . . . . . . . . . .
+16
+2.4.2
+Ising model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+17
+Two dimensional (2D) Classical Ising Model
+. . . . . . . . . . . . . .
+17
+Generalized Ising model
+. . . . . . . . . . . . . . . . . . . . . . . . .
+21
+2.4.3
+Generalized Kuramoto Model versus Generalized Ising model . . . . .
+23
+2.5
+Graph Theory . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+24
+3
+Methodology
+27
+3.1
+Overview
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27
+3.2
+Empirical Data from MRI . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27
+3.2.1
+Subjects . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+27
+3.2.2
+Acquisition & Preprocessing . . . . . . . . . . . . . . . . . . . . . . .
+28
+Functional Data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+28
+Structural Data
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+28
+3.2.3
+Resting State Network (RSN) extraction . . . . . . . . . . . . . . . . .
+29
+3.3
+Numerical Simulations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+29
+3.3.1
+Generalized Ising Model . . . . . . . . . . . . . . . . . . . . . . . . .
+29
+3.3.2
+2D Classical Ising Model . . . . . . . . . . . . . . . . . . . . . . . . .
+32
+3.4
+Comparison of data . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+33
+4
+Results
+35
+4.1
+Overview
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+35
+4.2
+The Classical Ising model versus the Generalized Ising model . . . . . . . . . .
+35
+5
+Discussion and Conclusions
+46
+5.1
+Future Directions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+51
+Bibliography
+52
+vi
+
+Appendices
+57
+.1
+Appendix A: MATLAB code for simulations of the generalized Ising model . .
+58
+.2
+Appendix B: Supplementary ﬁgures
+. . . . . . . . . . . . . . . . . . . . . . .
+62
+.3
+Appendix C: Labels of 83 Parcellations of the Brain . . . . . . . . . . . . . . .
+65
+.4
+Appendix D: Representation of the Resting State Networks . . . . . . . . . . .
+68
+Curriculum Vitae
+69
+vii
+
+List of Figures
+2.1
+Main components of a neuron [1]
+. . . . . . . . . . . . . . . . . . . . . . . .
+6
+2.2
+Main components of an MRI system. Image courtesy of the National Magnetic
+Field Laboratory [2] . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+10
+2.3
+BOLD time course of a patch of cortex from a brain at rest. . . . . . . . . . . .
+12
+2.4
+Lateral view of the white matter tracts in the brain, created by DTI. The col-
+ors, red, blue and green represent the ﬁbers along the x, y and z directions
+respectively in the cartesian coordinates (DR Paula et al. in prep.) . . . . . . . .
+14
+2.5
+Representation of a two-dimensional lattice arrangement. Each lattice site has
+a spin, either up or down. The nearest neighbours of the lattice site in green are
+represented in red. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+18
+2.6
+Representation of the equilibrium spin conﬁguration for (a) T < Tc, (b) T = Tc
+and (c) T > Tc for a two-dimensional lattice arrangement. Red color is for the
+up spins (+1) and blue color is for the down spins (−1) [3]. . . . . . . . . . . .
+20
+3.1
+Connectivity matrices used for the simulations of the classical Ising model (a)
+9 × 9 , (b) 10 × 10, and (c) the generalized Ising model. . . . . . . . . . . . . .
+32
+4.1
+Magnetization, susceptibility and Energy as a function of temperature for the
+Classical Ising model with (a) 9 × 9 and (b) 10 × 10 lattice size, and (c) the
+Generalized Ising model. Red dashed line indicates the Tc. . . . . . . . . . . .
+36
+4.2
+Correlation at T < Tc, T = Tc, and T > Tc for the classical Ising model with
+(a) 9 × 9 and (b) 10 × 10 lattice sizes, and (c) the generalized Ising model. . . .
+37
+viii
+
+4.3
+KS test statistic for the classical Ising model with (a) 9 × 9 and (b) 10 × 10
+lattice sizes and (c) the generalized Ising model as a function of temperature.
+Red dashed line indicates the critical temperature for each model. . . . . . . . .
+38
+4.4
+Simulated correlation matrices at T ∗for the classical Ising model with (a) 9 ×
+9 and (b) 10 × 10 lattice sizes and (c) the generalized Ising model together with
+(d) the empirical correlation matrix.
+. . . . . . . . . . . . . . . . . . . . . . .
+39
+4.5
+Distribution of the correlation at T < Tc, T = Tc, T > Tc and T = T ∗for the
+classical Ising model with (a) 9 × 9 and (b) 10 × 10 lattice sizes, and (c) the
+generalized Ising model with the distribution of the correlation for empirical
+data (EMP). The frequency in the y-axis is the normalized frequency. . . . . . .
+40
+4.6
+Variation of the average degree as a function of the threshold. Top three pan-
+els give the average degree with positive correlation for the (a) Classical Ising
+model: 9 × 9, (b) Classical Ising model: 10 × 10 and (c) Generalized Ising
+model. The bottom three panels show the average degree for the negative cor-
+relation for (d) Classical Ising model: 9 × 9, (e) Classical Ising model: 10 × 10
+and (f) Generalized Ising model. . . . . . . . . . . . . . . . . . . . . . . . . .
+41
+4.7
+Graph theoretical properties as a function of temperature for the classical Ising
+model with (a) 9 × 9 and (b) 10 × 10 lattice sizes, and (c) the generalized Ising
+model. The thick solid line represents threshold = 0, the dashed line represents
+threshold = 0.07 and the thin solid line represents threshold = 0.14. The black
+lines represent the properties of the empirical data for the above thresholds.
+The red and green vertical lines represent the Tc and T ∗respectively. . . . . . .
+42
+4.8
+Connectivity graphs for the generalized Ising model for four temperatures,
+along with the connectivity graph of the empirical network, thresholded at 0.07.
+The color and the size of the nodes represent the degree. The darker the color
+and larger the size, the higher the degree of each node in the network.
+. . . . .
+44
+ix
+
+4.9
+Brain maps of the resting state networks in generalized Ising model at four
+diﬀerent temperatures, together with the empirical brain networks. Networks:
+DMN = Default Mode Network, ECN l = External Control Network left, ECN r
+= External Control Network right, Visua o = Visual Occipital Network, Visual m
+= Visual Medial Network, Visual l = Visual Lateral Network. . . . . . . . . . .
+45
+.1
+Variation of the degree in node 20 for diﬀerent simulations of the Classical
+Ising model (a). 9 × 9 ,(b). 10 × 10 and (c). the Generalized Ising model. µ
+represents the mean degree over realizations for the same node. . . . . . . . . .
+62
+.2
+Clustering coeﬃcient (C) and the average path length (L) of the tested network
+and a random network with the ratio for C/Crand and L/Lrand respectively as a
+function of temperature for the Classical Ising model (a) 9 × 9 ,(b) 10 × 10 and
+(c) the generalized Ising model. . . . . . . . . . . . . . . . . . . . . . . . . . .
+63
+.3
+Brain maps for four diﬀerent views of the 83 parcellations in the brain. . . . . .
+67
+.4
+Representation of the resting state networks in the brain: (a) lateral view of the
+left hemisphere, (b) lateral view of the right hemisphere, (c) medial view of the
+left hemisphere and (d) medial view of the right hemisphere. Red indicates the
+regions belong to the network and blue indicates the regions which does not
+belong to the network. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+68
+.5
+Representation of the resting state networks in the brain: (a) lateral view of the
+left hemisphere, (b) lateral view of the right hemisphere, (c) medial view of the
+left hemisphere and (d) medial view of the right hemisphere. Red indicates the
+regions belong to the network and blue indicates the regions which does not
+belong to the network. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+69
+x
+
+List of Tables
+4.1
+Extracted temperature values for the three cases in the two models . . . . . . .
+37
+xi
+
+Chapter 1
+Introduction
+1.1
+Introduction
+The human brain draws the attention of neuroscientists because of its complex and mysteri-
+ous behaviour. It is one of the organs that scientists are still struggling to understand. The
+understanding available so far about the brain is mostly due to developments in brain imaging
+techniques. However, we are trying to build a bridge between mathematical modelling and the
+biological aspects of the human brain to open up new opportunities to widen our understanding
+of its behaviour.
+That being said, the introduction of mathematics to biology and medicine has drawn much
+interest recently. Mathematical models are built in general to describe some aspects of nature
+in a numerical manner such that they could be used to predict unseen behaviours in nature.
+The spatial scale of modelling varies depending on the scale of the expected end result. In this
+research, as we are discussing the behaviour of the brain (which has a complex structure), it
+is not realistic to talk in terms of the nano-scale or micro-scale using the available resources.
+Thus rather than applying mathematical modelling for our studies at the ﬁnest scale, the models
+are being developed at macroscopic level.
+1
+
+2
+Chapter 1. Introduction
+However, our brain is comprised of neurons, which form diﬀerent types of structural net-
+works. This structural or the anatomical connectivity allows electrical signals to pass through
+and exchange information among diﬀerent regions of the brain. On the other hand, the neurons
+create functional networks depending on their functionality, such as cognition and perception.
+Even though there are discussions about a possible connection between these two types of
+connectivity patterns (structural and functional), the exact connection is still debatable. Never-
+theless, the purpose of this research is to develop a tool that enables us to ﬁnd the relationship
+between the structure and the function of the brain using computational modelling. In terms of
+modelling, we use the structural connectivity obtained from brain imaging as an input for the
+simulations, and we will be comparing the output of the model with the empirical data of the
+functional activity in the brain to ﬁnd the structure-function relationship.
+1.2
+Motivation & Objectives
+As per the common understanding, inside the brain, there are billions of neurons that collec-
+tively are the foundation of who we are. This fact makes the brain more diﬃcult to understand
+and still there is no experimental method, or an imaging technique, that can explain the com-
+plete behaviour of the brain at a single neuronal level. However, our objective was to ﬁnd a
+mathematical model, that can be used to simplify our understanding at the macroscopic scale
+and can be advanced to better spatial resolution in the future. For this purpose, we introduce
+the generalized Ising model as a good candidate for our study.
+The generalization was performed starting with the two-dimensional classical Ising model
+which explains the interactions of magnetic spins. The spins are arranged in a two-dimensional
+lattice which is in contact with a heat bath. The model has only one model parameter, the tem-
+
+1.3. Thesis Outline
+3
+perature of the heat bath. Arrangements of spins change as a function of temperature and as
+a result of that, the properties of this system change. During the studies of this model, a tem-
+perature called the critical temperature was identiﬁed as the temperature which diﬀerentiate
+the conﬁgurations of spins into two categories, order and disorder. In previous work related
+to neuroscience and modelling, the two-dimensional classical Ising model has been studied at
+diﬀerent temperatures and has been compared with the dynamics of the brain function, which
+resulted in providing a good match between the model and the empirical data at the critical
+temperature. Thus we use the two-dimensional classical Ising model and generalize it by in-
+troducing the structural connectivity of the brain for the simulations of the model.
+Therefore, brieﬂy, the problem we are investigating in this research is: can the generalized
+Ising model be used to explain the structure-function relationship of the brain at the critical
+temperature? If so, can this model be used to predict the functional changes in the brain in the
+presence of a brain disorder by using the observed structural changes? Initially we are carrying
+out this research on healthy subjects, and later on, we can expand our limits towards patients
+with brain disorders due to severe brain injuries in order to answer the second question.
+1.3
+Thesis Outline
+This thesis contains ﬁve chapters organized as follows. The ﬁrst chapter gives a general intro-
+duction. The second chapter will provide the necessary understanding of the background of the
+research. It will describe the basics of neuronal communication as well as the neuroimaging
+techniques. Furthermore, detailed descriptions of computational models that have been used
+will be given. The third chapter will explain the experimental methodology, including the com-
+puter simulations of the models. The results of the simulations are shown in the next chapter.
+Finally, the last chapter will contain the conclusions of the work followed by a discussion. This
+will include possible directions for future research.
+
+Chapter 2
+Background & related work
+2.1
+Overview
+This chapter intends to provide the background of the research. At the beginning, we will
+explain the neuronal communication in the brain with a brief explanation of the nature of func-
+tional and structural connectivity. Then we will talk about two diﬀerent brain imaging tech-
+niques, one of which is being used to study the behaviour of the brain, the functional Magnetic
+Resonance Imaging (fMRI), and the other of which is being used to study the structure of the
+brain, Diﬀusion Weighted Imaging (DWI). This discussion will be followed by an introduc-
+tion to two computer-simulated models that have been used in the past in order to model the
+dynamics of the brain. The reason for choosing the Ising model out of the two models will be
+presented as well. After that, the generalized Ising model will be introduced as the model we
+propose to model the dynamics of the brain as well as to ﬁnd the structure-function relation-
+ship in the brain. This will be followed by an introduction to the graph theory that we apply
+in order to compare the classical Ising model and the generalized Ising model in this context.
+This description will include an introduction to some important graph theoretical properties.
+4
+
+2.2. Neuronal Communication
+5
+2.2
+Neuronal Communication
+The human brain is made up of billions of neurons, which are the foundation of all the thoughts,
+feelings and memories that constitute our sense of identity. The most important thing to main-
+taining a high eﬃciency while performing any task is 'communication', and it is maintained
+in our brains via neurons. They are used to communicate among diﬀerent regions of the brain
+that are functionally specialized for diﬀerent tasks. Thus, by integrating the work of separate
+regions, it is possible to coordinate diﬀerent functions of diﬀerent organs in the body.
+Neurons are sensors that can pass information through electrochemical signals. They can
+generate electrical impulses in response to diﬀerent types of signals they receive, and transmit
+those signals to other cells. In order to do this, a neuron is comprised of two basic parts: the
+cell body and the axon (Figure 2.1). The cell body contains several dendrites distributed much
+like the branches of a tree. This branching architecture of the dendrites allows the cell body to
+receive signals from a number of cells. The signals entering the neurons are received via the
+dendrites, and an action potential is generated according to the received signals. The action
+potential is generated due to the charged atoms (ions) in the cells.
+
+6
+Chapter 2. Background & related work
+Figure 2.1: Main components of a neuron [1]
+A cell is made out of chambers that contain various types of ions. Depending on the in-
+coming signals, these chambers release diﬀerent amounts of ions in diﬀerent types. Due to
+this, a voltage diﬀerence is created which gives rise to a small current. Therefore, when the
+neuronal impulse begins, the potential of the cell changes dramatically. This change is called
+the action potential. The action potentials are transmitted to the axon terminals through rela-
+tively long axons. At the end of the neuron (i.e. axon terminal), a chemical messenger called
+a neurotransmitter is then released to the synapses, which is the junction between two nerve
+cells (Figure 2.1). This neurotransmitter binds with the receptors at the dendrites of the next
+cell. The receptors act as the source of the action potential of that cell. This process is repeated
+billions of times, and the electrical impulses are transmitted throughout.
+However, it is a well-known fact that the neurons do not function as individual units. In-
+stead, hundreds of neurons, which are synchronized together, collectively form a patch of cor-
+tex. Apparently, inside the brain there exist large groups of such patches of cortices, which
+can either be synchronized or desynchronized abruptly, creating various sizes of temporary
+
+2.2. Neuronal Communication
+7
+systems based on the behaviour of the brain. The functional connectivity, which does not carry
+information related to the directionality of the information transfer, could be used to describe
+the interactions between these patches of cortices. Neurons pass signals very fast (i.e even
+with a speed greater than 100ms−1 sometimes) compared to the time window chosen in imag-
+ing (which varies from 0.3s −4s depending on the type of the image). Therefore, even though
+there is a directionality in the interactions of the patches of cortices, the functional connectivity
+can be used because we are studying the interactions in a time window over which the eﬀects
+of directionality might be washed away. Thus a brief explanation about the functional connec-
+tivity will be provided in the next section, followed by an explanation about the anatomical
+(structural) connectivity.
+2.2.1
+Functional Connectivity
+Functional connectivity in the brain is a concept that is still up for debate in neuroscience re-
+lated research. However, the most popular deﬁnition used especially in fMRI is that functional
+connectivity in the brain is the correlation between spatially separated neurophysiological units
+or in other words patches of cortices [4]. The measured temporal correlation of the activity
+of these patches of cortices is considered to be the signature of functional connectivity. These
+correlations emerge from the task-speciﬁc patches of cortices, which have emergent properties
+that individual neurons do not have [5].
+That being said, functional Magnetic Resonance Imaging (fMRI) is a good tool discussed
+so far that could be used to understand the insights of functional connectivity. In fMRI, a Blood
+Oxygen Level Dependent (BOLD) signal is recorded from a volumetric pixel (voxel) with an
+average size of 55 mm3. Following the statistics, this voxel contains 5.5 million neurons and
+2 −5 × 1010 synapses [6]. Thus, the BOLD time variation observed for a single voxel in
+fMRI results due to a population of neurons, instead of a single neuron. Then, the emerging
+question is, will this spatial resolution be enough to understand the functional connectivity of
+
+8
+Chapter 2. Background & related work
+the brain? The answer depends on the scale of the problem that we are looking at. If we want
+to understand the functional connectivity in the scale of a patch of cortex, instead of the single
+neuronal level, the given fMRI spatial resolution could be used. Using that, the mean activity
+of a group of neurons can be captured. This could be relevant to understand phenomena like
+consciousness, which also emerges from a collective behaviour of neurons.
+2.2.2
+Structural Connectivity
+Structural connectivity provides details about the connections the neurons or the patch of cor-
+tices in the brain hold. In other words, it gives the structure of the neuronal connections. The
+interconnectivity pattern of the brain at the neuronal level is one of the most complex envi-
+ronments. Its complexity varies from the single neuronal level to the connections of brain
+regional levels through diﬀerent models of connectivity. Studying structural connectivity at
+the neuronal level or micro-scale, has not been feasible due to its complexity. It might not be
+necessary either, as there is an enormous degree of conﬁrmation for the fact that the cognitive
+functions of humans depend on the collective activity of large populations of neurons, instead
+of individual neurons [7]. In addition to this, it is known there are momentary plastic changes
+in neuronal levels including structural remodelling [8, 9]. There is much variability associated
+with the connections at the micro-scale and these variabilities could be multiplied by orders of
+billions as there are as many neurons in the brain. Thus, we focus on structural connectivity in
+more technically feasible, as well as meaningful, level of scale. In fact, there are wide ranges
+of experimental techniques at the macro-scale that could be used to study the pathways among
+brain regions. One of the techniques is Diﬀusion Tensor Imaging (DTI), which we used for
+this research and will be discussed further in this context. As a brief note, DTI captures the
+tracks of white matter in the brain using the diﬀusion of water molecules. However, structural
+connectivity is a critical determinant of the dynamics of the brain. In contrast, the functional
+behaviour of the brain has the ability to redesign the anatomical structure during developmental
+stages [10].
+
+2.3. Brain Imaging
+9
+2.3
+Brain Imaging
+Brain imaging is an important portion of research in several ﬁelds, including biology, physics
+and psychology. There are lot of ongoing research for the development of diﬀerent brain
+imaging techniques. Some of them include Magnetic Resonance Imaging (MRI), functional
+Magnetic Resonance Imaging (fMRI), Diﬀusion Tensor Imaging (DTI) and Positron Emis-
+sion Tomography (PET). We are interested in fMRI and DTI because we are investigating the
+relationship between the structure and the function of the brain. Therefore, fMRI and DTI
+techniques will be discussed further.
+2.3.1
+Functional Magnetic Resonance Imaging (fMRI)
+Functional Magnetic Resonance Imaging (fMRI), is an MRI technique that is being used to
+measure the functional behaviour of the brain by measuring the BOLD signal. Since the dis-
+covery of fMRI in the 1990s, it has been a very popular method for brain imaging for several
+reasons. One reason is that it does not require the injection of radioactive substances into the
+brain as in PET. Another reason is that the fMRI technique has better spatial resolution than
+PET [11]. However, there are basic hardware requirements in MRI devices. First and foremost,
+it should have a magnet capable of having high magnetic ﬁeld strengths. This magnet acquire
+its strength by an external power supply. Next, it should contain a gradient coil that can pro-
+duce a ﬁeld gradient. The gradient coil produces a secondary magnetic ﬁeld when the current
+passes through it, which will distort the main magnetic ﬁeld. This allows the spatial identiﬁ-
+cation of the MR signal. Furthermore, there should be a radio frequency coil that can transmit
+and receive radio frequency oscillations, and a computer to acquire signals and compose the
+MR images [12]. A schematic diagram of these components in an MRI device is shown in
+Figure 2.2.
+
+10
+Chapter 2. Background & related work
+Figure 2.2: Main components of an MRI system. Image courtesy of the National Magnetic
+Field Laboratory [2]
+The MRI signal is generated from the highly abundant protons in brain tissues in the form
+of water or fat. Depending on the amount of protons in the tissue, the strength of the MR signal
+varies. In the absence of a magnetic ﬁeld, the magnetic moments of these protons are randomly
+oriented. When a strong magnetic ﬁeld is applied, they interact with the applied ﬁeld and par-
+tially align with the ﬁeld behaving like tiny bar magnets. Due to this alignment, a small amount
+of magnetization is created. Then using a radio frequency signal, a perturbation is introduced
+to these protons and when it is removed, the protons will take some time (relaxation time) to
+reposition. In the meantime, the observed magnetization will vary and it will gives rise to a
+detectable signal in the MRI device. If the relaxation time is long, then the MR signal will be
+strong and it will be weak otherwise.
+The MRI technique was extended to fMRI in order to obtain information about the biolog-
+ical functions of the brain in the 1990s [13]. The basic principle of the fMRI is deﬁned as the
+detection of changes in the level of oxygen in the blood. This is called the BOLD eﬀect. When
+
+2.3. Brain Imaging
+11
+there is neuronal activation in the brain, the blood ﬂow into that activated area increases as de-
+manded by neurons to supply energy [14]. The energy needed is provided by supplying more
+oxygenated blood. Thus, when a set of neurons activates, more oxyhaemoglobin (which is
+diamagnetic) is delivered than deoxyhaemoglobin (which is paramagnetic). Oxyhaemoglobin
+can be magnetized by applying an external magnetic ﬁeld, in the same direction as the external
+ﬁeld (diamagnetic), and deoxyhaemoglobin can be magnetized by applying an external mag-
+netic ﬁeld, in the opposite direction of the external ﬁeld (paramagnetic). Thus, the increase
+of oxyhaemoglobin concentration will reduce the local magnetic ﬁeld with a corresponding
+increase in the MRI signal [15].
+When the imaging techniques are being used, ﬁrst the brain is divided into voxels, and data
+are recorded for each of these voxels. There are millions of neurons in each of the voxels that
+are collectively responsible for the observed BOLD signal. This signal oscillates with time as
+shown in Figure 2.3. This particular time course was acquired from a brain at rest where the
+subject was instructed to have eyes closed and not to be involved in any mental task.
+
+12
+Chapter 2. Background & related work
+0
+20
+40
+60
+80
+100
+120
+140
+160
+180
+−15
+−10
+−5
+0
+5
+10
+15
+Time (s)
+% BOLD activity
+Figure 2.3: BOLD time course of a patch of cortex from a brain at rest.
+2.3.2
+Diﬀusion Tensor Imaging (DTI)
+With the advent of MRI, brain imaging has beneﬁted from sophisticated technologies. Imaging
+techniques have been developed with more research and, in 1994, the ﬁrst measurement of the
+diﬀusion tensor in the human brain was made [16]. Following that ﬁnding, Diﬀusion Tensor
+Imaging (DTI) was developed step by step to the point that now axonal ﬁbers can be tracked
+in the human brain in an accurate manner. DTI is considered a very reliable method to observe
+the micro-structural changes in the brain, and it is becoming a popular technique because of
+its high sensitivity to the changes at that level. However, there is continuous development to
+increase the accuracy and the spatial resolution of DTI.
+The fundamental principle behind DTI is the measurement of diﬀusion (the microscopic
+random movements) of water molecules along the axonal ﬁbers in the brain. Diﬀusion of wa-
+ter is considered because water is an essential, as well as commonly present, source in our
+
+2.3. Brain Imaging
+13
+bodies, and 50-75% of the volume of our bodies is made up of water, reaching 75% in the
+brain. This huge amount of water is distributed in blood, bones and tissues in the body, but
+the amount of water the bones have is much less than that in blood or tissues. Due to the high
+abundance of water in tissues, it is a helpful substance to track down information about the
+micro-structure of the human body.
+Water molecules diﬀuse as a result of thermal ﬂuctuations. This diﬀusion is stimulated
+by an applied magnetic ﬁeld gradient and at the same time by interactions with neighbouring
+molecules or atoms as well as interactions between molecules and cell membranes. Addition-
+ally, it is inﬂuenced by the structure of these cells containing water [17]. As diﬀusion depends
+on the structure, it is possible to visualize the diﬀusion of water inside the axons as well as
+along the ﬁbers, giving us the opportunity to track down the path of diﬀusion. White matter
+is one type of matter in the brain which is made up of the axons of neurons in which water
+molecules can diﬀuse more freely along the ﬁber than across the ﬁber. Thus, the studies of
+diﬀusion in white matter will result in white matter tracts or ﬁber pathways. This kind of re-
+sult could provide valuable information about the biological micro-structures of the brain [17].
+Out of the several techniques available, one of the most commonly used DTI technique is
+pulsed-gradient, spin-echo pulse sequence, echo-planar imaging [18]. It is an MR technique
+that uses an additional magnetic ﬁeld gradient. As described in the previous section, a strong
+homogeneous magnetic ﬁeld is applied continuously to acquire the MR image. In DTI, the
+homogeneity of the magnetic ﬁeld is disturbed using two magnetic ﬁeld gradients of opposite
+directions, applied one after the other with a time delay. When the ﬁrst linear magnetic ﬁeld
+gradient is applied, the precession frequency of the protons will change depending on the mag-
+nitude of the magnetic ﬁeld gradient. When it is removed, protons will have diﬀerent phases.
+Then the next magnetic ﬁeld gradient is applied with the same magnitude but in the opposite
+direction to refocus the phases of protons. In between the application of these two pulses, if
+
+14
+Chapter 2. Background & related work
+the protons' movement is restricted, the second gradient will allow them to be refocused to the
+same phase again. Thus the produced MR signal will be strong. However, if the water diﬀuses
+in this time gap, the second gradient will not be able to restore the phase shifts that have been
+created by the ﬁrst gradient. Thus, it will produce a weak MR signal [19]. To produce a com-
+plete signal using this technique, the diﬀusion gradient is applied to all the x, y and z directions
+in DTI. Afterwards, applying the ﬁber tractography [20] technique to this diﬀusion data, the
+details about the physical connections in the micro-structure of the brain could be extracted.
+Figure 2.4 indicates the ﬁber tract orientation of the default mode network of the brain.
+Figure 2.4: Lateral view of the white matter tracts in the brain, created by DTI. The colors, red,
+blue and green represent the ﬁbers along the x, y and z directions respectively in the cartesian
+coordinates (DR Paula et al. in prep.)
+2.4
+Modelling the Brain
+2.4.1
+Kuramoto Model
+The Kuramoto model was introduced by Yoshiki Kuramoto and used to model the synchro-
+nization of coupled phase oscillators [21]. Phase oscillators are a type of oscillator whose
+
+2.4. Modelling the Brain
+15
+states lie in the path of a circle where the phase is a variable. The model considers N number
+of coupled phase oscillators with natural frequencies distributed in space with a deﬁned prob-
+ability density. The model considers two states, synchronized and anti-synchronized states.
+In the synchronized state, all the phase oscillators, oscillate with the same frequency and in
+the anti-synchronized state, they oscillate with diﬀerent frequencies. The objective of the Ku-
+ramoto model is to explain how the synchronized state and the anti-synchronized state of these
+phase oscillators can be distinguished starting with a group of unsynchronized phase oscilla-
+tors. These oscillators try to oscillate with their natural frequencies, but the coupling between
+them always trys to synchronize the oscillations [22]. The globally coupled oscillators are
+deﬁned in the model using equation 2.1:
+˙θi = ωi + K
+N
+N
+X
+j=1
+sin(θ j −θi)
+(2.1)
+where θi (˙θi) and ωi are the phase (rate of change of the phase) and the natural frequency of the
+ith oscillator respectively, and N is the total number of oscillators in the system, while K is a
+constant related to the coupling in the system. There are some assumptions in the analysis of
+the Kuramoto model which are:
+1. All the oscillators are globally coupled (each oscillator aﬀects every other oscillator).
+2. Oscillators are identical except for their diﬀerent natural frequencies [23].
+Using this model, it has been found that there is a critical value for the coupling in the
+system, and this critical value Kc, is such that for K < Kc the probability of the system being
+synchronized is much less and when K increases past the Kc the number of oscillators synchro-
+nized increases until all of them are synchronized [24]. This critical value was able to identify
+a transition between an unsynchronized state and a synchronized state. However, the critical
+coupling constant depends on the distribution of the natural frequencies of oscillators, which
+adds another variability to the model.
+
+16
+Chapter 2. Background & related work
+Nevertheless, the Kuramoto model has provided a mathematical basis to model some im-
+portant phenomena in real life, like simulations of neurons in the brain by modeling the ob-
+served oscillations in the BOLD signal. It is used to study some behavioural aspects of neurons
+because of the limited variability of the states it has. Additionally, a synchronized behaviour
+was also observed in neurons in the brain [25], which motivates the use of the Kuramoto model
+to describe the synchronization phenomena in the brain. However, the outstanding problem is
+that the model talks about a system that has a constant coupling parameter together with sinu-
+soidal phase oscillations as is stated under the assumptions above. In addition to that, according
+to the Kuramoto model, the natural frequencies of the oscillators follow the same distribution
+all the time, which might not be applicable to the neural activations of the brain.
+Generalized Kuramoto Model
+Since the Kuramoto model was ﬁrst introduced, it has been used in several areas of research,
+including studying biological systems like the brain. When using the Kuramoto model to model
+the dynamics of the brain, Deco and his group introduced some advancements to generalize the
+model in order to better capture the eﬀects of structural connectivity in the brain [26]. Two
+changes they introduced to overcome the above indicated drawbacks and to generalize the
+Kuramoto model were:
+1. The coupling strength between each pair of oscillators was extracted using the white mat-
+ter tracks of the brain. In other words, it was extracted from the structural connectivity
+of the brain instead of being considered a constant.
+2. The time delays of the oscillators were being scaled using the structural distance between
+the corresponding regions of the brain.
+By applying these changes to the original Kuramoto model, Deco et al. generated a rela-
+tionship between the generalized Kuramoto model and the brain without keeping it completely
+
+2.4. Modelling the Brain
+17
+isolated from the brain. Thus modelling the brain dynamics using the generalized Kuramoto
+model became more relevant.
+2.4.2
+Ising model
+Two dimensional (2D) Classical Ising Model
+The classical Ising model was introduced by Wilhelm Lenz in 1920. The 1D Ising model was
+solved by his student, Ernest Ising, in 1925, and the 2D Ising model (in the absence of an exter-
+nal magnetic ﬁeld) was solved by Onsager in 1944 [27]. The 2D Ising model was introduced to
+explain the interactions of magnetic spins mathematically. The physical system (a magnet) is
+represented by a lattice conﬁguration in the Ising model. Each lattice site has a spin 's' which
+could take only two possible values, either up (+1) or down (−1) (Figure 2.5). Thus, it is a
+collection of +1 and −1s representing the spins. This conﬁguration is kept in a thermal bath
+of temperature T. Interactions between the spins are always inﬂuenced by this temperature and
+allow the system to reach an equilibrium energy state while resulting in diﬀerent equilibrium
+spin conﬁgurations with diﬀerent properties at diﬀerent temperatures.
+
+18
+Chapter 2. Background & related work
+Figure 2.5: Representation of a two-dimensional lattice arrangement. Each lattice site has a
+spin, either up or down. The nearest neighbours of the lattice site in green are represented in
+red.
+The energy of this spin system at any state x in the absence of an external magnetic ﬁeld
+can be calculated using Equation 2.2:
+E(x) = −J
+N
+X
+i,j=nn(i)
+sisj
+(2.2)
+where J is the coupling constant, si and sj represent the spins of the ith and jth site respectively,
+and N is the size of the lattice. For the calculation of energy in the Ising model, only the nearest
+neighbour interactions are considered together with equal coupling (J = 1). The probability of
+ﬁnding the system in the state x with energy E(x) is given by Equation 2.3:
+P(x) = 1
+Z e
+−E(x)
+kBT
+(2.3)
+where kB is the Boltzmann constant, T is the temperature of the heat bath and Z is the partition
+function. Equation 2.4 illustrates the partition function of the system which describes the
+statistical properties of the spin system in thermodynamic equilibrium. The summation is over
+
+2.4. Modelling the Brain
+19
+all possible 2N spin conﬁgurations.
+Z =
+X
+{x}
+e
+−E(x)
+kBT
+(2.4)
+When a 2D lattice conﬁguration is considered, there are two extreme equilibrium conﬁgura-
+tions of spins it can hold, one for lower temperatures and the other one for higher temperatures.
+When the temperature is very low, all the spins can be aligned along the same direction, with
+very large clusters of the same spin, either up or down (ordered) resulting in high magnetiza-
+tion even in the absence of an external magnetic ﬁeld (Figure 2.6 (a)). In the other end, when
+the temperature is very high, the spins are a mixture of up spins as well as down spins (disor-
+dered) without any order which will result in zero magnetization (Figure 2.6 (c)). In between
+these two extremes of temperature, there exists a critical temperature (Tc) [3] where the system
+exhibits transition from ordered phase to the disordered phase (Figure 2.6 (b)). As the ﬁgure
+illustrates, at this temperature there is a mixture of ordered spins as well as disordered spins.
+Additionally, the system acquires its maximum susceptibility or the maximum change in mag-
+netization at Tc. Even a single spin ﬂip can change the entire system [28], and the perturbation
+introduced by a single spin ﬂip can spread over the entire system rapidly. Therefore, with dif-
+ferent temperatures of the heat bath, the system could exhibit completely diﬀerent properties
+[27] which depend only on the temperature of the system.
+
+20
+Chapter 2. Background & related work
+Figure 2.6: Representation of the equilibrium spin conﬁguration for (a) T < Tc, (b) T = Tc and
+(c) T > Tc for a two-dimensional lattice arrangement. Red color is for the up spins (+1) and
+blue color is for the down spins (−1) [3].
+To simulate the dynamics of the classical Ising model, the Metropolis Monte Carlo algo-
+rithm is used. The Metropolis algorithm involves the construction of a new state based on the
+current state of the system with a transition probability. It is used in the Ising model to ﬁnd
+the equilibrium energy state starting from a random spin conﬁguration for a constant tempera-
+ture. Monte Carlo simulations are used to describe or to solve systems which change in time
+without any predeﬁned dynamical pattern but depending on random numbers created along the
+simulations [29]. These algorithms are used in the classical Ising model with the periodic
+boundary conditions. Periodic boundary conditions were introduced to the system to restrain
+the ﬁnite size eﬀects. The application of these algorithms in order to construct the equilibrium
+spin states, and then the time ﬂuctuations of the spins for a range of temperatures, will be dis-
+cussed in detail in the methodology section (Chapter 3).
+An important question that arises next is why it is possible to use the dynamics of the Ising
+model which were introduced by using the Metropolis Monte Carlo algorithm to explain the
+dynamics of the brain. In the simplest way, spins of the Ising model can be considered as
+equivalent to the BOLD activity in the brain with +1 for the activity higher than the baseline
+activity and −1 for the activity lower than the baseline activity. Additionally, it is a very sim-
+
+2.4. Modelling the Brain
+21
+ple model that explains the phase separation. Furthermore, Fraiman et al. [30] state the Ising
+model can be used to explain the behaviour of the brain at the critical temperature because of
+the similarities it has shown in its dynamics and the brain's spatio-temporal patterns. The clas-
+sical Ising model exhibits long range correlations at the critical temperature, which explains
+the observed interactions of the spins that are spatially distant from each other. This fact can be
+compared with the functional integration observed in the brain. The brain maintains a balance
+between the functional integration and segregation in order to perform eﬃciently. As observed
+in the behaviour of the brain, there are separate regions which are specialized to perform certain
+functions. While functioning separately, these regions need to exchange information with each
+other in order to function as a complete system. This process is explained as the functional
+integration and can be compared with the long range correlations observed in the Ising model.
+Thus the classical Ising model was chosen to model the oscillations observed in BOLD signal
+for comparison.
+Generalized Ising model
+The generalized Ising model is an advancement from the classical Ising model. The general-
+ization was performed by including the information related to the structure of the brain in the
+classical Ising model following the work of Marinazzo et al. [31]. They implemented the gen-
+eralized Ising model by using the structural connectivity of the brain, without introducing the
+dynamics to the spins variables. By analysing the results they claimed that, the total informa-
+tion transfer between spin variables in the model is maximized at the critical state. Similarly,
+we implement the generalized Ising model using the structural connectivity; but in addition, we
+introduce the dynamics to the spins using the Metropolis Monte Carlo algorithm. The method-
+ology will be discussed in details in Chapter 3. However, there are two diﬀerences between the
+classical Ising model and the generalized Ising model.
+
+22
+Chapter 2. Background & related work
+1. According to the generalized Ising model, all the lattice points are interacting with all
+the other lattice points with diﬀerent strengths. This is true in the sense of the structure
+of the brain. In the brain, there are some regions that are highly structurally connected
+with larger numbers of ﬁbers and some regions that are poorly connected.
+2. When using Equation 2.5 to calculate the energy of the system, normalized structural
+information is used for Jij instead of equal coupling as in the classical Ising model (ex-
+plained in detail in Chapter 3). Due to this modiﬁcation, the strength of connection held
+between two regions is taken into account by the generalized Ising model.
+These two points are illustrated in Equation 2.5:
+E(x) = −
+N
+X
+i,j;i,j
+Ji jsisj
+(2.5)
+where Ji j is the coupling constant between the ith site and the jth site. The summation is over
+all the sites, without the restriction of the nearest neighbour coupling as in the classical Ising
+model.
+However, due to these two modiﬁcations, the spin sites in the generalized Ising model has
+a one-to-one relationship with the patches of cortices in the brain. Hence, it could be used to
+study the dynamics of the brain not only on a global level, but also on a local level. Neverthe-
+less, the classical Ising model, as described earlier, is a 2-dimensional model, and each spin site
+has four nearest neighbours. But in the generalized Ising model, we propose that each region
+is connected with every other region, resulting in each site having n - 1 (number of regions -
+1) nearest neighbours. This makes the model more realistic because, as it is understood from
+the structural connectivity data of the brain, there are connections between most of the regions
+and not just between the nearest neighbours. Notice that, the dimension of the generalized
+Ising model is unknown. However, in order to extract the eﬀective dimension of the model, the
+
+2.4. Modelling the Brain
+23
+critical exponents could be studied at the criticality.
+All the observables in the classical Ising model behave according to the Equation 2.6 when
+reaching the critical temperature, as explained by Lilian and Manuel in [32]:
+O(T) ∝| T −Tc
+Tc
+| α
+(2.6)
+where O(T) is any observable, α is the critical exponent and Tc is the critical temperature.
+Thus, we could ﬁnd the critical exponents for all the observables, such as the magnetization,
+magnetic susceptibility, speciﬁc heat, correlation function and correlation length. Those critical
+exponents should follow the scaling relations given in Equation 2.7 as described in [32]:
+(2 −η)ν = γ
+ν
+2(η + d −2) = β
+2 −νd = α
+(2.7)
+where β, γ, α, η, ν are the critical exponents of magnetization, magnetic susceptibility, speciﬁc
+heat, correlation function and correlation length, while d is the dimension of the system. There-
+fore, by extracting the critical exponents of the generalized Ising model, we will be able to ﬁnd
+the dimensionality d of the generalized Ising model (Das et al., in prep.) using the above scal-
+ing relations.
+2.4.3
+Generalized Kuramoto Model versus Generalized Ising model
+As explained in the previous sections, the Kuramoto model takes a network of coupled oscil-
+lators into account and ﬁnds a critical point in between the unsynchronized and synchronized
+states of these coupled oscillators. The Ising model takes a spin conﬁguration into account and
+ﬁnds a critical state where the phase transition of the spins occurs from the ordered to disor-
+
+24
+Chapter 2. Background & related work
+dered phase. Both of these phenomena at the critical states are compared with the dynamics of
+the brain even though there is no one-to-one relationship between either of the oscillator or the
+spin lattice sites and the position of the patch of cortex in the brain.
+Sometime after the introduction of the Kuramoto model, it was generalized such that the
+coupled oscillators represent the structural regions of the brain, as described in section 2.4.1.
+The generalized Kuramoto model could give a detailed explanation of the functional networks
+of the brain, starting with the structural connectivity [33]. However, as Deco et al.
+[26]
+explained in the paper, the generalized Kuramoto model still has four main free parameters,
+which are mean delay, global coupling strength and two standard deviations from two Gaus-
+sian distributions (one modelled for the dispersion of oscillation frequencies and the other one
+modelled for the noise of the local networks). Similarly, we are generalizing the Ising model
+using the anatomical structure of the brain in place of the constant coupling in the classical
+Ising model; but the model has only one controlling parameter, the temperature of the heat
+bath.
+2.5
+Graph Theory
+Graph theory is a mathematical tool that can be used to study networks with complex topolo-
+gies. It reveals important information about the connectivities in terms of single units and sub
+groups as well as a complete network. Graph theory has been used broadly to study highly
+complex networks like the internet and air craft ﬂight patterns as it is a simple tool, which ex-
+plains the complexity of the subjected networks. Therefore, we use graph theoretical analysis
+of the complex brain network. In this context, a graph is a network with source nodes and
+edges that connect the nodes. Using graph theory to analyse the complex network of the brain
+simpliﬁes the analysis and provides a more general understanding. As Bullmore and Sporns
+reviewed [34], the increasing demand of analysing more complex network structures is very
+
+2.5. Graph Theory
+25
+well handled by the use of graph theory. The equivalent of an edge in a graph could be ex-
+plained by a structural or functional connection in the brain network and a node by a region or
+a collection of regions in the brain. There are several measures in graph theory being used to
+study this complex connectivity.
+The degree of a node in the network is one of the simplest measures. It is deﬁned as the
+number of links a node has and can be calculated using Equation 2.8:
+ki =
+X
+jϵN
+ai j
+(2.8)
+where ki is the degree of the ith node, N is the number of nodes in the network and ai j is the
+connection status between the ith node and the jth node (it is equal to 1 if the nodes are con-
+nected and 0 if they are not, in a binary network) [35]. The degree averaged over all the nodes
+is deﬁned as the global degree of that network. An understanding about how dense or sparse
+the network is could be gained from the average degree of the network.
+Following that, we calculated the eﬃciency for these networks, which is discussed as a
+measure of functional integration. The global eﬃciency of a binary network can be calculated
+using Equation 2.9:
+EFF = 1
+n
+X
+iϵN
+EFFi = 1
+n
+X
+iϵN
+P
+jϵN, j , i d−1
+i j
+n −1
+(2.9)
+where EFFi is the local eﬃciency, di j is the shortest path length between nodes i and j and
+n is the total number of nodes in the network [36]. The eﬃciency of a network provides an
+understanding about the information propagation through the network, or in other words, the
+ability of the network to handle information integration.
+
+26
+Chapter 2. Background & related work
+Equation 2.10 was used to calculate the small-world property for each network:
+S = C/Crand
+L/Lrand
+(2.10)
+where C and Crand are the clustering coeﬃcients, and L and Lrand are the characteristic path
+lengths of the network being tested and a random network respectively. A random network
+is created by preserving the degree distribution of the tested network. Small-world networks
+are characterized by the average short path lengths and high clustering coeﬃcients [37]. It
+is a measure of the balance between information integration and segregation. Average path
+length is a measure of integration which is deﬁned as the average of shortest distance between
+each pair of nodes. Clustering coeﬃcient is a measure of the segregation or in other words it
+measures the tendency of the nodes to cluster together. In neuroscience, it has been shown in
+several analyses that the brain network shows small-world network properties, implying that
+it maintains a balance between integration and segregation. Small-world networks often have
+values greater than 1 for S [38, 35]; but the value of S could easily be misinterpreted without
+knowing about the connectivity of the network. For an example, the average path length can be
+very small for networks with lower number of edges and lower number of participating nodes.
+Although the clustering coeﬃcient can be high for these type of networks because of the small
+number of nodes in the network. This can result in higher small-world property which stands
+for an eﬃcient network with a well balanced information integration and segregation.
+
+Chapter 3
+Methodology
+3.1
+Overview
+In this chapter, we focus on the procedure for generating the two types of data sets we used:
+brain data and simulations. In the ﬁrst section, we would like to focus on the method of ex-
+traction of the functional brain data from fMRI. The methodology used for the acquisition and
+extraction of structural data using DTI will then be explained, followed by a section with a de-
+tailed explanation of numerical simulations of the models. The acquisition and preprocessing
+of fMRI data and DTI data was performed by Erik Ziegler (University of Liege, Liege, Bel-
+gium). In section 3.3, we will describe the methodology for the simulation of the generalized
+Ising model. The simulations of the classical Ising model will be described after that followed
+by a description of the methodology used for the analysis of these data.
+3.2
+Empirical Data from MRI
+3.2.1
+Subjects
+For the collection of data, 14 healthy subjects with mean age 43 ± 15 were studied, including
+seven women. The study was approved by the Ethics Committee of the Medical School of the
+27
+
+28
+Chapter 3. Methodology
+University of Liege. In addition, informed approval to participate in the study was obtained
+from all the subjects. From these healthy subjects, the resting state fMRI (rsfMRI) and DTI
+data were acquired and preprocessed using the methods described below.
+3.2.2
+Acquisition & Preprocessing
+Functional Data
+Resting state BOLD data were acquired on a 3-T MR scanner with a gradient-echo echo-planar
+imaging sequence using axial slice orientation and covering the whole brain (32 slices, voxel
+size: 3 × 3 × 3 mm3; matrix size 64 × 64 × 32; repetition time = 2000 ms; echo time = 30
+ms; ﬂip angle = 780). Data preprocessing was performed using Statistical Parametric Mapping
+(SPM) 8 (www.ﬁl.ion.ac.uk/spm). Preprocessing steps included realignment and adjustment
+for movement related eﬀects, co-registration of functional images with structural images, seg-
+mentation of structural data, spatial and functional normalization and spatial smoothing of the
+fMRI data.
+Segmentation of images for each subject was performed with the FreeSurfers Desikan-
+Killiany atlas [39]. This atlas provides the ability to separate the brain into gyral-based regions
+of interest (ROI) automatically. Thus using the atlas, the images could be segmented. Further
+parcellation, using the Lausanne 2008 atlas and its 83 individually labelled regions, was done
+with functions from the Connectome Mapping Toolkit [40, 41, 42]. The labels of the 83
+regions are presented in Appendix C followed by a ﬁgure representing the 83 regions (Figure
+.3).
+Structural Data
+Diﬀusion Weighted Images (DWI) were acquired from each subject, and the Fractional Anisotropy
+(FA) maps which quantify diﬀusion-weighted eﬀects at the voxel level were generated. After
+
+3.3. Numerical Simulations
+29
+that, orientation distribution functions were obtained for each voxel. Probabilistic tractogra-
+phy [43] was performed throughout the whole brain using randomly placed seeds inside a
+subject-speciﬁc white-matter mask. The set of points representing each ﬁber track were then
+aﬃne-transformed into the subjects' structural spaces which results in the connectivity maps.
+Finally, connectivity matrices with the number of ﬁbers connecting each of the 83 regions with
+all the others were obtained for 14 subjects, and the normalized mean connectivity was used as
+an input of the generalized Ising model.
+3.2.3
+Resting State Network (RSN) extraction
+After using Independent Component Analysis (ICA) [44] for BOLD decomposition in an in-
+dependent data set of 19 healthy controls, nine Resting State Networks (RSNs) were identiﬁed
+in each subject, and an average template was created for each RSN. Subsequently, by setting
+a separate threshold for each RSN, the region of interests (ROIs) out of the 83 parcellated re-
+gions belonging to the network were extracted. Extracted ROIs for each network are presented
+in Appendix D. Finally, the lines of the correlation matrix corresponding to each ROI for the
+same RSN were averaged in order to obtain the linear-correlation maps plotted in Figure 4.9.
+3.3
+Numerical Simulations
+3.3.1
+Generalized Ising Model
+The generalized Ising model was developed by starting with a 1D-random spin conﬁguration
+of lattice of size 83, which is assumed to be in contact with a thermal bath of temperature T.
+The steps below have been followed according to the Metropolis Monte Carlo algorithm to
+obtain the equilibrium spin conﬁguration, for a particular temperature starting with random
+spin states. The connectivity matrix used for the simulation of the generalized Ising model is
+presented in Figure 3.1 (c).
+
+30
+Chapter 3. Methodology
+1. A random spin conﬁguration was deﬁned with the lattice size of 83.
+2. Initial energy Ein of the system was calculated using Equation 2.5.
+3. Next, one spin was selected randomly from the spin conﬁguration and was ﬂipped.
+4. The new energy Enew was calculated.
+5. Then Ein and Enew were compared.
+• If Enew < Ein, the spin ﬂip was accepted and the new conﬁguration was considered
+the initial conﬁguration with Ein = Enew. Then the simulation was continued starting
+from Step 3.
+• If Enew > Ein, the Boltzmann factor B = e
+−∆E
+kBT was calculated and a random num-
+ber r was drawn from a normal distribution. Then these two values were compared.
+- If B > r, the spin ﬂip was accepted and Ein was replaced with Enew. Then the
+procedure was repeated starting from Step 3.
+- If B < r, the spin ﬂip was rejected, and the simulation was started over from
+Step 3.
+The steps starting from Step 3 were repeated until we obtained an equilibrium spin conﬁgu-
+ration with an equilibrium energy for a particular temperature. At the equilibrium state, energy
+of the system ﬂuctuates within a small range. The random conﬁguration can evolve into this
+state by following single-spin-ﬂip dynamics as explained in the algorithm. This equilibrium
+conﬁguration was considered as the conﬁguration at time t = 0. After that, by following the
+Metropolis Monte Carlo simulations, the time evolution of the equilibrium spin conﬁguration
+was obtained as follows;
+• Equilibrium spin conﬁguration = the conﬁguration at time t = 0.
+
+3.3. Numerical Simulations
+31
+• Next, all the spins in the conﬁguration were tested for ﬂip by ﬂipping one at a time
+and comparing Ein and Enew to decide whether to accept or to reject the ﬂip using the
+Metropolis Monte Carlo algorithm. After all the spins had been checked, the new con-
+ﬁguration was considered the conﬁguration at time t = 1.
+• After that, all the spins of this new conﬁguration were checked for ﬂip as in the previous
+step. When all the spins had been checked, the new conﬁguration was taken as the
+conﬁguration at time t = 2.
+• These steps were repeated until we found as many time points as needed to compare with
+the empirical data.
+By the end of this process, the time evolution of the spins for each spin site was obtained.
+Using these time series data, and Equation 3.1, the correlation between each pair of sites in the
+lattice was calculated:
+ρij = < si(t)sj(t) > −< si(t) >< sj(t) >
+σsi(t)σsj(t)
+(3.1)
+where ρij is the correlation between the ith and jth spin time series, si(t) and s j(t) stands for the
+spin time courses of the ith and jth region, σ2
+si(t) = < s2
+i (t) > −< si(i) >2 and < . > is the average
+over time.
+Starting from a random conﬁguration, this complete procedure was repeated for diﬀerent
+temperatures "T" ranging from 0.5 to 3 in increments of 0.01. Additionally, kB was equated to
+one, in the simulations. This was repeated for ten iterations, and data were recorded separately
+each time. We performed the simulation for ten iterations to observe the eﬀect of randomiza-
+tion of the spins at the ﬁrst step of the simulations. An illustration of the variation with respect
+to the iteration is presented in Figure .1 in the Appendix B.
+
+32
+Chapter 3. Methodology
+Figure 3.1: Connectivity matrices used for the simulations of the classical Ising model (a) 9 ×
+9 , (b) 10 × 10, and (c) the generalized Ising model.
+During these simulations, the energy (E), magnetization (M) and susceptibility (χ) of the
+system were calculated using Equations 2.5, 3.2 and 3.3 respectively at each temperature:
+M = 1
+N
+N
+X
+i=1
+si
+(3.2)
+χ =
+1
+NT [< M2 > −< M >2]
+(3.3)
+where N = 83 and si is the spin of the ith region. Derivation of Equation 3.3 is presented in
+[45]. These quantities were plotted as a function of temperature, and the susceptibility versus
+temperature plot was used to extract the critical temperature (Tc), which gives the highest
+susceptibility. Super critical (T > Tc) and sub critical (T < Tc) temperatures were chosen
+relative to the critical temperature. The MATLAB code which was used for the simulations of
+the generalized Ising model is attached in Appendix A.
+3.3.2
+2D Classical Ising Model
+The classical Ising model was developed by following the same steps, and using Equation 2.2
+instead of Equation 2.5 to calculate energy, which includes equal coupling as well as only the
+
+3.4. Comparison of data
+33
+nearest neighbour interactions. The 2D Ising model was simulated using two lattice sizes 9 × 9
+(L = 9) & 10 × 10 (L = 10) which result in 81 and 100 spin sites respectively. These two sizes
+were chosen to make the 2D Ising model comparable with the empirical data, which has 83
+spin sites. Given this choice, two separate data sets were obtained for each lattice size with
+temperature ranging from 0.5 to 4. The connectivity matrix used for the simulations of the
+classical Ising model is presented in Figure 3.1 (a) and (b).
+In a similar manner, Equations 3.2 and 3.3 were used to calculate the magnetization and
+susceptibility of the system, where N = L × L in the classical Ising model. After extracting the
+critical temperature for both of the lattice sizes, those values were veriﬁed using Equation 3.4
+[32]:
+Tc = (20.28) × 1
+L2 + 2.26
+(3.4)
+where L is the length of the square lattice (either 9 or 10).
+3.4
+Comparison of data
+As explained in the previous sections, the functional correlation was obtained for the regional
+parcellation of 83 regions in the brain using rsfMRI, which will be hereafter called the empiri-
+cal data. The structural connectivity was obtained by the extraction of white matter tracts from
+DTI. In addition to that, we generated three sets of data from the mathematical simulations of
+the Ising model: one from the generalized Ising model using the structural connectivity, and
+the other two sets from the classical Ising model for two diﬀerent lattice sizes.
+The mean data over the ten iterations were considered to perform our analysis. A compar-
+ison of the correlations of the empirical data, generalized Ising model data and the classical
+Ising model data was performed ﬁrst. After observing the correlation maps for three diﬀerent
+temperatures, we calculated the Kolmogorov Smirnov (KS) test statistic at each temperature
+
+34
+Chapter 3. Methodology
+to ﬁnd the temperature which minimizes the distance between two cumulative distributions for
+each model. KS test is a non-parametric test which has been used to test two distributions. The
+test statistic calculates the maximum distance between two cumulative distributions and this
+has been used to ﬁnd the temperature which minimizes the distance between two distributions
+in our data. Thereafter, graph theoretical measures as explained in Chapter 2 have been used
+to compare the classical Ising model and generalized Ising model data with the empirical data.
+The results will be presented in the next chapter.
+
+Chapter 4
+Results
+4.1
+Overview
+In this chapter, we will present our results obtained using the methodology explained in Chapter
+3.
+4.2
+The Classical Ising model versus the Generalized Ising
+model
+Three correlation data sets were obtained by following the procedure explained in Chapter 3.
+During the process of creating these, the energy, magnetization and susceptibility of the sys-
+tems were calculated as a function of temperature. Hence, these quantities were plotted for the
+classical Ising model, as well as for the generalized Ising model, as shown in Figure 4.1.
+35
+
+36
+Chapter 4. Results
+1
+2
+3
+4
+0
+0.2
+0.4
+0.6
+0.8
+1
+Magnetization 
+1
+2
+3
+4
+0
+0.2
+0.4
+0.6
+0.8
+1
+0.5
+1
+1.5
+2
+2.5
+3
+0
+0.2
+0.4
+0.6
+0.8
+1
+ 
+ 
+0.5
+1
+1.5
+2
+2.5
+3
+0
+0.05
+0.1
+0.15
+0.2
+ 
+ 
+0.5
+1
+1.5
+2
+2.5
+3
+−1
+−0.8
+−0.6
+−0.4
+−0.2
+0
+ 
+ 
+1
+2
+3
+4
+0
+0.05
+0.1
+0.15
+0.2
+Susceptibility 
+ 
+ 
+1
+2
+3
+4
+0
+0.05
+0.1
+0.15
+0.2
+ 
+ 
+1
+2
+3
+4
+−1
+−0.8
+−0.6
+−0.4
+−0.2
+0
+Energy
+ 
+ 
+1
+2
+3
+4
+−1
+−0.8
+−0.6
+−0.4
+−0.2
+0
+Temperature 
+ 
+ 
+(a)
+(b)
+(c)
+Figure 4.1: Magnetization, susceptibility and Energy as a function of temperature for the Clas-
+sical Ising model with (a) 9 × 9 and (b) 10 × 10 lattice size, and (c) the Generalized Ising
+model. Red dashed line indicates the Tc.
+The critical temperature was extracted in both models using the susceptibility versus tem-
+perature plot (second row of the Figure 4.1). Relative to the critical temperature, a sub-critical
+and a super-critical temperature was selected such that for both of the models the selected tem-
+peratures maintain the same distance with the critical temperature (Table 4.1).
+The equilibrium spin conﬁgurations were then obtained by following the Metropolis Monte
+
+4.2. The Classical Ising model versus the Generalized Ising model
+37
+Model
+T < Tc
+T = Tc
+T > Tc
+Generalized Ising model
+0.64 ± 0.06
+1.79 ± 0.06
+2.89 ± 0.06
+Classical Ising model (9 × 9)
+1.40 ± 0.10
+2.55 ± 0.10
+3.65 ± 0.10
+Classical ising model (10 × 10)
+1.35 ± 0.06
+2.50 ± 0.06
+3.60 ± 0.06
+Table 4.1: Extracted temperature values for the three cases in the two models
+Carlo Algorithm, and used to calculate the correlations among the spin sites. An illustration
+of the correlations relative to the extracted three temperatures is presented in Figure 4.2 for the
+classical Ising model and for the generalized Ising model.
+Figure 4.2: Correlation at T < Tc, T = Tc, and T > Tc for the classical Ising model with (a) 9
+× 9 and (b) 10 × 10 lattice sizes, and (c) the generalized Ising model.
+
+38
+Chapter 4. Results
+As the correlation matrix of the generalized Ising model at Tc did not match with the em-
+pirical correlation matrix, another temperature was calculated using the well known KS test as
+explained in the methodology. Figure 4.3 illustrates the KS test statistic which calculates the
+distance between the distributions of the correlation for the empirical data, and the simulated
+data at diﬀerent temperatures, for the classical Ising model and for the generalized Ising model
+as a function of temperature. Using these three plots, a new temperature T ∗, which minimizes
+the distance between two distributions of data was extracted for each model. T ∗for the classi-
+cal Ising model for 9 × 9 was 2.63 and for 10 × 10 was 2.58, and T ∗for the generalized Ising
+model was 2.02.
+1
+1.5
+2
+2.5
+3
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+ 
+ 
+1
+2
+3
+4
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+Temperature
+ 
+ 
+1
+2
+3
+4
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+Distance
+ 
+ 
+Figure 4.3: KS test statistic for the classical Ising model with (a) 9 × 9 and (b) 10 × 10
+lattice sizes and (c) the generalized Ising model as a function of temperature. Red dashed line
+indicates the critical temperature for each model.
+The simulated correlation matrices for the classical Ising model and for the generalized
+Ising model at T ∗are shown in Figure 4.4.
+
+4.2. The Classical Ising model versus the Generalized Ising model
+39
+Figure 4.4: Simulated correlation matrices at T ∗for the classical Ising model with (a) 9 × 9
+and (b) 10 × 10 lattice sizes and (c) the generalized Ising model together with (d) the empirical
+correlation matrix.
+After determining T ∗, the distributions of correlations with respect to the extracted four
+temperatures were plotted and are presented in Figure 4.5 with the distribution of correlation
+for the empirical data. In the classical Ising model, correlation values at both the critical tem-
+perature and T ∗is similar to the empirical data even though they did not show a similarity of
+the pattern in the correlation maps. For the generalized Ising model, correlation map at T ∗is
+more comparable with the empirical data in terms of the values of correlations as well as the
+pattern observed in the correlation map.
+
+40
+Chapter 4. Results
+−0.4 −0.2
+0
+0.2
+0.4
+0.6
+0.8
+0.2
+0.4
+0.6
+0.8
+1
+Frequency
+ 
+ 
+−0.4 −0.2
+0
+0.2
+0.4
+0.6
+0.8
+0.2
+0.4
+0.6
+0.8
+1
+ 
+ 
+−0.4 −0.2
+0
+0.2
+0.4
+0.6
+0.8
+0.2
+0.4
+0.6
+0.8
+1
+Correlation
+ 
+ 
+T = Tc
+T > Tc
+T < Tc
+T = T*
+EMP
+(c)
+(b)
+(a)
+Figure 4.5: Distribution of the correlation at T < Tc, T = Tc, T > Tc and T = T ∗for the
+classical Ising model with (a) 9 × 9 and (b) 10 × 10 lattice sizes, and (c) the generalized Ising
+model with the distribution of the correlation for empirical data (EMP). The frequency in the
+y-axis is the normalized frequency.
+Graph theoretical properties, such as the global degree and the global eﬃciency were cal-
+culated as explained in the method section for these three types of data, after creating the
+connectivity matrices. A range of thresholds were selected at ﬁrst to create the connectivity
+matrices. In Figure 4.6, the global degree is plotted as a function of the selected thresholds for
+the positive and negative correlations with respect to the two models. When the positive cor-
+relation is considered, the generalized Ising model shows a similar behaviour to the empirical
+data at T ∗. However, the average degree of the positively correlated networks at Tc or T ∗in the
+classical Ising model deviates from that of the empirical data than the generalized Ising model.
+
+4.2. The Classical Ising model versus the Generalized Ising model
+41
+0
+0.2
+0.4
+0.6
+0.8
+1
+0
+20
+40
+60
+80
+100
+ 
+ 
+T = Tc
+T > Tc
+T < Tc
+T = T*
+EMP
+0
+0.2
+0.4
+0.6
+0.8
+1
+0
+20
+40
+60
+80
+100
+ 
+ 
+0
+0.2
+0.4
+0.6
+0.8
+1
+0
+20
+40
+60
+80
+100
+Positive Threshold
+ 
+ 
+−1
+−0.8
+−0.6
+−0.4
+−0.2
+0
+0
+20
+40
+60
+80
+100
+Average Degree
+ 
+ 
+−1
+−0.8
+−0.6
+−0.4
+−0.2
+0
+0
+20
+40
+60
+80
+100
+Negative Threshold
+ 
+ 
+−1
+−0.8
+−0.6
+−0.4
+−0.2
+0
+0
+20
+40
+60
+80
+100
+ 
+ 
+(a)
+(b)
+(c)
+(d)
+(e)
+(f)
+Figure 4.6: Variation of the average degree as a function of the threshold. Top three panels
+give the average degree with positive correlation for the (a) Classical Ising model: 9 × 9, (b)
+Classical Ising model: 10 × 10 and (c) Generalized Ising model. The bottom three panels
+show the average degree for the negative correlation for (d) Classical Ising model: 9 × 9, (e)
+Classical Ising model: 10 × 10 and (f) Generalized Ising model.
+The correlations were binarized after selecting a threshold, and the global degree and global
+eﬃciency were calculated for a binary graph as a function of temperature (Figure 4.7). These
+quantities were plotted for three diﬀerent thresholds along with the results from the empirical
+data. It is evident in these plots, for the generalized Ising model the maximum average degree
+and the eﬃciency were obtained near the T ∗value. For the classical Ising model, the maximum
+values were obtained near the critical temperature. In these ﬁgures, the same quantities for the
+empirical data are plotted as straight lines for the three diﬀerent thresholds.
+
+42
+Chapter 4. Results
+1
+1.5
+2
+2.5
+3
+0
+20
+40
+60
+80
+100
+ 
+ 
+1
+2
+3
+4
+0
+20
+40
+60
+80
+100
+Average Degree
+1
+2
+3
+4
+0
+20
+40
+60
+80
+100
+1
+1.5
+2
+2.5
+3
+0
+0.2
+0.4
+0.6
+0.8
+1
+1
+2
+3
+4
+0
+0.2
+0.4
+0.6
+0.8
+1
+Global Efficiency
+1
+2
+3
+4
+0
+0.2
+0.4
+0.6
+0.8
+1
+1
+2
+3
+4
+0
+5
+10
+15
+Small−worldness
+1
+2
+3
+4
+0
+5
+10
+15
+Temperature
+1
+1.5
+2
+2.5
+3
+0
+0.5
+1
+1.5
+2
+2.5
+(a)
+(b)
+(c)
+Figure 4.7: Graph theoretical properties as a function of temperature for the classical Ising
+model with (a) 9 × 9 and (b) 10 × 10 lattice sizes, and (c) the generalized Ising model. The
+thick solid line represents threshold = 0, the dashed line represents threshold = 0.07 and the
+thin solid line represents threshold = 0.14. The black lines represent the properties of the
+empirical data for the above thresholds. The red and green vertical lines represent the Tc and
+T ∗respectively.
+In Figure 4.8, the connectivity graphs of these networks, which were extracted from the
+generalized Ising model, have been plotted for the four temperatures along with the empirical
+brain network. These maps were created by binarizing the correlation matrices at each temper-
+
+4.2. The Classical Ising model versus the Generalized Ising model
+43
+ature by applying a threshold. That allows to determine which regions are connected and which
+are not connected. In these graphs, each point represents a brain region and in this study there
+were 83 regions. It can be seen that the connectivity in the network grows as the temperature
+reaches T ∗and has reduced at T > Tc. Furthermore, when the euclidean distances between
+these four graphs and the empirical graph were calculated, the connectivity graph at T ∗resulted
+the lowest distance of 5.1 while the distances for the graphs at T < Tc, T = Tc and T > Tc
+resulted in 8.1, 7.1 and 7.0 respectively. The connectivity graphs could not be implemented for
+the classical Ising model as there was no one-to-one match between the regions of the classical
+Ising model and the regions of the brain.
+
+44
+Chapter 4. Results
+T=T*
+Empirical Data
+T < Tc
+T = Tc
+T > Tc
+Figure 4.8: Connectivity graphs for the generalized Ising model for four temperatures, along
+with the connectivity graph of the empirical network, thresholded at 0.07. The color and the
+size of the nodes represent the degree. The darker the color and larger the size, the higher the
+degree of each node in the network.
+Figure 4.9 illustrates the correlation maps of the 9 RSNs extracted from the generalized
+Ising model for four diﬀerent temperatures, as well as the RSNs extracted from the empirical
+data. From these maps, it is evident that the correlation of the corresponding regions of each
+network emerges from the generalized Ising model at T ∗rather than at Tc as observed in the
+brain maps of the empirical data.
+
+4.2. The Classical Ising model versus the Generalized Ising model
+45
+T < Tc
+T = Tc
+T > Tc
+T = T*
+Empirical
+Visual_l
+Visual_m
+Visual_o
+Sensorimotor      Sallience
+ECN_r
+ECN_l
+DMN           Auditory
+Figure 4.9: Brain maps of the resting state networks in generalized Ising model at four diﬀerent
+temperatures, together with the empirical brain networks. Networks: DMN = Default Mode
+Network, ECN l = External Control Network left, ECN r = External Control Network right,
+Visua o = Visual Occipital Network, Visual m = Visual Medial Network, Visual l = Visual
+Lateral Network.
+
+Chapter 5
+Discussion and Conclusions
+The square lattice Ising model is one of the simplest models by which to show phase transition
+at the critical temperature. Using this simple model, it has been shown that a brain at rest could
+be simulated at the critical temperature of the model where the phase transition occurs [30].
+This was justiﬁed by observing the behaviour of the model at the critical temperature which
+has a mixture of ordered and disordered states with long range correlations comparable with
+the brain's information integration and segregation. Thus we chose the two dimensional square
+lattice Ising model in our simulations. The simulations include two lattice sizes, 9 × 9 and
+10 × 10 which were chosen because they result in 81 and 100 spin sites respectively, which
+then could be compared with the brain's 83 parcellations even though there is no one-to-one
+match. As expected, both of these conﬁgurations show the phase transition at the extracted crit-
+ical temperature, which was validated with the prior results using the Equation 3.4 in Chapter 3.
+We determined the critical temperature of the 2D classical Ising model from its magnetic
+susceptibility versus temperature graph as described in the methodology. The critical tempera-
+ture value resulting from these plots agrees with the critical temperature described in [32] for
+the two lattice sizes 9 × 9 and 10 × 10. The behaviour of the energy and magnetization with
+temperature also agrees with previous results for the classical Ising model showing a phase
+46
+
+47
+transition at the critical temperature.
+Comparisons between the correlation in each model provide an overall insight into the data.
+As the classical Ising model is a more general model and does not have any spatial correspon-
+dence with the human brain, this model could be a good global measure by which to interpret
+the data. The nearest neighbour coupling is evident in the correlation maps of the classical
+Ising model shown in Figure 4.2. On the other hand, structural connectivity enhances the cor-
+relation patterns observed in the generalized Ising model in the same ﬁgure. As evident from
+the correlation maps, at T < Tc the correlations are almost zero which is controversial to the
+fact that at low temperatures the spin conﬁgurations are ordered. If they are ordered, they
+should be highly correlated in terms of the spin time series due to the fact that they are highly
+unlikely to ﬂip when tested for ﬂip. Thus there will not be a variation of the spins as a function
+of time. When we use the Equation 3.1 to calculate the correlation of such two time series, the
+result will be undeﬁned because of zero variance which is the denominator of the equation. To
+overcome this result, we added noise to the spin time series and when the correlation is calcu-
+lated for such two noises it results in zero correlation, which explains the correlation maps for
+T < Tc. Furthermore, when the correlation maps of the generalized Ising model were analysed
+as a function of temperature, at Tc it did not provide a very good match with the empirical
+correlation. Thus, the distance between the correlation distributions were taken into account to
+ﬁnd a temperature that minimizes the distance between the two cumulative distributions, and
+the results suggest that temperature is greater than Tc for the generalized Ising model. The
+analysis was continued by considering Tc as well as the new temperature T ∗. The generalized
+Ising model gives a better match with the empirical correlation at T ∗(Figure 4.4).
+As expected, the distribution of the correlation in the classical Ising model shows a good
+match with the empirical data as it describes the global behaviour of the function. At Tc and T ∗
+the models show some positive correlation that emphasizes the formation of clusters. From the
+
+48
+Chapter 5. Discussion and Conclusions
+neurobiological perspective, neurons communicate with each other every second. The separate
+regions of the brain cannot work independently (even though they are structurally separated).
+Thus, they create clusters and networks to increase functional segregation, resulting in the
+positive correlation observed for the empirical data in Figure 4.5. On the other hand, the gener-
+alized Ising model does not show the expected behaviour at the critical temperature, which was
+determined from the susceptibility peak. However, it shows positive correlations as observed
+in empirical data at T ∗.
+We followed a data driven strategy to extract the graph theoretical networks from the corre-
+lation data. To do this, a threshold has to be selected such that it will allow accurate visualiza-
+tion of the networks. Thus, the thresholds play an important role in creating the networks using
+the correlations. From Figure 4.6, it is evident that the higher the threshold, the sparser the net-
+work will be as the average degree reduces as a power law while the threshold increases. Even
+though the classical Ising model acquires the maximum possible degree at the critical temper-
+ature, or at T ∗with zero threshold, the generalized Ising model and the empirical network do
+not achieve such. This veriﬁes the mixture of both positive and negative correlations observed
+for the fMRI data and generalized Ising model data in Figure 4.5. However, calculated global
+variables, such as the average degree and global eﬃciency, verify the match between the empir-
+ical data and the generalized Ising model at T ∗, resulting in the highest functional integration
+measures.
+Additionally, small-worldness plotted as a function of temperature in Figure 4.7 provides
+conﬁrmation of the idea that the brain represents a small-world network with high clustering
+and low characteristic path lengths, representing high integration and segregation as described
+in [34, 35]. When the temperature reaches Tc for the classical Ising model and T ∗for the
+generalized Ising model, both of the models converge to small-worldness as exhibited by the
+dynamical function of the brain. This small-world property depends on the clustering coeﬃ-
+
+49
+cient and the characteristic path length of the network being considered and a random network,
+as explained in Equation 2.10. The random network was created by preserving the degree dis-
+tribution of the tested network to calculate the small-worldness. To explain the behaviour of
+the small-world property, clustering coeﬃcients and the average path lengths are plotted as a
+function of temperature in Figure .2 in Appendix B. As the ﬁgure illustrates, even though the
+clustering coeﬃcient is the highest at Tc or T ∗for the models, the ratio of C/Crand clearly shows
+a peak at a temperature less than Tc for the classical Ising model. However the ratio gives
+a minimum around Tc or T ∗. On the other hand, when we consider the average path length,
+it clearly minimizes at Tc or T ∗as expected. Nevertheless, due to a higher number of nodes
+governed by few connections, the average distance increases in the T < Tc region. These facts
+result in the higher small-worldness for T , Tc or T ∗as seen in Figure 4.7.
+The connectivity graphs of the generalized Ising model allow its visualization. When the
+graph at Tc and the graph of empirical data is compared, it is evident that the generalized Ising
+model does not exhibit similar behaviour with the empirical data as expected at the Tc (Figure
+4.8). However, this implies that at T ∗it creates more connections and the connectivity of the
+network is similar to that of the functional brain network. This result provides a platform for
+building the relationship between the structure and function of the brain, as the generalized
+Ising model was built based on structural connectivity (see the methodology).
+Furthermore, studies of the resting state of the brain have provided information regarding
+possible functionally specialized resting state networks (RSNs). Figure 4.9 shows the brain
+maps of those nine resting state networks for the empirical data as well as for the simulated
+data, which shows a direct correspondence between the two types of data at T ∗. Being able
+to extract these correlations with respect to the RSNs provide insight to the higher correlation
+lengths which allow the interactions between regions at a distance from each other, exhibited
+by the generalized Ising model. However, Figure 4.8 and 4.9 were created only for the gen-
+
+50
+Chapter 5. Discussion and Conclusions
+eralized Ising model as it takes the 83 parcellations of the brain into account and the classical
+Ising model does not have any correspondence with the spatial parcellations of the brain.
+Even though the Classical Ising model is able to explain the behaviour of the brain at the
+global level without any spatial speciﬁcation, we need a better model to predict the connectivity
+of the structure and the function of the brain in a spatially accountable manner. As introduced in
+this research, the generalized Ising model better predicts the functional behaviour of the brain
+in relation to spatial positions of the brain than the classical Ising model. Additionally, the
+generalized Ising model, together with graph theory, is proven to facilitate the understanding
+of the relationship between the structure and the function of the brain. However, as discussed,
+the generalized Ising model provides the best ﬁt for the empirical data at T ∗, which is diﬀerent
+from the critical temperature (Tc) which can be explained as below.
+As observed in Figure 4.2, the classical Ising model resulted in positive correlations at Tc
+while the generalized Ising model had the majority of the correlations equal to zero at Tc. This
+was veriﬁed in Figure 4.5 with the mean of the distribution of correlation lying at zero for the
+generalized Ising model at Tc, while it was non-zero for the classical Ising model. However, at
+T ∗the generalized Ising model was able to acquire the desired non-zero correlations similar to
+the empirical data (Figure 4.4), and the mean of the correlation distribution was shifted to 0.2
+giving a better match with the empirical data which has a mean correlation of 0.3. Therefore, it
+could be suﬃcient to have only the critical temperature for the classical Ising model to obtain
+non-zero correlations as observed in the empirical data. However, to reproduce the behaviour
+of the empirical data the generalized Ising model should have an optimum temperature (T ∗) as
+well as a given structural connectivity.
+
+5.1. Future Directions
+51
+5.1
+Future Directions
+This research on the generalized Ising model was carried out together with graph theory only
+for healthy subjects. The results of this research demonstrate the possibility of applying this
+methodology to investigate the brain function of patients suﬀering from brain disorders due to
+severe brain injuries. The study would show the changes occurring in the functional activity of
+the brain through the changes in structural connectivity, which are extracted using DTI from
+patients. The comparison of the data between healthy subjects and patients would direct us to
+explore the connections necessary for rehabilitation of the injured brain. This could be very
+relevant in understanding the mechanism necessary to re-establish a normal structure-function
+relationship after injury and help in guiding the treatments for recovery of these patients.
+
+Bibliography
+[1] Sarah N. Koch.
+Brain Structure and Neurons.
+http://mybrainnotes.com/
+brain-cortex-neurons.html.
+[2] Kristen Coyne. MRI: A Guided Tour. https://nationalmaglab.org/education/
+magnet-academy/learn-the-basics/stories/mri-a-guided-tour,2015.
+[3] TK Das, PM Abeyasinghe, JS Crone, A Sosnowski, S Laureys, AM Owen, and A Soddu.
+Highlighting the structure-function relationship of the brain with the Ising model and
+graph theory. BioMed research international, 2014.
+[4] KJ Friston, CD Frith, PF Liddle, and RSJ Frackowiak.
+Functional connectivity: the
+principal-component analysis of large (pet) data sets. Journal of Cerebral Blood Flow
+and Metabolism, 13:5, 1993.
+[5] Andrew A Fingelkurts, Alexander A Fingelkurts, and Seppo K¨ahk¨onen. Functional con-
+nectivity in the brain: is it an elusive concept? Neuroscience & Biobehavioral Reviews,
+28(8):827-836, 2005.
+[6] Nikos K Logothetis.
+What we can do and what we cannot do with fMRI.
+Nature,
+453(7197):869-878, 2008.
+[7] Olaf Sporns, Giulio Tononi, and Rolf K¨otter. The human connectome: a structural de-
+scription of the human brain. PLoS Computational Biology, 1(4):e42, 2005.
+52
+
+BIBLIOGRAPHY
+53
+[8] Florian Engert and Tobias Bonhoeﬀer.
+Dendritic spine changes associated with hip-
+pocampal long-term synaptic plasticity. Nature, 399(6731):66-70, 1999.
+[9] Vernon B Mountcastle. Perceptual neuroscience: The cerebral cortex. Harvard University
+Press, 1998.
+[10] Olaf Sporns, Giulio Tononi, and Gerald M Edelman. Connectivity and complexity: the
+relationship between neuroanatomy and brain dynamics. Neural Networks, 13(8):909-
+922, 2000.
+[11] Steven Laureys, Philippe Peigneux, and Serge Goldman.
+Brain imaging.
+Biological
+psychiatry, pages 155-166, 2002.
+[12] Peter Jezzard, Paul M Matthews, Stephen M Smith, et al. Functional MRI: an introduc-
+tion to methods, volume 61.
+[13] Seiji Ogawa, Tso-Ming Lee, Alan R Kay, and David W Tank. Brain magnetic resonance
+imaging with contrast dependent on blood oxygenation. Proceedings of the National
+Academy of Sciences, 87(24):9868-9872, 1990.
+[14] David Attwell, Alastair M Buchan, Serge Charpak, Martin Lauritzen, Brian A MacVicar,
+and Eric A Newman.
+Glial and neuronal control of brain blood ﬂow.
+Nature,
+468(7321):232-243, 2010.
+[15] Andrew Webb and George C Kagadis. Introduction to biomedical imaging. Wiley Hobo-
+ken, 2003.
+[16] Peter J Basser, James Mattiello, and Denis LeBihan. MR diﬀusion tensor spectroscopy
+and imaging. Biophysical journal, 66(1):259, 1994.
+[17] Heidi Johansen-Berg and Timothy EJ Behrens. Diﬀusion MRI: from quantitative mea-
+surement to in vivo neuroanatomy. Academic Press, 2013.
+
+54
+BIBLIOGRAPHY
+[18] Andrew L Alexander, Jee Eun Lee, Mariana Lazar, and Aaron S Field. Diﬀusion tensor
+imaging of the brain. Neurotherapeutics, 4(3):316-329, 2007.
+[19] EO Stejskal and JE Tanner. Spin diﬀusion measurements: spin echoes in the presence of
+a time-dependent ﬁeld gradient. The journal of chemical physics, 42(1):288-292, 1965.
+[20] Kamal Shadi, Saideh Bakhshi, David A Gutman, Helen S Mayberg, and Constantine
+Dovrolis. A symmetry-based method to infer structural brain networks from tractography
+data. arXiv preprint arXiv:1508.03788, 2015.
+[21] Yoshiki Kuramoto and Toshio Tsuzuki. On the formation of dissipative structures in
+reaction-diﬀusion systems reductive perturbation approach.
+Progress of Theoretical
+Physics, 54(3):687-699, 1975.
+[22] Juan A Acebr´on, Luis L Bonilla, Conrad J P´erez Vicente, F´elix Ritort, and Renato Spigler.
+The Kuramoto model: A simple paradigm for synchronization phenomena. Reviews of
+modern physics, 77(1):137, 2005.
+[23] Bryan C Daniels. Synchronization of globally coupled nonlinear oscillators: the rich
+behavior of the Kuramoto model. Ohio Wesleyan Physics Dept., Essay, 7(2), 2005.
+[24] Steven H Strogatz. From Kuramoto to Crawford: exploring the onset of synchronization
+in populations of coupled oscillators. Physica D: Nonlinear Phenomena, 143(1):1-20,
+2000.
+[25] Michael VL Bennett and R Suzanne Zukin. Electrical coupling and neuronal synchro-
+nization in the mammalian brain. Neuron, 41(4):495-511, 2004.
+[26] Joana Cabral, Henry Luckhoo, Mark Woolrich, Morten Joensson, Hamid Mohseni, Adam
+Baker, Morten L Kringelbach, and Gustavo Deco. Exploring mechanisms of spontaneous
+functional connectivity in meg: how delayed network interactions lead to structured am-
+plitude envelopes of band-pass ﬁltered oscillations. Neuroimage, 90:423-435, 2014.
+
+BIBLIOGRAPHY
+55
+[27] Stephen G Brush.
+History of the Lenz-Ising model.
+Reviews of modern physics,
+39(4):883, 1967.
+[28] Dante R Chialvo. Emergent complex neural dynamics. Nature physics, 6(10):744-750,
+2010.
+[29] David P Landau and Kurt Binder.
+A guide to Monte Carlo simulations in statistical
+physics. Cambridge University Press, 2014.
+[30] Daniel Fraiman, Pablo Balenzuela, Jennifer Foss, and Dante R Chialvo. Ising-like dy-
+namics in large-scale functional brain networks. Physical Review E, 79(6):061922, 2009.
+[31] Daniele Marinazzo, Mario Pellicoro, Guorong Wu, Leonardo Angelini, Jes´us M Cort´es,
+and Sebastiano Stramaglia. Information transfer and criticality in the Ising model on the
+human connectome. PloS one, 9(4):e93616, 2014.
+[32] Lilian Witthauer and Manuel Dieterle. The phase transition of the 2d-Ising model, 2007.
+[33] Joana Cabral, Etienne Hugues, Olaf Sporns, and Gustavo Deco. Role of local network
+oscillations in resting-state functional connectivity. Neuroimage, 57(1):130-139, 2011.
+[34] Ed Bullmore and Olaf Sporns. Complex brain networks: graph theoretical analysis of
+structural and functional systems. Nature Reviews Neuroscience, 10(3):186-198, 2009.
+[35] Mikail Rubinov and Olaf Sporns. Complex network measures of brain connectivity: uses
+and interpretations. Neuroimage, 52(3):1059-1069, 2010.
+[36] Vito Latora and Massimo Marchiori. Eﬃcient behavior of small-world networks. Physi-
+cal review letters, 87(19):198701, 2001.
+[37] Olaf Sporns, Dante R Chialvo, Marcus Kaiser, and Claus C Hilgetag. Organization, devel-
+opment and function of complex brain networks. Trends in cognitive sciences, 8(9):418-
+425, 2004.
+
+56
+BIBLIOGRAPHY
+[38] Raymond Salvador, John Suckling, Martin R Coleman, John D Pickard, David Menon,
+and ED Bullmore.
+Neurophysiological architecture of functional magnetic resonance
+images of human brain. Cerebral cortex, 15(9):1332-1342, 2005.
+[39] Rahul S Desikan, Florent S´egonne, Bruce Fischl, Brian T Quinn, Bradford C Dickerson,
+Deborah Blacker, Randy L Buckner, Anders M Dale, R Paul Maguire, Bradley T Hyman,
+et al. An automated labeling system for subdividing the human cerebral cortex on mri
+scans into gyral based regions of interest. Neuroimage, 31(3):968-980, 2006.
+[40] Stephan Gerhard, Alessandro Daducci, Alia Lemkaddem, Reto Meuli, Jean-Philippe Thi-
+ran, and Patric Hagmann. The connectome viewer toolkit: an open source framework to
+manage, analyze, and visualize connectomes. Frontiers in neuroinformatics, 5, 2011.
+[41] Leila Cammoun, Xavier Gigandet, Djalel Meskaldji, Jean Philippe Thiran, Olaf Sporns,
+Kim Q Do, Philippe Maeder, Reto Meuli, and Patric Hagmann. Mapping the human
+connectome at multiple scales with diﬀusion spectrum MRI. Journal of neuroscience
+methods, 203(2):386-397, 2012.
+[42] Alessandro Daducci, Stephan Gerhard, Alessandra Griﬀa, Alia Lemkaddem, Leila Cam-
+moun, Xavier Gigandet, Reto Meuli, Patric Hagmann, and Jean-Philippe Thiran. The
+connectome mapper: an open-source processing pipeline to map connectomes with MRI.
+PloS one, 7(12):e48121, 2012.
+[43] TEJ Behrens, H Johansen Berg, Saad Jbabdi, MFS Rushworth, and MW Woolrich. Prob-
+abilistic diﬀusion tractography with multiple ﬁbre orientations: What can we gain? Neu-
+roimage, 34(1):144-155, 2007.
+[44] Aapo Hyv¨arinen, Juha Karhunen, and Erkki Oja. Independent component analysis, vol-
+ume 46. John Wiley & Sons, 2004.
+[45] Wei Cai.
+Ising Model.
+http://micro.stanford.edu/˜caiwei/me334/Chap12_
+Ising_Model_v04.pdf,2011.
+
+Appendices
+57
+
+58
+.1
+Appendix A: MATLAB code for simulations of the gener-
+alized Ising model
+(The code was modiﬁed from a previous version written by Dr. T. K. Das)
+%==================================================================
+%
+% Monte Carlo
+Methods
+f o r
+the
+e v a l u a t i o n
+of
+the
+thermodynamic
+% p r o p e r t i e s
+of
+the
+g e n e r a l i z e d
+I s i n g
+model
+with
+coupling
+defin ed
+% by
+the
+c o n n e c t i v i t y
+matrix
+o b ta i ne d
+from DTI
+% =================================================================
+c l e a r
+a l l ;
+load
+MJ all . mat ;
+MJ = MJ all mn ( : , : ) ;
+J = MJ . / max ( max (MJ ) ) ; % Normalizing
+the
+coupling
+N = 83; % Dimension
+of
+the
+c o n n e c t i v i t y
+matrix
+% S e l e c t i o n
+of
+the
+range
+of
+t e m p e r a t u r e
+f o r
+the
+model
+temp = 0 . 5 : 0 . 0 1 : 3 . 0 1 ;
+[m1, m2]= s i z e ( J ) ;
+t i m e c o r r =198; % P r e d e f i n i n g
+the
+number of
+time
+p o i n t s
+needed
+% P r e d e f i n i n g
+the
+number
+of
+f l i p s
+needed
+to
+e q u i l l i b r a t e
+t e q=m1∗m2∗100;
+n o f l i p = t e q ; % No of
+f l i p
+a t
+each
+t e m p e r a t u r e
+% Obtaining
+the
+e q u i l l i b r i u m
+c o n f i g u r a t i o n
+no bin
+times
+no bin = 5;
+% A c o o r d i n a t e
+matrix
+i s
+g e n e r a t e d
+from random
+permutation
+of N
+randcoord = randperm (N) ;
+count = 0;
+temp len = l e n g t h ( temp ) ;
+Ener = zeros (1 , temp len ) ;
+
+.1. Appendix A: MATLAB code for simulations of the generalized Ising model
+59
+Mag = zeros (1 ,
+temp len ) ;
+Spec Heat= zeros (1 ,
+temp len ) ;
+Sus = zeros (1 ,
+temp len ) ;
+Corr DTI = zeros (N,N,
+temp len ) ;
+S = zeros (N, time cor r , temp len ) ;
+f o r T = temp ;
+% I n i t i a l
+spin
+c o n f i g u r a t i o n
+s p i n v e c = ( rand (N, 1 ) > 0.5)∗2 −1;
+count = count + 1;
+mag = sum ( s p i n v e c ) ;
+f o r
+b = 1
+: no bin ;
+ener sum = 0;
+ener sqr sum = 0;
+mag sum = 0;
+mag sqr sum = 0;
+nn = 0;
+f o r
+i = 1: n o f l i p ;
+% Run through
+the N p o i n t s
+of
+the
+c o o r d i n a t e
+matrix
+once ,
+and
+% when the
+counter
+i s
+l a r g e r
+than N,
+i t
+goes
+back
+to
+the
+f i r s t
+% point ,
+and
+the
+c o o r d i n a t e
+i s
+rerandomized
+before
+i t
+i s
+c a l l e d
+% upon .
+This
+ensures
+the
+random
+but
+unique
+choice
+of
+index when
+% checking
+to
+f l i p .
+nn = nn + 1;
+i f
+( nn > N) ;
+nn = nn−N;
+randcoord = randperm (N) ;
+end
+F l i p = randcoord ( nn ) ;
+% Compute
+the
+change
+in
+energy
+dE=0;
+f o r
+j =1:N
+i f
+( j ˜=
+F l i p )
+dE = dE + J ( Flip , j )∗s p i n v e c ( j ) ;
+end
+end
+dE=2∗dE∗s p i n v e c ( F l i p ) ;
+% Desiding
+whether
+to
+accept
+or
+r e j e c t
+the
+f l i p
+i f
+( dE <= 0 ) ;
+s p i n v e c ( F l i p ) = −s p i n v e c ( F l i p ) ;
+mag = mag + 2∗s p i n v e c ( F l i p ) ;
+e l s e i f
+( rand <= exp(−dE / T ) ) ;
+
+60
+s p i n v e c ( F l i p ) = −s p i n v e c ( F l i p ) ;
+mag = mag + 2∗s p i n v e c ( F l i p ) ;
+end
+ener = 0;
+f o r
+i i = 1:N;
+f o r
+j j = i i +1:N
+ener = ener −J ( i i , j j )∗s p i n v e c ( i i )∗s p i n v e c ( j j ) ;
+end
+end
+ener sum = ener sum + ener ;
+mag sum = mag sum + mag ;
+ener sqr sum = ener sqr sum + ener ˆ 2 ;
+mag sqr sum = mag sqr sum + mag ˆ 2 ;
+end
+ener mean ( b ) = ener sum / n o f l i p ;
+mag mean ( b ) = mag sum / n o f l i p ;
+ener sqr mean ( b ) = ener sqr sum / n o f l i p ;
+mag sqr mean ( b ) = mag sqr sum / n o f l i p ;
+specheat mean ( b ) = ( ener sqr mean ( b) −( ener mean ( b ) ) ˆ 2 ) / N/ T ˆ 2 ;
+sus mean ( b ) = ( mag sqr mean ( b) −( mag mean ( b ) ) ˆ 2 ) / N/ T ;
+end
+Ener ( count ) = mean ( ener mean ) /N ;
+Mag( count ) = mean ( mag mean ) /N ;
+Spec Heat ( count )= mean ( specheat mean ) /N ;
+Sus ( count )= mean ( sus mean ) /N ;
+% Generating
+198 time
+p o i n t s
+f o r
+each
+of
+the
+s p i n s i t e s
+mm = 0;
+f o r
+j j = 1: t i m e c o r r ;
+f o r
+i = 1:N;
+% Compute
+the
+change
+in
+energy
+mm = mm + 1;
+i f
+(mm > N) ;
+mm = mm−N;
+randcoord = randperm (N) ;
+end
+F l i p = randcoord (mm) ;
+dE = 0;
+f o r
+j =1:N
+i f
+( j ˜= F l i p )
+dE = dE + J ( Flip , j )∗s p i n v e c ( j ) ;
+end
+end
+dE=2∗dE∗s p i n v e c ( F l i p ) ;
+
+.1. Appendix A: MATLAB code for simulations of the generalized Ising model
+61
+% Desiding
+whether
+to
+accept
+or
+r e j e c t
+the
+f l i p
+i f
+( dE <= 0 ) ;
+s p i n v e c ( F l i p ) = −s p i n v e c ( F l i p ) ;
+e l s e i f
+( rand <= exp(−dE / T ) ) ;
+s p i n v e c ( F l i p ) = −s p i n v e c ( F l i p ) ;
+end
+end
+% t i m e p o i n t s
+x
+s p i n s i t e s
+x
+t e m p e r a t u r e
+S ( : , j j , count )= s p i n v e c ;
+end
+% C o r r e l a t i o n
+matrix
+Corr DTI ( : , : ,
+count )= c o r r c o e f ( squeeze ( S ( : , : ,
+count ) ) ' ) ;
+Sus ( count )= mean ( sus mean ) /N ;
+d i s p l a y ( [ num2str ( count ) ] )
+end
+
+62
+.2
+Appendix B: Supplementary ﬁgures
+1 2 3 4 5 6 7 8 9 10
+50
+60
+70
+80
+90
+Degree
+1 2 3 4 5 6 7 8 9 10
+50
+60
+70
+80
+90
+Trial number
+1 2 3 4 5 6 7 8 9 10
+50
+60
+70
+80
+90
+µ = 59.9 ± 5.0
+µ = 66.7 ± 3.8
+(a)
+(c)
+(b)
+µ = 77.4 ± 8.5
+Figure .1: Variation of the degree in node 20 for diﬀerent simulations of the Classical Ising
+model (a). 9 × 9 ,(b). 10 × 10 and (c). the Generalized Ising model. µ represents the mean
+degree over realizations for the same node.
+Figure .1 was plotted to observe the variations in local degree (degree of a single node) as we
+repeat the simulations ten times starting with a diﬀerent initial spin conﬁgurations always. It
+shows a higher variance in the mean degree of the selected node for the classical Ising model
+than the generalized Ising model. The low variance observed in the generalized Ising model
+can be explained from the well deﬁned structural connectivity used in the simulations of the
+model which was extracted from DTI.
+
+.2. Appendix B: Supplementary figures
+63
+1
+2
+3
+4
+0
+1
+2
+3
+4
+Temperature [K]
+ 
+ 
+1
+2
+3
+4
+0
+2
+4
+6
+8
+10
+ 
+ 
+1
+2
+3
+4
+0
+2
+4
+6
+8
+10
+Clustering Coefficient
+ 
+ 
+1
+2
+3
+4
+0
+1
+2
+3
+4
+Average distance
+ 
+ 
+1
+1.5
+2
+2.5
+3
+0
+1
+2
+3
+4
+ 
+ 
+1
+1.5
+2
+2.5
+3
+0
+2
+4
+6
+8
+10
+ 
+ 
+Tested network
+Random network
+Ratio of tested network:random network
+(a)
+(b)
+(c)
+Figure .2: Clustering coeﬃcient (C) and the average path length (L) of the tested network and a
+random network with the ratio for C/Crand and L/Lrand respectively as a function of temperature
+for the Classical Ising model (a) 9 × 9 ,(b) 10 × 10 and (c) the generalized Ising model.
+Figure .2 was plotted to explain the behaviour of the small-worldness as a function of
+temperature in the models. Following equation was used to calculate the clustering coeﬃcient:
+C = 1
+n
+X
+iϵN
+Ci = 1
+n
+X
+iϵN
+2ti
+ki(ki - 1)
+(1)
+where Ci is the clustering coeﬃcient of the ith node, ki is the degree of node i, n is the number
+of nodes in the network and ti is the number of triangles around node i. Average distance for
+
+64
+the netwrok can be calculated using Equation 2:
+L = 1
+n
+X
+iϵN
+Li = 1
+n
+X
+iϵN
+P
+jϵN, j , i di j
+n −1
+(2)
+where Li is the average distance of the ith node, n is the number of nodes in the network and dij
+is the shortest path length between the ith and the jth nodes.
+
+.3. Appendix C: Labels of 83 Parcellations of the Brain
+65
+.3
+Appendix C: Labels of 83 Parcellations of the Brain
+Right hemisphere
+1. lateral-orbito-frontal
+2. pars-orbitalis
+3. frontal-pole
+4. medial-orbito-frontal
+5. pars-triangularis
+6. pars-opercularis
+7. rostral-middle-frontal
+8. superior-frontal
+9. caudal-middle-frontal
+10. pre-central
+11. para-central
+12. rostral-anterior-cingulate
+13. caudal-anterior-cingulate
+14. posterior-cingulate
+15. isthmus-cingulate
+16. post-central
+17. supra-marginal
+18. superior-parietal
+19. inferior-parietal
+20. precuneus
+21. cuneus
+22. pericalcarine
+23. lateral-occipital
+24. lingual
+25. fusiform
+26. para-hippocampal
+27. entorhinal
+28. temporal-pole
+29. inferior-temporal
+30. middle-temporal
+31. bankssts
+32. superior-temporal
+33. transverse-temporal
+34. insula
+35. thalamus-proper
+36. caudate
+37. putamen
+38. pallidum
+39. accumbens-area
+40. hippocampus
+41. amygdala
+
+66
+Left hemisphere
+42. lateral-orbito-frontal
+43. pars-orbitalis
+44. frontal-pole
+45. medial-orbito-frontal
+46. pars-triangularis
+47. pars-opercularis
+48. rostral-middle-frontal
+49. superior-frontal
+50. caudal-middle-frontal
+51. pre-central
+52. para-central
+53. rostral-anterior-cingulate
+54. caudal-anterior-cingulate
+55. posterior-cingulate
+56. isthmus-cingulate
+57. post-central
+58. supra-marginal
+59. superior-parietal
+60. inferior-parietal
+61. precuneus
+62. cuneus
+63. pericalcarine
+64. lateral-occipital
+65. lingual
+66. fusiform
+67. para-hippocampal
+68. entorhinal
+69. temporal-pole
+70. inferior-temporal
+71. middle-temporal
+72. bankssts
+73. superior-temporal
+74. transverse-temporal
+75. insula
+76. thalamus-proper
+77. caudate
+78. putamen
+79. pallidum
+80. accumbens-area
+81. hippocampus
+82. amygdala
+83. brainstem (does not belong to the right or the left hemisphere)
+
+.3. Appendix C: Labels of 83 Parcellations of the Brain
+67
+Medial View
+Lateral View
+Left Hemisphere
+Right Hemisphere
+Figure .3: Brain maps for four diﬀerent views of the 83 parcellations in the brain.
+
+68
+.4
+Appendix D: Representation of the Resting State Networks
+Auditory Network
+Default Mode Network
+External Control Network Left
+Salience Network
+External Control Network Right
+Sensorimotor
+(a)
+(b)
+(c)
+(d)
+(a)
+(b)
+(c)
+(d)
+(a)
+(b)
+(c)
+(d)
+(a)
+(b)
+(c)
+(d)
+(a)
+(b)
+(c)
+(d)
+(a)
+(b)
+(c)
+(d)
+Figure .4: Representation of the resting state networks in the brain: (a) lateral view of the left
+hemisphere, (b) lateral view of the right hemisphere, (c) medial view of the left hemisphere
+and (d) medial view of the right hemisphere. Red indicates the regions belong to the network
+and blue indicates the regions which does not belong to the network.
+
+.4. Appendix D: Representation of the Resting State Networks
+69
+Visual Lateral Network
+Visual Medial Network
+Visual Occipital Network
+(a)
+(b)
+(c)
+(d)
+(a)
+(b)
+(c)
+(d)
+(a)
+(b)
+(c)
+(d)
+Figure .5: Representation of the resting state networks in the brain: (a) lateral view of the left
+hemisphere, (b) lateral view of the right hemisphere, (c) medial view of the left hemisphere
+and (d) medial view of the right hemisphere. Red indicates the regions belong to the network
+and blue indicates the regions which does not belong to the network.
+
+Curriculum Vitae
+Name:
+Pubuditha Abeyasinghe
+Post-Secondary
+University of Sri Jayewardenapura, Sri Lanka
+Education and
+B.Sc. degree in Physics (First Class)
+Degrees:
+2008-2012
+Honours and
+Western Graduate Research Scholarship, 2013 - 2015
+Awards:
+Western Teaching and Research Assistantship, 2013 - 2015
+Related Work
+Teaching Assistant
+Experience:
+Department of Physics and Astronomy
+The University of Western Ontario
+2013 - 2015
+Teaching Assistant
+Department of Physics
+University of Sri Jayewardenapura
+2013
+Publications:
+TK Das, PM Abeyasinghe, JS Crone, A Sosnowski, S Laureys, AM Owen,
+and A Soddu. Highlighting the Structure- Functional Relationship of the
+Brain with the Ising Model and Graph Theory. BioMed research internat-
+ional, 2014;2014:237898. doi: 10.1155/2014/237898. Epub 2014 Sep 4.
+Contribution: Composed the section about graph theory and generated the rel-
+evant ﬁgures in that section.
+PM Abeyasinghe, TK Das, DR Paula, AM Owen and A Soddu. Structure -
+Function Relationship of the Brain: Introducing the Generalized Ising
+Model (in preparation).
+70
+
+.4. Appendix D: Representation of the Resting State Networks
+71
+DR Paula, E Ziegler, PM Abeyasinghe, C Cavalier, L Heine, C di Perri,
+A Demertzi, Q Norhomme, VC Verville, A Vanhaudenhuyse, J Stender,
+F Gomez, L Tshibanda, s Laureys, AM Owen, TK Das, and A Soddu. A me-
+thod for within-component graph analysis of resting-state fMRI (in prep-
+aration).
+Contribution: Helped with the graph theoretical analysis.
+Conference
+PM Abeyasinghe, TK Das, DR Paula, AM Owen and A Soddu.
+Presentations:
+Modeling the Relationship between the Anatomical Structure and the Fu-
+nctional Connectivity of the Brain. Poster session to be presented at: Engine-
+ering the Brain: Technologies for Neurobiological Applications, 2015 October
+15-16, Chicago, IL. (Abstract was accepted for the poster session).
+PM Abeyasinghe, DR Paula, S Laureys, AM Owen, TK Das and A Soddu.
+Modeling the Relationship between the Anatomical Structure and the Fu-
+nctional Connectivity of the Brain. Poster session presented at: The interdisc-
+iplinary research showcase, 2014 December 2, The Western University, London,
+ON.
+TK Das, PM Abeyasinghe, A Sosnowski, S Khajehabdollahi, B Ge, S Laureys,
+AM Owen and A Soddu. Modeling Functional Organizations of the Resting
+Brain using the Anatomical Structure. Poster session presented at: 34th Ann-
+ual meeting of the Southern Ontario Neuroscience Association, 2014 May 5,
+The Western University, London, ON.
+
