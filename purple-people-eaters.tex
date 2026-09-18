@@ -1,0 +1,216 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{authblk}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{parskip}
+\usepackage{booktabs}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{remark}[definition]{Remark}
+
+\title{Purple People Eaters}
+\author{Flyxion}
+\affil{Independent Researcher}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+In 1850 Fr\'ed\'eric Bastiat observed that a broken window generates visible economic activity, the glazier is paid, while an unbroken window generates none, and that an accounting perspective confined to visible expenditure can systematically mistake restoration after breakage for net gain. The eight papers preceding this one are extended, formally disciplined instances of the same observation, applied to cases Bastiat could not have anticipated: capital that should not have been built, buildings held empty, repairs institutionally foreclosed, goods destroyed to defend a price, distance travelled that buys no capability, landscapes maintained against their own climate, wants manufactured by the party who profits from meeting them, and destruction staged as the content of a celebration. This paper does not add a ninth mechanism to the list; it asks why the list is not longer only by accident. Its claim is that an accounting or incentive system, whichever one governs a given decision, cannot register durable capability delivered at low or falling burden as an achievement in its own right, because that capability is a stock available at a point in time and the burden required to sustain it is a declared vector, neither of which a throughput-keyed instrument was built to see. Sufficiency does not compete with growth and lose; it is largely illegible to the instrument keeping score. The title is not decorative. Section 5 defines the term it names precisely enough to function as a technical class, and the definition is owed to the reader before the paper is through with it.
+\end{abstract}
+
+\section{Introduction}
+
+Simon Kuznets, presenting the first national income accounts to the United States Congress in 1934, warned in the same report that introduced them that "the welfare of a nation can, therefore, scarcely be inferred from a measurement of national income as defined above." Robert Kennedy's 1968 restatement of the same warning is more often quoted: gross national product counts cigarette advertising, air pollution, and the ambulances that follow from both, and "measures everything, in short, except that which makes life worthwhile." Between them, eighty-four years apart, is Fr\'ed\'eric Bastiat's 1850 parable of the broken window: a shopkeeper's pane is smashed, a glazier is paid to replace it, and an observer who stops at what is seen concludes that the breakage created work, when what is not seen is the coat, the book, or the tool the shopkeeper would otherwise have bought with the same money, and the fact that an unbroken window would have kept both the money and the window.
+
+This paper's eight predecessors are that parable, disciplined into a common formal apparatus and applied across a wide range of contemporary cases the parable's original form does not cover. Each found a version of the same signature: a large, avoidable burden, $\Delta M \gg 0$, paired with a capability gain small enough, $\Delta C \leq \varepsilon$, that a lower-burden alternative would have delivered nearly the same thing. Section 2 restates Bastiat's observation in this series' own notation. Section 3 walks the eight papers as instances of two movements sharing that signature. Section 4 gives the capstone's own formal contribution, a capability-to-throughput contrast that resists collapsing into a single misleading number the way the series' first paper's reviewers found its own early formalism did. Section 5 names and defines the class of object this paper's title refers to, and Sections 6 through 8 generalize, ground, and animate that definition: an accounting-preference criterion broader than transaction volume alone, a missing counterfactual ledger for the non-events sufficiency consists of, and a reproduction dynamic explaining why the class persists without anyone's intent. Section 9 explains, institutionally rather than only conceptually, why sufficiency specifically fails to register. Sections 10 and 11 give a four-gate audit and a non-scalarizing way to make sufficiency legible regardless. Section 12 states what this diagnosis does not settle.
+
+\section{The Broken Window, Formalized}
+
+\begin{definition}[Seen and unseen burden]
+Let a shopkeeper's window be intact, delivering service $q$ (weather protection, light, security) at capability $C(\text{intact})$ and negligible recurring burden. Let the window instead be broken and replaced, delivering the same $q$ at the same $C(\text{replaced}) \approx C(\text{intact})$, but at a replacement cost $M_{\text{build}}(\text{pane}) > 0$ that registers as a transaction, a glazier paid, in any accounting system that counts transactions.
+\end{definition}
+
+\begin{remark}
+$\Delta C = C(\text{replaced}) - C(\text{intact}) \leq \varepsilon$ by construction; the window delivers what it always delivered. $\Delta M = M_{\text{build}}(\text{pane}) \gg 0$. This is Definition 2.2 of \emph{Manufactured Necessity} applied to Bastiat's own case: replacement is manufactured necessity, and the "economic activity" an observer credits to the breakage is exactly the seen half of a comparison whose unseen half, the coat, the book, or the tool the shopkeeper did not buy, this series has spent eight papers trying to make visible in cases far less obvious than a broken pane.
+\end{remark}
+
+\section{Two Movements, One Signature}
+
+The first four papers, \emph{Manufactured Necessity}, \emph{Conditioned Emptiness}, \emph{The Economy of Replaced Things}, and \emph{Artificial Scarcity}, track a single object's career: whether it should have been built, whether it is used once built, whether a technically available continuation is institutionally foreclosed, and whether it is destroyed or withheld outright to defend a price. The second four, \emph{Needless Miles}, \emph{Borrowed Climate}, \emph{Merchants of Lack}, and \emph{Disposable Ceremony}, track the reproduction of throughput itself: displacement without a commensurate capability gain, environments maintained against their own reference trajectory, demand manufactured by the party positioned to profit from meeting it, and destruction staged as a signal's own content.
+
+\begin{center}
+\begin{tabular}{@{}p{3.1cm}p{4.6cm}p{4.6cm}@{}}
+\toprule
+Paper & What moves & Signature instance \\
+\midrule
+Manufactured Necessity & existence of capital & $K$ built where $A$ (local, cheaper) would serve \\
+Conditioned Emptiness & realized use of capital & $I_{\text{realized}}$ low, embodied burden fixed \\
+Economy of Replaced Things & authorized action on capital & $a \in \mathcal{A}_{\text{technical}}$, $a \notin \mathcal{A}_{\text{authorized}}$ \\
+Artificial Scarcity & possibility of continued use & $q \in \mathcal{U}_{\text{physical}} \to q \notin \mathcal{U}_{\text{possible}}$ \\
+Needless Miles & location of delivery & $\Delta M_{\text{access}} \gg 0$, $A$ available nearer \\
+Borrowed Climate & reference trajectory of a place & $E^{*}$ held against a drifting $E_0(\ell,t)$ \\
+Merchants of Lack & reference state of adequacy & $R_0 \to R_g$, seller-conditioned \\
+Disposable Ceremony & meaning of non-recovery & $\partial C_S/\partial\rho < 0$ under observability \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{remark}
+The rightmost column is a single recurring question asked of eight different objects: is the burden being spent buying a capability that a materially lower-burden path could not have delivered? \emph{Disposable Ceremony}'s own revision is instructive here rather than embarrassing to the pattern: applying the question honestly excluded wedding flowers and fireworks from its category and kept champagne sprayed on a podium, which is what a real diagnostic criterion is supposed to do. A pattern that could not exclude anything would not be identifying a mechanism; it would be a mood.
+\end{remark}
+
+\section{Capability Against Throughput, Correctly Scalarized}
+
+\begin{definition}[Monetized throughput score]
+For an activity $P$, declared accounting boundary $\mathcal{B}$, and valuation rule $\nu$, let $\Pi_T(P; \mathcal{B}, \nu)$ denote the monetized flow registered by the accounting instrument under examination. Depending on the case this may be value added, firm revenue, sales, asset income, operating expenditure, or another explicitly named monetary flow. These quantities are not interchangeable, GDP is a value-added measure that excludes most intermediate transactions and imputes value for some non-market activity, while a firm's revenue is a gross sales figure with no such adjustment; what unifies them for this paper's purpose is only that each registers a monetized event more readily than the capability-preserving non-event it is compared against.
+\end{definition}
+
+\begin{definition}[Capability stock and required burden]
+Let $C_{\text{available}}(t)$ be a declared measure of durable capability available at time $t$, and $\mathbf{M}_{\text{required}}([t, t+\tau])$ the declared burden vector, energy, material, land, water, institutional dependency, required to sustain that capability across the interval $[t, t+\tau]$, on the basis $S_0$ of \emph{Manufactured Necessity}'s $M(K; S_0)$. Define
+\[
+\boldsymbol{\Pi}_C(t) = \frac{C_{\text{available}}(t)}{\mathbf{M}_{\text{required}}([t, t+\tau])}
+\]
+componentwise. A scalar $\Pi_C$ exists only once weights and a conversion basis across $\mathbf{M}_{\text{required}}$'s components are declared, exactly as \emph{Manufactured Necessity}'s own scalarization required a declared $S_0$ before $M_{\text{mat}}(K)$ could be summed at all.
+\end{definition}
+
+\begin{remark}
+Refusing to scalarize $\boldsymbol{\Pi}_C$ prematurely is not a hedge; it is the point. A capstone essay whose thesis is that throughput accounting hides what it aggregates cannot itself collapse capability into one number without repeating the exact error under criticism, the same error \emph{Manufactured Necessity}'s first reviewer caught in that paper's own initial burden vector. $\Pi_T$ is a scalar because money already is one; $\boldsymbol{\Pi}_C$ is not, because durable capability is delivered in units, shelter, mobility, nourishment, attention, that do not share a natural exchange rate before an analyst declares one.
+\end{remark}
+
+\begin{proposition}[Structural illegibility of sufficiency]
+Let $P$ preserve a declared durable capability while reducing required burden relative to $A$. An accounting system keyed only to registered monetary flows assigns no positive value to the preservation of capability as such. Where the burden reduction also eliminates or contracts monetized transactions within the declared boundary,
+\[
+\Pi_T(P; \mathcal{B}, \nu) - \Pi_T(A; \mathcal{B}, \nu) \leq 0
+\]
+even though capability-to-burden performance improves. Where the transition itself generates transactions, insulation installed to reduce heating burden, labor paid to repair rather than replace, those transactions may register normally; what remains uncounted in either case is the preserved capability itself, which receives no positive entry for having been preserved rather than replaced.
+\end{proposition}
+
+This is a weaker and more defensible claim than an earlier draft of this paper made. It is not that sufficiency always lowers monetized activity; a repair can generate revenue, an energy retrofit can create investment, and this paper does not claim otherwise. It is that preserved capability, whatever transactions happen to accompany its preservation, has no accounting column of its own, while $\Delta M \gg 0$ paired with $\Delta C \leq \varepsilon$, the eight prior papers' recurring finding, registers fully and automatically in whatever instrument the relevant decision-maker is watching.
+
+\section{Purple People Eaters}
+
+The title names the class of object this paper and its eight predecessors have been cataloguing, and the name is chosen to be exact once defined rather than merely evocative beforehand.
+
+\begin{definition}[Purple people eater]
+An activity $P$ is a purple people eater relative to a feasible alternative $A$, declared burden basis $S_0$, and accounting boundary $\mathcal{B}$, valuation rule $\nu$, when
+\[
+\Pi_T(P; \mathcal{B}, \nu) - \Pi_T(A; \mathcal{B}, \nu) > 0, \qquad M(P; S_0) - M(A; S_0) > \mu, \qquad C(P) - C(A) \leq \varepsilon
+\]
+for a declared material-difference threshold $\mu > 0$. $P$ scores higher on the operative throughput instrument than $A$, carries materially greater burden on the declared basis, once that basis has been chosen, since components can trade off against one another and a vector "much greater than" would obscure exactly such a trade, and supplies little or no capability the lower-burden alternative could not.
+\end{definition}
+
+It is an eater because its legible achievement consists in what it consumes; the transaction is the visible act, and the burden behind it is the cost of producing that visibility. It is purple in the sense that throughput accounting does not examine the color of the thing it counts: provided money changes hands, an arbitrary object clears the ledger more easily than sufficiency does, which clears nothing.
+
+\begin{remark}
+The term is narrower than it may first sound. A costly activity that delivers a capability the lower-burden alternative genuinely cannot, is not a purple people eater under this definition, however extravagant an observer finds it; $C(P) - C(A) \leq \varepsilon$ must hold, not merely a large burden difference. Nor does the definition require intent: a purple people eater can be chosen voluntarily, run efficiently, and defended sincerely by every participant in it, since its defining property is structural, a gap the accounting system does not record, rather than psychological, a deception anyone involved is practicing on anyone else.
+\end{remark}
+
+Bastiat's broken window, restated in Section 2, is the elementary case: replacement raises $\Pi_T$ because the glazier is paid, raises $M(\cdot; S_0)$ because glass, labor, and transport are consumed on any reasonable declared basis, and leaves $C$ essentially unchanged, since the repaired window supplies the same shelter the intact one already did. The eight preceding papers examine less obvious relatives of the same form, and the table in Section 3 is, read this way, a table of eight candidate species, each exhibiting the signature this section abstracts from rather than each having been separately re-audited here against the definition above. Not every case fits comfortably under $\Pi_T$ specifically: \emph{Artificial Scarcity}'s destruction defended a unit price rather than raising transaction volume, and \emph{Conditioned Emptiness}'s underused towers can raise lease or asset value while realized use falls. Section 6 generalizes the throughput term to accommodate this before the audit in Section 9 makes the classification precise case by case.
+
+\begin{remark}
+The definition also states, more precisely than the earlier sections could on their own, why sufficiency is the thing this class of object crowds out rather than merely coexists with. An adequate object kept in use, a trip not taken, a building consolidated rather than duplicated, a want left unmanufactured, preserves $C$ while adding nothing to $M(\cdot; S_0)$ beyond what was already required and nothing to $\Pi_T$; it is, in this paper's terms, the null case, since nothing further was transacted. A ledger built to register transactions has no row for an event that did not occur, however much capability that non-event preserved.
+\end{remark}
+
+\begin{remark}[On the title]
+A reader who finds the title's playfulness misplaced in a paper otherwise conducted at this level of formality may substitute, without loss to any definition or proposition above, a plainer label: \emph{Enough Does Not Count}, \emph{The Missing Column}, \emph{Sufficiency Uncounted}, \emph{Counting Breakage}, \emph{No Column for Enough}, or \emph{The Throughput Blind Spot} each name the same class correctly. The title chosen here is defended on narrower grounds than seriousness would require: the object it names really does eat, in the technical sense Definition 5.1 gives the word, and a title that could be swapped in without the paper noticing is, on that count, doing less work than one that cannot.
+\end{remark}
+
+\section{Accounting Selection}
+
+Transaction volume is only one way an activity becomes institutionally legible. A destroyed good may preserve a market price without increasing unit sales; an underused tower may increase in assessed value while delivering little housing service; a prestige ceremony may reallocate future capital without producing much direct revenue of its own. What unifies these cases with the throughput-keyed ones is not a larger transaction total specifically but an advantage under whichever accounting or incentive system governs the relevant decision.
+
+\begin{definition}[Operative accounting score]
+Let $\Pi_{\mathcal{A}}(P; \mathcal{B}, \nu)$ be the score activity $P$ receives from accounting or incentive system $\mathcal{A}$ under declared boundary $\mathcal{B}$ and valuation rule $\nu$. Depending on the case, $\Pi_{\mathcal{A}}$ may represent value added, revenue, a protected unit price, asset value, budget allocation, or institutional funding or attention, as \emph{Disposable Ceremony}'s prestige multiplier measures.
+\end{definition}
+
+\begin{definition}[Accounting advantage]
+The accounting advantage of $P$ over $A$ is $\Gamma_{\mathcal{A}}(P, A) = \Pi_{\mathcal{A}}(P; \mathcal{B}, \nu) - \Pi_{\mathcal{A}}(A; \mathcal{B}, \nu)$; $P$ is accounting-preferred when $\Gamma_{\mathcal{A}}(P, A) > 0$.
+\end{definition}
+
+The generalized purple-people-eater criterion is
+\[
+\Gamma_{\mathcal{A}}(P, A) > 0, \qquad M(P; S_0) - M(A; S_0) > \mu, \qquad C(P) - C(A) \leq \varepsilon
+\]
+Monetized throughput, $\Pi_{\mathcal{A}} = \Pi_T$, is an important special case, but not the only one: \emph{Artificial Scarcity} is accounting-preferred because destruction preserves price; \emph{Conditioned Emptiness} because nominal ownership or asset valuation stays legible while realized use does not; \emph{Disposable Ceremony}'s ceremonial recursion because recognition changes subsequent access to attention and capital. This is the actual commonality across the series, and it is why \emph{Borrowed Climate}'s snowmaking case was correctly left an open, resort-specific question in its own paper rather than forced into this class: that case's own $C(P) - C(A) \leq \varepsilon$ condition was never established, only the descriptive mechanism was, and the generalized criterion above does not classify a case the underlying paper did not itself close.
+
+\section{The Missing Counterfactual Ledger}
+
+Ordinary accounts record events that occur. Sufficiency frequently takes the form of a non-event, a replacement not purchased, a flight not taken, a repair not foreclosed, and because the alternative does not occur, its avoided burden has no invoice or production statistic through which to become visible.
+
+\begin{definition}[Counterfactual burden credit]
+For observed activity $P$ and a capability-equivalent feasible alternative $A$ (satisfying $C(P) - C(A) \leq \varepsilon$), the counterfactual burden credit is $S_M(A \mid P) = M(P; S_0) - M(A; S_0)$, reported on the declared basis $S_0$ rather than added across incommensurable components.
+\end{definition}
+
+A valid credit requires more than an imagined preferable world. It requires membership in the feasible set $A \in \mathcal{F}(P, t, \mathcal{B})$, the alternatives operationally available to the relevant decision-maker at time $t$ within boundary $\mathcal{B}$; a rail connection that does not serve the necessary endpoints, or a substitute landscape that cannot survive the local climate, is not a member of $\mathcal{F}$ however attractive it looks in the abstract. The missing ledger this section names has two columns, an observed account, $\Pi_{\mathcal{A}}(P)$ and $M(P; S_0)$, and a counterfactual account, $\Gamma_{\mathcal{A}}(P, A)$ and $S_M(A \mid P)$; the second does not replace the first, it supplies the comparison without which observed activity cannot be distinguished from restoration, duplication, or destruction that delivered little additional capability.
+
+\section{How Purple People Eaters Reproduce}
+
+An accounting advantage is not merely descriptive once institutions allocate capital, status, or authority in response to it. Let $z_i(t)$ be the share of available investment assigned to activity $i$, and let $s_i = \Pi_{\mathcal{A}}(i) - \lambda M(i; S_0)$ be its selection score under an institution that internalizes only a fraction $\lambda \in [0,1]$ of the declared burden; an institution that ignores burden entirely sets $\lambda = 0$, so $s_i = \Pi_{\mathcal{A}}(i)$. A simple allocation dynamic is
+\[
+\frac{dz_i}{dt} = \eta z_i(s_i - \bar{s}), \qquad \bar{s} = \sum_j z_j s_j
+\]
+with $\eta > 0$ the responsiveness of allocation to measured performance; any activity scoring above the mean expands its share. Suppose $P$ and $A$ deliver approximately equal capability but $\Pi_{\mathcal{A}}(P) > \Pi_{\mathcal{A}}(A)$ while $M(P; S_0) > M(A; S_0)$. For
+\[
+0 \leq \lambda < \lambda^{*} = \frac{\Gamma_{\mathcal{A}}(P, A)}{M(P; S_0) - M(A; S_0)}
+\]
+the higher-burden activity retains the larger selection score, $s_P > s_A$, which is the reproduction condition for a purple people eater: it need not deceive anyone or outperform its alternative in capability, only convert more of its operation into whatever the allocating institution recognizes as success. Above $\lambda^{*}$, the preference reverses. Non-recognition, not malice, is where the eater's persistence lives.
+
+\section{Why Sufficiency Does Not Register}
+
+The illegibility is not an oversight correctable by better data collection; it follows from what each measurement system was built to count. National accounts, as Kuznets's own 1934 caveat states, measure a flow of transacted product, not a stock of capability or its distribution, and Kuznets explicitly warned against inferring welfare from the flow he had just finished building the apparatus to measure. A firm's quarterly revenue is a flow measure by construction and cannot distinguish a sale that met a genuine new need from one that met a need \emph{Merchants of Lack} showed the same firm had a documented hand in manufacturing; Section 3.4 of that paper's own private-incentive derivation, $a_g^{*} > a_S^{*}$ whenever margin exceeds unpriced external burden, is the general reason a firm's optimum and a burden-sensitive optimum diverge, and it is not specific to advertising. \emph{Disposable Ceremony}'s prestige multiplier, $\Pi_i = \mathbb{E}[K_i(t+1) \mid w_i=1] / \mathbb{E}[K_i(t+1) \mid w_i=0]$, is the same divergence again in a third register: an award is a flow event a recognition industry can produce more of, while the durable quality it purports to certify is a stock no ceremony can manufacture merely by staging more ceremonies.
+
+\begin{remark}
+The pattern generalizes past this series' eight cases because the measurement problem is general: any system that prices and reports transactions will make transactions legible and will make their absence, however capability-preserving, illegible by the same act of construction. This is why the series needed eight separate papers rather than one: each domain's throughput is counted by a different instrument (GDP, a lease-rate, a badge-swipe count, a total-loss threshold, a sales figure, a water bill, an advertising budget, an event's material cost) and each instrument shares the same blind spot for the same structural reason, not because the same people designed all of them.
+\end{remark}
+
+\section{A Purple-People-Eater Audit}
+
+Because the term is deliberately memorable and potentially indiscriminate, its application should follow a fixed audit rather than an intuition. A proposed case must pass four gates.
+
+\begin{definition}[The four gates]
+\emph{Feasibility}: $A \in \mathcal{F}(P, t, \mathcal{B})$, the alternative was technically, legally, and operationally available within the relevant horizon. \emph{Capability}: $C(P) - C(A) \leq \varepsilon$. \emph{Burden}: $M(P; S_0) - M(A; S_0) > \mu$ on the declared basis. \emph{Accounting selection}: $\Gamma_{\mathcal{A}}(P, A) > 0$ under the operative system.
+\end{definition}
+
+Failure at the feasibility gate identifies a merely imagined substitute; failure at the capability gate identifies a genuine capability purchase, not a purple people eater; failure at the burden gate identifies a difference too small to support the classification; failure at the accounting-selection gate identifies waste or extravagance the governing system does not, in fact, reward, a different problem from this paper's.
+
+\begin{proposition}[Exclusion discipline]
+No observation of high expenditure, large physical scale, luxury, destruction, or apparent frivolity is sufficient to establish a purple people eater without an independently specified $A$, $S_0$, $\varepsilon$, $\mu$, $\mathcal{B}$, and $\Pi_{\mathcal{A}}$.
+\end{proposition}
+
+This discipline is what separates the classification from dislike. A cruise, a wedding, a fireworks display, a data center, or a landscaped resort may be intensive in every resource this series tracks without satisfying the definition; the classification applies only where a feasible, lower-burden path preserves the declared capability and loses specifically because the operative accounting system scores it less favorably.
+
+\section{Making Sufficiency Legible Without Inventing One Number}
+
+The diagnosis does not require replacing GDP, revenue, or price with a universal welfare scalar. It requires preventing those quantities from standing alone where capability preservation and avoided burden matter. For a decision between $P$ and $A$, the tuple
+\[
+\mathcal{L}(P, A) = \big(\Gamma_{\mathcal{A}}(P, A),\; C(P) - C(A),\; M(P; S_0) - M(A; S_0),\; \mathcal{F}\big)
+\]
+records what the operative system prefers, the capability difference, the declared burden comparison, and whether the alternative was genuinely feasible. A repair can be credited with preserving service life; consolidation with raised realized utilization; non-construction with avoided embodied burden; restraint with avoided induced demand, without converting any of these into money in order to matter. Where an institution nevertheless requires a scalar decision rule, it must declare its weights,
+\[
+J(P) = \Pi_{\mathcal{A}}(P) + \alpha V_C(C(P)) - \boldsymbol{\omega}^{\top} \mathbf{M}(P)
+\]
+with $\alpha$ the declared value assigned to capability and $\boldsymbol{\omega}$ the declared burden weights. The point is not that these weights are objectively correct; it is that declaring them exposes the judgment throughput-only accounting otherwise conceals by silently setting $\alpha = 0$ and $\boldsymbol{\omega} = \mathbf{0}$ without saying so. A system need not stop counting production. It must stop treating the production count as though it already contained the capability and burden judgments omitted from its own construction.
+
+\section{What This Does Not Settle}
+
+This paper does not propose a replacement for GDP or a general welfare metric; $\boldsymbol{\Pi}_C$ is deliberately left vector-valued and site-specific, in keeping with the discipline the series' first paper's reviewers imposed and every subsequent paper tried to honor. It does not claim that all throughput is waste, or that all destruction, distance, or replacement fails the $\Delta C \leq \varepsilon$ test; \emph{Needless Miles} and \emph{Disposable Ceremony} both found genuine capability in cases (an available rail alternative that turned out not to serve the route; champagne that really was sprayed rather than an ordinary toast) that a cruder version of this thesis would have swept in indiscriminately. Nor does it identify a villain; \emph{The Economy of Replaced Things} distinguished self-selected burden from heteronomous imposition specifically because the mechanism does not require a single culpable actor, only a measurement system that rewards throughput and a set of decision-makers, including ordinary consumers, responding rationally to what gets rewarded.
+
+\section{Conclusion}
+
+Bastiat's glazier is still paid every time a paper in this series finds a large $\Delta M$ next to a small $\Delta C$: a ship built where a slower holiday would serve, a tower conditioned for occupants who never come, a tractor's repair routed through a toll its owner did not choose, a coat burned to protect a price, a private jet flown where a train already runs, a lawn irrigated against a desert that will take it back the moment the water stops, a ring made to feel obligatory by the party who sells it, and confetti scattered specifically because scattering it, not saving it, is what the moment is for. None of these needed a conspiracy; each needed only an accounting convention that can see the transaction and not the alternative, and a series of otherwise reasonable actors, firms, regulators, consumers, optimizing against the only side of the ledger the convention shows them. Each passed some accounting system's preference, price, transaction volume, asset value, prestige, before this paper had a name for the pattern connecting them. Sufficiency was never rejected by this economy; it was outcompeted for column space by things that, unlike sufficiency, eat. The purple people eaters got their entries because they consumed. Sufficiency, consuming nothing further, was never given a column at all.
+
+\section*{References}
+\begin{itemize}[nosep]
+\item Bastiat, F. \emph{Ce qu'on voit et ce qu'on ne voit pas} (That Which Is Seen and That Which Is Not Seen). 1850.
+\item Kuznets, S. \emph{National Income, 1929--1932}. Report to the 73rd U.S. Congress, 2d session, Senate Document No. 124, 1934.
+\item Kennedy, R. F. Remarks at the University of Kansas, Lawrence, Kansas, March 18, 1968.
+\item The preceding eight papers in this sequence: \emph{Manufactured Necessity}; \emph{Conditioned Emptiness}; \emph{The Economy of Replaced Things}; \emph{Artificial Scarcity}; \emph{Needless Miles}; \emph{Borrowed Climate}; \emph{Merchants of Lack}; \emph{Disposable Ceremony}.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,119 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{authblk}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{textcomp}
+\usepackage{parskip}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{remark}[definition]{Remark}
+
+\title{Artificial Scarcity: Market-Preserving Destruction and Withholding}
+\author{Flyxion}
+\affil{Independent Researcher}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The companion paper \emph{The Economy of Replaced Things} treated cases in which a technically feasible action is excluded from an authorized set while the physical basis for that action remains intact, so that reopening authorization restores what was withdrawn. This paper treats the limiting case in which the physical basis is removed instead: a good capable of delivering a service is destroyed, disabled, or permanently withheld, specifically to prevent its sale, discounting, or resale from lowering the market price of the class of goods it belongs to. Unlike the companion paper's cases, no policy reversal restores what this mechanism removes, since the object or the withheld quantity no longer exists to be reauthorized. Two documented mechanisms are examined: outright destruction of unsold luxury inventory, and permanent stockpile withholding of rough diamonds by a historical cartel. The two differ in which term of the accounting they load: destruction is a discrete, unrecoverable loss to $M$, since the embodied burden of the destroyed good is wasted outright; withholding preserves $M$ but imposes an ongoing loss to $C$, since the withheld good could deliver its service to someone and does not. Both require a documented intent to defend exchange value to qualify under this paper's definition, a requirement this paper treats as load-bearing rather than incidental, since without it the same events reduce to ordinary inventory management or ordinary market-making.
+\end{abstract}
+
+\section{Introduction}
+
+A cracked windshield does not stop a car from being driven, and a repair lock does not stop a tractor from working once its software is reauthorized; both of the companion paper's mechanisms leave the underlying physical capability intact, foreclosing only a pathway to it. This paper's subject is different in kind. A coat burned in an incinerator does not regain its capacity to keep anyone warm no matter what policy changes afterward, and a stockpiled diamond withheld from sale for a decade delivers no ornamental or symbolic service to anyone during that decade regardless of who later decides to release it. Where the companion paper's withdrawals are reversible because the technical basis for the foreclosed action survives, this paper's are not, because the technical basis is exactly what has been removed.
+
+The added requirement this paper carries, and the companion paper's cases did not need, is intent. An object can lose its capability for reasons that have nothing to do with defending a price: accidental damage, safety recall, genuine spoilage, ordinary end of service life. This paper's claim is narrower and applies only where a good capable of delivering its service is deliberately destroyed, disabled, or withheld by a party with market power over the price of the class it belongs to, in order to prevent its sale, discounting, or release from lowering that price. Section 3 states this as a formal condition rather than an assumption. Section 4 distinguishes two mechanisms that satisfy it, destruction and sequestration, which load the accounting differently. Sections 5 and 6 apply the apparatus to two documented cases. Section 7 compares interventions. Section 8 extends the system boundary. Section 9 draws the boundary with a later paper in this sequence, \emph{Disposable Ceremony}, whose destruction serves a different function entirely.
+
+\section{Inherited Apparatus}
+
+This paper adopts the burden accounting of the preceding papers in this sequence: burden on a declared basis $S_0$ as a scalar $M$ with residual $R$; a capability measure $C$ kept analytically separate from $M$; and, from \emph{The Economy of Replaced Things}, the action-set formalism $\mathcal{A}_{\text{technical}}(x,t)$ and $\mathcal{A}_{\text{authorized}}(x,t)$, together with the physical service-set $\mathcal{U}_{\text{physical}}(x,t)$.
+
+\section{Foreclosed Possibility}
+
+\begin{definition}[Possible service-set]
+Let $\mathcal{U}_{\text{possible}}(x,t)$ be the set of services $x$ could deliver at any time $t' \geq t$ under some future reauthorization or policy change, given $x$'s physical state at $t$. Where the companion paper's withdrawn admissibility concerned $\mathcal{A}_{\text{authorized}}(x,t)$ narrowing while $\mathcal{A}_{\text{technical}}(x,t)$ held constant, this paper concerns cases where $\mathcal{U}_{\text{possible}}(x,t)$ itself is narrowed, irrespective of any future authorization.
+\end{definition}
+
+\begin{definition}[Value-defending foreclosure]
+An action $a^{*}$ performed on $x$ at time $t$ is a \emph{value-defending foreclosure} with respect to a market for good-class $G$ if:
+\begin{enumerate}[nosep]
+\item $q \in \mathcal{U}_{\text{physical}}(x,t^{-})$: $x$ was capable of delivering $q$ immediately before $a^{*}$;
+\item $q \notin \mathcal{U}_{\text{possible}}(x,t)$ for all $t$ after $a^{*}$: no future reauthorization restores the capability, because $a^{*}$ removed its physical basis;
+\item $a^{*}$ is performed, or its performance is policy under, an agent $g$ with market power over the price $P_G$ of good-class $G$, and $g$'s documented purpose in performing or maintaining the practice of $a^{*}$ is to prevent $x$'s sale, discounting, or release from lowering $P_G$.
+\end{enumerate}
+\end{definition}
+
+Condition 3 is load-bearing, not incidental. Ordinary spoilage, accidental loss, and safety-driven destruction all satisfy conditions 1 and 2 without satisfying 3, and this paper's claim does not extend to them. What follows is restricted to cases where a documented statement of purpose, a company's own account of why it destroys unsold stock, a cartel's own economic rationale for withholding supply, ties the foreclosure to price defense specifically, rather than inferring that purpose from the foreclosure's price-supporting effect alone.
+
+\section{Two Mechanisms}
+
+\begin{definition}[Destruction and sequestration]
+A value-defending foreclosure is \emph{destructive} if $x$ itself ceases to exist or ceases to be a usable good, in which case $M(x)$, the good's full embodied burden, is lost with no residual value beyond whatever energy or material is recovered from the destruction process. A value-defending foreclosure is a \emph{sequestration} if $x$ continues to exist intact but is withheld from sale or use for an extended period, in which case $M(x)$ is preserved (the good could still enter service later) while $C$, the capability the good would have delivered to a user during the withholding period, is foregone for as long as the withholding continues.
+\end{definition}
+
+The two mechanisms load different terms of the accounting. Destruction is a discrete, one-time loss to $M$: the burden is spent and gone regardless of what happens next. Sequestration is an ongoing loss to $C$, plus a smaller, continuing $M$ cost for storage, security, and insurance of the withheld stock; the good's embodied burden is not wasted outright, but the service it could provide is denied for as long as the party controlling it chooses.
+
+\section{Worked Example I: Destruction of Unsold Luxury Inventory}
+
+\subsection{Scale}
+
+Burberry's 2018 annual report disclosed that the company had physically destroyed £28.6 million of finished goods that year, including £10.4 million of beauty inventory, up from £26.9 million in 2017 and £18.8 million in 2016, for a five-year total exceeding £90 million. The company's own stated rationale, reported at its annual meeting and in press statements, was to guard against counterfeiting and to prevent unsold stock from being sold at discount or entering markets outside its approved distribution, explicitly a price- and brand-value-defending purpose rather than a claim that the goods were damaged, expired, or otherwise unfit for use; industry reporting at the time noted the same practice, destruction to preserve exclusivity and avoid discount-market leakage, described as common across luxury retail, with LVMH's and Herm\`es' own annual reports separately citing "obsolescence" of season or collection as grounds for inventory impairment. The online resale platform thredUp publicly offered, in an open letter at the time, to accept Burberry's unsold stock for resale and donate all proceeds to a charity of Burberry's choosing, a concrete, named, contemporaneous alternative rather than a hypothetical one. Facing shareholder and public criticism, Burberry announced in September 2018 that it would stop destroying unsold products. France's 2020 Anti-Waste and Circular Economy Law, in effect for non-food goods from January 2022, went further, banning the destruction of unsold clothing, cosmetics, electronics, and similar goods outright and requiring reuse, donation, or recycling instead, citing an estimated \texteuro{}650 million of new products destroyed annually in France across all sectors as the scale of the practice the law was written to end.
+
+\subsection{Applying the criterion}
+
+This case satisfies Definition 3.2 directly and satisfies the destructive branch of Definition 4.1: the destroyed goods were, immediately prior to destruction, capable of delivering their service (a coat keeps someone warm regardless of whether it is sold at full price), the destruction is irreversible for those specific units, and the company's own stated purpose ties the practice to preventing discount-market leakage and protecting brand value, a price-defense rationale distinct from any claim of physical unfitness. $M(x)$ for the destroyed goods is a full, uncompensated loss; thredUp's contemporaneous offer establishes, more concretely than an illustrated scenario, that a feasible, immediately available alternative use existed at the time, which is a stronger evidentiary basis for $OC(K) > 0$ than either worked example in \emph{Manufactured Necessity} could offer, since the alternative here was actually proposed to the party holding the goods, not merely proposed by this paper after the fact.
+
+\section{Worked Example II: Permanent Sequestration of Rough Diamonds}
+
+\subsection{Scale}
+
+From its formal establishment in 1934 until its dissolution in 2001, De Beers' Central Selling Organisation controlled an estimated eighty to ninety percent of global rough-diamond supply by value, absorbing surplus production into a buffer stockpile during periods of weak demand and releasing it gradually when demand strengthened, a stockpile reported at approximately five billion dollars at its 1998 peak. Founder Ernest Oppenheimer's own stated rationale, "the only way to increase the value of diamonds is to make them scarce," is a documented statement of price-defense purpose rather than an inference drawn from the stockpiling's effect alone. The mechanism was not without antitrust consequence: De Beers pleaded guilty to criminal price-fixing charges in the United States in 2004 in order to resume direct operation in that market, and the CSO's dissolution in 2001 followed sustained regulatory and competitive pressure on the arrangement.
+
+\subsection{Applying the criterion}
+
+This case satisfies the sequestration branch of Definition 4.1. The withheld rough diamonds remained physically intact and were, in most cases, eventually released and sold; $M(x)$ for the stockpile was largely preserved rather than destroyed, aside from ongoing storage and security cost. What was foregone was $C$: for every year a given parcel of rough sat in the London vault rather than entering the cutting and retail pipeline, the ornamental and symbolic service it would have delivered to some buyer, at whatever price the uncontrolled market would have cleared, did not occur. This is the clearest case in this paper's pair of the destructive/sequestration distinction in Section 4 doing real work: the same documented, price-defending intent produces a large $\Delta M$ loss in one mechanism and a large $\Delta C$ loss in the other, and treating them with a single undifferentiated "waste" label would obscure exactly the difference that matters for what intervention, discussed next, would address each.
+
+\section{Intervention Comparison}
+
+Following the discipline of the preceding papers, three alternatives apply: $A_1$, prohibit or regulate the practice (France's 2020 law, and antitrust action against cartel sequestration); $A_2$, redirect the foreclosed good to a lower-price or donated channel that does not compete with the full-price market (thredUp's specific offer to Burberry, or a diamond-market equivalent such as accelerated, gradual release rather than indefinite withholding); $A_3$, accept the practice as a cost of maintaining the price structure. For the destructive mechanism, $A_2$ recovers nearly all of $\Delta C$ (someone receives the coat) at a $\Delta M$ cost near zero beyond redistribution logistics, which is precisely why thredUp's offer is a strong illustration of $OC(K) > 0$ rather than merely a plausible one. For the sequestration mechanism, $A_2$'s analogue, faster, less price-managed release, recovers $\Delta C$ gradually rather than all at once, and $A_1$, antitrust intervention, is what actually ended the CSO's ability to sustain the practice at its historical scale, again operating at a scale no individual transaction could reach.
+
+\section{System Boundary}
+
+\[
+M_{\text{system}} = M_{\text{asset}} + M_{\text{substitute}} + M_{\text{duplication}}
+\]
+
+Destroying unsold inventory does not only waste the destroyed good's own embodied burden; it also means that whatever demand the destroyed goods might have satisfied at a discount is either unmet or redirected to $M_{\text{substitute}}$, a different, newly produced good the consumer buys instead, so the system-level burden of the practice includes not just the destroyed stock but whatever replacement production its absence from the discount market induces elsewhere. Sequestration carries an analogous term: buyers priced out of the managed market by withheld supply either forgo the purchase, delaying but not eliminating eventual demand, or substitute toward alternative goods (other gemstones, synthetic diamonds) whose own production this paper's accounting has not examined.
+
+\section{Where This Differs from Disposable Ceremony}
+
+A later paper in this sequence, \emph{Disposable Ceremony}, treats destruction whose function is symbolic rather than price-defending: confetti, single-use event installations, fireworks, cases with no exchange value to protect in the first place, where visible non-recovery is part of what the event signifies. This paper's mechanism is instrumental, destruction or withholding is a means to the end of a higher sustained price, and would be abandoned by a purely profit-maximizing actor the moment it stopped serving that end, as Burberry's 2018 reversal and the CSO's 2001 dissolution both illustrate. The later paper's mechanism is constitutive: the destruction is not incidental to the value being produced but part of what is being purchased, and no price-defense account is available because there was no exchange value at stake to defend. A case satisfies this paper's Definition 3.2 only where condition 3's documented price-defense purpose is present; a case lacking that purpose, however wasteful, belongs to the later paper's category or to neither.
+
+\section{Sensitivity and Evidentiary Limits}
+
+Both worked examples were selected because they carry unusually direct evidence for condition 3, a company's own annual-report disclosure and public statements in one case, a company founder's own stated rationale and a criminal antitrust plea in the other. Most instances of inventory destruction or supply management are not this well documented, and this paper does not claim that every disclosed case of destroyed unsold goods, including cases attributed to "obsolescence" in the annual reports of other luxury firms cited above, satisfies condition 3 on the same evidentiary footing; some may be ordinary inventory writedowns without a demonstrated price-defense purpose, and this paper's criterion is deliberately built to exclude those rather than to sweep them in. The scale figures reported, France's \texteuro{}650 million annual estimate, the CSO's five-billion-dollar peak stockpile, describe the surrounding phenomenon and are not claimed to be fully attributable to condition-3-qualifying destruction specifically, since French destruction volume in particular spans all named causes, not only exclusivity-defense.
+
+\section{Discussion}
+
+The destruction/sequestration distinction in Section 4 answers a question the companion paper left open in general form: not every irreversible foreclosure is equally costly, or costly in the same currency. A regulator deciding how to intervene needs to know whether it is fighting a discrete, already-sunk $M$ loss it can only prevent going forward, or an ongoing $C$ deficit it could shorten immediately by forcing faster release. France's law targets the former; antitrust action historically targeted the latter. Treating both as an undifferentiated "artificial scarcity" would have obscured which lever actually applies to which case.
+
+\section{Conclusion}
+
+Value-defending foreclosure is destruction or withholding of a good's capability, deliberately undertaken by a party with market power to prevent that capability from reaching the market at a price the party controlling it would rather avoid. It is distinguished from the companion paper's withdrawn admissibility by irreversibility, the physical basis for the foreclosed service is removed rather than merely its authorization, and from ordinary spoilage or writedown by a documented price-defense purpose this paper treats as a necessary, not incidental, condition. Its two mechanisms, destruction and sequestration, load the accounting differently enough that they call for different interventions, and both documented cases examined here were, in fact, curtailed, by public and shareholder pressure in one case, by antitrust enforcement in the other, operating at a scale neither case's individual transactions could have reached alone.
+
+\section*{References}
+\begin{itemize}[nosep]
+\item Burberry Group plc. \emph{Annual Report 2018}, disclosure of finished-goods destruction; contemporaneous press and shareholder-meeting reporting, July--September 2018.
+\item thredUp open letter to Burberry, 2018, offering resale and charitable donation of unsold stock.
+\item R\'epublique Fran\c{c}aise. Loi n\textdegree{} 2020-105 du 10 f\'evrier 2020 relative \`a la lutte contre le gaspillage et \`a l'\'economie circulaire; provisions banning destruction of unsold non-food goods effective January 2022.
+\item Historical accounts of De Beers' Central Selling Organisation (1934--2001), including Ernest Oppenheimer's stated rationale for stockpiling and the organisation's estimated market share and peak stockpile value.
+\item United States v. De Beers Centenary AG, 2004 guilty plea to criminal price-fixing charges.
+\end{itemize}
+
+\end{document}

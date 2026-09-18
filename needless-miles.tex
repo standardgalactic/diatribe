@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{authblk}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{parskip}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{remark}[definition]{Remark}
+
+\title{Needless Miles: Displacement That Purchases Too Little Additional Capability}
+\author{Flyxion}
+\affil{Independent Researcher}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Movement is not intrinsically wasteful; a good or a person transported to where a service is needed can obtain a capability no nearer alternative provides. This paper concerns the narrower case where the capability gained is small relative to the burden spent obtaining it, not the case, harder to find in practice than it first appears, where the gain is literally zero. Applying the manufactured-necessity criterion from the first paper in this sequence to a movement episode rather than to a static asset requires representing the episode correctly, as a person or payload moved between an origin and destination within a delivery window by a given mode, and comparing it against a feasible alternative episode serving the same window, not merely against a shorter distance. It also requires checking a real confound: transport burden must be weighed against total system burden, since some longer-distance options carry lower production, storage, or conditioning burden that can offset the added distance. Two worked examples are used, both selected because the confound does not apply to them: short-haul private aviation, where the residual capability purchased, schedule control, privacy, direct routing, is real but arguably incommensurate with the reported burden multiple, and empty freight repositioning, where the capability purchased is logistical rather than absent, and only the portion of empty mileage without a feasible matched alternative counts as needless under this paper's own criterion.
+\end{abstract}
+
+\section{Introduction}
+
+A private jet and a train connecting the same two cities do not deliver identical capability merely because their endpoints coincide; the jet purchases schedule control, privacy, and reduced terminal time that the train does not, extravagantly burden-intensive purchases, but not nothing. An empty truck returning from a delivery is not idle in every sense either; it may be repositioning itself to the location from which the next load can be collected, a logistical capability distinct from freight delivery but not absent. This paper's claim is not that these capabilities are illusory. It is that they are frequently incommensurate with the burden spent obtaining them, and the criterion that follows is built to say exactly that, no commensurate capability, rather than the stronger and less defensible no capability at all.
+
+Section 2 restates the manufactured-necessity criterion for a movement episode rather than for a static asset, since a person, a payload, and an empty vehicle do not fit a single "transported good" template equally well. Section 3 states the production-burden confound this criterion must be checked against. Sections 4 and 5 apply the checked criterion to two cases, narrowed in each case to the portion the evidence actually supports. Section 6 compares interventions, and Section 7 states what current data does and does not establish about each case's trend.
+
+\section{The Needless-Miles Criterion}
+
+\begin{definition}[Movement episode]
+A movement episode is a tuple $J = (p, o, z, \tau, m)$, where $p$ is the person, payload, or vehicle being moved, $o$ and $z$ are origin and destination, $\tau$ is the delivery or arrival window the movement must satisfy, and $m$ is the transport mode.
+\end{definition}
+
+\begin{definition}[Needless miles]
+Let $A$ be a feasible alternative episode delivering the same or a materially equivalent service within an admissible window comparable to $\tau$. Define
+\[
+\Delta M_J = M(J) - M(A), \qquad \Delta C_J = C(J) - C(A)
+\]
+$J$ constitutes needless miles when $\Delta M_J \gg 0$ and $\Delta C_J \leq \varepsilon$.
+\end{definition}
+
+This is the manufactured-necessity criterion of the first paper in this sequence, unmodified; representing the compared object as an episode rather than as a transported good is what lets the same criterion cover passenger travel, freight, and vehicle repositioning without forcing a single ill-fitting template onto all three. Establishing $A$'s feasibility is not a formality: it requires that $A$ actually serve $o$, $z$, and $\tau$, not merely that some lower-burden mode exists somewhere in the abstract.
+
+\section{The Production-Burden Confound}
+
+\begin{remark}[Transport burden is not system burden]
+The correct comparison for $J$ against $A$ is total system burden, not transport burden alone:
+\[
+M_{\text{system}}(J) = M_{\text{production}} + M_{\text{transport}} + M_{\text{conditioning}} + M_{\text{infrastructure}} + M_{\text{residual}}
+\]
+restricted throughout to a single declared basis. A large $\Delta M_{\text{transport}}$ does not establish $M_{\text{system}}(J) > M_{\text{system}}(A)$ if $J$'s non-transport terms are sufficiently lower than $A$'s to offset the added distance. A widely cited 2006 New Zealand study found that the energy use and energy-associated carbon dioxide emissions of New Zealand lamb delivered to the United Kingdom were lower than those calculated for British lamb, because estimated production efficiencies outweighed shipping energy; the study used a cradle-to-plate boundary restricted to energy and carbon dioxide rather than a complete greenhouse-gas life-cycle assessment, and did not, in particular, account for methane, so it is used here as an illustration of the confound's structure rather than as a definitive comparison of the two products' total climate footprints. This paper's two worked examples were chosen because the confound is structurally inapplicable to them, not because it was checked and found not to bind: in a passenger-transport comparison there is no production side to the ledger at all, and an empty vehicle has no payload whose production burden could offset anything.
+\end{remark}
+
+\section{Worked Example I: Short-Haul Private Aviation}
+
+\subsection{Scale}
+
+Transport \& Environment's 2021 analysis found private jets roughly ten times more carbon-intensive per passenger than commercial airliners on average, and fifty times more carbon-intensive than rail, with individual private jets reported emitting on the order of two tonnes of CO$_2$ in a single hour against an average annual per-person emissions figure of 8.2 tonnes across the EU. The report found that in 2019 one in ten flights departing France was a private jet, and half of all private flights within Europe covered less than 500 kilometers, with private jets about twice as likely to be used for such short distances as commercial aviation.
+
+\subsection{Applying the criterion}
+
+The sub-500-kilometer distribution identifies a large candidate set for the needless-miles criterion; it does not by itself establish $\Delta C_J \leq \varepsilon$ for any particular flight, which additionally requires that rail or commercial aviation actually served the specific origin, destination, and time window within an admissible margin, not merely that the distance falls in a range rail generally covers. Where that additional showing holds, the residual capability a private jet purchases over the feasible alternative, principally schedule control, privacy, and reduced terminal time, is real rather than absent, and the paper's claim is that this residual capability is incommensurate with a burden multiple in the range of ten to fifty depending on the comparison mode, not that the residual is zero. This paper does not tabulate route-level rail service for the specific city pairs Transport \& Environment's report names as most-polluted and so does not claim, beyond the report's own aggregate finding, that each of those pairs individually had a competitive rail alternative at the time.
+
+\section{Worked Example II: Empty Freight Repositioning}
+
+\subsection{Scale}
+
+The American Transportation Research Institute's 2025 operational-cost report puts industry-wide deadhead mileage, empty truck miles driven between deliveries, at 16.7 percent of all U.S. truck miles in 2024, a record high, up from 16.3 percent the year before; private fleets, which more often move freight in one direction only, run empty at a materially higher rate historically in the 20 to 30 percent range. At an average total operating cost near \$2.26 per mile and roughly 82{,}677 annual miles per truck, this arithmetic implies approximately \$31{,}200 per truck per year in operating cost allocated to empty mileage.
+
+\subsection{Applying the criterion}
+
+An empty mile delivers no freight, but freight delivery is not the only capability at issue: the movement episode's relevant $A$ is not "do not drive the mile" but a matched backhaul or a redesigned assignment, $S_A$, that serves the same future loads the empty leg is currently serving indirectly by repositioning the vehicle. $\$31{,}200$ per truck per year is operating cost allocated to empty mileage, not waste established by this paper's criterion; establishing the needless share specifically requires evidence that a feasible $S_A$ existed for a given empty leg, given compatible backhaul availability, timing, trailer type, driver-hour constraints, and any regulatory or maintenance repositioning requirement that would have required the movement regardless of load availability. The 16.7 percent figure establishes the scale of empty movement surrounding the phenomenon; it is this paper's position that a meaningful share of it is needless in the defined sense, evidenced by the industry's own sustained investment in backhaul-matching technology and the persistence of the deadhead rate at a multi-year high despite that investment, not that the entire reported figure qualifies.
+
+\section{Intervention Comparison}
+
+Three alternatives apply: $A_1$, shift to a lower-burden mode where route-level service actually admits it (rail for the subset of short-haul private flights with a verified competitive rail connection); $A_2$, redesign assignments or match backhauls to close the gap between $S_0$ and $S_A$ for repositioning legs where a compatible load exists; $A_3$, accept the burden as the cost of schedule control or operational flexibility where $A_1$ or $A_2$ is not feasible. Both worked examples' interventions are already underway rather than hypothetical: Transport \& Environment's own recommendation targets flights under a defined distance threshold specifically, implicitly conceding that not all private aviation is a substitution candidate, and the trucking industry's investment in freight-matching platforms is a direct attempt at $A_2$, whose limited progress to date, discussed next, is itself evidence about how much of the reported deadhead figure is currently avoidable in practice versus in principle.
+
+\section{Trend and Evidentiary Limits}
+
+Global private jet departures rose 4.6 percent from 2024 to 2025 and stood roughly 34 percent above 2019 levels by the end of 2025, with growth continuing into 2026, according to industry tracking data more current than the 2021 Transport \& Environment report; this more recent data supports a claim about aggregate volume trend that the 2021 report alone could not, though it does not itself update the report's emissions-intensity multiples or its short-haul distribution finding, both of which remain the 2021 report's own figures. Deadhead trucking mileage reached a record high in 2024 per ATRI's most recent report, which is the most current figure available for that claim. Neither trend claim should be read as more precise than its source: the private-jet intensity figures are averages across aircraft types and routes from a single advocacy-research organization, and the deadhead figure is a national average across a heterogeneous fleet whose sub-segments (tank, refrigerated, private fleet) vary substantially around it.
+
+\section{Discussion}
+
+The correction this paper required, from "no capability" to "no commensurate capability," is not a weakening of the underlying claim but a more accurate statement of it. Manufactured necessity was never the claim that a discretionary asset delivers zero value; it was the claim that the value delivered is small relative to the burden incurred, evaluated against a specific, named alternative. Needless miles inherits that structure exactly, and the two worked examples above are strongest precisely where they resist the temptation to claim the residual capability, private aviation's convenience, an empty truck's repositioning, does not exist, and instead show that it is not worth the multiple its burden carries.
+
+\section{Conclusion}
+
+A movement episode constitutes needless miles when a feasible alternative would have served the same origin, destination, and time window at materially lower burden and without a commensurate loss of capability, not when the episode delivers literally nothing. Short-haul private aviation satisfies this for the subset of routes where a genuinely competitive rail or commercial alternative existed, a subset this paper has not exhaustively tabulated. Empty freight repositioning satisfies it for the portion where a matched backhaul was operationally available and not used, a portion smaller than the full reported deadhead rate. Both remaining gaps, route-level substitutability evidence for aviation and backhaul-feasibility evidence for trucking, are the natural next questions this paper's criterion points to rather than answers on its own.
+
+\section*{References}
+\begin{itemize}[nosep]
+\item Transport \& Environment. \emph{Private Jets: Can the Super-Rich Supercharge Zero-Emission Aviation?}, 2021.
+\item WingX / Private Jet Card Comparisons. Global and European private jet departure data, 2019--2026.
+\item American Transportation Research Institute. \emph{An Analysis of the Operational Costs of Trucking: 2025 Update}.
+\item Saunders, C., Barber, A., and Taylor, G. \emph{Food Miles -- Comparative Energy/Emissions Performance of New Zealand's Agriculture Industry}, Lincoln University Agribusiness and Economics Research Unit, 2006.
+\item National Private Truck Council benchmarking surveys and FreightWaves SONAR data on empty-mile rates by fleet type, 2017--2024.
+\end{itemize}
+
+\end{document}

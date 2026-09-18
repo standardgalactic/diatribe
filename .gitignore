@@ -1,0 +1,56 @@
+# ============================================
+# LaTeX build artifacts
+# ============================================
+
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Bibliography intermediates
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+
+# Table of contents / indexes / navigation
+*.toc
+*.lof
+*.lot
+*.idx
+*.ind
+*.ilg
+*.nav
+*.snm
+*.vrb
+
+# Miscellaneous LaTeX temporary files
+*.acn
+*.acr
+*.alg
+*.glg
+*.glo
+*.gls
+*.ist
+*.xdy
+*.dvi
+
+# Temporary/editor files
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# OS/editor metadata
+.DS_Store
+Thumbs.db
+
+# Deployment helper
+deploy.sh
+
+# IMPORTANT:
+# PDFs are intentionally NOT ignored.
+# They are published artifacts for GitHub Pages.

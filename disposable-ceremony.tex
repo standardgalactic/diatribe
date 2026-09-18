@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{authblk}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{parskip}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{remark}[definition]{Remark}
+
+\title{Disposable Ceremony: Destruction, Consumption, and the Recursion of Recognition}
+\author{Flyxion}
+\affil{Independent Researcher}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Material disappearing after a ceremony does not by itself show that its disappearance was the message. This paper separates three relations between destruction and value that an earlier draft conflated: instrumental destruction, which defends an exchange value and could be replaced by a non-destructive instrument (the companion paper \emph{Artificial Scarcity}'s domain); consumptive production, in which consuming material is simply how a service, light, sound, spectacle, is technologically generated, with no independent symbolic weight attached to the consumption itself; and expressive destruction, in which publicly observed non-recovery is part of what a signal consists in, so that recovery, even where physically possible, would degrade the very capability being produced. Wedding flowers and public fireworks, on examination, are diagnostic contrasts rather than clean cases of the third category: flowers demonstrate that visible abundance carries a signal largely independent of unobserved post-event disposal, and fireworks are better described as a consumptive medium whose combustion produces spectacle rather than communicates indifference to residual value. Champagne sprayed rather than drunk on a winner's podium, witnessed, broadcast, and specifically wasteful of a product whose ordinary value lies in being consumed, is the paper's clean positive case. A second part of the paper extends the apparatus to ceremonial recursion, the recognition industry, awards, prestige events, and their broadcast apparatus, that an entertainment or sporting sector stages to represent its own importance, and to the way recognition itself reallocates future capital rather than merely reporting on present quality.
+\end{abstract}
+
+\section{Introduction}
+
+Material vanishing after an event is compatible with at least three different relations to the value that event produced, and an earlier treatment of this subject ran them together. A firm that destroys unsold stock to keep a discount channel from undercutting full-price sales is engaged in instrumental destruction, already treated in \emph{Artificial Scarcity}, and would use a non-destructive instrument, a resale restriction, a licensing term, if one were cheaper. A fireworks shell consumed in producing light and sound is engaged in consumptive production: the combustion is how the spectacle is made, not a claim about the sponsor's indifference to the shell's cost. Only a third category, expressive destruction, in which publicly witnessed non-recovery is part of the signal's content and recovery would weaken rather than merely fail to strengthen it, supports this paper's original thesis, and it is a narrower category than the first draft claimed.
+
+Section 2 states the three-part taxonomy formally, with observability as an explicit term rather than an implicit assumption. Section 3 gives the revised substitutability test. Sections 4 and 5 reclassify wedding flowers and fireworks honestly, as contrasts that sharpen the category rather than exemplify it. Section 6 gives the paper's clean positive case. Sections 7 through 10 extend the apparatus to ceremonial recursion: the recognition and awards apparatus an industry builds around its own output, and the way that apparatus reallocates future capital rather than passively recording present quality.
+
+\section{Three Relations Between Destruction and Value}
+
+\begin{definition}[Direct service and symbolic value]
+Let $Y(x)$ be the direct service produced by consuming $x$ (light, sound, warmth, nourishment), and let $S(\rho, o \mid R)$ be the symbolic or positional value of publicly observed recoverability, where $\rho \in [0,1]$ is the fraction of $x$ recovered or reused and $o(\rho) \in [0,1]$ is the observability of that recovery, whether an audience can and does perceive it. Total capability is
+\[
+C(x, \rho, o \mid R) = Y(x) + S(\rho, o \mid R)
+\]
+\end{definition}
+
+\begin{definition}[Three categories]
+Destruction is \emph{instrumental} when a market-substitution channel makes an exchange value decreasing in $\rho$, and a non-destructive instrument exists that could defend the same value (\emph{Artificial Scarcity}'s category). Consumption is \emph{consumptive production} when
+\[
+\frac{\partial Y}{\partial (1-\rho)} > 0, \qquad \frac{\partial S}{\partial \rho} \approx 0
+\]
+material use generates the service directly, and observed recoverability carries little independent symbolic weight. Destruction is \emph{expressive} when
+\[
+\frac{\partial S}{\partial \rho} < 0
+\]
+specifically because
+\[
+\frac{\partial C_S}{\partial \rho} = \frac{\partial C_S}{\partial o}\frac{\partial o}{\partial \rho} \neq 0
+\]
+recovery is visible or credibly inferable, and its visibility is what would weaken the signal. Where $\partial o/\partial \rho \approx 0$, recovery is invisible or unanticipated by the audience, and $\partial C_S/\partial \rho \approx 0$ regardless of the sign of $\partial S/\partial \rho$ in principle: unobserved recovery cannot damage a signal no one can see was recovered.
+\end{definition}
+
+\section{The Substitutability Test, Revised}
+
+\begin{definition}[Admissible equivalence]
+$A \in \mathcal{A}_\varepsilon(x)$ when $|C_S(A) - C_S(x)| \leq \varepsilon$: $A$ is an admissible substitute if it delivers the symbolic capability within a declared tolerance, not only if it reproduces $x$'s sensory content identically, since no alternative ever reproduces an identical event.
+\end{definition}
+
+\begin{definition}[Expressively constitutive destruction]
+Destruction is expressively constitutive, and this paper's apparatus rather than \emph{Artificial Scarcity}'s applies, only when both
+\[
+\frac{\partial C_S}{\partial \rho} < 0 \qquad \text{and} \qquad \nexists\, A \in \mathcal{A}_\varepsilon(x) \text{ such that } M(A) \ll M(x)
+\]
+hold: the signal is degraded by observed recovery, and no substantially lower-burden substitute delivers the same symbolic capability within tolerance.
+\end{definition}
+
+This is more demanding than the earlier draft's test, and correctly so. It requires showing, not assuming, that observers respond differently when recovery is visible, and it requires checking for a substitute the sensory content of which differs from $x$ but whose symbolic capability does not, before concluding that a given expenditure is irreplaceably destructive.
+
+\section{Diagnostic Contrast I: Wedding Flowers}
+
+U.S. couples spend on the order of \$2{,}000 to \$2{,}800 on wedding flowers on average, commonly cited as roughly eight to ten percent of total wedding spending, for displays typically viewed for several hours before most venues dispose of them; a frequently repeated planner estimate places single-event wedding waste (not flowers alone) near 400 pounds, a figure this paper treats as a circulated vendor estimate rather than an audited measurement, and does not extrapolate to an aggregate national total on that basis.
+
+Applying Section 2's taxonomy, wedding flowers do not clearly satisfy the expressive category. The symbolic capability of a floral display is produced while it is seen: guests observe abundance, arrangement, and scale during the ceremony, and ordinarily have no way to know, and are not shown, whether the same flowers will later be composted, donated, divided among guests, or resold to another couple through a service like Bloomerent. Since $o(\rho)$, the observability of what happens to the flowers afterward, is close to zero for a typical guest, $\partial C_S/\partial \rho \approx 0$ by Section 2's own criterion regardless of what $\rho$ turns out to be. What the display demonstrates is visible scale, $Y$ in this paper's terms, not a publicly witnessed refusal of residual value. The niche status of flower-sharing services more plausibly reflects timing, freshness, coordination, and liability costs than evidence that reuse damages meaning, since the couples using such services are not thereby understood by their guests to have held a lesser occasion. Wedding flowers are, on this reconstruction, a case where reuse is a genuinely available improvement this series' usual apparatus already covers, not an exception to it.
+
+\section{Diagnostic Contrast II: Fireworks}
+
+The American Pyrotechnics Association, an industry trade association whose figures should be read as industry-reported estimates rather than independent national statistics, places U.S. spending on consumer and professional display fireworks combined above one billion dollars annually, with more than 14{,}000 public displays reported on Independence Day and national consumption in the hundreds of millions of pounds by weight.
+
+Fireworks have $\rho = 0$ as a physical fact, but Section 2's distinction shows this does not by itself establish the expressive category. Combustion is the production process by which a firework generates light, color, sound, and timed spectacle; $\partial Y/\partial(1-\rho) > 0$ describes this directly, and an audience watching a display is not thereby being shown evidence of a sponsor's indifference to the shells' cost, the way an audience watching a company burn unsold coats is shown evidence of indifference to the coats' resale value. This is the same distinction between combustion as a production step and combustion as a message that separates a rocket engine's fuel consumption, necessary to produce thrust, from any claim that the fuel's destruction is the message a launch conveys. Applying the admissible-equivalence test of Section 3, drone light shows, laser projection displays, and synchronized light-and-sound installations increasingly compete with fireworks for the same civic and commercial spectacle role; where such a substitute delivers a comparable audience experience, novelty, coordination, collective attention, at a small fraction of the material and hazard footprint, fireworks fail to clear $\nexists A \in \mathcal{A}_\varepsilon(x)$, and the case for treating them as irreplaceable rests on showing that sound, combustion smell, physical risk, or the specific character of chemical color are essential to $C_S$ rather than incidental to it, a showing this paper does not attempt and one that would need to be made before classifying fireworks as expressively constitutive rather than merely a consumptive medium with an available substitute.
+
+\section{Worked Example: Champagne Sprayed Rather Than Drunk}
+
+The tradition of spraying rather than drinking a race winner's champagne began by accident at the 1966 24 Hours of Le Mans, when a bottle warmed in the sun burst open in driver Jo Siffert's hands; American driver Dan Gurney deliberately repeated the gesture the following year, and it entered Formula One with Jackie Stewart's 1969 victory at Clermont-Ferrand. Now sixty years old, the gesture has spread from endurance racing and Formula One into cycling, basketball, and other sports, and champagne suppliers now market their podium presence as a branding opportunity built specifically around the spray rather than the drink.
+
+This case satisfies both conditions of Section 3's definition where the other two do not. Observability is total: the spray happens on the podium, in front of spectators and a broadcast audience, specifically as the celebratory act itself, not as an offstage disposal decision no one witnesses. Recovery, drinking the champagne normally rather than spraying it, would not merely fail to add to the celebration; it would replace the celebration with an ordinary toast, since the gesture's content is precisely the visible conversion of a product whose ordinary value lies in being drunk into one whose value, in this moment, lies in being wasted in view of everyone watching. No admissible substitute delivers the same signal at lower burden: a symbolic toast, a non-alcoholic spray, or a cheaper sprayable liquid changes what is being wastefully deployed and, with it, what the waste is understood to say about the scale of the victory being marked. This is expressive destruction in the sense Section 2 defines it, publicly legible non-recovery as the content of the signal, not a byproduct of producing some other service.
+
+\section{Ceremonial Recursion: When an Industry Celebrates Itself}
+
+A different mechanism appears where an industry stages a public representation of its own importance. The material an awards broadcast consumes, temporary sets, transportation, security, catering, promotional gifts, and production infrastructure, mostly belongs to ordinary event production rather than to expressive destruction in Section 2's sense; the distinctive feature of this category is not the material but the recursive function it serves.
+
+\begin{definition}[Ceremonial overhead]
+Let $M_P$ be the burden of an entertainment sector's primary output (films, performances, broadcasts, athletic contests) and $M_R$ the burden of its recognition apparatus (awards campaigns, ceremonies, rankings, halls of fame, prestige broadcasting). Total sectoral burden is $M_{\text{sector}} = M_P + M_R$, and the ceremonial-overhead ratio is $\chi_R = M_R / M_P$.
+\end{definition}
+
+A large $\chi_R$ is not by itself evidence of waste; recognition can supply genuine criticism, historical memory, professional standing, and entertainment value in its own right. The relevant question is marginal:
+\[
+\eta_R = \frac{\Delta C_{\text{public}}}{\Delta M_R}
+\]
+whether an additional unit of recognition spending produces durable public capability or primarily inflates the industry's displayed valuation of itself. The category becomes suspect specifically where the justification is circular: an event is important because important people attend it, the attendees are important because the event recognized them, and the expenditure's scale is offered as evidence of the importance it was commissioned to demonstrate.
+
+\section{Awards as Attention-Reallocation Machinery}
+
+An award does not only describe quality already produced; it reallocates future attention and, with it, future capital. Let $a_i(t)$ be attention received by participant $i$, $w_i \in \{0,1\}$ indicate an award, $p_i$ promotional spending, and $K_i(t)$ subsequent available capital. A simple reinforcement structure is
+\[
+a_i(t+1) = a_i(t) + \alpha w_i + \beta p_i, \qquad K_i(t+1) = K_i(t) + \gamma a_i(t+1)
+\]
+so that
+\[
+K_i(t+1) = K_i(t) + \gamma a_i(t) + \alpha\gamma w_i + \beta\gamma p_i
+\]
+Recognition is therefore productive of the inequality it appears merely to report: an award raises attention, attention raises financing and future opportunity, and that advantage raises the likelihood of remaining visible enough to be recognized again. This does not make awards arbitrary; it means an award cannot be treated as a passive measurement once it has altered the future value of the thing being measured.
+
+\section{The Prestige Multiplier}
+
+Let the probability of future investment in participant $i$ be
+\[
+\Pr(K_i^{+}) = \sigma(\theta_0 + \theta_1 q_i + \theta_2 a_i + \theta_3 w_i)
+\]
+where $q_i$ is independently assessed performance, $a_i$ prior attention, $w_i$ ceremonial recognition, and $\sigma$ a bounded response function. Where $\theta_2$ and $\theta_3$ are large relative to $\theta_1$, capital follows visibility and recognition more than it follows performance. Define the prestige multiplier
+\[
+\Pi_i = \frac{\mathbb{E}[K_i(t+1) \mid w_i = 1]}{\mathbb{E}[K_i(t+1) \mid w_i = 0]}
+\]
+A large $\Pi_i$ means a ceremony governs access to future production, not only honors completed work, which makes the award system a proper object of opportunity-cost analysis: which unrealized films, games, performances, or participants lose access to capital when recognition concentrates investment around already visible winners.
+
+\section{Entertainment Capital and the Capability Test}
+
+Film, television, gaming, and professional sport are not manufactured necessity merely because aggregate investment in them is large; they produce narrative, play, shared attention, skilled performance, and social affiliation, genuine capabilities this paper does not dismiss. The relevant comparison, per the companion series' apparatus, is marginal: for entertainment capital $K_E$ and a feasible alternative allocation $A$ (smaller productions, public art, amateur sport, community recreation),
+\[
+\Delta M = M(K_E) - M(A), \qquad \Delta C = C(K_E) - C(A)
+\]
+The question is not whether entertainment should exist, but whether the marginal expenditure on a star salary, a franchise sequel, a stadium, or an awards campaign creates more durable capability than the best feasible alternative use of the same capital. Professional sport raises the same question in a form separable from athletic performance itself:
+\[
+\chi_S = \frac{M_{\text{prestige apparatus}}}{M_{\text{athletic participation}}}
+\]
+A system in which $\chi_S$ rises while access to ordinary recreation declines is not investing primarily in sport; it is investing in the visibility and ceremonial elevation of a small portion of it, a distinct claim from any claim about sport's own value.
+
+\section{System Boundary and Evidentiary Limits}
+
+None of the empirical figures cited in Sections 4 and 5 constitute an audited national inventory; the wedding-waste figure in particular is a repeated planner estimate, and multiplying it by an annual wedding count produces a extrapolation, not a measurement. The American Pyrotechnics Association is an industry advocacy body, and its figures are reported here as industry estimates accordingly. The champagne-spraying case, by contrast, rests on a well-documented origin history rather than an aggregate burden estimate, and this paper does not attempt to quantify its total material footprint, only to establish that it satisfies the expressive-destruction criterion cases like fireworks do not.
+
+\section{Discussion}
+
+The revised taxonomy narrows this paper's positive claim considerably from its first draft, and the narrowing is the improvement: not every ephemeral spectacle is conspicuous waste, and treating fireworks or wedding flowers as such would have obscured the genuinely distinct mechanism, publicly witnessed non-recovery as constitutive of a signal, that the champagne case demonstrates cleanly. The ceremonial-recursion sections extend the series' apparatus in a different direction, toward attention and recognition as objects with their own opportunity cost, one this paper's disposability framework does not fully capture but which belongs in the same neighborhood: both concern expenditure whose justification threatens to become circular, waste that proves the occasion's importance, or attention that proves the recipient's importance, and in both cases the proof is more legible than the underlying claim it is offered in support of.
+
+\section{Conclusion}
+
+Destruction is expressively constitutive only where recovery is observable and its observation would specifically degrade a signal no substantially lower-burden substitute could otherwise deliver. Wedding flowers and fireworks, on close examination, largely fail this test for different reasons, invisible post-event disposal in one case, consumption as production rather than message in the other, while champagne sprayed rather than drunk on a podium satisfies it directly. A separate but related mechanism, ceremonial recursion, describes an industry's recognition apparatus reallocating future capital under the appearance of merely reporting present merit, and belongs to this paper's neighborhood without reducing to its central claim about destruction.
+
+\section*{References}
+\begin{itemize}[nosep]
+\item Veblen, T. \emph{The Theory of the Leisure Class}. 1899.
+\item Bataille, G. \emph{The Accursed Share}. 1949.
+\item Historical accounts of the origin and spread of podium champagne-spraying in motorsport, 1966--2026 (Le Mans, Formula One), including sixtieth-anniversary retrospective coverage.
+\item American Pyrotechnics Association industry-reported data on U.S. fireworks spending and consumption.
+\item Sustainable Wedding Alliance and consumer-press estimates of U.S. wedding floral spending and event waste.
+\end{itemize}
+
+\end{document}

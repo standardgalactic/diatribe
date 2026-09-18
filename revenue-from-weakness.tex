@@ -1,0 +1,148 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{authblk}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{parskip}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{remark}[definition]{Remark}
+
+\title{Revenue from Weakness: Corrective Taxation and the Problem of Fiscal Dependence}
+\author{Flyxion}
+\affil{Independent Researcher}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A government can have a legitimate reason to tax conduct that imposes costs on the person engaging in it or on third parties, and a substantial evidence base supports corrective taxation's effect on consumption of tobacco in particular. The problem this paper examines begins afterward: when the resulting receipts are absorbed into ordinary revenue, or bound into recurring commitments, such that the state acquires a budgetary interest in the continuation of conduct it is simultaneously authorized to discourage. This paper states that conflict formally, as a property of fiscal architecture rather than of any official's intent, and proposes a non-exploitation principle narrow enough to avoid the charge that it lets the state adjudicate morality: it acts only on a harm classification the legislature has already enacted, and takes no position on whether that classification is itself correct. This paper stands adjacent to a nine-part series on manufactured throughput but outside its numbered architecture, since its subject is an institution's incentive rather than an object's existence, use, or destruction. Three cases are examined: state lottery earmarks, tobacco settlement securitization, and the still-developing dependence risk in state sports-betting revenue.
+\end{abstract}
+
+\section{Introduction}
+
+A state that taxes cigarettes to discourage smoking and a state that funds part of its education budget from lottery ticket sales are, in one sense, doing the same thing: pricing or monetizing a conduct it has some interest in shaping. The two cases diverge in what happens to the money afterward. A corrective tax whose proceeds are returned, spent on the harm's own remediation, or allowed to shrink as the harm shrinks, raises no structural conflict. A revenue stream that ordinary programs come to depend on does, because the institution charged with discouraging the conduct now has a second, competing reason to prefer that the conduct persist.
+
+This paper states that conflict as a property of fiscal design, not of anyone's motives, and proposes a principle narrow enough to survive an objection worth taking seriously: that a rule about which conduct the state may profit from is itself a disguised claim about which conduct is wrong. Section 2 states what this paper borrows from, and departs from, the nine-part series on manufactured throughput it stands beside. Section 3 defines the taxable base and the revenue function precisely enough to show that a rising tax rate is compatible with both falling consumption and rising revenue, which is where the real conflict, and not merely the presence of a tax, begins. Section 4 gives two dependence ratios. Section 5 states the fiscal-nondependence rule. Section 6 confronts the contested normative fork directly, before anything downstream depends on an answer to it. Sections 7 through 9 apply the apparatus to three documented cases. Section 10 compares interventions, and Section 11 extends the boundary to a family of adjacent, non-tax cases.
+
+\section{What This Essay Inherits, and What It Doesn't}
+
+This paper uses the declared-basis burden accounting of the companion series' first paper, \emph{Manufactured Necessity}, where a burden or harm figure is reported. It does not use that series' central diagnostic, $\Delta M \gg 0$ paired with $\Delta C \leq \varepsilon$, as its organizing criterion, because the comparison this paper is concerned with is not between an object and a substitute but between two of a single institution's own stated objectives: reducing a harm and funding a budget from the receipts of not yet having reduced it.
+
+\section{The Taxable Base}
+
+\begin{definition}[Taxable base and revenue]
+Let $N_h(\tau)$ be the number of participants in conduct $h$ at tax rate $\tau$, and $\bar{q}_h(\tau)$ their average taxed consumption. The taxable base is $B_h(\tau) = N_h(\tau)\,\bar{q}_h(\tau)$, and revenue is
+\[
+R_h(\tau) = \tau B_h(\tau)
+\]
+\end{definition}
+
+Corrective taxation seeks $B_h'(\tau) < 0$. Revenue, however, moves according to
+\[
+R_h'(\tau) = B_h(\tau) + \tau B_h'(\tau)
+\]
+so that a tax increase can reduce the harmful base and increase revenue at the same time, whenever the first term dominates the second. The structural conflict this paper is about does not lie in this relationship; a corrective tax that both discourages consumption and raises money is not yet a problem. It lies in whether recurring spending commitments require $R_h$ specifically not to fall, or to keep growing, despite the policy's own declared goal of shrinking $B_h$.
+
+\section{Two Dependence Ratios}
+
+\begin{definition}[Budget dependence and commitment dependence]
+Let $G$ be total general expenditure and $G_h^{\text{committed}}$ the portion of recurring expenditure, debt service, program budgets, whose continuation presupposes receipts from conduct $h$. Define
+\[
+\delta_h^{\text{budget}} = \frac{R_h^{\text{general}}}{G}, \qquad \delta_h^{\text{commitment}} = \frac{G_h^{\text{committed}}}{R_h^{\text{expected}}}
+\]
+\end{definition}
+
+The first measures how much a state's overall budget leans on the revenue; the second, sharper measure, captures how tightly specific obligations have been bound to it. A jurisdiction can show a small $\delta_h^{\text{budget}}$, the revenue is a minor share of a large budget, while still carrying a large $\delta_h^{\text{commitment}}$, because it has issued bonds or made program commitments that create a powerful marginal interest in the revenue's continuation regardless of its share of the whole.
+
+\section{The Fiscal-Nondependence Rule}
+
+Earmarking receipts to prevention or treatment does not by itself remove dependence; a prevention program can become just as reliant on continued harm as a general fund would have been. The stronger rule ties program scale to the harm itself:
+
+\begin{definition}[Contracting-scale rule]
+Let $D_h(t)$ be measured outstanding harm from conduct $h$ and $F_h(t)$ a reserve accumulated from earlier receipts. A compliant program satisfies
+\[
+G_h(t) \leq \alpha D_h(t) + F_h(t)
+\]
+Current programs may draw on the reserve to survive a temporary revenue decline, but their long-run scale must contract as $D_h(t)$ contracts. No permanent institution should require the continued initiation of new participants in $h$ to finance remediation for the harm already done to existing ones.
+\end{definition}
+
+\section{The Contested Fork, as Internal Consistency}
+
+The argument so far depends on nothing more than the state's own stated objective: given that a legislature has classified $h$ as harmful and adopted policy meant to reduce it, that legislature should not simultaneously construct fiscal obligations that need $h$ to continue. This is a conditional claim, an internal-consistency argument, not an endorsement of the classification itself. Legislative classification of a conduct as harmful can be mistaken, paternalistic, discriminatory, or captured by an interested party, and "the legislature already decided" must not be allowed to launder that separate question by assumption.
+
+Two readings of the underlying harm judgment remain genuinely contested and this paper does not resolve either. One treats $D(H)$, harm as a function of consumption volume, as a legitimate, roughly measurable quantity, and the divergence between a consumer's short-run and long-run valuation, $U_i^{\text{short}}(h) \neq U_i^{\text{long}}(h)$, as a real basis for the state to weight the latter more heavily in policy. The other treats that weighting itself as a contestable moral imposition, since $D(H)$'s shape and the short/long divergence are constructs an analyst or a legislature chooses, not facts discovered independent of that choice. This paper's non-exploitation principle, stated in Section 8, is built to be neutral between these two readings: it constrains what the state may do \emph{once} a classification exists, and takes no position on whether the classification was correctly made in the first place.
+
+\section{Payment Incidence and Welfare Incidence}
+
+\begin{definition}[Two incidence measures]
+For household $i$ with income $y_i$ and tax payment $T_i = \tau h_i$, payment incidence is
+\[
+b_i^P = \frac{T_i}{y_i}
+\]
+Welfare incidence additionally nets the health or other benefit $\Delta H_i$ produced by reduced consumption against any welfare loss $\Delta D_i$ from that reduction:
+\[
+b_i^W = \frac{T_i + \Delta D_i - \Delta H_i}{y_i}
+\]
+\end{definition}
+
+A tax can be regressive in payment while producing comparatively large net welfare gains for a lower-income, more price-responsive population, and this paper does not infer $b_i^W$ from $b_i^P$ alone in either direction. The phrase "less self-control," used loosely, converts a structural feature of a market, a product's exploitation of the gap between $U_i^{\text{short}}$ and $U_i^{\text{long}}$, into an individual character claim this paper does not make.
+
+\section{The Non-Exploitation Principle}
+
+\begin{quote}
+Revenue raised from conduct officially classified as harmful must not create a fiscal interest in the continuation, expansion, or promotion of that conduct.
+\end{quote}
+
+This permits corrective taxation and prohibits fiscal reliance on its base, resting on Section 6's conditional framing rather than an independent moral claim. A program consistent with it has a coherent success condition: if the taxed conduct approaches zero, the program should experience that as the achievement of its stated purpose, not as a budget crisis.
+
+\section{Worked Example I: State Lotteries}
+
+For a state lottery, government chooses promotion $s$ directly:
+\[
+R_L(s) = H(s) - P(s) - c(s)
+\]
+where $H$ is ticket revenue, $P$ prize payouts, and $c$ promotional cost. This is the cleaner case among this paper's examples because the state is the direct operator rather than a regulator of a private one. Evidence on lottery earmarking is genuinely mixed rather than uniform in one direction: one widely cited estimate finds a dollar of lottery profit earmarked for education increases current education spending by roughly 36 cents more than an unearmarked dollar, while other research finds states without a lottery spend a materially larger share of their budget on education than states with lottery-earmarked funds, consistent with legislatures reducing ordinary appropriations as lottery receipts arrive, the fungibility this paper's dependence ratios are built to detect regardless of which finding a given state most resembles. Separately, quasi-experimental evidence from advertising-budget cuts in several states estimates the revenue elasticity of lottery advertising at roughly 0.07 to 0.16, implying states may currently promote lotteries somewhat below the revenue-maximizing level, a finding that complicates rather than simply confirms a picture of unrestrained state promotion, and is reported here as a genuine complication rather than suppressed.
+
+\section{Worked Example II: Tobacco Settlement Securitization}
+
+The 1998 Master Settlement Agreement committed tobacco manufacturers to pay forty-six states approximately \$206 billion over its first twenty-five years, in perpetuity reimbursement for tobacco-related public health costs. A dozen states subsequently securitized a portion of these payments, selling bonds backed by the future revenue stream to a special-purpose entity in exchange for an upfront sum; by 2003, states received roughly \$6.3 billion directly from tobacco companies and a further \$6.5 billion from securitized proceeds in a single year, and the share of settlement funds allocated to budget shortfalls generally, rather than health programs specifically, rose from 36 percent in fiscal year 2003 to an expected 54 percent in fiscal year 2004, as debt service on the bonds itself grew from roughly 2 to 7 percent of allocations over the same period. This is the strongest illustration in this paper of $\delta_h^{\text{commitment}}$ specifically, since a bond obligation converts a future, harm-linked revenue stream into a present, legally binding one regardless of what happens to smoking rates in the interim. The literature is not unanimous that securitization worsens the state's conflict of interest, however; one prominent account argues securitization can instead \emph{reduce} it, by transferring the risk that tobacco manufacturers remain financially healthy enough to pay from the state itself to the bondholders who purchased the securitized debt, a genuine complication this paper reports rather than resolves.
+
+\section{Worked Example III: Sports Betting, an Emerging Risk}
+
+Following the 2018 Supreme Court decision striking down the federal ban on state sports-betting authorization, legal sports betting has grown rapidly: cumulative state and local tax revenue exceeded \$12 billion by 2026 on more than \$668 billion wagered, and quarterly state sales tax revenue specifically attributable to sports betting rose 382 percent between the third quarter of 2021 and the second quarter of 2025 according to U.S. Census data. Unlike the lottery case, the state here is chiefly a regulator, setting authorization, tax rates, permitted products, and advertising rules, rather than a direct operator choosing promotion; the state's incentive therefore runs through regulatory permissiveness rather than direct advertising spend. This paper reports the growth as an emerging dependence risk rather than an established case of fiscal dependence in this paper's sense, since revenue growth alone does not establish $\delta_h^{\text{commitment}} > 0$; that would require showing a specific jurisdiction has issued debt, built a program budget, or made another recurring commitment materially reliant on sports-betting receipts continuing to grow, a showing this paper has not made for any state and does not assume.
+
+\section{Intervention Comparison}
+
+Four alternatives apply: $A_1$, an independent remediation trust receiving no general-fund transfer; $A_2$, automatic rebates or dividends that sever revenue growth from spending growth; $A_3$, sunset, reserve, and conversion rules triggered by measured declines in $D_h(t)$; $A_4$, the status quo, fiscal absorption into ordinary budgeting. Strict hypothecation, $A_1$ alone, is insufficient without a terminal condition of the kind $A_3$ supplies, since a fund can be earmarked and still grow a permanent institutional interest in the harm's continuation if nothing requires it to shrink as the harm does.
+
+\section{System Boundary: Enforcement-Funded Enforcement}
+
+Civil asset forfeiture and revenue-target-driven traffic citation practices share this paper's structural pattern without being sin taxation: institutional resources rise when regulated or punishable events rise, creating the same incentive asymmetry between the enforcing body's budget and its stated mission. This paper names the family resemblance without claiming legal equivalence; a cigarette excise, a lottery ticket, a traffic citation, and a forfeited asset are different instruments, and this paper's formal apparatus applies to the shared incentive structure, not to a claim that the instruments themselves are interchangeable.
+
+\section{Sensitivity and Evidentiary Limits}
+
+Evidence that tobacco taxation reduces consumption, particularly among lower-income populations, is comparatively strong and widely replicated. Evidence on gambling-specific promotion elasticity, the precise welfare incidence of any given corrective tax, and the causal effect of a given earmark on net program spending is considerably weaker and more contested, and this paper has reported disagreement in the lottery and securitization literatures rather than adopting one side of it.
+
+\section{Discussion}
+
+The essay's central contribution is narrower than either "corrective taxation is inherently wrong" or "government may never discourage harmful conduct," and narrower, too, than a claim about which conduct is genuinely harmful. It is that no institution should acquire a budgetary need for the continued production of a condition it is authorized to diminish, a claim that holds regardless of which side of Section 6's contested fork a reader occupies, since it constrains fiscal architecture built on top of a harm classification rather than the classification's own legitimacy.
+
+\section{Conclusion}
+
+A corrective tax and a fiscal dependency are not the same thing, and the difference is not the tax rate but what the resulting revenue is used for and how tightly it is bound into recurring obligations. State lotteries, tobacco settlement securitization, and the still-developing sports-betting revenue stream each illustrate a different point on this paper's dependence scale, from mixed but genuine evidence of fungibility, through a documented and legally binding commitment case, to a growth pattern that has not yet, on the evidence examined here, become a demonstrated dependency. The non-exploitation principle this paper proposes does not require settling whether the underlying harm classifications are correct; it requires only that an institution authorized to reduce a harm not be structured to need that harm's persistence to keep its own lights on.
+
+\section*{References}
+\begin{itemize}[nosep]
+\item Novarro, N. \emph{Does Earmarking Matter? The Case of State Lottery Profits and Educational Spending}. Stanford Institute for Economic Policy Research, 2002.
+\item Borg, M. O. and Mason, P. M. Earmarked Lottery Revenues and Educational Expenditures, cited in subsequent state-lottery earmarking literature, 1990.
+\item U.S. Government Accountability Office. \emph{Tobacco Settlement: States' Allocations of Fiscal Years 2002--2006 Master Settlement Agreement Payments}, GAO reports, 2003--2006.
+\item Sloan, F. and Rattliff, J. Securitization of Tobacco Settlement Payments to Reduce States' Conflict of Interest. \emph{Health Affairs}, 23(5), 2004.
+\item American Gaming Association and U.S. Census Bureau Quarterly Summary of State and Local Tax Revenue (QTAX), sports betting tax revenue data, 2021--2026.
+\end{itemize}
+
+\end{document}

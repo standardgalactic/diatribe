@@ -1,0 +1,162 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{authblk}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{parskip}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{remark}[definition]{Remark}
+
+\title{Borrowed Climate: Environments Maintained Against a Local Reference Trajectory}
+\author{Flyxion}
+\affil{Independent Researcher}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A building's construction burden is committed once; the recurring burden examined here is incurred again in every period a maintained environmental state is preserved, and past expenditure does not reduce the physical flux the next period requires. This is not unique to the outdoor landscapes this paper examines, a heated building or a refrigerated warehouse faces the same general thermodynamic structure, but the deliberate maintenance of an outdoor biophysical state substantially displaced from its location's own reference trajectory is a particular, ecologically and geographically situated instance of it, and one the companion papers' apparatus has not yet addressed. This paper separates the descriptive mechanism, a maintained state requiring recurrent external flux because it diverges from a declared local reference trajectory, from the narrower, normative question of when that divergence is discretionary in the companion series' sense: large recurring burden purchasing negligible additional capability over a reference-consonant substitute. Two cases are examined: non-functional turfgrass in the arid Southwest, which this paper argues plausibly satisfies both the descriptive and the normative criterion, and machine snowmaking on a warming mountain, which clearly satisfies the descriptive criterion while its normative status remains unsettled and resort-specific. A final section extends the apparatus from avoided burden to reinvestment, asking what durable ecological capability the resources released by ending a borrowed climate could instead create.
+\end{abstract}
+
+\section{Introduction}
+
+Aspen Skiing Company's own vice president of sustainability has described snowmaking as "cannibalizing the climate," and called it a "necessary evil" his industry's regional economy depends on. The phrase is worth taking literally rather than as color: a ski slope built where snow no longer reliably falls, or a lawn maintained where rain no longer reliably comes, requires a standing, recurring commitment of energy, water, or material to hold a state displaced from what the location would otherwise produce on its own.
+
+This is a particular case of a general thermodynamic fact, not an exception to how maintained systems otherwise behave; a data center, a greenhouse, and a refrigerated warehouse all resist ambient conditions continuously as well. What distinguishes this paper's subject is the setting, an outdoor, ecologically embedded state rather than an enclosed mechanical one, and the resulting entanglement with a reference trajectory that is itself dynamic, historically contingent, and in some of this paper's cases actively drifting under regional climate change. Section 2 states the distinction between committed and recurrent counter-gradient burden precisely, without overclaiming uniqueness. Section 3 gives the descriptive mechanism and the narrower, normative subset that qualifies as discretionary in the companion series' sense. Sections 4 and 5 apply both to turfgrass and to snowmaking, keeping the two questions separate throughout. Section 6 compares interventions. Sections 7 through 10 extend the apparatus to what happens after a borrowed climate ends: not merely reduced throughput, but a reinvestment criterion for redirecting released resources toward ecological capability that does not require the same permanent maintenance.
+
+\section{Committed Burden and Recurrent Counter-Gradient Burden}
+
+A building's embodied construction burden, $M_{\text{build}}$, is committed at construction; an annualized accounting allocation, $M_{\text{build}}/T$, may be constant over a declared service life, but this is an accounting convention, not a claim that the original extraction and emissions diminish. What distinguishes the burden this paper examines is not that it fails to amortize while other operating burdens do, operating burden generally can grow rather than shrink as a building ages or as ambient temperatures rise, but that it is incurred again in every period a maintained deviation from a location's own reference trajectory is preserved, and stopping does not retire a sunk cost; it releases the deviation to close.
+
+\begin{remark}
+This paper's contribution is not the claim that only outdoor landscapes resist an ambient tendency; it is a particular application of that general structure to deliberately maintained biophysical states, turf, snowpack, that diverge from what their location would otherwise produce, and to the ecological and geographic complications that follow: a moving reference trajectory, a multidimensional state that resists a single scalar description, and a substitute whose capability must be compared honestly rather than assumed away.
+\end{remark}
+
+\section{The Borrowed-Climate Criterion}
+
+\begin{definition}[Reference trajectory]
+Let $E_0(\ell,t)$ be a declared, minimally intervened state estimate for location $\ell$ at time $t$, the state the location would exhibit absent the specific intervention under examination. This is a declared estimate, not a claim to a single ecological equilibrium; vegetation, snowpack, soil moisture, disturbance, and seasonal hydrology are dynamically coupled and historically contingent, and $E_0(\ell,t)$ is only as precise as the state variable chosen to represent it (irrigated area or evapotranspiration replacement for turf; snow-water equivalent or skiable-depth days for a slope).
+\end{definition}
+
+\begin{definition}[Maintained state and deviation]
+Let $E(t)$ be the actively maintained state and $\Delta(t) = E(t) - E_0(\ell,t)$ its deviation from the reference trajectory, both expressed in the same declared unit for the chosen state variable; $\Delta$ is schematic across different variables and does not permit comparing, say, irrigated turf directly against snow-water equivalent without an explicit mapping.
+\end{definition}
+
+\begin{definition}[Borrowed climate]
+A borrowed climate is a maintained state requiring recurrent external flux $I(t)$, converted to the state variable's units by a factor $B$, because it diverges from $E_0(\ell,t)$:
+\[
+\frac{dE}{dt} = -k\big(E - E_0(\ell,t)\big) + B\,I(t)
+\]
+Holding a fixed target $E(t) = E^{*}$ requires
+\[
+B\,I^{*}(t) = k\big(E^{*} - E_0(\ell,t)\big)
+\]
+As the reference trajectory moves farther from the target, the required intervention grows even if the target itself does not change.
+\end{definition}
+
+\begin{definition}[Discretionary borrowed climate]
+Let $A$ be a reference-consonant substitute (its own deviation $\Delta_A$ small relative to $\Delta^{*}$). The borrowed climate is \emph{discretionary} when it additionally satisfies the companion series' manufactured-necessity criterion:
+\[
+\Delta M = M(I^{*}(t)) - M(I_A(t)) \gg 0, \qquad \Delta C = C(E^{*}) - C(A) \leq \varepsilon
+\]
+evaluated per period, since $\Delta M$ recurs rather than amortizing.
+\end{definition}
+
+Separating these two definitions matters because a case can satisfy the first without the second. A maintained state can require large, genuinely recurring counter-gradient flux and still deliver a capability a reference-consonant substitute cannot match, in which case it is a borrowed climate but not a discretionary one, and the manufactured-necessity apparatus does not apply to it without further, resort- or site-specific evidence.
+
+\section{Worked Example I: Non-Functional Turfgrass}
+
+\subsection{Scale}
+
+Nevada's 2021 Assembly Bill 356 banned the use of Colorado River water to irrigate "non-functional turf," ornamental grass in medians, office parks, and housing-development entrances that is rarely walked on, across the Southern Nevada Water Authority's jurisdiction, effective 2027. Contemporaneous reporting estimated the law would require replacing roughly six to eight square miles of grass in the Las Vegas area and reduce regional water consumption on the order of ten to fifteen percent, saving on the order of eleven to fourteen gallons per person per day in a region of about 2.3 million people drawing ninety percent of its water from the Colorado River; the spread across these figures reflects differences in when each estimate was made rather than a single settled number. The law explicitly excludes single-family home lawns, public parks, and golf courses.
+
+\subsection{Applying the criterion}
+
+For this specific turf class, Nevada's own regulatory action is best read narrowly: it establishes that the state judged the foregone function, ornamental grass serving no recreational or access purpose, insufficient to warrant continued Colorado River irrigation. It does not establish that a xeric replacement landscape reproduces every microclimatic property of turf; turf, shrubs, gravel, and tree canopy differ in surface temperature, shading pattern, biodiversity, and their own maintenance burden, and this paper restricts its capability claim to the ornamental and access functions the law itself targeted rather than asserting thermal-shading equivalence without comparative data. Within that restricted claim, non-functional turf is a plausible case of \emph{discretionary} borrowed climate: recurrent water import maintains a state diverging from the Mojave's reference trajectory, and the specific function it serves is one the law's own drafters judged replaceable at lower recurring burden. The excluded categories, golf courses in particular, remain, by area, among the largest maintained deviations in the region and are not established here to satisfy $\Delta C \leq \varepsilon$ against any substitute.
+
+\section{Worked Example II: Machine Snowmaking}
+
+\subsection{Scale}
+
+A 2023 study by researchers at the University of Waterloo and the University of Innsbruck estimated that snowmaking across Canadian ski resorts consumes approximately 478{,}000 megawatt-hours of electricity annually, producing an estimated 130{,}095 tonnes of CO$_2$-equivalent emissions, and draws on the order of 43 million cubic meters of water to produce a comparable order of machine-made snow; reported water-to-snow conversion efficiency varies across sources and equipment definitions, and this paper does not assert a single conversion ratio for the national total, since figures reported for related but distinct quantities (gun-level conversion loss, post-melt hydrological return to streams) are not always measuring the same step of the process. The same study projects Canadian snowmaking requirements will rise between fifty-five and ninety-seven percent by 2050 as natural snowpack continues to decline, with water and energy demand scaling proportionally, the pattern Section 3's moving-reference dynamics predicts directly: holding a target snow depth against a receding $E_0(\ell,t)$ requires growing $I^{*}(t)$, independent of any change in the target itself. Separately, a ten-resort study found snowmaking responsible for roughly eighteen percent of an average resort's energy use, and United States mountain snowpack has declined by an estimated twenty percent over the past century.
+
+\subsection{Applying the criterion}
+
+Snowmaking clearly satisfies the descriptive definition: a maintained snow-water equivalent held against a declining regional snowpack requires recurrent, and by the cited projection growing, energy and water flux. Whether it satisfies the narrower, normative \emph{discretionary} criterion is not established here and is not, on the evidence assembled, a single answer across the industry. A naturally bounded season is shorter and less schedule-reliable, which is a real capability difference rather than a negligible one for resorts whose regional economy depends on schedule-certain, low-elevation accessibility; relocation to higher terrain changes access, infrastructure commitment, and land disturbance in ways this paper has not quantified. This paper's claim is limited to establishing the mechanism and its worsening trajectory, not to a conclusion that any specific resort's snowmaking is manufactured necessity in the companion series' sense; that conclusion would need to be reached resort by resort, against a specified substitute and a specified capability loss.
+
+\section{Intervention Comparison}
+
+Three alternatives apply: $A_1$, shift to a reference-consonant substitute (xeriscaping for non-functional turf; a natural-snowfall-bounded season or relocation for skiing); $A_2$, reduce $k$ or improve the efficiency with which $I(t)$ converts to $\Delta^{*}$ (drip irrigation and soil amendment; improved snow-gun nucleation and design, which general reporting indicates can reduce water and energy intensity, though this paper does not assert a specific percentage improvement without a directly attributable study); $A_3$, accept the recurring burden as the operating cost of a location-dependent economy. $A_1$ is what Nevada's law achieves for non-functional turf specifically, leaving golf courses, the harder case, unaddressed within the same jurisdiction. $A_2$ changes the multiple in $\Delta M$ without removing the underlying mechanism, since some non-zero $I^{*}(t)$ remains necessary for as long as $E^{*}$ is held against a persistent or worsening $E_0(\ell,t)$.
+
+\section{From Released Burden to Ecological Extension}
+
+The alternative to a borrowed climate is not necessarily inactivity. Resources no longer committed to maintaining a climate-discordant state can be redirected toward extending ecosystems whose persistence is consonant with their own location. Where replacing non-functional turf releases water, energy, labor, land, and public expenditure, the further question is not only how much burden has been avoided but what durable capability the released resources could create elsewhere. Protection and restoration of forest within a historically forested, climatically suitable region is a particularly strong comparison: instead of repeatedly importing resources to prevent local reversion, the same fiscal and institutional capacity can remove barriers to an ecosystem's own regenerative processes.
+
+The released resources are not physically fungible with what a distant restoration effort requires; water conserved in Nevada cannot be transported to a tropical forest frontier, and electricity not used for snowmaking does not become rainfall in a degraded watershed. The transfer occurs through budgets, labor, land acquisition, restoration finance, technical capacity, and avoided demand on shared climatic systems. Let
+\[
+\mathbf{R} = (R_{\text{water}}, R_{\text{energy}}, R_{\text{land}}, R_{\text{labor}}, R_{\text{fiscal}})
+\]
+be the vector of resources released by ending or reducing a maintained deviation, and let $\Phi(\mathbf{R})$ be the institutionally feasible conversion of those resources into restoration capacity. The relevant comparison is an allocation question:
+\[
+A^{*} = \arg\max_{A} \frac{\Delta C_{\text{ecological}}(A)}{M(A)} \quad \text{subject to} \quad M(A) \leq \Phi(\mathbf{R})
+\]
+A reduction in borrowed-climate maintenance is complete, in the stronger sense proposed here, when some portion of the released capacity is used not merely to lower throughput but to enlarge the domain in which ecological processes can again operate without continuous artificial support.
+
+\section{Extension Is Not Plantation}
+
+To extend forest is not simply to increase tree cover. A monoculture plantation, an orchard, or a carbon plantation can satisfy a remote-sensing definition of forest while reproducing little of a native forest's composition, structure, hydrology, or habitat value. Nor is tree planting appropriate in naturally open ecosystems, savanna, grassland, peatland, arid shrubland, where imposed forest cover would itself constitute a borrowed climate rather than a remedy for one. Forest extension is admissible only where historical ecology, soil, hydrology, and projected climate indicate that forest is an appropriate reference trajectory for the site in question.
+
+\begin{definition}[Forest extension]
+Forest extension is the enlargement or reconnection of an existing native forest system through protection of threatened margins, assisted natural regeneration, restoration of degraded forest land, establishment of native-species corridors, or removal of barriers preventing succession toward a locally appropriate forest state.
+\end{definition}
+
+This definition gives priority to protecting existing forest, since a mature stand holds accumulated structure, species relationships, soil function, seed sources, and hydrology a newly planted stand cannot immediately reproduce. Where extension is possible, the preferred sequence is
+\[
+\text{prevent loss} \rightarrow \text{secure margins} \rightarrow \text{connect fragments} \rightarrow \text{assist regeneration} \rightarrow \text{plant selectively where regeneration cannot proceed}
+\]
+Planting is one instrument within restoration, not its definition. Where seed sources, soil function, dispersal, and hydrology remain sufficiently intact, removing continuing pressures, grazing, repeated burning, drainage, invasive species, may allow natural regeneration to accomplish more than intensive planting at lower recurring burden. Where those capacities have already been destroyed, active reconstruction may be necessary, but its success should be measured by recovered ecological function rather than by seedling counts alone.
+
+\section{A Reinvestment Criterion}
+
+The manufactured-necessity apparatus extends from avoided burden to restorative allocation. Let $S_0$ be a system continuously maintaining a discretionary environmental deviation, $S_A$ its reference-consonant replacement, and $S_R$ a further state that directs a feasible share of the released resources toward forest protection or extension. The first comparison measures avoided burden, $\Delta M_A = M(S_0) - M(S_A)$; the second measures the capability created by reinvestment, $\Delta C_R = C(S_R) - C(S_A)$. A strong restorative transition occurs where
+\[
+\Delta M_A \gg 0, \qquad \Delta C_A \leq \varepsilon, \qquad \Delta C_R > 0
+\]
+and where the restored capability remains robust after direct intervention declines, since restoration should not reproduce the same permanent dependency borrowed climate was introduced to identify. Some continuing stewardship, monitoring, fire management, invasive-species control, boundary protection, may remain necessary, but the ecological system should increasingly supply its own regeneration, nutrient cycling, canopy replacement, and habitat continuity. This durability can be represented by a declining support ratio,
+\[
+\sigma_R(t) = \frac{M_{\text{external support}}(t)}{C_{\text{ecological}}(t)}
+\]
+A borrowed climate generally requires a persistent or increasing $\sigma_R(t)$, since continued capability depends on renewed external flux; successful restoration should, after an establishment phase, exhibit a declining ratio as endogenous ecological processes assume a larger share of the work. The contrast is not between an entirely unmanaged nature and any human intervention; it is between an arrangement whose continuation requires permanent resistance to local conditions and one in which intervention restores the conditions under which self-renewal becomes possible.
+
+\section{Corridors, Margins, and the Geometry of Extension}
+
+Restoration's ecological value depends on location as well as area. An isolated planted parcel may add nominal tree cover while contributing little to the viability of the larger forest; the same area placed along a threatened margin, between separated fragments, around a headwater, or across an animal-movement route can reduce edge exposure and restore landscape-scale processes. Extension should therefore be evaluated by the change it produces in connectivity, intactness, and effective interior habitat, not simply by hectares added. For existing forest network $F$ and candidate restoration parcel $P$, an extension value can be represented schematically as
+\[
+V(P \mid F) = \alpha\,\Delta A_{\text{interior}} + \beta\,\Delta K_{\text{connectivity}} + \gamma\,\Delta H_{\text{hydrological}} + \delta\,\Delta B_{\text{biodiversity}} - M_{\text{restoration}}(P)
+\]
+with weights and measurements declared for the particular landscape, so that a small corridor reconnecting two mature fragments can be recognized as contributing more durable capability than a much larger, disconnected plantation.
+
+No extension project is admissible merely because its vegetation target is ecologically plausible. Land tenure, Indigenous authority, existing livelihoods, and the distribution of restoration costs belong inside the admissibility test. A project that increases measured canopy by dispossessing the people who maintained the forest, or that transfers the opportunity cost of conservation to communities while distant institutions claim the benefit, repeats the burden-separation this series has criticized elsewhere in other contexts. Ecological extension is admissible only when those who govern and inhabit the receiving landscape participate in defining the reference trajectory, the permitted uses, and the distribution of resulting capability.
+
+\section{Discussion}
+
+Two clarifications bound this paper's claim. First, the mechanism named in Section 3 is not unique to outdoor landscapes; it is a general thermodynamic structure applied here to a particular, ecologically embedded case where the reference trajectory is itself contested, multidimensional, and sometimes drifting. Second, satisfying the descriptive definition of borrowed climate is not sufficient to establish waste in the companion series' sense; only the narrower, discretionary subset, where a reference-consonant substitute delivers comparable capability at recurring lower cost, does that work, and this paper found that subset well supported for non-functional turf specifically and unsettled for snowmaking generally.
+
+\section{Conclusion}
+
+Non-functional turf in Southern Nevada is both a borrowed climate and a strong candidate for discretionary borrowed climate: recurrent water import maintains a state diverging from the Mojave's reference trajectory, and the law's own drafters judged the specific function served, ornamental appearance with no recreational or access use, replaceable at lower recurring burden. Machine snowmaking establishes the broader physical mechanism, including its tendency to worsen as the reference trajectory itself drifts, without a settled answer to whether that recurring burden purchases only negligible additional capability; that judgment depends on resort-specific substitutes and must be made resort by resort rather than assumed from the mechanism alone. Where a borrowed climate is discretionary and ended, the released resources are not automatically fungible with a distant restoration need, but the reinvestment criterion of Sections 7 through 10 gives a disciplined way to ask whether they could be converted, through budgets, land, and institutional capacity rather than direct physical transfer, into ecological capability that does not require the same permanent maintenance to persist.
+
+\section*{References}
+\begin{itemize}[nosep]
+\item Nevada Assembly Bill 356 (2021), Southern Nevada Water Authority non-functional turf provisions, effective 2027; contemporaneous AP and Planetizen reporting, June 2021.
+\item Rossi, S., Scott, D., et al. Snowmaking water and energy footprint study, University of Waterloo and University of Innsbruck, published in \emph{Current Issues in Tourism}, 2023, with secondary reporting by Earth.org and the Taylor \& Francis newsroom summary.
+\item Grist and High Country News reporting on ski-resort snowmaking reliance and Aspen Skiing Company sustainability leadership statements, 2022--2024.
+\item Colorado-based National Ski Areas Association data on snowmaking prevalence across U.S. ski areas; NPR/KUNC reporting on Western U.S. snowpack decline, 2022.
+\end{itemize}
+
+\end{document}

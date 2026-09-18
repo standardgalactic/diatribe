@@ -1,0 +1,231 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{authblk}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{booktabs}
+\usepackage{parskip}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{hypothesis}[definition]{Hypothesis}
+\newtheorem{remark}[definition]{Remark}
+
+\title{Manufactured Necessity: A Counterfactual Formalism for Structural Waste in Discretionary Infrastructure}
+\author{Flyxion}
+\affil{Independent Researcher}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Environmental assessment of large discretionary leisure infrastructure, cruise ships, destination resorts, and comparable installations, is almost always conducted at the level of operational intensity: emissions per passenger-mile, wastewater per guest-night. This framing presupposes the infrastructure and asks only how its burden should be allocated across users. A prior question, whether the installed capital should exist at all, requires a different object: the burden of the capital stock evaluated against a specified alternative world, not against inactivity. This paper defines discretionary capital relationally, against a stated service and a stated substitute; separates scalarizable burden from a residual vector of effects that resist a common unit; defines structural burden as a difference between the asset's world and a named alternative world rather than as the asset's gross life-cycle total; and replaces an ungrounded elasticity with a bounded, empirically estimable fraction of avoided capacity. It applies the resulting apparatus to two worked examples, ocean cruise ships and large-format destination theme-park resorts, using published operational and legal data, and states plainly where the evidence supports only a qualitative ordering ($\rho(K,A) > 1$) rather than a computed magnitude.
+\end{abstract}
+
+\section{Introduction}
+
+Most environmental critique of large discretionary infrastructure accepts the infrastructure as given and asks how to run it more cleanly. Each such improvement, cleaner fuel, better waste handling, is real and is compatible with a much larger question going unexamined: whether the artifact needed to be built. "How much does this ship pollute per passenger-day" and "should this ship exist" are answered by different quantities over different denominators, and conflating them lets an operational technology answer a question it was never built to answer.
+
+This paper builds an accounting object for the second question: the burden of a capital stock's existence, evaluated against a specified alternative rather than against a vaguely imagined absence. Section 2 defines discretion relationally. Section 3 gives the burden accounting, distinguishing a scalarizable component from an explicit residual. Section 4 defines the counterfactual as a difference between two named world-states and addresses its indeterminacy directly. Section 5 replaces an earlier elasticity device with a bounded, estimable capacity-response fraction. Section 6 treats opportunity cost. Sections 7 and 8 apply the apparatus to cruise ships and destination resorts. Section 9 states what the two cases support about a substitution comparison, and what they do not. Section 10 discusses scope.
+
+\section{Discretionary Capital}
+
+\begin{definition}[Discretionary relative to an alternative]
+Let $q$ denote a specified leisure service (for example, "a week of leisure travel" or "a day of recreational entertainment") and let $A$ be an available substitute supplying $q$. Capital stock $K$ is \emph{discretionary relative to $(q,A)$} if $A$ supplies $q$ at lower life-cycle burden than $K$ and foregoing $K$ does not deprive users of a basic capability.
+\end{definition}
+
+Discretionarity is therefore relational, not an intrinsic property of an asset: the claim is always "$K$ is discretionary relative to this stated service and this stated substitute," never "$K$ is discretionary" simpliciter. This avoids having to establish that hiking, home gaming, cruising, and theme-park visits are equivalent experiences; it requires only naming the service being compared and accepting that a narrower description of $q$ will yield weaker substitutability. Nothing here treats $K$ as valueless. A cruise or a resort trip can be a genuine source of satisfaction; the formalism asks what that satisfaction costs relative to $A$, not whether it is worth having at all.
+
+\begin{definition}[Manufactured necessity]
+Let $C(S)$ be a capability measure on world-state $S$: whether the basic capability referenced in Definition 2.1 is met. $C$ is kept analytically separate from $M$ and $R$, since capability is not naturally subtractable from a physical throughput quantity in the way two energy or material terms are. $K$ is a strong case of \emph{manufactured necessity} relative to $(q,A)$ when the avoided burden is large,
+\[
+\Delta M = M(S_K) - M(S_A) \gg 0,
+\]
+while the capability lost by substituting $A$ for $K$ is negligible,
+\[
+\Delta C = C(S_K) - C(S_A) \leq \varepsilon
+\]
+for a small threshold $\varepsilon$. This operationalizes the "does not deprive users of a basic capability" clause of Definition 2.1 as a threshold condition rather than a judgment call: a case is strong exactly where throughput drops sharply and capability barely moves. Where a case instead shows large $\Delta M$ alongside non-negligible $\Delta C$, the accounting still applies, but the label "manufactured" is no longer warranted; the burden may simply be the cost of the capability, and the relevant question shifts to whether $\Delta M$ is worth $\Delta C$, a comparison this paper does not attempt to settle.
+\end{definition}
+
+\begin{remark}
+$R(K;S_0)$ can be reported either as an undifferentiated residual or, where the analyst wants finer attribution, as its own typed vector of avoidable components, avoided energy, avoided material throughput, avoided land occupation, avoided ecological damage, each evaluated against the same specified $S_A$ rather than against inactivity. Nothing in Sections 3 through 9 depends on which choice is made; disaggregating $R$ trades a shorter report for a more legible one and does not change what counts as $M$.
+\end{remark}
+
+\section{Burden Accounting}
+
+\begin{definition}[Typed burden]
+For capital stock $K$ over its service life $[0,L]$, under a declared characterization method $S_0$ (for example, cumulative energy demand or CO$_2$-equivalent), the burden is the pair
+\[
+B(K;S_0) = \big(M(K;S_0),\, R(K;S_0)\big)
+\]
+where $M$ is the scalar burden expressible on the single declared basis $S_0$, and $R$ is a vector of residual effects not represented by that scalar (habitat alteration, underwater noise, distributional harm, and comparable effects that do not reduce to $S_0$ without further, contestable conversion).
+\end{definition}
+
+\begin{definition}[Scalar burden]
+Under a declared $S_0$,
+\[
+M(K;S_0) = M_{\text{build}} + \int_0^L \big[m_{\text{op}}(t) + m_{\text{maint}}(t) + m_{\text{infra}}(t) + m_{\text{prov}}(t) + m_{\text{access}}(t)\big]\,dt \;-\; M_{\text{salvage}}
+\]
+where $M_{\text{build}}$ and $M_{\text{salvage}}$ are point commitments and the lower-case terms are instantaneous rates, all expressed on the basis $S_0$: construction and fit-out; operating fuel, power, and water; maintenance and refit; dependent infrastructure (terminals, docks, transit, utility capacity); the provisioning supply chain; and access travel undertaken solely to reach the asset.
+\end{definition}
+
+Declaring $S_0$ up front is what licenses treating $M$ as a single number: the terms are only additive once each is expressed on the same basis, and any reported figure carries its characterization method with it. $R(K;S_0)$ is not summed; it is reported as a vector, and any comparison across assets stated in Section 9 concerns $M$ specifically, with $R$ reported alongside it.
+
+\section{Counterfactual Comparison}
+
+\begin{definition}[World-states and structural burden]
+Let $S_K$ be the world containing $K$, including whatever terminals, roads, flights, or other supporting assets $K$ induces, and let $S_A$ be a specified alternative world in which users obtain the service $q$ from substitute $A$ instead, including whatever burdens $A$ itself carries. The structural burden of $K$ relative to $A$ is
+\[
+\Delta_{\text{struct}}(K;A) = B(S_K) - B(S_A)
+\]
+with the scalar part $M(S_K) - M(S_A)$ and the residual reported separately as before.
+\end{definition}
+
+This is a difference between two populated worlds, not a comparison against an unpopulated baseline: if the alternative world's users take a regional holiday instead of a cruise, the regional holiday's own burden is subtracted, and the comparison survives on its merits against a realistic alternative rather than against inactivity.
+
+\begin{remark}[Counterfactual indeterminacy]
+$S_A$ is not unique for a given substitute $A$ in general, and different admissible alternatives yield different values. Where several plausible alternatives $\mathcal{A}$ exist, report
+\[
+\underline{\Delta}(K) = \inf_{A \in \mathcal{A}} \big[M(S_K) - M(S_A)\big]
+\]
+This is a conservative bound only relative to the declared admissible set $\mathcal{A}$, not relative to every conceivable alternative; the qualification is load-bearing and is carried through every reported figure below.
+\end{remark}
+
+\begin{definition}[Marginal, or variable-input, burden]
+The marginal burden $\Delta_{\text{use}}(K)$ is the change in $M$ from one additional unit of consumption inside an already-scheduled capital stock: the incremental food, linen, water, and power a single added user requires, holding construction and dependent infrastructure fixed.
+\end{definition}
+
+\begin{remark}
+Conventional intensity metrics (burden per passenger-mile, per guest-night) divide a numerator close to $M(S_K)$ by a denominator counted at the marginal scale, producing a hybrid that answers neither question cleanly: not the marginal burden, since it embeds fixed costs; not the structural burden, since more usage makes a larger asset look more "efficient" per user even as its absolute footprint grows. Call this the \emph{denominator conflation}.
+\end{remark}
+
+\section{Capacity Response and Attributable Burden}
+
+The reason marginal accounting is not simply wrong is that, at short horizons, it is often correct: one cancelled booking leaves an already-scheduled ship sailing nearly full. The question is when this stops holding, and by how much.
+
+\begin{definition}[Attributable-capacity fraction]
+Let $\kappa(t)$ be installed or planned capacity (ships in service, resort rooms), and let a demand reduction of magnitude $\Delta d$ persist for $T$ years. Define
+\[
+\alpha(T,\Delta d) = \frac{\mathbb{E}\big[\kappa_0 - \kappa_T \mid \Delta d\big]}{\kappa_0}, \qquad 0 \leq \alpha \leq 1
+\]
+the expected fraction of planned capacity avoided, retired, or not built as a result of that persistent demand reduction.
+\end{definition}
+
+\begin{definition}[Attributable burden]
+\[
+\Delta_{\text{attr}}(T,\Delta d) = \Delta_{\text{use}}(T,\Delta d) + \alpha(T,\Delta d)\cdot \Delta_{\text{struct}}
+\]
+\end{definition}
+
+This separates two causal channels: an immediate reduction in variable inputs, and a delayed, capacity-side reduction in construction, replacement, or expansion, without implying a smooth interpolation where investment responses may in fact occur at discrete thresholds (an order placed or cancelled, a refit scheduled or deferred).
+
+\begin{hypothesis}[Capacity response]
+If a demand reduction is sufficiently large and persistent to alter an identifiable construction, replacement, retirement, or expansion decision, then part of the avoided capital burden, $\alpha(T,\Delta d)\cdot\Delta_{\text{struct}}$, is attributable to that demand reduction. $\alpha$ must be estimated from observed sectoral responses, order cancellations, early retirements, deferred expansions, rather than assumed to rise smoothly with $T$.
+\end{hypothesis}
+
+Stated this way the claim is not derivable from the definitions alone; it is an empirical hypothesis about how a sector actually behaves, and it is correspondingly easier to test and to refute than a proposition asserted from the formalism. It still explains the asymmetry that motivates this paper: a single cancelled booking corresponds to $\alpha \approx 0$, dominated entirely by $\Delta_{\text{use}}$, while a sustained, sector-wide demand shift is the condition under which $\alpha$ becomes observably positive.
+
+\section{Opportunity Cost}
+
+\begin{definition}[Bounded opportunity cost]
+Let $\mathcal{U}$ be the set of feasible alternative uses of the land, labor, and capital committed to $K$, and let $V(u)$ be the value of alternative $u$ restricted to benefits not already represented in $B(K)$, to avoid double-counting. Define
+\[
+OC(K;\mathcal{U}) = \max\Big\{0,\; \sup_{u \in \mathcal{U}} V(u) - V(K)\Big\}
+\]
+\end{definition}
+
+$\mathcal{U}$ must contain only alternatives that are actually feasible, legally, hydrologically, infrastructurally, and economically, on the same land and capital; showing that housing or parkland could geometrically fit on a site does not by itself establish membership in $\mathcal{U}$. Where feasibility is not independently demonstrated, a reported figure is offered as an \emph{illustrated feasible-alternative scenario}, not as an established lower bound on $OC(K)$.
+
+\section{Worked Example I: Ocean Cruise Ships}
+
+Cruise ship capital is comparatively legible: mobile, discrete, and already the subject of a critical literature that treats the industry itself as the unit of analysis (Klein's \emph{Cruise Ship Squeeze} and \emph{Paradise Lost at Sea}; Becker's \emph{Overbooked}; Lloret, Carre\~no, Cari\'c, San, and Fleming's 2021 review of cruise tourism's environmental and health evidence; ICCT work on fleet greenhouse gas and methane performance).
+
+\subsection{Marginal terms}
+
+The EPA's cruise ship discharge survey reports approximately 8.4 gallons of sewage and 67 gallons of greywater per person per day, so a 3{,}000-person vessel generates on the order of 226{,}000 gallons of wastewater daily, roughly 1.6 million gallons over a seven-day voyage. A defensible conservative solid-waste estimate near two pounds per passenger-day implies roughly three tons daily for the same vessel. These are the quantities a conventional per-passenger metric reports, and they populate $\Delta_{\text{use}}$: what one more berth adds to an already-sailing ship.
+
+\subsection{Structural terms and the specified alternative}
+
+Take $A$ to be a regional or domestic holiday of comparable duration substituting for the cruise, so $S_A$ is the world in which that regional holiday's own construction, transport, and operating burdens are counted rather than the ship's being simply subtracted against nothing. $M(S_K)$ includes construction of tens of thousands of tonnes of steel and outfitting, contemporary shipbuilding steel carrying on the order of two tonnes of CO$_2$-equivalent per tonne through the supply chain; fuel consumption, verifiable directly where records exist and, for European waters, through the EU's vessel-level Monitoring, Reporting, and Verification system; and dependent terminal, dredging, and provisioning infrastructure. A 2025 European maritime assessment reports a 40 percent increase in cruise greywater discharge between 2014 and 2023, and finds open-loop scrubbers responsible for the large majority of permitted maritime water discharges, a control that relocates stack sulphur into washwater rather than removing it. $R(S_K)$ includes underwater noise, ship-strike risk, ballast-water invasive species introduction, and coastal exposure documented for fragile sites such as Venice by Cari\'c and Mackelworth's Adriatic case study.
+
+\subsection{Opportunity cost, illustrated}
+
+Symphony of the Seas, a representative large modern hull, was reported at a construction cost near \$1.35 billion in 2016. As an illustrated feasible-alternative scenario, that sum directed at regional passenger-rail rolling stock, affordable housing, or renewable generation, each an already-demonstrated use of comparable industrial capital and labor, would produce a large, specifiable quantity of lower-footprint capacity. This is offered as an illustration bounding attention on the right order of magnitude, not as a demonstrated $OC(K) > 0$, since feasibility (financing, siting, regulatory approval for the alternative use) is not independently established here.
+
+\subsection{Capacity response applied}
+
+A single cancelled booking corresponds to $\alpha \approx 0$: the ship sails regardless, and $\Delta_{\text{attr}}$ reduces to $\Delta_{\text{use}}$, small and dominated by one berth's marginal draw. A sustained, multi-year decline sufficient to cancel new-build orders or retire tonnage early is the condition under which $\alpha$ becomes observably positive, and $\Delta_{\text{attr}}$ approaches $\Delta_{\text{struct}}$ for the retired or uncommissioned hull. Industry sustainability reporting, framed almost entirely in per-passenger-night terms, addresses only the $\alpha \approx 0$ regime.
+
+\subsection{Waste handling and its limits}
+
+MARPOL Annexes IV and V regulate sewage and garbage disposal, and modern vessels sort, compact, incinerate, treat, and land different waste streams accordingly. Carnival Corporation's 2016 felony conviction, a \$40 million fine for illegal bilge discharge and falsified records, and its further \$20 million penalty in 2019 for continued violations during court-supervised probation, demonstrate that compliance cannot simply be presumed. Yet even perfect compliance would alter only particular operational and ecological terms; it would not erase construction, propulsion, terminal, dredging, provisioning, or access burdens. Waste regulation can therefore improve $B(S_K)$ without answering whether $B(S_K) < B(S_A)$.
+
+\subsection{Local economic benefit as a benefit, not an offset}
+
+Claims of local economic benefit belong in the counterfactual comparison as benefits of $S_K$ relative to $S_A$, not as offsets weighed against physical burden. Survey evidence shows substantial variation among ports: a Bergen study found cruise tourists spending markedly less onshore than other visitor classes, with twenty to forty percent never disembarking, while Bar Harbor and Canary Islands studies document meaningful local spending where port calls are longer, and a Caribbean-adjacent central-bank analysis finds a substantial share of onshore shopping spending leaking back out as imported goods, concentrated among a few established retailers. The relevant quantity is local value added net of leakage and public cost, compared with value added under $A$; gross passenger expenditure figures, the number the industry usually reports, are not themselves evidence that the structural burden is justified.
+
+\section{Worked Example II: Large Destination Theme-Park Resorts}
+
+For a destination resort, the relevant system boundary includes construction, building energy, water, internal transportation, employee commuting, visitor access travel, and induced infrastructure. The last two plausibly dominate, since tens of millions of annual visits converge on a site designed as a nonlocal destination. Unlike a ship, the resort cannot readily be retired or redeployed: the empirically relevant capacity margin is avoided expansion and replacement, not instantaneous removal of the existing property.
+
+\subsection{Opportunity cost, illustrated}
+
+Reported figures place the property's currently developed footprint near 5{,}900 to 6{,}000 acres. As an illustrated feasible-alternative scenario, at an ordinary low-density suburban pattern of roughly four dwelling units per acre and two and a half residents per unit, that acreage corresponds to on the order of twenty thousand dwelling units and fifty thousand residents, an already-demonstrated regional land use. As in the cruise case, this illustrates rather than establishes $OC(K) > 0$: legal, hydrological, and infrastructural feasibility of that specific alternative on that specific land is not independently shown here.
+
+\subsection{Capacity response applied}
+
+A cruise line can retire a hull; a resort operator cannot retire committed land and utility easement in the same sense. What can move is expansion, new hotel towers, new parking, new park lands, and the induced regional development that follows. A sustained shift away from destination mega-resort vacations would plausibly cancel the next several planned expansions rather than shrink the existing core, so $\alpha(T,\Delta d)$ for this sector is better modeled as governing the growth rate of dependent infrastructure than as governing retirement of the existing stock.
+
+\section{Substitution Comparison}
+
+\begin{definition}[Normalized substitution ratio]
+For asset $K$ and substitute $A$ both delivering a declared service $q$, with $Q_K$ and $Q_A$ measuring the quantity of $q$ delivered by each (for example, leisure-hours over the assessment period), define
+\[
+\rho(K,A;q) = \frac{M(K)/Q_K}{M(A)/Q_A}
+\]
+\end{definition}
+
+Normalizing by delivered service, rather than comparing whole-asset totals, is necessary because $K$ and $A$ are not otherwise evaluated over a common unit. The candidate substitutes for the two worked examples, an evening or week of home video-gaming and a day of hiking on existing local trails, are chosen because their $M(A)$ is small and well bounded: a console's embodied burden amortizes over years and hundreds of hours of use, and its marginal draw is a few hundred watts already metered into ordinary household electricity; a day on an existing trail draws on infrastructure whose cost is shared across every other use in its service life, with marginal burden per additional hiker close to zero. $M(K)$ for either worked example includes thousands of tonnes of steel or concrete amortized over a finite life, dedicated terminal or transit infrastructure, and, in the great majority of cases, a long-haul flight or drive with no analogue in the home-based substitute.
+
+No numerator, denominator, or sensitivity interval computed to a common functional unit is offered here; doing so would require an audited life-cycle inventory this paper does not attempt. What the inventory sketched above supports is the qualitative claim that $\rho(K,A;q) > 1$ for appropriately matched local alternatives, principally because the destination cases include dedicated capital and access travel wholly absent from the local alternatives. Its magnitude, whether $\rho$ is close to one or several orders larger, cannot be established without that common functional unit and an audited inventory, and this paper does not claim to have established it.
+
+\begin{remark}
+$\rho(K,A;q)$ and the composition of $R(K)$ are separate questions. A theme-park resort plausibly carries a smaller marine-specific residual than a cruise ship: no ballast water, no at-sea discharge, no ship-strike risk, though its founding did convert wetland and its operation draws a shared regional aquifer. "Less damaging to sea life" is true and worth stating; the two should not be flattened into one category of consumerist spectacle. But the difference sits inside $R(K)$'s composition, not in $\rho(K,A;q)$: the resort substitutes a larger construction, infrastructure, and access footprint for the ship's larger marine residual, and a lower marine impact does not by itself imply a lower $\rho$.
+\end{remark}
+
+\section{Discussion}
+
+Two clarifications bound the claim. First, the formalism does not resolve the valuation problem inside $R(K)$ and $OC(K)$; it prevents that unresolved problem from being discharged silently by an intensity metric that never asked the existence question. Second, a single traveler's decision not to cruise is nearly inert, correctly, because it sits in the $\alpha \approx 0$ regime; the substantive claim is that consequential change in this domain operates through sustained demand shifts acting on the capacity-response channel, not that any individual choice is meaningless.
+
+A further objection deserves a direct answer: if people choose cruises and resorts over cheaper local alternatives, does revealed preference not settle the question? Two responses apply. A preference expressed among options shaped by destination-specific advertising, bundled pricing, and existing travel infrastructure is not the same evidentiary object as a preference expressed among options on equal footing. And even granting the preference as genuine, satisfying it is a separate question from whether doing so justifies the structural burden, just as a genuine preference for a good does not by itself justify an externality imposed on a third party. What would count as a justification, on the narrower claim this paper makes, is a showing that $OC(K;\mathcal{U}) = 0$, that no feasible comparable alternative use of the same land, capital, and labor existed, a showing neither worked example here supports but which the formalism leaves open in principle.
+
+The two cases differ mainly in which term dominates: mobile, retireable capital for the ship, against sunk, settlement-generating capital for the resort. Other discretionary capital-intensive sectors, casino resorts, stadium districts, ski resort infrastructure, would populate the same structure with a different dominant term.
+
+\section{Conclusion}
+
+Per-user intensity and avoided-capacity burden answer different causal questions. The first estimates how burden changes when use changes within fixed capacity; the second estimates how a persistent demand change alters construction, replacement, retirement, and dependent infrastructure. Neither quantity should stand in for the other. A defensible assessment therefore specifies an alternative scenario $A$, a common functional unit for any cross-asset ratio, a system boundary, and an empirically estimated capacity-response fraction rather than an assumed one. Under that discipline, operational efficiency remains valuable, cleaner fuel and better waste handling are real improvements, but it cannot by itself establish the desirability of the capital stock whose existence is under evaluation.
+
+\section*{References}
+\begin{itemize}[nosep]
+\item Becker, E. \emph{Overbooked: The Exploding Business of Travel and Tourism}. Simon \& Schuster, 2013.
+\item Cari\'c, H. and Mackelworth, P. Cruise tourism environmental impacts: the perspective from the Adriatic Sea. \emph{Ocean \& Coastal Management}, 2014.
+\item Klein, R. A. \emph{Cruise Ship Blues: The Underside of the Cruise Industry}. New Society Publishers, 2002.
+\item Klein, R. A. \emph{Cruise Ship Squeeze: The New Pirates of the Seven Seas}. New Society Publishers, 2005.
+\item Klein, R. A. \emph{Paradise Lost at Sea: Rethinking Cruise Vacations}. Fernwood Publishing, 2008.
+\item Larsen, S. et al. Belly full, purse closed: cruise line passengers' onshore spending. University of Bergen research program, as reported by ScienceNorway/forskning.no.
+\item Ba\~nos Pino, J. F. and Tovar, B. Estimating cruise passenger's expenditure: a censored system approach. \emph{Tourism Management Perspectives} 38, 2021.
+\item Gabe, T., Gayton, D., Robinson, P., McConnon, J., and Larkin, S. Economic impact of cruise ship passengers visiting Bar Harbor, Maine, 2016.
+\item Business Research \& Economic Advisors. \emph{Economic Contribution of Cruise Tourism to the Destination Economies}, triennial study for the Florida-Caribbean Cruise Association, 2014/2015 cruise year.
+\item U.S. Department of Justice press releases and court filings, United States v. Princess Cruise Lines and United States v. Carnival Corporation, 2016 and 2019, on MARPOL violations and probation compliance.
+\item Lloret, J., Carre\~no, A., Cari\'c, H., San, J., and Fleming, L. E. Environmental and human health impacts of cruise tourism: a review. \emph{Marine Pollution Bulletin}, 2021.
+\item United States Environmental Protection Agency. \emph{Cruise Ship Discharge Assessment Report}, 2008.
+\item European Maritime Safety Agency / European Environment Agency. \emph{European Maritime Transport Environmental Report}, 2025.
+\item International Council on Clean Transportation. Assorted technical briefs on cruise ship greenhouse gas emissions, methane slip, and shipbuilding steel life-cycle emissions.
+\item Industry-reported operational statistics for Walt Disney World (developed acreage) as compiled in publicly available park-statistics sources; presented as an order-of-magnitude worked-example input, not as an audited account.
+\end{itemize}
+
+\end{document}

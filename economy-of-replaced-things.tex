@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{authblk}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{parskip}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{remark}[definition]{Remark}
+
+\title{The Economy of Replaced Things: Withdrawn Admissibility When Physical Capability Persists}
+\author{Flyxion}
+\affil{Independent Researcher}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A repair lock does not remove a tractor's farming service from the set of things the tractor institutionally may do; it restricts an action, diagnosis, calibration, reprogramming, that would preserve or restore that service without replacement. This paper defines withdrawn admissibility over actions rather than over services directly: an intervention is technically feasible on an object, would preserve or restore the object's service without requiring replacement, and is nonetheless excluded from the set of institutionally authorized interventions. It distinguishes this from the companion paper \emph{Manufactured Necessity} not by whether a burden is externalized, burdens are distributed away from the chooser in both papers, but by whether control over the object's continued-use pathway is heteronomous: exercised by a party other than the object's owner or user, who removes a technically feasible continuation action from the authorized set regardless of who ultimately bears the resulting cost. Two worked examples, both instances of the same formal structure, are used: repair-authorization restriction in agricultural equipment, and parts-pairing restriction in consumer electronics. A withdrawal is reversible in principle, since the foreclosed action remains technically available throughout; a companion paper to follow, \emph{Artificial Scarcity, Perfectly Preserved}, treats the case where the action or object is physically foreclosed instead, so that reopening authorization can no longer restore it.
+\end{abstract}
+
+\section{Introduction}
+
+A tractor whose engine, hydraulics, and drivetrain all work is not, in the relevant sense, broken when its onboard diagnostic software refuses to authorize a repair performed by anyone but an authorized dealer. What has been withdrawn is not the tractor's farming service directly; the tractor can still be driven into a field. What has been withdrawn is a specific action, diagnosis and reprogramming, that would keep the tractor delivering that service without the owner having to replace it or pay a toll to a party who did not do the repair. This paper is about that class of action, technically available, institutionally foreclosed, and asks what it costs when the foreclosure produces a replacement decision the object's physical condition did not require.
+
+Section 3 defines withdrawn admissibility over actions rather than services, which is the more exact of the two formulations and the one this paper uses throughout. Section 4 distinguishes heteronomous governance from mere burden externalization, since the companion paper's cases already distribute cost away from the chooser and something sharper than that is needed to mark this paper's cases as different in kind. Section 5 states the manufactured-necessity condition as a separate, empirical claim rather than one true by construction. Sections 6 and 7 apply the apparatus to two worked examples with the same formal shape: agricultural repair restriction and consumer-electronics parts pairing. Section 8 draws the boundary with the next paper in the sequence.
+
+\section{Inherited Apparatus}
+
+This paper adopts the burden accounting of \emph{Manufactured Necessity} and \emph{Conditioned Emptiness}: burden on a declared basis $S_0$ as a scalar $M$ with residual $R$, and a capability measure $C$ kept analytically separate from $M$. What follows applies that apparatus to capital whose construction is not in question and whose use has not merely been underrun, but whose continued service has been made contingent on an action its owner is not permitted to take.
+
+\section{Withdrawn Admissibility Over Actions}
+
+\begin{definition}[Action-sets]
+Let $\mathcal{A}_{\text{technical}}(x,t)$ be the set of interventions technically feasible on object $x$ at time $t$, and $\mathcal{A}_{\text{authorized}}(x,t)$ the subset of those interventions currently permitted by the party governing $x$'s repair, software, or compatibility pathway.
+\end{definition}
+
+\begin{definition}[Withdrawn admissibility]
+$x$ is subject to withdrawn admissibility with respect to service $q$ at time $t$ if there exists an action $a$ such that
+\[
+a \in \mathcal{A}_{\text{technical}}(x,t), \qquad a \notin \mathcal{A}_{\text{authorized}}(x,t)
+\]
+and performing $a$ would preserve or restore $q$ without requiring replacement of $x$:
+\[
+q \in \mathcal{U}_{\text{physical}}\big(a(x),\, t+\delta\big)
+\]
+\end{definition}
+
+Defining the relation over actions rather than over an object's service-set directly does two things a service-level definition cannot. First, it separates the foreclosed pathway from the eventual capability loss that pathway's foreclosure may or may not cause, so the claim is not that the tractor's farming service was ever institutionally forbidden, only that a specific means of preserving it was. Second, it treats software correctly: a software-locked machine is not physically capable of a service while ignoring its own software state, since software is part of the object's actual technical condition, and the more defensible claim is that a repair or reconfiguration action remains technically performable on that state while being excluded from the authorized set that governs whether performing it is permitted.
+
+\section{Heteronomous Governance}
+
+\begin{definition}[Roles]
+Let $s$ be the object's service user or owner, $g$ the party governing $\mathcal{A}_{\text{authorized}}(x,t)$, and $b$ the party who ultimately bears the resulting burden $M$. A withdrawal is \emph{heteronomous} when $g \neq s$ and $g$ removes an $a \in \mathcal{A}_{\text{technical}}(x,t)$ from $\mathcal{A}_{\text{authorized}}(x,t)$.
+\end{definition}
+
+This is a narrower and more accurate claim than distinguishing this paper's cases from the companion paper's by whether the burden is externalized. It is not: a cruise passenger who books a voyage pays the ticket price but does not bear the cruise's full ecological and infrastructural burden, which is distributed across coastal communities, marine ecosystems, and future claimants who never chose the voyage, so $b \neq s$ already holds in \emph{Manufactured Necessity}'s cases. What is different here is $g$: in the cruise case, no party other than the traveler governs whether the trip happens, whereas in a repair-restriction case, $g$ (the manufacturer or authorized-dealer network) is a distinct party from $s$ (the owner) who actively removes a continuation action from the authorized set. Heteronomy concerns control over the continuation pathway, not the distribution of cost; whether $b = s$, $b = g$, or the burden is spread across third parties (waste handlers, future buyers, the ecological system absorbing discarded material) is a separate incidence question this paper does not need to resolve in order to establish that the governance itself is heteronomous.
+
+\section{From Withdrawn Admissibility to Manufactured Necessity}
+
+Withdrawn admissibility, established above, does not by itself show that the resulting replacement is wasteful; it shows only that a repair-and-continue path was technically available and institutionally foreclosed. Whether the foreclosure produces a manufactured-necessity case is a further, empirical question.
+
+\begin{definition}[Repair and replacement states]
+Let $S_R$ be the state in which the foreclosed action $a$ is performed and $x$ continues in service, and $S_N$ the state in which $x$ is replaced instead. Define
+\[
+\Delta M = M(S_N) - M(S_R), \qquad \Delta C = C(S_N) - C(S_R)
+\]
+\end{definition}
+
+Withdrawn admissibility establishes that $S_R$ was technically available. It does not establish $\Delta C \leq \varepsilon$ by construction: a replacement may add reliability, safety, efficiency, or other capability $S_R$ lacked, and where it does, the case is not manufactured necessity in the companion paper's sense even though admissibility was genuinely withdrawn. Only where $\Delta M \gg 0$ and $\Delta C \leq \varepsilon$ both hold does the withdrawal additionally qualify as a manufactured-necessity case, and each worked example below states what is and is not established on this point rather than assuming it.
+
+\section{Worked Example I: Agricultural Repair Restriction}
+
+\subsection{Scale}
+
+In January 2025 the Federal Trade Commission and the attorneys general of Arizona, Illinois, Michigan, Minnesota, and Wisconsin filed an antitrust suit against Deere \& Company, alleging its repair software practices unlawfully restricted farmers and independent shops from performing repairs authorized dealers could already perform, driving up cost and repair time during planting and harvest windows. Two independent proceedings followed rather than one settlement in two stages: a separate consumer class action, unrelated in party structure to the government suit, reached a ninety-nine million dollar settlement with farmers in April 2026; the FTC-and-states antitrust case settled separately in July 2026, with Deere agreeing to provide farmers and independent repair providers the diagnostic and repair software capability previously reserved for authorized dealers, under ten years of compliance oversight.
+
+Diagnosis and reprogramming, the actions the settlement restores to $\mathcal{A}_{\text{authorized}}$, satisfy Definition 3.2 directly: they were technically feasible throughout ($a \in \mathcal{A}_{\text{technical}}$), excluded from the authorized set before the settlement, and their performance would have preserved the tractor's farming service without requiring the farmer to replace the equipment or route the repair through a paid authorized channel.
+
+\subsection{The manufactured-necessity question}
+
+For a farmer facing a foreclosed repair during a time-sensitive window, $S_R$ (independent or self-repair) and $S_N$ (a costlier authorized repair, or in the more severe case, early equipment replacement) can be compared directly: the capability delivered, functioning equipment for the current planting or harvest cycle, is close to identical between the two, so $\Delta C \leq \varepsilon$ is a defensible empirical claim in this case, not merely an assumption, and $\Delta M$ is the embodied and cost burden of the more severe outcome, which is exactly what the FTC's complaint alleged the restriction was producing.
+
+\section{Worked Example II: Parts-Pairing Restriction}
+
+\subsection{Scale}
+
+Beginning with devices sold after January 1, 2025, Oregon's Senate Bill 1596 became the first U.S. right-to-repair law to ban parts pairing directly, the practice of digitally linking a replacement component's serial number to the specific unit it is installed in so that the device restricts or degrades functionality even when the installed part is a genuine, undamaged component. Reporting on the practice describes concrete instances: an iPhone 13 or 14 screen replaced with a genuine Apple screen not paired through Apple's own authorization process could disable Face ID; a replaced camera module could lose full functionality; a replaced battery could trigger a persistent warning that an "unidentified part" is installed. iFixit downgraded its repairability rating for the iPhone 14 specifically on these grounds. Apple, which had by this point publicly supported broader right-to-repair legislation in California, opposed Oregon's parts-pairing provision specifically, citing security concerns about unauthorized biometric-sensor components, while the law was passed and took effect regardless.
+
+Here $a$ is the act of installing a genuine replacement part without routing it through the manufacturer's pairing authorization; $a \in \mathcal{A}_{\text{technical}}$, since the part is physically compatible and the installation is a routine repair; $a \notin \mathcal{A}_{\text{authorized}}$ prior to Oregon's law, since the device's own software declines to recognize the unpaired part as fully legitimate; and $q \in \mathcal{U}_{\text{physical}}(a(x), t+\delta)$, since the device with the genuine part installed is physically capable of full function, Face ID included, the software restriction being the only obstacle.
+
+\subsection{The manufactured-necessity question}
+
+$S_R$ here is a device repaired with a genuine but unpaired part, running at full physical capability with a software-imposed restriction; $S_N$ is a new device. $\Delta C$ requires more care than the agricultural case: if the practical effect of an unresolved pairing restriction is that the owner cannot recover full functionality (a permanently disabled Face ID, a camera that never regains full resolution) without the manufacturer's own authorization step, then $S_R$ itself delivers less than full capability, and $\Delta C$ between $S_R$ and $S_N$ may not be negligible, in which case the case documents withdrawn admissibility clearly while remaining an open empirical question as manufactured necessity specifically. Where an authorization pathway exists and is simply gatekept rather than absent, as reporting suggests Apple's own "parts blessing" process partially allowed prior to the Oregon law, $\Delta C$ approaches zero once that gate is passed, and the burden the case documents is the toll, in cost, delay, or exclusion of independent shops, of passing through a gate that need not exist as a physical matter at all.
+
+\section{Where This Paper Stops}
+
+Both worked examples share the same structure: an action remains technically available throughout, and what has been withdrawn is authorization for it, which is why both are reversible by policy change, as Oregon's law and the Deere settlement each demonstrate directly. This is the boundary the next paper in the sequence, \emph{Artificial Scarcity, Perfectly Preserved}, is built to cross. There, the object or the action itself is removed from $\mathcal{A}_{\text{technical}}$, not merely from $\mathcal{A}_{\text{authorized}}$, through destruction, disabling, or permanent sequestration, so that reopening authorization no longer restores anything, because the technical basis for the action no longer exists.
+
+\section{Discussion}
+
+Two qualifications follow from the reconstruction above. First, withdrawn admissibility and manufactured necessity are separate claims, and this paper's contribution is the former; the latter requires the case-specific empirical comparison of Section 5, which the two worked examples satisfy to different degrees, the agricultural case more cleanly than the electronics case, where a genuine capability difference cannot be ruled out. Second, heteronomous governance, not burden externalization, is what marks these cases as distinct from the companion paper's, since externalized burden is already present there; what is additionally present here is a party distinct from the object's owner actively removing a technically available continuation action from what that owner is permitted to do.
+
+\section{Conclusion}
+
+Withdrawn admissibility names a specific, reversible mechanism: an action that would preserve an object's service without replacement remains technically available while a party other than the object's owner excludes it from the authorized set. Agricultural repair restriction and consumer-electronics parts pairing both fit this pattern with the same formal shape, and both were reversed, in the jurisdictions and periods examined, by an external mechanism, litigation and settlement in one case, legislation in the other, operating at a scale no individual owner's repair decision could reach on its own. Whether a given instance of withdrawn admissibility also qualifies as manufactured necessity is a further, empirical question this paper answers case by case rather than by definition.
+
+\section*{References}
+\begin{itemize}[nosep]
+\item Federal Trade Commission and State Attorneys General of Arizona, Illinois, Michigan, Minnesota, and Wisconsin v. Deere \& Company, antitrust complaint filed January 2025, settled July 2026 with ten-year compliance oversight.
+\item Deere \& Company consumer class-action settlement, unrelated proceeding, \$99 million fund, April 2026.
+\item Oregon Senate Bill 1596, signed into law March 2024, parts-pairing provisions effective for devices manufactured after January 1, 2025.
+\item Reporting on Apple parts-pairing practice and iFixit repairability scoring for iPhone 13 and 14, 2022--2024.
+\item International Telecommunication Union and United Nations Institute for Training and Research. \emph{Global E-waste Monitor 2024}: 62 million tonnes generated in 2022, 22.3 percent documented as formally collected and recycled, limited repair options named as a contributing driver.
+\end{itemize}
+
+\end{document}

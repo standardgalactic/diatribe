@@ -1,0 +1,177 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{authblk}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\usepackage{parskip}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{remark}[definition]{Remark}
+
+\title{Merchants of Lack: Advertising and the Construction of the Reference State}
+\author{Flyxion}
+\affil{Independent Researcher}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A diamond engagement ring, once diamonds become the socially recognized proof of an adequate courtship, really does deliver that proof; the capability is not hallucinated. What this paper argues is not that perceived capability exceeds actual capability, but that an interested seller can participate in constructing the reference system, the convention of what counts as adequate, against which capability is subsequently evaluated, and can capture the purchases required to meet the standard it helped move. This paper separates functional capability, $C_F(x)$, from social or positional capability under a convention, $C_S(x \mid R)$, and defines manufactured want as a documented, seller-driven shift in the reference state $R_0 \to R_g$ that raises the felt inadequacy of an unchanged possession without any corresponding decline in its functional capability. Two historical cases are examined for their unusually direct documentary record: the De Beers-N.W. Ayer diamond engagement ring campaign of 1938 to 1947, and General Motors' annual model-year styling change. Neither case requires treating the resulting satisfaction as illusory; the claim is narrower and, this paper argues, stronger: the actor who moved the standard of adequacy was also positioned to capture the purchases required to meet it.
+\end{abstract}
+
+\section{Introduction}
+
+Once a convention exists in which a diamond ring signals an adequate engagement, the ring's ability to signal that is a real capability, not a mistaken estimate of one. The interesting question this paper pursues is therefore not whether consumers overestimate what a purchase does for them; it is who moved the standard the purchase is measured against, and whether that mover was also the party who profits from the purchases the new standard requires.
+
+Section 2 separates functional capability from capability conferred by a social convention, and defines a reference-dependent purchase decision in those terms. Section 3 develops the formal consequences: how a felt lack grows when the reference point moves rather than when the possessed object changes, how commercial investment, peer transmission, and institutional reinforcement jointly sustain or shift the reference state, how a shifted reference state raises replacement hazard and connects directly to the throughput the companion paper \emph{The Economy of Replaced Things} describes, and why a firm can rationally invest in moving the reference point even where doing so creates more system burden than a capability-based accounting would accept. Sections 4 and 5 apply the apparatus to two documented cases. Section 6 states this paper's evidentiary limits.
+
+\section{The Mechanism: Reference-System Construction}
+
+\begin{definition}[Functional and social capability]
+Let $C_F(x)$ be the functional capability of $x$ (for a car: transportation, reliability, safety, carrying capacity), independent of any convention. Let $C_S(x \mid R)$ be the social or positional capability $x$ confers under reference convention $R$ (contemporaneity, prestige, recognition as an adequate signal of commitment).
+\end{definition}
+
+\begin{definition}[Reference-dependent purchase decision]
+Let $x_0$ be the object or condition a consumer $i$ already possesses and $x_1$ a proposed replacement. Define the incremental utility of replacing $x_0$ with $x_1$ under reference state $R$ as
+\[
+\Delta U_i(R) = \big[F_i(C_F(x_1)) - F_i(C_F(x_0))\big] + \big[S_i(x_1 \mid R) - S_i(x_0 \mid R)\big] - p_i
+\]
+where $p_i$ is the purchase price and any cost of replacement. Consumer $i$ purchases when $\Delta U_i(R) > 0$.
+\end{definition}
+
+\begin{definition}[Seller-induced purchase margin]
+Let $R_0$ be the reference state that would prevail absent an interested intervention, and $R_g$ the state produced or materially reinforced by actor $g$. The induced margin is
+\[
+\mu_{g,i} = \Delta U_i(R_g) - \Delta U_i(R_0)
+\]
+Since functional capability is fixed across the two reference states, $\mu_{g,i}$ reduces to the change in social-capability utility alone. A purchase is \emph{reference-dependent} with respect to $g$ when $\mu_{g,i} > 0$, and \emph{strongly reference-dependent} when
+\[
+\Delta U_i(R_0) \leq 0 < \Delta U_i(R_g)
+\]
+the purchase would not have occurred under the seller-independent reference state, but becomes individually rational once the convention has moved.
+\end{definition}
+
+\begin{definition}[Induced lack and manufactured want]
+Let $D(C_0, R)$ be a declared distance between a consumer's actual condition $C_0$ and reference state $R$. The lack attributable to $g$'s intervention is
+\[
+L_g = D(C_0, R_g) - D(C_0, R_0)
+\]
+A want is \emph{manufactured} when $L_g > 0$ and documentary or causal evidence attributes a material part of the shift $R_0 \to R_g$ to an interested intervention by $g$, an actor with sufficient influence to move or reinforce the relevant reference state, not necessarily a monopolist; competitive firms can collectively intensify the same reference point.
+\end{definition}
+
+This does not require declaring the resulting satisfaction unreal. A mechanically unchanged car can become stylistically dated, and an otherwise complete engagement can become symbolically deficient, because the reference state moved while the functional condition of what was already possessed did not. The evidentiary bar this paper sets, documentary or causal attribution of the shift to $g$, exists because without it, this mechanism is indistinguishable from ordinary cultural preference formation: no preference arises entirely independent of culture, imitation, and institutions, and this paper's claim is narrower than a claim about preference formation in general.
+
+\begin{remark}[What is and is not concealed]
+Consumers generally know that advertisements are advertisements; concealment of persuasion as such is not this mechanism's operative feature. What is obscured is the historical contingency of the norm itself, that the diamond ring is one commercially cultivated convention among alternatives rather than the natural grammar of engagement, or that this year's styling is a designed reference shift rather than an independent standard of automotive adequacy.
+\end{remark}
+
+\section{Formal Consequences of Reference-Point Engineering}
+
+\subsection{Reference displacement and felt lack}
+
+Let $L_i(R) = D(C_{0,i}, R)$ be felt lack under reference state $R$. Where the distance measure is differentiable,
+\[
+\frac{dL_i}{dt} = \frac{\partial D}{\partial C_0}\frac{dC_{0,i}}{dt} + \frac{\partial D}{\partial R}\frac{dR}{dt}
+\]
+In the case relevant to both worked examples, the consumer's functional condition is stable, $dC_{0,i}/dt \approx 0$, so
+\[
+\frac{dL_i}{dt} \approx \frac{\partial D}{\partial R}\frac{dR}{dt}
+\]
+Lack grows not because the possessed object deteriorates, but because adequacy recedes from it.
+
+\subsection{Commercial input and social amplification}
+
+Advertising rarely acts alone. Let $a_g(t)$ be seller investment in moving the reference state, $\bar{R}(t)$ the reference state expressed by the surrounding population, and $z(t)$ institutional reinforcement (retail practice, ceremony, media representation). A schematic dynamic is
+\[
+\frac{dR}{dt} = -\kappa(R - R_0) + \beta a_g(t) + \gamma(\bar{R} - R_0) + \delta z(t)
+\]
+where $\kappa$ is reversion toward the prior reference state, $\beta$ the direct effectiveness of commercial intervention, $\gamma$ peer amplification, and $\delta$ institutional reinforcement. Under a homogeneous approximation ($\bar{R} = R$, constant inputs) and $\kappa > \gamma$, the steady state is
+\[
+R^{*} = R_0 + \frac{\beta a_g + \delta z}{\kappa - \gamma}
+\]
+so the direct effect of seller investment is amplified by $\mathcal{A} = \kappa/(\kappa - \gamma)$ relative to a model without peer reinforcement; as $\gamma$ approaches $\kappa$, a small commercial input supports a much larger displacement. This model, deliberately more cautious than treating felt lack as decaying exponentially toward a fixed psychological baseline, also explains why continuous advertising need not remain necessary indefinitely: once a convention is carried by $z(t)$, engagement ritual, retail practice, model-year classification, the originating seller can reduce $a_g(t)$ without $R$ returning to $R_0$, since the convention has acquired other reproduction channels. Manufactured want can therefore initiate a path-dependent norm that later reproduces itself socially, which is closer to what the diamond case in fact shows than a simple decay model would predict.
+
+\subsection{From manufactured lack to replacement throughput}
+
+Let $\lambda_i(R)$ be consumer $i$'s replacement hazard under reference state $R$, increasing in the induced margin:
+\[
+\lambda_i(R_g) = \lambda_{0,i}\exp(\theta_i \mu_{g,i}), \qquad \theta_i \geq 0
+\]
+with $\lambda_{0,i} = \lambda_i(R_0)$. For an approximately constant hazard, expected service life is $\mathbb{E}[T_i \mid R] = 1/\lambda_i(R)$, so reference-point engineering shortens it by
+\[
+\Delta T_i = \frac{1}{\lambda_i(R_0)} - \frac{1}{\lambda_i(R_g)} \geq 0
+\]
+Let $\mathbf{m}(x_1)$ be the declared burden vector of one replacement unit. Across a population of $N$ consumers, the additional per-period burden attributable to the conditioned reference state is
+\[
+\Delta\mathbf{M}_g = \sum_{i=1}^{N} \Delta\lambda_{g,i}\, \mathbf{m}(x_1) \approx N\lambda_0\big[\exp(\theta\mu_g) - 1\big]\mathbf{m}(x_1)
+\]
+under a homogeneous approximation. This is the missing connection to \emph{The Economy of Replaced Things}, which begins with an adequate object removed from continued use; this paper identifies one mechanism that raises the rate of such removals without any decline in the removed object's functional capability.
+
+\subsection{The private incentive to manufacture lack}
+
+Let $\pi$ be contribution margin per additional sale, $\lambda(a) = \lambda_0 + \eta a$ the purchase rate as a function of advertising investment $a$, and $c(a) = \tfrac{\chi}{2}a^2$ its cost. A firm maximizing $\Pi_g(a) = N\pi\lambda(a) - c(a)$ chooses $a_g^{*} = N\pi\eta/\chi$. Let $\boldsymbol{\omega}$ be declared social weights on the external burden vector $\mathbf{m}$, and $d = \boldsymbol{\omega}\cdot\mathbf{m}$ the burden cost per induced replacement. A burden-sensitive objective $W(a) = N(\pi - d)\lambda(a) - c(a)$ instead chooses $a_S^{*} = \max\{0, N(\pi-d)\eta/\chi\}$. The divergence,
+\[
+a_g^{*} - a_S^{*} = \begin{cases} Nd\eta/\chi & \pi > d \\ N\pi\eta/\chi & \pi \leq d \end{cases}
+\]
+shows why a firm can rationally invest in moving the reference point even where the resulting transaction rate creates more system burden than a capability-based accounting would accept: it captures the margin from each induced replacement without bearing the full material consequence of shortening the replacement interval. This derivation omits consumer surplus, heterogeneous preferences, competitive response, and advertising's informational value; its purpose is only to identify the incentive asymmetry, not to complete a welfare analysis.
+
+\begin{remark}[Evidentiary status]
+None of the quantities above should be inferred from sales growth alone. A strong case requires evidence that $g$ deliberately intervened in the reference state, that the state moved in the intended direction, and that the resulting purchases are not adequately explained by independent changes in functional capability, price, income, safety, reliability, or access. The equations identify the causal structure the historical evidence must support; they do not substitute for it.
+\end{remark}
+
+\section{Worked Example I: The Diamond Engagement Ring, 1938--1947}
+
+\subsection{Scale}
+
+Edward Jay Epstein's 1982 investigative reconstruction, drawing on N.W. Ayer's own archival campaign records, is the primary source for this case. De Beers, then controlling the large majority of world rough-diamond supply, retained the Philadelphia agency N.W. Ayer in 1938 to increase demand for the category rather than for a De Beers brand. Ayer's 1947 strategy documents describe the explicit goal of making the diamond ring "a psychological necessity" capable of competing for a consumer's discretionary spending against ordinary useful goods, and proposed reinforcing that necessity through courtship-expectation messaging, celebrity imitation, and outreach to school-age audiences, alongside cultivating an association between a diamond's size and the depth of the giver's affection. Epstein reports a 55 percent increase in American diamond sales between 1938 and 1941, and later Ayer materials claiming the ring had become an engagement necessity for the new generation. The agency's own account of its method is captured in one widely quoted sentence: there was no brand and no direct sale to be made, "simply an idea." Copywriter Frances Gerety's 1947 line, "A Diamond Is Forever," became the campaign's lasting slogan the following year.
+
+\begin{remark}
+Two frequently repeated details are omitted here for want of independent sourcing. A commonly cited figure that only about ten percent of American engagements involved a diamond before 1938 is not supported by Epstein's account, which instead reports engagement rings already constituting roughly three-quarters of the cartel's American diamond sales that year; the two facts are not necessarily contradictory, but the ten-percent figure needs its own source. A "one month's salary" spending benchmark attributed to the 1930s and 1940s campaign is likewise a common secondary-literature claim without a specific advertisement or archival citation in the sources consulted here, and is not relied upon.
+\end{remark}
+
+\subsection{Applying the criterion}
+
+The diamond's functional capability, a durable, wearable ornamental object, is not in dispute. What Ayer's own 1947 documents establish is deliberate intervention in $R$: a stated goal of manufacturing psychological necessity, explicit targeting of courtship convention and youth socialization, and a documented sales response following the intervention. This satisfies Definition 2.4 directly on the strength of the sellers' own preserved record rather than inference from sales growth alone, per the evidentiary standard Section 3.4's remark requires.
+
+\section{Worked Example II: Annual Model-Year Styling, General Motors}
+
+\subsection{Scale}
+
+By the mid-1920s the American automobile market approached saturation, and a growing secondhand market offered basic transportation below new-vehicle prices. General Motors, under Alfred Sloan, adopted the annual model-year design change, establishing a dedicated styling organization under Harley Earl in 1927 whose function included making each year's models visibly distinguishable from, and marketed as more desirable than, the last. Historical accounts describe this system as dynamic obsolescence: styling changes moved the visible standard of automotive contemporaneity even where the transportation capability of an existing vehicle remained intact. The practice required a sustained styling budget that smaller manufacturers struggled to match, and by the 1930s the annual change had become the industry standard.
+
+\begin{remark}
+The stronger and more specific claim, that Sloan personally and repeatedly used the term "dynamic obsolescence" with the explicit intent of making owners of mechanically sound cars dissatisfied, is widely repeated in secondary accounts but is not given a precise citation to \emph{My Years with General Motors} in the sources relied on here, and this paper does not assert it beyond the historical record's own more general description of the strategy's function. It is also worth separating aesthetic innovation from pure replacement inducement: Earl's design organization did not only alter superficial styling markers; automotive design in this period also delivered genuine improvements in visibility, ergonomics, aerodynamics, and comfort, which belong to $C_F(x)$ rather than to $C_S(x\mid R)$, and this paper's claim is restricted to the styling changes whose primary documented function was temporal differentiation rather than functional improvement.
+\end{remark}
+
+\subsection{Applying the criterion}
+
+Within that restriction, the annual model change satisfies Definition 2.4: a car's transportation capability is unaffected by matching the current model year's appearance, and the historical record documents a reference state ($R$, this year's expected styling) deliberately and continuously advanced ahead of the functional capability of cars already owned, sustained by renewed styling investment rather than by any claim that existing vehicles' transportation capability had declined.
+
+\begin{remark}
+De Beers appears in this series twice, sustaining a supply-side sequestration in \emph{Artificial Scarcity} and a demand-side reference-point intervention here, run concurrently by the same firm. The two mechanisms are complementary: withholding supply defends price given existing demand, and the Ayer campaign is what made that demand large and durable enough to be worth defending.
+\end{remark}
+
+\section{What This Paper Does Not Claim}
+
+No preference arises entirely independent of culture, imitation, and institutions, and this paper does not claim that ordinary cultural preference formation is manufactured want. The relevant asymmetry, and the paper's actual contribution, is narrower: in both worked examples, the actor that deliberately moved the standard of adequacy was also positioned to capture the purchases required to meet it. Absent documented intervention of this kind, a preference remains a preference this paper's apparatus has no standing to override. Nor does this paper claim the resulting satisfaction was illusory; a genuinely cherished ring or a genuinely preferred car style delivers real capability under whatever convention is in force, and the claim is only that the convention's origin was not independent of the seller's interest, not that the capability it later conferred was unreal.
+
+\section{Discussion}
+
+This paper's contribution to the series is the missing account of why the throughput \emph{The Economy of Replaced Things} describes recurs rather than arising anew each time by coincidence: Section 3.3 gives a mechanism by which a shifted reference state raises replacement hazard with no change in functional capability, and Section 3.4 shows why a firm's private incentive to sustain that shift can exceed what a burden-sensitive accounting would support, since the firm captures the margin without bearing the full material consequence. It also supplies the substance behind \emph{Manufactured Necessity}'s revealed-preference hedge: a preference formed under a reference state the beneficiary of the resulting purchase helped construct is not the same evidentiary object as one formed independent of that interest, and the two documented cases here show what establishing that difference concretely requires, not effect alone, but a documented intervention in the standard itself.
+
+\section{Conclusion}
+
+Manufactured want is not the claim that a purchase delivers no real capability; it is the claim that an interested actor moved the reference state against which an existing, unchanged possession is evaluated, and captured the purchases required to meet the new standard. The De Beers-N.W. Ayer campaign and General Motors' annual styling change both satisfy this on the strength of documented intervention in the relevant convention, not on sales growth alone, and both show a mechanism, reference displacement, that this series' account of recurrent replacement throughput needed and, until this paper, had assumed rather than explained.
+
+\section*{References}
+\begin{itemize}[nosep]
+\item Epstein, E. J. Have You Ever Tried to Sell a Diamond? \emph{The Atlantic}, February 1982.
+\item Sloan, A. P. \emph{My Years with General Motors}. 1964.
+\item Historical accounts of Harley Earl's Art and Colour Section (est. 1927) and General Motors' annual model-year change under Alfred P. Sloan.
+\end{itemize}
+
+\end{document}
